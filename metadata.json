@@ -1,0 +1,7 @@
+{
+  "name": "Escalante - Conquistadores y Guías Mayores",
+  "description": "A comprehensive platform for managing clubs, specialties, and member progress for the Pathfinders and Master Guides ministry. This MVP focuses on the member's journey through specialties as interactive courses with AI-powered feedback.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
