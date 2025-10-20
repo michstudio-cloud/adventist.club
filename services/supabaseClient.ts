@@ -11,11 +11,26 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 export const supabase = createClient(SUPABASE_URL || '', SUPABASE_ANON_KEY || '');
 
 // Auth helpers
-export async function signUp({ email, password, name }: { email: string; password: string; name?: string }) {
+export async function signUp({ 
+  email, 
+  password, 
+  name, 
+  role 
+}: { 
+  email: string; 
+  password: string; 
+  name?: string;
+  role?: string;
+}) {
   return supabase.auth.signUp({
     email,
     password,
-    options: { data: { name } }
+    options: { 
+      data: { 
+        name,
+        role 
+      } 
+    }
   });
 }
 

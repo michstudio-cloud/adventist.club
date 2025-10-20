@@ -1,14 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
 import { supabase } from './supabaseClient';
 
-export const AuthContext = createContext({
+type UserRole = 'coordinator_general' | 'zone_coordinator' | 'club_director';
+
+interface AuthContextType {
+  user: (User & { user_metadata?: { role?: UserRole } }) | null;
+  loading: boolean;
+  signOut: () => Promise<void>;
+}
+
+export const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   signOut: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<AuthContextType['user']>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
