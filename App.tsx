@@ -13,6 +13,9 @@ import ProtectedRoute from './components/ProtectedRoute.tsx';
 import AdminUsers from './components/AdminUsers.tsx';
 
 const App: React.FC = () => {
+  // Usar AuthContext para decidir qué mostrar en la ruta principal
+  const { user, loading } = React.useContext(require('./services/AuthContext.tsx').AuthContext);
+  const LandingPage = require('./components/LandingPage.tsx').default;
   return (
     <AuthProvider>
       <Router>
@@ -22,7 +25,7 @@ const App: React.FC = () => {
             <Header />
             <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
               <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={loading ? <div className="p-8 text-center">Cargando...</div> : (user ? <Dashboard /> : <LandingPage />)} />
                 <Route path="/specialty/:id" element={<SpecialtyDetail />} />
                 <Route path="/category/:id" element={<CategoryDetail />} />
                 <Route path="/events" element={<div>Events Page</div>} />
