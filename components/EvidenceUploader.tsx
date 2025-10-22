@@ -34,40 +34,68 @@ const EvidenceUploader: React.FC<EvidenceUploaderProps> = ({ requirement, onUpda
     };
 
     const handleSubmit = async () => {
-        setIsLoading(true);
-        let imageUrl = requirement.evidence?.imageUrl;
-
-        // If there is a newly selected image, upload to Supabase Storage
-        if (image) {
-            try {
-                const bytes = Uint8Array.from(atob(image.base64), c => c.charCodeAt(0));
-                const blob = new Blob([bytes], { type: image.type });
-                const fileName = `evidence/${Date.now()}.${image.type.split('/')[1]}`;
-                const { data, error: uploadError } = await supabase.storage.from('evidence').upload(fileName, blob, { contentType: image.type });
-                if (uploadError) {
-                    console.error('Supabase upload error', uploadError);
-                } else {
-                    const { data: publicData } = supabase.storage.from('evidence').getPublicUrl(fileName);
-                    imageUrl = (publicData as any)?.publicUrl || imageUrl;
-                }
-            } catch (err) {
-                console.error('Error uploading image to Supabase', err);
-            }
+        if (!description.trim()) {
+            return;
         }
 
-        setIsLoading(false);
-        const updatedEvidence: Evidence = {
-            id: requirement.evidence?.id || `ev-${requirement.id}`,
-            description,
-            imageUrl,
-            status: EvidenceStatus.COMPLETE,
-            feedback: undefined,
-        };
+        setIsLoading(true);
+        setFeedback('');
 
-        onUpdate({
-            ...requirement,
-            evidence: updatedEvidence
-        });
+        try {
+            let imageUrl = requirement.evidence?.imageUrl;
+
+            if (image) {
+                try {
+                    const bytes = Uint8Array.from(atob(image.base64), c => c.charCodeAt(0));
+                    const blob = new Blob([bytes], { type: image.type });
+                    const fileExtension = image.type.split('/')[1] || 'jpg';
+                    const fileName = `evidence/${Date.now()}.${fileExtension}`;
+                    const { error: uploadError } = await supabase.storage
+                        .from('evidence')
+                        .upload(fileName, blob, { contentType: image.type });
+
+                    if (uploadError) {
+                        console.error('Supabase upload error', uploadError);
+                    } else {
+                        const { data: publicData } = supabase.storage.from('evidence').getPublicUrl(fileName);
+                        imageUrl = (publicData as any)?.publicUrl || imageUrl;
+                    }
+                } catch (err) {
+                    console.error('Error uploading image to Supabase', err);
+                }
+            }
+
+            let aiFeedback = '';
+            try {
+                aiFeedback = await getAIFeedbackForEvidence(
+                    requirement.title,
+                    requirement.description,
+                    description,
+                    image ?? undefined
+                );
+            } catch (error) {
+                console.error('Error getting AI feedback:', error);
+                aiFeedback = 'No se pudo obtener retroalimentación de la IA en este momento.';
+            }
+
+            const updatedEvidence: Evidence = {
+                id: requirement.evidence?.id || `ev-${requirement.id}`,
+                description,
+                imageUrl,
+                status: EvidenceStatus.COMPLETE,
+                feedback: aiFeedback,
+            };
+
+            onUpdate({
+                ...requirement,
+                evidence: updatedEvidence
+            });
+
+            setFeedback(aiFeedback);
+            setImage(null);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const statusClasses: { [key in EvidenceStatus]: string } = {
@@ -107,7 +135,7 @@ const EvidenceUploader: React.FC<EvidenceUploaderProps> = ({ requirement, onUpda
                                 disabled={isLoading || !description}
                                 className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-indigo-300"
                             >
-                                {isLoading ? 'Getting Feedback...' : 'Submit for AI Feedback'}
+                                {isLoading ? 'Obteniendo retroalimentación...' : 'Enviar para revisión con IA'}
                             </button>
                         </>
                     )}
