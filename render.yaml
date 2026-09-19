@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: adventist-club-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: PUBLIC_BASE_URL
+        value: https://api.adventist.club
+      - key: PUBLIC_WEB_URL
+        value: https://conquistadores.app
+      - key: CORS_ORIGINS
+        value: https://conquistadores.app,https://www.conquistadores.app
