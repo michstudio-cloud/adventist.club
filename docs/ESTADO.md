@@ -37,21 +37,19 @@ Decisiones de modelo: las «specialties» del sistema viejo **son** `honors`; lo
 `organizations` (tipo en minúsculas, `path` ltree); ids nuevos = `uuid5(ObjectId)`; `email_verifications`
 no se migró (tokens efímeros).
 
-## ⛔ Bloqueante nº 1 — Vercel no despliega
+## ✅ Vercel y dominios — resuelto (19 sep, noche)
 
-Causa raíz **demostrada**: el proyecto `conquis.app` tiene conectado el store Supabase «Conquistadores»
-(`store_XmRtFsvJ64vrLhOi`), que está *suspended*, con `deployments.required = true`. Cada deploy muere en
-«Resource provisioning failed» antes del build. No es el código (build local OK).
+La causa del «Resource provisioning failed» era el store Supabase «Conquistadores» suspendido y conectado al
+proyecto `conquis.app` con `deployments.required = true`. Tras desconectarlo, los deploys de `main` salen `success`
+y `conquistadores.app` / `www` ya sirven la app Next.js. Verificado en producción: `/`, `/categories` (809 tarjetas con
+su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`, `/clubs`, `/profile`, `/settings`,
+`/verify/CC-2052D1C6B5` («Certificado válido») y CORS desde `https://www.conquistadores.app`.
 
-1. Vercel → team `mich-studio` → **Storage → Conquistadores → Projects → desconectar `conquis.app`**.
-2. Redeploy de `main`. Probar en `conquisapp-mich-studio.vercel.app`.
-3. Mover los dominios `conquistadores.app` y `www` del proyecto viejo `conquistadores.app`
-   (SPA Vite del repo `church-path`, cuyo API ya está suspendido) al proyecto `conquis.app`.
-4. Cuando `conquistadores.app` sirva Next.js: quitar la variable temporal
-   `NEXT_PUBLIC_CERTIFICATES_API_URL` (el default de producción ya es `https://api.adventist.club`)
-   o dejarla apuntando a ese dominio.
-
-Nada del frontend nuevo es visible públicamente hasta completar esto.
+- [ ] Quitar en Vercel la variable temporal `NEXT_PUBLIC_CERTIFICATES_API_URL` (apunta a la URL `onrender.com`);
+      el default de producción ya es `https://api.adventist.club`. Requiere redeploy.
+- [ ] Archivar o borrar el proyecto viejo de Vercel `conquistadores.app` (SPA Vite del repo `church-path`) y, en Render,
+      el servicio suspendido `adventist-api`.
+- [ ] `/panel` redirige (307) a un login que aún depende de Supabase: ver pendientes del frontend.
 
 ## Pendiente — seguridad y limpieza (corto)
 
@@ -106,7 +104,7 @@ Falta autorizar el conector de Cloudflare (DNS).
 
 | Síntoma | Causa raíz |
 |---|---|
-| Vercel «Resource provisioning failed» | store Supabase suspendido conectado al proyecto |
+| Vercel «Resource provisioning failed» | store Supabase suspendido conectado al proyecto (resuelto al desconectarlo) |
 | `next start` 500 en todas las rutas | carpetas dinámicas hermanas con nombres distintos (`[id]` vs `[courseId]`, `[hash]` vs `[certificateNo]`) |
 | 500 al crear certificados | `honors.category_id` apuntaba a una tabla sin modelo SQLAlchemy (`NoReferencedTableError`) |
 | `api.adventist.club` 404 | CNAME a un servicio viejo de Render (`adventist-api`) |
