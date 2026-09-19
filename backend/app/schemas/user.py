@@ -1,0 +1,109 @@
+"""User and guardianship schemas."""
+import uuid
+from datetime import date, datetime
+from typing import Literal
+
+from pydantic import AliasChoices, BaseModel, Field
+
+from app.models import Guardianship, User
+from app.schemas.auth import RoleName
+
+UserStatus = Literal["ACTIVE", "SUSPENDED", "INACTIVE"]
+VerificationStatus = Literal["PENDING", "VERIFIED", "REJECTED"]
+Relationship = Literal["PARENT", "LEGAL_GUARDIAN", "OTHER"]
+
+
+class ChildProtectionCert(BaseModel):
+    completed: bool
+    completed_at: datetime | None = None
+
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    name: str
+    avatar_url: str | None
+    role: str
+    organization_id: str | None
+    # Legacy name of `organization_id`, kept for the existing front ends.
+    org_node_id: str | None
+    is_minor: bool
+    birth_date: date | None
+    mfa_enabled: bool
+    verification_status: str
+    child_protection_cert: ChildProtectionCert
+    status: str
+    created_at: datetime
+    last_login: datetime | None
+
+    @classmethod
+    def from_model(cls, user: User) -> "UserResponse":
+        organization_id = str(user.organization_id) if user.organization_id else None
+        return cls(
+            id=str(user.id),
+            email=user.email,
+            name=user.name,
+            avatar_url=user.avatar_url,
+            role=user.role,
+            organization_id=organization_id,
+            org_node_id=organization_id,
+            is_minor=user.is_minor,
+            birth_date=user.birth_date,
+            mfa_enabled=user.mfa_enabled,
+            verification_status=user.verification_status,
+            child_protection_cert=ChildProtectionCert(
+                completed=user.child_protection_completed,
+                completed_at=user.child_protection_completed_at,
+            ),
+            status=user.status,
+            created_at=user.created_at,
+            last_login=user.last_login,
+        )
+
+
+class UserUpdate(BaseModel):
+    """
+    Explicit whitelist. Only fields present in the request body are applied,
+    so `{"avatar_url": null}` clears the avatar while omitting it leaves it alone.
+    """
+
+    name: str | None = Field(default=None, min_length=1, max_length=180)
+    avatar_url: str | None = Field(default=None, max_length=2048)
+    # Admin-only fields
+    role: RoleName | None = None
+    organization_id: uuid.UUID | None = Field(
+        default=None, validation_alias=AliasChoices("organization_id", "org_node_id")
+    )
+    status: UserStatus | None = None
+    verification_status: VerificationStatus | None = None
+    birth_date: date | None = None
+    is_minor: bool | None = None
+
+    model_config = {"extra": "forbid"}
+
+
+class GuardianshipCreate(BaseModel):
+    child_id: uuid.UUID
+    relationship: Relationship = "PARENT"
+
+
+class GuardianshipResponse(BaseModel):
+    id: str
+    guardian_id: str
+    child_id: str
+    relationship: str
+    consent_status: str
+    consent_granted_at: datetime | None
+    created_at: datetime
+
+    @classmethod
+    def from_model(cls, row: Guardianship) -> "GuardianshipResponse":
+        return cls(
+            id=str(row.id),
+            guardian_id=str(row.guardian_id),
+            child_id=str(row.child_id),
+            relationship=row.relationship,
+            consent_status=row.consent_status,
+            consent_granted_at=row.consent_granted_at,
+            created_at=row.created_at,
+        )

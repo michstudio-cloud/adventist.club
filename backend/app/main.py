@@ -10,10 +10,19 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import get_db
+from slowapi.errors import RateLimitExceeded
 from app.models import Application, Certificate, CertificateEvent, CertificateTemplate, Club, Honor, Ministry, Organization
+from app.monitoring import init_sentry
+from app.rate_limit import limiter, rate_limit_exceeded_handler
+from app.routers import auth as auth_router, honors as honors_router, media as media_router, org as org_router, users as users_router
 
-app=FastAPI(title=settings.APP_NAME,version="0.2.0")
-app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credentials=True,allow_methods=["*"],allow_headers=["*"])
+init_sentry()  # no-op unless SENTRY_DSN is set
+app=FastAPI(title=settings.APP_NAME,version="0.3.0")
+app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],expose_headers=["X-Total-Count"])
+app.state.limiter=limiter
+app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
+# GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
+for _router in (auth_router,users_router,org_router,honors_router,media_router):app.include_router(_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
@@ -69,15 +78,6 @@ async def applications(db:AsyncSession=Depends(get_db)):
     rows=(await db.execute(select(Application).where(Application.status=="active").order_by(Application.name))).scalars().all()
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
-@app.get("/api/v1/honors")
-async def honors(q:str|None=None,ministry:str="pathfinders",db:AsyncSession=Depends(get_db)):
-    m=(await db.execute(select(Ministry).where(Ministry.slug==ministry))).scalar_one_or_none()
-    if not m:return []
-    stmt=select(Honor).where(Honor.ministry_id==m.id,Honor.active.is_(True))
-    if q:stmt=stmt.where(Honor.name.ilike(f"%{q}%"))
-    rows=(await db.execute(stmt.order_by(Honor.name).limit(500))).scalars().all()
-    return [{"id":str(x.id),"name":x.name,"slug":x.slug,"image_url":x.image_url,"source_url":x.source_url,"active":x.active} for x in rows]
-
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
 async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
     ministry=(await db.execute(select(Ministry).where(Ministry.slug=="pathfinders"))).scalar_one()
@@ -90,11 +90,12 @@ async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(g
         club=Club(id=uuid.uuid4(),organization_id=org.id,ministry_id=ministry.id,name=payload.club_name.strip(),status="active");db.add(club);await db.flush()
     honor=await db.get(Honor,payload.honor_id) if payload.honor_id else None
     if not honor:
-        honor=(await db.execute(select(Honor).where(Honor.ministry_id==ministry.id,Honor.name.ilike(payload.honor_name.strip())))).scalar_one_or_none()
+        # Honor versions share a name: take the newest live one instead of failing on duplicates.
+        honor=(await db.execute(select(Honor).where(Honor.ministry_id==ministry.id,Honor.name.ilike(payload.honor_name.strip())).order_by(Honor.active.desc(),Honor.version.desc(),Honor.created_at.desc()).limit(1))).scalars().first()
     if not honor:
         base=slugify(payload.honor_name);slug=base;i=2
         while (await db.execute(select(Honor).where(Honor.ministry_id==ministry.id,Honor.slug==slug))).scalar_one_or_none():slug=f"{base}-{i}";i+=1
-        honor=Honor(id=uuid.uuid4(),ministry_id=ministry.id,name=payload.honor_name.strip(),slug=slug,source_url="https://www.guiasmayores.com/especialidades-ja.html",active=True);db.add(honor);await db.flush()
+        honor=Honor(id=uuid.uuid4(),ministry_id=ministry.id,name=payload.honor_name.strip(),slug=slug,source_url="https://www.guiasmayores.com/especialidades-ja.html",active=True,status="DRAFT");db.add(honor);await db.flush()
     tname=f"Prototipo {payload.width_in:g}x{payload.height_in:g}in"
     template=(await db.execute(select(CertificateTemplate).where(CertificateTemplate.ministry_id==ministry.id,CertificateTemplate.name==tname))).scalar_one_or_none()
     if not template:
