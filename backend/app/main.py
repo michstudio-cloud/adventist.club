@@ -1,15 +1,14 @@
-import base64, hashlib, json, re, secrets, unicodedata, uuid
-from io import BytesIO
+import hashlib, json, re, secrets, unicodedata, uuid
+from typing import Literal
 from datetime import date
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from reportlab.lib.utils import ImageReader
-from reportlab.pdfgen import canvas
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import get_db
+from app.printing import LayoutRequest, compute_layout, render_pdf
 from slowapi.errors import RateLimitExceeded
 from app.models import Application, Certificate, CertificateEvent, CertificateTemplate, Club, Honor, Ministry, Organization
 from app.monitoring import init_sentry
@@ -37,6 +36,11 @@ class PrototypeBatchCreate(BaseModel):
     height_in:float=Field(gt=0)
 
 class PrintPdfRequest(BaseModel):
+    """Legacy shape (margin_in / gap_in) plus the full imposition options.
+
+    Per-side margins, gap_x/gap_y, bleed and orientation are optional; when
+    absent they fall back to margin_in / gap_in so existing clients keep working.
+    """
     images:list[str]=Field(min_length=1)
     page_width_in:float=Field(gt=0)
     page_height_in:float=Field(gt=0)
@@ -46,6 +50,19 @@ class PrintPdfRequest(BaseModel):
     gap_in:float=Field(default=0,ge=0)
     allow_rotation:bool=True
     crop_marks:bool=False
+    orientation:Literal["auto","portrait","landscape"]="auto"
+    margin_top_in:float|None=Field(default=None,ge=0)
+    margin_right_in:float|None=Field(default=None,ge=0)
+    margin_bottom_in:float|None=Field(default=None,ge=0)
+    margin_left_in:float|None=Field(default=None,ge=0)
+    gap_x_in:float|None=Field(default=None,ge=0)
+    gap_y_in:float|None=Field(default=None,ge=0)
+    bleed_in:float=Field(default=0,ge=0)
+    allow_scale_down:bool=False
+
+    def layout_request(self)->LayoutRequest:
+        m=lambda v:self.margin_in if v is None else v
+        return LayoutRequest(page_width=self.page_width_in,page_height=self.page_height_in,item_width=self.item_width_in,item_height=self.item_height_in,unit="in",orientation=self.orientation,margin_top=m(self.margin_top_in),margin_right=m(self.margin_right_in),margin_bottom=m(self.margin_bottom_in),margin_left=m(self.margin_left_in),gap_x=self.gap_in if self.gap_x_in is None else self.gap_x_in,gap_y=self.gap_in if self.gap_y_in is None else self.gap_y_in,bleed=self.bleed_in,allow_rotation=self.allow_rotation,allow_scale_down=self.allow_scale_down,total_items=len(self.images))
 
 def slugify(value:str)->str:
     value=unicodedata.normalize("NFKD",value).encode("ascii","ignore").decode()
@@ -116,26 +133,15 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     current=hash_cert(c);org=await db.get(Organization,c.organization_id);valid=c.status=="issued" and c.certificate_hash==current
     return {"valid":valid,"status":"válido" if valid else ("modificado" if c.certificate_hash!=current else c.status),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None}
 
-def _fit(pw,ph,iw,ih,m,g):
-    uw,uh=pw-m*2,ph-m*2
-    if uw<=0 or uh<=0:return (0,0,0)
-    cols=int((uw+g)//(iw+g));rows=int((uh+g)//(ih+g));return cols,rows,cols*rows
+@app.post("/api/v1/printing/layout")
+async def printing_layout(payload:LayoutRequest):
+    """How many certificates fit and where; same maths the PDF uses."""
+    return compute_layout(payload).as_dict()
 
 @app.post("/api/v1/printing/pdf")
 async def printing_pdf(payload:PrintPdfRequest):
-    pt=72.;pw,ph=payload.page_width_in*pt,payload.page_height_in*pt;ow,oh=payload.item_width_in*pt,payload.item_height_in*pt;m,g=payload.margin_in*pt,payload.gap_in*pt
-    candidates=[];c,r,n=_fit(pw,ph,ow,oh,m,g);candidates.append((n,False,c,r,ow,oh))
-    if payload.allow_rotation:c,r,n=_fit(pw,ph,oh,ow,m,g);candidates.append((n,True,c,r,oh,ow))
-    count,rotated,cols,rows,sw,sh=max(candidates,key=lambda x:(x[0],not x[1]))
-    if count<1:raise HTTPException(422,"El certificado no cabe físicamente en la hoja.")
-    out=BytesIO();pdf=canvas.Canvas(out,pagesize=(pw,ph))
-    for idx,image in enumerate(payload.images):
-        slot=idx%count
-        if slot==0 and idx>0:pdf.showPage()
-        row,col=divmod(slot,cols);x=m+col*(sw+g);y=ph-m-(row+1)*sh-row*g
-        raw=image.split(",",1)[1] if "," in image else image;reader=ImageReader(BytesIO(base64.b64decode(raw)))
-        if rotated:
-            pdf.saveState();pdf.translate(x+sw/2,y+sh/2);pdf.rotate(90);pdf.drawImage(reader,-ow/2,-oh/2,width=ow,height=oh,preserveAspectRatio=True,anchor="c");pdf.restoreState()
-        else:pdf.drawImage(reader,x,y,width=sw,height=sh,preserveAspectRatio=True)
-    pdf.save()
-    return Response(out.getvalue(),media_type="application/pdf",headers={"Content-Disposition":'attachment; filename="certificados-impresion.pdf"'})
+    layout=compute_layout(payload.layout_request())
+    if layout.per_page<1:raise HTTPException(422,"El certificado no cabe físicamente en la hoja.")
+    try:pdf_bytes=render_pdf(payload.images,layout,crop_marks=payload.crop_marks)
+    except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+    return Response(pdf_bytes,media_type="application/pdf",headers={"Content-Disposition":'attachment; filename="certificados-impresion.pdf"'})
