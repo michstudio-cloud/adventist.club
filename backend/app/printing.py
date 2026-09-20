@@ -134,13 +134,19 @@ def compute_layout(req: LayoutRequest) -> Layout:
     _, pw, ph, cols, rows, rotated, scale, cw, ch, tw, th = best
     per_page = cols * rows
     pages = math.ceil(req.total_items / per_page) if per_page and req.total_items else 0
+    # Margins are minimums: the grid is centred in the printable area so the
+    # leftover paper is split evenly (easier trimming, symmetric marks).
+    grid_w = cols * cw + max(cols - 1, 0) * gap_x
+    grid_h = rows * ch + max(rows - 1, 0) * gap_y
+    origin_x = left + max(0.0, (pw - left - right - grid_w) / 2) if per_page else left
+    origin_y = top + max(0.0, (ph - top - bottom - grid_h) / 2) if per_page else top
     layout = Layout(pw, ph, cols, rows, per_page, rotated, scale, cw, ch, tw, th, bleed * scale,
-                    (top, right, bottom, left), gap_x, gap_y, req.total_items, pages)
+                    (origin_y, right, bottom, origin_x), gap_x, gap_y, req.total_items, pages)
     for index in range(req.total_items if per_page else 0):
         page, slot = divmod(index, per_page)
         row, col = divmod(slot, cols)
-        x = left + col * (cw + gap_x)
-        y = top + row * (ch + gap_y)
+        x = origin_x + col * (cw + gap_x)
+        y = origin_y + row * (ch + gap_y)
         layout.slots.append(Slot(page, index, x, y, x + layout.bleed, y + layout.bleed))
     return layout
 

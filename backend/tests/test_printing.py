@@ -76,6 +76,17 @@ def test_pages_and_units():
     assert a4.per_page == 2  # A4 is narrower than Letter: 2 x 10.795 cm > 21 cm
 
 
+def test_grid_is_centred_in_the_printable_area():
+    result = layout(page=(11.0, 17.0), orientation="landscape", margin_left=0.5, margin_right=0.5,
+                    margin_top=0.5, margin_bottom=0.5, gap_x=0.25, gap_y=0.25, total_items=4)
+    xs = [s.x for s in result.slots]
+    left_over = min(xs)
+    right_over = result.page_width - (max(xs) + result.cell_width)
+    assert left_over == pytest.approx(right_over) and left_over > 0.5
+    ys = [s.y for s in result.slots]
+    assert min(ys) == pytest.approx(result.page_height - (max(ys) + result.cell_height))
+
+
 def test_slots_never_overlap_and_stay_inside_the_printable_area():
     result = layout(page=(11.0, 17.0), gap_x=0.1, gap_y=0.2, margin_left=0.3, margin_top=0.4,
                     margin_right=0.3, margin_bottom=0.4)
