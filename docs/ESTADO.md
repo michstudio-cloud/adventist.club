@@ -45,8 +45,8 @@ y `conquistadores.app` / `www` ya sirven la app Next.js. Verificado en producci�
 su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`, `/clubs`, `/profile`, `/settings`,
 `/verify/CC-2052D1C6B5` («Certificado válido») y CORS desde `https://www.conquistadores.app`.
 
-- [ ] Quitar en Vercel la variable temporal `NEXT_PUBLIC_CERTIFICATES_API_URL` (apunta a la URL `onrender.com`);
-      el default de producción ya es `https://api.adventist.club`. Requiere redeploy.
+- [x] La variable de Vercel `NEXT_PUBLIC_CERTIFICATES_API_URL` ya vale `https://api.adventist.club` (20 sep); es igual al
+      default del código, se puede eliminar cuando se quiera.
 - [ ] Archivar o borrar el proyecto viejo de Vercel `conquistadores.app` (SPA Vite del repo `church-path`) y, en Render,
       el servicio suspendido `adventist-api`.
 - [ ] `/panel` redirige (307) a un login que aún depende de Supabase: ver pendientes del frontend.
@@ -60,7 +60,7 @@ su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`,
 - [ ] Borrar `~/.adventist-migration.env` cuando ya no haga falta (URIs de Mongo/Neon y la clave del importador).
 - [ ] Borrar la rama de Neon `predeploy-backend-port` (`br-icy-poetry-b4040kdt`), usada solo para la prueba previa al deploy.
 - [ ] `importer@adventist.club` quedó `INACTIVE`; se puede eliminar.
-- [ ] En Neon quedan datos de prueba: certificado `CC-2052D1C6B5` («PRUEBA Smoke Test»), club «Club de Prueba (smoke test)»,
+- [ ] En Neon quedan datos de prueba: certificados `CC-2052D1C6B5` y `CC-364E97AD06` (este último creado desde el sitio real el 20 sep), («PRUEBA Smoke Test»), club «Club de Prueba (smoke test)»,
       organización `PROTOTYPE`. Decidir si se conservan.
 - [ ] Render: confirmar `ENVIRONMENT=production`, `FRONTEND_URL=https://conquistadores.app`, `RESEND_API_KEY`, `SENTRY_DSN`
       (sin ellos el servicio arranca igual, pero no envía correos ni reporta errores).
