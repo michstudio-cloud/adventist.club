@@ -117,12 +117,15 @@ async def test_public_list_keeps_legacy_contract(client):
     for row in rows:
         assert LEGACY_FIELDS <= set(row)
         assert row["active"] is True and row["status"] == "PUBLISHED"
-    assert response.headers["X-Total-Count"] == str(len(rows))
+    # the catalogue can be larger than one page
+    assert int(response.headers["X-Total-Count"]) >= len(rows)
     live = await fetch_all(
         "SELECT h.id::text FROM honors h JOIN ministries m ON m.id = h.ministry_id"
         " WHERE m.slug = 'pathfinders' AND h.active AND h.status = 'PUBLISHED'"
     )
-    assert {row["id"] for row in rows} == {row["id"] for row in live}
+    live_ids = {row["id"] for row in live}
+    assert {row["id"] for row in rows} <= live_ids
+    assert int(response.headers["X-Total-Count"]) == len(live_ids)
 
     assert (await client.get(HONORS, params={"ministry": "does-not-exist"})).json() == []
     paged = await client.get(HONORS, params={"limit": 1, "offset": 0})
@@ -563,3 +566,26 @@ async def test_public_endpoints_ignore_a_bad_token(client):
     headers = {"Authorization": "Bearer not-a-jwt"}
     assert (await client.get(HONORS, headers=headers)).status_code == 200
     assert (await client.get(f"{HONORS}/categories", headers=headers)).status_code == 200
+
+
+
+async def test_public_list_sorts_accented_names_in_spanish_order(client, staff, factory):
+    """The database collation is C: without an explicit collation 'Óptica' sorts after 'Z'."""
+    names = [factory.name(label) for label in ("Zzz orden", "Óptica orden", "Nnn orden")]
+    for index, name in enumerate(names):
+        honor = await _create(client, staff, factory, f"sort{index}", name=name)
+        published = await client.post(
+            f"{HONORS}/{honor['id']}/publish", headers=staff["master"]["headers"]
+        )
+        assert published.status_code == 200, published.text
+
+    listed, offset = [], 0
+    while True:  # the real catalogue spans several pages
+        response = await client.get(HONORS, params={"limit": 500, "offset": offset})
+        assert response.status_code == 200
+        page = response.json()
+        listed += [item["name"] for item in page if item["name"] in names]
+        if len(page) < 500:
+            break
+        offset += 500
+    assert listed == [names[2], names[1], names[0]]

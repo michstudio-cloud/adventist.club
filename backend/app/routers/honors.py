@@ -62,6 +62,8 @@ from app.security import (
 from app.services.audit import record_audit
 from app.text import escape_like, slugify
 
+SPANISH_COLLATION = "es-x-icu"
+
 router = APIRouter(prefix="/api/v1/honors", tags=["honors"])
 
 DRAFT = "DRAFT"
@@ -478,7 +480,8 @@ async def list_honors(
     if category:
         conditions.append(HonorCategory.slug == category)
 
-    order_by = [Honor.name, Honor.id]
+    # The database collation is C.UTF-8, which sorts "Árboles" and "Óptica" after "Z".
+    order_by = [Honor.name.collate(SPANISH_COLLATION), Honor.id]
     search = q.strip() if q else None
     if search:
         # Substring match plus pg_trgm similarity so small typos still hit.
@@ -531,7 +534,7 @@ async def list_categories(ministry: str = "pathfinders", db: AsyncSession = Depe
     stmt = (
         select(HonorCategory)
         .where(HonorCategory.ministry_id == ministry_row.id)
-        .order_by(HonorCategory.name)
+        .order_by(HonorCategory.name.collate(SPANISH_COLLATION))
     )
     return [_category_out(row) for row in (await db.execute(stmt)).scalars().all()]
 
