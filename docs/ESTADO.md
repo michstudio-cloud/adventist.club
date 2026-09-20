@@ -24,7 +24,7 @@ Supabase y MongoDB quedan **retirados**. El backend central es multi-ministerio
 | Área | Estado |
 |---|---|
 | `api.adventist.club` | HTTPS, DB conectada, CORS para `conquistadores.app`, `www` y los alias `conquisapp-*-mich-studio.vercel.app` |
-| Certificados | `POST /certificates/prototype-batch` (201), `GET /certificates/verify/{no}`, SHA-256, QR; PDF de impresión (`/printing/pdf`, 4 de ¼ carta por hoja Carta) |
+| Certificados | `POST /certificates/prototype-batch` (201), `GET /certificates/verify/{no}`, SHA-256, QR; imposición real (`/printing/layout`, `/printing/pdf`: márgenes por lado, gaps, bleed, marcas de corte, orientación auto) |
 | Auth | registro, login (+TOTP), refresh, verificación de email, reset de contraseña. `JWT_SECRET` configurado en Render |
 | Usuarios / tutelas / organizaciones | alcance jerárquico con `ltree`; escrituras de organizaciones exigen rol admin |
 | Especialidades | flujo DRAFT → ZONE_REVIEW → ASSOCIATION_REVIEW → PUBLISHED, versiones, auditoría |
@@ -71,7 +71,7 @@ su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`,
 
 - [ ] Firmas criptográficas reales con `issuer_keys` / `certificate_signatures` (hoy solo hash SHA-256; una imagen de firma **no** es una firma).
 - [ ] `prototype-batch` sigue fijo a `pathfinders` / app `conquistadores` y no exige autenticación: parametrizar ministerio/app y decidir quién puede emitir.
-- [ ] Endpoint `POST /printing/layout` (el frontend lo declara, no existe). Dibujar **marcas de corte** y soportar **bleed**, márgenes por lado y gaps X/Y en el PDF (hoy `crop_marks` se acepta y se ignora).
+- [x] Impresión (20 sep): `POST /printing/layout` + `/printing/pdf` con orientación auto, márgenes por lado, gaps X/Y, bleed, marcas de corte reales y retícula centrada (`app/printing.py`, 13 tests).
 - [ ] Persistir `print_presets` / `print_jobs` (tablas existen, sin uso).
 - [ ] Las «Doctrinales» (28) no tienen PDF de requisitos en la fuente.
 - [ ] Tests de los endpoints de certificados (no corren en local porque el Postgres de pruebas no tiene esas tablas): añadir el DDL base a un fixture.
@@ -80,8 +80,8 @@ su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`,
 
 ## Pendiente — frontend (repo conquistadores.app)
 
-Ver `ESTADO.md` en ese repo. Resumen: conectar auth al API nuevo y retirar Supabase (38 archivos, `/panel` da 500 sin él),
-completar el design system con hoja de estilos/catálogo de componentes, y los logos que faltan en `public/brand/`.
+Ver `ESTADO.md` en ese repo. Auth y panel ya corren sobre este API (Supabase retirado el 20 sep). Pendiente allí: catálogo de
+componentes, logos que faltan, UI de tutelas, clubes desde `org-nodes`.
 
 ## Operación
 
