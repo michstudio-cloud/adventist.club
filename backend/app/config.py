@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     MFA_ISSUER: str = "ADVENTIST.CLUB"
+    # `organizations.code` of the entity that issues certificates (Unión/Asociación).
+    # PROTOTYPE keeps the self-created placeholder until the real one exists.
+    ISSUER_ORGANIZATION_CODE: str = "PROTOTYPE"
 
     # --- Cloudflare R2 (optional: without it media upload answers 503) ---
     R2_ACCOUNT_ID: str | None = None
@@ -75,6 +78,7 @@ class Settings(BaseSettings):
     @field_validator(
         "JWT_ALGORITHM",
         "MFA_ISSUER",
+        "ISSUER_ORGANIZATION_CODE",
         "R2_BUCKET_NAME",
         "R2_PUBLIC_URL",
         "EMAIL_FROM",

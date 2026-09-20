@@ -25,6 +25,8 @@ for _router in (auth_router,users_router,org_router,honors_router,media_router):
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
+    ministry:str=Field(default="pathfinders",min_length=2,max_length=60)
+    application:str=Field(default="conquistadores",min_length=2,max_length=80)
     honor_id:uuid.UUID|None=None
     honor_name:str=Field(min_length=2,max_length=180)
     club_name:str=Field(min_length=2,max_length=180)
@@ -95,13 +97,25 @@ async def applications(db:AsyncSession=Depends(get_db)):
     rows=(await db.execute(select(Application).where(Application.status=="active").order_by(Application.name))).scalars().all()
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
+async def resolve_issuer_organization(db:AsyncSession)->Organization:
+    """The organisation named as issuer on certificates (ISSUER_ORGANIZATION_CODE).
+
+    Only the PROTOTYPE placeholder is ever auto-created; a real code that does
+    not exist yet is a configuration error, not something to invent.
+    """
+    code=settings.ISSUER_ORGANIZATION_CODE.strip()
+    org=(await db.execute(select(Organization).where(Organization.code==code,Organization.status=="active"))).scalar_one_or_none()
+    if org:return org
+    if code!="PROTOTYPE":raise HTTPException(503,f"Organización emisora '{code}' no existe todavía.")
+    org=Organization(id=uuid.uuid4(),type="club_network",name="Red Global de Certificados — Prototipo",code="PROTOTYPE",status="active");db.add(org);await db.flush()
+    return org
+
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
 async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
-    ministry=(await db.execute(select(Ministry).where(Ministry.slug=="pathfinders"))).scalar_one()
-    approw=(await db.execute(select(Application).where(Application.slug=="conquistadores"))).scalar_one_or_none()
-    org=(await db.execute(select(Organization).where(Organization.code=="PROTOTYPE"))).scalar_one_or_none()
-    if not org:
-        org=Organization(id=uuid.uuid4(),type="club_network",name="Red Global de Certificados — Prototipo",code="PROTOTYPE",status="active");db.add(org);await db.flush()
+    ministry=(await db.execute(select(Ministry).where(Ministry.slug==payload.ministry,Ministry.status=="active"))).scalar_one_or_none()
+    if not ministry:raise HTTPException(404,"Ministerio no encontrado.")
+    approw=(await db.execute(select(Application).where(Application.slug==payload.application))).scalar_one_or_none()
+    org=await resolve_issuer_organization(db)
     club=(await db.execute(select(Club).where(Club.organization_id==org.id,Club.ministry_id==ministry.id,Club.name==payload.club_name.strip()))).scalar_one_or_none()
     if not club:
         club=Club(id=uuid.uuid4(),organization_id=org.id,ministry_id=ministry.id,name=payload.club_name.strip(),status="active");db.add(club);await db.flush()
