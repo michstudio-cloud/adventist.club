@@ -10,6 +10,7 @@ from app.db import get_db, violated_constraint
 from app.deps import get_current_user
 from app.models import Guardianship, Organization, User
 from app.rbac import (
+    MEMBER_VIEW_ROLES,
     can_manage_user,
     can_view_user,
     director_blocked,
@@ -223,9 +224,11 @@ async def list_users(
                 )
         scope_org = requested_org or current_user.organization_id
         scope_path = await get_org_path(db, scope_org)
-        if scope_path is None or director_blocked(current_user):
-            # No organization (or one outside the tree), or a director whose
-            # club is not approved yet: you only see yourself.
+        is_staff = is_master(current_user) or current_user.role in MEMBER_VIEW_ROLES
+        if scope_path is None or director_blocked(current_user) or not is_staff:
+            # No organization (or one outside the tree), a director whose club is
+            # not approved yet, or a plain member: you only see yourself. The
+            # directory carries e-mails and birth dates, minors included.
             stmt = stmt.where(User.id == current_user.id)
         else:
             stmt = stmt.join(Organization, Organization.id == User.organization_id).where(

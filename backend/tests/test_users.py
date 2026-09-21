@@ -66,9 +66,16 @@ async def test_list_is_scoped_to_own_subtree(client, tree, factory):
     assert tree["admin_b"]["id"] not in admin_a
     assert tree["master"]["id"] not in admin_a
 
-    # A non-admin sees only its own organization subtree.
+    # Members never get the directory: e-mails and birth dates (of minors too) are for staff only.
     student = _ids(await client.get(USERS, headers=tree["student_a"]["headers"]))
-    assert student & ours == {tree["student_a"]["id"], tree["instructor_a"]["id"]}
+    assert student & ours == {tree["student_a"]["id"]}
+    asking = await client.get(
+        USERS, headers=tree["student_a"]["headers"], params={"organization_id": tree["assoc_a"]["id"]}
+    )
+    assert _ids(asking) & ours == {tree["student_a"]["id"]}
+    # Staff of the organization (instructor, director, admins) do see their subtree.
+    instructor = _ids(await client.get(USERS, headers=tree["instructor_a"]["headers"]))
+    assert instructor & ours == {tree["student_a"]["id"], tree["instructor_a"]["id"]}
 
     # Asking for someone else's subtree is refused, a narrower one is fine.
     foreign = await client.get(

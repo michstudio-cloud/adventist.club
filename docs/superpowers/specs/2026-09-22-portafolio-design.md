@@ -94,10 +94,13 @@ Una sola función decide quién revisa: `can_review(db, actor, enrollment) -> bo
 - `CLUB_DIRECTOR` (club aprobado, no bloqueado) o `INSTRUCTOR` cuya `organization_id` es el **club actual del
   miembro** (`users.organization_id` del inscrito, organización de tipo club y activa): sí.
 - (Bloque B) instructor del curso de una inscripción `COURSE`: se añade aquí y sólo aquí.
+- Un `INSTRUCTOR` sólo revisa si está **verificado** (`verification_status = 'VERIFIED'`) y activo; un director, si su
+  club está aprobado. (22 sep: el registro ya no acepta `organization_id`; la pertenencia la asigna un administrador
+  y, con el bloque E, una invitación.)
 - El propio inscrito: nunca.
 `can_issue(db, actor, enrollment)`: `MASTER_GC` o `CLUB_DIRECTOR` del club actual del miembro (modalidad CLUB);
 en COURSE será el instructor del curso (bloque D).
-`can_view_portfolio(db, actor, target_user)`: el propio usuario; tutor con `guardianships.consent_status = 'GRANTED'`;
+`can_view_portfolio(db, actor, target_user)`: el propio usuario; tutor con `guardianships.consent_status = 'APPROVED'`;
 quien cumpla `can_view_user` (jerarquía); revisores con jurisdicción sobre alguna inscripción suya.
 
 Flujo CLUB:

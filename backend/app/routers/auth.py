@@ -105,6 +105,14 @@ async def register(
             "This role cannot be self-assigned. Register and ask an administrator to grant it.",
         )
 
+    if payload.organization_id:
+        # Membership is granted by an administrator (later: an invitation). Self-declared, a
+        # stranger could register as INSTRUCTOR of any club and read its members.
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "La pertenencia a una organización la asigna un administrador; regístrate sin organización.",
+        )
+
     is_minor = _is_minor(payload.birth_date, payload.is_minor)
     if is_minor and payload.role != STUDENT:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Minors can only register as STUDENT")

@@ -514,3 +514,21 @@ async def test_email_is_skipped_and_logged_without_api_key(caplog):
         sent = await email_service.send_email("nobody@example.com", "subject", "<p>hi</p>")
     assert sent is False
     assert any("RESEND_API_KEY not configured" in record.message for record in caplog.records)
+
+
+async def test_nobody_attaches_themselves_to_an_organization(client, factory):
+    """Belonging to a club or field is granted by an administrator (later: an invitation), never
+    self-declared: otherwise a stranger registers as INSTRUCTOR of any club and reads its members."""
+    org = await factory.org("self-attach", "association")
+    for role in ("STUDENT", "INSTRUCTOR"):
+        response = await client.post(
+            f"{AUTH}/register", json=_payload(factory, f"attach-{role.lower()}", role=role, organization_id=org["id"])
+        )
+        assert response.status_code == 403, response.text
+        assert "organiz" in response.json()["detail"].lower()
+    alias = await client.post(
+        f"{AUTH}/register", json=_payload(factory, "attach-alias", org_node_id=org["id"])
+    )
+    assert alias.status_code == 403
+    created = await fetch_one("SELECT count(*) AS n FROM users WHERE email LIKE :like", like=f"{factory.prefix}-attach-%")
+    assert created["n"] == 0
