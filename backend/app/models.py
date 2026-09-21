@@ -290,6 +290,11 @@ class HonorRequirement(Base):
     is_theoretical: Mapped[bool] = mapped_column(Boolean, server_default="true")
     instructions: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 006_requirement_locale.sql — one list per language; imported rows keep their attribution
+    locale: Mapped[str] = mapped_column(String(16), server_default="es")
+    source: Mapped[str | None] = mapped_column(String(40))
+    source_url: Mapped[str | None] = mapped_column(Text)
+    license: Mapped[str | None] = mapped_column(String(40))
 
 
 class HonorQuestion(Base):

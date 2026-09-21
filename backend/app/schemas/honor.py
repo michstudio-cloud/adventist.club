@@ -150,6 +150,10 @@ class RequirementOut(BaseModel):
     is_theoretical: bool
     instructions: str | None
     question_count: int
+    # Imported text keeps its attribution (the official wiki is CC BY-SA): show it next to the text.
+    source: str | None = None
+    source_url: str | None = None
+    license: str | None = None
 
 
 class RequirementWithQuestionsOut(RequirementOut):
@@ -192,6 +196,7 @@ class HonorDetail(HonorListItem):
     approved_association_org_id: str | None
     version_metadata: VersionMetadata
     requirements: list[RequirementOut]
+    requirements_locale: str | None = None
     resources: list[ResourceOut]
     updated_at: datetime
 

@@ -171,6 +171,19 @@ async def _resolve_locale(db: AsyncSession, model, requested: str | None) -> str
     return by_lower.get(requested.lower()) or by_lower.get(language) or next(iter(by_lower.values()), None)
 
 
+def _best_locale(stored: list[str], requested: str | None) -> str:
+    """Among the locales a text exists in: the requested one (exact, language, any region), then the
+    source language, then English, then whatever there is."""
+    by_lower = {value.lower(): value for value in sorted(stored)}
+    if requested:
+        language = requested.lower().split("-")[0]
+        regional = next((v for k, v in by_lower.items() if k.startswith(f"{language}-")), None)
+        match = by_lower.get(requested.lower()) or by_lower.get(language) or regional
+        if match:
+            return match
+    return by_lower.get(SOURCE_LOCALE) or by_lower.get("en") or next(iter(by_lower.values()), SOURCE_LOCALE)
+
+
 def _category_out(category: HonorCategory | None, translated: str | None = None) -> CategoryOut | None:
     if category is None:
         return None
@@ -236,10 +249,17 @@ async def _build_detail(
     ministry = await db.get(Ministry, honor.ministry_id) if honor.ministry_id else None
     creator = await db.get(User, honor.created_by_id) if honor.created_by_id else None
 
+    # One requirement list per language: the requested one, else the source language, else whatever exists.
+    stored = (
+        await db.execute(
+            select(HonorRequirement.locale).where(HonorRequirement.honor_id == honor.id).distinct()
+        )
+    ).scalars().all()
+    requirements_locale = _best_locale(stored, locale)
     requirements = (
         await db.execute(
             select(HonorRequirement)
-            .where(HonorRequirement.honor_id == honor.id)
+            .where(HonorRequirement.honor_id == honor.id, HonorRequirement.locale == requirements_locale)
             .order_by(HonorRequirement.position, HonorRequirement.created_at)
         )
     ).scalars().all()
@@ -274,11 +294,15 @@ async def _build_detail(
             "is_theoretical": req.is_theoretical,
             "instructions": req.instructions,
             "question_count": len(questions_by_requirement.get(req.id, [])),
+            "source": req.source,
+            "source_url": req.source_url,
+            "license": req.license,
         }
 
     fields = {
         **_list_fields(honor, category, translation.name if translation else None, name_locale),
         "ministry": ministry.slug if ministry else None,
+        "requirements_locale": requirements_locale if requirements else None,
         "org_scope_id": str(honor.org_scope_id) if honor.org_scope_id else None,
         "exam_passing_score": honor.exam_passing_score,
         "exam_time_limit_minutes": honor.exam_time_limit_minutes,
@@ -427,6 +451,10 @@ async def _copy_requirements(db: AsyncSession, source_id: uuid.UUID, target_id: 
                 description=req.description,
                 is_theoretical=req.is_theoretical,
                 instructions=req.instructions,
+                locale=req.locale,
+                source=req.source,
+                source_url=req.source_url,
+                license=req.license,
             )
         )
     await db.flush()  # requirements before the questions that reference them
@@ -885,8 +913,13 @@ async def update_honor(
             setattr(honor, column, changes[column])
 
     if payload.requirements is not None:
-        # Questions go with their requirement (ON DELETE CASCADE).
-        await db.execute(delete(HonorRequirement).where(HonorRequirement.honor_id == honor.id))
+        # Questions go with their requirement (ON DELETE CASCADE). The editor works on the source
+        # language; lists in other languages (imported, with attribution) are left alone.
+        await db.execute(
+            delete(HonorRequirement).where(
+                HonorRequirement.honor_id == honor.id, HonorRequirement.locale == SOURCE_LOCALE
+            )
+        )
         await _stage_requirements(db, honor.id, payload.requirements)
     if payload.resources is not None:
         await db.execute(delete(HonorResource).where(HonorResource.honor_id == honor.id))

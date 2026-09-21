@@ -79,3 +79,40 @@ async def test_category_names_are_translated(client, factory):
         async with SessionLocal() as db:
             await db.execute(text("DELETE FROM honor_category_translations WHERE locale='xx'"))
             await db.commit()
+
+
+async def _add_requirements(honor_id: str, locale: str, texts: list[str], wiki: bool) -> None:
+    async with SessionLocal() as db:
+        for position, description in enumerate(texts, 1):
+            await db.execute(text(
+                "INSERT INTO honor_requirements (id, honor_id, position, description, locale, source, source_url, license)"
+                " VALUES (:id, :honor, :position, :description, :locale, :source, :url, :license)"),
+                {"id": uuid.uuid4(), "honor": uuid.UUID(honor_id), "position": position, "description": description,
+                 "locale": locale, "source": "pathfinder-wiki" if wiki else None,
+                 "url": "https://wiki.pathfindersonline.org/w/AY_Honors/Knot_Tying/Requirements" if wiki else None,
+                 "license": "CC BY-SA 3.0" if wiki else None})
+        await db.commit()
+
+
+async def test_requirements_come_in_one_language_with_their_attribution(client, factory):
+    honor = await _published_honor(factory, "requisitos", {"en": factory.name("Knots")})
+    await _add_requirements(honor["id"], "es", ["Definir los términos", "Cuidar la cuerda"], wiki=False)
+    await _add_requirements(honor["id"], "en", ["Define the terms", "Care for rope", "Tie 20 knots"], wiki=True)
+
+    spanish = (await client.get(f"{HONORS}/{honor['id']}")).json()
+    assert [r["description"] for r in spanish["requirements"]] == ["Definir los términos", "Cuidar la cuerda"]
+    assert spanish["requirements_locale"] == "es" and spanish["requirements"][0]["source"] is None
+
+    english = (await client.get(f"{HONORS}/{honor['id']}", params={"locale": "en-US"})).json()
+    assert [r["position"] for r in english["requirements"]] == [1, 2, 3] and english["requirements_locale"] == "en"
+    first = english["requirements"][0]
+    assert first["description"] == "Define the terms" and first["license"] == "CC BY-SA 3.0"
+    assert first["source"] == "pathfinder-wiki" and first["source_url"].endswith("/Requirements")
+
+    french = (await client.get(f"{HONORS}/{honor['id']}", params={"locale": "fr"})).json()
+    assert french["requirements_locale"] == "es" and len(french["requirements"]) == 2       # source language
+
+    only_english = await _published_honor(factory, "solo-ingles", {})
+    await _add_requirements(only_english["id"], "en", ["Only requirement"], wiki=True)
+    fallback = (await client.get(f"{HONORS}/{only_english['id']}")).json()
+    assert fallback["requirements_locale"] == "en" and len(fallback["requirements"]) == 1  # better than nothing
