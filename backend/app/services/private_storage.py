@@ -63,6 +63,13 @@ def build_key(
     return f"evidence/{user_id}/{enrollment_id}/{evidence_id}{ALLOWED_TYPES[content_type][1]}"
 
 
+def build_letter_key(user_id: uuid.UUID, letter_id: uuid.UUID, content_type: str) -> str:
+    """Church letters (Bloque B) share this bucket: a signed document is personal data
+    and never belongs in the public media bucket."""
+    kind_for(content_type)  # rejects anything outside the whitelist
+    return f"letters/{user_id}/{letter_id}{ALLOWED_TYPES[content_type][1]}"
+
+
 def _bucket() -> str:
     if not settings.private_storage_configured:
         raise PrivateStorageNotConfigured(NOT_CONFIGURED_DETAIL)

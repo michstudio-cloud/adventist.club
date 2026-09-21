@@ -418,3 +418,46 @@ class Evidence(Base):
     removed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     # Set by migrations/purge_removed_evidence.py once the object is gone from the bucket.
     purged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+# ---------------------------------------------------------------------------
+# 009_church_letters.sql: the church letter that backs an office, and its validation.
+# ---------------------------------------------------------------------------
+
+
+class ChurchLetter(Base):
+    """Platform-wide, by organization and not by club: a virtual instructor may belong to no
+    club at all. Bloque E reuses this table for other offices through `role_requested`."""
+
+    __tablename__ = "church_letters"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    role_requested: Mapped[str] = mapped_column(String(40), server_default="INSTRUCTOR")
+    # The applicant's organization when they presented it: it decides who reviews it.
+    organization_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    church_name: Mapped[str] = mapped_column(String(180))
+    pastor_name: Mapped[str | None] = mapped_column(String(180))
+    church_org_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    # Key in the PRIVATE bucket, never a URL.
+    storage_key: Mapped[str] = mapped_column(Text, unique=True)
+    content_type: Mapped[str] = mapped_column(String(40))
+    size_bytes: Mapped[int] = mapped_column(BigInteger)
+    status: Mapped[str] = mapped_column(String(16), server_default="PENDING_UPLOAD")
+    zone_validated_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    zone_validated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decided_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decision_note: Mapped[str | None] = mapped_column(Text)
+    # NULL = no expiry; whoever authorizes decides (D7).
+    valid_until: Mapped[date | None] = mapped_column(Date)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

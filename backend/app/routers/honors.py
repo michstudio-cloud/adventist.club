@@ -54,8 +54,6 @@ from app.schemas.honor import (
 )
 from app.security import (
     ADMIN_ASSOCIATION,
-    ADMIN_DIVISION,
-    ADMIN_UNION,
     COORDINATOR_ZONE,
     INSTRUCTOR,
     MASTER_GC,
@@ -64,24 +62,25 @@ from app.security import (
 from app.services.audit import record_audit
 from app.services.locales import LOCALE_PATTERN, SOURCE_LOCALE, best_locale
 from app.text import escape_like, slugify
+# The stages and their reviewers are shared with the courses of Bloque B: one definition,
+# two routers (app/workflow.py). Re-exported here so importers of this module keep working.
+from app.workflow import (  # noqa: F401
+    ARCHIVED,
+    ASSOCIATION_REVIEW,
+    ASSOCIATION_REVIEWERS,
+    DRAFT,
+    PUBLISHED,
+    STAGE_REVIEWERS,
+    ZONE_REVIEW,
+    ZONE_REVIEWERS,
+)
 
 SPANISH_COLLATION = "es-x-icu"
 
 router = APIRouter(prefix="/api/v1/honors", tags=["honors"])
 
-DRAFT = "DRAFT"
-ZONE_REVIEW = "ZONE_REVIEW"
-ASSOCIATION_REVIEW = "ASSOCIATION_REVIEW"
-PUBLISHED = "PUBLISHED"
-ARCHIVED = "ARCHIVED"
-
 AUTHOR_ROLES = (INSTRUCTOR, ADMIN_ASSOCIATION, MASTER_GC)
-ASSOCIATION_REVIEWERS = (ADMIN_ASSOCIATION, ADMIN_UNION, ADMIN_DIVISION, MASTER_GC)
-ZONE_REVIEWERS = (COORDINATOR_ZONE, *ASSOCIATION_REVIEWERS)
 INSTRUCTOR_VIEW_ROLES = (INSTRUCTOR, COORDINATOR_ZONE, ADMIN_ASSOCIATION, MASTER_GC)
-
-# Who may act on an honor at each review stage.
-STAGE_REVIEWERS = {ZONE_REVIEW: ZONE_REVIEWERS, ASSOCIATION_REVIEW: ASSOCIATION_REVIEWERS}
 
 ENTITY = "HONOR"
 HONOR_UNIQUE_CONSTRAINTS = {"honors_ministry_id_code_key", "honors_ministry_id_slug_key"}

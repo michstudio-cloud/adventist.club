@@ -197,6 +197,10 @@ class Factory:
                     ),
                     params,
                 )
+            # Bloque B: church letters hang from the user and cascade, but they are deleted
+            # explicitly so a module that only creates letters cleans up after itself too.
+            if await db.scalar(text("SELECT to_regclass('public.church_letters')")):
+                await db.execute(text(f"DELETE FROM church_letters WHERE user_id IN ({users})"), params)
             await db.execute(text(f"DELETE FROM honors WHERE id IN ({honors})"), params)
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)
