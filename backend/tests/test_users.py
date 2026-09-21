@@ -3,6 +3,9 @@
 import uuid
 
 import pytest_asyncio
+from sqlalchemy import text
+
+from app.db import SessionLocal
 
 from tests.conftest import fetch_all, fetch_one, module_factory, requires_db
 
@@ -73,9 +76,21 @@ async def test_list_is_scoped_to_own_subtree(client, tree, factory):
         USERS, headers=tree["student_a"]["headers"], params={"organization_id": tree["assoc_a"]["id"]}
     )
     assert _ids(asking) & ours == {tree["student_a"]["id"]}
-    # Staff of the organization (instructor, director, admins) do see their subtree.
+    # An instructor who hangs off a field (a virtual instructor) is not club staff: only themself.
     instructor = _ids(await client.get(USERS, headers=tree["instructor_a"]["headers"]))
-    assert instructor & ours == {tree["student_a"]["id"], tree["instructor_a"]["id"]}
+    assert instructor & ours == {tree["instructor_a"]["id"]}
+    # Club staff see their own club's members, and nothing beyond the club.
+    club = await factory.org("club-a", "club", tree["assoc_a"])
+    club_instructor = await factory.user("club-instr", role="INSTRUCTOR", organization_id=club["id"])
+    club_member = await factory.user("club-member", organization_id=club["id"])
+    async with SessionLocal() as db:   # staff must be in good standing: a verified account
+        await db.execute(text("UPDATE users SET verification_status = 'VERIFIED' WHERE id = :id"),
+                         {"id": uuid.UUID(club_instructor["id"])})
+        await db.commit()
+    seen = _ids(await client.get(USERS, headers=club_instructor["headers"]))
+    assert seen & (ours | {club_member["id"], club_instructor["id"]}) == {club_member["id"], club_instructor["id"]}
+    wider = await client.get(USERS, headers=club_instructor["headers"], params={"organization_id": tree["assoc_a"]["id"]})
+    assert wider.status_code == 403
 
     # Asking for someone else's subtree is refused, a narrower one is fine.
     foreign = await client.get(

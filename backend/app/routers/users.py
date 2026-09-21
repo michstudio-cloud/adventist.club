@@ -11,7 +11,10 @@ from app.deps import get_authenticated_user, get_current_user
 from app.models import Guardianship, Organization, User
 from app.people import age_in_years, is_minor_user
 from app.rbac import (
-    MEMBER_VIEW_ROLES,
+    ADMIN_ROLES,
+    CLUB_REVIEW_ROLES,
+    club_staff_in_good_standing,
+    member_club,
     can_manage_user,
     can_view_user,
     director_blocked,
@@ -302,7 +305,15 @@ async def list_users(
                 )
         scope_org = requested_org or current_user.organization_id
         scope_path = await get_org_path(db, scope_org)
-        is_staff = is_master(current_user) or current_user.role in MEMBER_VIEW_ROLES
+        if current_user.role in CLUB_REVIEW_ROLES:
+            # Club staff see their own club only: an instructor who hangs off a field (a
+            # virtual instructor) is not staff of every club beneath it.
+            club = await member_club(db, current_user)
+            is_staff = club is not None and club_staff_in_good_standing(current_user)
+            if is_staff and requested_org is not None and requested_org != club.id:
+                raise HTTPException(status.HTTP_403_FORBIDDEN, "Solo puedes ver a los miembros de tu club")
+        else:
+            is_staff = is_master(current_user) or current_user.role in ADMIN_ROLES
         if scope_path is None or director_blocked(current_user) or not is_staff:
             # No organization (or one outside the tree), a director whose club is
             # not approved yet, or a plain member: you only see yourself. The
