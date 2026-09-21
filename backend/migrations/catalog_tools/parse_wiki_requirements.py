@@ -9,7 +9,7 @@ from __future__ import annotations
 import html, re, sys
 from html.parser import HTMLParser
 
-TOP = re.compile(r"^(\d{1,2})[.)]\s+(.*)$", re.S)
+TOP = re.compile(r"^(\d{1,2})[.)](?:\s+(.*)|\s*)$", re.S)   # the text may come in the next block
 
 
 class _Lines(HTMLParser):
@@ -48,9 +48,12 @@ class _Lines(HTMLParser):
 
 
 def requirement_area(page: str) -> str:
+    # from the opening tag itself: text written directly inside the div (no <p>) must not swallow the attribute
     start = page.find('id="myTabContent"')
     if start < 0:
         start = page.find('class="mw-content-ltr mw-parser-output"')
+    if start > 0:
+        start = page.rfind("<", 0, start)
     end = page.find('<div class="printfooter"', start)
     return page[start:end if end > 0 else None]
 
@@ -65,11 +68,13 @@ def parse(page: str) -> list[dict]:
         # a top-level requirement carries the next number and is never deeper than requirement 1
         if top and int(top.group(1)) == len(requirements) + 1 and (base is None or depth <= base):
             base = depth if base is None else base
-            current = {"position": int(top.group(1)), "lines": [top.group(2).strip()], "section": section}
+            current = {"position": int(top.group(1)), "lines": [(top.group(2) or "").strip()], "section": section}
             requirements.append(current)
             section = None
         elif base is not None and depth < base:
             section = text          # unnumbered heading above the numbered level ("Sección Uno - TEÓRICO")
+        elif current is not None and current["lines"] == [""]:
+            current["lines"][0] = text           # "1." and its sentence were split into two paragraphs
         elif current is not None:
             current["lines"].append("  " * max(depth - base, 1) + text)
         elif len(text) < 80 and "myTabContent" not in text:
