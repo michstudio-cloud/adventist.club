@@ -245,11 +245,12 @@ def split_raster_background(svg: str, template: Template) -> tuple[Path, str] | 
     return template.directory / href.group(1), svg[:found.start()] + svg[found.end():]
 
 
-@lru_cache(maxsize=4)
+@lru_cache(maxsize=8)   # thumbnail, preview and the print sizes of the templates in use (~35 MB for a 300-dpi letter page)
 def _page_image(path: str, modified: float, width: int, height: int) -> Image.Image:
     with Image.open(path) as page:
         page = page.convert("RGBA")
-        return page if page.size == (width, height) else page.resize((width, height), Image.LANCZOS)
+        # reducing_gap: box-reduce first, then Lanczos — several times faster for thumbnails, same look
+        return page if page.size == (width, height) else page.resize((width, height), Image.LANCZOS, reducing_gap=2.0)
 
 
 def render_png(svg: str, template: Template, dpi: int = 300, width_in: float | None = None) -> bytes:
