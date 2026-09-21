@@ -85,3 +85,15 @@ el certificado será idéntico en el móvil, en el PDF y en la verificación pú
    Noto Sans, `dir` automático; el asistente pide el idioma del certificado.
 4. Traducciones: Weblate autoalojado o Tolgee; los JSON se exportan al repo.
 5. Más idiomas: portugués, francés, inglés primero (mayor membresía); después los demás por demanda.
+
+## De un diseño a una plantilla (21 sep 2026)
+
+El responsable diseña en su herramienta (Canva exporta el texto en curvas, sin ids) y deja por cada diseño
+`fondo.*` (arte sin los textos variables) y `muestra.*` (mismo arte con textos de ejemplo) en su carpeta local
+`~/Documents/DEEL/certificados-diseno/<diseño>/` (guía para el diseñador: `LEEME.md` de esa carpeta).
+`tools/design_to_template.py <carpeta> --slug <plantilla> [--install]` rasteriza el fondo a 300 dpi, detecta cada
+texto por diferencia entre muestra y fondo (posición, tamaño, color, alineación), escribe `campos.json` para
+nombrar los campos y genera `vista-previa.png` + `comparacion.png` con el motor real.
+
+Rendimiento: un fondo raster (`<image id="background">`) **no** pasa por resvg; se pega con Pillow
+(`split_raster_background`). En la instancia de 0.15 CPU resvg tardaba 31 s por certificado a 300 dpi.
