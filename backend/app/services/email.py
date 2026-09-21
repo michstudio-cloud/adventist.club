@@ -397,6 +397,54 @@ def letter_expiring_email_html(name: str, valid_until: str, days: int) -> str:
     return base_template(content, "Tu carta de la iglesia vence pronto - Adventist.Club")
 
 
+PROGRESS_SUBJECTS = {
+    "PROGRESS_INCOMPLETE": "Tienes una observación en tu especialidad",
+    "PROGRESS_READY": "¡Tu especialidad está lista para certificar!",
+    "PROGRESS_CERTIFIED": "¡Especialidad certificada! 🎉",
+}
+
+
+def progress_email_html(name: str, kind: str, honor_name: str, note: str | None, link: str) -> str:
+    """Portfolio progress (E9). It carries the honor, an observation the member
+    already wrote or read, and a link. Never an image, never an evidence, never
+    anything about another member."""
+    honor = escape(honor_name)
+    if kind == "PROGRESS_INCOMPLETE":
+        note_html = (
+            f'<div class="warning"><strong>Observación:</strong><br>{escape(note)}</div>'
+            if note
+            else ""
+        )
+        body = f"""
+        <h2>Tienes una observación por revisar</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Quien dictamina <strong>{honor}</strong> pidió que corrijas un requisito.</p>
+        {note_html}
+        """
+    elif kind == "PROGRESS_READY":
+        body = f"""
+        <h2>¡Terminaste todos los requisitos! 🎯</h2>
+        <p>Hola {escape(name)},</p>
+        <p><strong>{honor}</strong> está lista para que la dirección de tu club la certifique.</p>
+        """
+    else:
+        body = f"""
+        <h2>¡Especialidad certificada! 🎉</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Ya puedes descargar el certificado de <strong>{honor}</strong>.</p>
+        """
+    content = f"""{body}
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Ver mi portafolio</a>
+        </div>
+        <p style="font-size: 12px; color: #6b7280;">
+            Puedes desactivar estos avisos de avance desde tu perfil. Los de seguridad,
+            invitación y autorización no se pueden apagar.
+        </p>
+    """
+    return base_template(content, "Avance de tu portafolio - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -495,6 +543,15 @@ async def send_membership_decision_email(
         to,
         "Tu membresía de club - Adventist.Club",
         membership_decision_email_html(name, club_name, approved, reason),
+    )
+
+
+async def send_progress_email(
+    to: str, name: str, kind: str, honor_name: str, note: str | None, link: str
+) -> bool:
+    subject = PROGRESS_SUBJECTS.get(kind, "Avance de tu portafolio")
+    return await send_email(
+        to, f"{subject} - Adventist.Club", progress_email_html(name, kind, honor_name, note, link)
     )
 
 

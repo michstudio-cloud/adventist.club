@@ -6,7 +6,7 @@ transitions, permissions and audit rows all live in the service.
 """
 import uuid
 
-from fastapi import APIRouter, Depends, Query, Request, Response, status
+from fastapi import APIRouter, BackgroundTasks, Depends, Query, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -30,7 +30,7 @@ from app.schemas.portfolio import (
     ReviewIn,
     SignedUrl,
 )
-from app.services import portfolio
+from app.services import notifications, portfolio
 
 router = APIRouter(prefix="/api/v1/portfolio", tags=["portfolio"])
 
@@ -166,10 +166,21 @@ async def review_requirement(
     position: int,
     payload: ReviewIn,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await portfolio.review_requirement(db, current_user, enrollment_id, position, payload, request)
+    detail = await portfolio.review_requirement(
+        db, current_user, enrollment_id, position, payload, request
+    )
+    # Bloque E, E9: the progress e-mail block A left to E. It is staged and
+    # queued AFTER the verdict's own commit, so a mail outage can never undo a
+    # verdict; the logic of block A does not change at all.
+    await notifications.queue_review_outcome(
+        db, background, enrollment_id=enrollment_id, verdict=payload.verdict, note=payload.note
+    )
+    await db.commit()
+    return detail
 
 
 @router.post(
@@ -181,10 +192,15 @@ async def issue_certificate(
     enrollment_id: uuid.UUID,
     payload: CertificateIssue,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await portfolio.issue(db, current_user, enrollment_id, payload, request)
+    certificate = await portfolio.issue(db, current_user, enrollment_id, payload, request)
+    # E9: the member, and the guardians of a minor, hear about this one.
+    await notifications.queue_certificate_issued(db, background, enrollment_id=enrollment_id)
+    await db.commit()
+    return certificate
 
 
 # ----------------------------------------------------------------------------

@@ -236,6 +236,9 @@ class User(Base):
     # force, so `rbac.is_verified_leader` is a pure function. Written ONLY by
     # app/services/church_letters.py and app/services/memberships.py.
     leader_verified_until: Mapped[date | None] = mapped_column(Date)
+    # 008g_notify_progress.sql (E9): switches OFF the portfolio progress e-mails.
+    # Security, invitation, consent and membership decisions are never silenced.
+    notify_progress: Mapped[bool] = mapped_column(Boolean, server_default="true")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
