@@ -19,11 +19,14 @@ from app.schemas.course import (
     CourseCard,
     CourseCreate,
     CourseDetail,
+    CourseMember,
+    CourseMemberRemove,
     CourseOperation,
     CourseStaffDetail,
     CourseStatus,
     CourseUpdate,
     CourseVersionCreate,
+    JoinedCourse,
     LessonIn,
     LessonOrder,
     LessonOut,
@@ -31,8 +34,9 @@ from app.schemas.course import (
     PlanItemIn,
 )
 from app.schemas.honor import HonorReviewIn
+from app.schemas.portfolio import EnrollmentDetail
 from app.security import INSTRUCTOR
-from app.services import courses
+from app.services import course_enrollment, courses
 from app.services.locales import LOCALE_PATTERN
 from app.workflow import ZONE_REVIEWERS
 
@@ -72,6 +76,15 @@ async def pending_reviews(
 ):
     """Courses waiting for the caller's review level, inside the caller's subtree."""
     return await courses.pending_reviews(db, current_user, limit=200)
+
+
+@router.get("/my/joined", response_model=list[JoinedCourse])
+async def my_joined_courses(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The courses I am studying in, with the enrollment each one belongs to."""
+    return await course_enrollment.my_joined(db, current_user)
 
 
 # ----------------------------------------------------------------------------
@@ -238,3 +251,56 @@ async def set_operation(
 ):
     """Seats and open/closed enrolment on a published course: no content, no new review."""
     return await courses.set_operation(db, current_user, course_id, payload, request)
+
+
+# ----------------------------------------------------------------------------
+# I3 — Enrolment: joining, leaving and the roster
+# ----------------------------------------------------------------------------
+@router.post("/{course_id}/join", response_model=EnrollmentDetail)
+async def join_course(
+    course_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Take this honor inside this course. Idempotent; 409 when the course is full or
+    closed, 403 for a minor without a guardian's consent."""
+    return await course_enrollment.join(db, current_user, course_id, request)
+
+
+@router.post("/{course_id}/leave", response_model=EnrollmentDetail)
+async def leave_course(
+    course_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Back to club mode. Nothing is lost: every verdict already given stays."""
+    return await course_enrollment.leave(db, current_user, course_id, request)
+
+
+@router.get("/{course_id}/members", response_model=list[CourseMember])
+async def course_members(
+    course_id: uuid.UUID,
+    limit: int = Query(200, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Author and MASTER_GC: name, club and progress. No contact details of any kind."""
+    return await course_enrollment.members(db, current_user, course_id, limit, offset)
+
+
+@router.delete("/{course_id}/members/{enrollment_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def remove_course_member(
+    course_id: uuid.UUID,
+    enrollment_id: uuid.UUID,
+    payload: CourseMemberRemove,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Same effect as leaving, plus the reason the member then reads."""
+    await course_enrollment.remove_member(
+        db, current_user, course_id, enrollment_id, payload, request
+    )

@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.config import settings
 from app.schemas.honor import HonorReviewIn, ReviewOut  # noqa: F401  (same review contract)
-from app.schemas.portfolio import HonorRef, PersonRef  # noqa: F401  (shared shapes)
+from app.schemas.portfolio import ClubRef, Counters, HonorRef, PersonRef  # noqa: F401  (shared)
 from app.services.locales import LOCALE_PATTERN
 
 CourseStatus = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED"]
@@ -283,3 +283,32 @@ class PaginatedCourses(BaseModel):
     limit: int
     offset: int
     has_more: bool
+
+
+# ----------------------------------------------------------------------------
+# I3 — Enrolment in a course
+# ----------------------------------------------------------------------------
+class CourseMemberRemove(BaseModel):
+    """Removing a member is an act the member reads afterwards: the reason is mandatory."""
+
+    reason: str = Field(min_length=3, max_length=2000)
+
+    _clean = field_validator("reason", mode="before")(_blank_to_none)
+
+
+class JoinedCourse(CourseCard):
+    enrollment_id: str
+    enrollment_status: str
+
+
+class CourseMember(BaseModel):
+    """What the instructor sees of each member: progress in THEIR course and nothing more.
+    No e-mail, no birth date, no way to reach them outside the platform (spec §6)."""
+
+    enrollment_id: str
+    member: PersonRef
+    club: ClubRef | None
+    status: str
+    counters: Counters
+    joined_at: datetime | None
+    updated_at: datetime

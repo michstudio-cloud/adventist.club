@@ -1,4 +1,4 @@
-# Estado del bloque B — Cursos del instructor virtual (I1 e I2)
+# Estado del bloque B — Cursos del instructor virtual (I1–I3)
 
 Nota de trabajo del bloque B, aparte de `docs/ESTADO.md` para no chocar con la rama del bloque E.
 Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md` (§3 y §10).
@@ -43,6 +43,37 @@ Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md
   `PUT /lessons/order`), `PUT /{id}/plan`, `POST /{id}/submit`, `POST /{id}/review`,
   `POST /{id}/version`, `DELETE /{id}` y `PATCH /{id}/operation`.
 
+### I3 — Inscripción, dictamen del instructor y emisión manual (`migrations/009c_course_enrollment.sql`)
+- `honor_enrollments` gana `course_id`, `course_joined_at` y `course_removed_reason`, el CHECK
+  `((mode = 'COURSE') = (course_id IS NOT NULL))` y el índice `(course_id, status)`. Aditiva: todas las
+  filas actuales son `CLUB` con `course_id` NULL y ya cumplen el CHECK.
+- Unirse (`POST /courses/{id}/join`) **no crea una inscripción nueva**: usa la de A (o la crea con su
+  propio servicio) y la pasa a `mode = 'COURSE'`. El plan del curso se aplica sólo a las filas que no
+  están `COMPLETE` (`is_practical = (assessment = 'EVIDENCE')`); lo ya dictaminado no se toca. Cupo
+  comprobado con el curso bloqueado (`FOR UPDATE`), sin lista de espera. Idempotente.
+- Salir (`POST /courses/{id}/leave`) y expulsar (`DELETE /courses/{id}/members/{enrollment_id}`,
+  con motivo obligatorio) devuelven la inscripción a `CLUB` **sin perder nada**; `is_practical` no se
+  relaja. El motivo de la expulsión queda en `course_removed_reason` y lo lee el miembro.
+- `app/rbac.py`: `is_course_instructor(db, actor, enrollment)` es la única cláusula nueva, y la usan
+  `can_review` y `can_issue`. Exige curso `PUBLISHED`/`ARCHIVED` **no retirado por la autoridad**,
+  que el actor sea el autor, que no sea su propia inscripción y `instructor_is_verified` **en ese
+  momento**. `can_view_enrollment` (nueva) es lo que usan `GET /portfolio/enrollments/{id}` y
+  `GET /portfolio/evidences/{id}/url`: el instructor del curso ve **esa** inscripción y nunca
+  `GET /portfolio/users/{id}`.
+- D4a en `services/portfolio.py::review_requirement`: en `COURSE`, un `COMPLETE` sólo lo reabre quien
+  lo dio, el instructor del curso o MASTER_GC. En `CLUB` rige la regla 4 de A sin cambios.
+- `GET /portfolio/review/queue` (SUBMITTED y READY) suma las inscripciones de los cursos del
+  instructor verificado; un instructor que además es personal de un club ve las dos cosas.
+- Emisión manual: el mismo `POST /portfolio/enrollments/{id}/certificate`. En `COURSE` el servicio
+  fija `instructor_name` = nombre del instructor del curso (el formulario no lo cambia) y
+  `director_name` = último `CLUB_DIRECTOR` que dictaminó un requisito, o NULL. `issued_role` sale
+  de `issue_certificate` como `INSTRUCTOR`. `canonical()` **no se toca**.
+- API nueva en `/api/v1/courses`: `GET /my/joined`, `POST /{id}/join`, `POST /{id}/leave`,
+  `GET /{id}/members` (sin correo ni fecha de nacimiento) y `DELETE /{id}/members/{enrollment_id}`.
+  `GET /{id}` entrega los bloques de las lecciones al inscrito, y el inscrito sigue viendo su curso
+  cuando se archiva; si lo retira la autoridad, el contenido se cierra y el instructor pierde
+  `can_review` / `can_issue` sobre él.
+
 ## Ajustes nuevos
 Ninguno. I1 reutiliza `R2_PRIVATE_BUCKET_NAME` (el bucket privado del bloque A); sin ese ajuste, los
 endpoints de la carta responden 503 y todo lo demás sigue funcionando. I2 no añade ajustes: el
@@ -50,16 +81,14 @@ material de las lecciones usa el bucket público que ya existe.
 
 ## Orden de despliegue
 1. Aplicar en Neon, **antes** de subir el backend y en este orden:
-   `backend/migrations/009_church_letters.sql` y después `backend/migrations/009b_courses.sql`.
+   `backend/migrations/009_church_letters.sql`, `backend/migrations/009b_courses.sql` y
+   `backend/migrations/009c_course_enrollment.sql`.
    Las dos son aditivas e idempotentes (`IF NOT EXISTS`, columnas nullable); no borran ni reescriben
    nada, y se pueden aplicar dos veces sin efecto.
 2. Backend (Render).
 3. Frontend: hasta que exista, nada de esto se ve; el API es aditivo y ningún contrato anterior cambia.
 
-## Lo que falta (I3–I7)
-`009c_course_enrollment.sql` (inscripción a cursos: `honor_enrollments.course_id`, unirse, salir,
-cupo, `can_review` / `can_issue` con el instructor y `can_view_enrollment`), `010_exams.sql` (banco de
-preguntas, intentos y calificación) y `011_certificate_revocation.sql` (emisión automática y anulación).
-Las costuras que I1–I2 dejan preparadas están anotadas en el código con el incremento al que pertenecen
-(`app/services/courses.py::_enrolled_count`, la visibilidad de los bloques para el inscrito en
-`_detail` y `get_detail`).
+## Lo que falta (I4–I7)
+`010_exams.sql` (banco de preguntas por curso, parámetros de examen, intentos y respuestas) y
+`011_certificate_revocation.sql` (emisión automática, curso en la verificación pública y anulación).
+Las costuras están anotadas en el código con el incremento al que pertenecen.

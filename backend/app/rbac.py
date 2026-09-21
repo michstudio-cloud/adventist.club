@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import ChurchLetter, Guardianship, HonorEnrollment, Organization, User
+from app.models import ChurchLetter, Course, Guardianship, HonorEnrollment, Organization, User
 from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
@@ -255,8 +255,7 @@ async def can_review(db: AsyncSession, actor: User, enrollment: HonorEnrollment)
         return True
     if await _has_club_jurisdiction(db, actor, enrollment, CLUB_REVIEW_ROLES):
         return True
-    # Bloque B: `or` the instructor of the course of a COURSE enrollment, here and only here.
-    return False
+    return await is_course_instructor(db, actor, enrollment)  # Bloque B · I3
 
 
 async def can_issue(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> bool:
@@ -265,7 +264,7 @@ async def can_issue(db: AsyncSession, actor: User, enrollment: HonorEnrollment) 
     if is_master(actor):
         return True
     if enrollment.mode != "CLUB":
-        return False  # COURSE: the course instructor issues (Bloque D)
+        return await is_course_instructor(db, actor, enrollment)  # COURSE (Bloque D · I3)
     return await _has_club_jurisdiction(db, actor, enrollment, (CLUB_DIRECTOR,))
 
 
@@ -275,7 +274,16 @@ async def can_view_portfolio(db: AsyncSession, actor: User, target: User) -> boo
         # the person themself, MASTER_GC and the hierarchy above them. Club staff only while in
         # good standing: a portfolio holds evidence of minors, the user directory does not.
         own_or_admin = actor.id == target.id or actor.role not in CLUB_REVIEW_ROLES
-        if own_or_admin or club_staff_in_good_standing(actor):
+        # ...and only over their OWN club. Bloque B gave `INSTRUCTOR` a second shape, the
+        # virtual instructor attached to an association: they are staff of no club, so the
+        # subtree of `can_view_user` must not turn into a portfolio of every minor below.
+        target_club = await member_club(db, target)
+        staff_of_target_club = (
+            club_staff_in_good_standing(actor)
+            and target_club is not None
+            and target_club.id == actor.organization_id
+        )
+        if own_or_admin or staff_of_target_club:
             return True
     consent = select(Guardianship.id).where(
         Guardianship.guardian_id == actor.id,
@@ -290,6 +298,8 @@ async def can_view_portfolio(db: AsyncSession, actor: User, target: User) -> boo
         HonorEnrollment.user_id == target.id, HonorEnrollment.status != "WITHDRAWN"
     )
     for enrollment in (await db.execute(enrollments)).scalars().all():
+        if enrollment.mode != "CLUB":
+            continue  # Bloque B §2.2: the course instructor reads `can_view_enrollment`, not this
         if await can_review(db, actor, enrollment):
             return True
     return False
@@ -336,3 +346,45 @@ async def instructor_is_verified(db: AsyncSession, user: User) -> bool:
         or_(ChurchLetter.valid_until.is_(None), ChurchLetter.valid_until >= today),
     )
     return (await db.execute(letter.limit(1))).scalar_one_or_none() is not None
+
+
+# ----------------------------------------------------------------------------
+# Bloque B · I3: the instructor of the course an enrollment is being taken in.
+# ----------------------------------------------------------------------------
+# A course still serves its members once archived, but not when a reviewer withdrew it.
+COURSE_LIVE_STATUSES = ("PUBLISHED", "ARCHIVED")
+
+
+async def is_course_instructor(
+    db: AsyncSession, actor: User, enrollment: HonorEnrollment
+) -> bool:
+    """The single clause `can_review` and `can_issue` add for a COURSE enrollment (§3.7).
+
+    It is asked at the moment of the act, so a suspended instructor or a revoked or expired
+    letter takes every power away at once, without touching the course or the enrollments.
+    """
+    if enrollment.mode != "COURSE" or enrollment.course_id is None:
+        return False
+    if actor.id == enrollment.user_id:
+        return False  # nobody reviews or certifies their own enrollment (rule 5 of A)
+    course = await db.get(Course, enrollment.course_id)
+    if course is None or course.instructor_id != actor.id:
+        return False
+    if course.status not in COURSE_LIVE_STATUSES or course.archived_by_authority:
+        return False
+    return await instructor_is_verified(db, actor)
+
+
+async def can_view_enrollment(
+    db: AsyncSession, actor: User, enrollment: HonorEnrollment
+) -> bool:
+    """Read ONE enrollment and its evidence (spec B §2.2).
+
+    Narrower than `can_view_portfolio` on purpose: the virtual instructor is a stranger to
+    the club of a minor, so they see the enrollments of *their* course and nothing else of
+    that person's portfolio.
+    """
+    if await is_course_instructor(db, actor, enrollment):
+        return True
+    owner = await db.get(User, enrollment.user_id)
+    return owner is not None and await can_view_portfolio(db, actor, owner)

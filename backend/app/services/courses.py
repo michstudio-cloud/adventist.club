@@ -26,7 +26,16 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import violated_constraint
-from app.models import Course, CourseLesson, CourseRequirement, Honor, HonorReview, Organization, User
+from app.models import (
+    Course,
+    CourseLesson,
+    CourseRequirement,
+    Honor,
+    HonorEnrollment,
+    HonorReview,
+    Organization,
+    User,
+)
 from app.rbac import club_scope_paths, instructor_is_verified, is_master, org_in_review_scope
 from app.schemas.course import (
     MAX_LESSON_BYTES,
@@ -67,6 +76,8 @@ from app.workflow import (
 
 EXAM, REVIEW, EVIDENCE = "EXAM", "REVIEW", "EVIDENCE"
 IN_REVIEW = (ZONE_REVIEW, ASSOCIATION_REVIEW)
+# Enrollments that take up a seat (the statuses of Bloque A that are still open).
+LIVE_ENROLLMENT_STATUSES = ("IN_PROGRESS", "READY")
 # A course keeps its content open only while it is a draft.
 EDITABLE = (DRAFT,)
 
@@ -134,9 +145,22 @@ async def _require_verified(db: AsyncSession, actor: User) -> None:
 
 
 async def _enrolled_count(db: AsyncSession, course_id: uuid.UUID) -> int:
-    """Seam for I3: enrolments in a course arrive with 009c_course_enrollment.sql. Until
-    then no enrollment can point at a course, so the honest answer is zero."""
-    return 0
+    """Seats taken (I3): enrollments of the course that are IN_PROGRESS or READY."""
+    stmt = select(func.count()).where(
+        HonorEnrollment.course_id == course_id,
+        HonorEnrollment.status.in_(LIVE_ENROLLMENT_STATUSES),
+    )
+    return (await db.execute(stmt)).scalar_one()
+
+
+async def _is_enrolled(db: AsyncSession, actor: User | None, course: Course) -> bool:
+    """Does `actor` study in this course right now? It decides who reads the lesson blocks."""
+    if actor is None:
+        return False
+    stmt = select(HonorEnrollment.id).where(
+        HonorEnrollment.user_id == actor.id, HonorEnrollment.course_id == course.id
+    )
+    return (await db.execute(stmt.limit(1))).scalar_one_or_none() is not None
 
 
 # ----------------------------------------------------------------------------
@@ -245,11 +269,20 @@ class _HonorRefRow:
         self.locale = course.locale
 
 
-async def _detail(db: AsyncSession, actor: User | None, course: Course, *, staff: bool) -> CourseDetail:
+async def _detail(
+    db: AsyncSession,
+    actor: User | None,
+    course: Course,
+    *,
+    staff: bool,
+    enrolled: bool = False,
+) -> CourseDetail:
+    # The enrolled member reads the lessons too — unless a reviewer withdrew the course,
+    # and then its content closes for everyone but its author and its reviewers (§3.5).
+    with_blocks = staff or (enrolled and not course.archived_by_authority)
     fields = {
         **await _card_fields(db, course),
-        # I3: the enrolled member sees the blocks too (`can_view_enrollment`).
-        "lessons": [_lesson_out(row, with_blocks=staff) for row in await _lessons(db, course.id)],
+        "lessons": [_lesson_out(row, with_blocks=with_blocks) for row in await _lessons(db, course.id)],
         "plan": await _plan_out(db, course),
         "archived_by_authority": course.archived_by_authority,
         "archive_reason": course.archive_reason,
@@ -869,11 +902,12 @@ async def get_detail(
     is_staff = await _is_staff(db, actor, course)
     if staff_view and not is_staff:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Curso no encontrado")
-    if course.status != PUBLISHED and not is_staff:
-        # 404 rather than 403: do not confirm that an unpublished course exists.
-        # I3: an enrolled member also sees their (possibly archived) course.
+    enrolled = False if is_staff else await _is_enrolled(db, actor, course)
+    if course.status != PUBLISHED and not is_staff and not enrolled:
+        # 404 rather than 403: do not confirm that an unpublished course exists. An enrolled
+        # member keeps reading their course once it is archived — including the reason.
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Curso no encontrado")
-    return await _detail(db, actor, course, staff=is_staff)
+    return await _detail(db, actor, course, staff=is_staff, enrolled=enrolled)
 
 
 async def discover(

@@ -828,6 +828,34 @@ hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del d
     esquema en cada lectura: un cambio futuro del dominio de medios convertiría lecciones válidas en
     errores 500. La validación sigue siendo estricta al escribir.
 
+## Desviaciones de la implementación (I3, 21 sep 2026)
+
+11. **`honor_enrollments.course_removed_reason`** (columna nueva en `009c`, nullable). §3.6 dice
+    que al expulsar «el miembro ve el motivo» y no había dónde guardarlo: sin columna la promesa
+    era falsa. Se escribe al expulsar, se limpia al unirse a otro curso y sale en
+    `EnrollmentSummary.course_removed_reason`. Salir por voluntad propia la deja NULL.
+12. **`POST /courses/{id}/join` responde 200, no 201.** No crea un recurso en esa URL: mueve la
+    inscripción que A ya tiene (o crea una con el servicio de A) a modalidad COURSE. Repetir la
+    llamada devuelve la misma inscripción, como pide §3.6.
+13. **La inscripción de A se crea en su propia transacción**, porque `portfolio.enroll` hace commit.
+    El cupo se comprueba dos veces: una antes (para no crear nada si el curso está lleno) y otra con
+    el curso bloqueado `FOR UPDATE`, que es la que decide. En la carrera perdida queda, a lo sumo,
+    una inscripción en modalidad CLUB de esa misma especialidad, que es exactamente lo que
+    `POST /portfolio/enrollments` habría dejado.
+14. **`can_view_portfolio` exige ahora que el personal de club lo sea del club del miembro.** La
+    condición de A (`club_staff_in_good_standing`) daba por supuesto que un `INSTRUCTOR` cuelga de
+    un club; el instructor virtual de B cuelga de una Asociación, y con la regla anterior habría
+    leído el portafolio completo de todos los menores de su subárbol. Se compara el club del miembro
+    con `actor.organization_id`, que es lo que A quería decir. Para un director no cambia nada.
+    **Aviso para otro bloque:** `MEMBER_VIEW_ROLES` sigue dejando que ese mismo instructor lea
+    `GET /users` de su subárbol (con correos y fechas de nacimiento). Es anterior a B y se deja
+    señalado, no tocado.
+15. **La cola de revisión de un instructor con club es la unión de las dos.** §2.1 dice que
+    `GET /portfolio/review/queue` «incluye las inscripciones de los cursos del instructor»; si además
+    es personal de un club, sigue viendo a los miembros de ese club. Sin cursos ni club, 403 como en A.
+16. **`GET /courses/{id}/members` lo lee también MASTER_GC** (§3.8 lo dice) y responde **404** a
+    cualquier otro, no 403: el padrón es del autor y no se confirma que exista.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de

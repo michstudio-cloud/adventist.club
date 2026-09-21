@@ -376,6 +376,13 @@ class HonorEnrollment(Base):
     certified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     withdrawn_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 009c_course_enrollment.sql — mode COURSE: `course_id` is NOT NULL exactly then (CHECK).
+    course_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id", use_alter=True)
+    )
+    course_joined_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Why the instructor removed them; cleared when they join a course again.
+    course_removed_reason: Mapped[str | None] = mapped_column(Text)
 
 
 class RequirementProgress(Base):
