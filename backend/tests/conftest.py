@@ -248,6 +248,17 @@ class Factory:
                     ),
                     params,
                 )
+            # Units (E5) are pointed at by memberships and invitations, which are
+            # already gone by now, and they point at organizations and users.
+            if await db.scalar(text("SELECT to_regclass('public.club_units')")):
+                await db.execute(
+                    text(
+                        "DELETE FROM club_units WHERE club_id IN"
+                        " (SELECT id FROM organizations WHERE name LIKE :like)"
+                        f" OR counselor_id IN ({users})"
+                    ),
+                    params,
+                )
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)
             await db.commit()

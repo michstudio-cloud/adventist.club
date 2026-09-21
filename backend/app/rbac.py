@@ -183,6 +183,18 @@ async def can_view_roster(db: AsyncSession, actor: User, club: Organization) -> 
     return actor.role in (INSTRUCTOR, COUNSELOR) and _attached_to(actor, club)
 
 
+async def can_appoint_counselor(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """Put somebody in charge of a unit, or take the post away (E5).
+
+    Narrower than `can_manage_members` on purpose: the secretary creates and
+    edits units and moves members between them, but appointing the adult who
+    will be alone with a group of minors is the director's act (spec §5.7).
+    """
+    if not await can_manage_members(db, actor, club):
+        return False
+    return is_admin_role(actor) or actor.role == CLUB_DIRECTOR
+
+
 async def can_view_user(db: AsyncSession, actor: User, target: User) -> bool:
     if actor.id == target.id or is_master(actor):
         return True

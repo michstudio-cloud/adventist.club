@@ -41,6 +41,7 @@ from app.security import CLUB_DIRECTOR
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
 from app.services import notifications
+from app.services import units as unit_service
 
 router = APIRouter(prefix="/api/v1/memberships", tags=["memberships"])
 
@@ -70,7 +71,8 @@ async def my_membership(
 
     async def _out(membership):
         club = await db.get(Organization, membership.club_id)
-        return as_membership_out(membership, club)
+        unit, counselor = await unit_service.membership_context(db, membership)
+        return as_membership_out(membership, club, unit=unit, counselor=counselor)
 
     return MyMembership(
         active=await _out(active) if active is not None else None,
@@ -147,7 +149,8 @@ async def accept_invitation(
             recipients=await notifications.consent_recipients(db, membership, current_user),
         )
     await db.commit()
-    return as_membership_out(membership, club)
+    unit, counselor = await unit_service.membership_context(db, membership)
+    return as_membership_out(membership, club, unit=unit, counselor=counselor)
 
 
 # ----------------------------------------------------------------------------

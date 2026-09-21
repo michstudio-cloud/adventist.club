@@ -33,6 +33,7 @@ from app.security import (
     sha256_hex,
     utcnow,
 )
+from app.services import units
 from app.services.audit import record_audit
 
 # CLUB_SECRETARY is appointed by the director from the roster, not by a link,
@@ -106,6 +107,7 @@ async def create(
     max_uses: int = 1,
     expires_in_days: int | None = None,
     email: str | None = None,
+    unit_id: uuid.UUID | None = None,
     request: Request | None = None,
 ) -> tuple[ClubInvitation, str]:
     """Returns the row and the plain token, which the caller shows ONCE."""
@@ -128,6 +130,8 @@ async def create(
             status.HTTP_422_UNPROCESSABLE_ENTITY,
             "Las invitaciones al personal del club son de un solo uso y necesitan el correo de la persona.",
         )
+    # E5: a link may already point at a unit, and only at one of this club's.
+    await units.unit_of_club_or_400(db, club, unit_id)
     if await live_count(db, club.id) >= MAX_LIVE_PER_CLUB:
         raise HTTPException(
             status.HTTP_409_CONFLICT,
@@ -142,6 +146,7 @@ async def create(
         club_id=club.id,
         created_by_id=actor.id,
         role=role,
+        unit_id=unit_id,
         email=email,
         token_hash=sha256_hex(token),
         max_uses=max_uses,
@@ -158,7 +163,12 @@ async def create(
         actor=actor,
         details=f"{role} invitation for club {club.id} ({max_uses} use(s))",
         # No token and no guest address in the audit trail.
-        metadata={"club_id": str(club.id), "role": role, "max_uses": max_uses},
+        metadata={
+            "club_id": str(club.id),
+            "role": role,
+            "max_uses": max_uses,
+            "unit_id": str(unit_id) if unit_id else None,
+        },
         request=request,
     )
     return invitation, token

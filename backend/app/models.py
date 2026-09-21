@@ -563,8 +563,9 @@ class ClubMembership(Base):
     # PENDING_CONSENT -> PENDING_APPROVAL -> ACTIVE -> ENDED; REJECTED; CANCELLED
     status: Mapped[str] = mapped_column(String(20))
     source: Mapped[str] = mapped_column(String(12))
-    # FK added by 008c (club_invitations); unit_id arrives with 008d.
+    # FK added by 008c (club_invitations); unit_id by 008d (club_units).
     invitation_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    unit_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     message: Mapped[str | None] = mapped_column(String(500))
     # Minors only: who was asked for consent for THIS club.
     guardian_email: Mapped[str | None] = mapped_column(CITEXT)
@@ -653,3 +654,29 @@ class MfaRecoveryCode(Base):
     code_hash: Mapped[str] = mapped_column(String(64), unique=True)
     used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 008d_club_units.sql: the units a club splits into. A light table, NOT a node
+# of the organization tree: the member keeps hanging from the club, which is
+# what `users.organization_id` (and therefore the whole RBAC) reads.
+# ---------------------------------------------------------------------------
+
+
+class ClubUnit(Base):
+    __tablename__ = "club_units"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    name: Mapped[str] = mapped_column(String(80))
+    # A warning, never a refusal: birthdays move people out of their bracket.
+    min_age: Mapped[int | None] = mapped_column(SmallInteger)
+    max_age: Mapped[int | None] = mapped_column(SmallInteger)
+    # Hard: the director raises it in one touch.
+    capacity: Mapped[int | None] = mapped_column(SmallInteger)
+    counselor_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    status: Mapped[str] = mapped_column(String(10), server_default="active")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
