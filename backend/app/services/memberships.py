@@ -31,6 +31,7 @@ from app.security import (
     CLUB_DIRECTOR,
     CLUB_LEVEL_ROLES,
     CLUB_SCOPED_ROLES,
+    INSTRUCTOR,
     STUDENT,
     generate_url_token,
     sha256_hex,
@@ -722,6 +723,215 @@ async def revoke_consent(
             audit_action="CONSENT_REVOKE",
         )
     return membership
+
+
+# ----------------------------------------------------------------------------
+# Join requests from `/clubs` (E4): the other door, the one the person opens
+# from outside. The club decides; nobody walks in.
+# ----------------------------------------------------------------------------
+MAX_OPEN_REQUESTS = 3
+REQUEST_STALE_DAYS = 30
+REJECTION_COOLDOWN_DAYS = 30
+
+
+def accepts_requests(club: Organization) -> bool:
+    """A club may close its door; the default is open (spec §5.2)."""
+    profile = (club.metadata_json or {}).get("profile") or {}
+    return profile.get("accepts_requests", True) is not False
+
+
+async def expire_stale_requests(
+    db: AsyncSession, *, club_id: uuid.UUID | None = None, user_id: uuid.UUID | None = None
+) -> None:
+    """
+    A request nobody decided in 30 days is given up as CANCELLED when somebody
+    reads the queue. No scheduled task: the read that would show a stale row is
+    exactly the moment to close it.
+    """
+    stmt = select(ClubMembership).where(
+        ClubMembership.status.in_(OPEN_STATUSES),
+        ClubMembership.source == REQUEST,
+        ClubMembership.created_at < utcnow() - timedelta(days=REQUEST_STALE_DAYS),
+    )
+    if club_id is not None:
+        stmt = stmt.where(ClubMembership.club_id == club_id)
+    if user_id is not None:
+        stmt = stmt.where(ClubMembership.user_id == user_id)
+    now = utcnow()
+    for membership in (await db.execute(stmt)).scalars().all():
+        membership.status = CANCELLED
+        membership.end_reason = EXPIRED
+        membership.ended_at = now
+        membership.updated_at = now
+
+
+def requested_role(member: User) -> str:
+    """What somebody asks to be. An adult who already holds the INSTRUCTOR role
+    asks as an instructor; everybody else asks as a member. The club may grant
+    something else when it approves."""
+    if member.role == INSTRUCTOR and not is_minor_user(member):
+        return INSTRUCTOR
+    return STUDENT
+
+
+async def _recent_rejection(db: AsyncSession, member: User, club_id: uuid.UUID) -> bool:
+    stmt = select(ClubMembership).where(
+        ClubMembership.user_id == member.id,
+        ClubMembership.club_id == club_id,
+        ClubMembership.status == REJECTED,
+        ClubMembership.decided_at > utcnow() - timedelta(days=REJECTION_COOLDOWN_DAYS),
+    )
+    return (await db.execute(stmt)).scalars().first() is not None
+
+
+async def request_to_join(
+    db: AsyncSession,
+    *,
+    member: User,
+    club: Organization,
+    message: str | None = None,
+    guardian_email: str | None = None,
+    confirm_transfer: bool = False,
+    request: Request | None = None,
+) -> tuple[ClubMembership, str | None]:
+    """`POST /memberships/requests`. Returns the row and, for a minor, the
+    consent token to e-mail."""
+    if member.verification_status != "VERIFIED":
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "Verifica tu correo antes de solicitar unirte a un club.",
+        )
+    if club.status != "active":
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Club no encontrado")
+    if not accepts_requests(club):
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Este club no recibe solicitudes por ahora."
+        )
+    await check_can_join(db, member, club, confirm_transfer=confirm_transfer)
+
+    await expire_stale_requests(db, user_id=member.id)
+    if len(await open_memberships(db, member.id)) >= MAX_OPEN_REQUESTS:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            f"Ya tienes {MAX_OPEN_REQUESTS} solicitudes abiertas; espera una respuesta o cancela alguna.",
+        )
+    if await _recent_rejection(db, member, club.id):
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            f"Este club rechazó tu solicitud hace poco; puedes volver a pedirlo {REJECTION_COOLDOWN_DAYS} días después.",
+        )
+
+    return await start_membership(
+        db,
+        member=member,
+        club=club,
+        role=requested_role(member),
+        source=REQUEST,
+        needs_approval=True,  # a request is ALWAYS the club's decision
+        guardian_email=guardian_email,
+        message=message,
+        request=request,
+        audit_action="MEMBERSHIP_REQUEST",
+    )
+
+
+async def cancel_request(
+    db: AsyncSession, membership: ClubMembership, *, member: User, request: Request | None = None
+) -> ClubMembership:
+    if membership.status not in OPEN_STATUSES:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esta solicitud ya fue decidida.")
+    now = utcnow()
+    membership.status = CANCELLED
+    membership.ended_at = now
+    membership.ended_by_id = member.id
+    membership.updated_at = now
+    record_audit(
+        db,
+        action="MEMBERSHIP_CANCEL",
+        entity_type=MEMBERSHIP,
+        entity_id=membership.id,
+        actor=member,
+        metadata={"club_id": str(membership.club_id)},
+        request=request,
+    )
+    return membership
+
+
+async def decide_request(
+    db: AsyncSession,
+    membership: ClubMembership,
+    *,
+    actor: User,
+    approve: bool,
+    role: str | None = None,
+    reason: str | None = None,
+    request: Request | None = None,
+) -> tuple[ClubMembership, User]:
+    """Approve or reject what is waiting. A minor whose guardian has not
+    answered yet is not in this queue at all, so approving cannot bypass rule 2."""
+    member = await db.get(User, membership.user_id)
+    if member is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Membresía no encontrada en este club")
+    if member.id == actor.id:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "No puedes decidir tu propia solicitud.")
+    if membership.status != PENDING_APPROVAL:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esta solicitud ya fue decidida.")
+
+    new_role = role or membership.role
+    if not can_grant_club_role(actor, new_role):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, f"No puedes conceder el rol {new_role} en este club."
+        )
+
+    if not approve:
+        now = utcnow()
+        membership.status = REJECTED
+        membership.decided_by_id = actor.id
+        membership.decided_at = now
+        membership.decision_reason = reason
+        membership.updated_at = now
+        record_audit(
+            db,
+            action="MEMBERSHIP_REJECT",
+            entity_type=MEMBERSHIP,
+            entity_id=membership.id,
+            actor=actor,
+            metadata={"club_id": str(membership.club_id), "reason": reason},
+            request=request,
+        )
+        return membership, member
+
+    membership.role = new_role
+    await activate(db, membership, actor=actor, member=member, request=request)
+    return membership, member
+
+
+async def pending_requests(db: AsyncSession, club_id: uuid.UUID) -> list[ClubMembership]:
+    """What the club has to decide. Minors appear ONLY once their guardian
+    authorized: a minor who asks is invisible to the club until then (§7)."""
+    await expire_stale_requests(db, club_id=club_id)
+    stmt = (
+        select(ClubMembership)
+        .where(
+            ClubMembership.club_id == club_id,
+            ClubMembership.status == PENDING_APPROVAL,
+        )
+        .order_by(ClubMembership.created_at)
+    )
+    return list((await db.execute(stmt)).scalars().all())
+
+
+async def club_directors(db: AsyncSession, club_id: uuid.UUID) -> list[User]:
+    stmt = (
+        select(User)
+        .join(ClubMembership, ClubMembership.user_id == User.id)
+        .where(
+            ClubMembership.club_id == club_id,
+            ClubMembership.status == ACTIVE,
+            ClubMembership.role == CLUB_DIRECTOR,
+        )
+    )
+    return list((await db.execute(stmt)).scalars().all())
 
 
 # ----------------------------------------------------------------------------

@@ -270,6 +270,52 @@ def consent_request_email_html(child_name: str, club_name: str, link: str) -> st
     return base_template(content, "Autorización para unirse a un club - Adventist.Club")
 
 
+def pending_requests_email_html(director_name: str, club_name: str, pending: int, link: str) -> str:
+    """To the club's staff. It carries a COUNT and a link, never a name: some
+    of the people in that queue are minors (spec §5.10)."""
+    what = "una solicitud" if pending == 1 else f"{pending} solicitudes"
+    content = f"""
+        <h2>Tienes solicitudes por revisar</h2>
+        <p>Hola {escape(director_name)},</p>
+        <p><strong>{escape(club_name)}</strong> tiene {what} de ingreso esperando tu decisión.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Revisar solicitudes</a>
+        </div>
+    """
+    return base_template(content, "Solicitudes por revisar - Adventist.Club")
+
+
+def membership_decision_email_html(
+    name: str, club_name: str, approved: bool, reason: str | None
+) -> str:
+    frontend = settings.frontend_url
+    if approved:
+        body = f"""
+        <h2>¡Ya eres parte del club! 🎉</h2>
+        <p>Hola {escape(name)},</p>
+        <p><strong>{escape(club_name)}</strong> aceptó tu ingreso.</p>
+        """
+    else:
+        reason_html = (
+            f'<div class="warning"><strong>Motivo:</strong><br>{escape(reason)}</div>'
+            if reason
+            else ""
+        )
+        body = f"""
+        <h2>Novedades sobre tu membresía</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Tu membresía en <strong>{escape(club_name)}</strong> no sigue adelante por ahora.</p>
+        {reason_html}
+        <p>Puedes buscar otro club cercano o hablar con la dirección del club.</p>
+        """
+    content = f"""{body}
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Tu membresía de club - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -348,6 +394,26 @@ async def send_consent_request_email(
         to,
         "Autorización para unirse a un club - Adventist.Club",
         consent_request_email_html(child_name, club_name, link),
+    )
+
+
+async def send_pending_requests_email(
+    to: str, director_name: str, club_name: str, pending: int, link: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Solicitudes por revisar en {club_name} - Adventist.Club",
+        pending_requests_email_html(director_name, club_name, pending, link),
+    )
+
+
+async def send_membership_decision_email(
+    to: str, name: str, club_name: str, approved: bool, reason: str | None = None
+) -> bool:
+    return await send_email(
+        to,
+        "Tu membresía de club - Adventist.Club",
+        membership_decision_email_html(name, club_name, approved, reason),
     )
 
 

@@ -237,6 +237,75 @@ class ConsentResend(BaseModel):
     model_config = {"extra": "forbid"}
 
 
+# ----------------------------------------------------------------------------
+# Join requests (E4)
+# ----------------------------------------------------------------------------
+class JoinRequestCreate(BaseModel):
+    club_id: uuid_module.UUID
+    message: str | None = Field(default=None, max_length=500)
+    # Minors: where to ask for the authorization.
+    guardian_email: EmailStr | None = None
+    # Leaving another club is never a side effect: the person says so.
+    confirm_transfer: bool = False
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("message")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = " ".join(value.split())
+        return value or None
+
+
+class JoinRequestOut(BaseModel):
+    """A request as the person who made it sees it."""
+
+    membership_id: str
+    club: ClubRef
+    role: str
+    status: str
+    message: str | None = None
+    created_at: datetime
+
+
+class RequestRow(BaseModel):
+    """A line of the club's queue. Age in years, never a birth date, no e-mail.
+    A minor only ever appears here once a guardian has authorized them."""
+
+    membership_id: str
+    user_id: str
+    name: str
+    role: str
+    status: str
+    is_minor: bool
+    age: int | None = None
+    message: str | None = None
+    source: str
+    created_at: datetime
+    consent: ConsentSummary | None = None
+
+
+class RequestDecision(BaseModel):
+    """Approving may grant a different role, within what the actor may give."""
+
+    role: ClubRole | None = None
+    reason: str | None = Field(default=None, max_length=1000)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("reason")
+    @classmethod
+    def _trimmed_reason(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+
+class BulkApproval(BaseModel):
+    approved: int
+
+
 class MembershipEnded(BaseModel):
     membership_id: str
     club_id: str
@@ -281,7 +350,12 @@ def as_membership_out(membership, club) -> MembershipOut:
 
 
 __all__ = [
+    "BulkApproval",
     "ChildRef",
+    "JoinRequestCreate",
+    "JoinRequestOut",
+    "RequestDecision",
+    "RequestRow",
     "ClubProfileOut",
     "ClubProfileUpdate",
     "ClubRef",

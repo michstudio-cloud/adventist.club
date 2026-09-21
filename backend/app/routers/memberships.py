@@ -28,6 +28,8 @@ from app.schemas.membership import (
     ConsentResend,
     InvitationAccept,
     InvitationPreview,
+    JoinRequestCreate,
+    JoinRequestOut,
     MembershipEnded,
     MembershipOut,
     MyMembership,
@@ -146,6 +148,82 @@ async def accept_invitation(
         )
     await db.commit()
     return as_membership_out(membership, club)
+
+
+# ----------------------------------------------------------------------------
+# Asking to join from `/clubs` (E4)
+# ----------------------------------------------------------------------------
+@router.post("/requests", response_model=JoinRequestOut, status_code=status.HTTP_201_CREATED)
+async def request_to_join(
+    payload: JoinRequestCreate,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Ask a club to take you in. The club decides; nobody walks in."""
+    club = await membership_service.get_club(db, payload.club_id)
+    membership, consent_token = await membership_service.request_to_join(
+        db,
+        member=current_user,
+        club=club,
+        message=payload.message,
+        guardian_email=payload.guardian_email,
+        confirm_transfer=payload.confirm_transfer,
+        request=request,
+    )
+    if consent_token:
+        await notifications.queue_consent_request(
+            db,
+            background,
+            membership=membership,
+            member=current_user,
+            club=club,
+            token=consent_token,
+            recipients=await notifications.consent_recipients(db, membership, current_user),
+        )
+    else:
+        # A minor is not announced to the club until a guardian authorizes.
+        pending = await membership_service.pending_requests(db, club.id)
+        await notifications.queue_pending_requests_notice(
+            db, background, club=club, pending=len(pending)
+        )
+    await db.commit()
+    return _as_request_out(membership, club)
+
+
+@router.delete("/requests/{membership_id}", response_model=MembershipEnded)
+async def cancel_request(
+    membership_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    membership = await _membership_or_404(db, membership_id)
+    if membership.user_id != current_user.id:
+        # Same answer as a request that does not exist.
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Membresía no encontrada")
+    await membership_service.cancel_request(
+        db, membership, member=current_user, request=request
+    )
+    await db.commit()
+    return MembershipEnded(
+        membership_id=str(membership.id),
+        club_id=str(membership.club_id),
+        status=membership.status,
+        end_reason=membership.end_reason,
+    )
+
+
+def _as_request_out(membership, club) -> JoinRequestOut:
+    return JoinRequestOut(
+        membership_id=str(membership.id),
+        club=as_club_ref(club),
+        role=membership.role,
+        status=membership.status,
+        message=membership.message,
+        created_at=membership.created_at,
+    )
 
 
 # ----------------------------------------------------------------------------

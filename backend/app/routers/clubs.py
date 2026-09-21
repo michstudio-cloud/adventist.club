@@ -24,6 +24,7 @@ from app.rbac import (
     can_view_roster,
 )
 from app.schemas.membership import (
+    BulkApproval,
     ClubProfileOut,
     ClubProfileUpdate,
     ClubRole,
@@ -36,10 +37,14 @@ from app.schemas.membership import (
     MemberRoleUpdate,
     MemberRow,
     MembershipEnded,
+    MembershipOut,
     MembershipStatus,
+    RequestDecision,
+    RequestRow,
     as_invitation_out,
+    as_membership_out,
 )
-from app.security import COUNSELOR, utcnow
+from app.security import COUNSELOR, STUDENT, utcnow
 from app.services import email as email_service
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
@@ -180,14 +185,24 @@ async def remove_member(
     membership_id: uuid.UUID,
     payload: MemberRemoval,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Take somebody off the roster, always with a reason: it reaches them."""
     club = await _club_for_manager(db, current_user, club_id)
     membership = await membership_service.get_membership_of_club(db, club, membership_id)
-    await membership_service.remove_member(
+    membership, member = await membership_service.remove_member(
         db, membership, reason=payload.reason, actor=current_user, request=request
+    )
+    await notifications.queue_membership_decision(
+        db,
+        background,
+        membership=membership,
+        member=member,
+        club=club,
+        approved=False,
+        reason=payload.reason,
     )
     await db.commit()
     return MembershipEnded(
@@ -196,6 +211,166 @@ async def remove_member(
         status=membership.status,
         end_reason=membership.end_reason,
     )
+
+
+# ----------------------------------------------------------------------------
+# The queue of people asking to join (E4)
+# ----------------------------------------------------------------------------
+@router.get("/{club_id}/requests", response_model=list[RequestRow])
+async def list_requests(
+    club_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """What the club has to decide. A minor who asked is NOT here until their
+    guardian authorized: the club does not get to know about them first (§7)."""
+    club = await _club_for_manager(db, current_user, club_id)
+    rows = await membership_service.pending_requests(db, club.id)
+    # `pending_requests` gives up on stale ones; that write belongs to this read.
+    await db.commit()
+
+    out = []
+    for membership in rows:
+        member = await db.get(User, membership.user_id)
+        if member is None:
+            continue
+        minor = is_minor_user(member)
+        out.append(
+            RequestRow(
+                membership_id=str(membership.id),
+                user_id=str(member.id),
+                name=member.name,
+                role=membership.role,
+                status=membership.status,
+                is_minor=minor,
+                age=age_in_years(member.birth_date),
+                message=membership.message,
+                source=membership.source,
+                created_at=membership.created_at,
+                consent=(
+                    ConsentSummary(
+                        status="APPROVED" if membership.consent_at else None,
+                        guardian_name=await _guardian_name(db, membership, member),
+                    )
+                    if minor
+                    else None
+                ),
+            )
+        )
+    return out
+
+
+async def _decide(
+    db: AsyncSession,
+    background: BackgroundTasks,
+    *,
+    club: Organization,
+    membership_id: uuid.UUID,
+    actor: User,
+    approve: bool,
+    role: str | None,
+    reason: str | None,
+    request: Request,
+) -> ClubMembership:
+    membership = await membership_service.get_membership_of_club(db, club, membership_id)
+    membership, member = await membership_service.decide_request(
+        db,
+        membership,
+        actor=actor,
+        approve=approve,
+        role=role,
+        reason=reason,
+        request=request,
+    )
+    await notifications.queue_membership_decision(
+        db,
+        background,
+        membership=membership,
+        member=member,
+        club=club,
+        approved=approve,
+        reason=reason,
+    )
+    await db.commit()
+    return membership
+
+
+@router.post("/{club_id}/requests/{membership_id}/approve", response_model=MembershipOut)
+async def approve_request(
+    club_id: uuid.UUID,
+    membership_id: uuid.UUID,
+    payload: RequestDecision,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Let somebody in, with the role they asked for or another the actor may
+    grant. If they belonged to another club, this is the transfer."""
+    club = await _club_for_manager(db, current_user, club_id)
+    membership = await _decide(
+        db,
+        background,
+        club=club,
+        membership_id=membership_id,
+        actor=current_user,
+        approve=True,
+        role=payload.role,
+        reason=None,
+        request=request,
+    )
+    return as_membership_out(membership, club)
+
+
+@router.post("/{club_id}/requests/{membership_id}/reject", response_model=MembershipOut)
+async def reject_request(
+    club_id: uuid.UUID,
+    membership_id: uuid.UUID,
+    payload: RequestDecision,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    club = await _club_for_manager(db, current_user, club_id)
+    membership = await _decide(
+        db,
+        background,
+        club=club,
+        membership_id=membership_id,
+        actor=current_user,
+        approve=False,
+        role=None,
+        reason=payload.reason,
+        request=request,
+    )
+    return as_membership_out(membership, club)
+
+
+@router.post("/{club_id}/requests/approve-all", response_model=BulkApproval)
+async def approve_all_requests(
+    club_id: uuid.UUID,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """One touch per intake (decision D2). Only STUDENT requests: a role that
+    carries authority over minors is always decided one by one."""
+    club = await _club_for_manager(db, current_user, club_id)
+    approved = 0
+    for membership in await membership_service.pending_requests(db, club.id):
+        if membership.role != STUDENT:
+            continue
+        membership, member = await membership_service.decide_request(
+            db, membership, actor=current_user, approve=True, request=request
+        )
+        await notifications.queue_membership_decision(
+            db, background, membership=membership, member=member, club=club, approved=True
+        )
+        approved += 1
+    await db.commit()
+    return BulkApproval(approved=approved)
 
 
 # ----------------------------------------------------------------------------

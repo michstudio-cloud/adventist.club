@@ -28,9 +28,12 @@ logger = logging.getLogger(__name__)
 CONSENT_REQUEST = "CONSENT_REQUEST"
 CONSENT_RESEND = "CONSENT_RESEND"
 CLUB_INVITATION = "CLUB_INVITATION"
+PENDING_REQUESTS = "PENDING_REQUESTS"
+MEMBERSHIP_DECISION = "MEMBERSHIP_DECISION"
 
 MEMBERSHIP = "MEMBERSHIP"
 INVITATION = "INVITATION"
+ORGANIZATION = "ORGANIZATION"
 
 # A minor's club must never become a way to send somebody mail.
 CONSENT_RESENDS_PER_DAY = 3
@@ -146,4 +149,81 @@ async def queue_consent_request(
             member.name,
             club.name,
             consent_url(token),
+        )
+
+
+# ----------------------------------------------------------------------------
+# Join requests and decisions (E4)
+# ----------------------------------------------------------------------------
+def club_panel_url() -> str:
+    return f"{settings.frontend_url}/panel/club"
+
+
+async def queue_pending_requests_notice(
+    db: AsyncSession, background, *, club, pending: int
+) -> None:
+    """
+    Tell the club's directors there is something to decide, and ONLY when the
+    queue went from nothing to something: a club with a steady trickle is not
+    e-mailed on every request. The message carries a count and a link, never a
+    name — some of the people waiting are minors (spec §5.10).
+    """
+    if pending != 1:
+        return
+    for director in await memberships.club_directors(db, club.id):
+        log = stage_log(
+            db,
+            kind=PENDING_REQUESTS,
+            email=director.email,
+            entity_type=ORGANIZATION,
+            entity_id=club.id,
+            user_id=director.id,
+        )
+        background.add_task(
+            send_and_record,
+            email_service.send_pending_requests_email,
+            log.id,
+            director.email,
+            director.name,
+            club.name,
+            pending,
+            club_panel_url(),
+        )
+
+
+async def queue_membership_decision(
+    db: AsyncSession,
+    background,
+    *,
+    membership,
+    member,
+    club,
+    approved: bool,
+    reason: str | None = None,
+) -> None:
+    """The person is always told; a minor's guardians are told too, because the
+    decision is about a minor in their care."""
+    recipients = [(member.id, member.email, member.name)]
+    if member.is_minor or member.birth_date is not None:
+        for guardian in await memberships.approved_guardians(db, member.id):
+            recipients.append((guardian.id, guardian.email, member.name))
+
+    for user_id, address, name in recipients:
+        log = stage_log(
+            db,
+            kind=MEMBERSHIP_DECISION,
+            email=address,
+            entity_type=MEMBERSHIP,
+            entity_id=membership.id,
+            user_id=user_id,
+        )
+        background.add_task(
+            send_and_record,
+            email_service.send_membership_decision_email,
+            log.id,
+            address,
+            name,
+            club.name,
+            approved,
+            reason,
         )
