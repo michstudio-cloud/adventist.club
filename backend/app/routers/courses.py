@@ -32,6 +32,7 @@ from app.schemas.course import (
     LessonOut,
     PaginatedCourses,
     PlanItemIn,
+    RequirementQuestionsIn,
 )
 from app.schemas.honor import HonorReviewIn
 from app.schemas.portfolio import EnrollmentDetail
@@ -188,6 +189,31 @@ async def set_plan(
 ):
     """The whole plan at once: one entry per requirement, never more lenient than the honor."""
     return await courses.set_plan(db, current_user, course_id, payload, request)
+
+
+@router.put("/{course_id}/requirements/{position}/questions", response_model=CourseStaffDetail)
+async def set_requirement_questions(
+    course_id: uuid.UUID,
+    position: int,
+    payload: RequirementQuestionsIn,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Replace the bank of one requirement and mark it `EXAM`. 409 if the honor marks that
+    requirement practical: a test never replaces evidence."""
+    return await courses.set_questions(db, current_user, course_id, position, payload, request)
+
+
+@router.post("/{course_id}/import-honor-bank", response_model=CourseStaffDetail)
+async def import_honor_bank(
+    course_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Copy the bank of the honor into the course, only for an honor the instructor wrote."""
+    return await courses.import_honor_bank(db, current_user, course_id, request)
 
 
 # ----------------------------------------------------------------------------

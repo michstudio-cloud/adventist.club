@@ -1,4 +1,4 @@
-# Estado del bloque B — Cursos del instructor virtual (I1–I3)
+# Estado de los bloques B y C — Cursos del instructor virtual y exámenes (I1–I4)
 
 Nota de trabajo del bloque B, aparte de `docs/ESTADO.md` para no chocar con la rama del bloque E.
 Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md` (§3 y §10).
@@ -74,6 +74,33 @@ Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md
   cuando se archiva; si lo retira la autoridad, el contenido se cierra y el instructor pierde
   `can_review` / `can_issue` sobre él.
 
+### I4 — Banco de preguntas del curso y plan `EXAM` (`migrations/010_exams.sql`)
+- **Paso previo de seguridad (hallazgo 2):** `GET /honors/{id}/instructor` ya **no** entrega el banco
+  con respuestas a cualquier `INSTRUCTOR`, tampoco de una especialidad publicada. Lo leen el creador,
+  los revisores en alcance y MASTER_GC; el resto recibe 403 si la especialidad es pública y 404 si no.
+- `010_exams.sql` añade `course_questions` (banco **por curso y requisito**, con FK compuesta a
+  `course_requirements` y `ON DELETE CASCADE`), `exam_attempts`, `exam_answers`, seis columnas de
+  examen en `courses` (`exam_passing_score` 80–100, `exam_time_limit_minutes` 5–180,
+  `max_exam_attempts` 1–10, `exam_mode`, `session_code`, `session_code_expires_at`) y
+  `honor_enrollments.exam_extra_time_percent` (0/25/50/100). Aditiva e idempotente.
+- Un requisito llega a `EXAM` **por su banco**: `PUT /courses/{id}/requirements/{position}/questions`
+  `{draw_count, question_bank}` reemplaza el banco y marca `EXAM`; 409 si la especialidad marca ese
+  requisito práctico. `PUT /{id}/plan` actualiza las filas **en su sitio** (antes borraba y reinsertaba,
+  lo que se habría llevado el banco por cascada) y 422 si declara `EXAM` sin banco; sacar un requisito
+  de `EXAM` borra su banco y deja `draw_count = 0`.
+- Validación de pregunta en el servidor: opción múltiple de 2 a 6 opciones distintas y respuesta
+  correcta entre ellas; verdadero/falso sin opciones y con `true`/`false`; respuesta corta de 1 a 10
+  alternativas separadas por `|` (≤ 120 c/u); `points` de 1 a 10; enunciado ≤ 1000.
+- `POST /courses/{id}/import-honor-bank` copia `honor_questions` casando por posición, sólo si la
+  especialidad la creó el propio instructor (403 si no); nunca importa un requisito práctico.
+- `POST /{id}/submit` rechaza: banco más corto que el sorteo, más de 60 preguntas sorteadas en total,
+  preguntas `SHORT_ANSWER` o `ESSAY` y `exam_mode = 'IN_PERSON'` — las dos últimas **hasta I6**, para
+  que ningún intento quede esperando a un calificador que todavía no existe.
+- Avisos no bloqueantes en `GET /{id}/instructor` (`warnings`): banco menor que 2 × `draw_count` y
+  «este curso emitirá el certificado automáticamente al aprobar» cuando no hay requisitos con evidencia.
+- Las respuestas correctas viven sólo en `CourseStaffDetail.question_banks`. `GET /courses/{id}` y el
+  escaparate no declaran ese campo: no pueden filtrarlo por construcción.
+
 ## Ajustes nuevos
 Ninguno. I1 reutiliza `R2_PRIVATE_BUCKET_NAME` (el bucket privado del bloque A); sin ese ajuste, los
 endpoints de la carta responden 503 y todo lo demás sigue funcionando. I2 no añade ajustes: el
@@ -81,14 +108,18 @@ material de las lecciones usa el bucket público que ya existe.
 
 ## Orden de despliegue
 1. Aplicar en Neon, **antes** de subir el backend y en este orden:
-   `backend/migrations/009_church_letters.sql`, `backend/migrations/009b_courses.sql` y
-   `backend/migrations/009c_course_enrollment.sql`.
+   `backend/migrations/009_church_letters.sql`, `backend/migrations/009b_courses.sql`,
+   `backend/migrations/009c_course_enrollment.sql` y `backend/migrations/010_exams.sql`.
    Las dos son aditivas e idempotentes (`IF NOT EXISTS`, columnas nullable); no borran ni reescriben
    nada, y se pueden aplicar dos veces sin efecto.
 2. Backend (Render).
 3. Frontend: hasta que exista, nada de esto se ve; el API es aditivo y ningún contrato anterior cambia.
 
-## Lo que falta (I4–I7)
-`010_exams.sql` (banco de preguntas por curso, parámetros de examen, intentos y respuestas) y
-`011_certificate_revocation.sql` (emisión automática, curso en la verificación pública y anulación).
-Las costuras están anotadas en el código con el incremento al que pertenecen.
+## Lo que falta (I6 e I7)
+I6 (calificación manual de `SHORT_ANSWER` y `ESSAY`, anulación de intentos y código de sesión
+presencial) e I7 (`011_certificate_revocation.sql`: emisión automática al aprobar sin parte práctica,
+curso e instructor en la verificación pública, anulación de certificados por la Asociación).
+Las tablas de I6 ya existen (`010_exams.sql` crea `exam_attempts.voided_*`, `exam_answers.graded_*`
+y `courses.session_code`); mientras I6 no exista, enviar a revisión un curso con preguntas de
+calificación manual o en modo `IN_PERSON` se rechaza. Las costuras están anotadas en el código con
+el incremento al que pertenecen.

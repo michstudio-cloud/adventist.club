@@ -29,15 +29,19 @@ from app.db import violated_constraint
 from app.models import (
     Course,
     CourseLesson,
+    CourseQuestion,
     CourseRequirement,
     Honor,
     HonorEnrollment,
+    HonorQuestion,
+    HonorRequirement,
     HonorReview,
     Organization,
     User,
 )
 from app.rbac import club_scope_paths, instructor_is_verified, is_master, org_in_review_scope
 from app.schemas.course import (
+    MAX_DRAWN_QUESTIONS,
     MAX_LESSON_BYTES,
     MAX_LESSONS_PER_COURSE,
     AssessmentCounts,
@@ -46,6 +50,7 @@ from app.schemas.course import (
     CourseCreate,
     CourseDetail,
     CourseOperation,
+    CourseQuestionOut,
     CourseStaffDetail,
     CourseUpdate,
     CourseVersionCreate,
@@ -55,6 +60,8 @@ from app.schemas.course import (
     PaginatedCourses,
     PlanItemIn,
     PlanItemOut,
+    RequirementBankOut,
+    RequirementQuestionsIn,
 )
 from app.schemas.honor import HonorReviewIn, ReviewOut
 from app.schemas.portfolio import PersonRef
@@ -78,6 +85,9 @@ EXAM, REVIEW, EVIDENCE = "EXAM", "REVIEW", "EVIDENCE"
 IN_REVIEW = (ZONE_REVIEW, ASSOCIATION_REVIEW)
 # Enrollments that take up a seat (the statuses of Bloque A that are still open).
 LIVE_ENROLLMENT_STATUSES = ("IN_PROGRESS", "READY")
+# Question types a machine cannot decide. They arrive with I6 (manual grading); until then
+# a course carrying them is not allowed into review, so no attempt waits for nobody.
+NEEDS_MANUAL_GRADING = {"SHORT_ANSWER", "ESSAY"}
 # A course keeps its content open only while it is a draft.
 EDITABLE = (DRAFT,)
 
@@ -182,6 +192,38 @@ async def _plan_rows(db: AsyncSession, course_id: uuid.UUID) -> list[CourseRequi
     return list((await db.execute(stmt)).scalars().all())
 
 
+async def _bank_rows(db: AsyncSession, course_id: uuid.UUID) -> list[CourseQuestion]:
+    stmt = (
+        select(CourseQuestion)
+        .where(CourseQuestion.course_id == course_id)
+        .order_by(CourseQuestion.requirement_position, CourseQuestion.position, CourseQuestion.id)
+    )
+    return list((await db.execute(stmt)).scalars().all())
+
+
+async def _banks_out(db: AsyncSession, course: Course) -> list[RequirementBankOut]:
+    """STAFF ONLY: the bank with its answers. Never reachable from a member-facing payload."""
+    draw = {row.requirement_position: row.draw_count for row in await _plan_rows(db, course.id)}
+    grouped: dict[int, list[CourseQuestionOut]] = {}
+    for row in await _bank_rows(db, course.id):
+        grouped.setdefault(row.requirement_position, []).append(
+            CourseQuestionOut(
+                id=str(row.id),
+                position=row.position,
+                question_text=row.question_text,
+                question_type=row.question_type,
+                options=list(row.options) if row.options else None,
+                correct_answer=row.correct_answer,
+                points=row.points,
+                explanation=row.explanation,
+            )
+        )
+    return [
+        RequirementBankOut(position=position, draw_count=draw.get(position, 0), questions=questions)
+        for position, questions in sorted(grouped.items())
+    ]
+
+
 async def _plan_out(db: AsyncSession, course: Course) -> list[PlanItemOut]:
     requirements = await _honor_requirements(db, course)
     return [
@@ -256,6 +298,12 @@ async def _card_fields(db: AsyncSession, course: Course) -> dict:
         "seats_left": None if course.capacity is None else max(course.capacity - enrolled, 0),
         "instructor_verified": await instructor_is_verified(db, instructor),
         "published_at": course.published_at,
+        # I4: the rules of the exam are public (the member decides whether to join knowing
+        # the threshold, the clock and how many attempts they get). The questions are not.
+        "exam_passing_score": course.exam_passing_score,
+        "exam_time_limit_minutes": course.exam_time_limit_minutes,
+        "max_exam_attempts": course.max_exam_attempts,
+        "exam_mode": course.exam_mode,
     }
 
 
@@ -311,7 +359,41 @@ async def _detail(
         )
         for row in reviews
     ]
+    fields["question_banks"] = await _banks_out(db, course)
+    fields["warnings"] = await _warnings(db, course)
     return CourseStaffDetail(**fields)
+
+
+async def _warnings(db: AsyncSession, course: Course) -> list[str]:
+    """Notes the author and the reviewers read, none of which blocks anything (§4.1)."""
+    notes = []
+    counts = await _bank_sizes(db, course.id)
+    for row in await _plan_rows(db, course.id):
+        if row.assessment != EXAM:
+            continue
+        if counts.get(row.requirement_position, 0) < 2 * row.draw_count:
+            notes.append(
+                f"El banco del requisito {row.requirement_position} tiene menos del doble de"
+                " preguntas que se sortean: el examen apenas variará entre intentos."
+            )
+    plan = await _plan_rows(db, course.id)
+    if plan and any(row.assessment == EXAM for row in plan) and not any(
+        row.assessment == EVIDENCE for row in plan
+    ):
+        notes.append(
+            "Este curso no tiene requisitos con evidencia: al aprobar el examen, el"
+            " certificado se emitirá automáticamente a nombre del instructor."
+        )
+    return notes
+
+
+async def _bank_sizes(db: AsyncSession, course_id: uuid.UUID) -> dict[int, int]:
+    stmt = (
+        select(CourseQuestion.requirement_position, func.count())
+        .where(CourseQuestion.course_id == course_id)
+        .group_by(CourseQuestion.requirement_position)
+    )
+    return dict((await db.execute(stmt)).all())
 
 
 # ----------------------------------------------------------------------------
@@ -372,10 +454,21 @@ async def _commit_unique(db: AsyncSession, conflict_detail: str) -> None:
     try:
         await db.commit()
     except IntegrityError as exc:
-        await db.rollback()
-        if violated_constraint(exc) not in LIVE_COURSE_CONSTRAINTS:
-            raise
-        raise HTTPException(status.HTTP_409_CONFLICT, conflict_detail) from exc
+        await _reraise_unique(db, exc, conflict_detail)
+
+
+async def _flush_unique(db: AsyncSession, conflict_detail: str) -> None:
+    try:
+        await db.flush()
+    except IntegrityError as exc:
+        await _reraise_unique(db, exc, conflict_detail)
+
+
+async def _reraise_unique(db: AsyncSession, exc: IntegrityError, conflict_detail: str) -> None:
+    await db.rollback()
+    if violated_constraint(exc) not in LIVE_COURSE_CONSTRAINTS:
+        raise exc
+    raise HTTPException(status.HTTP_409_CONFLICT, conflict_detail) from exc
 
 
 def record_course_audit(
@@ -410,8 +503,12 @@ async def update(
     changes = payload.model_dump(exclude_unset=True)
     if changes.get("title") is not None:
         course.title = changes["title"].strip()
-    for column in ("summary", "cover_url"):
+    for column in ("summary", "cover_url", "exam_time_limit_minutes"):
         if column in changes:
+            setattr(course, column, changes[column])
+    # NOT NULL columns: only a value moves them, never an explicit null.
+    for column in ("exam_passing_score", "max_exam_attempts", "exam_mode"):
+        if changes.get(column) is not None:
             setattr(course, column, changes[column])
     course.updated_at = utcnow()
     record_course_audit(db, "UPDATE", course, actor, request, metadata={"fields": sorted(changes)})
@@ -573,21 +670,183 @@ async def set_plan(
             + ", ".join(str(position) for position in sorted(relaxed)),
         )
 
-    await db.execute(delete(CourseRequirement).where(CourseRequirement.course_id == course.id))
-    db.add_all(
-        CourseRequirement(
-            course_id=course.id,
-            requirement_position=item.position,
-            assessment=item.assessment,
-            draw_count=0,  # only an EXAM requirement draws questions (I4)
-            guidance=item.guidance,
-        )
-        for item in items
-    )
+    # The rows are updated in place, never deleted and re-created: `course_questions` hangs
+    # from (course_id, requirement_position) with ON DELETE CASCADE, and rewriting the plan
+    # would take the instructor's whole question bank with it.
+    current = {row.requirement_position: row for row in await _plan_rows(db, course.id)}
+    sizes = await _bank_sizes(db, course.id)
+    for item in items:
+        row = current.get(item.position)
+        if row is None:
+            row = CourseRequirement(course_id=course.id, requirement_position=item.position)
+            db.add(row)
+            current[item.position] = row
+        if item.assessment == EXAM:
+            # A position reaches EXAM through its bank: the CHECK of `course_requirements`
+            # refuses `EXAM` with `draw_count = 0`, and so does the spec (§4.1).
+            if not row.draw_count or sizes.get(item.position, 0) < row.draw_count:
+                raise HTTPException(
+                    status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    f"El requisito {item.position} no tiene banco de preguntas: defínelo antes"
+                    " de evaluarlo con el examen",
+                )
+        else:
+            # Assessment and draw_count move together: the CHECK of `course_requirements`
+            # refuses the half-way state, and any query in between would flush it.
+            row.assessment, row.draw_count = item.assessment, 0
+            await db.execute(
+                delete(CourseQuestion).where(
+                    CourseQuestion.course_id == course.id,
+                    CourseQuestion.requirement_position == item.position,
+                )
+            )
+        row.assessment = item.assessment
+        row.guidance = item.guidance
     course.updated_at = utcnow()
     record_course_audit(
         db, "UPDATE", course, actor, request, details="Plan de evaluación actualizado",
         metadata={"plan": {str(item.position): item.assessment for item in items}},
+    )
+    await db.commit()
+    return await _detail(db, actor, course, staff=True)
+
+
+# ----------------------------------------------------------------------------
+# I4 — the question bank of a requirement
+# ----------------------------------------------------------------------------
+async def set_questions(
+    db: AsyncSession,
+    actor: User,
+    course_id: uuid.UUID,
+    position: int,
+    payload: RequirementQuestionsIn,
+    request: Request | None,
+) -> CourseStaffDetail:
+    """Replace the bank of ONE requirement and mark it `EXAM`. A requirement the honor
+    marks practical is never answered with a test (rule 4: never more lenient)."""
+    course = await _get_course(db, course_id, lock=True)
+    await _require_author(db, actor, course)
+    _require_draft(course)
+
+    requirements = await _honor_requirements(db, course)
+    requirement = requirements.get(position)
+    if requirement is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Ese requisito no existe en la especialidad")
+    if not requirement.is_theoretical:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            "Ese requisito es práctico en la especialidad: se dictamina con evidencia, no con"
+            " un examen",
+        )
+    row = next(
+        (r for r in await _plan_rows(db, course.id) if r.requirement_position == position), None
+    )
+    if row is None:
+        row = CourseRequirement(course_id=course.id, requirement_position=position)
+        db.add(row)
+
+    await db.execute(
+        delete(CourseQuestion).where(
+            CourseQuestion.course_id == course.id,
+            CourseQuestion.requirement_position == position,
+        )
+    )
+    row.assessment = EXAM
+    row.draw_count = payload.draw_count
+    await db.flush()
+    db.add_all(
+        CourseQuestion(
+            id=uuid.uuid4(),
+            course_id=course.id,
+            requirement_position=position,
+            position=index,
+            question_text=question.question_text,
+            question_type=question.question_type,
+            options=question.options,
+            correct_answer=question.correct_answer,
+            points=question.points,
+            explanation=question.explanation,
+            created_at=utcnow(),
+        )
+        for index, question in enumerate(payload.question_bank, start=1)
+    )
+    course.updated_at = utcnow()
+    record_course_audit(
+        db, "UPDATE", course, actor, request,
+        details=f"Banco de preguntas del requisito {position}",
+        metadata={"position": position, "draw_count": payload.draw_count,
+                  "questions": len(payload.question_bank)},
+    )
+    await db.commit()
+    return await _detail(db, actor, course, staff=True)
+
+
+async def import_honor_bank(
+    db: AsyncSession, actor: User, course_id: uuid.UUID, request: Request | None
+) -> CourseStaffDetail:
+    """Copy `honor_questions` into the course's bank, matching by position — only for an
+    honor the instructor wrote themselves (§4.1). Practical positions are never imported."""
+    course = await _get_course(db, course_id, lock=True)
+    await _require_author(db, actor, course)
+    _require_draft(course)
+    honor = await db.get(Honor, course.honor_id)
+    if honor is None or honor.created_by_id != actor.id:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "Solo puedes importar el banco de una especialidad que escribiste tú",
+        )
+
+    requirements = await _honor_requirements(db, course)
+    plan = {row.requirement_position: row for row in await _plan_rows(db, course.id)}
+    source = (
+        await db.execute(
+            select(HonorQuestion, HonorRequirement.position)
+            .join(HonorRequirement, HonorRequirement.id == HonorQuestion.requirement_id)
+            .where(HonorRequirement.honor_id == honor.id, HonorRequirement.locale == course.locale)
+            .order_by(HonorRequirement.position, HonorQuestion.position, HonorQuestion.id)
+        )
+    ).all()
+
+    imported: dict[int, int] = {}
+    for question, position in source:
+        requirement = requirements.get(position)
+        row = plan.get(position)
+        if requirement is None or row is None or not requirement.is_theoretical:
+            continue  # a practical requirement keeps its evidence
+        if position not in imported:
+            await db.execute(
+                delete(CourseQuestion).where(
+                    CourseQuestion.course_id == course.id,
+                    CourseQuestion.requirement_position == position,
+                )
+            )
+            row.assessment = EXAM
+            row.draw_count = max(row.draw_count, 1)
+            imported[position] = 0
+        imported[position] += 1
+        db.add(
+            CourseQuestion(
+                id=uuid.uuid4(),
+                course_id=course.id,
+                requirement_position=position,
+                position=imported[position],
+                question_text=question.question_text,
+                question_type=question.question_type,
+                options=list(question.options) if question.options else None,
+                correct_answer=question.correct_answer,
+                points=min(max(question.points, 1), 10),
+                explanation=question.explanation,
+                created_at=utcnow(),
+            )
+        )
+    if not imported:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "La especialidad no tiene preguntas que importar"
+        )
+    course.updated_at = utcnow()
+    record_course_audit(
+        db, "UPDATE", course, actor, request, details="Banco importado de la especialidad",
+        metadata={"imported": imported},
     )
     await db.commit()
     return await _detail(db, actor, course, staff=True)
@@ -620,6 +879,52 @@ async def _missing_before_submit(db: AsyncSession, course: Course) -> list[str]:
                 "hay requisitos prácticos sin evidencia: "
                 + ", ".join(str(position) for position in sorted(relaxed))
             )
+    missing += await _missing_exam(db, course, list(plan.values()))
+    return missing
+
+
+async def _missing_exam(
+    db: AsyncSession, course: Course, plan: list[CourseRequirement]
+) -> list[str]:
+    """Nobody publishes an exam that cannot be sat, and — until I6 — nobody publishes one
+    whose answers would sit waiting for a grader that does not exist yet (§10, I6)."""
+    exam_rows = [row for row in plan if row.assessment == EXAM]
+    if not exam_rows:
+        return []
+    missing = []
+    sizes = await _bank_sizes(db, course.id)
+    short = [
+        row.requirement_position
+        for row in exam_rows
+        if row.draw_count < 1 or sizes.get(row.requirement_position, 0) < row.draw_count
+    ]
+    if short:
+        missing.append(
+            "el banco de preguntas no alcanza para el sorteo en los requisitos "
+            + ", ".join(str(position) for position in sorted(short))
+        )
+    drawn = sum(row.draw_count for row in exam_rows)
+    if drawn > MAX_DRAWN_QUESTIONS:
+        missing.append(
+            f"el examen sortearía {drawn} preguntas y el máximo es {MAX_DRAWN_QUESTIONS}"
+        )
+    # --- I6 gate -------------------------------------------------------------
+    types = {
+        row.question_type
+        for row in await _bank_rows(db, course.id)
+        if row.requirement_position in {r.requirement_position for r in exam_rows}
+    }
+    needs_grader = sorted(types & NEEDS_MANUAL_GRADING)
+    if needs_grader:
+        missing.append(
+            "todavía no existe la calificación manual, así que el banco no puede llevar"
+            f" preguntas de tipo {', '.join(needs_grader)}"
+        )
+    if course.exam_mode != "ONLINE":
+        missing.append(
+            "el examen presencial (código de sesión) todavía no está disponible: deja el"
+            " examen en modo ONLINE"
+        )
     return missing
 
 
@@ -735,6 +1040,9 @@ async def create_version(
     # the INSERT and the unique index would raise outside the handler that turns it into a 409.
     source_lessons = await _lessons(db, original.id)
     previous_plan = {row.requirement_position: row for row in await _plan_rows(db, original.id)}
+    source_bank: dict[int, list[CourseQuestion]] = {}
+    for question in await _bank_rows(db, original.id):
+        source_bank.setdefault(question.requirement_position, []).append(question)
     if await _version_in_preparation(db, original, honor.id):
         raise HTTPException(status.HTTP_409_CONFLICT, "Ya tienes una versión de este curso en preparación")
 
@@ -754,6 +1062,10 @@ async def create_version(
         changes_description=payload.changes_description,
         enrollment_open=original.enrollment_open,
         capacity=original.capacity,
+        exam_passing_score=original.exam_passing_score,
+        exam_time_limit_minutes=original.exam_time_limit_minutes,
+        max_exam_attempts=original.max_exam_attempts,
+        exam_mode=original.exam_mode,
         created_at=now,
         updated_at=now,
     )
@@ -773,6 +1085,7 @@ async def create_version(
         )
     # Positions that no longer exist in the honor are dropped; new ones start from the
     # honor's own mark, exactly as when the course was created.
+    copied_bank = []
     for position, requirement in requirements:
         copied = previous_plan.get(position)
         assessment = copied.assessment if copied else (REVIEW if requirement.is_theoretical else EVIDENCE)
@@ -787,6 +1100,30 @@ async def create_version(
                 guidance=copied.guidance if copied else None,
             )
         )
+        if assessment != EXAM:
+            continue
+        # The bank is copied, never shared: editing the new version must not touch the
+        # exam the members of the published one are still sitting.
+        copied_bank += [
+            CourseQuestion(
+                id=uuid.uuid4(),
+                course_id=course.id,
+                requirement_position=position,
+                position=question.position,
+                question_text=question.question_text,
+                question_type=question.question_type,
+                options=list(question.options) if question.options else None,
+                correct_answer=question.correct_answer,
+                points=question.points,
+                explanation=question.explanation,
+                created_at=now,
+            )
+            for question in source_bank.get(position, [])
+        ]
+    if copied_bank:
+        # The plan rows go in first: `course_questions` points at them with a composite FK.
+        await _flush_unique(db, "Ya tienes una versión de este curso en preparación")
+        db.add_all(copied_bank)
     record_course_audit(
         db, "COURSE_VERSION", course, actor, request,
         details=f"Versión {course.version} de: {course.title}",

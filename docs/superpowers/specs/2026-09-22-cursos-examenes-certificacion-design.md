@@ -856,6 +856,31 @@ hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del d
 16. **`GET /courses/{id}/members` lo lee también MASTER_GC** (§3.8 lo dice) y responde **404** a
     cualquier otro, no 403: el padrón es del autor y no se confirma que exista.
 
+## Desviaciones de la implementación (I4, 21 sep 2026)
+
+17. **`PUT /{id}/plan` actualiza las filas del plan en su sitio**, ya no las borra y reinserta.
+    `course_questions` cuelga de `(course_id, requirement_position)` con `ON DELETE CASCADE`, así
+    que reescribir el plan se habría llevado el banco entero del instructor sin avisar.
+18. **Un requisito sólo llega a `EXAM` a través de su banco.** El CHECK
+    `((assessment = 'EXAM') = (draw_count > 0))` de `009b` hace imposible marcar `EXAM` sin sorteo,
+    así que `PUT /{id}/plan` con `EXAM` sobre un requisito sin banco responde 422 remitiendo a
+    `PUT /{id}/requirements/{position}/questions`. Sacar un requisito de `EXAM` borra su banco.
+19. **`POST /import-honor-bank` deja `draw_count = 1`** en los requisitos que recibieron preguntas y
+    los marca `EXAM`. El documento no decía con cuántas se sortea al importar; uno es el mínimo que
+    cumple el CHECK y el autor lo sube en el editor. Los requisitos prácticos nunca se importan.
+20. **`MAX_DRAWN_QUESTIONS = 60` acota también el `draw_count` de un solo requisito** (422), además
+    del total del examen (400 al enviar a revisión). Un requisito no puede sortear más preguntas de
+    las que el examen entero tiene permitidas.
+21. **`GET /honors/{id}/instructor` responde 403 en una especialidad publicada** y 404 en una que no
+    lo está. El documento sólo decía «sólo al creador, a los revisores en alcance y a MASTER_GC»;
+    negar la existencia de algo que el catálogo público ya muestra habría sido mentir.
+22. **Los parámetros del examen salen en `CourseDetail`** (umbral, tiempo, intentos y modo), no sólo
+    en la vista del autor: el miembro decide si se une sabiendo las reglas. El banco no sale nunca —
+    `CourseDetail` no declara el campo, de modo que no puede filtrarse por construcción.
+23. **Aviso extra de emisión automática.** Además del banco corto de §4.1, `warnings` incluye «este
+    curso emitirá el certificado automáticamente» cuando el plan no tiene ningún requisito
+    `EVIDENCE`: es la aceptación que §5.3 pide que vean el autor y los revisores.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de
