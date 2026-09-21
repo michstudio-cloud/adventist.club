@@ -69,13 +69,13 @@ su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`,
 
 ## Idiomas y plantillas (21 sep)
 
-Decisión y contrato en `docs/I18N_Y_PLANTILLAS.md`: next-intl + ICU en la UI, tablas de traducción para el catálogo,
+Visión de producto del responsable: `docs/VISION_ECOSISTEMA.md` (+ `VISION_ANEXO_MVP.md`). Decisión y contrato en `docs/I18N_Y_PLANTILLAS.md`: next-intl + ICU en la UI, tablas de traducción para el catálogo,
 plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejemplo en `templates/certificates/especialidad-basica/`).
 Árbol de organizaciones cargado con el directorio mundial del Yearbook (992 entidades); emisor = `ISSUER_ORGANIZATION_CODE=NTAM`
 (Asociación Norte de Tamaulipas), verificado en producción.
 
 - [x] Motor de plantillas (21 sep): `POST /certificates/render` y `GET /certificates/templates` en producción; plantilla `ntam-maestria` con el diseño oficial de NTAM.
-- [ ] **Fuentes Noto en `fonts/`**: sin ellas el endpoint responde 503 para PNG/PDF (resvg omite el texto si falta la fuente). Pendiente de permiso para descargarlas.
+- [x] Fuentes Noto (OFL) en `fonts/` (21 sep): PNG/PDF en producción, con emblema oficial por defecto (`templates/assets/emblems/`), parche desde R2, QR, textos y firmas traducidos; verificado en español e inglés. Para árabe, hebreo y CJK faltan sus familias Noto.
 - [ ] Frontend: que el asistente use `render` en lugar del canvas.
 - [x] Alta de clubes con aprobación del coordinador de la Asociación (21 sep): migración 003 aplicada, 125 tests, búsqueda de asociaciones sin acentos.
 - [ ] `users.locale`, `honor_translations`, `Accept-Language`; catálogo en inglés y portugués.
