@@ -69,6 +69,56 @@ class OrgNodeUpdate(_OrgWritable):
         return value
 
 
+class ClubSignup(BaseModel):
+    """A director's request to open a club under an association. Used both by
+    `POST /auth/register` (field `club`) and `POST /org-nodes/clubs`."""
+
+    name: str = Field(min_length=2, max_length=180)
+    association_id: uuid.UUID
+    church: str | None = Field(default=None, max_length=180)
+    city: str | None = Field(default=None, max_length=120)
+    contact: str | None = Field(default=None, max_length=180)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("name", "church", "city", "contact")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = " ".join(value.split())
+        return value or None
+
+    @field_validator("name")
+    @classmethod
+    def _name_required(cls, value: str | None) -> str:
+        if not value or len(value) < 2:
+            raise ValueError("name must have at least 2 characters")
+        return value
+
+
+class ClubDecision(BaseModel):
+    reason: str | None = Field(default=None, max_length=1000)
+
+    @field_validator("reason")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        value = (value or "").strip()
+        return value or None
+
+
+class OrgSearchResult(BaseModel):
+    """Compact row for pickers: the node plus the name of its parent."""
+
+    id: str
+    name: str
+    type: str
+    code: str | None
+    parent_id: str | None
+    parent_name: str | None
+    country: str | None
+
+
 class OrgNodeResponse(BaseModel):
     id: str
     name: str
@@ -112,6 +162,44 @@ class OrgNodeResponse(BaseModel):
             status=node.status.upper(),
             created_at=node.created_at,
             updated_at=node.updated_at,
+        )
+
+
+class OrgRef(BaseModel):
+    id: str
+    name: str
+    code: str | None = None
+
+
+class ClubRequester(BaseModel):
+    id: str
+    name: str
+    email: str
+
+
+class PendingClubResponse(OrgNodeResponse):
+    """A club request as coordinators see it."""
+
+    association: OrgRef | None = None
+    requested_by: ClubRequester | None = None
+
+    @classmethod
+    def build(
+        cls, node: Organization, association: Organization | None, requester=None
+    ) -> "PendingClubResponse":
+        base = OrgNodeResponse.from_model(node).model_dump()
+        return cls(
+            **base,
+            association=(
+                OrgRef(id=str(association.id), name=association.name, code=association.code)
+                if association is not None
+                else None
+            ),
+            requested_by=(
+                ClubRequester(id=str(requester.id), name=requester.name, email=requester.email)
+                if requester is not None
+                else None
+            ),
         )
 
 

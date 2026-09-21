@@ -43,7 +43,14 @@ ALL_ROLES = (
 ADMIN_ROLES = (MASTER_GC, ADMIN_DIVISION, ADMIN_UNION, ADMIN_ASSOCIATION, COORDINATOR_ZONE)
 
 # Roles anyone may pick when signing up. Everything else is granted by an admin.
-SELF_REGISTRATION_ROLES = (STUDENT, PARENT_GUARDIAN, INSTRUCTOR)
+# CLUB_DIRECTOR is self-service too, but the club they create stays `pending`
+# until a coordinator of its association approves it (see routers/org.py).
+SELF_REGISTRATION_ROLES = (STUDENT, PARENT_GUARDIAN, INSTRUCTOR, CLUB_DIRECTOR)
+
+# users.club_approval
+CLUB_PENDING = "PENDING"
+CLUB_APPROVED = "APPROVED"
+CLUB_REJECTED = "REJECTED"
 
 # Higher number = more authority. Used so an admin can never create or edit
 # a peer or a superior.

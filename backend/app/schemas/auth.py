@@ -5,6 +5,8 @@ from typing import Literal
 
 from pydantic import AliasChoices, BaseModel, EmailStr, Field, model_validator
 
+from app.schemas.org import ClubSignup
+
 RoleName = Literal[
     "MASTER_GC",
     "ADMIN_DIVISION",
@@ -29,6 +31,8 @@ class RegisterRequest(BaseModel):
     )
     is_minor: bool = False
     birth_date: date | None = None
+    # CLUB_DIRECTOR only: the club to open, created `pending` in the same transaction.
+    club: ClubSignup | None = None
 
 
 class RegisterResponse(BaseModel):
@@ -38,6 +42,8 @@ class RegisterResponse(BaseModel):
     role: str
     status: str
     message: str
+    organization_id: str | None = None
+    club_approval: str | None = None
     access_token: str
     refresh_token: str
     token_type: str = "bearer"

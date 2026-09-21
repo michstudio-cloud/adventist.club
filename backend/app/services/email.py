@@ -155,6 +155,35 @@ def welcome_email_html(name: str, role: str) -> str:
     return base_template(content, "¡Bienvenido! - Adventist.Club")
 
 
+def club_decision_email_html(name: str, club_name: str, approved: bool, reason: str | None) -> str:
+    frontend = settings.frontend_url
+    if approved:
+        body = f"""
+        <h2>¡Tu club fue aprobado! 🎉</h2>
+        <p>Hola {escape(name)},</p>
+        <p>La coordinación de tu asociación aprobó el registro de <strong>{escape(club_name)}</strong>.</p>
+        <div class="info">Ya puedes gestionar tu club y emitir certificados desde tu panel.</div>
+        """
+    else:
+        reason_html = (
+            f'<div class="warning"><strong>Motivo:</strong><br>{escape(reason)}</div>' if reason else ""
+        )
+        body = f"""
+        <h2>Tu solicitud de club no fue aprobada</h2>
+        <p>Hola {escape(name)},</p>
+        <p>La coordinación de tu asociación revisó el registro de <strong>{escape(club_name)}</strong>
+           y por ahora no fue aprobado.</p>
+        {reason_html}
+        <p>Puedes corregir los datos y enviar una nueva solicitud desde tu panel, o contactar a tu coordinador.</p>
+        """
+    content = f"""{body}
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Registro de club - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -197,3 +226,19 @@ async def send_password_reset_email(to: str, name: str, code: str, token: str) -
 
 async def send_welcome_email(to: str, name: str, role: str) -> bool:
     return await send_email(to, "¡Bienvenido a Adventist.Club! 🎉", welcome_email_html(name, role))
+
+
+async def send_club_decision_email(
+    to: str, name: str, club_name: str, approved: bool, reason: str | None = None
+) -> bool:
+    subject = (
+        "Tu club fue aprobado - Adventist.Club"
+        if approved
+        else "Tu solicitud de club no fue aprobada - Adventist.Club"
+    )
+    try:
+        html = club_decision_email_html(name, club_name, approved, reason)
+    except Exception:  # never let a template problem surface to the caller
+        logger.exception("Failed to render club decision email")
+        return False
+    return await send_email(to, subject, html)

@@ -119,7 +119,6 @@ async def test_privileged_roles_cannot_be_self_assigned(client, factory):
             "ADMIN_UNION",
             "ADMIN_ASSOCIATION",
             "COORDINATOR_ZONE",
-            "CLUB_DIRECTOR",
         ]
     ):
         response = await client.post(
@@ -133,7 +132,8 @@ async def test_privileged_roles_cannot_be_self_assigned(client, factory):
 
 
 async def test_allowed_self_registration_roles(client, factory):
-    for role in ("STUDENT", "PARENT_GUARDIAN", "INSTRUCTOR"):
+    # CLUB_DIRECTOR is self-service since 003_club_signup (the club needs approval).
+    for role in ("STUDENT", "PARENT_GUARDIAN", "INSTRUCTOR", "CLUB_DIRECTOR"):
         created = await _register(client, factory, f"role-{role.lower()}", role=role)
         assert created["role"] == role
 

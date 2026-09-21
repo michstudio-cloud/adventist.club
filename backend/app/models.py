@@ -197,6 +197,10 @@ class User(Base):
     status: Mapped[str] = mapped_column(String(20), server_default="ACTIVE")
     last_login: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     legacy_mongo_id: Mapped[str | None] = mapped_column(String(24), unique=True)
+    # 003_club_signup.sql: state of the club a CLUB_DIRECTOR requested (NULL = not applicable).
+    club_approval: Mapped[str | None] = mapped_column(String(20))
+    club_approval_reason: Mapped[str | None] = mapped_column(Text)
+    club_approval_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

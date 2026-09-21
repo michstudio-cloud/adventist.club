@@ -1,16 +1,34 @@
-"""Organization tree. Reads are public; every write needs an admin in scope."""
+"""Organization tree. Reads are public; every write needs an admin in scope.
+
+Club sign-up lives here too: a CLUB_DIRECTOR requests a club (`pending`), a
+coordinator of the association approves or rejects it. Pending and rejected
+clubs never show up on public reads.
+"""
+import unicodedata
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
-from sqlalchemy import select
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
+from sqlalchemy import not_, or_, select, true, func
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import aliased
 
 from app.db import get_db
-from app.deps import require_roles
+from app.deps import get_current_user, get_optional_user, require_roles
 from app.models import Organization, User
-from app.rbac import get_org_path, is_master, org_in_subtree
-from app.schemas.org import ORG_HIERARCHY, OrgNodeCreate, OrgNodeResponse, OrgNodeUpdate
+from app.rbac import can_decide_club, club_scope_paths, get_org_path, is_master, org_in_subtree
+from app.schemas.org import (
+    ORG_HIERARCHY,
+    ClubDecision,
+    ClubSignup,
+    OrgNodeCreate,
+    OrgNodeResponse,
+    OrgNodeUpdate,
+    OrgSearchResult,
+    PendingClubResponse,
+)
 from app.security import ADMIN_ROLES, utcnow
+from app.services import clubs as club_service
+from app.services import email as email_service
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/org-nodes", tags=["organizations"])
@@ -27,6 +45,25 @@ async def _get_node_or_404(db: AsyncSession, node_id: uuid.UUID) -> Organization
     return node
 
 
+async def _visible_to(db: AsyncSession, viewer: User | None):
+    """
+    WHERE clause for reads. Club requests (`pending` / `rejected`) are hidden
+    from everyone except the director attached to them and the coordinators
+    who can decide on them.
+    """
+    public = not_(Organization.status.in_(club_service.HIDDEN_STATUSES))
+    if viewer is None:
+        return public
+    allowed = [public]
+    if viewer.organization_id is not None:
+        allowed.append(Organization.id == viewer.organization_id)
+    paths = await club_scope_paths(db, viewer)
+    if paths is None:
+        return true()
+    allowed.extend(Organization.path.op("<@")(path) for path in paths)
+    return or_(*allowed)
+
+
 async def _require_in_scope(db: AsyncSession, actor: User, node: Organization) -> None:
     """The node must be the actor's own organization or a descendant of it."""
     if is_master(actor):
@@ -35,6 +72,15 @@ async def _require_in_scope(db: AsyncSession, actor: User, node: Organization) -
     if not await org_in_subtree(db, node.id, scope_path):
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "This organization is outside your administrative scope"
+        )
+
+
+def _require_decided(node: Organization) -> None:
+    """A club request changes state only through approve / reject, which also
+    update the director and write the audit trail."""
+    if node.status == club_service.STATUS_PENDING:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "This club request is pending: use approve or reject"
         )
 
 
@@ -59,9 +105,10 @@ async def list_org_nodes(
     q: str | None = Query(None, max_length=100),
     limit: int = Query(200, ge=1, le=500),
     offset: int = Query(0, ge=0),
+    viewer: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
-    stmt = select(Organization)
+    stmt = select(Organization).where(await _visible_to(db, viewer))
     if type:
         stmt = stmt.where(Organization.type == type.strip().lower())
     if parent_id:
@@ -73,16 +120,105 @@ async def list_org_nodes(
     return [OrgNodeResponse.from_model(row) for row in rows]
 
 
+@router.get("/search", response_model=list[OrgSearchResult])
+async def search_org_nodes(
+    q: str = Query("", max_length=100),
+    type: str = Query("association", description="ASSOCIATION, UNION, ... (case-insensitive)"),
+    limit: int = Query(20, ge=1, le=50),
+    db: AsyncSession = Depends(get_db),
+):
+    """Public picker search: active nodes of one type, by name or code, with
+    the parent's name so that homonyms can be told apart."""
+    parent = aliased(Organization)
+    term = q.strip()
+    stmt = (
+        select(Organization, parent.name)
+        .outerjoin(parent, parent.id == Organization.parent_id)
+        .where(
+            Organization.type == type.strip().lower(),
+            Organization.status == club_service.STATUS_ACTIVE,
+        )
+    )
+    if term:
+        # accent- and case-insensitive: people type "asociacion", the directory stores "Asociación"
+        needle = "".join(c for c in unicodedata.normalize("NFKD", term) if not unicodedata.combining(c))
+        stmt = stmt.where(
+            or_(
+                func.unaccent(Organization.name).icontains(needle, autoescape=True),
+                Organization.code.icontains(term, autoescape=True),
+                func.unaccent(parent.name).icontains(needle, autoescape=True),
+            )
+        )
+    stmt = stmt.order_by(Organization.name, Organization.id).limit(limit)
+    return [
+        OrgSearchResult(
+            id=str(node.id),
+            name=node.name,
+            type=node.type.upper(),
+            code=node.code,
+            parent_id=str(node.parent_id) if node.parent_id else None,
+            parent_name=parent_name,
+            country=node.country,
+        )
+        for node, parent_name in (await db.execute(stmt)).all()
+    ]
+
+
+@router.get("/pending-clubs", response_model=list[PendingClubResponse])
+async def list_pending_clubs(
+    limit: int = Query(100, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Club requests waiting for a decision, confined to the caller's scope."""
+    paths = await club_scope_paths(db, current_user)
+    if paths is not None and not paths:
+        return []
+    association = aliased(Organization)
+    stmt = (
+        select(Organization, association)
+        .outerjoin(association, association.id == Organization.parent_id)
+        .where(
+            Organization.type == club_service.CLUB_TYPE,
+            Organization.status == club_service.STATUS_PENDING,
+        )
+    )
+    if paths is not None:
+        stmt = stmt.where(or_(*(Organization.path.op("<@")(path) for path in paths)))
+    stmt = stmt.order_by(Organization.created_at, Organization.id).limit(limit).offset(offset)
+    rows = (await db.execute(stmt)).all()
+    return [
+        PendingClubResponse.build(club, parent, await club_service.requester_of(db, club))
+        for club, parent in rows
+    ]
+
+
+@router.post("/clubs", response_model=OrgNodeResponse, status_code=status.HTTP_201_CREATED)
+async def request_club(
+    payload: ClubSignup,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """A CLUB_DIRECTOR without a club opens one. It stays `pending` until a
+    coordinator of the association approves it."""
+    club = await club_service.stage_pending_club(db, current_user, payload, request)
+    await db.commit()
+    return OrgNodeResponse.from_model(club)
+
+
 @router.get("/type/{node_type}", response_model=list[OrgNodeResponse])
 async def get_org_nodes_by_type(
     node_type: str,
     limit: int = Query(500, ge=1, le=1000),
     offset: int = Query(0, ge=0),
+    viewer: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
     stmt = (
         select(Organization)
-        .where(Organization.type == node_type.strip().lower())
+        .where(Organization.type == node_type.strip().lower(), await _visible_to(db, viewer))
         .order_by(Organization.name, Organization.id)
         .limit(limit)
         .offset(offset)
@@ -92,16 +228,29 @@ async def get_org_nodes_by_type(
 
 
 @router.get("/{node_id}", response_model=OrgNodeResponse)
-async def get_org_node(node_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
-    return OrgNodeResponse.from_model(await _get_node_or_404(db, node_id))
+async def get_org_node(
+    node_id: uuid.UUID,
+    viewer: User | None = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = select(Organization).where(Organization.id == node_id, await _visible_to(db, viewer))
+    node = (await db.execute(stmt)).scalar_one_or_none()
+    if node is None:
+        # Same answer for "does not exist" and "not yours to see".
+        raise HTTPException(status.HTTP_404_NOT_FOUND, f"Org node not found: {node_id}")
+    return OrgNodeResponse.from_model(node)
 
 
 @router.get("/{node_id}/children", response_model=list[OrgNodeResponse])
-async def get_org_node_children(node_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+async def get_org_node_children(
+    node_id: uuid.UUID,
+    viewer: User | None = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
     await _get_node_or_404(db, node_id)
     stmt = (
         select(Organization)
-        .where(Organization.parent_id == node_id)
+        .where(Organization.parent_id == node_id, await _visible_to(db, viewer))
         .order_by(Organization.name, Organization.id)
     )
     rows = (await db.execute(stmt)).scalars().all()
@@ -215,6 +364,7 @@ async def update_org_node(
     node = await _get_node_or_404(db, node_id)
     _require_hierarchy_node(node)
     await _require_in_scope(db, current_user, node)
+    _require_decided(node)
 
     changes = payload.model_dump(exclude_unset=True)
     changes.pop("location", None)  # already folded into latitude/longitude
@@ -259,6 +409,7 @@ async def delete_org_node(
     node = await _get_node_or_404(db, node_id)
     _require_hierarchy_node(node)
     await _require_in_scope(db, current_user, node)
+    _require_decided(node)
 
     if node.id == current_user.organization_id and not is_master(current_user):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "You cannot delete your own organization")
@@ -276,3 +427,88 @@ async def delete_org_node(
         request=request,
     )
     await db.commit()
+
+
+# ----------------------------------------------------------------------------
+# Club requests: approve / reject
+# ----------------------------------------------------------------------------
+async def _decide_club(
+    node_id: uuid.UUID,
+    *,
+    approve: bool,
+    reason: str | None,
+    request: Request,
+    background: BackgroundTasks,
+    actor: User,
+    db: AsyncSession,
+) -> PendingClubResponse:
+    club = await _get_node_or_404(db, node_id)
+    # Scope before state, so an outsider learns nothing about the request.
+    if not await can_decide_club(db, actor, club):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "This club is outside your administrative scope"
+        )
+    if club.type != club_service.CLUB_TYPE:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Only CLUB nodes can be approved")
+    if club.status != club_service.STATUS_PENDING:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, f"This club request is already {club.status.upper()}"
+        )
+
+    director = await club_service.stage_club_decision(
+        db, club, actor, approve=approve, reason=reason, request=request
+    )
+    association = await db.get(Organization, club.parent_id) if club.parent_id else None
+    response = PendingClubResponse.build(club, association, director)
+    await db.commit()
+
+    # Only after the commit, and never able to fail the request.
+    if director is not None:
+        background.add_task(
+            email_service.send_club_decision_email,
+            director.email,
+            director.name,
+            club.name,
+            approve,
+            reason,
+        )
+    return response
+
+
+@router.post("/{node_id}/approve", response_model=PendingClubResponse)
+async def approve_club(
+    node_id: uuid.UUID,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    return await _decide_club(
+        node_id,
+        approve=True,
+        reason=None,
+        request=request,
+        background=background,
+        actor=current_user,
+        db=db,
+    )
+
+
+@router.post("/{node_id}/reject", response_model=PendingClubResponse)
+async def reject_club(
+    node_id: uuid.UUID,
+    request: Request,
+    background: BackgroundTasks,
+    payload: ClubDecision | None = None,
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    return await _decide_club(
+        node_id,
+        approve=False,
+        reason=payload.reason if payload else None,
+        request=request,
+        background=background,
+        actor=current_user,
+        db=db,
+    )

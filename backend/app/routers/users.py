@@ -12,6 +12,7 @@ from app.models import Guardianship, Organization, User
 from app.rbac import (
     can_manage_user,
     can_view_user,
+    director_blocked,
     get_org_path,
     is_admin_role,
     is_master,
@@ -222,8 +223,9 @@ async def list_users(
                 )
         scope_org = requested_org or current_user.organization_id
         scope_path = await get_org_path(db, scope_org)
-        if scope_path is None:
-            # No organization (or one outside the tree): you only see yourself.
+        if scope_path is None or director_blocked(current_user):
+            # No organization (or one outside the tree), or a director whose
+            # club is not approved yet: you only see yourself.
             stmt = stmt.where(User.id == current_user.id)
         else:
             stmt = stmt.join(Organization, Organization.id == User.organization_id).where(

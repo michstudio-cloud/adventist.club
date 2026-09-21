@@ -33,6 +33,9 @@ class UserResponse(BaseModel):
     verification_status: str
     child_protection_cert: ChildProtectionCert
     status: str
+    # CLUB_DIRECTOR who requested a club: PENDING / APPROVED / REJECTED (+ reason).
+    club_approval: str | None = None
+    club_approval_reason: str | None = None
     created_at: datetime
     last_login: datetime | None
 
@@ -56,6 +59,8 @@ class UserResponse(BaseModel):
                 completed_at=user.child_protection_completed_at,
             ),
             status=user.status,
+            club_approval=user.club_approval,
+            club_approval_reason=user.club_approval_reason,
             created_at=user.created_at,
             last_login=user.last_login,
         )

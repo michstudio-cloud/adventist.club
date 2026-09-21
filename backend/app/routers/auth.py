@@ -33,6 +33,7 @@ from app.schemas.auth import (
 )
 from app.schemas.user import UserResponse
 from app.security import (
+    CLUB_DIRECTOR,
     INSTRUCTOR,
     MASTER_GC,
     SELF_REGISTRATION_ROLES,
@@ -55,6 +56,7 @@ from app.security import (
     verify_totp,
 )
 from app.services import email as email_service
+from app.services import clubs as club_service
 from app.services import verification
 from app.services.audit import record_audit
 
@@ -107,6 +109,16 @@ async def register(
     if is_minor and payload.role != STUDENT:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Minors can only register as STUDENT")
 
+    if payload.club is not None:
+        if payload.role != CLUB_DIRECTOR:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, "Only a CLUB_DIRECTOR can register a club"
+            )
+        if payload.organization_id:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, "Send either organization_id or club, not both"
+            )
+
     email = payload.email.strip().lower()
     existing = await db.execute(select(User.id).where(User.email == email))
     if existing.scalar_one_or_none():
@@ -143,6 +155,10 @@ async def register(
         raise HTTPException(status.HTTP_409_CONFLICT, "Email already registered")
 
     # Still one transaction: user, verification token and audit row commit together.
+    # The director's club too: a refused club (unknown association, duplicate
+    # name) rolls the whole registration back.
+    if payload.club is not None:
+        await club_service.stage_pending_club(db, user, payload.club, request)
     token_row = verification.stage_token(db, user.id, verification.EMAIL_VERIFICATION)
     record_audit(
         db,
@@ -169,6 +185,12 @@ async def register(
         message += "Guardianship consent required. "
     if user.role == INSTRUCTOR:
         message += "Child protection certification required. "
+    if user.role == CLUB_DIRECTOR:
+        message += (
+            "Your club is pending approval by your association. "
+            if user.club_approval
+            else "Create your club from your panel to request its approval. "
+        )
     message += "Please check your email to verify your account."
 
     return RegisterResponse(
@@ -178,6 +200,8 @@ async def register(
         role=user.role,
         status=user.status,
         message=message,
+        organization_id=str(user.organization_id) if user.organization_id else None,
+        club_approval=user.club_approval,
         access_token=create_access_token(user.id),
         refresh_token=create_refresh_token(user.id),
     )
