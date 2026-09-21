@@ -157,6 +157,8 @@ async def _enroll(client, user, honor, **extra) -> dict:
 
 
 async def _submit(client, user, enrollment_id, position, status="SUBMITTED", **extra):
+    if status == "SUBMITTED":
+        extra.setdefault("member_note", "Respuesta de prueba")     # an empty requirement cannot be sent
     return await client.put(f"{ENROLLMENTS}/{enrollment_id}/requirements/{position}",
                             json={"status": status, **extra}, headers=user["headers"])
 
@@ -459,18 +461,26 @@ async def test_practical_requirement_needs_active_evidence_to_be_completed(clien
     member, director = world["member"], world["director"]
     enrollment = await _enroll(client, member, await _honor(factory, "practica", theoretical=(False,)))
     eid = enrollment["id"]
-    await _submit(client, member, eid, 1)                                  # sending without evidence is allowed
-
-    assert (await _review(client, director, eid, 1, "INCOMPLETE")).status_code == 422       # a note is mandatory
-    assert (await _review(client, director, eid, 1, "INCOMPLETE", "   ")).status_code == 422
-    without = await _review(client, director, eid, 1)
-    assert without.status_code == 409 and "evidencia" in without.json()["detail"].lower()
+    nothing = await _submit(client, member, eid, 1)                        # text alone does not send a practical one
+    assert nothing.status_code == 422 and "pide evidencia" in nothing.json()["detail"]
 
     # an upload that was never confirmed is not evidence
     pending = await client.post(f"{ENROLLMENTS}/{eid}/requirements/1/evidences",
                                 json={"content_type": "image/png", "size_bytes": 512}, headers=member["headers"])
     assert pending.status_code == 201
-    assert (await _review(client, director, eid, 1)).status_code == 409
+    assert (await _submit(client, member, eid, 1)).status_code == 422
+
+    evidence = await _add_evidence(client, r2, member, eid, 1)
+    assert (await _submit(client, member, eid, 1)).status_code == 200
+
+    assert (await _review(client, director, eid, 1, "INCOMPLETE")).status_code == 422       # a note is mandatory
+    assert (await _review(client, director, eid, 1, "INCOMPLETE", "   ")).status_code == 422
+
+    # the member may still take the photo away while waiting: the verdict checks again (rule 1)
+    removed = await client.delete(f"{PORTFOLIO}/evidences/{evidence['id']}", headers=member["headers"])
+    assert removed.status_code == 204
+    without = await _review(client, director, eid, 1)
+    assert without.status_code == 409 and "evidencia" in without.json()["detail"].lower()
 
     await _add_evidence(client, r2, member, eid, 1)
     done = await _review(client, director, eid, 1)
@@ -818,3 +828,45 @@ async def test_purge_script_only_deletes_old_removed_and_unfinished_uploads(clie
                            ids=[uuid.UUID(keys["removed_old"][0]), uuid.UUID(keys["pending_old"][0])])
     assert all(row["status"] == "REMOVED" and row["purged_at"] for row in rows)
     assert mine(await asyncio.to_thread(run, False)) == []                        # idempotent
+
+
+async def test_drafts_save_without_sending_and_empty_requirements_cannot_be_sent(client, factory, world, r2):
+    """The answer is typed in the card and saves itself; sending needs something a reviewer can judge."""
+    honor = await _honor(factory, "borrador-envio", theoretical=(True, False))
+    eid = (await _enroll(client, world["member"], honor))["id"]
+    member = world["member"]["headers"]
+    url = lambda position: f"{PORTFOLIO}/enrollments/{eid}/requirements/{position}"
+
+    # status omitted = draft only: the note is kept, nothing is sent, nothing reaches the review queue
+    draft = await client.put(url(1), headers=member, json={"member_note": "  Un amarre une dos palos.  "})
+    assert draft.status_code == 200, draft.text
+    first = _requirement(draft.json(), 1)
+    assert first["status"] == "PENDING" and first["member_note"] == "Un amarre une dos palos."
+
+    # an answer requirement needs text or evidence; a practical one needs evidence, text is not enough
+    empty = await client.put(url(2), headers=member, json={"status": "SUBMITTED"})
+    assert empty.status_code == 422 and "evidencia" in empty.json()["detail"]
+    text_only = await client.put(url(2), headers=member, json={"status": "SUBMITTED", "member_note": "Lo hice"})
+    assert text_only.status_code == 422 and "pide evidencia" in text_only.json()["detail"]
+    assert _requirement((await _get(client, world["member"], eid)).json(), 2)["status"] == "PENDING"
+
+    blank_answer = await client.put(url(1), headers=member, json={"status": "SUBMITTED", "member_note": "   "})
+    assert blank_answer.status_code == 422 and "respuesta" in blank_answer.json()["detail"]
+    # a refused request changes nothing: the saved draft is still there and is what gets sent
+    sent = await client.put(url(1), headers=member, json={"status": "SUBMITTED"})
+    assert sent.status_code == 200
+    first = _requirement(sent.json(), 1)
+    assert first["status"] == "SUBMITTED" and first["member_note"] == "Un amarre une dos palos."
+
+    await _add_evidence(client, r2, world["member"], eid, 2)
+    with_photo = await client.put(url(2), headers=member, json={"status": "SUBMITTED"})
+    assert with_photo.status_code == 200 and _requirement(with_photo.json(), 2)["status"] == "SUBMITTED"
+
+    # a sent requirement is not edited behind the reviewer's back; after INCOMPLETE the draft opens again
+    locked = await client.put(url(1), headers=member, json={"member_note": "otra cosa"})
+    assert locked.status_code == 409
+    assert (await _review(client, world["director"], eid, 1, "INCOMPLETE", "Falta el propósito")).status_code == 200
+    reopened = await client.put(url(1), headers=member, json={"member_note": "Une dos palos para construir."})
+    assert reopened.status_code == 200
+    again = _requirement(reopened.json(), 1)
+    assert again["status"] == "INCOMPLETE" and again["member_note"] == "Une dos palos para construir."

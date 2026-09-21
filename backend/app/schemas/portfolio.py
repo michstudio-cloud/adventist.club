@@ -29,7 +29,8 @@ class EnrollmentCreate(BaseModel):
 
 class RequirementUpdate(BaseModel):
     # The member only sends or takes back; COMPLETE / INCOMPLETE belong to the reviewer.
-    status: Literal["SUBMITTED", "PENDING"]
+    # Without `status` it is a draft: the answer typed in the card saves itself, nothing is sent.
+    status: Literal["SUBMITTED", "PENDING"] | None = None
     member_note: str | None = Field(default=None, max_length=NOTE_MAX_LENGTH)
 
 

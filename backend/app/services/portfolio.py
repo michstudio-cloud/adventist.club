@@ -538,11 +538,33 @@ async def update_requirement(
             "El requisito ya fue dictaminado; corrígelo y envíalo de nuevo a revisión",
         )
 
+    if payload.status is None and progress.status == SUBMITTED:
+        # What a reviewer is about to read is not edited behind their back: take it back first.
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            "El requisito ya está enviado a revisión; deshaz el envío para editar tu respuesta",
+        )
+
     previous = progress.status
-    progress.status = payload.status
-    progress.submitted_at = utcnow() if payload.status == SUBMITTED else None
     if "member_note" in payload.model_fields_set:
         progress.member_note = (payload.member_note or "").strip() or None
+    if payload.status == SUBMITTED:
+        # A reviewer can only judge something: evidence when the requirement is practical,
+        # an answer or evidence otherwise.
+        evidence = await _active_evidence_count(db, progress.id)
+        if progress.is_practical and evidence == 0:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                "Este requisito pide evidencia: añade al menos una foto o PDF antes de enviarlo.",
+            )
+        if not progress.member_note and evidence == 0:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                "Escribe tu respuesta o añade una evidencia antes de enviar.",
+            )
+    if payload.status is not None:
+        progress.status = payload.status
+        progress.submitted_at = utcnow() if payload.status == SUBMITTED else None
     await _touch(db, enrollment)
     record_audit(
         db,
@@ -551,7 +573,7 @@ async def update_requirement(
         entity_id=progress.id,
         actor=actor,
         metadata={"enrollment_id": str(enrollment.id), "position": position,
-                  "from": previous, "to": payload.status},
+                  "from": previous, "to": progress.status, "draft": payload.status is None},
         request=request,
     )
     await db.commit()
