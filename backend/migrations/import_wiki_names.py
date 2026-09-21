@@ -9,8 +9,9 @@ Source: Pathfinder Wiki (wiki.pathfindersonline.org), text under CC BY-SA 3.0 â€
 Idempotent: translations are upserted by (honor, locale); honours are found by ministry + slug
 and only their wiki_title / authority / skill_level / year_introduced are filled in. Spanish
 names (the source text in honors.name) are never touched. Dry run unless --commit.
+--manual adds the links somebody filled in by hand in data/wiki_manual_links.csv.
 """
-import argparse, json, os, sys
+import argparse, csv, json, os, sys
 from urllib.parse import quote
 
 import psycopg
@@ -27,12 +28,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("links")
     ap.add_argument("--ministry", default="pathfinders")
+    ap.add_argument("--manual", help="CSV (data/wiki_manual_links.csv): wiki_title -> nuestro_slug filled in by hand")
     ap.add_argument("--commit", action="store_true")
     args = ap.parse_args()
     url = os.environ.get("DATABASE_URL")
     if not url:
         sys.exit("Set DATABASE_URL")
     data = json.load(open(args.links, encoding="utf-8"))
+    if args.manual:
+        pending = {w["wiki_title"]: w for w in data["wiki_without_match"]}
+        for row in csv.DictReader(open(args.manual, encoding="utf-8")):
+            if row.get("nuestro_slug", "").strip() and row["wiki_title"] in pending:
+                data["honors"].append({**pending[row["wiki_title"]], "slug": row["nuestro_slug"].strip()})
     report = {"honors_linked": 0, "honor_names": 0, "category_names": 0, "missing_slugs": []}
 
     with psycopg.connect(url.replace("postgresql+asyncpg://", "postgresql://")) as conn, conn.cursor() as cur:

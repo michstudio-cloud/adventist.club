@@ -6796,137 +6796,228 @@
  ],
  "wiki_without_match": [
   {
-   "en": "Hammock Camping",
-   "es": "Acampar en hamaca",
    "authority": "NAD",
    "category_es": "Actividades recreacionales",
-   "year": "2026"
+   "wiki_title": "Hammock Camping",
+   "name_es_wiki": "Acampar en hamaca",
+   "skill_level": 1,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Hammock Camping"
+   }
   },
   {
-   "en": "Red Alert I",
-   "es": "Alerta roja I",
    "authority": "NAD",
    "category_es": "Salud y ciencia",
-   "year": "1986"
+   "wiki_title": "Red Alert I",
+   "name_es_wiki": "Alerta roja I",
+   "skill_level": 1,
+   "year_introduced": 1986,
+   "names": {
+    "en": "Red Alert I"
+   }
   },
   {
-   "en": "Red Alert II",
-   "es": "Alerta roja II",
    "authority": "NAD",
    "category_es": "Salud y ciencia",
-   "year": "2022"
+   "wiki_title": "Red Alert II",
+   "name_es_wiki": "Alerta roja II",
+   "skill_level": 1,
+   "year_introduced": 2022,
+   "names": {
+    "en": "Red Alert II"
+   }
   },
   {
-   "en": "Weather - Advanced",
-   "es": "Climatología - Avanzado",
    "authority": "GC",
    "category_es": "Estudio de la naturaleza",
-   "year": "1949"
+   "wiki_title": "Weather - Advanced",
+   "name_es_wiki": "Climatología - Avanzado",
+   "skill_level": 2,
+   "year_introduced": 1949,
+   "names": {
+    "en": "Weather - Advanced",
+    "pt-BR": "Climatologia - Avançado",
+    "fr": "Météorologie - Avancé",
+    "uk": "Погода - просунута"
+   }
   },
   {
-   "en": "Computers and Mobile Devices",
-   "es": "Computadoras y dispositivos móviles",
    "authority": "NAD",
    "category_es": "Actividades vocacionales",
-   "year": "2021"
+   "wiki_title": "Computers and Mobile Devices",
+   "name_es_wiki": "Computadoras y dispositivos móviles",
+   "skill_level": 1,
+   "year_introduced": 2021,
+   "names": {
+    "en": "Computers and Mobile Devices",
+    "pt-BR": "Computadores e dispositivos móveis"
+   }
   },
   {
-   "en": "Computers and Mobile Devices - Advanced",
-   "es": "Computadoras y dispositivos móviles - Avanzado",
    "authority": "NAD",
    "category_es": "Actividades vocacionales",
-   "year": "2021"
+   "wiki_title": "Computers and Mobile Devices - Advanced",
+   "name_es_wiki": "Computadoras y dispositivos móviles - Avanzado",
+   "skill_level": 2,
+   "year_introduced": 2021,
+   "names": {
+    "en": "Computers and Mobile Devices - Advanced",
+    "pt-BR": "Computadores e dispositivos móveis - Avançado"
+   }
   },
   {
-   "en": "Spy Danger",
-   "es": "Detectar peligro",
    "authority": "GC",
    "category_es": "Actividades vocacionales",
-   "year": "2024"
+   "wiki_title": "Spy Danger",
+   "name_es_wiki": "Detectar peligro",
+   "skill_level": 1,
+   "year_introduced": 2024,
+   "names": {
+    "en": "Spy Danger",
+    "fr": "Détecter danger"
+   }
   },
   {
-   "en": "Great Ball Contraption",
-   "es": "Gran artilugio de bolas",
    "authority": "NAD",
    "category_es": "Artes y actividades manuales",
-   "year": "2026"
+   "wiki_title": "Great Ball Contraption",
+   "name_es_wiki": "Gran artilugio de bolas",
+   "skill_level": 1,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Great Ball Contraption"
+   }
   },
   {
-   "en": "Great Ball Contraption - Advanced",
-   "es": "Gran artilugio de bolas - Avanzado",
    "authority": "NAD",
    "category_es": "Artes y actividades manuales",
-   "year": "2026"
+   "wiki_title": "Great Ball Contraption - Advanced",
+   "name_es_wiki": "Gran artilugio de bolas - Avanzado",
+   "skill_level": 2,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Great Ball Contraption - Advanced"
+   }
   },
   {
-   "en": "Magnets",
-   "es": "Imanes",
    "authority": "NAD",
    "category_es": "Estudio de la naturaleza",
-   "year": "2026"
+   "wiki_title": "Magnets",
+   "name_es_wiki": "Imanes",
+   "skill_level": 1,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Magnets"
+   }
   },
   {
-   "en": "3D Printing",
-   "es": "Impresión 3D",
    "authority": "NAD",
    "category_es": "Actividades vocacionales",
-   "year": "2026"
+   "wiki_title": "3D Printing",
+   "name_es_wiki": "Impresión 3D",
+   "skill_level": 2,
+   "year_introduced": 2026,
+   "names": {
+    "en": "3D Printing",
+    "pt-BR": "Impressão 3D",
+    "fr": "Impression 3D",
+    "de": "3D-Druck",
+    "uk": "Адитивні технології"
+   }
   },
   {
-   "en": "Introduction to Adventist Pioneer Heritage",
-   "es": "Introducción a la herencia de los pioneros adventistas",
    "authority": "GC",
    "category_es": "Crecimiento espiritual, actividades misioneras y herencia",
-   "year": "2024"
+   "wiki_title": "Introduction to Adventist Pioneer Heritage",
+   "name_es_wiki": "Introducción a la herencia de los pioneros adventistas",
+   "skill_level": 1,
+   "year_introduced": 2024,
+   "names": {
+    "en": "Introduction to Adventist Pioneer Heritage",
+    "pt-BR": "Introdução à herança pioneira adventista",
+    "fr": "Introduction à l'héritage des pionniers adventistes"
+   }
   },
   {
-   "en": "Ice Skating",
-   "es": "Patinaje sobre hielo",
    "authority": "NAD",
    "category_es": "Actividades recreacionales",
-   "year": "2026"
+   "wiki_title": "Ice Skating",
+   "name_es_wiki": "Patinaje sobre hielo",
+   "skill_level": 2,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Ice Skating"
+   }
   },
   {
-   "en": "First Aid",
-   "es": "Primeros auxilios",
-   "authority": "NAD",
-   "category_es": "Salud y ciencia",
-   "year": "1938"
-  },
-  {
-   "en": "Abseiling - Instructor",
-   "es": "Rápel - Instructor",
-   "authority": "GC",
-   "category_es": "Actividades recreacionales",
-   "year": "Desconocido"
-  },
-  {
-   "en": "Dental Health",
-   "es": "Salud dental",
    "authority": "NAD",
    "category_es": "Salud y ciencia",
-   "year": "2026"
+   "wiki_title": "First Aid",
+   "name_es_wiki": "Primeros auxilios",
+   "skill_level": 2,
+   "year_introduced": 1938,
+   "names": {
+    "en": "First Aid",
+    "uk": "Первая помощь"
+   }
   },
   {
-   "en": "Community Water Safety",
-   "es": "Seguridad en aguas públicas",
    "authority": "GC",
    "category_es": "Actividades recreacionales",
-   "year": "1929"
+   "wiki_title": "Abseiling - Instructor",
+   "name_es_wiki": "Rápel - Instructor",
+   "skill_level": 3,
+   "year_introduced": null,
+   "names": {
+    "en": "Abseiling - Instructor",
+    "pt-BR": "Rapel - Instrutor"
+   }
   },
   {
-   "en": "Community Water Safety - Advanced",
-   "es": "Seguridad en aguas públicas - Avanzado",
+   "authority": "NAD",
+   "category_es": "Salud y ciencia",
+   "wiki_title": "Dental Health",
+   "name_es_wiki": "Salud dental",
+   "skill_level": 2,
+   "year_introduced": 2026,
+   "names": {
+    "en": "Dental Health"
+   }
+  },
+  {
    "authority": "GC",
    "category_es": "Actividades recreacionales",
-   "year": "1929"
+   "wiki_title": "Community Water Safety",
+   "name_es_wiki": "Seguridad en aguas públicas",
+   "skill_level": 3,
+   "year_introduced": 1929,
+   "names": {
+    "en": "Community Water Safety"
+   }
   },
   {
-   "en": "Snowshoeing - Advanced",
-   "es": "Senderismo con raquetas de nieve - Avanzado",
+   "authority": "GC",
+   "category_es": "Actividades recreacionales",
+   "wiki_title": "Community Water Safety - Advanced",
+   "name_es_wiki": "Seguridad en aguas públicas - Avanzado",
+   "skill_level": 3,
+   "year_introduced": 1929,
+   "names": {
+    "en": "Community Water Safety - Advanced"
+   }
+  },
+  {
    "authority": "NAD",
    "category_es": "Actividades recreacionales",
-   "year": "2010"
+   "wiki_title": "Snowshoeing - Advanced",
+   "name_es_wiki": "Senderismo con raquetas de nieve - Avanzado",
+   "skill_level": 3,
+   "year_introduced": 2010,
+   "names": {
+    "en": "Snowshoeing - Advanced",
+    "pt-BR": "Excursionismo pedestre na neve - Avançado"
+   }
   }
  ],
  "ours_without_wiki": [
