@@ -43,6 +43,11 @@ LOCALE_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
 POINTS_PER_INCH = 72.0
 
 
+# Bloque F §1.7 — what a template certifies. Every template that existed before F says
+# "honor"; an investiture template declares `"kinds": ["program"]` in its meta.json.
+HONOR_KIND, PROGRAM_KIND = "honor", "program"
+
+
 class TemplateError(ValueError):
     pass
 
@@ -60,10 +65,30 @@ class Template:
     width_pt: float
     height_pt: float
     strings: dict[str, dict[str, str]] = field(default_factory=dict)   # locale -> key -> text
+    # Bloque F §1.7 — optional meta.json: {"ministries": ["master-guides"], "kinds": ["program"]}.
+    # No meta.json = every ministry, kind "honor" (what every template shipped so far is).
+    meta: dict = field(default_factory=dict)
 
     @property
     def locales(self) -> list[str]:
         return sorted({"es", *self.strings})
+
+    @property
+    def kinds(self) -> list[str]:
+        declared = self.meta.get("kinds")
+        return [str(k) for k in declared] if isinstance(declared, list) and declared else [HONOR_KIND]
+
+    @property
+    def ministries(self) -> list[str] | None:
+        """None = valid for every ministry."""
+        declared = self.meta.get("ministries")
+        return [str(m) for m in declared] if isinstance(declared, list) and declared else None
+
+    def serves(self, ministry: str | None = None, kind: str | None = None) -> bool:
+        if kind is not None and kind not in self.kinds:
+            return False
+        allowed = self.ministries
+        return ministry is None or allowed is None or ministry in allowed
 
     @property
     def fields(self) -> list[str]:
@@ -94,7 +119,11 @@ def _load(slug: str, base: str) -> Template:
     for path in directory.glob("strings.*.json"):
         locale = path.name[len("strings."):-len(".json")]
         strings[locale] = json.loads(path.read_text(encoding="utf-8"))
-    return Template(slug, directory, svg, float(view[2]), float(view[3]), strings)
+    meta_path = directory / "meta.json"
+    meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+    if not isinstance(meta, dict):
+        raise TemplateError(f"Plantilla '{slug}' tiene un meta.json que no es un objeto.")
+    return Template(slug, directory, svg, float(view[2]), float(view[3]), strings, meta)
 
 
 def load_template(slug: str, base: Path = TEMPLATES_DIR) -> Template:

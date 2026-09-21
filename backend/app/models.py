@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, ForeignKeyConstraint, Integer, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -190,6 +190,10 @@ class Certificate(Base):
     enrollment_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_enrollments.id"))
     issued_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
     issued_role: Mapped[str|None]=mapped_column(String(40))
+    # 012_programs.sql (Bloque F) — investiture certificate of a program. Exactly one of
+    # `honor_id` / `program_id` is set on a portfolio certificate, and ONLY `honor_id`
+    # enables buying the patch: a class certificate is never an honor certificate.
+    program_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("programs.id",use_alter=True))
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"
@@ -366,7 +370,8 @@ class HonorEnrollment(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
     # The published version the member enrolled in; it never moves to a newer one.
-    honor_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("honors.id"))
+    # NULL only on a program enrollment (012_programs.sql); see `program_id` below.
+    honor_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("honors.id"))
     mode: Mapped[str] = mapped_column(String(10), server_default="CLUB")
     # Follows the member's current club on every write; frozen once certified.
     club_id: Mapped[uuid.UUID | None] = mapped_column(
@@ -392,6 +397,12 @@ class HonorEnrollment(Base):
     course_removed_reason: Mapped[str | None] = mapped_column(Text)
     # 010_exams.sql — accessibility: extra time on exams (0, 25, 50 or 100 %).
     exam_extra_time_percent: Mapped[int] = mapped_column(SmallInteger, server_default="0")
+    # 012_programs.sql (Bloque F) — the enrollment is in an honor OR in a program, never in
+    # both nor in neither (CHECK honor_enrollments_one_curriculum_check). That is the ONLY
+    # reason `honor_id` above is nullable in the database.
+    program_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id", use_alter=True)
+    )
 
 
 class RequirementProgress(Base):
@@ -414,6 +425,16 @@ class RequirementProgress(Base):
     reviewed_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     review_note: Mapped[str | None] = mapped_column(Text)
+    # 012_programs.sql (Bloque F) — copied at enrollment like `is_practical`, so a later
+    # change to the catalogue cannot alter an enrollment in progress.
+    kind: Mapped[str] = mapped_column(String(8), server_default="FREE")
+    program_requirement_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("program_requirements.id", ondelete="SET NULL", use_alter=True)
+    )
+    # WHICH achievement completed this requirement automatically (F2).
+    satisfied_by_enrollment_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("honor_enrollments.id", ondelete="SET NULL")
+    )
 
 
 class Evidence(Base):
@@ -795,5 +816,135 @@ class ClubUnit(Base):
         UUID(as_uuid=True), ForeignKey("users.id")
     )
     status: Mapped[str] = mapped_column(String(10), server_default="active")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 012_programs.sql (Bloque F): the catalogue of PROGRAMS — classes, Master Guide,
+# EMC, CMJA — parallel to `honors` so that not one honors query has to change.
+# The engine (enrollment, progress, evidence, review, certificate) is block A's.
+# ---------------------------------------------------------------------------
+
+
+class Program(Base):
+    __tablename__ = "programs"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    ministry_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("ministries.id"))
+    kind: Mapped[str] = mapped_column(String(12))
+    slug: Mapped[str] = mapped_column(String(120))
+    code: Mapped[str | None] = mapped_column(String(40))
+    name: Mapped[str] = mapped_column(String(180))
+    description: Mapped[str | None] = mapped_column(Text)
+    image_url: Mapped[str | None] = mapped_column(Text)
+    sort_order: Mapped[int] = mapped_column(SmallInteger, server_default="0")
+    # Which manual this text follows (D2): GC, NAD, IAD, SAD…
+    authority: Mapped[str | None] = mapped_column(String(10))
+    status: Mapped[str] = mapped_column(String(30), server_default="DRAFT")
+    # D3: CLUB = the club director invests; ASSOCIATION = the Association does (F4).
+    issuer_level: Mapped[str] = mapped_column(String(12), server_default="CLUB")
+    version: Mapped[int] = mapped_column(Integer, server_default="1")
+    previous_version_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id")
+    )
+    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    source: Mapped[str | None] = mapped_column(String(40))
+    source_url: Mapped[str | None] = mapped_column(Text)
+    license: Mapped[str | None] = mapped_column(String(40))
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProgramTranslation(Base):
+    """`programs.name` is the source text (Spanish); every other language is one row here.
+    The name of a class changes by territory (Orientador / Pioneiro / Ranger)."""
+
+    __tablename__ = "program_translations"
+
+    program_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id", ondelete="CASCADE"), primary_key=True
+    )
+    locale: Mapped[str] = mapped_column(String(16), primary_key=True)
+    name: Mapped[str] = mapped_column(String(180))
+    description: Mapped[str | None] = mapped_column(Text)
+    source: Mapped[str | None] = mapped_column(String(40))
+    source_url: Mapped[str | None] = mapped_column(Text)
+    license: Mapped[str | None] = mapped_column(String(40))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProgramSection(Base):
+    __tablename__ = "program_sections"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    program_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id", ondelete="CASCADE")
+    )
+    position: Mapped[int] = mapped_column(Integer)
+    slug: Mapped[str] = mapped_column(String(80))
+    name: Mapped[str] = mapped_column(String(180))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProgramSectionTranslation(Base):
+    __tablename__ = "program_section_translations"
+
+    section_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("program_sections.id", ondelete="CASCADE"), primary_key=True
+    )
+    locale: Mapped[str] = mapped_column(String(16), primary_key=True)
+    name: Mapped[str] = mapped_column(String(180))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProgramRequirement(Base):
+    """The STRUCTURE of a requirement: one row, the same in every language.
+    `position` is global inside the program and is block A's `requirement_position`."""
+
+    __tablename__ = "program_requirements"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    program_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id", ondelete="CASCADE")
+    )
+    section_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("program_sections.id", ondelete="CASCADE")
+    )
+    position: Mapped[int] = mapped_column(Integer)
+    label: Mapped[str] = mapped_column(String(12))
+    kind: Mapped[str] = mapped_column(String(8), server_default="FREE")
+    evidence_required: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    # HONOR: a concrete honor (any version of its lineage)…
+    target_honor_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("honors.id"))
+    # …or an open slot: a category, or nothing at all ("an honor of your choice").
+    target_category_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("honor_categories.id")
+    )
+    target_program_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("programs.id")
+    )
+    target_quantity: Mapped[float | None] = mapped_column(Numeric(5, 1))
+    activity_category: Mapped[str | None] = mapped_column(String(12))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProgramRequirementText(Base):
+    __tablename__ = "program_requirement_texts"
+
+    requirement_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("program_requirements.id", ondelete="CASCADE"), primary_key=True
+    )
+    locale: Mapped[str] = mapped_column(String(16), primary_key=True)
+    description: Mapped[str] = mapped_column(Text)
+    instructions: Mapped[str | None] = mapped_column(Text)
+    source: Mapped[str | None] = mapped_column(String(40))
+    source_url: Mapped[str | None] = mapped_column(Text)
+    license: Mapped[str | None] = mapped_column(String(40))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

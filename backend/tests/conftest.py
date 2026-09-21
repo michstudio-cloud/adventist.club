@@ -221,6 +221,22 @@ class Factory:
                     if deleted.rowcount == 0:
                         break
             await db.execute(text(f"DELETE FROM honors WHERE id IN ({honors})"), params)
+            # Bloque F: programs are pointed at by enrollments and certificates, both
+            # already deleted above; their sections, requirements and texts cascade.
+            # Newer versions point at older ones, so the delete runs until nothing is left.
+            if await db.scalar(text("SELECT to_regclass('public.programs')")):
+                programs = "SELECT id FROM programs WHERE name LIKE :like OR slug LIKE :like"
+                for _ in range(5):
+                    deleted = await db.execute(
+                        text(
+                            f"DELETE FROM programs WHERE id IN ({programs})"
+                            " AND id NOT IN (SELECT previous_version_id FROM programs"
+                            "  WHERE previous_version_id IS NOT NULL)"
+                        ),
+                        params,
+                    )
+                    if deleted.rowcount == 0:
+                        break
             # Memberships cascade from the user, but a membership can also point
             # at an organization of this run whose member is not: delete by club
             # too, before the organizations go.

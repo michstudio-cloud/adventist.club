@@ -1,0 +1,13 @@
+{
+  "name": "Clase de prueba",
+  "description": "Currículo ficticio, sólo para pruebas automáticas.",
+  "sections": {"general": "General", "servicio": "Servicio"},
+  "requirements": {
+    "1": {"description": "Memorizar el voto."},
+    "2": {"description": "Armar una carpa.", "instructions": "Una foto basta."},
+    "3": {"description": "Seis horas de servicio a la comunidad."}
+  },
+  "source": "test-fixture",
+  "source_url": "https://example.invalid/datos-de-prueba",
+  "license": "CC BY-SA 3.0"
+}

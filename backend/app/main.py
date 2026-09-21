@@ -18,6 +18,8 @@ from app.routers import auth as auth_router, clubs as clubs_router, honors as ho
 from app.routers import church_letters as church_letters_router, courses as courses_router
 # Bloque C: los intentos de examen del curso.
 from app.routers import exams as exams_router
+# Bloque F: el catálogo de programas (clases de club, Guía Mayor, EMC, CMJA).
+from app.routers import programs as programs_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
@@ -27,7 +29,7 @@ app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credent
 app.state.limiter=limiter
 app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 # GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
-for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router):app.include_router(_router.router)
+for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router,programs_router):app.include_router(_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
@@ -124,7 +126,8 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     c=(await db.execute(select(Certificate).where(Certificate.certificate_no==certificate_no))).scalar_one_or_none()
     if not c:raise HTTPException(404,"Certificado no encontrado")
     current=hash_cert(c);org=await db.get(Organization,c.organization_id);valid=c.status=="issued" and c.certificate_hash==current
-    return {"valid":valid,"status":"válido" if valid else ("modificado" if c.certificate_hash!=current else c.status),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None}
+    # Bloque F §1.7: `kind` tells each frontend whether to write «especialidad» or «investidura».
+    return {"valid":valid,"status":"válido" if valid else ("modificado" if c.certificate_hash!=current else c.status),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):

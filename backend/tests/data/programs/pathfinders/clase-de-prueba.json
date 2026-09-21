@@ -1,0 +1,30 @@
+{
+  "ministry": "pathfinders",
+  "kind": "CLASS",
+  "slug": "clase-de-prueba",
+  "code": "TEST",
+  "name": "Clase de prueba",
+  "sort_order": 9,
+  "authority": "IAD",
+  "issuer_level": "CLUB",
+  "source": "test-fixture",
+  "source_url": "https://example.invalid/datos-de-prueba",
+  "license": "CC BY-SA 3.0",
+  "sections": [
+    {
+      "slug": "general",
+      "name": "General",
+      "requirements": [
+        {"label": "1", "kind": "FREE", "evidence_required": false},
+        {"label": "2", "kind": "FREE", "evidence_required": true}
+      ]
+    },
+    {
+      "slug": "servicio",
+      "name": "Servicio",
+      "requirements": [
+        {"label": "3", "kind": "HOURS", "target_quantity": 6, "activity_category": "SERVICE"}
+      ]
+    }
+  ]
+}
