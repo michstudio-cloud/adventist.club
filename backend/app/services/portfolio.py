@@ -29,6 +29,8 @@ from app.models import (
     Application,
     Certificate,
     CertificateTemplate,
+    Course,
+    CourseRequirement,
     Evidence,
     Honor,
     HonorEnrollment,
@@ -41,8 +43,11 @@ from app.models import (
 from app.rbac import (
     can_issue,
     can_review,
+    can_view_enrollment,
     can_view_portfolio,
     club_staff_in_good_standing,
+    instructor_is_verified,
+    is_course_instructor,
     is_master,
     member_club,
 )
@@ -51,6 +56,7 @@ from app.schemas.portfolio import (
     CertificateOut,
     ClubRef,
     Counters,
+    CourseRef,
     EnrollmentCreate,
     EnrollmentDetail,
     EnrollmentSummary,
@@ -158,8 +164,9 @@ def _require_private_storage() -> None:
 
 
 async def _require_viewer(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> None:
-    owner = await db.get(User, enrollment.user_id)
-    if not await can_view_portfolio(db, actor, owner):
+    # `can_view_enrollment` (Bloque B §2.2), not `can_view_portfolio`: the instructor of the
+    # course reads THIS enrollment and its evidence, never the rest of the portfolio.
+    if not await can_view_enrollment(db, actor, enrollment):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "No tienes permiso para ver este portafolio")
 
 
@@ -350,6 +357,7 @@ async def _summaries(db: AsyncSession, enrollments: list[HonorEnrollment]) -> li
         certificates = {uuid.UUID(c.id): c for c in await _certificates_out(db, rows)}
 
     honors = await _honor_refs(db, enrollments)
+    courses = await _course_refs(db, enrollments)
     summaries = []
     for e in enrollments:
         club = clubs.get(club_of[e.id])
@@ -377,9 +385,57 @@ async def _summaries(db: AsyncSession, enrollments: list[HonorEnrollment]) -> li
                 certified_at=e.certified_at,
                 withdrawn_at=e.withdrawn_at,
                 updated_at=e.updated_at,
+                course=courses.get(e.course_id),
+                course_removed_reason=e.course_removed_reason,
             )
         )
     return summaries
+
+
+async def _course_refs(
+    db: AsyncSession, enrollments: list[HonorEnrollment]
+) -> dict[uuid.UUID, CourseRef]:
+    """Bloque B · I3: title and instructor of every course these enrollments point at."""
+    course_ids = {e.course_id for e in enrollments if e.course_id}
+    if not course_ids:
+        return {}
+    rows = (await db.execute(select(Course).where(Course.id.in_(course_ids)))).scalars().all()
+    names = dict(
+        (await db.execute(
+            select(User.id, User.name).where(User.id.in_({row.instructor_id for row in rows}))
+        )).all()
+    )
+    return {
+        row.id: CourseRef(
+            id=str(row.id), title=row.title, instructor_name=names.get(row.instructor_id, "")
+        )
+        for row in rows
+    }
+
+
+async def course_plan(db: AsyncSession, enrollment: HonorEnrollment) -> dict[int, str]:
+    """`assessment` by requirement position for a COURSE enrollment; empty in CLUB.
+
+    The single reader of `course_requirements` from the portfolio side: Bloque C asks it
+    which requirements the exam completes, and the serializer shows it to the member.
+    """
+    if enrollment.mode != "COURSE" or enrollment.course_id is None:
+        return {}
+    stmt = select(CourseRequirement.requirement_position, CourseRequirement.assessment).where(
+        CourseRequirement.course_id == enrollment.course_id
+    )
+    return dict((await db.execute(stmt)).all())
+
+
+async def _require_not_exam(db: AsyncSession, enrollment: HonorEnrollment, position: int) -> None:
+    """Bloque C §4.4: in COURSE a requirement the plan evaluates with the exam is completed
+    ONLY by passing it — neither the member sends it, nor a reviewer marks it complete. It
+    can still be reopened with an INCOMPLETE verdict, and rows already COMPLETE when the
+    member joined the course are respected."""
+    if (await course_plan(db, enrollment)).get(position) == "EXAM":
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Este requisito se completa con el examen del curso"
+        )
 
 
 async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> EnrollmentDetail:
@@ -411,11 +467,13 @@ async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) ->
         stmt = select(User.id, User.name).where(User.id.in_(reviewer_ids))
         reviewers = {user_id: PersonRef(id=str(user_id), name=name) for user_id, name in await db.execute(stmt)}
 
+    plan = await course_plan(db, enrollment)
     requirements = []
     for p in progress_rows:
         source = text_by_id.get(p.requirement_id) or text_by_position.get(p.requirement_position)
         requirements.append(
             RequirementOut(
+                assessment=plan.get(p.requirement_position),
                 position=p.requirement_position,
                 requirement_id=str(p.requirement_id) if p.requirement_id else None,
                 description=source.description if source else None,
@@ -583,6 +641,7 @@ async def update_requirement(
     if "member_note" in payload.model_fields_set:
         progress.member_note = (payload.member_note or "").strip() or None
     if payload.status == SUBMITTED:
+        await _require_not_exam(db, enrollment, position)
         # A reviewer can only judge something: evidence when the requirement is practical,
         # an answer or evidence otherwise.
         evidence = await _active_evidence_count(db, progress.id)
@@ -767,26 +826,48 @@ async def remove_evidence(
 # ----------------------------------------------------------------------------
 # Review
 # ----------------------------------------------------------------------------
-async def _reviewer_club_id(db: AsyncSession, actor: User) -> uuid.UUID | None:
-    """Whose work `actor` sees in the queue: None = everyone (MASTER_GC), else their club."""
+async def _reviewer_scope(db: AsyncSession, actor: User) -> list | None:
+    """Whose work `actor` sees in the queue. None = everyone (MASTER_GC).
+
+    Two ways in, and a verified instructor attached to a club has both: the members of the
+    club they staff (Bloque A) and the enrollments of the courses they teach (Bloque B).
+    """
     if is_master(actor):
         return None
+    reach = []
     club = await member_club(db, actor) if club_staff_in_good_standing(actor) else None
-    if club is None:
+    if club is not None:
+        reach.append(User.organization_id == club.id)
+    course_ids = await _taught_course_ids(db, actor)
+    if course_ids:
+        reach.append(HonorEnrollment.course_id.in_(course_ids))
+    if not reach:
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "Solo los revisores de un club aprobado tienen cola de revisión"
         )
-    return club.id
+    return [or_(*reach)] if len(reach) > 1 else reach
+
+
+async def _taught_course_ids(db: AsyncSession, actor: User) -> list[uuid.UUID]:
+    """Courses whose enrollments `actor` may act on right now: theirs, live, and only while
+    the letter holds. `can_review` / `can_issue` decide again row by row."""
+    if not await instructor_is_verified(db, actor):
+        return []
+    stmt = select(Course.id).where(
+        Course.instructor_id == actor.id,
+        Course.status.in_(("PUBLISHED", "ARCHIVED")),
+        Course.archived_by_authority.is_(False),
+    )
+    return list((await db.execute(stmt)).scalars().all())
 
 
 async def review_queue(
     db: AsyncSession, actor: User, queue_status: str, limit: int, offset: int
 ) -> list[QueueRequirement] | list[QueueReady]:
-    club_id = await _reviewer_club_id(db, actor)
-    # Jurisdiction is the member's club of today, and never the reviewer's own work.
-    scope = [HonorEnrollment.user_id != actor.id]
-    if club_id is not None:
-        scope.append(User.organization_id == club_id)
+    reach = await _reviewer_scope(db, actor)
+    # Jurisdiction is the member's club of today (or the reviewer's own courses), and never
+    # the reviewer's own work.
+    scope = [HonorEnrollment.user_id != actor.id, *(reach or [])]
 
     if queue_status == READY:
         stmt = (
@@ -862,6 +943,23 @@ async def review_requirement(
     reopening = progress.status == COMPLETE and payload.verdict == INCOMPLETE
     if progress.status != SUBMITTED and not reopening:
         raise HTTPException(status.HTTP_409_CONFLICT, "El requisito no está enviado a revisión")
+    if reopening and enrollment.mode == "COURSE":
+        # D4a: in COURSE a COMPLETE is reopened only by whoever gave it, the instructor of
+        # the course (they sign the certificate) or MASTER_GC. A director who disagrees
+        # escalates instead of undoing. In CLUB, rule 4 of A applies unchanged.
+        allowed = (
+            progress.reviewed_by_id == actor.id
+            or is_master(actor)
+            or await is_course_instructor(db, actor, enrollment)
+        )
+        if not allowed:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                "Este requisito lo completó otra persona; solo quien lo dictaminó o el"
+                " instructor del curso pueden reabrirlo",
+            )
+    if payload.verdict == COMPLETE:
+        await _require_not_exam(db, enrollment, position)
     if payload.verdict == COMPLETE and progress.is_practical:
         if await _active_evidence_count(db, progress.id) == 0:  # rule 1
             raise HTTPException(
@@ -906,6 +1004,34 @@ async def review_requirement(
 # ----------------------------------------------------------------------------
 # Certificate
 # ----------------------------------------------------------------------------
+async def _course_signatures(
+    db: AsyncSession, enrollment: HonorEnrollment
+) -> tuple[str | None, str | None]:
+    """(instructor_name, director_name) for a COURSE certificate (spec D §5.3).
+
+    The instructor of the course signs it — the form cannot change that name — and the
+    director's line carries the last CLUB_DIRECTOR who judged a requirement of this
+    enrollment, or nothing at all when no club took part.
+    """
+    course = await db.get(Course, enrollment.course_id)
+    instructor = await db.get(User, course.instructor_id) if course else None
+    last_director = (
+        select(User.name)
+        .join(RequirementProgress, RequirementProgress.reviewed_by_id == User.id)
+        .where(
+            RequirementProgress.enrollment_id == enrollment.id,
+            RequirementProgress.reviewed_at.is_not(None),
+            User.role == CLUB_DIRECTOR,
+        )
+        .order_by(RequirementProgress.reviewed_at.desc())
+        .limit(1)
+    )
+    return (
+        instructor.name if instructor else None,
+        (await db.execute(last_director)).scalar_one_or_none(),
+    )
+
+
 async def _director_name(db: AsyncSession, actor: User, club: Organization | None) -> str | None:
     if actor.role == CLUB_DIRECTOR:
         return actor.name
@@ -970,6 +1096,11 @@ async def issue(
         orientation="landscape" if width_in >= height_in else "portrait", supports_svg=True,
     )
 
+    if enrollment.mode == "COURSE":
+        instructor_name, director_name = await _course_signatures(db, enrollment)
+    else:
+        instructor_name = payload.instructor_name
+        director_name = await _director_name(db, actor, member_org)
     certificate = await issue_certificate(
         db,
         ministry_id=honor.ministry_id,
@@ -982,8 +1113,8 @@ async def issue(
         recipient_name=member.name,
         issued_date=payload.issued_date,
         place=payload.place,
-        instructor_name=payload.instructor_name,
-        director_name=await _director_name(db, actor, member_org),
+        instructor_name=instructor_name,
+        director_name=director_name,
         user_id=member.id,
         enrollment_id=enrollment.id,
         issued_by=actor,
@@ -999,7 +1130,9 @@ async def issue(
         entity_id=certificate.id,
         actor=actor,
         metadata={"enrollment_id": str(enrollment.id), "user_id": str(member.id),
-                  "certificate_no": certificate.certificate_no, "template": slug},
+                  "certificate_no": certificate.certificate_no, "template": slug,
+                  "mode": enrollment.mode,
+                  "course_id": str(enrollment.course_id) if enrollment.course_id else None},
         request=request,
     )
     await db.commit()

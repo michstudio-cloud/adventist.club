@@ -297,9 +297,15 @@ async def test_instructor_detail_has_question_bank(client, staff, factory):
     assert bank[0]["explanation"] == "SECRET-EXPLANATION"
 
     await _publish_through_workflow(client, staff, honor["id"])
+    # Bloque C §4.1: publishing the honor does NOT publish its answers. `INSTRUCTOR` is a
+    # self-registration role, so any member with a second account would have read them.
     published = await client.get(url, headers=staff["instructor2"]["headers"])
-    assert published.status_code == 200
-    assert "SECRET-ANSWER-BOWLINE" in published.text
+    assert published.status_code == 403
+    assert "SECRET-ANSWER-BOWLINE" not in published.text
+    for who in ("instructor", "coordinator", "master"):
+        allowed = await client.get(url, headers=staff[who]["headers"])
+        assert allowed.status_code == 200, who
+        assert "SECRET-ANSWER-BOWLINE" in allowed.text
 
 
 async def test_request_changes_and_reject_return_to_draft(client, staff, factory):

@@ -12,18 +12,30 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.config import settings
-from app.schemas.honor import HonorReviewIn, ReviewOut  # noqa: F401  (same review contract)
-from app.schemas.portfolio import HonorRef, PersonRef  # noqa: F401  (shared shapes)
+from app.schemas.honor import HonorReviewIn, QuestionType, ReviewOut  # noqa: F401  (shared)
+from app.schemas.portfolio import ClubRef, Counters, HonorRef, PersonRef  # noqa: F401  (shared)
 from app.services.locales import LOCALE_PATTERN
 
 CourseStatus = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED"]
-# I4 opens `EXAM`, which needs a question bank; until then a course evaluates with people.
-Assessment = Literal["REVIEW", "EVIDENCE"]
+# `EXAM` needs a question bank (I4); a position only reaches it through the bank endpoint.
+Assessment = Literal["EXAM", "REVIEW", "EVIDENCE"]
+ExamMode = Literal["ONLINE", "IN_PERSON"]
 
 MAX_LESSONS_PER_COURSE = 30
 MAX_BLOCKS_PER_LESSON = 40
 MAX_LESSON_BYTES = 200 * 1024
 GUIDANCE_MAX_LENGTH = 2000
+
+# The whole exam draws at most this many questions (spec §4.1).
+MAX_DRAWN_QUESTIONS = 60
+MAX_BANK_PER_REQUIREMENT = 200
+# SHORT_ANSWER: accepted answers separated by "|".
+SHORT_ANSWER_SEPARATOR = "|"
+MAX_SHORT_ANSWERS = 10
+MAX_SHORT_ANSWER_LENGTH = 120
+MULTIPLE_CHOICE_OPTIONS = (2, 6)
+# The floor of the vision: an instructor may raise the bar, never lower it.
+MIN_PASSING_SCORE = 80
 
 # Raw HTML never travels in a lesson: the frontend renders Markdown with HTML turned off,
 # and anything that looks like a tag is refused here as well (defence in depth).
@@ -160,6 +172,11 @@ class CourseUpdate(BaseModel):
     title: str | None = Field(default=None, min_length=3, max_length=180)
     summary: str | None = Field(default=None, max_length=600)
     cover_url: str | None = None
+    # I4 — exam parameters. They are content: they only move while the course is a draft.
+    exam_passing_score: int | None = Field(default=None, ge=MIN_PASSING_SCORE, le=100)
+    exam_time_limit_minutes: int | None = Field(default=None, ge=5, le=180)
+    max_exam_attempts: int | None = Field(default=None, ge=1, le=10)
+    exam_mode: ExamMode | None = None
 
     _clean = field_validator("summary", mode="before")(_blank_to_none)
 
@@ -167,6 +184,74 @@ class CourseUpdate(BaseModel):
     @classmethod
     def _cover_in_our_bucket(cls, value: str | None) -> str | None:
         return media_url(value) if value else None
+
+
+# ----------------------------------------------------------------------------
+# I4 — the course's question bank
+# ----------------------------------------------------------------------------
+class CourseQuestionIn(BaseModel):
+    """One question of the course's own bank. Same shape as `honor_questions`, but every
+    rule of §4.1 is enforced here: a bank that cannot be graded is a bank nobody can sit."""
+
+    question_text: str = Field(min_length=1, max_length=1000)
+    question_type: QuestionType
+    options: list[str] | None = None
+    correct_answer: str = Field(min_length=1, max_length=2000)
+    points: int = Field(default=1, ge=1, le=10)
+    explanation: str | None = Field(default=None, max_length=1000)
+
+    _clean = field_validator("explanation", mode="before")(_blank_to_none)
+
+    @model_validator(mode="after")
+    def _matches_its_type(self):
+        low, high = MULTIPLE_CHOICE_OPTIONS
+        if self.question_type == "MULTIPLE_CHOICE":
+            options = [option.strip() for option in self.options or []]
+            if not low <= len(options) <= high:
+                raise ValueError(f"Una pregunta de opción múltiple lleva de {low} a {high} opciones")
+            if len(set(options)) != len(options):
+                raise ValueError("Las opciones no pueden repetirse")
+            if self.correct_answer.strip() not in options:
+                raise ValueError("La respuesta correcta debe ser una de las opciones")
+            self.options, self.correct_answer = options, self.correct_answer.strip()
+            return self
+        if self.options:
+            raise ValueError("Solo una pregunta de opción múltiple lleva opciones")
+        self.options = None
+        if self.question_type == "TRUE_FALSE":
+            value = self.correct_answer.strip().lower()
+            if value not in ("true", "false"):
+                raise ValueError("La respuesta de verdadero o falso es «true» o «false»")
+            self.correct_answer = value
+        elif self.question_type == "SHORT_ANSWER":
+            answers = [part.strip() for part in self.correct_answer.split(SHORT_ANSWER_SEPARATOR)]
+            answers = [answer for answer in answers if answer]
+            if not 1 <= len(answers) <= MAX_SHORT_ANSWERS:
+                raise ValueError(
+                    f"Una respuesta corta admite de 1 a {MAX_SHORT_ANSWERS} respuestas aceptadas,"
+                    f" separadas por «{SHORT_ANSWER_SEPARATOR}»"
+                )
+            if any(len(answer) > MAX_SHORT_ANSWER_LENGTH for answer in answers):
+                raise ValueError(
+                    f"Cada respuesta aceptada ocupa como mucho {MAX_SHORT_ANSWER_LENGTH} caracteres"
+                )
+            self.correct_answer = SHORT_ANSWER_SEPARATOR.join(answers)
+        return self
+
+
+class RequirementQuestionsIn(BaseModel):
+    """Replaces the whole bank of one requirement and marks it `EXAM`."""
+
+    draw_count: int = Field(ge=1, le=MAX_DRAWN_QUESTIONS)
+    question_bank: list[CourseQuestionIn] = Field(
+        min_length=1, max_length=MAX_BANK_PER_REQUIREMENT
+    )
+
+    @model_validator(mode="after")
+    def _bank_covers_the_draw(self):
+        if self.draw_count > len(self.question_bank):
+            raise ValueError("El banco debe tener al menos tantas preguntas como se sortean")
+        return self
 
 
 class LessonIn(BaseModel):
@@ -269,12 +354,41 @@ class CourseDetail(CourseCard):
     previous_version_id: str | None
     changes_description: str | None
     updated_at: datetime
+    # I4 — the exam's rules, which the member must know before starting. Never its questions.
+    exam_passing_score: int
+    exam_time_limit_minutes: int | None
+    max_exam_attempts: int
+    exam_mode: str
+
+
+class CourseQuestionOut(BaseModel):
+    """STAFF ONLY. It carries `correct_answer` and `explanation`, so it must never appear
+    in a response a member can reach: the member's paper is `PaperQuestionOut` (I5), which
+    does not declare these fields at all."""
+
+    id: str
+    position: int
+    question_text: str
+    question_type: str
+    options: list[str] | None
+    correct_answer: str
+    points: int
+    explanation: str | None
+
+
+class RequirementBankOut(BaseModel):
+    position: int
+    draw_count: int
+    questions: list[CourseQuestionOut]
 
 
 class CourseStaffDetail(CourseDetail):
-    """Author, reviewers in scope and MASTER_GC. The question bank arrives with I4."""
+    """Author, reviewers in scope and MASTER_GC: the only view with the answers."""
 
     review_history: list[ReviewOut]
+    question_banks: list[RequirementBankOut] = Field(default_factory=list)
+    # Non-blocking notes for the author and the reviewers (a short bank, automatic issuance).
+    warnings: list[str] = Field(default_factory=list)
 
 
 class PaginatedCourses(BaseModel):
@@ -283,3 +397,32 @@ class PaginatedCourses(BaseModel):
     limit: int
     offset: int
     has_more: bool
+
+
+# ----------------------------------------------------------------------------
+# I3 — Enrolment in a course
+# ----------------------------------------------------------------------------
+class CourseMemberRemove(BaseModel):
+    """Removing a member is an act the member reads afterwards: the reason is mandatory."""
+
+    reason: str = Field(min_length=3, max_length=2000)
+
+    _clean = field_validator("reason", mode="before")(_blank_to_none)
+
+
+class JoinedCourse(CourseCard):
+    enrollment_id: str
+    enrollment_status: str
+
+
+class CourseMember(BaseModel):
+    """What the instructor sees of each member: progress in THEIR course and nothing more.
+    No e-mail, no birth date, no way to reach them outside the platform (spec §6)."""
+
+    enrollment_id: str
+    member: PersonRef
+    club: ClubRef | None
+    status: str
+    counters: Counters
+    joined_at: datetime | None
+    updated_at: datetime

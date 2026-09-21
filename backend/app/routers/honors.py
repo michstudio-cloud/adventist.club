@@ -849,10 +849,21 @@ async def get_honor_for_instructor(
     current_user: User = Depends(require_roles(*INSTRUCTOR_VIEW_ROLES)),
     db: AsyncSession = Depends(get_db),
 ):
-    """Full detail including the question bank with correct answers."""
+    """Full detail including the question bank with correct answers.
+
+    Bloque C §4.1 (hallazgo 2): `INSTRUCTOR` is a self-registration role, so handing the
+    answers of every published honor to any instructor meant handing them to anyone with a
+    second account. Only the creator, the reviewers in scope and MASTER_GC read them now —
+    a published honor answers 403 (it exists in public), an unpublished one 404.
+    """
     honor = await _get_honor_or_404(db, honor_id)
-    if honor.status != PUBLISHED and not await _can_view_unpublished(db, current_user, honor):
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Honor not found")
+    if not await _can_view_unpublished(db, current_user, honor):
+        if honor.status != PUBLISHED:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Honor not found")
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "El banco de preguntas solo lo ve quien creó la especialidad o quien la revisa",
+        )
     return await _build_detail(db, honor, staff=True, with_questions=True)
 
 

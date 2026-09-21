@@ -16,6 +16,8 @@ from app.rate_limit import limiter, rate_limit_exceeded_handler
 from app.routers import auth as auth_router, clubs as clubs_router, honors as honors_router, media as media_router, memberships as memberships_router, org as org_router, portfolio as portfolio_router, render as render_router, users as users_router
 # Bloque B: la carta de la iglesia (verificación del instructor virtual) y los cursos.
 from app.routers import church_letters as church_letters_router, courses as courses_router
+# Bloque C: los intentos de examen del curso.
+from app.routers import exams as exams_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
@@ -25,7 +27,7 @@ app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credent
 app.state.limiter=limiter
 app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 # GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
-for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router):app.include_router(_router.router)
+for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router):app.include_router(_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)

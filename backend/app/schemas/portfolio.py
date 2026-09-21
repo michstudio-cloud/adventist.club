@@ -88,6 +88,15 @@ class HonorRef(BaseModel):
     image_url: str | None
 
 
+class CourseRef(BaseModel):
+    """Bloque B · I3: the course a COURSE enrollment is being taken in. The instructor's
+    name is public (they sign the certificate); nothing else of their account is."""
+
+    id: str
+    title: str
+    instructor_name: str
+
+
 class Counters(BaseModel):
     total: int
     complete: int
@@ -160,6 +169,8 @@ class RequirementOut(BaseModel):
     reviewed_at: datetime | None
     review_note: str | None
     evidences: list[EvidenceOut]
+    # Bloque B · I3: how the course evaluates it (EXAM | REVIEW | EVIDENCE); None in CLUB.
+    assessment: str | None = None
 
 
 class Permissions(BaseModel):
@@ -184,6 +195,10 @@ class EnrollmentSummary(BaseModel):
     certified_at: datetime | None
     withdrawn_at: datetime | None
     updated_at: datetime
+    # Bloque B · I3: set only while mode == "COURSE".
+    course: CourseRef | None = None
+    # Why the instructor removed the member from the course, until they join another.
+    course_removed_reason: str | None = None
 
 
 class EnrollmentDetail(EnrollmentSummary):

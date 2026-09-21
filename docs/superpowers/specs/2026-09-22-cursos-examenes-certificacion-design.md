@@ -828,6 +828,82 @@ hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del d
     esquema en cada lectura: un cambio futuro del dominio de medios convertiría lecciones válidas en
     errores 500. La validación sigue siendo estricta al escribir.
 
+## Desviaciones de la implementación (I3, 21 sep 2026)
+
+11. **`honor_enrollments.course_removed_reason`** (columna nueva en `009c`, nullable). §3.6 dice
+    que al expulsar «el miembro ve el motivo» y no había dónde guardarlo: sin columna la promesa
+    era falsa. Se escribe al expulsar, se limpia al unirse a otro curso y sale en
+    `EnrollmentSummary.course_removed_reason`. Salir por voluntad propia la deja NULL.
+12. **`POST /courses/{id}/join` responde 200, no 201.** No crea un recurso en esa URL: mueve la
+    inscripción que A ya tiene (o crea una con el servicio de A) a modalidad COURSE. Repetir la
+    llamada devuelve la misma inscripción, como pide §3.6.
+13. **La inscripción de A se crea en su propia transacción**, porque `portfolio.enroll` hace commit.
+    El cupo se comprueba dos veces: una antes (para no crear nada si el curso está lleno) y otra con
+    el curso bloqueado `FOR UPDATE`, que es la que decide. En la carrera perdida queda, a lo sumo,
+    una inscripción en modalidad CLUB de esa misma especialidad, que es exactamente lo que
+    `POST /portfolio/enrollments` habría dejado.
+14. **`can_view_portfolio` exige ahora que el personal de club lo sea del club del miembro.** La
+    condición de A (`club_staff_in_good_standing`) daba por supuesto que un `INSTRUCTOR` cuelga de
+    un club; el instructor virtual de B cuelga de una Asociación, y con la regla anterior habría
+    leído el portafolio completo de todos los menores de su subárbol. Se compara el club del miembro
+    con `actor.organization_id`, que es lo que A quería decir. Para un director no cambia nada.
+    **Aviso para otro bloque:** `MEMBER_VIEW_ROLES` sigue dejando que ese mismo instructor lea
+    `GET /users` de su subárbol (con correos y fechas de nacimiento). Es anterior a B y se deja
+    señalado, no tocado.
+15. **La cola de revisión de un instructor con club es la unión de las dos.** §2.1 dice que
+    `GET /portfolio/review/queue` «incluye las inscripciones de los cursos del instructor»; si además
+    es personal de un club, sigue viendo a los miembros de ese club. Sin cursos ni club, 403 como en A.
+16. **`GET /courses/{id}/members` lo lee también MASTER_GC** (§3.8 lo dice) y responde **404** a
+    cualquier otro, no 403: el padrón es del autor y no se confirma que exista.
+
+## Desviaciones de la implementación (I4, 21 sep 2026)
+
+17. **`PUT /{id}/plan` actualiza las filas del plan en su sitio**, ya no las borra y reinserta.
+    `course_questions` cuelga de `(course_id, requirement_position)` con `ON DELETE CASCADE`, así
+    que reescribir el plan se habría llevado el banco entero del instructor sin avisar.
+18. **Un requisito sólo llega a `EXAM` a través de su banco.** El CHECK
+    `((assessment = 'EXAM') = (draw_count > 0))` de `009b` hace imposible marcar `EXAM` sin sorteo,
+    así que `PUT /{id}/plan` con `EXAM` sobre un requisito sin banco responde 422 remitiendo a
+    `PUT /{id}/requirements/{position}/questions`. Sacar un requisito de `EXAM` borra su banco.
+19. **`POST /import-honor-bank` deja `draw_count = 1`** en los requisitos que recibieron preguntas y
+    los marca `EXAM`. El documento no decía con cuántas se sortea al importar; uno es el mínimo que
+    cumple el CHECK y el autor lo sube en el editor. Los requisitos prácticos nunca se importan.
+20. **`MAX_DRAWN_QUESTIONS = 60` acota también el `draw_count` de un solo requisito** (422), además
+    del total del examen (400 al enviar a revisión). Un requisito no puede sortear más preguntas de
+    las que el examen entero tiene permitidas.
+21. **`GET /honors/{id}/instructor` responde 403 en una especialidad publicada** y 404 en una que no
+    lo está. El documento sólo decía «sólo al creador, a los revisores en alcance y a MASTER_GC»;
+    negar la existencia de algo que el catálogo público ya muestra habría sido mentir.
+22. **Los parámetros del examen salen en `CourseDetail`** (umbral, tiempo, intentos y modo), no sólo
+    en la vista del autor: el miembro decide si se une sabiendo las reglas. El banco no sale nunca —
+    `CourseDetail` no declara el campo, de modo que no puede filtrarse por construcción.
+23. **Aviso extra de emisión automática.** Además del banco corto de §4.1, `warnings` incluye «este
+    curso emitirá el certificado automáticamente» cuando el plan no tiene ningún requisito
+    `EVIDENCE`: es la aceptación que §5.3 pide que vean el autor y los revisores.
+
+## Desviaciones de la implementación (I5, 21 sep 2026)
+
+24. **El sorteo cubre sólo los requisitos `EXAM` que faltan**, no todos los del plan. §4.2 exige que
+    «quede alguno sin completar» para empezar y §4.4 completa «cada fila que no está `COMPLETE`:
+    volver a preguntar lo que ya está ganado no decide nada y alarga el examen de un niño.
+25. **El cliente responde con el índice de la opción que ve**, y el servidor lo traduce al índice
+    original antes de guardarlo (§4.1 dice que `response` almacena el original). Así el barajado no
+    sale nunca del servidor: el navegador no sabe en qué orden estaban las opciones.
+26. **Una respuesta corta en blanco es incorrecta, no pendiente.** §4.4 protege al niño que «escribió
+    algo válido que el instructor no previó»; no escribir nada no es eso. Sin esta distinción un
+    examen entregado vacío quedaría `PENDING_GRADING` para siempre.
+27. **`PENDING_GRADING` no muestra nota ni desglose al miembro**, sólo el estado. §4.5 dice «sin
+    nota»; enseñar los puntos ya otorgados sería enseñar media nota, que es una nota equivocada.
+28. **Sin límite de tiempo, `time_limit_minutes` del intento queda NULL** y el plazo es el de 72 h de
+    §4.1; con límite se guarda el tiempo **efectivo**, ya con el tiempo adicional aplicado, para que
+    el intento conserve la regla con la que se rindió.
+29. **`POST /attempts/{id}/void` y la cola de calificación no existen todavía** (son I6). Las
+    columnas (`exam_attempts.voided_*`, `exam_answers.graded_*`) ya están y `completed_positions` se
+    escribe al aprobar, así que anular es, cuando llegue, revertir exactamente esas posiciones.
+30. **`GET /portfolio/review/queue` excluye los requisitos `EXAM` por construcción**: en COURSE no
+    pueden llegar a `SUBMITTED` (el envío responde 409 y unirse devuelve a `PENDING` las filas
+    `SUBMITTED` de requisitos `EXAM`), así que no hizo falta un filtro aparte.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de

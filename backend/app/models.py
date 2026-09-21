@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, Integer, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, ForeignKeyConstraint, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -376,6 +376,15 @@ class HonorEnrollment(Base):
     certified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     withdrawn_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 009c_course_enrollment.sql — mode COURSE: `course_id` is NOT NULL exactly then (CHECK).
+    course_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id", use_alter=True)
+    )
+    course_joined_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Why the instructor removed them; cleared when they join a course again.
+    course_removed_reason: Mapped[str | None] = mapped_column(Text)
+    # 010_exams.sql — accessibility: extra time on exams (0, 25, 50 or 100 %).
+    exam_extra_time_percent: Mapped[int] = mapped_column(SmallInteger, server_default="0")
 
 
 class RequirementProgress(Base):
@@ -510,6 +519,14 @@ class Course(Base):
     archived_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 010_exams.sql — exam parameters. Content: reviewed with the rest and frozen on publish.
+    exam_passing_score: Mapped[int] = mapped_column(Integer, server_default="80")
+    exam_time_limit_minutes: Mapped[int | None] = mapped_column(Integer)
+    max_exam_attempts: Mapped[int] = mapped_column(Integer, server_default="3")
+    exam_mode: Mapped[str] = mapped_column(String(10), server_default="ONLINE")
+    # Operational: the code an instructor dictates in the classroom (Bloque C · I6).
+    session_code: Mapped[str | None] = mapped_column(String(8))
+    session_code_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
 class CourseLesson(Base):
@@ -653,3 +670,96 @@ class MfaRecoveryCode(Base):
     code_hash: Mapped[str] = mapped_column(String(64), unique=True)
     used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 010_exams.sql: the course's own question bank, the attempts and their paper.
+# The bank belongs to the COURSE and not to `honor_questions`, which hangs from
+# a requirement row shared by every course of that honor version and language.
+# ---------------------------------------------------------------------------
+
+
+class CourseQuestion(Base):
+    __tablename__ = "course_questions"
+    # A question never outlives the position it evaluates. Declared here as well as in the
+    # migration so the unit of work inserts the plan before its bank.
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["course_id", "requirement_position"],
+            ["course_requirements.course_id", "course_requirements.requirement_position"],
+            ondelete="CASCADE",
+        ),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    course_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    requirement_position: Mapped[int] = mapped_column(Integer)
+    position: Mapped[int] = mapped_column(Integer)
+    question_text: Mapped[str] = mapped_column(Text)
+    question_type: Mapped[str] = mapped_column(String(20))
+    options: Mapped[list | None] = mapped_column(JSONB)
+    # Never leaves the server towards a member: see app/schemas/exam.py.
+    correct_answer: Mapped[str] = mapped_column(Text)
+    points: Mapped[int] = mapped_column(Integer, server_default="1")
+    explanation: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ExamAttempt(Base):
+    __tablename__ = "exam_attempts"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    enrollment_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("honor_enrollments.id", ondelete="CASCADE")
+    )
+    course_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("courses.id"))
+    # Denormalised for the queues and the attempt limit.
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    attempt_no: Mapped[int] = mapped_column(SmallInteger)
+    status: Mapped[str] = mapped_column(String(16), server_default="IN_PROGRESS")
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # Server time only: the clock of an exam is never the browser's.
+    deadline_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    time_limit_minutes: Mapped[int | None] = mapped_column(SmallInteger)
+    passing_score: Mapped[int] = mapped_column(SmallInteger)
+    points_total: Mapped[int] = mapped_column(Integer, server_default="0")
+    points_awarded: Mapped[int | None] = mapped_column(Integer)
+    score_percent: Mapped[int | None] = mapped_column(SmallInteger)
+    # What this attempt completed, so voiding it reverts exactly that and nothing else.
+    completed_positions: Mapped[list[int]] = mapped_column(ARRAY(Integer), server_default="{}")
+    proctored: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    auto_submitted: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    voided_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    voided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    void_reason: Mapped[str | None] = mapped_column(Text)
+
+
+class ExamAnswer(Base):
+    """The paper: one row per question drawn, written when the attempt starts."""
+
+    __tablename__ = "exam_answers"
+
+    attempt_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("exam_attempts.id", ondelete="CASCADE"), primary_key=True
+    )
+    position: Mapped[int] = mapped_column(Integer, primary_key=True)
+    question_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("course_questions.id")
+    )
+    requirement_position: Mapped[int] = mapped_column(Integer)
+    # The permutation the options were shuffled with, so the paper reads the same on resume.
+    option_order: Mapped[list | None] = mapped_column(JSONB)
+    response: Mapped[str | None] = mapped_column(Text)
+    answered_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    is_correct: Mapped[bool | None] = mapped_column(Boolean)
+    points_possible: Mapped[int] = mapped_column(SmallInteger, server_default="1")
+    points_awarded: Mapped[int | None] = mapped_column(SmallInteger)
+    graded_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    graded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    grader_note: Mapped[str | None] = mapped_column(Text)
