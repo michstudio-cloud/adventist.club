@@ -36,9 +36,9 @@ from app.security import (
 from app.services import units
 from app.services.audit import record_audit
 
-# CLUB_SECRETARY is appointed by the director from the roster, not by a link,
-# until E8 opens it up (spec §5.7).
-INVITABLE_ROLES = (STUDENT, COUNSELOR, INSTRUCTOR)
+# E8 opened the last one: the director appoints the secretary with a NOMINAL,
+# single-use link (it is a staff role) or from the roster (spec §5.7).
+INVITABLE_ROLES = (STUDENT, COUNSELOR, INSTRUCTOR, CLUB_SECRETARY)
 # Roles that always need a named invitee: the club is handing out authority.
 STAFF_ROLES = (COUNSELOR, INSTRUCTOR, CLUB_SECRETARY)
 

@@ -129,9 +129,10 @@ class ClubProfileOut(BaseModel):
 # ----------------------------------------------------------------------------
 # Invitations (E3)
 # ----------------------------------------------------------------------------
-# What a link may grant today. CLUB_SECRETARY is appointed from the roster
-# until E8 opens invitations to it (spec §5.7).
-InvitableRole = Literal["STUDENT", "COUNSELOR", "INSTRUCTOR"]
+# What a link may grant. Since E8 that includes CLUB_SECRETARY, which — like
+# every staff role — is always single-use and nominal (spec §5.7). Who may
+# actually hand each one out is decided in `rbac.can_grant_club_role`.
+InvitableRole = Literal["STUDENT", "COUNSELOR", "INSTRUCTOR", "CLUB_SECRETARY"]
 
 
 class InvitationCreate(BaseModel):
