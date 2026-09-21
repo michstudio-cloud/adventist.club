@@ -168,6 +168,10 @@ async def activate(
         if current.club_id == membership.club_id:
             raise HTTPException(status.HTTP_409_CONFLICT, "Ya eres miembro de este club.")
         _close(current, end_reason=TRANSFERRED, actor=actor, now=now)
+        # E7: the letter backs the person before the church of the club they
+        # are leaving; the new club validates them again (integrity rule 7).
+        member.leader_verified_until = None
+        await units.release_counselor_posts(db, current.club_id, member.id)
         record_audit(
             db,
             action="MEMBERSHIP_TRANSFER",
@@ -248,6 +252,9 @@ async def end(
     # the club's units any more.
     await units.detach_member(db, membership)
     await units.release_counselor_posts(db, membership.club_id, member.id)
+    # E7: the church letter vouches for the person before THAT church, so
+    # leaving the club leaves the verification behind (integrity rule 7).
+    member.leader_verified_until = None
 
     member.organization_id = None
     if member.role in CLUB_SCOPED_ROLES:

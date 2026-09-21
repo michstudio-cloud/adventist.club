@@ -12,7 +12,7 @@ import logging
 import uuid
 from datetime import timedelta
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
@@ -31,9 +31,14 @@ CLUB_INVITATION = "CLUB_INVITATION"
 PENDING_REQUESTS = "PENDING_REQUESTS"
 MEMBERSHIP_DECISION = "MEMBERSHIP_DECISION"
 
+LEADER_LETTER_SUBMITTED = "LEADER_LETTER_SUBMITTED"
+LEADER_VERIFY_DECISION = "LEADER_VERIFY_DECISION"
+LEADER_LETTER_EXPIRING = "LEADER_LETTER_EXPIRING"
+
 MEMBERSHIP = "MEMBERSHIP"
 INVITATION = "INVITATION"
 ORGANIZATION = "ORGANIZATION"
+CHURCH_LETTER = "CHURCH_LETTER"
 
 # A minor's club must never become a way to send somebody mail.
 CONSENT_RESENDS_PER_DAY = 3
@@ -189,6 +194,113 @@ async def queue_pending_requests_notice(
             pending,
             club_panel_url(),
         )
+
+
+# ----------------------------------------------------------------------------
+# The church letter of a club leader (E7)
+# ----------------------------------------------------------------------------
+def letters_queue_url() -> str:
+    return f"{settings.frontend_url}/panel/cartas"
+
+
+async def letter_validators(db: AsyncSession, letter) -> list:
+    """Whoever may decide on this letter: the coordinators of its zone and,
+    when the club has no zone yet, the administration of the association.
+
+    The list is built from the tree and then passed through the very rule that
+    decides (`rbac.org_in_review_scope`), so nobody is written to who could not
+    act on it anyway.
+    """
+    from app.models import Organization, User
+    from app.rbac import org_in_review_scope
+    from app.workflow import ZONE_REVIEWERS
+
+    organization = await db.get(Organization, letter.organization_id)
+    if organization is None or not organization.path:
+        return []
+    ancestors = select(Organization.id).where(Organization.path.op("@>")(organization.path))
+    association_path = (
+        await db.execute(
+            select(Organization.path)
+            .where(
+                Organization.type == "association",
+                Organization.path.op("@>")(organization.path),
+            )
+            .limit(1)
+        )
+    ).scalar_one_or_none()
+    scopes = [User.organization_id.in_(ancestors)]
+    if association_path:
+        zones = select(Organization.id).where(
+            Organization.type == "zone", Organization.path.op("<@")(association_path)
+        )
+        scopes.append(User.organization_id.in_(zones))
+    candidates = (
+        await db.execute(
+            select(User).where(
+                User.role.in_(ZONE_REVIEWERS),
+                User.status == "ACTIVE",
+                User.id != letter.user_id,
+                or_(*scopes),
+            )
+        )
+    ).scalars().all()
+    return [
+        person
+        for person in candidates
+        if await org_in_review_scope(db, person, letter.organization_id)
+    ]
+
+
+async def queue_letter_submitted(db: AsyncSession, background, *, letter, applicant) -> None:
+    """A letter reached the queue. The message names the applicant — an adult
+    presenting their own document — and never a minor."""
+    if background is None:
+        return
+    for reviewer in await letter_validators(db, letter):
+        log = stage_log(
+            db,
+            kind=LEADER_LETTER_SUBMITTED,
+            email=reviewer.email,
+            entity_type=CHURCH_LETTER,
+            entity_id=letter.id,
+            user_id=reviewer.id,
+        )
+        background.add_task(
+            send_and_record,
+            email_service.send_letter_submitted_email,
+            log.id,
+            reviewer.email,
+            reviewer.name,
+            applicant.name,
+            letter.role_requested,
+            letters_queue_url(),
+        )
+
+
+async def queue_letter_decision(db: AsyncSession, background, *, letter, applicant) -> None:
+    """The leader is always told what happened to their letter: it decides
+    whether they may be trusted with minors."""
+    if background is None or applicant is None:
+        return
+    log = stage_log(
+        db,
+        kind=LEADER_VERIFY_DECISION,
+        email=applicant.email,
+        entity_type=CHURCH_LETTER,
+        entity_id=letter.id,
+        user_id=applicant.id,
+    )
+    background.add_task(
+        send_and_record,
+        email_service.send_letter_decision_email,
+        log.id,
+        applicant.email,
+        applicant.name,
+        letter.status,
+        letter.valid_until.isoformat() if letter.valid_until else None,
+        letter.decision_note,
+    )
 
 
 async def queue_membership_decision(

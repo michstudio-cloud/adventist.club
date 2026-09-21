@@ -11,6 +11,9 @@ LetterStatus = Literal[
 ]
 QueueStatus = Literal["SUBMITTED", "ZONE_VALIDATED"]
 LetterAction = Literal["VALIDATE", "AUTHORIZE", "REJECT", "REVOKE"]
+# The offices a church letter may back. ONE table for the whole platform: the
+# virtual instructor of Bloque B and the club offices of Bloque E (E7).
+LetterRole = Literal["INSTRUCTOR", "CLUB_DIRECTOR", "COUNSELOR", "CLUB_SECRETARY"]
 # Same whitelist as portfolio evidence: a scan or a photo of the signed letter.
 LetterContentType = Literal["application/pdf", "image/jpeg", "image/png", "image/webp"]
 NOTE_MAX_LENGTH = 2000
@@ -30,6 +33,9 @@ class LetterCreate(BaseModel):
     pastor_name: str | None = Field(default=None, max_length=180)
     content_type: LetterContentType
     size_bytes: int = Field(gt=0)
+    # Bloque E: which office the letter backs. Omitted, it is the one the
+    # person holds; the service checks it against `church_letters.LETTER_ROLES`.
+    role_requested: LetterRole | None = None
 
     _clean = field_validator("pastor_name", mode="before")(_blank_to_none)
 
@@ -37,8 +43,11 @@ class LetterCreate(BaseModel):
 class LetterReviewIn(BaseModel):
     action: LetterAction
     note: str | None = Field(default=None, max_length=NOTE_MAX_LENGTH)
-    # Only read on AUTHORIZE (D7); NULL there means "no expiry".
+    # Only read on AUTHORIZE. Omitted it means 12 months (E §D5); 24 is the cap.
     valid_until: date | None = None
+    # Whoever validates the letter may tick the child protection course in the
+    # same act (spec E §5.6). It never takes the flag away.
+    child_protection_completed: bool | None = None
 
     _clean = field_validator("note", mode="before")(_blank_to_none)
 
@@ -93,3 +102,6 @@ class VerificationChecklist(BaseModel):
     child_protection: bool
     letter: LetterOut | None
     verified: bool
+    # E7: what the panel shows about the letter in force and its renewal.
+    valid_until: date | None = None
+    expires_soon: bool = False

@@ -418,6 +418,9 @@ async def test_checklist_reports_every_condition(client, world, r2, clean):
         "child_protection": True,
         "letter": None,
         "verified": False,
+        # Bloque E, E7: what the panel needs to warn about the renewal.
+        "valid_until": None,
+        "expires_soon": False,
     }
 
     await _submitted(client, r2, world["instructor"])

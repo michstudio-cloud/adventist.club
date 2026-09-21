@@ -316,6 +316,87 @@ def membership_decision_email_html(
     return base_template(content, "Tu membresía de club - Adventist.Club")
 
 
+def letter_submitted_email_html(
+    reviewer_name: str, applicant_name: str, role: str, link: str
+) -> str:
+    """To whoever validates letters. It names an ADULT who presented their own
+    document, and nothing about any minor."""
+    role_label = ROLE_LABELS.get(role, "instructor(a)")
+    content = f"""
+        <h2>Una carta de iglesia espera tu validación</h2>
+        <p>Hola {escape(reviewer_name)},</p>
+        <p><strong>{escape(applicant_name)}</strong> presentó la carta de su iglesia para el
+           cargo de {escape(role_label)}.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Revisar la carta</a>
+        </div>
+        <div class="info">
+            Sin una carta válida, esa persona no puede dictaminar ni ver datos de menores.
+        </div>
+    """
+    return base_template(content, "Carta por validar - Adventist.Club")
+
+
+def letter_decision_email_html(
+    name: str, status: str, valid_until: str | None, note: str | None
+) -> str:
+    frontend = settings.frontend_url
+    note_html = (
+        f'<div class="warning"><strong>Motivo:</strong><br>{escape(note)}</div>' if note else ""
+    )
+    if status == "AUTHORIZED":
+        body = f"""
+        <h2>Tu carta fue validada ✅</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Tu carta de la iglesia quedó autorizada{
+            f" y vale hasta el <strong>{escape(valid_until)}</strong>" if valid_until else ""
+        }.</p>
+        <div class="info">
+            Podrás renovarla desde 60 días antes de esa fecha. Al vencer, vuelves a
+            «sin verificar» hasta presentar una nueva.
+        </div>
+        """
+    elif status == "REVOKED":
+        body = f"""
+        <h2>Se retiró tu validación</h2>
+        <p>Hola {escape(name)},</p>
+        <p>La administración revocó la validación de tu carta de la iglesia.</p>
+        {note_html}
+        """
+    else:
+        body = f"""
+        <h2>Tu carta no fue validada</h2>
+        <p>Hola {escape(name)},</p>
+        <p>La administración revisó la carta de tu iglesia y por ahora no la aceptó.
+           Puedes presentar otra.</p>
+        {note_html}
+        """
+    content = f"""{body}
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Tu carta de la iglesia - Adventist.Club")
+
+
+def letter_expiring_email_html(name: str, valid_until: str, days: int) -> str:
+    frontend = settings.frontend_url
+    content = f"""
+        <h2>Tu carta de la iglesia está por vencer</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Tu validación vence el <strong>{escape(valid_until)}</strong>, dentro de
+           {days} días. Ya puedes presentar la carta del nuevo periodo.</p>
+        <div class="warning">
+            Al vencer vuelves a «sin verificar»: no podrás dictaminar ni ver datos de
+            menores hasta renovarla.
+        </div>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Renovar mi carta</a>
+        </div>
+    """
+    return base_template(content, "Tu carta de la iglesia vence pronto - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -414,6 +495,34 @@ async def send_membership_decision_email(
         to,
         "Tu membresía de club - Adventist.Club",
         membership_decision_email_html(name, club_name, approved, reason),
+    )
+
+
+async def send_letter_submitted_email(
+    to: str, reviewer_name: str, applicant_name: str, role: str, link: str
+) -> bool:
+    return await send_email(
+        to,
+        "Carta de iglesia por validar - Adventist.Club",
+        letter_submitted_email_html(reviewer_name, applicant_name, role, link),
+    )
+
+
+async def send_letter_decision_email(
+    to: str, name: str, status: str, valid_until: str | None = None, note: str | None = None
+) -> bool:
+    return await send_email(
+        to,
+        "Tu carta de la iglesia - Adventist.Club",
+        letter_decision_email_html(name, status, valid_until, note),
+    )
+
+
+async def send_letter_expiring_email(to: str, name: str, valid_until: str, days: int) -> bool:
+    return await send_email(
+        to,
+        "Tu carta de la iglesia vence pronto - Adventist.Club",
+        letter_expiring_email_html(name, valid_until, days),
     )
 
 

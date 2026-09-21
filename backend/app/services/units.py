@@ -280,9 +280,11 @@ async def set_counselor(
 
     Whoever leads a unit is alone with minors, so the bar is deliberately high:
     an adult, with an ACTIVE membership of THIS club, holding a role that
-    carries responsibility. E7 adds the last condition — `may_handle_minors`,
-    the single gate of `app/rbac.py` — once the church letter is enforced.
+    carries responsibility and — once E7's switch is on — a church letter in
+    force (`rbac.may_handle_minors`, the single gate).
     """
+    from app.rbac import may_handle_minors  # local: rbac must not import services
+
     person: User | None = None
     if membership is not None:
         person = await db.get(User, membership.user_id)
@@ -302,6 +304,11 @@ async def set_counselor(
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,
                 "Concede primero el rol de consejero(a), instructor(a) o secretaría a esta persona.",
+            )
+        if not may_handle_minors(person):
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                "Sin verificar: falta la carta de la iglesia para hacerse cargo de una unidad.",
             )
 
     unit.counselor_id = person.id if person is not None else None

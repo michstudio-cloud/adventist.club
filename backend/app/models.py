@@ -232,6 +232,10 @@ class User(Base):
     club_approval: Mapped[str | None] = mapped_column(String(20))
     club_approval_reason: Mapped[str | None] = mapped_column(Text)
     club_approval_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # 008f_leader_verification.sql (E7): copy of the AUTHORIZED church letter in
+    # force, so `rbac.is_verified_leader` is a pure function. Written ONLY by
+    # app/services/church_letters.py and app/services/memberships.py.
+    leader_verified_until: Mapped[date | None] = mapped_column(Date)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

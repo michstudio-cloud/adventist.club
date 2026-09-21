@@ -7,12 +7,14 @@ MASTER_GC is global. The legacy API only compared organization ids for
 equality and left the hierarchy as a TODO.
 """
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.models import ChurchLetter, Guardianship, HonorEnrollment, Organization, User
+from app.people import is_minor_user
 from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
@@ -220,6 +222,63 @@ async def can_view_roster(db: AsyncSession, actor: User, club: Organization) -> 
     return actor.role in (INSTRUCTOR, COUNSELOR) and _attached_to(actor, club)
 
 
+# ----------------------------------------------------------------------------
+# The church letter of a club leader (E7): the ONE gate that says whether an
+# adult of a club may be trusted with minors.
+# ----------------------------------------------------------------------------
+DIRECTOR_GRACE_DAYS = 60
+
+
+def _today(today: date | None = None) -> date:
+    return today or datetime.now(timezone.utc).date()
+
+
+def is_verified_leader(user: User, today: date | None = None) -> bool:
+    """Pure: the child protection course AND a church letter still in force.
+
+    `users.leader_verified_until` is the copy the letter service writes when a
+    letter is authorized and erases when it is rejected, revoked, or when the
+    person changes club — the letter vouches for them before THAT church.
+    """
+    return bool(
+        user.child_protection_completed
+        and user.leader_verified_until is not None
+        and user.leader_verified_until >= _today(today)
+    )
+
+
+def director_in_grace(user: User, today: date | None = None) -> bool:
+    """Decision D4: the approval of the club — a human act of the association —
+    covers a director for 60 days, counted from the later of that approval and
+    the day enforcement was switched on. Without it no club could rule on a
+    minor until a zone coordinator existed and acted, and block A would be born
+    standing still."""
+    if user.role != CLUB_DIRECTOR or director_blocked(user):
+        return False
+    started = user.club_approval_at or user.created_at
+    if started is None:
+        return False
+    start = started.date() if isinstance(started, datetime) else started
+    enforced_from = settings.LEADER_VERIFICATION_ENFORCED_FROM
+    if enforced_from is not None and enforced_from > start:
+        start = enforced_from
+    return _today(today) <= start + timedelta(days=DIRECTOR_GRACE_DAYS)
+
+
+def may_handle_minors(user: User, today: date | None = None) -> bool:
+    """**The single gate** every other permission asks about minors.
+
+    With `LEADER_VERIFICATION_ENFORCED_FROM` unset it is always true, so the
+    code ships long before the rule bites and production does not change until
+    the owner turns it on. `is_verified_leader` on its own only decides the
+    «Instructor activo verificado» badge.
+    """
+    enforced_from = settings.LEADER_VERIFICATION_ENFORCED_FROM
+    if enforced_from is None or _today(today) < enforced_from:
+        return True
+    return is_master(user) or is_verified_leader(user, today) or director_in_grace(user, today)
+
+
 async def can_appoint_counselor(db: AsyncSession, actor: User, club: Organization) -> bool:
     """Put somebody in charge of a unit, or take the post away (E5).
 
@@ -236,6 +295,11 @@ async def can_view_user(db: AsyncSession, actor: User, target: User) -> bool:
     if actor.id == target.id or is_master(actor):
         return True
     if director_blocked(actor):
+        return False
+    if actor.role in CLUB_REVIEW_ROLES and is_minor_user(target) and not may_handle_minors(actor):
+        # E7: a director out of grace or an instructor without a valid church
+        # letter reads nothing of a minor — not even the user record, which
+        # carries an e-mail and a birth date.
         return False
     if actor.role in MEMBER_VIEW_ROLES:
         return await org_in_user_scope(db, actor, target.organization_id)
@@ -292,8 +356,13 @@ async def _has_club_jurisdiction(
     (not the club stored on the enrollment: a member who moves takes their reviewers along)."""
     if not club_staff_in_good_standing(actor, roles):
         return False
-    club = await member_club(db, await db.get(User, enrollment.user_id))
-    return club is not None and club.id == actor.organization_id
+    member = await db.get(User, enrollment.user_id)
+    club = await member_club(db, member)
+    if club is None or club.id != actor.organization_id:
+        return False
+    # E7: staff without a church letter in force never rule on a MINOR. They
+    # keep every other power, including ruling on the enrollments of adults.
+    return member is None or not is_minor_user(member) or may_handle_minors(actor)
 
 
 async def can_review(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> bool:

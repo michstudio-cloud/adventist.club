@@ -23,6 +23,7 @@ from app.rbac import (
     can_manage_members,
     can_view_guardian_contact,
     can_view_roster,
+    may_handle_minors,
 )
 from app.schemas.membership import (
     BulkApproval,
@@ -116,12 +117,18 @@ async def list_members(
         stmt = stmt.where(ClubMembership.unit_id == unit_id)
     rows = (await db.execute(stmt.order_by(User.name, User.id))).all()
     units = await unit_service.units_by_id(db, club.id)
+    # E7: for an INSTRUCTOR or a COUNSELOR the rows of MINORS only come through
+    # when they may handle minors. Whoever manages the club (director in grace,
+    # secretary, administrators) reads the whole roster: that is how a club is
+    # run and how an unverified instructor is noticed in the first place.
+    hide_minors = not manages and not may_handle_minors(current_user)
 
     return [
         await _member_row(
             db, membership, member, include_guardian_email=sees_guardians, units=units
         )
         for membership, member in rows
+        if not (hide_minors and is_minor_user(member))
     ]
 
 
