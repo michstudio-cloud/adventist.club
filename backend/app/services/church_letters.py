@@ -32,6 +32,7 @@ from app.rbac import (
     org_in_review_scope,
 )
 from app.schemas.church_letter import (
+    DECIDED_STATUSES,
     LetterCreate,
     LetterOut,
     LetterQueueItem,
@@ -328,6 +329,32 @@ async def complete(
     return _letter_out(letter)
 
 
+async def get_one(db: AsyncSession, actor: User, letter_id: uuid.UUID) -> LetterQueueItem:
+    """One letter, for its owner or a reviewer with scope over it.
+
+    Exactly the audience of `GET /{id}/url`, and exactly as much: metadata, who presents it
+    and where they belong. The document itself still needs the signed URL, and the storage
+    key never leaves this service.
+
+    404 rather than 403 for everybody else: a letter is a personal document, and confirming
+    that this id exists would already say that somebody presented one.
+    """
+    letter = await _get_letter(db, letter_id)
+    if letter.user_id != actor.id and not await org_in_review_scope(
+        db, actor, letter.organization_id
+    ):
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Carta no encontrada")
+    applicant = await db.get(User, letter.user_id)
+    organization = await db.get(Organization, letter.organization_id)
+    return LetterQueueItem(
+        **_letter_out(letter).model_dump(),
+        user=PersonRef(
+            id=str(letter.user_id), name=applicant.name if applicant else "—"
+        ),
+        organization_name=organization.name if organization else None,
+    )
+
+
 async def signed_url(db: AsyncSession, actor: User, letter_id: uuid.UUID) -> SignedUrl:
     """A 5-minute read URL: the letter is personal data, so only its owner and the reviewers
     with scope over it ever see the document."""
@@ -344,12 +371,21 @@ async def signed_url(db: AsyncSession, actor: User, letter_id: uuid.UUID) -> Sig
 async def queue(
     db: AsyncSession, actor: User, status_filter: str | None, limit: int, offset: int
 ) -> list[LetterQueueItem]:
-    """Letters waiting for the caller's step, inside the caller's scope."""
+    """Letters inside the caller's scope: by default the ones waiting for their step, and
+    with `status=` also the ones already decided.
+
+    Why the decided ones are here at all: the UI could validate, authorize and reject, but
+    never REVOKE, because nothing in the API ever returned an AUTHORIZED letter and the
+    screen had nothing to open. A reviewer who could decide on a letter keeps reading it
+    afterwards — they saw the document and the applicant already, so this widens what is
+    listed, never who may see it. The act itself is still gated by `review`: only an
+    association reviewer revokes.
+    """
     if actor.role not in ZONE_REVIEWERS:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "No tienes cola de validación de cartas")
     stages = [SUBMITTED] if actor.role not in ASSOCIATION_REVIEWERS else [SUBMITTED, ZONE_VALIDATED]
     if status_filter:
-        if status_filter not in stages:
+        if status_filter not in (*stages, *DECIDED_STATUSES):
             return []
         stages = [status_filter]
 

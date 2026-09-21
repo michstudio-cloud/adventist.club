@@ -76,6 +76,17 @@ async def complete_letter(
     return await church_letters.complete(db, current_user, letter_id, request, background)
 
 
+@router.get("/{letter_id}", response_model=LetterQueueItem)
+async def one_letter(
+    letter_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Owner or reviewer in scope; 404 for everybody else. Metadata only — the document
+    itself is still reached through `/{id}/url`."""
+    return await church_letters.get_one(db, current_user, letter_id)
+
+
 @router.get("/{letter_id}/url", response_model=SignedUrl)
 async def letter_url(
     letter_id: uuid.UUID,

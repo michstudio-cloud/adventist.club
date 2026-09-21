@@ -9,7 +9,12 @@ from app.schemas.portfolio import PersonRef, SignedUrl, UploadTarget  # noqa: F4
 LetterStatus = Literal[
     "PENDING_UPLOAD", "SUBMITTED", "ZONE_VALIDATED", "AUTHORIZED", "REJECTED", "REVOKED"
 ]
-QueueStatus = Literal["SUBMITTED", "ZONE_VALIDATED"]
+# What `GET /queue?status=` accepts. The first two are the steps waiting for a decision;
+# the last three are letters already decided, which the reviewers who could decide on them
+# keep reading — it is the only way a screen reaches REVOKE on an AUTHORIZED letter, and
+# the only way a rejection stays consultable.
+QueueStatus = Literal["SUBMITTED", "ZONE_VALIDATED", "AUTHORIZED", "REJECTED", "REVOKED"]
+DECIDED_STATUSES = ("AUTHORIZED", "REJECTED", "REVOKED")
 LetterAction = Literal["VALIDATE", "AUTHORIZE", "REJECT", "REVOKE"]
 # The offices a church letter may back. ONE table for the whole platform: the
 # virtual instructor of Bloque B and the club offices of Bloque E (E7).

@@ -148,19 +148,97 @@ material de las lecciones usa el bucket público que ya existe.
 ## Orden de despliegue
 1. Aplicar en Neon, **antes** de subir el backend y en este orden:
    `backend/migrations/009_church_letters.sql`, `backend/migrations/009b_courses.sql`,
-   `backend/migrations/009c_course_enrollment.sql` y `backend/migrations/010_exams.sql`.
-   Las dos son aditivas e idempotentes (`IF NOT EXISTS`, columnas nullable); no borran ni reescriben
+   `backend/migrations/009c_course_enrollment.sql`, `backend/migrations/010_exams.sql`,
+   `backend/migrations/010b_exam_session_code.sql` y
+   `backend/migrations/011_certificate_revocation.sql`.
+   Todas son aditivas e idempotentes (`IF NOT EXISTS`, columnas nullable); no borran ni reescriben
    nada, y se pueden aplicar dos veces sin efecto.
 2. Backend (Render).
 3. Frontend: hasta que exista, nada de esto se ve; el API es aditivo y ningún contrato anterior cambia.
 
-## Lo que falta (I6 e I7)
-I6 (calificación manual de `SHORT_ANSWER` y `ESSAY`, anulación de intentos y código de sesión
-presencial) e I7 (`011_certificate_revocation.sql`: emisión automática al aprobar sin parte práctica,
-curso e instructor en la verificación pública, anulación de certificados por la Asociación).
-Las tablas de I6 ya existen (`010_exams.sql` crea `exam_attempts.voided_*`, `exam_answers.graded_*`
-y `courses.session_code`); mientras I6 no exista, enviar a revisión un curso con preguntas de
-calificación manual o en modo `IN_PERSON` se rechaza, de modo que **ningún intento puede quedar en
-`PENDING_GRADING` esperando a nadie**. La costura de I7 (emisión automática) está anotada en
-`app/services/exams.py::_complete_exam_requirements`: ahí es donde entra el `SAVEPOINT` cuando la
-inscripción queda `READY` y ninguna fila del plan es práctica.
+## I6 — Calificación manual, anulación y sesión presencial (hecho)
+- **Cola de calificación:** `GET /api/v1/exams/grading/queue?course_id=&limit=&offset=` devuelve los
+  intentos `PENDING_GRADING` de **mis** cursos; 403 para quien no enseña nada (misma regla que la cola
+  de revisión de A). De cada inscrito viaja el nombre y nada más.
+- **Calificar:** `POST /api/v1/exams/attempts/{id}/answers/{position}/grade {points_awarded, note?}`.
+  0…`points_possible` (422 fuera de rango), 409 si la respuesta ya está calificada o el intento no
+  está `PENDING_GRADING`, 404 si esa posición no es del intento. `is_correct` significa la nota
+  completa: con crédito parcial la respuesta no cuenta como correcta. Tras cada calificación se
+  reevalúa el intento (`_settle`) y se cierra en cuanto el resultado queda decidido; al aprobar
+  completa los requisitos `EXAM` igual que la calificación automática.
+- **Anular:** `POST /api/v1/exams/attempts/{id}/void {reason}`. Si el intento estaba `PASSED` se
+  revierten **exactamente** las posiciones de `completed_positions` que siguen `COMPLETE` con
+  `completed_via = 'EXAM'` (una fila que el instructor ya dictaminó a mano se respeta), vuelven a
+  `PENDING` y se recalcula la regla 2 de A. 422 sin motivo, 409 si ya está anulado y 409 si la
+  inscripción está congelada: un certificado se anula con `POST /portfolio/certificates/{id}/revoke`.
+  Los intentos `VOIDED` no cuentan para el máximo, así que anular es también la forma de conceder
+  otra oportunidad.
+- **Sesión presencial:** `POST /api/v1/courses/{id}/exam-session {minutes?}` (15–240, 120 por defecto)
+  devuelve `{code, expires_at}` **una sola vez**; `DELETE` la cierra. Código de 6 caracteres sin
+  ambiguos (sin 0/O/1/I) sobre el alfabeto `23456789ABCDEFGHJKLMNPQRSTUVWXYZ`.
+- En `IN_PERSON` el código es obligatorio para empezar un intento (403 sin él o con uno vencido); en
+  `ONLINE` es opcional y sólo decide `proctored`. Cinco códigos incorrectos en diez minutos y el
+  miembro recibe 429.
+- **Quién:** `rbac.can_grade_attempt` — el instructor de **ese** curso con su carta autorizada, o
+  MASTER_GC. Nunca el dueño del intento, nunca otro instructor, nunca el director del club (el examen
+  es del curso). La sesión la abre el autor verificado de un curso publicado.
+- **D5 intacta:** mientras el intento está `PENDING_GRADING` el miembro no ve nota ni desglose.
+- Se retiraron las dos puertas temporales del envío a revisión: un curso ya puede publicarse con
+  preguntas `SHORT_ANSWER` o `ESSAY` y en modo `IN_PERSON`.
+
+## I7 — Emisión automática, verificación pública y anulación (hecho)
+- **Emisión automática** (`app/services/auto_certificate.py`): se dispara **sólo** desde un intento
+  que pasa a `PASSED` —al entregar o al terminar de calificarse— y sólo si la inscripción queda
+  `READY`, **ninguna** de sus filas de `requirement_progress` es práctica, no lleva ya certificado,
+  el curso sigue vivo (no retirado por la autoridad) y la carta del instructor está autorizada en ese
+  momento. Firma el instructor (`issued_role = 'INSTRUCTOR'`), fecha UTC de `finished_at`, sin lugar
+  y sin línea de director; evento `issued` con `{auto: true, attempt_id}` y auditoría
+  `CERTIFICATE_AUTO_ISSUE`. La inscripción pasa a `CERTIFIED`.
+- Todo ello dentro de un **SAVEPOINT**: si la emisión falla, se revierte sólo el certificado, el
+  aprobado y los requisitos completados sobreviven, la inscripción espera en «listos para certificar»
+  y el error va al log (y a Sentry). Hay una prueba que rompe la emisión a propósito.
+- **E9:** el miembro —y los tutores de un menor— reciben el aviso de certificado también cuando la
+  emisión fue automática.
+- **Verificación pública:** `GET /api/v1/certificates/verify/{no}` añade `mode`, `course_title`,
+  `instructor_name` y `revoked_at`. El título del curso se obtiene **por relación** (certificado →
+  inscripción → curso) y queda **fuera del hash**: `canonical()` no se toca y los certificados ya
+  emitidos siguen verificando.
+- **Anulación:** `POST /api/v1/portfolio/certificates/{certificate_id}/revoke {reason}`. La decide
+  `rbac.can_revoke`: MASTER_GC, o un revisor de Asociación cuyo alcance cubra el club de la
+  inscripción (CLUB) o el `org_scope_id` del curso (COURSE). El instructor que la firmó, el director
+  y **el propio titular** no anulan. Motivo obligatorio (422), 409 si ya está anulada, 403 fuera de
+  alcance, 404 si no existe.
+- Anular **nunca es borrar**: la fila conserva folio, hash, firmas y su historia; cambia `status` a
+  `revoked`, se escriben `revoked_at`, `revoked_by_id` y `revocation_reason`, se añade el evento
+  `revoked` y la inscripción pasa `CERTIFIED → WITHDRAWN` (la única transición así de la plataforma)
+  conservando `certificate_id`. El miembro puede empezar de nuevo la especialidad y el certificado
+  anulado no se reemite en silencio. No hay «des-anular».
+- La verificación pública de un certificado anulado dice «revocado» con su fecha, **sin el motivo** y
+  sin ningún dato nuevo de la persona. Como las tres columnas quedan fuera de `canonical()`, verifica
+  como «revocado» y nunca como «modificado».
+- **Correo:** al titular y a los tutores de un menor por el mecanismo de E9
+  (`notification_log`, kind `CERTIFICATE_REVOKED`). El correo dice qué certificado y que fue anulado;
+  **no** lleva el motivo, ni quién decidió, ni el curso: el motivo se lee en el portafolio, detrás de
+  una sesión.
+
+## Hueco del API de cartas (hecho, con I7)
+La UI podía validar, autorizar y rechazar, pero nunca llegar a `REVOKE`: nada devolvía una carta ya
+`AUTHORIZED`. Se añaden, sin tocar quién puede ver qué:
+- `GET /api/v1/church-letters/{id}` — dueño o revisor en alcance; 404 para el resto (confirmar que el
+  id existe ya diría que alguien presentó una carta). Devuelve los mismos metadatos que la cola, con
+  quién la presenta y su organización; **nunca** la clave de almacenamiento ni el documento, que
+  sigue necesitando la URL firmada de `GET /{id}/url`.
+- `GET /api/v1/church-letters/queue?status=` acepta además `AUTHORIZED`, `REJECTED` y `REVOKED`,
+  paginado con `limit`/`offset`. Amplía lo que se **lista**, nunca quién puede verlo: un revisor que
+  podía decidir sobre una carta la sigue leyendo después. El acto de revocar sigue siendo sólo de un
+  revisor de Asociación.
+
+## Lo que falta
+- **Frontend.** Todo lo de §8 de la spec para I6 e I7: cola «Por calificar», `SessionCodeDialog`,
+  anular intento desde la ficha del inscrito, «¡Especialidad certificada!» tras el examen, el curso y
+  el instructor en la página pública de verificación y «Anular certificado» en el panel de Asociación.
+- **Anulación masiva y alertas automáticas de fraude** (§5.5): quedan fuera de alcance; el gancho
+  existe (`certificates → honor_enrollments.course_id → courses.instructor_id`).
+- **Correos de «examen calificado»**: no existen. E9 avisa de `INCOMPLETE`, `READY` y `CERTIFIED`;
+  un intento que pasa a `PASSED` o `FAILED` no manda nada, y un `PENDING_GRADING` que se resuelve
+  tampoco. Si el responsable lo quiere, es un `kind` nuevo en `services/notifications.py`.
