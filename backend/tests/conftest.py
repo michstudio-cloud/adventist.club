@@ -202,9 +202,25 @@ class Factory:
             # at an organization of this run whose member is not: delete by club
             # too, before the organizations go.
             if await db.scalar(text("SELECT to_regclass('public.club_memberships')")):
+                clubs = "SELECT id FROM organizations WHERE name LIKE :like"
                 await db.execute(
                     text(
                         f"DELETE FROM club_memberships WHERE user_id IN ({users})"
+                        f" OR club_id IN ({clubs})"
+                    ),
+                    params,
+                )
+            if await db.scalar(text("SELECT to_regclass('public.club_invitations')")):
+                await db.execute(
+                    text(
+                        "DELETE FROM notification_log WHERE email LIKE :like"
+                        f" OR user_id IN ({users})"
+                    ),
+                    params,
+                )
+                await db.execute(
+                    text(
+                        f"DELETE FROM club_invitations WHERE created_by_id IN ({users})"
                         " OR club_id IN (SELECT id FROM organizations WHERE name LIKE :like)"
                     ),
                     params,

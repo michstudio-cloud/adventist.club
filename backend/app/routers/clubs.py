@@ -8,16 +8,17 @@ administrators above them — not even for the club's own secretary.
 """
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
 from app.deps import get_current_user
-from app.models import ClubMembership, Guardianship, Organization, User
+from app.models import ClubInvitation, ClubMembership, Guardianship, Organization, User
 from app.people import age_in_years, is_minor_user
 from app.rbac import (
     CONSENT_GRANTED,
+    can_grant_club_role,
     can_manage_members,
     can_view_guardian_contact,
     can_view_roster,
@@ -27,15 +28,22 @@ from app.schemas.membership import (
     ClubProfileUpdate,
     ClubRole,
     ConsentSummary,
+    InvitationCreate,
+    InvitationCreated,
+    InvitationOut,
     ManagedMemberRow,
     MemberRemoval,
     MemberRoleUpdate,
     MemberRow,
     MembershipEnded,
     MembershipStatus,
+    as_invitation_out,
 )
 from app.security import COUNSELOR, utcnow
+from app.services import email as email_service
+from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
+from app.services import notifications
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/clubs", tags=["clubs"])
@@ -188,6 +196,116 @@ async def remove_member(
         status=membership.status,
         end_reason=membership.end_reason,
     )
+
+
+# ----------------------------------------------------------------------------
+# Invitations (E3)
+# ----------------------------------------------------------------------------
+@router.post(
+    "/{club_id}/invitations",
+    response_model=InvitationCreated,
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_invitation(
+    club_id: uuid.UUID,
+    payload: InvitationCreate,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The link the club shares. Its token comes back ONCE: it is never stored
+    in the clear and no later read can show it again."""
+    club = await _club_for_manager(db, current_user, club_id)
+    invitation, token = await invitation_service.create(
+        db,
+        club=club,
+        actor=current_user,
+        role=payload.role,
+        max_uses=payload.max_uses,
+        expires_in_days=payload.expires_in_days,
+        email=payload.email,
+        request=request,
+    )
+    log = None
+    if invitation.email:
+        log = notifications.stage_log(
+            db,
+            kind=notifications.CLUB_INVITATION,
+            email=invitation.email,
+            entity_type=notifications.INVITATION,
+            entity_id=invitation.id,
+        )
+    await db.commit()
+
+    if log is not None:
+        # After the commit, and never able to fail the request (pattern of org.py).
+        background.add_task(
+            notifications.send_and_record,
+            email_service.send_club_invitation_email,
+            log.id,
+            invitation.email,
+            club.name,
+            invitation.role,
+            invitation_service.join_url(token),
+            current_user.name,
+        )
+    return InvitationCreated(
+        invitation=as_invitation_out(
+            invitation,
+            state=invitation_service.state_of(invitation),
+            requires_approval=invitation_service.requires_approval(invitation),
+        ),
+        token=token,
+        url=invitation_service.join_url(token),
+        whatsapp_url=invitation_service.whatsapp_url(club.name, token),
+    )
+
+
+@router.get("/{club_id}/invitations", response_model=list[InvitationOut])
+async def list_invitations(
+    club_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    club = await _club_for_manager(db, current_user, club_id)
+    stmt = (
+        select(ClubInvitation)
+        .where(ClubInvitation.club_id == club.id)
+        .order_by(ClubInvitation.created_at.desc())
+    )
+    return [
+        as_invitation_out(
+            row,
+            state=invitation_service.state_of(row),
+            requires_approval=invitation_service.requires_approval(row),
+        )
+        for row in (await db.execute(stmt)).scalars().all()
+    ]
+
+
+@router.delete("/{club_id}/invitations/{invitation_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def revoke_invitation(
+    club_id: uuid.UUID,
+    invitation_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Kill a link. Idempotent: a link that was already dead answers the same."""
+    club = await _club_for_manager(db, current_user, club_id)
+    stmt = select(ClubInvitation).where(
+        ClubInvitation.id == invitation_id, ClubInvitation.club_id == club.id
+    )
+    invitation = (await db.execute(stmt)).scalar_one_or_none()
+    if invitation is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Invitación no encontrada en este club")
+    if not can_grant_club_role(current_user, invitation.role):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "No puedes revocar invitaciones de ese rol."
+        )
+    await invitation_service.revoke(db, invitation, actor=current_user, request=request)
+    await db.commit()
 
 
 # ----------------------------------------------------------------------------

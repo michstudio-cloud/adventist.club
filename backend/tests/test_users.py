@@ -276,10 +276,16 @@ async def test_guardianship_rules(client, tree, factory):
     adult = await factory.user("adult", organization_id=org)
     url = f"{USERS}/guardianships"
 
-    not_guardian = await client.post(
+    # D9 (bloque E): any ADULT may be a guardian, not only PARENT_GUARDIAN —
+    # the director whose own child is a member needs no second account. A minor
+    # never can.
+    a_minor = await factory.user("minor-guardian", is_minor=True, organization_id=org)
+    refused = await client.post(url, json={"child_id": child["id"]}, headers=a_minor["headers"])
+    assert refused.status_code == 403
+    another_adult = await client.post(
         url, json={"child_id": child["id"]}, headers=tree["student_a"]["headers"]
     )
-    assert not_guardian.status_code == 403
+    assert another_adult.status_code == 201, another_adult.text
     not_minor = await client.post(url, json={"child_id": adult["id"]}, headers=guardian["headers"])
     assert not_minor.status_code == 400
     itself = await client.post(url, json={"child_id": guardian["id"]}, headers=guardian["headers"])
@@ -310,7 +316,7 @@ async def test_guardianship_rules(client, tree, factory):
     assert [g["id"] for g in mine.json()] == [link["id"]]
     assert (await client.get(f"{url}/my-children", headers=child["headers"])).status_code == 403
     theirs = await client.get(f"{url}/my-guardians", headers=child["headers"])
-    assert [g["guardian_id"] for g in theirs.json()] == [guardian["id"]]
+    assert guardian["id"] in [g["guardian_id"] for g in theirs.json()]
     assert (await client.get(f"{url}/my-guardians", headers=adult["headers"])).status_code == 403
 
     # Only the guardian of the link decides.

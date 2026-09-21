@@ -219,6 +219,57 @@ def recovery_code_used_email_html(name: str) -> str:
     return base_template(content, "Código de recuperación usado - Adventist.Club")
 
 
+ROLE_LABELS = {
+    "STUDENT": "miembro",
+    "COUNSELOR": "consejero(a) de unidad",
+    "INSTRUCTOR": "instructor(a)",
+    "CLUB_SECRETARY": "secretario(a) del club",
+    "CLUB_DIRECTOR": "director(a)",
+}
+
+
+def club_invitation_email_html(club_name: str, role: str, link: str, inviter_name: str) -> str:
+    role_label = ROLE_LABELS.get(role, "miembro")
+    content = f"""
+        <h2>Te invitaron a un club</h2>
+        <p><strong>{escape(inviter_name)}</strong> te invita a unirte a
+           <strong>{escape(club_name)}</strong> en Adventist.Club como {escape(role_label)}.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Unirme al club</a>
+        </div>
+        <div class="warning">
+            <strong>⚠️ Este enlace es personal:</strong> no lo compartas. Si no esperabas esta
+            invitación, puedes ignorar este correo.
+        </div>
+    """
+    return base_template(content, "Invitación a un club - Adventist.Club")
+
+
+def consent_request_email_html(child_name: str, club_name: str, link: str) -> str:
+    """Goes to an adult about a minor in their care, so it does name the minor.
+    Nothing else in block E sends a minor's name to a third party."""
+    content = f"""
+        <h2>Autorización para unirse a un club</h2>
+        <p><strong>{escape(child_name)}</strong> pidió unirse a
+           <strong>{escape(club_name)}</strong> en Adventist.Club y necesita la autorización
+           de su madre, padre o tutor.</p>
+        <div class="info">
+            En la página verás qué datos vería el club (nombre, edad, avance y evidencias) y
+            quiénes los verían. Sin tu autorización, el club no tiene acceso a nada.
+        </div>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Revisar y autorizar</a>
+        </div>
+        <div class="warning">
+            <strong>⚠️ Importante:</strong><br>
+            • El enlace vence en <strong>14 días</strong> y sirve una sola vez<br>
+            • Puedes retirar la autorización cuando quieras desde tu panel<br>
+            • Si no reconoces esta solicitud, ignora este correo
+        </div>
+    """
+    return base_template(content, "Autorización para unirse a un club - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -277,6 +328,26 @@ async def send_recovery_code_used_email(to: str, name: str) -> bool:
         to,
         "Se usó un código de recuperación - Adventist.Club",
         recovery_code_used_email_html(name),
+    )
+
+
+async def send_club_invitation_email(
+    to: str, club_name: str, role: str, link: str, inviter_name: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Te invitaron a {club_name} - Adventist.Club",
+        club_invitation_email_html(club_name, role, link, inviter_name),
+    )
+
+
+async def send_consent_request_email(
+    to: str, child_name: str, club_name: str, link: str
+) -> bool:
+    return await send_email(
+        to,
+        "Autorización para unirse a un club - Adventist.Club",
+        consent_request_email_html(child_name, club_name, link),
     )
 
 

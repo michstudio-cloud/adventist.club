@@ -18,19 +18,22 @@ Every function here only *stages* its change (rows and audit) on the caller's
 session; the router commits, so a change and its audit row live or die together.
 """
 import uuid
+from datetime import timedelta
 
 from fastapi import HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import ClubMembership, Organization, User
+from app.models import ClubInvitation, ClubMembership, Guardianship, Organization, User
 from app.people import is_minor_user
-from app.rbac import can_grant_club_role
+from app.rbac import CONSENT_GRANTED, can_grant_club_role
 from app.security import (
     CLUB_DIRECTOR,
     CLUB_LEVEL_ROLES,
     CLUB_SCOPED_ROLES,
     STUDENT,
+    generate_url_token,
+    sha256_hex,
     utcnow,
 )
 from app.services.audit import record_audit
@@ -421,6 +424,304 @@ async def remove_member(
         request=request,
     )
     return membership, member
+
+
+# ----------------------------------------------------------------------------
+# Joining: an invitation accepted, with the guardian's consent when the person
+# is a minor (spec §5.9). The state a membership starts in:
+#
+#   origin                     adult              minor
+#   single-use invitation      ACTIVE             PENDING_CONSENT -> ACTIVE
+#   multi-use link / request   PENDING_APPROVAL   PENDING_CONSENT -> PENDING_APPROVAL
+# ----------------------------------------------------------------------------
+CONSENT_DAYS = 14
+
+
+def _is_administrative(user: User) -> bool:
+    return user.role not in CLUB_LEVEL_ROLES
+
+
+async def check_can_join(
+    db: AsyncSession, member: User, club: Organization, *, confirm_transfer: bool
+) -> ClubMembership | None:
+    """The refusals that are the same however somebody is trying to join."""
+    if _is_administrative(member):
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            "Las cuentas administrativas no pertenecen a un club; su organización es su jurisdicción.",
+        )
+    if member.role == CLUB_DIRECTOR and member.club_approval is not None:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Ya tienes un club propio; no puedes unirte a otro."
+        )
+    current = await active_membership(db, member.id)
+    if current is not None:
+        if current.club_id == club.id:
+            raise HTTPException(status.HTTP_409_CONFLICT, "Ya eres miembro de este club.")
+        if not confirm_transfer:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                "Ya perteneces a otro club: confirma el traslado para cambiarte.",
+            )
+    existing = [row for row in await open_memberships(db, member.id) if row.club_id == club.id]
+    if existing:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Ya tienes una solicitud pendiente en este club."
+        )
+    return current
+
+
+async def approved_guardians(db: AsyncSession, child_id: uuid.UUID) -> list[User]:
+    stmt = (
+        select(User)
+        .join(Guardianship, Guardianship.guardian_id == User.id)
+        .where(
+            Guardianship.child_id == child_id,
+            Guardianship.consent_status == CONSENT_GRANTED,
+        )
+    )
+    return list((await db.execute(stmt)).scalars().all())
+
+
+def stage_consent_token(membership: ClubMembership) -> str:
+    """A fresh consent link for this membership. Single purpose, 14 days, and
+    the previous one dies the moment this is called: only the hash is kept."""
+    token = generate_url_token()
+    membership.consent_token_hash = sha256_hex(token)
+    membership.consent_expires_at = utcnow() + timedelta(days=CONSENT_DAYS)
+    membership.updated_at = utcnow()
+    return token
+
+
+async def start_membership(
+    db: AsyncSession,
+    *,
+    member: User,
+    club: Organization,
+    role: str,
+    source: str,
+    needs_approval: bool,
+    invitation_id: uuid.UUID | None = None,
+    guardian_email: str | None = None,
+    message: str | None = None,
+    actor: User | None = None,
+    request: Request | None = None,
+    audit_action: str,
+) -> tuple[ClubMembership, str | None]:
+    """
+    Create the membership in the state its origin and the member's age dictate.
+    Returns the row and, for a minor, the plain consent token to e-mail.
+    """
+    minor = is_minor_user(member)
+    if minor and role != STUDENT:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, MINOR_ROLE_DETAIL)
+
+    guardian_email = (guardian_email or "").strip().lower() or None
+    guardians = await approved_guardians(db, member.id) if minor else []
+    if minor and guardian_email is None and not guardians:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            "Indica el correo de tu madre, padre o tutor para pedir su autorización.",
+        )
+
+    # The row is always born pending and only `activate` turns it ACTIVE: that
+    # is what closes a previous membership first, so the "one active club"
+    # index is never hit by a transfer.
+    membership = stage_membership(
+        db,
+        user_id=member.id,
+        club_id=club.id,
+        role=role,
+        status_name=PENDING_CONSENT if minor else PENDING_APPROVAL,
+        source=source,
+        invitation_id=invitation_id,
+        message=message,
+        guardian_email=guardian_email,
+    )
+    consent_token = stage_consent_token(membership) if minor else None
+    await db.flush()
+
+    record_audit(
+        db,
+        action=audit_action,
+        entity_type=MEMBERSHIP,
+        entity_id=membership.id,
+        actor=actor or member,
+        details=f"{member.email} joins club {club.id} as {role} ({membership.status})",
+        metadata={"club_id": str(club.id), "role": role, "status": membership.status},
+        request=request,
+    )
+    if not minor and not needs_approval:
+        # An adult with a single-use link is in, right now.
+        await activate(
+            db,
+            membership,
+            actor=actor,
+            member=member,
+            request=request,
+            audit_action="MEMBERSHIP_APPROVE",
+        )
+    return membership, consent_token
+
+
+async def consent_by_token(db: AsyncSession, token: str) -> ClubMembership:
+    """The one 404 for any consent link that does not work."""
+    stmt = select(ClubMembership).where(
+        ClubMembership.consent_token_hash == sha256_hex(token or ""),
+        ClubMembership.status == PENDING_CONSENT,
+        ClubMembership.consent_expires_at > utcnow(),
+    )
+    membership = (await db.execute(stmt)).scalar_one_or_none()
+    if membership is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Solicitud no válida o vencida")
+    return membership
+
+
+async def decide_consent(
+    db: AsyncSession,
+    membership: ClubMembership,
+    *,
+    guardian: User,
+    approve: bool,
+    relationship: str = "PARENT",
+    request: Request | None = None,
+) -> ClubMembership:
+    """
+    An adult authorizes (or refuses) this minor joining THIS club. The platform
+    cannot verify a family tie: the human control is the director, who sees in
+    the roster who authorized each minor.
+    """
+    member = await db.get(User, membership.user_id)
+    if member is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Solicitud no válida o vencida")
+    if guardian.id == member.id or is_minor_user(guardian):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede autorizar a un menor."
+        )
+    if guardian.verification_status != "VERIFIED":
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Verifica tu correo antes de autorizar a un menor."
+        )
+    if membership.status != PENDING_CONSENT:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esta solicitud ya fue decidida.")
+
+    now = utcnow()
+    # The link is single purpose and single use, whichever way it is answered.
+    membership.consent_token_hash = None
+    membership.updated_at = now
+
+    if not approve:
+        membership.status = CANCELLED
+        membership.end_reason = DECLINED
+        membership.ended_at = now
+        membership.ended_by_id = guardian.id
+        record_audit(
+            db,
+            action="CONSENT_REJECT",
+            entity_type=MEMBERSHIP,
+            entity_id=membership.id,
+            actor=guardian,
+            metadata={"club_id": str(membership.club_id)},
+            request=request,
+        )
+        return membership
+
+    await _upsert_guardianship(db, guardian=guardian, child=member, relationship=relationship)
+    membership.consent_at = now
+    membership.consent_by_id = guardian.id
+    record_audit(
+        db,
+        action="CONSENT_GRANT",
+        entity_type=MEMBERSHIP,
+        entity_id=membership.id,
+        actor=guardian,
+        # Ids only: no names of minors and no addresses of guardians.
+        metadata={"club_id": str(membership.club_id), "child_id": str(member.id)},
+        request=request,
+    )
+
+    if await _needs_club_approval(db, membership):
+        membership.status = PENDING_APPROVAL
+        return membership
+    await activate(
+        db,
+        membership,
+        actor=None,
+        member=member,
+        request=request,
+        audit_action="MEMBERSHIP_APPROVE",
+    )
+    return membership
+
+
+async def _needs_club_approval(db: AsyncSession, membership: ClubMembership) -> bool:
+    """A request always does; a multi-use link does (D2); a single-use link
+    was already the club's own decision."""
+    if membership.source != INVITATION or membership.invitation_id is None:
+        return True
+    invitation = await db.get(ClubInvitation, membership.invitation_id)
+    return invitation is None or invitation.max_uses > 1
+
+
+async def _upsert_guardianship(
+    db: AsyncSession, *, guardian: User, child: User, relationship: str
+) -> Guardianship:
+    stmt = select(Guardianship).where(
+        Guardianship.guardian_id == guardian.id, Guardianship.child_id == child.id
+    )
+    row = (await db.execute(stmt)).scalar_one_or_none()
+    if row is None:
+        row = Guardianship(
+            id=uuid.uuid4(),
+            guardian_id=guardian.id,
+            child_id=child.id,
+            relationship=relationship,
+            created_at=utcnow(),
+        )
+        db.add(row)
+    row.consent_status = CONSENT_GRANTED
+    row.consent_granted_at = utcnow()
+    await db.flush()
+    return row
+
+
+async def revoke_consent(
+    db: AsyncSession,
+    membership: ClubMembership,
+    *,
+    guardian: User,
+    request: Request | None = None,
+) -> ClubMembership:
+    """The guardian withdraws the authorization: the club loses access at once
+    (block A computes its permissions live, so nothing else has to be undone)."""
+    member = await db.get(User, membership.user_id)
+    if member is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Membresía no encontrada")
+    if not any(row.id == guardian.id for row in await approved_guardians(db, member.id)):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo un tutor autorizado puede retirar el permiso."
+        )
+    if membership.status not in (ACTIVE, PENDING_APPROVAL, PENDING_CONSENT):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esta membresía ya no está vigente.")
+
+    if membership.status != ACTIVE:
+        now = utcnow()
+        membership.status = CANCELLED
+        membership.end_reason = CONSENT_REVOKED
+        membership.ended_at = now
+        membership.ended_by_id = guardian.id
+        membership.updated_at = now
+    else:
+        await end(
+            db,
+            membership,
+            end_reason=CONSENT_REVOKED,
+            actor=guardian,
+            member=member,
+            request=request,
+            audit_action="CONSENT_REVOKE",
+        )
+    return membership
 
 
 # ----------------------------------------------------------------------------

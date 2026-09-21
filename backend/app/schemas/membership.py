@@ -4,10 +4,11 @@ Privacy note (spec §7): no serializer here ever carries a birth date, and the
 e-mail of a minor never leaves the backend. The roster shows years of age and,
 for the director alone, the address consent was asked at.
 """
+import uuid as uuid_module
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 MembershipStatus = Literal[
     "PENDING_CONSENT", "PENDING_APPROVAL", "ACTIVE", "ENDED", "REJECTED", "CANCELLED"
@@ -118,6 +119,124 @@ class ClubProfileOut(BaseModel):
     profile: dict
 
 
+# ----------------------------------------------------------------------------
+# Invitations (E3)
+# ----------------------------------------------------------------------------
+# What a link may grant today. CLUB_SECRETARY is appointed from the roster
+# until E8 opens invitations to it (spec §5.7).
+InvitableRole = Literal["STUDENT", "COUNSELOR", "INSTRUCTOR"]
+
+
+class InvitationCreate(BaseModel):
+    role: InvitableRole = "STUDENT"
+    max_uses: int = Field(default=1, ge=1, le=200)
+    expires_in_days: int | None = Field(default=None, ge=1, le=90)
+    # Nominal invitation: only the account with this address may accept it.
+    email: EmailStr | None = None
+
+    model_config = {"extra": "forbid"}
+
+
+class InvitationOut(BaseModel):
+    """An invitation as the club sees it. The token is NEVER here: it is shown
+    once, in the answer to the request that created the link."""
+
+    id: str
+    club_id: str
+    role: str
+    email: str | None = None
+    max_uses: int
+    uses: int
+    expires_at: datetime
+    state: str
+    requires_approval: bool
+    created_by: str | None = None
+    created_at: datetime
+
+
+class InvitationCreated(BaseModel):
+    invitation: InvitationOut
+    # Shown exactly once. Losing it costs a new invitation, never a lookup.
+    token: str
+    url: str
+    whatsapp_url: str
+
+
+class TokenIn(BaseModel):
+    token: str = Field(min_length=10, max_length=512)
+
+    model_config = {"extra": "forbid"}
+
+
+class InvitationPreview(BaseModel):
+    """The public face of a link. It never names a person (spec §7)."""
+
+    club: ClubRef
+    role: str
+    requires_approval: bool
+    expires_at: datetime
+
+
+class InvitationAccept(BaseModel):
+    token: str = Field(min_length=10, max_length=512)
+    # Minors: where to ask for the authorization.
+    guardian_email: EmailStr | None = None
+    # Leaving another club is never a side effect: the person says so.
+    confirm_transfer: bool = False
+
+    model_config = {"extra": "forbid"}
+
+
+# ----------------------------------------------------------------------------
+# Guardian consent (E3)
+# ----------------------------------------------------------------------------
+class ConsentClub(ClubRef):
+    director_name: str | None = None
+
+
+class ChildRef(BaseModel):
+    """Name and age only: a consent screen never needs more."""
+
+    id: str
+    name: str
+    age: int | None = None
+
+
+class ConsentPreview(BaseModel):
+    membership_id: str
+    child: ChildRef
+    club: ConsentClub
+    role: str
+    # Plain words for the guardian: exactly what the club gets to see.
+    club_will_see: list[str]
+    seen_by: list[str]
+    expires_at: datetime | None = None
+
+
+class ConsentDecision(BaseModel):
+    """Either the emailed token or, for a guardian who already has an approved
+    guardianship over the minor, the membership itself."""
+
+    token: str | None = Field(default=None, min_length=10, max_length=512)
+    membership_id: uuid_module.UUID | None = None
+    decision: Literal["APPROVE", "REJECT"]
+    relationship: Literal["PARENT", "LEGAL_GUARDIAN", "OTHER"] = "PARENT"
+
+    model_config = {"extra": "forbid"}
+
+    @model_validator(mode="after")
+    def _one_reference(self):
+        if bool(self.token) == bool(self.membership_id):
+            raise ValueError("Provide either `token` or `membership_id`")
+        return self
+
+
+class ConsentResend(BaseModel):
+    guardian_email: EmailStr | None = None
+
+    model_config = {"extra": "forbid"}
+
+
 class MembershipEnded(BaseModel):
     membership_id: str
     club_id: str
@@ -125,10 +244,26 @@ class MembershipEnded(BaseModel):
     end_reason: str | None = None
 
 
-def as_club_ref(club) -> ClubRef:
+def as_club_ref(club, model=ClubRef, **extra):
     metadata = club.metadata_json or {}
-    return ClubRef(
-        id=str(club.id), name=club.name, city=club.city, church=metadata.get("church")
+    return model(
+        id=str(club.id), name=club.name, city=club.city, church=metadata.get("church"), **extra
+    )
+
+
+def as_invitation_out(invitation, *, state: str, requires_approval: bool) -> InvitationOut:
+    return InvitationOut(
+        id=str(invitation.id),
+        club_id=str(invitation.club_id),
+        role=invitation.role,
+        email=invitation.email,
+        max_uses=invitation.max_uses,
+        uses=invitation.uses,
+        expires_at=invitation.expires_at,
+        state=state,
+        requires_approval=requires_approval,
+        created_by=str(invitation.created_by_id) if invitation.created_by_id else None,
+        created_at=invitation.created_at,
     )
 
 
@@ -146,11 +281,22 @@ def as_membership_out(membership, club) -> MembershipOut:
 
 
 __all__ = [
+    "ChildRef",
     "ClubProfileOut",
     "ClubProfileUpdate",
     "ClubRef",
-    "ConsentSummary",
     "ClubRole",
+    "ConsentClub",
+    "ConsentDecision",
+    "ConsentPreview",
+    "ConsentResend",
+    "ConsentSummary",
+    "InvitableRole",
+    "InvitationAccept",
+    "InvitationCreate",
+    "InvitationCreated",
+    "InvitationOut",
+    "InvitationPreview",
     "ManagedMemberRow",
     "MemberRemoval",
     "MemberRoleUpdate",
@@ -159,6 +305,8 @@ __all__ = [
     "MembershipOut",
     "MembershipStatus",
     "MyMembership",
+    "TokenIn",
     "as_club_ref",
+    "as_invitation_out",
     "as_membership_out",
 ]

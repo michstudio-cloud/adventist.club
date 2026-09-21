@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db import get_db, violated_constraint
 from app.deps import get_authenticated_user, get_current_user
 from app.models import Guardianship, Organization, User
+from app.people import age_in_years, is_minor_user
 from app.rbac import (
     MEMBER_VIEW_ROLES,
     can_manage_user,
@@ -21,7 +22,9 @@ from app.rbac import (
     outranks,
 )
 from app.schemas.auth import MFAResetRequest, RoleName
+from app.schemas.membership import as_club_ref
 from app.schemas.user import (
+    ChildGuardianship,
     GuardianshipCreate,
     GuardianshipResponse,
     UserResponse,
@@ -122,9 +125,12 @@ async def create_guardianship(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    if current_user.role != PARENT_GUARDIAN:
+    # D9: any adult with a verified account may be a guardian. The director
+    # whose own child is a member of the club does not need a second account;
+    # PARENT_GUARDIAN stays as the role of whoever has no other function.
+    if is_minor_user(current_user):
         raise HTTPException(
-            status.HTTP_403_FORBIDDEN, "Only PARENT_GUARDIAN can create guardianships"
+            status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede ser tutora de un menor."
         )
     child = await _get_user_or_404(db, payload.child_id)
     if child.id == current_user.id or not child.is_minor:
@@ -164,19 +170,42 @@ async def create_guardianship(
     return GuardianshipResponse.from_model(row)
 
 
-@router.get("/guardianships/my-children", response_model=list[GuardianshipResponse])
+@router.get("/guardianships/my-children", response_model=list[ChildGuardianship])
 async def my_children(
     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
-    if current_user.role != PARENT_GUARDIAN:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Only PARENT_GUARDIAN can view children")
+    """My minors: name, age, their club and whatever of theirs is waiting for
+    me. Any adult may hold a guardianship (D9)."""
+    if is_minor_user(current_user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede tener menores a cargo."
+        )
     stmt = (
-        select(Guardianship)
+        select(Guardianship, User)
+        .join(User, User.id == Guardianship.child_id)
         .where(Guardianship.guardian_id == current_user.id)
         .order_by(Guardianship.created_at)
     )
-    rows = (await db.execute(stmt)).scalars().all()
-    return [GuardianshipResponse.from_model(row) for row in rows]
+    rows = (await db.execute(stmt)).all()
+
+    children = []
+    for guardianship, child in rows:
+        membership = await membership_service.active_membership(db, child.id)
+        pending = await membership_service.open_memberships(db, child.id)
+        club = await db.get(Organization, membership.club_id) if membership else None
+        children.append(
+            ChildGuardianship(
+                **GuardianshipResponse.from_model(guardianship).model_dump(),
+                child_name=child.name,
+                child_age=age_in_years(child.birth_date),
+                club=as_club_ref(club) if club is not None else None,
+                membership_status=membership.status if membership else None,
+                pending_consents=[
+                    str(row.id) for row in pending if row.status == membership_service.PENDING_CONSENT
+                ],
+            )
+        )
+    return children
 
 
 @router.get("/guardianships/my-guardians", response_model=list[GuardianshipResponse])

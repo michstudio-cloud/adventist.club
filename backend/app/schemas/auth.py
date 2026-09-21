@@ -35,6 +35,22 @@ class RegisterRequest(BaseModel):
     birth_date: date | None = None
     # CLUB_DIRECTOR only: the club to open, created `pending` in the same transaction.
     club: ClubSignup | None = None
+    # Arriving from an invitation link: the account and the membership are
+    # created in ONE transaction, and the invitation fixes the role.
+    invitation_token: str | None = Field(default=None, min_length=10, max_length=512)
+    # A minor joining with an invitation: where to ask for the authorization.
+    guardian_email: EmailStr | None = None
+
+
+class RegisteredMembership(BaseModel):
+    """Present when the account was created from an invitation, so the client
+    knows whether the person is in the club or still waiting for something."""
+
+    membership_id: str
+    club_id: str
+    club_name: str
+    role: str
+    status: str
 
 
 class RegisterResponse(BaseModel):
@@ -46,6 +62,7 @@ class RegisterResponse(BaseModel):
     message: str
     organization_id: str | None = None
     club_approval: str | None = None
+    membership: RegisteredMembership | None = None
     access_token: str
     refresh_token: str
     token_type: str = "bearer"

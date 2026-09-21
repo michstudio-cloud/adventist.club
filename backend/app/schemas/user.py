@@ -7,6 +7,7 @@ from pydantic import AliasChoices, BaseModel, Field
 
 from app.models import Guardianship, User
 from app.schemas.auth import RoleName
+from app.schemas.membership import ClubRef
 
 UserStatus = Literal["ACTIVE", "SUSPENDED", "INACTIVE"]
 VerificationStatus = Literal["PENDING", "VERIFIED", "REJECTED"]
@@ -90,6 +91,24 @@ class UserUpdate(BaseModel):
 class GuardianshipCreate(BaseModel):
     child_id: uuid.UUID
     relationship: Relationship = "PARENT"
+
+
+class ChildGuardianship(BaseModel):
+    """A guardianship as the adult sees it on their panel: the minor, their
+    club, and what is waiting for a decision. No e-mail, no birth date."""
+
+    id: str
+    guardian_id: str
+    child_id: str
+    relationship: str
+    consent_status: str
+    consent_granted_at: datetime | None
+    created_at: datetime
+    child_name: str
+    child_age: int | None = None
+    club: ClubRef | None = None
+    membership_status: str | None = None
+    pending_consents: list[str] = []
 
 
 class GuardianshipResponse(BaseModel):

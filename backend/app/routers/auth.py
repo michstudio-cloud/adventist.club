@@ -25,6 +25,7 @@ from app.schemas.auth import (
     MFAVerifyRequest,
     RefreshRequest,
     RefreshResponse,
+    RegisteredMembership,
     RegisterRequest,
     RegisterResponse,
     ResetPasswordRequest,
@@ -59,11 +60,22 @@ from app.security import (
 )
 from app.services import email as email_service
 from app.services import clubs as club_service
+from app.services import invitations as invitation_service
+from app.services import notifications
 from app.services import mfa as mfa_service
 from app.services import verification
 from app.services.audit import record_audit
 
 logger = logging.getLogger(__name__)
+
+
+async def _accept_or_400(db, **kwargs):
+    try:
+        return await invitation_service.accept(db, **kwargs)
+    except HTTPException as exc:
+        if exc.status_code == status.HTTP_404_NOT_FOUND:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, exc.detail) from exc
+        raise
 
 router = APIRouter(
     prefix="/api/v1/auth",
@@ -98,11 +110,12 @@ async def register(
         )
 
     if payload.organization_id:
-        # Membership is granted by an administrator (later: an invitation). Self-declared, a
-        # stranger could register as INSTRUCTOR of any club and read its members.
+        # Self-declared, a stranger could register as INSTRUCTOR of any club and read its
+        # members. Joining a club is an invitation, an approved request or an administrator's act.
         raise HTTPException(
             status.HTTP_403_FORBIDDEN,
-            "La pertenencia a una organización la asigna un administrador; regístrate sin organización.",
+            "La pertenencia a una organización no se elige al registrarse: únete con una"
+            " invitación o solicita unirte a un club.",
         )
 
     is_minor = people.is_minor(payload.birth_date, payload.is_minor)
@@ -118,6 +131,11 @@ async def register(
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, "Send either organization_id or club, not both"
             )
+    if payload.invitation_token and payload.club is not None:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Envía una invitación o el club a registrar, no las dos cosas.",
+        )
 
     email = payload.email.strip().lower()
     existing = await db.execute(select(User.id).where(User.email == email))
@@ -156,9 +174,31 @@ async def register(
 
     # Still one transaction: user, verification token and audit row commit together.
     # The director's club too: a refused club (unknown association, duplicate
-    # name) rolls the whole registration back.
+    # name) rolls the whole registration back. Same for the invitation: a bad
+    # token must not leave an account behind.
     if payload.club is not None:
         await club_service.stage_pending_club(db, user, payload.club, request)
+    membership = club = consent_token = None
+    if payload.invitation_token:
+        # A bad link is a 400 here, not the 404 of `/join`: the client is
+        # filling in a form, and no account must survive the refusal.
+        membership, club, consent_token = await _accept_or_400(
+            db,
+            member=user,
+            token=payload.invitation_token,
+            guardian_email=payload.guardian_email,
+            request=request,
+        )
+        if consent_token:
+            await notifications.queue_consent_request(
+                db,
+                background,
+                membership=membership,
+                member=user,
+                club=club,
+                token=consent_token,
+                recipients=await notifications.consent_recipients(db, membership, user),
+            )
     token_row = verification.stage_token(db, user.id, verification.EMAIL_VERIFICATION)
     record_audit(
         db,
@@ -202,6 +242,17 @@ async def register(
         message=message,
         organization_id=str(user.organization_id) if user.organization_id else None,
         club_approval=user.club_approval,
+        membership=(
+            RegisteredMembership(
+                membership_id=str(membership.id),
+                club_id=str(club.id),
+                club_name=club.name,
+                role=membership.role,
+                status=membership.status,
+            )
+            if membership is not None
+            else None
+        ),
         access_token=create_access_token(user.id),
         refresh_token=create_refresh_token(user.id),
     )
