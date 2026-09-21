@@ -8,18 +8,27 @@ readers (the paper, the result without solutions, the result with them, or just 
 score): the service picks the schema, and a schema that does not declare `correct_answer`
 cannot leak it.
 
-Manual grading, voiding an attempt and the in-person session code arrive with I6.
+I6 adds the instructor's side: the grading queue, grading one answer and voiding an attempt.
 """
 import uuid
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
 from app.deps import get_current_user
 from app.models import User
 from app.rate_limit import limiter
-from app.schemas.exam import AnswerIn, AnswerSaved, AttemptStart, ExamStateOut, ExtraTimeIn
+from app.schemas.exam import (
+    AnswerIn,
+    AnswerSaved,
+    AttemptStart,
+    ExamStateOut,
+    ExtraTimeIn,
+    GradeIn,
+    GradingQueueItem,
+    VoidIn,
+)
 from app.services import exams
 
 router = APIRouter(prefix="/api/v1/exams", tags=["exams"])
@@ -93,3 +102,43 @@ async def submit_attempt(
 ):
     """Hand it in; idempotent once handed in."""
     return await exams.submit_attempt(db, current_user, attempt_id, request)
+
+
+# ----------------------------------------------------------------------------
+# I6 — The instructor's side: grading queue, grading and voiding
+# ----------------------------------------------------------------------------
+@router.get("/grading/queue", response_model=list[GradingQueueItem])
+async def grading_queue(
+    course_id: uuid.UUID | None = Query(None),
+    limit: int = Query(100, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Attempts of MY courses waiting for a person. 403 for whoever teaches nothing."""
+    return await exams.grading_queue(db, current_user, course_id, limit, offset)
+
+
+@router.post("/attempts/{attempt_id}/answers/{position}/grade", response_model=None)
+async def grade_answer(
+    attempt_id: uuid.UUID,
+    position: int,
+    payload: GradeIn,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """One answer, 0…`points_possible`; the attempt closes as soon as it is decided."""
+    return await exams.grade(db, current_user, attempt_id, position, payload, request)
+
+
+@router.post("/attempts/{attempt_id}/void", response_model=None)
+async def void_attempt(
+    attempt_id: uuid.UUID,
+    payload: VoidIn,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The attempt stops counting; a passed one gives back exactly what it completed."""
+    return await exams.void(db, current_user, attempt_id, payload, request)

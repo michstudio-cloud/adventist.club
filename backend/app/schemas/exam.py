@@ -11,6 +11,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.schemas.portfolio import PersonRef  # shared shape: id + name, nothing else
+
 EXTRA_TIME_CHOICES = (0, 25, 50, 100)
 MAX_RESPONSE_LENGTH = 4000
 
@@ -158,3 +160,65 @@ class ExamStateOut(BaseModel):
     last_result: AttemptOut | None
     can_start: bool
     blocked_reason: str | None
+
+
+# ----------------------------------------------------------------------------
+# Bloque C · I6 — manual grading, voiding and the in-person session
+# ----------------------------------------------------------------------------
+GRADER_NOTE_MAX_LENGTH = 1000
+VOID_REASON_MAX_LENGTH = 2000
+# §4.6: a session lasts as long as the class does.
+SESSION_MINUTES_MIN, SESSION_MINUTES_MAX, SESSION_MINUTES_DEFAULT = 15, 240, 120
+
+
+class GradeIn(BaseModel):
+    """One answer, graded by a person: 0…`points_possible` and an optional note.
+
+    The note is one of only two texts an instructor ever writes towards a member (the other
+    is the verdict note of A) and the guardian of a minor reads it too (§6).
+    """
+
+    points_awarded: int = Field(ge=0)
+    note: str | None = Field(default=None, max_length=GRADER_NOTE_MAX_LENGTH)
+
+    _clean = field_validator("note", mode="before")(_blank_to_none)
+
+
+class VoidIn(BaseModel):
+    """Voiding is never silent: the member reads the reason on the attempt."""
+
+    reason: str = Field(min_length=3, max_length=VOID_REASON_MAX_LENGTH)
+
+    @field_validator("reason", mode="before")
+    @classmethod
+    def _strip(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
+
+class GradingQueueItem(BaseModel):
+    """What the instructor needs to pick an attempt to grade. No contact detail of the
+    member travels here — name and nothing else, as everywhere else in a course (§6)."""
+
+    attempt_id: str
+    enrollment_id: str
+    course_id: str
+    course_title: str
+    member: PersonRef
+    attempt_no: int
+    submitted_at: datetime | None
+    pending_answers: int
+    points_total: int
+
+
+class ExamSessionIn(BaseModel):
+    minutes: int = Field(
+        default=SESSION_MINUTES_DEFAULT, ge=SESSION_MINUTES_MIN, le=SESSION_MINUTES_MAX
+    )
+
+
+class ExamSessionOut(BaseModel):
+    """The ONLY time the code exists outside the instructor's screen: what is stored is
+    its hash, so a closed or forgotten session cannot be recovered, only reopened."""
+
+    code: str
+    expires_at: datetime

@@ -39,7 +39,14 @@ from app.models import (
     RequirementProgress,
     User,
 )
-from app.rbac import CONSENT_GRANTED, can_view_enrollment, instructor_is_verified, is_course_instructor, is_master
+from app.rbac import (
+    CONSENT_GRANTED,
+    can_grade_attempt,
+    can_view_enrollment,
+    instructor_is_verified,
+    is_course_instructor,
+    is_master,
+)
 from app.schemas.exam import (
     AnswerFeedbackOut,
     AnswerIn,
@@ -52,11 +59,15 @@ from app.schemas.exam import (
     AttemptStart,
     ExamStateOut,
     ExtraTimeIn,
+    GradeIn,
+    GradingQueueItem,
     PaperQuestionOut,
     RequirementScore,
+    VoidIn,
 )
+from app.schemas.portfolio import PersonRef
 from app.security import utcnow
-from app.services import course_enrollment, portfolio
+from app.services import course_enrollment, exam_sessions, portfolio
 from app.services.audit import record_audit
 from app.services.courses import EXAM
 
@@ -245,11 +256,11 @@ async def start_attempt(
             status.HTTP_422_UNPROCESSABLE_ENTITY,
             "Acepta la promesa «haré este examen por mí mismo» antes de empezar",
         )
-    if course.exam_mode != "ONLINE":
-        # I6 brings the session code; until then no published course can be IN_PERSON.
-        raise HTTPException(
-            status.HTTP_409_CONFLICT, "El examen presencial todavía no está disponible"
-        )
+    # Last check, and the only one that can write before failing (the failure counter):
+    # everything cheaper has already said yes, so a wrong code costs one audit row.
+    proctored = await exam_sessions.verify_code(
+        db, actor, course, payload.session_code, request
+    )
 
     now = utcnow()
     deadline, effective_minutes = _deadline(
@@ -268,7 +279,7 @@ async def start_attempt(
         passing_score=course.exam_passing_score,
         points_total=0,
         completed_positions=[],
-        proctored=False,
+        proctored=proctored,
         auto_submitted=False,
     )
     db.add(attempt)
@@ -490,12 +501,44 @@ async def _close(
         answer.is_correct = verdict
         answer.points_awarded = answer.points_possible if verdict else 0
 
-    awarded = sum(answer.points_awarded or 0 for answer in answers)
-    pending = sum(
-        answer.points_possible for answer in answers if answer.points_awarded is None
-    )
-    total = attempt.points_total or sum(answer.points_possible for answer in answers)
     attempt.submitted_at = attempt.submitted_at or submitted_at
+    await _settle(db, attempt, answers=answers, actor=actor, request=request)
+    record_audit(
+        db,
+        action="EXAM_SUBMIT",
+        entity_type=ATTEMPT,
+        entity_id=attempt.id,
+        actor=actor,
+        metadata={"status": attempt.status, "auto_submitted": attempt.auto_submitted,
+                  "score_percent": attempt.score_percent,
+                  "points": [attempt.points_awarded, attempt.points_total],
+                  "enrollment_id": str(attempt.enrollment_id)},
+        request=request,
+    )
+
+
+async def _settle(
+    db: AsyncSession,
+    attempt: ExamAttempt,
+    *,
+    answers: list[ExamAnswer] | None = None,
+    actor: User | None,
+    request: Request | None,
+) -> None:
+    """The three outcomes of §4.4, evaluated over whatever is graded RIGHT NOW.
+
+    Called once when the attempt is handed in and again after every manual grade, so the
+    attempt closes the moment the result stops depending on what is still pending:
+      * what is already awarded reaches the threshold           -> PASSED
+      * not even awarding everything pending would reach it     -> FAILED
+      * anything else                                           -> PENDING_GRADING
+
+    Integer arithmetic on purpose: a rounded 79,6 % is not 80 %.
+    """
+    answers = answers if answers is not None else await _answers_of(db, attempt.id)
+    awarded = sum(answer.points_awarded or 0 for answer in answers)
+    pending = sum(answer.points_possible for answer in answers if answer.points_awarded is None)
+    total = attempt.points_total or sum(answer.points_possible for answer in answers)
     attempt.points_awarded = awarded
     attempt.score_percent = (100 * awarded) // total if total else 0
 
@@ -508,17 +551,6 @@ async def _close(
         attempt.status, attempt.finished_at = PENDING_GRADING, None
     if attempt.status == PASSED:
         await _complete_exam_requirements(db, attempt, actor, request)
-    record_audit(
-        db,
-        action="EXAM_SUBMIT",
-        entity_type=ATTEMPT,
-        entity_id=attempt.id,
-        actor=actor,
-        metadata={"status": attempt.status, "auto_submitted": attempt.auto_submitted,
-                  "score_percent": attempt.score_percent,
-                  "points": [awarded, total], "enrollment_id": str(attempt.enrollment_id)},
-        request=request,
-    )
 
 
 async def _complete_exam_requirements(
@@ -875,3 +907,232 @@ async def _is_guardian(db: AsyncSession, actor: User, enrollment: HonorEnrollmen
         Guardianship.consent_status == CONSENT_GRANTED,
     )
     return (await db.execute(consent.limit(1))).scalar_one_or_none() is not None
+
+
+# ----------------------------------------------------------------------------
+# Bloque C · I6 — Manual grading
+#
+# A SHORT_ANSWER that missed the accepted list and every ESSAY wait here. The person who
+# decides is the instructor of THAT course, while their letter is authorized, or MASTER_GC:
+# the director never grades an exam, because the exam belongs to the course (§4.4), and
+# `can_grade_attempt` makes it impossible to grade one's own attempt (rule 5).
+# ----------------------------------------------------------------------------
+async def _require_grader(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> None:
+    if not await can_grade_attempt(db, actor, enrollment):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "Solo el instructor del curso, con su carta autorizada, califica este examen",
+        )
+
+
+async def grading_queue(
+    db: AsyncSession,
+    actor: User,
+    course_id: uuid.UUID | None,
+    limit: int,
+    offset: int,
+) -> list[GradingQueueItem]:
+    """The attempts of MY courses waiting for a person (§4.8).
+
+    The filter is the set of courses the caller teaches, so another instructor's queue can
+    never show up here; MASTER_GC reads every course. A caller who teaches nothing at all
+    gets a 403 rather than an empty list: there is no queue to speak of.
+    """
+    taught = None
+    if not is_master(actor):
+        if not await instructor_is_verified(db, actor):
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN, "No tienes cola de calificación de exámenes"
+            )
+        taught = list(
+            (
+                await db.execute(select(Course.id).where(Course.instructor_id == actor.id))
+            ).scalars()
+        )
+        if not taught:
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN, "No tienes cola de calificación de exámenes"
+            )
+
+    conditions = [ExamAttempt.status == PENDING_GRADING, ExamAttempt.user_id != actor.id]
+    if taught is not None:
+        conditions.append(ExamAttempt.course_id.in_(taught))
+    if course_id is not None:
+        conditions.append(ExamAttempt.course_id == course_id)
+
+    rows = (
+        await db.execute(
+            select(ExamAttempt, User, Course)
+            .join(User, User.id == ExamAttempt.user_id)
+            .join(Course, Course.id == ExamAttempt.course_id)
+            .where(*conditions)
+            .order_by(ExamAttempt.submitted_at, ExamAttempt.id)
+            .limit(limit)
+            .offset(offset)
+        )
+    ).all()
+    pending = await _pending_counts(db, [attempt.id for attempt, _, _ in rows])
+    return [
+        GradingQueueItem(
+            attempt_id=str(attempt.id),
+            enrollment_id=str(attempt.enrollment_id),
+            course_id=str(course.id),
+            course_title=course.title,
+            member=PersonRef(id=str(member.id), name=member.name),
+            attempt_no=attempt.attempt_no,
+            submitted_at=attempt.submitted_at,
+            pending_answers=pending.get(attempt.id, 0),
+            points_total=attempt.points_total,
+        )
+        for attempt, member, course in rows
+    ]
+
+
+async def _pending_counts(db: AsyncSession, attempt_ids: list[uuid.UUID]) -> dict[uuid.UUID, int]:
+    if not attempt_ids:
+        return {}
+    stmt = (
+        select(ExamAnswer.attempt_id, func.count())
+        .where(
+            ExamAnswer.attempt_id.in_(attempt_ids),
+            ExamAnswer.points_awarded.is_(None),
+        )
+        .group_by(ExamAnswer.attempt_id)
+    )
+    return {attempt_id: count for attempt_id, count in (await db.execute(stmt)).all()}
+
+
+async def grade(
+    db: AsyncSession,
+    actor: User,
+    attempt_id: uuid.UUID,
+    position: int,
+    payload: GradeIn,
+    request: Request | None,
+):
+    """One answer, 0…`points_possible`. After each grade the attempt is settled again and
+    closes as soon as the outcome is decided (§4.4)."""
+    attempt = await _get_attempt(db, attempt_id, lock=True)
+    enrollment = await portfolio._get_enrollment(db, attempt.enrollment_id, lock=True)
+    await _require_grader(db, actor, enrollment)
+    portfolio._require_open(enrollment)  # rule 4: nothing is written on a frozen enrollment
+    if attempt.status != PENDING_GRADING:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Este intento no está esperando calificación"
+        )
+
+    answer = await db.get(ExamAnswer, {"attempt_id": attempt.id, "position": position})
+    if answer is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Esa pregunta no está en este examen")
+    if answer.points_awarded is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esa respuesta ya está calificada")
+    if payload.points_awarded > answer.points_possible:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            f"Esta pregunta vale como mucho {answer.points_possible} puntos",
+        )
+
+    now = utcnow()
+    answer.points_awarded = payload.points_awarded
+    # Partial credit exists, so «correct» means the full mark; anything less is not.
+    answer.is_correct = payload.points_awarded == answer.points_possible
+    answer.graded_by_id = actor.id
+    answer.graded_at = now
+    answer.grader_note = payload.note
+    record_audit(
+        db,
+        action="EXAM_GRADE",
+        entity_type=ATTEMPT,
+        entity_id=attempt.id,
+        actor=actor,
+        metadata={"position": position, "points": payload.points_awarded,
+                  "points_possible": answer.points_possible,
+                  "enrollment_id": str(attempt.enrollment_id)},
+        request=request,
+    )
+    await _settle(db, attempt, actor=actor, request=request)
+    await db.commit()
+    return await _result(db, attempt, with_solutions=True)
+
+
+# ----------------------------------------------------------------------------
+# Bloque C · I6 — Voiding an attempt
+#
+# The one mechanism behind «give the child another chance», «the room lost power» and «this
+# attempt was not honest»: the attempt stops counting. When it had passed, the requirements
+# it completed go back EXACTLY as they were — `completed_positions` is the list the passing
+# transaction wrote down for precisely this (§4.4).
+# ----------------------------------------------------------------------------
+async def void(
+    db: AsyncSession,
+    actor: User,
+    attempt_id: uuid.UUID,
+    payload: VoidIn,
+    request: Request | None,
+):
+    attempt = await _get_attempt(db, attempt_id, lock=True)
+    enrollment = await portfolio._get_enrollment(db, attempt.enrollment_id, lock=True)
+    await _require_grader(db, actor, enrollment)
+    if attempt.status == VOIDED:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Este intento ya está anulado")
+    if enrollment.status in portfolio.FROZEN:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            "La inscripción ya está certificada: lo que se anula es el certificado",
+        )
+
+    now = utcnow()
+    previous = attempt.status
+    reverted = (
+        await _revert(db, attempt, enrollment, now)
+        if previous == PASSED
+        else []
+    )
+    attempt.status = VOIDED
+    attempt.voided_by_id = actor.id
+    attempt.voided_at = now
+    attempt.void_reason = payload.reason
+    record_audit(
+        db,
+        action="EXAM_VOID",
+        entity_type=ATTEMPT,
+        entity_id=attempt.id,
+        actor=actor,
+        details=payload.reason,
+        metadata={"from": previous, "reverted_positions": reverted,
+                  "enrollment_id": str(enrollment.id), "enrollment_status": enrollment.status},
+        request=request,
+    )
+    await db.commit()
+    return await _result(db, attempt, with_solutions=True)
+
+
+async def _revert(
+    db: AsyncSession, attempt: ExamAttempt, enrollment: HonorEnrollment, now
+) -> list[int]:
+    """Undo exactly what THIS attempt completed, and only while it is still the exam that
+    holds it: a row an instructor has since judged by hand carries `completed_via = NULL`
+    or a reviewer, and is left alone."""
+    positions = list(attempt.completed_positions or [])
+    if not positions:
+        return []
+    rows = (
+        await db.execute(
+            select(RequirementProgress).where(
+                RequirementProgress.enrollment_id == enrollment.id,
+                RequirementProgress.requirement_position.in_(positions),
+                RequirementProgress.status == portfolio.COMPLETE,
+                RequirementProgress.completed_via == "EXAM",
+            )
+        )
+    ).scalars().all()
+    reverted = []
+    for row in rows:
+        row.status = portfolio.PENDING
+        row.completed_via = None
+        row.reviewed_by_id = None
+        row.reviewed_at = None
+        reverted.append(row.requirement_position)
+    await portfolio._touch(db, enrollment)
+    await course_enrollment._recalculate_ready(db, enrollment, now)
+    return sorted(reverted)

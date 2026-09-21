@@ -503,3 +503,23 @@ async def can_view_enrollment(
         return True
     owner = await db.get(User, enrollment.user_id)
     return owner is not None and await can_view_portfolio(db, actor, owner)
+
+
+# ----------------------------------------------------------------------------
+# Bloque C · I6: grading and voiding an exam attempt.
+# ----------------------------------------------------------------------------
+async def can_grade_attempt(
+    db: AsyncSession, actor: User, enrollment: HonorEnrollment
+) -> bool:
+    """Grade a pending answer, or void an attempt, of THIS enrollment (spec §4.4 and §4.8).
+
+    The exam belongs to the course, so the club's director never grades it: only the
+    instructor of that course — while their church letter is authorized and the course was
+    not withdrawn by a reviewer — or MASTER_GC. `is_course_instructor` already refuses the
+    owner of the enrollment, so nobody grades or voids their own attempt (rule 5 of C).
+    """
+    if actor.id == enrollment.user_id:
+        return False
+    if is_master(actor):
+        return True
+    return await is_course_instructor(db, actor, enrollment)
