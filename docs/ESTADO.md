@@ -74,7 +74,10 @@ plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejem
 Árbol de organizaciones cargado con el directorio mundial del Yearbook (992 entidades); emisor = `ISSUER_ORGANIZATION_CODE=NTAM`
 (Asociación Norte de Tamaulipas), verificado en producción.
 
-- [ ] Motor de plantillas + `POST /certificates/render` (resvg, fuentes Noto incrustadas, `data-fit`).
+- [x] Motor de plantillas (21 sep): `POST /certificates/render` y `GET /certificates/templates` en producción; plantilla `ntam-maestria` con el diseño oficial de NTAM.
+- [ ] **Fuentes Noto en `fonts/`**: sin ellas el endpoint responde 503 para PNG/PDF (resvg omite el texto si falta la fuente). Pendiente de permiso para descargarlas.
+- [ ] Frontend: que el asistente use `render` en lugar del canvas.
+- [x] Alta de clubes con aprobación del coordinador de la Asociación (21 sep): migración 003 aplicada, 125 tests, búsqueda de asociaciones sin acentos.
 - [ ] `users.locale`, `honor_translations`, `Accept-Language`; catálogo en inglés y portugués.
 - [ ] next-intl en el frontend (`/es`, `/en`), selector de idioma, Noto Sans, RTL.
 
