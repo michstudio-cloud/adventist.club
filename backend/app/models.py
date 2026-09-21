@@ -934,6 +934,37 @@ class ProgramRequirement(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
+class ActivityLog(Base):
+    """013_activity_logs.sql (Bloque F · F2) — service hours and attendance.
+
+    The member records their own (SUBMITTED) or the director records the club's (APPROVED);
+    only an approved row counts towards a `HOURS` requirement. `description` and `place` are
+    where a minor was and when: they are read with `can_view_portfolio` and never public.
+    """
+
+    __tablename__ = "activity_logs"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    club_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL")
+    )
+    category: Mapped[str] = mapped_column(String(12))
+    performed_on: Mapped[date] = mapped_column(Date)
+    quantity: Mapped[float] = mapped_column(Numeric(4, 1))
+    description: Mapped[str] = mapped_column(String(500))
+    place: Mapped[str | None] = mapped_column(String(180))
+    status: Mapped[str] = mapped_column(String(10), server_default="SUBMITTED")
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    decided_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decision_note: Mapped[str | None] = mapped_column(String(500))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
 class ProgramRequirementText(Base):
     __tablename__ = "program_requirement_texts"
 

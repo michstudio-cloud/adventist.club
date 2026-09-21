@@ -409,11 +409,20 @@ async def _satisfied_by(
 
 
 async def _approved_totals(db: AsyncSession, enrollment: HonorEnrollment) -> dict[str, float]:
-    """Approved hours / attendances that count for this enrollment, by category.
+    """Approved hours / attendances that count for this enrollment, by category (F2)."""
+    from app.services import activity
 
-    Empty in F1: the activity log is F2 (013_activity_logs.sql). The single seam.
-    """
-    return {}
+    return await activity.approved_totals(db, enrollment)
+
+
+def require_manual_route(progress: RequirementProgress) -> None:
+    """F2, rule 8: a requirement of HOURS has ONE route, the activity log. Neither the member
+    sends it nor a reviewer signs it — otherwise the bar and the verdict would disagree."""
+    if progress.kind == curriculum.HOURS:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            "Este requisito se completa con horas aprobadas: regístralas y pide su aprobación",
+        )
 
 
 async def requirement_extras(

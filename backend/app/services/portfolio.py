@@ -612,6 +612,13 @@ async def enroll(
         # Two requests at once (a double click): the other one won, answer with its row.
         existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
         return await _detail(db, actor, existing), False
+    if source.program_id is not None:
+        # Bloque F · F2: what the member already holds (an honor, a program, approved hours)
+        # completes its requirement now, inside this same request.
+        from app.services import portfolio_links
+
+        if await portfolio_links.sync(db, actor, user_id=actor.id, request=request):
+            await db.commit()
     return await _detail(db, actor, enrollment), True
 
 
@@ -662,8 +669,16 @@ async def update_requirement(
     enrollment = await _get_enrollment(db, enrollment_id, lock=True)
     _require_owner(actor, enrollment)
     _require_open(enrollment)
+    if payload.honor_enrollment_id is not None:
+        # Bloque F · F2: an OPEN `HONOR` slot — which of my certified honors fills it.
+        from app.services import portfolio_links
+
+        return await portfolio_links.link_open_honor(
+            db, actor, enrollment, position, payload.honor_enrollment_id, request
+        )
     progress = await _get_progress(db, enrollment, position)
     _require_open_requirement(progress)
+    programs.require_manual_route(progress)   # Bloque F · F2: hours are never sent by hand
     if payload.status == PENDING and progress.status == INCOMPLETE:
         # Already reviewed: the only way forward is to fix it and send it again.
         raise HTTPException(
@@ -988,6 +1003,8 @@ async def review_requirement(
         )
     _require_open(enrollment)
     progress = await _get_progress(db, enrollment, position)
+    if payload.verdict == COMPLETE:
+        programs.require_manual_route(progress)   # Bloque F · F2: hours are never signed
     # A verdict answers a submission. The one exception is rule 4: reopening a COMPLETE one.
     reopening = progress.status == COMPLETE and payload.verdict == INCOMPLETE
     if progress.status != SUBMITTED and not reopening:
@@ -1020,6 +1037,10 @@ async def review_requirement(
     previous = progress.status
     progress.status = payload.verdict
     progress.completed_via = "REVIEW" if payload.verdict == COMPLETE else None
+    if payload.verdict != COMPLETE:
+        # Bloque F · F2, rule 8: reopening one that completed itself breaks the link, so the
+        # automation does not put it back the moment the page is read again.
+        progress.satisfied_by_enrollment_id = None
     progress.reviewed_by_id = actor.id
     progress.reviewed_at = now
     progress.review_note = payload.note
@@ -1188,9 +1209,15 @@ async def issue(
         metadata={"enrollment_id": str(enrollment.id), "user_id": str(member.id),
                   "certificate_no": certificate.certificate_no, "template": slug,
                   "mode": enrollment.mode,
+                  "program_id": str(award.program_id) if award.program_id else None,
                   "course_id": str(enrollment.course_id) if enrollment.course_id else None},
         request=request,
     )
+    # Bloque F · F2: this achievement may be the one another card was waiting for. Same
+    # transaction as the certificate, and idempotent.
+    from app.services import portfolio_links
+
+    await portfolio_links.sync(db, actor, user_id=member.id, request=request)
     await db.commit()
     return (await _certificates_out(db, [certificate]))[0]
 
@@ -1230,3 +1257,70 @@ async def portfolio_of(db: AsyncSession, actor: User, user_id: uuid.UUID) -> Por
         enrollments=await _summaries(db, enrollments),
         certificates=await _certificates_out(db, certificates),
     )
+
+
+# ----------------------------------------------------------------------------
+# Bloque F · F2: the ONE door through which a requirement completes itself.
+#
+# `app/services/portfolio_links.py` (HONOR, PROGRAM, HOURS) uses it today and blocks B–D
+# will use it for `COURSE` in F9. It stages the change on the caller's session — the caller
+# commits — and it never overrides a verdict: a row that is already COMPLETE is not touched.
+# ----------------------------------------------------------------------------
+async def auto_complete(
+    db: AsyncSession,
+    actor: User | None,
+    enrollment: HonorEnrollment,
+    progress: RequirementProgress,
+    *,
+    via: str,
+    source: HonorEnrollment | None = None,
+    request: Request | None = None,
+    action: str = "REQUIREMENT_AUTOCOMPLETE",
+    after_verdict: bool = False,
+) -> bool:
+    """-> True when it completed the requirement, False when it deliberately did nothing."""
+    if enrollment.status in FROZEN or progress.status == COMPLETE:
+        return False
+    if progress.status == INCOMPLETE and progress.reviewed_by_id is not None and not after_verdict:
+        # A reviewer looked at this one and said no. The automation does not argue with a
+        # person: the member fixes it and sends it again. `after_verdict` is the member's
+        # own explicit act (choosing an honor for an open slot), which is not the automation.
+        return False
+    previous = progress.status
+    progress.status = COMPLETE
+    progress.completed_via = via
+    # Nobody judged this: `reviewed_by_id` stays empty on purpose, so the card can say
+    # «se completó solo» and a reviewer's signature is never invented.
+    progress.reviewed_by_id = None
+    progress.reviewed_at = None
+    progress.submitted_at = None
+    progress.satisfied_by_enrollment_id = source.id if source else None
+    record_audit(
+        db,
+        action=action,
+        entity_type=PROGRESS,
+        entity_id=progress.id,
+        actor=actor,
+        metadata={"enrollment_id": str(enrollment.id), "position": progress.requirement_position,
+                  "from": previous, "via": via,
+                  "source_enrollment_id": str(source.id) if source else None},
+        request=request,
+    )
+    await db.flush()
+    return True
+
+
+async def recompute_ready(db: AsyncSession, enrollment: HonorEnrollment) -> None:
+    """Rule 2 of block A, applied after an automatic change: READY is never set by hand."""
+    if enrollment.status in FROZEN:
+        return
+    open_rows = select(func.count()).where(
+        RequirementProgress.enrollment_id == enrollment.id, RequirementProgress.status != COMPLETE
+    )
+    all_complete = (await db.execute(open_rows)).scalar_one() == 0
+    now = utcnow()
+    if all_complete and enrollment.status != READY:
+        enrollment.status, enrollment.ready_at = READY, now
+    elif not all_complete and enrollment.status == READY:
+        enrollment.status, enrollment.ready_at = IN_PROGRESS, None
+    enrollment.updated_at = now

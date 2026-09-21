@@ -675,3 +675,40 @@ punto dice qué se hizo y por qué.
     `code` de una versión nueva lleva el mismo sufijo que el slug (`TEST-v2`) porque es único
     por ministerio. La fixture de `backend/tests/data/` es **dato de prueba** y así está
     marcada; el contenido oficial no vive en el repositorio.
+
+### F2
+
+12. **El hueco abierto (`HONOR` por categoría o libre) NO se completa solo**, ni siquiera
+    cuando el miembro tiene una sola especialidad que encaja. Lo elige él
+    (`PUT …/requirements/{position}` con `{honor_enrollment_id}`). Con eso, la regla 9
+    («los de destino concreto se resuelven antes que los abiertos») se cumple sola: la
+    automatización nunca gasta en un hueco libre la especialidad que otro requisito
+    necesitaba. El índice único parcial sigue siendo la última palabra (409).
+13. **La automatización no discute con una persona.** `auto_complete` no toca una fila que un
+    revisor dejó `INCOMPLETE` (`reviewed_by_id` no nulo); si lo hiciera, reabrir un requisito
+    sería inútil porque la siguiente lectura lo volvería a cerrar. El miembro lo corrige y lo
+    envía de nuevo. La elección del hueco abierto sí puede (es un acto explícito del miembro,
+    no la automatización): pasa `after_verdict=True`.
+14. **`sync` se ejecuta en tres escrituras, no «al leer»**: al inscribirse en un programa, al
+    emitir CUALQUIER certificado del miembro y al decidir una actividad. `GET` no escribe
+    nunca. La spec decía «se evalúa al leer y en las escrituras»; evaluar al leer convertiría
+    un `GET` en una escritura y habría que serializarlo contra el dictamen. Lo que el miembro
+    ve siempre está al día porque las tres escrituras son justo los momentos en que algo puede
+    cambiar.
+15. **`HOURS` no se envía a revisión** (además de no dictaminarse), con el mismo 409: si el
+    miembro pudiera enviarlo, el requisito quedaría esperando un dictamen que nadie puede dar.
+16. **Bajar las horas devuelve el requisito a `PENDING`**, sólo si lo había completado esta
+    misma mecánica (`completed_via = 'HOURS'`) y la inscripción no está congelada. Un
+    `COMPLETE` de un revisor jamás se toca.
+17. **Las horas cuentan desde `started_at` de la inscripción**, con granularidad de día
+    (`performed_on >= started_at::date`). Lo aprobado antes de empezar la clase no cuenta.
+18. **`portfolio_links.unlink`** existe ya (regla 11), aunque nadie la llame todavía: la
+    anulación de certificados por fraude es del CORE. Devuelve a `PENDING` lo que el logro
+    anulado había completado y, si la inscripción ya está certificada, **no la reabre**: deja
+    `needs_audit: true` en la auditoría, porque retirar una investidura es una decisión humana.
+19. **`can_approve_activity`** vive en `app/rbac.py` junto al resto: director del club actual
+    del miembro (aprobado, no bloqueado), administrador con jurisdicción, o `MASTER_GC`; nunca
+    uno mismo; nunca el instructor; y, con E7 activo, nunca sobre un menor sin carta vigente.
+20. **El director registra horas ya aprobadas** para varios miembros con una fila de auditoría
+    **por miembro** (`ACTIVITY_LOG_CREATE`, `on_behalf: true`), para que el rastro de cada
+    menor esté completo por sí solo.

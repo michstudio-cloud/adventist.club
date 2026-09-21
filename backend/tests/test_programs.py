@@ -333,13 +333,21 @@ async def test_the_honors_catalogue_answers_exactly_the_same_before_and_after_a_
     client, factory, world
 ):
     params = {"ministry": "pathfinders", "limit": 5}
+    live = ("SELECT count(*) AS n FROM honors h JOIN ministries m ON m.id = h.ministry_id"
+            " WHERE m.slug = 'pathfinders' AND h.active AND h.status = 'PUBLISHED'")
+
     before = await client.get(HONORS, params=params)
     before_categories = await client.get(f"{HONORS}/categories", params={"ministry": "pathfinders"})
+    # The catalogue counts the honors table and nothing else…
+    assert int(before.headers["X-Total-Count"]) == (await fetch_one(live))["n"]
+
     await _program(factory, "no-regresion")
+
     after = await client.get(HONORS, params=params)
     after_categories = await client.get(f"{HONORS}/categories", params={"ministry": "pathfinders"})
+    # …and it still does after a program exists: a program adds nothing to it.
+    assert int(after.headers["X-Total-Count"]) == (await fetch_one(live))["n"]
     assert before.json() == after.json()
-    assert before.headers["X-Total-Count"] == after.headers["X-Total-Count"]
     assert before_categories.json() == after_categories.json()
 
 
