@@ -1,14 +1,15 @@
 """User management and guardianships."""
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db, violated_constraint
-from app.deps import get_current_user
+from app.deps import get_authenticated_user, get_current_user
 from app.models import Guardianship, Organization, User
+from app.people import age_in_years, is_minor_user
 from app.rbac import (
     MEMBER_VIEW_ROLES,
     can_manage_user,
@@ -20,14 +21,19 @@ from app.rbac import (
     org_in_user_scope,
     outranks,
 )
-from app.schemas.auth import RoleName
+from app.schemas.auth import MFAResetRequest, RoleName
+from app.schemas.membership import as_club_ref
 from app.schemas.user import (
+    ChildGuardianship,
     GuardianshipCreate,
     GuardianshipResponse,
     UserResponse,
     UserUpdate,
 )
 from app.security import INSTRUCTOR, MASTER_GC, PARENT_GUARDIAN, STUDENT, utcnow
+from app.services import email as email_service
+from app.services import memberships as membership_service
+from app.services import mfa as mfa_service
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/users", tags=["users"])
@@ -57,8 +63,54 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_my_profile(current_user: User = Depends(get_current_user)):
+async def get_my_profile(current_user: User = Depends(get_authenticated_user)):
+    """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
     return UserResponse.from_model(current_user)
+
+
+@router.post("/{user_id}/mfa-reset", response_model=UserResponse)
+async def reset_mfa(
+    user_id: uuid.UUID,
+    payload: MFAResetRequest,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Last resort for an account that lost its authenticator and its recovery
+    codes. Only another `MASTER_GC` and never on oneself: two people have to be
+    involved, so a single stolen session cannot shed the second factor.
+    """
+    if not is_master(current_user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo un MASTER_GC puede restablecer la verificación en dos pasos"
+        )
+    if user_id == current_user.id:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "No puedes restablecer tu propia verificación en dos pasos"
+        )
+    target = await _get_user_or_404(db, user_id)
+
+    await mfa_service.clear_second_factor(db, target)
+    record_audit(
+        db,
+        action="MFA_RESET",
+        entity_type="USER",
+        entity_id=target.id,
+        actor=current_user,
+        details=f"MFA reset by {current_user.email}",
+        metadata={"reason": payload.reason},
+        request=request,
+    )
+    await db.commit()
+    await db.refresh(target)
+
+    # After the commit, and never able to fail the request.
+    background.add_task(
+        email_service.send_mfa_reset_email, target.email, target.name, payload.reason
+    )
+    return UserResponse.from_model(target)
 
 
 # ----------------------------------------------------------------------------
@@ -73,9 +125,12 @@ async def create_guardianship(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    if current_user.role != PARENT_GUARDIAN:
+    # D9: any adult with a verified account may be a guardian. The director
+    # whose own child is a member of the club does not need a second account;
+    # PARENT_GUARDIAN stays as the role of whoever has no other function.
+    if is_minor_user(current_user):
         raise HTTPException(
-            status.HTTP_403_FORBIDDEN, "Only PARENT_GUARDIAN can create guardianships"
+            status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede ser tutora de un menor."
         )
     child = await _get_user_or_404(db, payload.child_id)
     if child.id == current_user.id or not child.is_minor:
@@ -115,19 +170,42 @@ async def create_guardianship(
     return GuardianshipResponse.from_model(row)
 
 
-@router.get("/guardianships/my-children", response_model=list[GuardianshipResponse])
+@router.get("/guardianships/my-children", response_model=list[ChildGuardianship])
 async def my_children(
     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
-    if current_user.role != PARENT_GUARDIAN:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Only PARENT_GUARDIAN can view children")
+    """My minors: name, age, their club and whatever of theirs is waiting for
+    me. Any adult may hold a guardianship (D9)."""
+    if is_minor_user(current_user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede tener menores a cargo."
+        )
     stmt = (
-        select(Guardianship)
+        select(Guardianship, User)
+        .join(User, User.id == Guardianship.child_id)
         .where(Guardianship.guardian_id == current_user.id)
         .order_by(Guardianship.created_at)
     )
-    rows = (await db.execute(stmt)).scalars().all()
-    return [GuardianshipResponse.from_model(row) for row in rows]
+    rows = (await db.execute(stmt)).all()
+
+    children = []
+    for guardianship, child in rows:
+        membership = await membership_service.active_membership(db, child.id)
+        pending = await membership_service.open_memberships(db, child.id)
+        club = await db.get(Organization, membership.club_id) if membership else None
+        children.append(
+            ChildGuardianship(
+                **GuardianshipResponse.from_model(guardianship).model_dump(),
+                child_name=child.name,
+                child_age=age_in_years(child.birth_date),
+                club=as_club_ref(club) if club is not None else None,
+                membership_status=membership.status if membership else None,
+                pending_consents=[
+                    str(row.id) for row in pending if row.status == membership_service.PENDING_CONSENT
+                ],
+            )
+        )
+    return children
 
 
 @router.get("/guardianships/my-guardians", response_model=list[GuardianshipResponse])
@@ -298,7 +376,15 @@ async def update_user(
     if admin_changes:
         await _validate_admin_changes(db, current_user, target, changes)
 
-    for field in SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS:
+    # `organization_id` and the club role of an account are written by ONE
+    # service (spec §6, rule 1), which also keeps `club_memberships` in step:
+    # moving somebody between clubs from here is a transfer, not an assignment.
+    delegated = await membership_service.apply_admin_change(
+        db, actor=current_user, target=target, changes=changes, request=request
+    )
+    skip = {"organization_id", "role"} if delegated else set()
+
+    for field in (SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS) - skip:
         if field in changes:
             value = changes[field]
             setattr(target, field, value.strip() if field == "name" else value)

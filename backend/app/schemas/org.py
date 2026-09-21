@@ -244,4 +244,7 @@ class NearbyClub(BaseModel):
     state: str | None = None
     country: str | None = None
     church: str | None = None
+    # Whether the club is taking join requests today (spec E §5.2): `/clubs`
+    # shows «Solicitar unirme» or «No recibe solicitudes» from this.
+    accepts_requests: bool = True
     association: OrgRef | None = None

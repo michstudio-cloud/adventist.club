@@ -14,7 +14,9 @@ RoleName = Literal[
     "ADMIN_ASSOCIATION",
     "COORDINATOR_ZONE",
     "CLUB_DIRECTOR",
+    "CLUB_SECRETARY",
     "INSTRUCTOR",
+    "COUNSELOR",
     "STUDENT",
     "PARENT_GUARDIAN",
 ]
@@ -33,6 +35,22 @@ class RegisterRequest(BaseModel):
     birth_date: date | None = None
     # CLUB_DIRECTOR only: the club to open, created `pending` in the same transaction.
     club: ClubSignup | None = None
+    # Arriving from an invitation link: the account and the membership are
+    # created in ONE transaction, and the invitation fixes the role.
+    invitation_token: str | None = Field(default=None, min_length=10, max_length=512)
+    # A minor joining with an invitation: where to ask for the authorization.
+    guardian_email: EmailStr | None = None
+
+
+class RegisteredMembership(BaseModel):
+    """Present when the account was created from an invitation, so the client
+    knows whether the person is in the club or still waiting for something."""
+
+    membership_id: str
+    club_id: str
+    club_name: str
+    role: str
+    status: str
 
 
 class RegisterResponse(BaseModel):
@@ -44,6 +62,7 @@ class RegisterResponse(BaseModel):
     message: str
     organization_id: str | None = None
     club_approval: str | None = None
+    membership: RegisteredMembership | None = None
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
@@ -60,6 +79,9 @@ class LoginResponse(BaseModel):
     token_type: str = "bearer"
     mfa_required: bool = False
     temp_token: str | None = None
+    # The role obliges a second factor and this account has not enrolled yet.
+    # Advisory while `MASTER_MFA_ENFORCED` is off, a hard block once it is on.
+    mfa_enrollment_required: bool = False
 
 
 class RefreshRequest(BaseModel):
@@ -82,8 +104,31 @@ class MFACodeRequest(BaseModel):
 
 
 class MFAVerifyRequest(BaseModel):
+    """Second login step: exactly one of `totp_code` or `recovery_code`."""
+
     temp_token: str
-    totp_code: str = Field(min_length=6, max_length=10)
+    totp_code: str | None = Field(default=None, min_length=6, max_length=10)
+    recovery_code: str | None = Field(default=None, min_length=10, max_length=20)
+
+    @model_validator(mode="after")
+    def _one_factor(self):
+        if bool(self.totp_code) == bool(self.recovery_code):
+            raise ValueError("Provide either `totp_code` or `recovery_code`")
+        return self
+
+
+class MFAEnrollResponse(BaseModel):
+    """Answer to verify-setup and to recovery-codes: the codes travel once."""
+
+    message: str
+    recovery_codes: list[str]
+    # True when the current token will stop working because the policy now
+    # demands a session born of the second factor.
+    reauth_required: bool = False
+
+
+class MFAResetRequest(BaseModel):
+    reason: str = Field(min_length=3, max_length=1000)
 
 
 class TokenPairResponse(BaseModel):

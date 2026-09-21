@@ -542,3 +542,114 @@ class CourseRequirement(Base):
     # Questions drawn per attempt; only an EXAM requirement has a bank (Bloque C).
     draw_count: Mapped[int] = mapped_column(SmallInteger, server_default="0")
     guidance: Mapped[str | None] = mapped_column(Text)
+
+
+# ---------------------------------------------------------------------------
+# 008b_club_membership.sql: the book of who belongs to which club and how.
+# `users.organization_id` stays the truth for the RBAC; this table is the
+# history, and only app/services/memberships.py writes either of them.
+# ---------------------------------------------------------------------------
+
+
+class ClubMembership(Base):
+    __tablename__ = "club_memberships"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    role: Mapped[str] = mapped_column(String(40), server_default="STUDENT")
+    # PENDING_CONSENT -> PENDING_APPROVAL -> ACTIVE -> ENDED; REJECTED; CANCELLED
+    status: Mapped[str] = mapped_column(String(20))
+    source: Mapped[str] = mapped_column(String(12))
+    # FK added by 008c (club_invitations); unit_id arrives with 008d.
+    invitation_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    message: Mapped[str | None] = mapped_column(String(500))
+    # Minors only: who was asked for consent for THIS club.
+    guardian_email: Mapped[str | None] = mapped_column(CITEXT)
+    consent_token_hash: Mapped[str | None] = mapped_column(String(64))
+    consent_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    consent_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decided_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decision_reason: Mapped[str | None] = mapped_column(Text)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    end_reason: Mapped[str | None] = mapped_column(String(20))
+    ended_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 008c_club_invitations.sql: the link a club shares, and the record of which
+# transactional e-mails went out (never their body).
+# ---------------------------------------------------------------------------
+
+
+class ClubInvitation(Base):
+    __tablename__ = "club_invitations"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    role: Mapped[str] = mapped_column(String(40))
+    # FK to club_units arrives with 008d (E5).
+    unit_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    # Set on a nominal invitation: only that account may accept it.
+    email: Mapped[str | None] = mapped_column(CITEXT)
+    # SHA-256 of the token shown once to whoever created the invitation.
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    max_uses: Mapped[int] = mapped_column(Integer, server_default="1")
+    uses: Mapped[int] = mapped_column(Integer, server_default="0")
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    revoked_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class NotificationLog(Base):
+    """One row per transactional message: what kind, about which row, to which
+    address. Never the body. It is how a send is not repeated and how a daily
+    cap is enforced without a scheduler."""
+
+    __tablename__ = "notification_log"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    email: Mapped[str] = mapped_column(CITEXT)
+    kind: Mapped[str] = mapped_column(String(40))
+    entity_type: Mapped[str] = mapped_column(String(40))
+    entity_id: Mapped[str] = mapped_column(Text)
+    sent_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    ok: Mapped[bool] = mapped_column(Boolean, server_default="true")
+
+
+# ---------------------------------------------------------------------------
+# 008_mfa_recovery.sql: the way back in when the authenticator is lost.
+# ---------------------------------------------------------------------------
+
+
+class MfaRecoveryCode(Base):
+    __tablename__ = "mfa_recovery_codes"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    # SHA-256 of the code shown once. The plain code is never stored anywhere.
+    code_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

@@ -32,6 +32,7 @@ from app.schemas.org import (
 )
 from app.security import ADMIN_ROLES, utcnow
 from app.services import clubs as club_service
+from app.services import memberships as membership_service
 from app.services import email as email_service
 from app.services.audit import record_audit
 
@@ -261,6 +262,7 @@ async def nearby_clubs(
             latitude=round(node.latitude, 5), longitude=round(node.longitude, 5),
             city=node.city, state=node.state, country=node.country,
             church=(node.metadata_json or {}).get("church"),
+            accepts_requests=membership_service.accepts_requests(node),
             association=OrgRef(id=str(parent.id), name=parent.name, code=parent.code) if parent else None,
         )
         for node, parent, km in (await db.execute(stmt)).all()

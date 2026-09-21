@@ -184,6 +184,138 @@ def club_decision_email_html(name: str, club_name: str, approved: bool, reason: 
     return base_template(content, "Registro de club - Adventist.Club")
 
 
+def mfa_reset_email_html(name: str, reason: str) -> str:
+    frontend = settings.frontend_url
+    content = f"""
+        <h2>Se restableció tu verificación en dos pasos</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Otro administrador con rol MASTER restableció la verificación en dos pasos de tu cuenta.
+           Tu autenticador y tus códigos de recuperación anteriores ya no sirven.</p>
+        <div class="info"><strong>Motivo registrado:</strong><br>{escape(reason)}</div>
+        <div class="warning">
+            <strong>⚠️ Si no pediste esto</strong>, avisa de inmediato al equipo: alguien con acceso
+            MASTER actuó sobre tu cuenta. El cambio queda registrado en la auditoría.
+        </div>
+        <p>Vuelve a activar la verificación en dos pasos en cuanto inicies sesión.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Verificación en dos pasos restablecida - Adventist.Club")
+
+
+def recovery_code_used_email_html(name: str) -> str:
+    content = f"""
+        <h2>Se usó uno de tus códigos de recuperación</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Alguien inició sesión en tu cuenta con un código de recuperación en lugar del código
+           de tu aplicación de autenticación. Ese código ya quedó marcado como usado.</p>
+        <div class="warning">
+            <strong>⚠️ Si no fuiste tú</strong>, cambia tu contraseña ahora mismo y pide que se
+            restablezca tu verificación en dos pasos.
+        </div>
+        <p>Si perdiste tu autenticador, vuelve a configurarlo y genera códigos nuevos desde tu perfil.</p>
+    """
+    return base_template(content, "Código de recuperación usado - Adventist.Club")
+
+
+ROLE_LABELS = {
+    "STUDENT": "miembro",
+    "COUNSELOR": "consejero(a) de unidad",
+    "INSTRUCTOR": "instructor(a)",
+    "CLUB_SECRETARY": "secretario(a) del club",
+    "CLUB_DIRECTOR": "director(a)",
+}
+
+
+def club_invitation_email_html(club_name: str, role: str, link: str, inviter_name: str) -> str:
+    role_label = ROLE_LABELS.get(role, "miembro")
+    content = f"""
+        <h2>Te invitaron a un club</h2>
+        <p><strong>{escape(inviter_name)}</strong> te invita a unirte a
+           <strong>{escape(club_name)}</strong> en Adventist.Club como {escape(role_label)}.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Unirme al club</a>
+        </div>
+        <div class="warning">
+            <strong>⚠️ Este enlace es personal:</strong> no lo compartas. Si no esperabas esta
+            invitación, puedes ignorar este correo.
+        </div>
+    """
+    return base_template(content, "Invitación a un club - Adventist.Club")
+
+
+def consent_request_email_html(child_name: str, club_name: str, link: str) -> str:
+    """Goes to an adult about a minor in their care, so it does name the minor.
+    Nothing else in block E sends a minor's name to a third party."""
+    content = f"""
+        <h2>Autorización para unirse a un club</h2>
+        <p><strong>{escape(child_name)}</strong> pidió unirse a
+           <strong>{escape(club_name)}</strong> en Adventist.Club y necesita la autorización
+           de su madre, padre o tutor.</p>
+        <div class="info">
+            En la página verás qué datos vería el club (nombre, edad, avance y evidencias) y
+            quiénes los verían. Sin tu autorización, el club no tiene acceso a nada.
+        </div>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Revisar y autorizar</a>
+        </div>
+        <div class="warning">
+            <strong>⚠️ Importante:</strong><br>
+            • El enlace vence en <strong>14 días</strong> y sirve una sola vez<br>
+            • Puedes retirar la autorización cuando quieras desde tu panel<br>
+            • Si no reconoces esta solicitud, ignora este correo
+        </div>
+    """
+    return base_template(content, "Autorización para unirse a un club - Adventist.Club")
+
+
+def pending_requests_email_html(director_name: str, club_name: str, pending: int, link: str) -> str:
+    """To the club's staff. It carries a COUNT and a link, never a name: some
+    of the people in that queue are minors (spec §5.10)."""
+    what = "una solicitud" if pending == 1 else f"{pending} solicitudes"
+    content = f"""
+        <h2>Tienes solicitudes por revisar</h2>
+        <p>Hola {escape(director_name)},</p>
+        <p><strong>{escape(club_name)}</strong> tiene {what} de ingreso esperando tu decisión.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{escape(link, quote=True)}" class="button">Revisar solicitudes</a>
+        </div>
+    """
+    return base_template(content, "Solicitudes por revisar - Adventist.Club")
+
+
+def membership_decision_email_html(
+    name: str, club_name: str, approved: bool, reason: str | None
+) -> str:
+    frontend = settings.frontend_url
+    if approved:
+        body = f"""
+        <h2>¡Ya eres parte del club! 🎉</h2>
+        <p>Hola {escape(name)},</p>
+        <p><strong>{escape(club_name)}</strong> aceptó tu ingreso.</p>
+        """
+    else:
+        reason_html = (
+            f'<div class="warning"><strong>Motivo:</strong><br>{escape(reason)}</div>'
+            if reason
+            else ""
+        )
+        body = f"""
+        <h2>Novedades sobre tu membresía</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Tu membresía en <strong>{escape(club_name)}</strong> no sigue adelante por ahora.</p>
+        {reason_html}
+        <p>Puedes buscar otro club cercano o hablar con la dirección del club.</p>
+        """
+    content = f"""{body}
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Tu membresía de club - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -226,6 +358,63 @@ async def send_password_reset_email(to: str, name: str, code: str, token: str) -
 
 async def send_welcome_email(to: str, name: str, role: str) -> bool:
     return await send_email(to, "¡Bienvenido a Adventist.Club! 🎉", welcome_email_html(name, role))
+
+
+async def send_mfa_reset_email(to: str, name: str, reason: str) -> bool:
+    """Security notice: it cannot be switched off by the account holder."""
+    return await send_email(
+        to,
+        "Se restableció tu verificación en dos pasos - Adventist.Club",
+        mfa_reset_email_html(name, reason),
+    )
+
+
+async def send_recovery_code_used_email(to: str, name: str) -> bool:
+    return await send_email(
+        to,
+        "Se usó un código de recuperación - Adventist.Club",
+        recovery_code_used_email_html(name),
+    )
+
+
+async def send_club_invitation_email(
+    to: str, club_name: str, role: str, link: str, inviter_name: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Te invitaron a {club_name} - Adventist.Club",
+        club_invitation_email_html(club_name, role, link, inviter_name),
+    )
+
+
+async def send_consent_request_email(
+    to: str, child_name: str, club_name: str, link: str
+) -> bool:
+    return await send_email(
+        to,
+        "Autorización para unirse a un club - Adventist.Club",
+        consent_request_email_html(child_name, club_name, link),
+    )
+
+
+async def send_pending_requests_email(
+    to: str, director_name: str, club_name: str, pending: int, link: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Solicitudes por revisar en {club_name} - Adventist.Club",
+        pending_requests_email_html(director_name, club_name, pending, link),
+    )
+
+
+async def send_membership_decision_email(
+    to: str, name: str, club_name: str, approved: bool, reason: str | None = None
+) -> bool:
+    return await send_email(
+        to,
+        "Tu membresía de club - Adventist.Club",
+        membership_decision_email_html(name, club_name, approved, reason),
+    )
 
 
 async def send_club_decision_email(

@@ -621,6 +621,42 @@ destructivo; cada paso se deshace desactivando código, no datos.
   Cambios de contrato deliberados: `register` rechaza `organization_id`; `GET /users` se cierra; `ClubSignup` exige
   zona e iglesia; las respuestas de clubes añaden `zone` y `church`.
 
+## Desviaciones al implementar E1–E4 (22 sep 2026)
+
+Lo que el código hace distinto de lo escrito arriba, y por qué. E5–E9 siguen sin implementar.
+
+1. **`POST /auth/register` con `organization_id` responde 403, no 400** (§5.1, §10). El repo ya había cerrado el
+   hallazgo 1 antes de este bloque (commit «members cannot list the directory nor attach themselves») y responde
+   403 con un test que lo fija. 403 describe mejor un rechazo de permiso que 400, así que se conservó y sólo se
+   reescribió el mensaje para nombrar los dos caminos válidos («únete con una invitación o solicita unirte a un
+   club»). Los hallazgos 1 y 2 de §1 ya estaban corregidos: E2 no tuvo que tocarlos.
+2. **`PATCH …/members/{id}` con `role: CLUB_DIRECTOR` da 403, no 422.** El esquema acepta los cinco roles de club
+   y quien decide es `rbac.can_grant_club_role`, para que la respuesta explique que el relevo lo hace la
+   asociación en vez de ser un error de validación. La regla sigue viviendo en un solo sitio.
+3. **`guardian_email` no aparece en la nómina de quien no debe verlo.** §5.3 dice «sólo para el director»; el
+   código usa dos modelos (`MemberRow` / `ManagedMemberRow`) para que la clave esté **ausente** del cuerpo, no
+   nula, también para la Secretaría (§5.7 se lo prohíbe explícitamente). Regla en
+   `rbac.can_view_guardian_contact`.
+4. **Los códigos de recuperación se emiten a todo el que activa MFA**, no sólo a los roles de
+   `MFA_REQUIRED_ROLES`. Un solo camino de código, y perder el autenticador deja de ser irrecuperable para
+   cualquiera. `reauth_required` sí es específico: sólo es cierto cuando la política va a exigir el *claim*.
+5. **`mfa_enrollment_required` en `login` no depende del interruptor.** Avisa siempre que el rol obliga y la
+   cuenta no tiene MFA, para que el frontend pueda guiar el alta *antes* de encender `MASTER_MFA_ENFORCED`.
+   Bloquear sigue dependiendo del interruptor.
+6. **Reenvío del consentimiento: `CONSENT_RESEND` es una clase distinta de `CONSENT_REQUEST`** en
+   `notification_log`, para que «3 al día» (§5.9) cuente reenvíos y no la primera solicitud.
+7. **`may_handle_minors` no existe todavía.** §4 lo define con el interruptor de E7 sin valor ⇒ siempre cierto,
+   o sea una función que hoy sólo devolvería `True`. Se dejó sin escribir y anotado dónde entra: dentro de
+   `can_review`, `can_issue`, la rama de revisor de `can_view_portfolio` y el serializador de la nómina.
+8. **`can_view_roster` ya admite al `COUNSELOR`**, pero el servicio le devuelve una lista vacía porque las
+   unidades llegan en E5. Es la junta real, no código muerto.
+9. **`portfolio.on_club_changed` comprueba una vez si existe `honor_enrollments`.** §5.3 decía «si A aún no
+   está desplegado, la llamada no existe»; como `007` todavía no está en Neon y E2 puede salir antes, la
+   llamada existe siempre y no hace nada mientras falte la tabla. Una consulta por proceso.
+10. **El test existente `test_guardianship_rules` cambió una aserción**: exigía 403 para un adulto que no fuera
+    `PARENT_GUARDIAN`, que es justo la regla que D9 sustituye. Ahora comprueba lo contrario (un adulto sí, un
+    menor no).
+
 ## Fuera de alcance de E
 
 Puntajes de clubes y Secretaría de Asociación; reportes ANT y Club de Honor; eventos, check-in y pagos; relevo de

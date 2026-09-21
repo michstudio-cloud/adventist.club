@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models import Organization, User
 from app.schemas.org import ClubSignup
 from app.security import CLUB_APPROVED, CLUB_DIRECTOR, CLUB_PENDING, CLUB_REJECTED, utcnow
+from app.services import memberships as membership_service
 from app.services.audit import record_audit
 
 CLUB_TYPE = "club"
@@ -80,6 +81,21 @@ async def stage_pending_club(
     # user row points at it.
     await db.flush()
 
+    # A director whose previous request was refused opens a corrected club:
+    # that membership closes here, so there is never a second ACTIVE one.
+    await membership_service.close_active_for_move(db, director)
+    # The founder is a member from the first minute, so `organization_id` and
+    # `club_memberships` never disagree (spec §6, rule 1). Their authority is
+    # still governed by `director_blocked` until the association approves.
+    membership = membership_service.stage_membership(
+        db,
+        user_id=director.id,
+        club_id=club.id,
+        role=CLUB_DIRECTOR,
+        status_name=membership_service.ACTIVE,
+        source=membership_service.FOUNDER,
+    )
+    membership.started_at = now
     director.organization_id = club.id
     director.club_approval = CLUB_PENDING
     director.club_approval_reason = None

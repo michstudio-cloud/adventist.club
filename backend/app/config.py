@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     MFA_ISSUER: str = "ADVENTIST.CLUB"
+    # Deploy switch for the MFA policy of `security.MFA_REQUIRED_ROLES` (E1).
+    # Off by default: the code ships first and enforcement is turned on once
+    # every seeded MASTER_GC has enrolled, so nobody is ever locked out.
+    MASTER_MFA_ENFORCED: bool = False
     # `organizations.code` of the entity that issues certificates (Unión/Asociación).
     # PROTOTYPE keeps the self-created placeholder until the real one exists.
     ISSUER_ORGANIZATION_CODE: str = "PROTOTYPE"
@@ -98,7 +102,9 @@ class Settings(BaseSettings):
             return cls.model_fields[info.field_name].default
         return value
 
-    @field_validator("SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", mode="before")
+    @field_validator(
+        "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", mode="before"
+    )
     @classmethod
     def _lenient_bool(cls, value: Any, info) -> Any:
         """A malformed optional flag must never stop the service from booting."""

@@ -1,7 +1,6 @@
 """Authentication: register, login, MFA, email verification, password reset."""
 import logging
 import uuid
-from datetime import date
 
 import anyio
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
@@ -9,9 +8,10 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app import people
 from app.config import settings
 from app.db import SessionLocal, get_db, violated_constraint
-from app.deps import get_current_user, load_user_by_subject
+from app.deps import get_authenticated_user, get_current_user, load_user_by_subject
 from app.models import EmailVerification, Organization, User
 from app.rate_limit import limiter
 from app.schemas.auth import (
@@ -20,10 +20,12 @@ from app.schemas.auth import (
     LoginResponse,
     MessageResponse,
     MFACodeRequest,
+    MFAEnrollResponse,
     MFASetupResponse,
     MFAVerifyRequest,
     RefreshRequest,
     RefreshResponse,
+    RegisteredMembership,
     RegisterRequest,
     RegisterResponse,
     ResetPasswordRequest,
@@ -35,15 +37,16 @@ from app.schemas.user import UserResponse
 from app.security import (
     CLUB_DIRECTOR,
     INSTRUCTOR,
-    MASTER_GC,
     SELF_REGISTRATION_ROLES,
     STUDENT,
     TOKEN_REFRESH,
     TOKEN_TEMP_MFA,
+    born_of_mfa,
     code_attempts,
     create_access_token,
     create_refresh_token,
     create_temp_mfa_token,
+    decode_claims,
     decode_token,
     generate_mfa_secret,
     hash_password,
@@ -57,10 +60,22 @@ from app.security import (
 )
 from app.services import email as email_service
 from app.services import clubs as club_service
+from app.services import invitations as invitation_service
+from app.services import notifications
+from app.services import mfa as mfa_service
 from app.services import verification
 from app.services.audit import record_audit
 
 logger = logging.getLogger(__name__)
+
+
+async def _accept_or_400(db, **kwargs):
+    try:
+        return await invitation_service.accept(db, **kwargs)
+    except HTTPException as exc:
+        if exc.status_code == status.HTTP_404_NOT_FOUND:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, exc.detail) from exc
+        raise
 
 router = APIRouter(
     prefix="/api/v1/auth",
@@ -70,17 +85,6 @@ router = APIRouter(
 
 FORGOT_PASSWORD_MESSAGE = "If the email exists, a password reset code has been sent"
 INVALID_RESET_MESSAGE = "Invalid or expired reset code"
-ADULT_AGE = 18
-
-
-def _is_minor(birth_date: date | None, declared_minor: bool) -> bool:
-    """A birth date under 18 makes the account a minor regardless of the checkbox."""
-    if birth_date is None:
-        return declared_minor
-    today = utcnow().date()
-    had_birthday = (today.month, today.day) >= (birth_date.month, birth_date.day)
-    age = today.year - birth_date.year - (0 if had_birthday else 1)
-    return declared_minor or age < ADULT_AGE
 
 
 # ----------------------------------------------------------------------------
@@ -106,14 +110,15 @@ async def register(
         )
 
     if payload.organization_id:
-        # Membership is granted by an administrator (later: an invitation). Self-declared, a
-        # stranger could register as INSTRUCTOR of any club and read its members.
+        # Self-declared, a stranger could register as INSTRUCTOR of any club and read its
+        # members. Joining a club is an invitation, an approved request or an administrator's act.
         raise HTTPException(
             status.HTTP_403_FORBIDDEN,
-            "La pertenencia a una organización la asigna un administrador; regístrate sin organización.",
+            "La pertenencia a una organización no se elige al registrarse: únete con una"
+            " invitación o solicita unirte a un club.",
         )
 
-    is_minor = _is_minor(payload.birth_date, payload.is_minor)
+    is_minor = people.is_minor(payload.birth_date, payload.is_minor)
     if is_minor and payload.role != STUDENT:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Minors can only register as STUDENT")
 
@@ -126,6 +131,11 @@ async def register(
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, "Send either organization_id or club, not both"
             )
+    if payload.invitation_token and payload.club is not None:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Envía una invitación o el club a registrar, no las dos cosas.",
+        )
 
     email = payload.email.strip().lower()
     existing = await db.execute(select(User.id).where(User.email == email))
@@ -164,9 +174,31 @@ async def register(
 
     # Still one transaction: user, verification token and audit row commit together.
     # The director's club too: a refused club (unknown association, duplicate
-    # name) rolls the whole registration back.
+    # name) rolls the whole registration back. Same for the invitation: a bad
+    # token must not leave an account behind.
     if payload.club is not None:
         await club_service.stage_pending_club(db, user, payload.club, request)
+    membership = club = consent_token = None
+    if payload.invitation_token:
+        # A bad link is a 400 here, not the 404 of `/join`: the client is
+        # filling in a form, and no account must survive the refusal.
+        membership, club, consent_token = await _accept_or_400(
+            db,
+            member=user,
+            token=payload.invitation_token,
+            guardian_email=payload.guardian_email,
+            request=request,
+        )
+        if consent_token:
+            await notifications.queue_consent_request(
+                db,
+                background,
+                membership=membership,
+                member=user,
+                club=club,
+                token=consent_token,
+                recipients=await notifications.consent_recipients(db, membership, user),
+            )
     token_row = verification.stage_token(db, user.id, verification.EMAIL_VERIFICATION)
     record_audit(
         db,
@@ -210,6 +242,17 @@ async def register(
         message=message,
         organization_id=str(user.organization_id) if user.organization_id else None,
         club_approval=user.club_approval,
+        membership=(
+            RegisteredMembership(
+                membership_id=str(membership.id),
+                club_id=str(club.id),
+                club_name=club.name,
+                role=membership.role,
+                status=membership.status,
+            )
+            if membership is not None
+            else None
+        ),
         access_token=create_access_token(user.id),
         refresh_token=create_refresh_token(user.id),
     )
@@ -247,22 +290,27 @@ async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depe
         access_token=create_access_token(user.id),
         refresh_token=create_refresh_token(user.id),
         mfa_required=False,
+        mfa_enrollment_required=mfa_service.enrollment_pending(user),
     )
 
 
 @router.post("/refresh", response_model=RefreshResponse)
 async def refresh(payload: RefreshRequest, db: AsyncSession = Depends(get_db)):
-    subject = decode_token(payload.refresh_token, TOKEN_REFRESH)
-    if subject is None:
+    claims = decode_claims(payload.refresh_token, TOKEN_REFRESH)
+    if claims is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid or expired refresh token")
-    user = await load_user_by_subject(db, subject)
+    user = await load_user_by_subject(db, claims.get("sub"))
     if user is None or user.status != "ACTIVE":
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "User not found or inactive")
-    return RefreshResponse(access_token=create_access_token(user.id))
+    # The new access token inherits the second factor of the session that
+    # produced the refresh token; refreshing is not a way around the policy.
+    return RefreshResponse(access_token=create_access_token(user.id, mfa=born_of_mfa(claims)))
 
 
 @router.get("/me", response_model=UserResponse)
-async def me(current_user: User = Depends(get_current_user)):
+async def me(current_user: User = Depends(get_authenticated_user)):
+    """Readable even by an account that still owes its second factor: the
+    enrolment screen needs to know who is signed in."""
     return UserResponse.from_model(current_user)
 
 
@@ -271,7 +319,7 @@ async def me(current_user: User = Depends(get_current_user)):
 # ----------------------------------------------------------------------------
 @router.post("/mfa/setup", response_model=MFASetupResponse)
 async def mfa_setup(
-    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
+    current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
 ):
     """Generate a TOTP secret. MFA only becomes active after /mfa/verify-setup."""
     if current_user.mfa_enabled:
@@ -289,11 +337,11 @@ async def mfa_setup(
     return MFASetupResponse(secret=secret, otpauth_uri=uri, qr_code_url=qr_code_url)
 
 
-@router.post("/mfa/verify-setup", response_model=MessageResponse)
+@router.post("/mfa/verify-setup", response_model=MFAEnrollResponse)
 async def mfa_verify_setup(
     payload: MFACodeRequest,
     request: Request,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_authenticated_user),
     db: AsyncSession = Depends(get_db),
 ):
     if not current_user.mfa_secret or current_user.mfa_enabled:
@@ -302,6 +350,8 @@ async def mfa_verify_setup(
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
 
     current_user.mfa_enabled = True
+    # Shown once, here. Losing them costs a peer reset by another MASTER_GC.
+    codes = await mfa_service.issue_recovery_codes(db, current_user)
     record_audit(
         db,
         action="MFA_ENABLE",
@@ -311,15 +361,50 @@ async def mfa_verify_setup(
         request=request,
     )
     await db.commit()
-    return MessageResponse(message="MFA enabled successfully")
+    return MFAEnrollResponse(
+        message="MFA enabled successfully",
+        recovery_codes=codes,
+        reauth_required=settings.MASTER_MFA_ENFORCED and mfa_service.mfa_required_for(current_user),
+    )
+
+
+@router.post("/mfa/recovery-codes", response_model=MFAEnrollResponse)
+async def mfa_regenerate_recovery_codes(
+    payload: MFACodeRequest,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """A fresh set replaces the outstanding ones. The live TOTP code is proof
+    that the authenticator is the one enrolled, not a stolen session."""
+    if not current_user.mfa_enabled or not current_user.mfa_secret:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not enabled")
+    if not verify_totp(current_user.mfa_secret, payload.totp_code):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
+
+    codes = await mfa_service.issue_recovery_codes(db, current_user)
+    record_audit(
+        db,
+        action="MFA_RECOVERY_REGENERATE",
+        entity_type="USER",
+        entity_id=current_user.id,
+        actor=current_user,
+        request=request,
+    )
+    await db.commit()
+    return MFAEnrollResponse(message="Códigos de recuperación regenerados", recovery_codes=codes)
 
 
 @router.post("/mfa/verify", response_model=TokenPairResponse)
 @limiter.limit(settings.RATE_LIMIT_LOGIN)
 async def mfa_verify(
-    request: Request, payload: MFAVerifyRequest, db: AsyncSession = Depends(get_db)
+    request: Request,
+    payload: MFAVerifyRequest,
+    background: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
 ):
-    """Second login step: exchange the temp token + TOTP code for real tokens."""
+    """Second login step: exchange the temp token plus a TOTP code (or a
+    recovery code) for real tokens carrying the `mfa` claim."""
     subject = decode_token(payload.temp_token, TOKEN_TEMP_MFA)
     if subject is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid or expired token")
@@ -328,14 +413,41 @@ async def mfa_verify(
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid or expired token")
     if not user.mfa_enabled or not user.mfa_secret:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not enabled")
-    if not verify_totp(user.mfa_secret, payload.totp_code):
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid TOTP code")
 
+    attempts_key = f"mfa:{user.id}"
+    if payload.recovery_code:
+        used_recovery = await mfa_service.claim_recovery_code(db, user.id, payload.recovery_code)
+        if not used_recovery:
+            code_attempts.record_failure(attempts_key)
+            # Same answer for a wrong, a spent and an unknown code.
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid TOTP code")
+    else:
+        used_recovery = False
+        if not verify_totp(user.mfa_secret, payload.totp_code):
+            code_attempts.record_failure(attempts_key)
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid TOTP code")
+
+    code_attempts.reset(attempts_key)
+    remaining = await mfa_service.count_unused_codes(db, user.id) if used_recovery else 0
+    if used_recovery:
+        record_audit(
+            db,
+            action="MFA_RECOVERY_USED",
+            entity_type="USER",
+            entity_id=user.id,
+            actor=user,
+            details=f"Recovery code used; {remaining} left",
+            request=request,
+        )
     user.last_login = utcnow()
     await db.commit()
+
+    if used_recovery:
+        # After the commit, and never able to fail the login.
+        background.add_task(email_service.send_recovery_code_used_email, user.email, user.name)
     return TokenPairResponse(
-        access_token=create_access_token(user.id),
-        refresh_token=create_refresh_token(user.id),
+        access_token=create_access_token(user.id, mfa=True),
+        refresh_token=create_refresh_token(user.id, mfa=True),
     )
 
 
@@ -345,10 +457,11 @@ async def mfa_disable(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    if current_user.role == MASTER_GC:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "MASTER_GC role requires MFA enabled")
-    current_user.mfa_enabled = False
-    current_user.mfa_secret = None
+    if mfa_service.mfa_required_for(current_user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, f"{current_user.role} role requires MFA enabled"
+        )
+    await mfa_service.clear_second_factor(db, current_user)
     record_audit(
         db,
         action="MFA_DISABLE",

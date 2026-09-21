@@ -1,5 +1,6 @@
 """Password hashing, JWT handling, TOTP and role constants."""
 import base64
+import hashlib
 import io
 import re
 import secrets
@@ -23,7 +24,9 @@ ADMIN_UNION = "ADMIN_UNION"
 ADMIN_ASSOCIATION = "ADMIN_ASSOCIATION"
 COORDINATOR_ZONE = "COORDINATOR_ZONE"
 CLUB_DIRECTOR = "CLUB_DIRECTOR"
+CLUB_SECRETARY = "CLUB_SECRETARY"
 INSTRUCTOR = "INSTRUCTOR"
+COUNSELOR = "COUNSELOR"
 STUDENT = "STUDENT"
 PARENT_GUARDIAN = "PARENT_GUARDIAN"
 
@@ -34,15 +37,25 @@ ALL_ROLES = (
     ADMIN_ASSOCIATION,
     COORDINATOR_ZONE,
     CLUB_DIRECTOR,
+    CLUB_SECRETARY,
     INSTRUCTOR,
+    COUNSELOR,
     STUDENT,
     PARENT_GUARDIAN,
 )
 
+# Roles that only make sense as a member of a club: whoever holds one has (or
+# had) a row in `club_memberships` and their `organization_id` is that club.
+CLUB_LEVEL_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY, INSTRUCTOR, COUNSELOR, STUDENT)
+# ...of those, the ones that exist ONLY inside a club: on the way out they fall
+# back to STUDENT, while INSTRUCTOR and STUDENT belong to the person.
+CLUB_SCOPED_ROLES = (CLUB_SECRETARY, COUNSELOR)
+
 # Roles allowed to administer users and the organization tree.
 ADMIN_ROLES = (MASTER_GC, ADMIN_DIVISION, ADMIN_UNION, ADMIN_ASSOCIATION, COORDINATOR_ZONE)
 
-# Roles anyone may pick when signing up. Everything else is granted by an admin.
+# Roles anyone may pick when signing up. Everything else is granted by an admin
+# or by the club (CLUB_SECRETARY and COUNSELOR never appear here).
 # CLUB_DIRECTOR is self-service too, but the club they create stays `pending`
 # until a coordinator of its association approves it (see routers/org.py).
 SELF_REGISTRATION_ROLES = (STUDENT, PARENT_GUARDIAN, INSTRUCTOR, CLUB_DIRECTOR)
@@ -61,15 +74,24 @@ ROLE_RANK = {
     ADMIN_ASSOCIATION: 70,
     COORDINATOR_ZONE: 60,
     CLUB_DIRECTOR: 50,
+    CLUB_SECRETARY: 45,
     INSTRUCTOR: 40,
+    COUNSELOR: 30,
     PARENT_GUARDIAN: 20,
     STUDENT: 10,
 }
+
+# Roles that cannot operate without a second factor (spec E §5.8). Widening
+# this tuple is the only change needed to demand MFA of another role.
+MFA_REQUIRED_ROLES = (MASTER_GC,)
 
 TOKEN_ACCESS = "access"
 TOKEN_REFRESH = "refresh"
 TOKEN_TEMP_MFA = "temp_mfa"
 TEMP_MFA_TOKEN_MINUTES = 5
+# Claim that says "this session was born of a second factor". Absent on every
+# token minted before E1 and on tokens issued by plain password login.
+MFA_CLAIM = "mfa"
 
 AUTH_NOT_CONFIGURED_DETAIL = "Auth no configurado"
 
@@ -142,21 +164,26 @@ def require_auth_configured() -> None:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, AUTH_NOT_CONFIGURED_DETAIL)
 
 
-def _create_token(subject: str, token_type: str, lifetime: timedelta) -> str:
+def _create_token(
+    subject: str, token_type: str, lifetime: timedelta, *, mfa: bool = False
+) -> str:
     require_auth_configured()
     claims = {"sub": str(subject), "exp": utcnow() + lifetime, "type": token_type}
+    if mfa:
+        # Only ever added, never set to False: an old token must stay readable.
+        claims[MFA_CLAIM] = True
     return jwt.encode(claims, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
-def create_access_token(user_id) -> str:
+def create_access_token(user_id, *, mfa: bool = False) -> str:
     return _create_token(
-        user_id, TOKEN_ACCESS, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        user_id, TOKEN_ACCESS, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES), mfa=mfa
     )
 
 
-def create_refresh_token(user_id) -> str:
+def create_refresh_token(user_id, *, mfa: bool = False) -> str:
     return _create_token(
-        user_id, TOKEN_REFRESH, timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
+        user_id, TOKEN_REFRESH, timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS), mfa=mfa
     )
 
 
@@ -164,8 +191,8 @@ def create_temp_mfa_token(user_id) -> str:
     return _create_token(user_id, TOKEN_TEMP_MFA, timedelta(minutes=TEMP_MFA_TOKEN_MINUTES))
 
 
-def decode_token(token: str, expected_type: str) -> str | None:
-    """Return the token subject, or None when the token is invalid for this use."""
+def decode_claims(token: str, expected_type: str) -> dict | None:
+    """Return the token's claims, or None when the token is invalid for this use."""
     require_auth_configured()
     try:
         payload = jwt.decode(
@@ -178,7 +205,17 @@ def decode_token(token: str, expected_type: str) -> str | None:
         return None
     if payload.get("type") != expected_type:
         return None
-    return payload.get("sub")
+    return payload
+
+
+def decode_token(token: str, expected_type: str) -> str | None:
+    """Return the token subject, or None when the token is invalid for this use."""
+    claims = decode_claims(token, expected_type)
+    return claims.get("sub") if claims else None
+
+
+def born_of_mfa(claims: dict | None) -> bool:
+    return bool(claims and claims.get(MFA_CLAIM) is True)
 
 
 # --------------------------------------------------------------------------
@@ -221,6 +258,35 @@ def generate_numeric_code(length: int = 6) -> str:
 
 def generate_url_token() -> str:
     return secrets.token_urlsafe(32)
+
+
+def sha256_hex(value: str) -> str:
+    """The one hashing function for every URL-grade secret of this codebase
+    (recovery codes, invitation and consent tokens). The secret itself is long
+    and random, so a plain digest is enough: there is nothing to brute-force."""
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+# No 0/O nor 1/I/L: these codes are read from a screen and typed back by hand.
+RECOVERY_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
+RECOVERY_CODE_COUNT = 10
+_RECOVERY_GROUP = 5
+
+
+def generate_recovery_code() -> str:
+    groups = [
+        "".join(secrets.choice(RECOVERY_ALPHABET) for _ in range(_RECOVERY_GROUP))
+        for _ in range(2)
+    ]
+    return "-".join(groups)
+
+
+def normalize_recovery_code(code: str) -> str:
+    """People type them in lower case, with spaces, or without the dash."""
+    cleaned = "".join(ch for ch in (code or "").upper() if ch.isalnum())
+    if len(cleaned) != _RECOVERY_GROUP * 2:
+        return cleaned
+    return f"{cleaned[:_RECOVERY_GROUP]}-{cleaned[_RECOVERY_GROUP:]}"
 
 
 class FailedAttemptTracker:
