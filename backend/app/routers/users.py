@@ -29,6 +29,7 @@ from app.schemas.user import (
 )
 from app.security import INSTRUCTOR, MASTER_GC, PARENT_GUARDIAN, STUDENT, utcnow
 from app.services import email as email_service
+from app.services import memberships as membership_service
 from app.services import mfa as mfa_service
 from app.services.audit import record_audit
 
@@ -346,7 +347,15 @@ async def update_user(
     if admin_changes:
         await _validate_admin_changes(db, current_user, target, changes)
 
-    for field in SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS:
+    # `organization_id` and the club role of an account are written by ONE
+    # service (spec §6, rule 1), which also keeps `club_memberships` in step:
+    # moving somebody between clubs from here is a transfer, not an assignment.
+    delegated = await membership_service.apply_admin_change(
+        db, actor=current_user, target=target, changes=changes, request=request
+    )
+    skip = {"organization_id", "role"} if delegated else set()
+
+    for field in (SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS) - skip:
         if field in changes:
             value = changes[field]
             setattr(target, field, value.strip() if field == "name" else value)

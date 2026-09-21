@@ -24,7 +24,9 @@ ADMIN_UNION = "ADMIN_UNION"
 ADMIN_ASSOCIATION = "ADMIN_ASSOCIATION"
 COORDINATOR_ZONE = "COORDINATOR_ZONE"
 CLUB_DIRECTOR = "CLUB_DIRECTOR"
+CLUB_SECRETARY = "CLUB_SECRETARY"
 INSTRUCTOR = "INSTRUCTOR"
+COUNSELOR = "COUNSELOR"
 STUDENT = "STUDENT"
 PARENT_GUARDIAN = "PARENT_GUARDIAN"
 
@@ -35,15 +37,25 @@ ALL_ROLES = (
     ADMIN_ASSOCIATION,
     COORDINATOR_ZONE,
     CLUB_DIRECTOR,
+    CLUB_SECRETARY,
     INSTRUCTOR,
+    COUNSELOR,
     STUDENT,
     PARENT_GUARDIAN,
 )
 
+# Roles that only make sense as a member of a club: whoever holds one has (or
+# had) a row in `club_memberships` and their `organization_id` is that club.
+CLUB_LEVEL_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY, INSTRUCTOR, COUNSELOR, STUDENT)
+# ...of those, the ones that exist ONLY inside a club: on the way out they fall
+# back to STUDENT, while INSTRUCTOR and STUDENT belong to the person.
+CLUB_SCOPED_ROLES = (CLUB_SECRETARY, COUNSELOR)
+
 # Roles allowed to administer users and the organization tree.
 ADMIN_ROLES = (MASTER_GC, ADMIN_DIVISION, ADMIN_UNION, ADMIN_ASSOCIATION, COORDINATOR_ZONE)
 
-# Roles anyone may pick when signing up. Everything else is granted by an admin.
+# Roles anyone may pick when signing up. Everything else is granted by an admin
+# or by the club (CLUB_SECRETARY and COUNSELOR never appear here).
 # CLUB_DIRECTOR is self-service too, but the club they create stays `pending`
 # until a coordinator of its association approves it (see routers/org.py).
 SELF_REGISTRATION_ROLES = (STUDENT, PARENT_GUARDIAN, INSTRUCTOR, CLUB_DIRECTOR)
@@ -62,7 +74,9 @@ ROLE_RANK = {
     ADMIN_ASSOCIATION: 70,
     COORDINATOR_ZONE: 60,
     CLUB_DIRECTOR: 50,
+    CLUB_SECRETARY: 45,
     INSTRUCTOR: 40,
+    COUNSELOR: 30,
     PARENT_GUARDIAN: 20,
     STUDENT: 10,
 }

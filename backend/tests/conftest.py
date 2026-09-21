@@ -198,6 +198,17 @@ class Factory:
                     params,
                 )
             await db.execute(text(f"DELETE FROM honors WHERE id IN ({honors})"), params)
+            # Memberships cascade from the user, but a membership can also point
+            # at an organization of this run whose member is not: delete by club
+            # too, before the organizations go.
+            if await db.scalar(text("SELECT to_regclass('public.club_memberships')")):
+                await db.execute(
+                    text(
+                        f"DELETE FROM club_memberships WHERE user_id IN ({users})"
+                        " OR club_id IN (SELECT id FROM organizations WHERE name LIKE :like)"
+                    ),
+                    params,
+                )
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)
             await db.commit()

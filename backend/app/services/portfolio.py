@@ -18,7 +18,7 @@ import uuid
 from datetime import timedelta
 
 from fastapi import HTTPException, Request, status
-from sqlalchemy import func, or_, select
+from sqlalchemy import func, or_, select, text, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -173,6 +173,40 @@ async def _touch(db: AsyncSession, enrollment: HonorEnrollment) -> None:
 async def _active_evidence_count(db: AsyncSession, progress_id: uuid.UUID) -> int:
     stmt = select(func.count()).where(Evidence.progress_id == progress_id, Evidence.status == ACTIVE)
     return (await db.execute(stmt)).scalar_one()
+
+
+# Cached once per process: 007 either is applied or is not, and it cannot be
+# un-applied while the service runs. It lets block E ship on a database that
+# does not carry the portfolio yet (spec E §5.3).
+_portfolio_installed: bool | None = None
+
+
+async def on_club_changed(
+    db: AsyncSession, user_id: uuid.UUID, new_club_id: uuid.UUID | None
+) -> None:
+    """
+    The member changed club (or left): move their OPEN enrollments so the new
+    club's review queue sees them at once instead of waiting for the next write.
+    CERTIFIED and WITHDRAWN are frozen with the club that closed them.
+
+    Called by app/services/memberships.py inside the same transaction; the
+    jurisdiction itself already followed the member through `users.organization_id`.
+    """
+    global _portfolio_installed
+    if _portfolio_installed is None:
+        _portfolio_installed = bool(
+            await db.scalar(text("SELECT to_regclass('public.honor_enrollments')"))
+        )
+    if not _portfolio_installed:
+        return
+    await db.execute(
+        update(HonorEnrollment)
+        .where(
+            HonorEnrollment.user_id == user_id,
+            HonorEnrollment.status.in_((IN_PROGRESS, READY)),
+        )
+        .values(club_id=new_club_id, updated_at=utcnow())
+    )
 
 
 # ----------------------------------------------------------------------------

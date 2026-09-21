@@ -14,7 +14,9 @@ RoleName = Literal[
     "ADMIN_ASSOCIATION",
     "COORDINATOR_ZONE",
     "CLUB_DIRECTOR",
+    "CLUB_SECRETARY",
     "INSTRUCTOR",
+    "COUNSELOR",
     "STUDENT",
     "PARENT_GUARDIAN",
 ]

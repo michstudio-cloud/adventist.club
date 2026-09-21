@@ -16,13 +16,19 @@ from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
     CLUB_DIRECTOR,
+    CLUB_SECRETARY,
     COORDINATOR_ZONE,
+    COUNSELOR,
     INSTRUCTOR,
     MASTER_GC,
     ROLE_RANK,
+    STUDENT,
 )
 
-# Roles that may look at the members of their own organization subtree.
+# Roles that may look at the members of their own organization subtree through
+# `GET /users`, which carries e-mails and birth dates. CLUB_SECRETARY and
+# COUNSELOR are deliberately NOT here: they read the roster instead, through
+# `GET /clubs/{id}/members` and its trimmed serializer (spec E §4).
 MEMBER_VIEW_ROLES = (*ADMIN_ROLES, CLUB_DIRECTOR, INSTRUCTOR)
 
 
@@ -114,6 +120,66 @@ async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> 
         if await org_in_subtree(db, club.id, scope_path):
             return True
     return False
+
+
+# ----------------------------------------------------------------------------
+# Club membership (Bloque E): who manages the roster and who may grant what.
+# ----------------------------------------------------------------------------
+# Staff roles that may act on the members of their own club.
+CLUB_MANAGER_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY)
+# Roles the club's own staff grants. CLUB_DIRECTOR is NOT one of them: handing
+# over the directorship is an administrator's act (`PATCH /users/{id}`).
+GRANTABLE_CLUB_ROLES = (STUDENT, COUNSELOR, INSTRUCTOR, CLUB_SECRETARY)
+# ...and of those, the ones only a director (or an administrator) may grant.
+CLUB_STAFF_ROLES = (COUNSELOR, INSTRUCTOR, CLUB_SECRETARY)
+
+
+def _attached_to(actor: User, club: Organization) -> bool:
+    return actor.organization_id == club.id and actor.status == "ACTIVE"
+
+
+async def can_manage_members(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """Approve, invite, change roles and remove inside `club`."""
+    if club.type != "club" or club.status != "active":
+        return False
+    if is_master(actor):
+        return True
+    if is_admin_role(actor):
+        return await org_in_user_scope(db, actor, club.id)
+    if actor.role not in CLUB_MANAGER_ROLES or not _attached_to(actor, club):
+        return False
+    return not director_blocked(actor)
+
+
+def can_grant_club_role(actor: User, role: str) -> bool:
+    """
+    Nobody hands out a role they do not outrank, the staff roles are the
+    director's (or an administrator's) to give, and the secretary only ever
+    handles STUDENT.
+    """
+    if role not in GRANTABLE_CLUB_ROLES or not outranks(actor, role):
+        return False
+    if role in CLUB_STAFF_ROLES:
+        return is_admin_role(actor) or actor.role == CLUB_DIRECTOR
+    return True
+
+
+async def can_view_guardian_contact(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """Who may read the address a minor's consent was asked at: the director
+    and administrators in scope. The secretary manages the roster but never
+    sees contact details of guardians (spec §5.3 and §5.7)."""
+    if actor.role == CLUB_SECRETARY:
+        return False
+    return await can_manage_members(db, actor, club)
+
+
+async def can_view_roster(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """Read the club's members. Wider than `can_manage_members`: an instructor
+    sees the roster without being able to change it, and a counselor sees the
+    members of their own units (E5; until units exist, nobody)."""
+    if await can_manage_members(db, actor, club):
+        return True
+    return actor.role in (INSTRUCTOR, COUNSELOR) and _attached_to(actor, club)
 
 
 async def can_view_user(db: AsyncSession, actor: User, target: User) -> bool:

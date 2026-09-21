@@ -1,7 +1,6 @@
 """Authentication: register, login, MFA, email verification, password reset."""
 import logging
 import uuid
-from datetime import date
 
 import anyio
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
@@ -9,6 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app import people
 from app.config import settings
 from app.db import SessionLocal, get_db, violated_constraint
 from app.deps import get_authenticated_user, get_current_user, load_user_by_subject
@@ -73,17 +73,6 @@ router = APIRouter(
 
 FORGOT_PASSWORD_MESSAGE = "If the email exists, a password reset code has been sent"
 INVALID_RESET_MESSAGE = "Invalid or expired reset code"
-ADULT_AGE = 18
-
-
-def _is_minor(birth_date: date | None, declared_minor: bool) -> bool:
-    """A birth date under 18 makes the account a minor regardless of the checkbox."""
-    if birth_date is None:
-        return declared_minor
-    today = utcnow().date()
-    had_birthday = (today.month, today.day) >= (birth_date.month, birth_date.day)
-    age = today.year - birth_date.year - (0 if had_birthday else 1)
-    return declared_minor or age < ADULT_AGE
 
 
 # ----------------------------------------------------------------------------
@@ -116,7 +105,7 @@ async def register(
             "La pertenencia a una organización la asigna un administrador; regístrate sin organización.",
         )
 
-    is_minor = _is_minor(payload.birth_date, payload.is_minor)
+    is_minor = people.is_minor(payload.birth_date, payload.is_minor)
     if is_minor and payload.role != STUDENT:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Minors can only register as STUDENT")
 

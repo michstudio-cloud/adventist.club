@@ -421,6 +421,51 @@ class Evidence(Base):
 
 
 # ---------------------------------------------------------------------------
+# 008b_club_membership.sql: the book of who belongs to which club and how.
+# `users.organization_id` stays the truth for the RBAC; this table is the
+# history, and only app/services/memberships.py writes either of them.
+# ---------------------------------------------------------------------------
+
+
+class ClubMembership(Base):
+    __tablename__ = "club_memberships"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    role: Mapped[str] = mapped_column(String(40), server_default="STUDENT")
+    # PENDING_CONSENT -> PENDING_APPROVAL -> ACTIVE -> ENDED; REJECTED; CANCELLED
+    status: Mapped[str] = mapped_column(String(20))
+    source: Mapped[str] = mapped_column(String(12))
+    # FK added by 008c (club_invitations); unit_id arrives with 008d.
+    invitation_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    message: Mapped[str | None] = mapped_column(String(500))
+    # Minors only: who was asked for consent for THIS club.
+    guardian_email: Mapped[str | None] = mapped_column(CITEXT)
+    consent_token_hash: Mapped[str | None] = mapped_column(String(64))
+    consent_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    consent_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decided_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    decision_reason: Mapped[str | None] = mapped_column(Text)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    end_reason: Mapped[str | None] = mapped_column(String(20))
+    ended_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
 # 008_mfa_recovery.sql: the way back in when the authenticator is lost.
 # ---------------------------------------------------------------------------
 
