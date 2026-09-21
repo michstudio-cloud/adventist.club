@@ -29,7 +29,7 @@ from app.models import (
     RequirementProgress,
     User,
 )
-from app.rbac import CONSENT_GRANTED, instructor_is_verified, is_master, member_club
+from app.rbac import CONSENT_GRANTED, instructor_is_verified, is_master
 from app.schemas.course import CourseMember, CourseMemberRemove, JoinedCourse
 from app.schemas.portfolio import ClubRef, Counters, EnrollmentCreate, EnrollmentDetail, PersonRef
 from app.security import utcnow
@@ -39,8 +39,6 @@ from app.services.audit import record_audit
 from app.workflow import PUBLISHED
 
 COURSE, CLUB = "COURSE", "CLUB"
-# Enrollments that take up a seat.
-LIVE_STATUSES = (portfolio.IN_PROGRESS, portfolio.READY)
 ENTITY = "ENROLLMENT"
 
 

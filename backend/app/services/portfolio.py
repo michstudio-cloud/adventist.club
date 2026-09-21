@@ -427,6 +427,17 @@ async def course_plan(db: AsyncSession, enrollment: HonorEnrollment) -> dict[int
     return dict((await db.execute(stmt)).all())
 
 
+async def _require_not_exam(db: AsyncSession, enrollment: HonorEnrollment, position: int) -> None:
+    """Bloque C §4.4: in COURSE a requirement the plan evaluates with the exam is completed
+    ONLY by passing it — neither the member sends it, nor a reviewer marks it complete. It
+    can still be reopened with an INCOMPLETE verdict, and rows already COMPLETE when the
+    member joined the course are respected."""
+    if (await course_plan(db, enrollment)).get(position) == "EXAM":
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Este requisito se completa con el examen del curso"
+        )
+
+
 async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> EnrollmentDetail:
     summary = (await _summaries(db, [enrollment]))[0]
     progress_rows = (
@@ -630,6 +641,7 @@ async def update_requirement(
     if "member_note" in payload.model_fields_set:
         progress.member_note = (payload.member_note or "").strip() or None
     if payload.status == SUBMITTED:
+        await _require_not_exam(db, enrollment, position)
         # A reviewer can only judge something: evidence when the requirement is practical,
         # an answer or evidence otherwise.
         evidence = await _active_evidence_count(db, progress.id)
@@ -946,6 +958,8 @@ async def review_requirement(
                 "Este requisito lo completó otra persona; solo quien lo dictaminó o el"
                 " instructor del curso pueden reabrirlo",
             )
+    if payload.verdict == COMPLETE:
+        await _require_not_exam(db, enrollment, position)
     if payload.verdict == COMPLETE and progress.is_practical:
         if await _active_evidence_count(db, progress.id) == 0:  # rule 1
             raise HTTPException(

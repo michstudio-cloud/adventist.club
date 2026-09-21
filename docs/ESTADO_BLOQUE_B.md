@@ -1,4 +1,4 @@
-# Estado de los bloques B y C — Cursos del instructor virtual y exámenes (I1–I4)
+# Estado de los bloques B y C — Cursos del instructor virtual y exámenes (I1–I5)
 
 Nota de trabajo del bloque B, aparte de `docs/ESTADO.md` para no chocar con la rama del bloque E.
 Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md` (§3 y §10).
@@ -101,6 +101,45 @@ Spec: `docs/superpowers/specs/2026-09-22-cursos-examenes-certificacion-design.md
 - Las respuestas correctas viven sólo en `CourseStaffDetail.question_banks`. `GET /courses/{id}` y el
   escaparate no declaran ese campo: no pueden filtrarlo por construcción.
 
+### I5 — Intentos de examen (sin migración: usa las tablas de `010_exams.sql`)
+- `app/services/exams.py` y `app/routers/exams.py` (prefijo `/api/v1/exams`, todo autenticado):
+  `GET /enrollments/{id}` (tarjeta del examen), `POST /enrollments/{id}/attempts` (10/min),
+  `PUT /enrollments/{id}/extra-time`, `GET /attempts/{id}`, `PUT /attempts/{id}/answers/{position}`
+  (120/min) y `POST /attempts/{id}/submit`.
+- **Todo lo que decide algo pasa en el servidor.** El sorteo usa `secrets.SystemRandom`: por cada
+  requisito `EXAM` pendiente saca `draw_count` preguntas de su banco, prefiriendo las que el miembro
+  no vio en intentos anteriores, baraja preguntas y opciones y **persiste** la permutación en
+  `exam_answers.option_order`. El cliente responde con el índice de la opción **que ve**; el servidor
+  lo traduce al índice original, que es lo que se guarda. El reloj es `deadline_at`, nunca una hora
+  del navegador.
+- **Las respuestas correctas no pueden filtrarse por construcción:** `PaperQuestionOut` no declara
+  `correct_answer` ni `explanation`, y el resultado sin soluciones (`AnswerFeedbackOut`) tampoco.
+  Sólo `AnswerSolutionOut` las lleva, y el servicio la construye únicamente cuando D5 lo permite
+  (aprobado, o reprobado sin intentos restantes).
+- **Caducidad perezosa** (hallazgo 8): `finalize_if_expired` corre en cada lectura y escritura del
+  intento, en la tarjeta del examen y al empezar otro. No hay cron ni colas. Pasado `deadline_at`
+  + 30 s de gracia, guardar responde 409 y el intento se cierra con `auto_submitted = true`.
+  Sin límite de tiempo el plazo es de 72 h.
+- **Calificación automática:** opción múltiple y verdadero/falso siempre; respuesta corta contra las
+  alternativas aceptadas tras normalizar (minúsculas, sin acentos ni puntuación, espacios simples) y,
+  si no coincide, **queda pendiente, no incorrecta**. Aprobado es `otorgado × 100 ≥ umbral × total`,
+  con aritmética entera. Al entregar se resuelve en `PASSED`, `FAILED` o `PENDING_GRADING`.
+- **Aprobar completa lo teórico** en la misma transacción, con la inscripción bloqueada: cada fila
+  `EXAM` del plan que no estaba `COMPLETE` pasa a `COMPLETE` con `completed_via = 'EXAM'` y
+  `reviewed_by_id = NULL`; sus posiciones quedan en `exam_attempts.completed_positions` (para que I6
+  pueda revertir exactamente eso al anular) y se recalcula la regla 2 de A.
+- En modalidad COURSE un requisito `EXAM` **sólo** se completa con el examen: `PUT .../requirements/
+  {position}` con `SUBMITTED` y `POST .../review` con `COMPLETE` responden 409. Reabrirlo con
+  `INCOMPLETE` sigue siendo cosa del instructor del curso (D4a), y las filas que ya estaban
+  `COMPLETE` al unirse se respetan.
+- **Quién ve qué (§4.5 y §6):** el dueño ve el papel mientras rinde y el resultado después; el
+  instructor del curso, el tutor con consentimiento y MASTER_GC ven el intento entero **una vez
+  terminado**; el director y la jerarquía, sólo estado y nota. De un intento en curso nadie más que
+  su dueño ve las preguntas.
+- **Accesibilidad:** `exam_extra_time_percent` (0/25/50/100) lo fija el miembro adulto, el tutor con
+  consentimiento o el instructor del curso; 403 si un menor intenta dárselo a sí mismo y 409 con un
+  intento abierto (se aplica desde el siguiente).
+
 ## Ajustes nuevos
 Ninguno. I1 reutiliza `R2_PRIVATE_BUCKET_NAME` (el bucket privado del bloque A); sin ese ajuste, los
 endpoints de la carta responden 503 y todo lo demás sigue funcionando. I2 no añade ajustes: el
@@ -121,5 +160,7 @@ presencial) e I7 (`011_certificate_revocation.sql`: emisión automática al apro
 curso e instructor en la verificación pública, anulación de certificados por la Asociación).
 Las tablas de I6 ya existen (`010_exams.sql` crea `exam_attempts.voided_*`, `exam_answers.graded_*`
 y `courses.session_code`); mientras I6 no exista, enviar a revisión un curso con preguntas de
-calificación manual o en modo `IN_PERSON` se rechaza. Las costuras están anotadas en el código con
-el incremento al que pertenecen.
+calificación manual o en modo `IN_PERSON` se rechaza, de modo que **ningún intento puede quedar en
+`PENDING_GRADING` esperando a nadie**. La costura de I7 (emisión automática) está anotada en
+`app/services/exams.py::_complete_exam_requirements`: ahí es donde entra el `SAVEPOINT` cuando la
+inscripción queda `READY` y ninguna fila del plan es práctica.

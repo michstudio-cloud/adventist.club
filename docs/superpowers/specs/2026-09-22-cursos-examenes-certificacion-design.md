@@ -881,6 +881,29 @@ hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del d
     curso emitirá el certificado automáticamente» cuando el plan no tiene ningún requisito
     `EVIDENCE`: es la aceptación que §5.3 pide que vean el autor y los revisores.
 
+## Desviaciones de la implementación (I5, 21 sep 2026)
+
+24. **El sorteo cubre sólo los requisitos `EXAM` que faltan**, no todos los del plan. §4.2 exige que
+    «quede alguno sin completar» para empezar y §4.4 completa «cada fila que no está `COMPLETE`:
+    volver a preguntar lo que ya está ganado no decide nada y alarga el examen de un niño.
+25. **El cliente responde con el índice de la opción que ve**, y el servidor lo traduce al índice
+    original antes de guardarlo (§4.1 dice que `response` almacena el original). Así el barajado no
+    sale nunca del servidor: el navegador no sabe en qué orden estaban las opciones.
+26. **Una respuesta corta en blanco es incorrecta, no pendiente.** §4.4 protege al niño que «escribió
+    algo válido que el instructor no previó»; no escribir nada no es eso. Sin esta distinción un
+    examen entregado vacío quedaría `PENDING_GRADING` para siempre.
+27. **`PENDING_GRADING` no muestra nota ni desglose al miembro**, sólo el estado. §4.5 dice «sin
+    nota»; enseñar los puntos ya otorgados sería enseñar media nota, que es una nota equivocada.
+28. **Sin límite de tiempo, `time_limit_minutes` del intento queda NULL** y el plazo es el de 72 h de
+    §4.1; con límite se guarda el tiempo **efectivo**, ya con el tiempo adicional aplicado, para que
+    el intento conserve la regla con la que se rindió.
+29. **`POST /attempts/{id}/void` y la cola de calificación no existen todavía** (son I6). Las
+    columnas (`exam_attempts.voided_*`, `exam_answers.graded_*`) ya están y `completed_positions` se
+    escribe al aprobar, así que anular es, cuando llegue, revertir exactamente esas posiciones.
+30. **`GET /portfolio/review/queue` excluye los requisitos `EXAM` por construcción**: en COURSE no
+    pueden llegar a `SUBMITTED` (el envío responde 409 y unirse devuelve a `PENDING` las filas
+    `SUBMITTED` de requisitos `EXAM`), así que no hizo falta un filtro aparte.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de
