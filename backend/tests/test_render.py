@@ -45,7 +45,8 @@ def test_fill_replaces_fields_translates_and_handles_images():
     assert "HONOR CERTIFICATE" in svg and "CERTIFICADO DE ESPECIALIDAD" not in svg
     assert "Club Orión  ·  2026-09-21" in svg                            # empty parts of the line are dropped
     assert 'id="honor_patch"' in svg and RED_PNG[:40] in svg
-    assert re.search(r'id="emblem"[^>]*opacity="0"', svg)                # missing image hidden, geometry kept
+    assert re.search(r'id="emblem"[^>]*href="data:image/svg\+xml', svg)   # official emblem by default
+    assert re.search(r'id="qr"[^>]*opacity="0"', svg)                    # missing image hidden, geometry kept
     assert "Especialidad</text>" not in svg
 
 
@@ -138,3 +139,15 @@ async def test_render_endpoint(client, monkeypatch):
     too_long = await client.post("/api/v1/certificates/render", json={
         "template": "especialidad-basica", "data": {"recipient_name": "x" * 500}})
     assert too_long.status_code == 422
+
+
+def test_defaults_emblem_placeholders_and_no_sample_text():
+    template = load_template("especialidad-basica")
+    english = fill_svg(template, {"recipient_name": "Ana"}, {}, locale="en")
+    assert "Club Director" in english and "Director(a) del club" not in english     # translated placeholder
+    assert "Organización emisora" not in english and "CC-XXXXXXXXXX" not in english  # sample text never ships
+    assert re.search(r'id="emblem"[^>]*href="data:image/svg\+xml', english)         # official emblem by default
+    spanish = fill_svg(template, {"recipient_name": "Ana"}, {}, locale="es")
+    assert "Director(a) del club" in spanish
+    other = fill_svg(template, {}, {}, locale="es", ministry="no-such-ministry")
+    assert re.search(r'id="emblem"[^>]*opacity="0"', other)

@@ -45,6 +45,7 @@ class RenderRequest(BaseModel):
     template: str = Field(pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
     locale: str = Field(default="es", pattern=r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
     format: Literal["png", "pdf", "svg"] = "png"
+    ministry: str = Field(default="pathfinders", pattern=r"^[a-z0-9-]{2,40}$")
     dpi: int = Field(default=300, ge=72, le=600)
     data: dict[str, str] = Field(default_factory=dict)
     images: dict[str, str] = Field(default_factory=dict)
@@ -83,7 +84,7 @@ async def render(payload: RenderRequest):
         images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))
     try:
         body, media_type = render_certificate(payload.template, data, images, locale=payload.locale,
-                                              fmt=payload.format, dpi=payload.dpi)
+                                              fmt=payload.format, dpi=payload.dpi, ministry=payload.ministry)
     except TemplateError as exc:
         raise HTTPException(404 if "no existe" in str(exc) else 422, str(exc)) from exc
     ext = {"image/png": "png", "application/pdf": "pdf", "image/svg+xml": "svg"}[media_type]

@@ -36,6 +36,7 @@ ET.register_namespace("xlink", XLINK_NS)
 
 TEMPLATES_DIR = Path(__file__).resolve().parents[3] / "templates" / "certificates"
 FONTS_DIR = Path(__file__).resolve().parents[3] / "fonts"
+EMBLEMS_DIR = Path(__file__).resolve().parents[3] / "templates" / "assets" / "emblems"
 IMAGE_FIELDS = ("emblem", "honor_patch", "qr", "issuer_logo", "background")
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,60}$")
 LOCALE_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
@@ -152,8 +153,22 @@ def qr_data_url(payload: str) -> str:
     return _data_url(buf.getvalue(), "image/png")
 
 
-def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], locale: str = "es") -> str:
+def default_emblem(ministry: str) -> str | None:
+    """Official emblem bundled with the API, as a data URL (unmodified artwork)."""
+    path = EMBLEMS_DIR / f"{ministry}.svg"
+    if not re.fullmatch(r"[a-z0-9-]{2,40}", ministry) or not path.exists():
+        return None
+    return _data_url(path.read_bytes(), "image/svg+xml")
+
+
+def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], locale: str = "es",
+             ministry: str = "pathfinders") -> str:
     """Return the SVG with fields, translations and images applied."""
+    images = dict(images)
+    if not images.get("emblem"):
+        emblem = default_emblem(ministry)
+        if emblem:
+            images["emblem"] = emblem
     root = safe_fromstring(template.svg)
     strings = resolve_strings(template, locale)
     rtl = locale.split("-")[0] in ("ar", "he", "fa", "ur")
@@ -169,10 +184,14 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
                 value = re.sub(r"\{(\w+)\}", lambda m: str(data.get(m.group(1), "")), pattern)
                 # "a · {missing} · c" -> "a · c": empty parts and their separators disappear
                 value = "  ·  ".join(part.strip() for part in value.split("·") if part.strip()) or None
-            elif el_id in data:
+            elif el_id in data and str(data[el_id]).strip():
                 value = str(data[el_id])
+            elif f"{el_id}_placeholder" in strings:
+                value = strings[f"{el_id}_placeholder"]       # e.g. "Club Director" under the signature line
+            elif el_id.startswith("t_") or (locale.split("-")[0] == "es" and f"{el_id}_placeholder" in template.strings.get("es", {})):
+                continue                                      # Spanish source text stays as designed
             else:
-                continue
+                value = None                                  # sample text never reaches a real certificate
             if value is None:
                 el.text = ""
                 continue
@@ -219,11 +238,12 @@ def png_to_pdf(png: bytes, template: Template) -> bytes:
 
 
 def render_certificate(slug: str, data: dict[str, str], images: dict[str, str], *, locale: str = "es",
-                       fmt: str = "png", dpi: int = 300, base: Path = TEMPLATES_DIR) -> tuple[bytes, str]:
+                       fmt: str = "png", dpi: int = 300, base: Path = TEMPLATES_DIR,
+                       ministry: str = "pathfinders") -> tuple[bytes, str]:
     if not LOCALE_RE.match(locale):
         raise TemplateError("Idioma no válido.")
     template = load_template(slug, base)
-    svg = fill_svg(template, data, images, locale)
+    svg = fill_svg(template, data, images, locale, ministry)
     if fmt == "svg":
         return svg.encode("utf-8"), "image/svg+xml"
     png = render_png(svg, template, dpi)
