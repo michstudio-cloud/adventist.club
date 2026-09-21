@@ -76,9 +76,17 @@ plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejem
 
 - [x] Motor de plantillas (21 sep): `POST /certificates/render` y `GET /certificates/templates` en producción; plantilla `ntam-maestria` con el diseño oficial de NTAM.
 - [x] Fuentes Noto (OFL) en `fonts/` (21 sep): PNG/PDF en producción, con emblema oficial por defecto (`templates/assets/emblems/`), parche desde R2, QR, textos y firmas traducidos; verificado en español e inglés. Para árabe, hebreo y CJK faltan sus familias Noto.
-- [ ] Frontend: que el asistente use `render` en lugar del canvas.
+- [x] Frontend: el asistente usa `render` (plantillas, tamaños, idioma, PDF; canvas sólo si la API cae) — 21 sep.
 - [x] Alta de clubes con aprobación del coordinador de la Asociación (21 sep): migración 003 aplicada, 125 tests, búsqueda de asociaciones sin acentos.
-- [ ] `users.locale`, `honor_translations`, `Accept-Language`; catálogo en inglés y portugués.
+- [x] `honor_translations` + `honor_category_translations` (migración 005, 21 sep): nombres oficiales desde la wiki de
+      Conquistadores (en 506 · pt-BR 445 · fr 105 · uk 83 · de 12), `?locale=` en `/honors`, `/honors/categories` y
+      `/honors/{id}`. Idioma siempre explícito (no `Accept-Language`). Detalle, atribución CC BY-SA y lista para enlazar
+      a mano: `docs/ESPECIALIDADES_WIKI.md`. 131 tests.
+- [x] Clubes por ubicación (migración 004): `GET /org-nodes/clubs/nearby`, `PUT /org-nodes/clubs/{id}/location`.
+- [ ] Requisitos oficiales por idioma: el HTML crudo se está bajando con `catalog_tools/crawl_wiki_requirements.py`
+      (reanudable, 1 página / 10 s, fuera del repo en `~/adventist-wiki`). Falta `locale` en `honor_requirements`
+      (migración aditiva), el parser y el importador con atribución.
+- [ ] `users.locale`.
 - [ ] next-intl en el frontend (`/es`, `/en`), selector de idioma, Noto Sans, RTL.
 
 ## Pendiente — backend
