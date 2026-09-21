@@ -17,7 +17,7 @@ Cada una trae opciones, recomendación y consecuencia. **El documento está escr
 |---|---|---|---|---|
 | D1 | ¿Qué es «Secretaría»? La visión la describe a nivel **Asociación** (elige clubes, reasigna cargos, puntajes); el mapa de E la pide a nivel **club** | a) sólo de club · b) sólo de asociación · c) las dos, en dos pasos | **c)** ahora `CLUB_SECRETARY` (de un club, sin dictamen); la Secretaría de Asociación llega con el bloque de puntajes | Hoy el relevo de director lo sigue haciendo un administrador con `PATCH /users/{id}` (ya existe). Si se elige b), sobran §5.7 y el incremento E8 |
 | D2 | Un enlace **multiuso** (el que se comparte en el grupo de WhatsApp o por QR en la reunión), ¿activa al instante? | a) activa directo · b) entra como «por confirmar» y el director aprueba (uno a uno o todos) · c) no hay multiuso | **b)**; el enlace de **un solo uso** sí activa directo | Un enlace filtrado no mete desconocidos a un club con menores ni llena la cola de dictamen de A. Coste: un toque del director por tanda |
-| D3 | Al registrar un club, la zona o la iglesia **todavía no existen** en el árbol (hoy sólo están cargadas divisiones, uniones y asociaciones) | a) bloquear hasta que la asociación las cargue · b) el director elige de la lista o **propone el nombre**; quien aprueba el club lo ubica (elige o crea los nodos) · c) el director crea los nodos | **b)** | Nadie queda bloqueado el primer día y ningún club queda **activo** sin zona e iglesia. La estructura eclesiástica sólo la crean administradores (principio 7 de la visión) |
+| D3 | Zona e iglesia al registrar un club | — | **Resuelta por el responsable (22 sep 2026)** | **Las zonas las administra cada asociación**: sólo ella las crea y edita, y es quien delimita qué iglesias y clubes pertenecen a cada zona. **El director declara su iglesia y su club** (elige una iglesia existente de la asociación o escribe el nombre de una nueva); **la asociación lo acepta o lo edita** y asigna la zona. El director nunca elige ni crea zonas |
 | D4 | ¿La carta de la iglesia bloquea al **director** desde el primer día? | a) sí, igual que al instructor · b) **gracia de 60 días** desde la aprobación del club; instructores y consejeros sin gracia · c) la carta sólo se exige a instructores | **b)** | Con a) ningún club podría dictaminar a menores hasta que exista y actúe un coordinador de zona: el bloque A nacería parado. Con b) la aprobación del club (un acto humano de la asociación) cubre los primeros 60 días |
 | D5 | Vigencia de la carta validada | a) 12 meses · b) 24 meses · c) sin vencimiento | **a)** con aviso 30 días antes y renovación desde 60 días antes | Los cargos de iglesia se nombran por periodo; al vencer, el líder vuelve a «sin verificar» (no dictamina a menores) hasta renovar |
 | D6 | ¿Una persona puede pertenecer a varios clubes a la vez? | a) un club activo a la vez · b) varios | **a)** | A usa `users.organization_id` (un solo club) para la jurisdicción. Cambiar de club es un **traslado**. b) obligaría a rehacer `can_review` de A |
@@ -306,26 +306,36 @@ ya en la unidad si hay cupo (si no, entra sin unidad y se avisa al director en l
 
 ### 5.5 Zona e iglesia al crear el club (E6)
 
-**Alta.** `ClubSignup` gana `zone_id | zone_name` e `church_id | church_name` (**exactamente uno de cada par**;
-`church_id` exige `zone_id` y que la iglesia cuelgue de esa zona; la zona debe colgar de `association_id`). El campo
-antiguo `church` se acepta un ciclo como alias de `church_name`. Sin zona o iglesia ⇒ 422.
-- Con los dos ids: el club `pending` nace **ya bajo su iglesia** (`…asociación.zona.iglesia.club`).
-- Con algún nombre propuesto: nace bajo la asociación, como hoy, con
-  `metadata_json.placement = {zone_id, zone_name, church_id, church_name}`.
+**Alta (decisión del responsable).** El director **declara su iglesia y su club**; la **zona no la elige él**: las
+zonas las administra la asociación. `ClubSignup` gana `church_id | church_name` (**exactamente uno**; `church_id` debe
+ser una iglesia activa bajo `association_id`). El campo antiguo `church` se acepta un ciclo como alias de
+`church_name`. Sin iglesia ⇒ 422.
+- Con `church_id` de una iglesia que ya tiene zona: el club `pending` nace **ya bajo su iglesia**
+  (`…asociación.zona.iglesia.club`); la zona sale de la iglesia.
+- Con `church_name` (iglesia declarada) o una iglesia aún sin zona: nace bajo la asociación, como hoy, con
+  `metadata_json.placement = {church_id, church_name}` a la espera de la asociación.
 
-**Aprobación.** `POST /org-nodes/{id}/approve` acepta un cuerpo opcional `{zone_id | zone_name, church_id |
-church_name}`. Si el club no está ubicado, quien aprueba **debe** resolver la ubicación: elegir nodos o crearlos con
-la misma lógica de `create_org_node` extraída a `services/placement.py` (jerarquía, alcance, padre activo). Crear
-zona: administración de asociación o superior. Crear iglesia: además, el coordinador de esa zona. El director no
-crea nodos (D3). Un club **no pasa a `active` sin iglesia y zona**.
-Errores: 409 «Falta ubicar el club (zona e iglesia)»; 409 «Ya existe esa iglesia en la zona» con su `id` (comparación
-sin acentos ni mayúsculas) para que se elija en vez de duplicar; 403 fuera de la zona del coordinador.
+**Aprobación: la asociación acepta o edita.** `POST /org-nodes/{id}/approve` acepta un cuerpo opcional
+`{club_name?, city?, church_id | church_name, zone_id | zone_name}`: quien aprueba puede **corregir lo declarado**
+(nombre del club, ciudad, iglesia) y **asigna la zona**. Si el club no está ubicado, **debe** resolver la ubicación:
+elegir nodos o crearlos con la misma lógica de `create_org_node` extraída a `services/placement.py` (jerarquía,
+alcance, padre activo). **Crear o editar zonas e iglesias: sólo la administración de la asociación (o superior)**;
+el coordinador de zona no crea estructura y el director tampoco (D3). Lo editado queda en la auditoría
+(`CLUB_APPROVE` con los valores declarados y los finales). Un club **no pasa a `active` sin iglesia y zona**.
+
+**La asociación delimita sus zonas.** Además de ubicar clubes, reasigna iglesias entre zonas:
+`POST /org-nodes/churches/{church_id}/place {zone_id}` (administración de la asociación): mueve la iglesia **con sus
+clubes** bajo la otra zona con la misma transacción de «Mover»; auditoría `CHURCH_PLACE`. `POST/PATCH /org-nodes`
+para `type = zone | church` queda restringido a esa administración. El alcance de un coordinador de zona se deriva
+del árbol, así que cambia solo al mover.
+Errores: 409 «Falta ubicar el club (zona e iglesia)»; 409 «Ya existe esa iglesia en la asociación» con su `id`
+(comparación sin acentos ni mayúsculas) para que se elija en vez de duplicar; 403 fuera de la asociación de quien aprueba.
 
 **Clubes que ya existen sin zona ni iglesia (no destructivo).** Siguen funcionando igual; nada se bloquea.
 | Método y ruta | Quién | Qué |
 |---|---|---|
 | `GET /org-nodes/unplaced-clubs` | administradores con alcance | Clubes `active` cuyo padre es una asociación, con la propuesta del director si la hay |
-| `PUT /org-nodes/clubs/{club_id}/placement-proposal` `{zone_id \| zone_name, church_id \| church_name}` | director de ese club | Guarda la propuesta en `metadata_json.placement`; no mueve nada |
+| `PUT /org-nodes/clubs/{club_id}/placement-proposal` `{church_id \| church_name}` | director de ese club | Declara su iglesia (no la zona) en `metadata_json.placement`; no mueve nada |
 | `POST /org-nodes/clubs/{club_id}/place` `{…}` | mismas reglas que aprobar | Mueve el club bajo la iglesia |
 
 **Mover** es una transacción: bloquea la fila del club, cambia `parent_id` y reescribe `path` del club y de sus
