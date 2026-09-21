@@ -121,6 +121,14 @@ class HonorListItem(BaseModel):
     version: int
     created_at: datetime
     published_at: datetime | None
+    # Language of `name` ("es" is the source text) and the source name when it was translated.
+    name_locale: str = "es"
+    original_name: str | None = None
+    # Public facts from the official catalogue (wiki.pathfindersonline.org).
+    wiki_title: str | None = None
+    authority: str | None = None
+    skill_level: int | None = None
+    year_introduced: int | None = None
 
 
 class QuestionOut(BaseModel):

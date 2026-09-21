@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import Boolean, Date, DateTime, Float, ForeignKey, Integer, String, Text, func
+from sqlalchemy import Boolean, Date, DateTime, Float, ForeignKey, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -118,6 +118,32 @@ class Honor(Base):
     changes_description: Mapped[str|None]=mapped_column(Text)
     published_at: Mapped[datetime|None]=mapped_column(DateTime(timezone=True))
     legacy_mongo_id: Mapped[str|None]=mapped_column(String(24))
+    # 005_honor_translations.sql — link to the official wiki ("AY Honors/<wiki_title>") and its public facts
+    wiki_title: Mapped[str|None]=mapped_column(String(200))
+    authority: Mapped[str|None]=mapped_column(String(10))
+    skill_level: Mapped[int|None]=mapped_column(SmallInteger)
+    year_introduced: Mapped[int|None]=mapped_column(SmallInteger)
+
+class HonorTranslation(Base):
+    """honors.name is the source text (Spanish); every other language is one row here."""
+    __tablename__="honor_translations"
+    honor_id: Mapped[uuid.UUID]=mapped_column(UUID(as_uuid=True),ForeignKey("honors.id",ondelete="CASCADE"),primary_key=True)
+    locale: Mapped[str]=mapped_column(String(16),primary_key=True)
+    name: Mapped[str]=mapped_column(String(180))
+    description: Mapped[str|None]=mapped_column(Text)
+    source: Mapped[str|None]=mapped_column(String(40))
+    source_url: Mapped[str|None]=mapped_column(Text)
+    license: Mapped[str|None]=mapped_column(String(40))
+    created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
+    updated_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
+
+class HonorCategoryTranslation(Base):
+    __tablename__="honor_category_translations"
+    category_id: Mapped[uuid.UUID]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_categories.id",ondelete="CASCADE"),primary_key=True)
+    locale: Mapped[str]=mapped_column(String(16),primary_key=True)
+    name: Mapped[str]=mapped_column(String(120))
+    created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
+    updated_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
 
 class CertificateTemplate(Base):
     __tablename__="certificate_templates"

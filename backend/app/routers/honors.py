@@ -9,7 +9,7 @@ Literal routes are declared before the `/{honor_id}` routes.
 import re
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, Response, status
 from sqlalchemy import delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -19,10 +19,12 @@ from app.deps import get_current_user, get_optional_user, require_roles
 from app.models import (
     Honor,
     HonorCategory,
+    HonorCategoryTranslation,
     HonorQuestion,
     HonorRequirement,
     HonorResource,
     HonorReview,
+    HonorTranslation,
     Ministry,
     Organization,
     User,
@@ -63,6 +65,8 @@ from app.services.audit import record_audit
 from app.text import escape_like, slugify
 
 SPANISH_COLLATION = "es-x-icu"
+SOURCE_LOCALE = "es"  # honors.name / honor_categories.name are written in Spanish
+LOCALE_PATTERN = r"^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
 
 router = APIRouter(prefix="/api/v1/honors", tags=["honors"])
 
@@ -150,23 +154,60 @@ async def _can_view_unpublished(db: AsyncSession, user: User | None, honor: Hono
 # ----------------------------------------------------------------------------
 # Serialization
 # ----------------------------------------------------------------------------
-def _category_out(category: HonorCategory | None) -> CategoryOut | None:
+def _requested_locale(locale: str | None, accept_language: str | None) -> str | None:
+    """`?locale=` wins; otherwise the first language of Accept-Language."""
+    if locale:
+        return locale
+    first = (accept_language or "").split(",")[0].split(";")[0].strip()
+    return first if re.match(LOCALE_PATTERN, first) else None
+
+
+async def _resolve_locale(db: AsyncSession, model, requested: str | None) -> str | None:
+    """The stored locale that best serves the request: exact, then the bare language, then any
+    region of that language (pt -> pt-BR). None means "answer with the source text"."""
+    if not requested or requested.lower().split("-")[0] == SOURCE_LOCALE:
+        return None
+    language = requested.lower().split("-")[0]
+    stored = (
+        await db.execute(
+            select(model.locale)
+            .where(or_(func.lower(model.locale) == language, func.lower(model.locale).like(f"{language}-%")))
+            .distinct()
+        )
+    ).scalars().all()
+    by_lower = {value.lower(): value for value in sorted(stored)}
+    return by_lower.get(requested.lower()) or by_lower.get(language) or next(iter(by_lower.values()), None)
+
+
+def _category_out(category: HonorCategory | None, translated: str | None = None) -> CategoryOut | None:
     if category is None:
         return None
-    return CategoryOut(id=str(category.id), name=category.name, slug=category.slug)
+    return CategoryOut(id=str(category.id), name=translated or category.name, slug=category.slug)
 
 
-def _list_fields(honor: Honor, category: HonorCategory | None) -> dict:
+def _list_fields(
+    honor: Honor,
+    category: HonorCategory | None,
+    translated: str | None = None,
+    locale: str | None = None,
+    translated_category: str | None = None,
+) -> dict:
     return {
         "id": str(honor.id),
-        "name": honor.name,
+        "name": translated or honor.name,
+        "name_locale": locale if translated else SOURCE_LOCALE,
+        "original_name": honor.name if translated else None,
+        "wiki_title": honor.wiki_title,
+        "authority": honor.authority,
+        "skill_level": honor.skill_level,
+        "year_introduced": honor.year_introduced,
         "slug": honor.slug,
         "image_url": honor.image_url,
         "source_url": honor.source_url,
         "active": honor.active,
         "code": honor.code,
         "description": honor.description,
-        "category": _category_out(category),
+        "category": _category_out(category, translated_category),
         "difficulty_level": honor.difficulty_level,
         "honor_type": honor.honor_type,
         "status": honor.status,
@@ -190,9 +231,16 @@ def _with_category(stmt):
 
 
 async def _build_detail(
-    db: AsyncSession, honor: Honor, *, staff: bool = False, with_questions: bool = False
+    db: AsyncSession,
+    honor: Honor,
+    *,
+    staff: bool = False,
+    with_questions: bool = False,
+    locale: str | None = None,
 ) -> HonorDetail:
     category = await db.get(HonorCategory, honor.category_id) if honor.category_id else None
+    name_locale = await _resolve_locale(db, HonorTranslation, locale)
+    translation = await db.get(HonorTranslation, (honor.id, name_locale)) if name_locale else None
     ministry = await db.get(Ministry, honor.ministry_id) if honor.ministry_id else None
     creator = await db.get(User, honor.created_by_id) if honor.created_by_id else None
 
@@ -237,7 +285,7 @@ async def _build_detail(
         }
 
     fields = {
-        **_list_fields(honor, category),
+        **_list_fields(honor, category, translation.name if translation else None, name_locale),
         "ministry": ministry.slug if ministry else None,
         "org_scope_id": str(honor.org_scope_id) if honor.org_scope_id else None,
         "exam_passing_score": honor.exam_passing_score,
@@ -417,6 +465,25 @@ async def _copy_resources(db: AsyncSession, source_id: uuid.UUID, target_id: uui
         )
 
 
+async def _copy_translations(db: AsyncSession, source_id: uuid.UUID, target_id: uuid.UUID) -> None:
+    """A new version keeps the names it already had in other languages."""
+    rows = (
+        await db.execute(select(HonorTranslation).where(HonorTranslation.honor_id == source_id))
+    ).scalars().all()
+    for row in rows:
+        db.add(
+            HonorTranslation(
+                honor_id=target_id,
+                locale=row.locale,
+                name=row.name,
+                description=row.description,
+                source=row.source,
+                source_url=row.source_url,
+                license=row.license,
+            )
+        )
+
+
 async def _insert_honor(db: AsyncSession, honor: Honor, conflict_detail: str) -> None:
     """
     INSERT the honor row now, inside the caller's transaction, so its children
@@ -454,11 +521,14 @@ async def list_honors(
     status_filter: HonorStatus | None = Query(None, alias="status"),
     limit: int = Query(500, ge=1, le=500),
     offset: int = Query(0, ge=0),
+    locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    accept_language: str | None = Header(None),
     current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
     """
-    Public list: only PUBLISHED + active honors. `status` is honoured for
+    Public list: only PUBLISHED + active honors. Names come in `locale` (or Accept-Language)
+    when a translation exists, otherwise in the source language. `status` is honoured for
     signed-in reviewers (their scope) and instructors (their own honors);
     for anyone else it is ignored. Total row count: `X-Total-Count` header.
     """
@@ -480,27 +550,45 @@ async def list_honors(
     if category:
         conditions.append(HonorCategory.slug == category)
 
+    requested = _requested_locale(locale, accept_language)
+    name_locale = await _resolve_locale(db, HonorTranslation, requested)
+    category_locale = await _resolve_locale(db, HonorCategoryTranslation, requested)
+    shown_name = func.coalesce(HonorTranslation.name, Honor.name)
+
+    def localized(stmt):
+        # The locale is a constant in both joins, so they never multiply rows.
+        return _with_category(stmt).outerjoin(
+            HonorTranslation,
+            (HonorTranslation.honor_id == Honor.id) & (HonorTranslation.locale == name_locale),
+        ).outerjoin(
+            HonorCategoryTranslation,
+            (HonorCategoryTranslation.category_id == HonorCategory.id)
+            & (HonorCategoryTranslation.locale == category_locale),
+        )
+
     # The database collation is C.UTF-8, which sorts "Árboles" and "Óptica" after "Z".
-    order_by = [Honor.name.collate(SPANISH_COLLATION), Honor.id]
+    order_by = [shown_name.collate(SPANISH_COLLATION if name_locale is None else "und-x-icu"), Honor.id]
     search = q.strip() if q else None
     if search:
-        # Substring match plus pg_trgm similarity so small typos still hit.
+        # Substring match plus pg_trgm similarity so small typos still hit, in either language.
         pattern = f"%{escape_like(search)}%"
         conditions.append(
             or_(
                 Honor.name.ilike(pattern, escape="\\"),
                 Honor.code.ilike(pattern, escape="\\"),
                 Honor.name.op("%")(search),
+                HonorTranslation.name.ilike(pattern, escape="\\"),
+                HonorTranslation.name.op("%")(search),
             )
         )
-        order_by.insert(0, func.similarity(Honor.name, search).desc())
+        order_by.insert(
+            0, func.greatest(func.similarity(Honor.name, search), func.similarity(shown_name, search)).desc()
+        )
 
-    total = (
-        await db.execute(_with_category(select(func.count(Honor.id))).where(*conditions))
-    ).scalar_one()
+    total = (await db.execute(localized(select(func.count(Honor.id))).where(*conditions))).scalar_one()
     rows = (
         await db.execute(
-            _with_category(select(Honor, HonorCategory))
+            localized(select(Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name))
             .where(*conditions)
             .order_by(*order_by)
             .limit(limit)
@@ -508,7 +596,11 @@ async def list_honors(
         )
     ).all()
     response.headers["X-Total-Count"] = str(total)
-    return [_list_item(honor, category_row) for honor, category_row in rows]
+    response.headers["Content-Language"] = name_locale or SOURCE_LOCALE
+    return [
+        HonorListItem(**_list_fields(honor, category_row, translated, name_locale, translated_category))
+        for honor, category_row, translated, translated_category in rows
+    ]
 
 
 async def _staff_list_conditions(db: AsyncSession, user: User) -> list | None:
@@ -527,16 +619,27 @@ async def _staff_list_conditions(db: AsyncSession, user: User) -> list | None:
 
 
 @router.get("/categories", response_model=list[CategoryOut])
-async def list_categories(ministry: str = "pathfinders", db: AsyncSession = Depends(get_db)):
+async def list_categories(
+    ministry: str = "pathfinders",
+    locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    accept_language: str | None = Header(None),
+    db: AsyncSession = Depends(get_db),
+):
     ministry_row = await _get_ministry(db, ministry)
     if ministry_row is None:
         return []
+    resolved = await _resolve_locale(db, HonorCategoryTranslation, _requested_locale(locale, accept_language))
     stmt = (
-        select(HonorCategory)
+        select(HonorCategory, HonorCategoryTranslation.name)
+        .outerjoin(
+            HonorCategoryTranslation,
+            (HonorCategoryTranslation.category_id == HonorCategory.id)
+            & (HonorCategoryTranslation.locale == resolved),
+        )
         .where(HonorCategory.ministry_id == ministry_row.id)
         .order_by(HonorCategory.name.collate(SPANISH_COLLATION))
     )
-    return [_category_out(row) for row in (await db.execute(stmt)).scalars().all()]
+    return [_category_out(row, translated) for row, translated in (await db.execute(stmt)).all()]
 
 
 @router.get("/my/created", response_model=PaginatedHonors)
@@ -722,6 +825,8 @@ async def create_honor(
 @router.get("/{honor_id}", response_model=None)
 async def get_honor(
     honor_id: uuid.UUID,
+    locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    accept_language: str | None = Header(None),
     current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ) -> HonorDetail | HonorStaffDetail:
@@ -731,7 +836,7 @@ async def get_honor(
     if honor.status != PUBLISHED and not staff:
         # 404 rather than 403: do not confirm that an unpublished honor exists.
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Honor not found")
-    return await _build_detail(db, honor, staff=staff)
+    return await _build_detail(db, honor, staff=staff, locale=_requested_locale(locale, accept_language))
 
 
 @router.get("/{honor_id}/instructor", response_model=HonorInstructorDetail)
@@ -1006,6 +1111,10 @@ async def create_honor_version(
         version=new_version,
         previous_version_id=original.id,
         changes_description=payload.changes_description,
+        wiki_title=original.wiki_title,
+        authority=original.authority,
+        skill_level=original.skill_level,
+        year_introduced=original.year_introduced,
         created_at=now,
         updated_at=now,
     )
@@ -1015,6 +1124,7 @@ async def create_honor_version(
     else:
         await _copy_requirements(db, original.id, honor.id)
     await _copy_resources(db, original.id, honor.id)
+    await _copy_translations(db, original.id, honor.id)
 
     original.status = ARCHIVED
     original.active = False
