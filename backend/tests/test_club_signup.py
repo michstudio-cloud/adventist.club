@@ -55,6 +55,9 @@ async def _ntam_node(ntam: dict) -> dict:
 
 async def _register_director(client, factory, label, ntam, **club_extra) -> dict:
     club = {"name": factory.name(f"club-{label}"), "association_id": ntam["id"], **club_extra}
+    # E6 / decision D3: the director always declares a church (and never a zone).
+    if "church" not in club and "church_id" not in club:
+        club.setdefault("church_name", factory.name(f"iglesia-{label}"))
     response = await client.post(
         f"{AUTH}/register", json=_payload(factory, label, role="CLUB_DIRECTOR", club=club)
     )
@@ -63,6 +66,13 @@ async def _register_director(client, factory, label, ntam, **club_extra) -> dict
     body["headers"] = _bearer(body["access_token"])
     body["club_name"] = club["name"]
     return body
+
+
+async def _approve(client, club_id, admin, factory, **body):
+    """Approving is also placing (E6): the association assigns the zone, and
+    the church the director declared is created under it."""
+    payload = {"zone_name": factory.name("zona"), **body}
+    return await client.post(f"{ORG}/{club_id}/approve", json=payload, headers=admin["headers"])
 
 
 @pytest.fixture
@@ -93,7 +103,8 @@ async def test_search_finds_ntam_by_name_and_code(client):
 
 async def test_minor_cannot_pick_club_director(client, factory):
     ntam = await _find_ntam(client)
-    club = {"name": factory.name("club-minor"), "association_id": ntam["id"]}
+    club = {"name": factory.name("club-minor"), "association_id": ntam["id"],
+            "church_name": factory.name("iglesia-minor")}
     declared = await client.post(
         f"{AUTH}/register",
         json=_payload(factory, "minor-a", role="CLUB_DIRECTOR", is_minor=True, club=club),
@@ -116,7 +127,8 @@ async def test_minor_cannot_pick_club_director(client, factory):
 
 async def test_club_payload_rules(client, factory):
     ntam = await _find_ntam(client)
-    club = {"name": factory.name("club-rules"), "association_id": ntam["id"]}
+    club = {"name": factory.name("club-rules"), "association_id": ntam["id"],
+            "church_name": factory.name("iglesia-rules")}
 
     # Only directors open clubs.
     student = await client.post(
@@ -211,7 +223,11 @@ async def test_director_signup_creates_pending_club_hidden_from_public(client, f
     # One open request at a time, and no duplicate names inside the association.
     again = await client.post(
         f"{ORG}/clubs",
-        json={"name": factory.name("club-second"), "association_id": ntam["id"]},
+        json={
+            "name": factory.name("club-second"),
+            "association_id": ntam["id"],
+            "church_name": factory.name("iglesia-second"),
+        },
         headers=director["headers"],
     )
     assert again.status_code == 409
@@ -221,7 +237,11 @@ async def test_director_signup_creates_pending_club_hidden_from_public(client, f
             factory,
             "dir-clash",
             role="CLUB_DIRECTOR",
-            club={"name": director["club_name"].upper(), "association_id": ntam["id"]},
+            club={
+                "name": director["club_name"].upper(),
+                "association_id": ntam["id"],
+                "church_name": factory.name("iglesia-clash"),
+            },
         ),
     )
     assert clash.status_code == 409
@@ -321,7 +341,7 @@ async def test_only_coordinators_of_the_association_decide(client, factory, sent
         await client.delete(f"{ORG}/{club_id}", headers=ntam_admin["headers"])
     ).status_code == 409
 
-    approved = await client.post(f"{ORG}/{club_id}/approve", headers=ntam_admin["headers"])
+    approved = await _approve(client, club_id, ntam_admin, factory)
     assert approved.status_code == 200, approved.text
     assert approved.json()["status"] == "ACTIVE"
 
@@ -345,10 +365,12 @@ async def test_only_coordinators_of_the_association_decide(client, factory, sent
         " WHERE entity_type = 'ORGANIZATION' AND entity_id = :id ORDER BY created_at",
         id=club_id,
     )
-    assert [r["action"] for r in audit] == ["CLUB_REQUEST", "CLUB_APPROVE"]
-    assert audit[1]["user_id"] == ntam_admin["id"]
-    assert audit[1]["user_role"] == "ADMIN_ASSOCIATION"
-    assert audit[1]["metadata_json"]["director_id"] == director["id"]
+    # E6: approving is also placing, so the move is audited on its own.
+    assert [r["action"] for r in audit] == ["CLUB_REQUEST", "CLUB_PLACE", "CLUB_APPROVE"]
+    assert audit[1]["metadata_json"]["previous_parent_id"] == ntam["id"]
+    assert audit[2]["user_id"] == ntam_admin["id"]
+    assert audit[2]["user_role"] == "ADMIN_ASSOCIATION"
+    assert audit[2]["metadata_json"]["director_id"] == director["id"]
 
     assert sent_emails == [
         {"to": director["email"], "club": director["club_name"], "approved": True, "reason": None}
@@ -432,7 +454,12 @@ async def test_zone_coordinator_rejects_with_reason_and_director_can_retry(
     # After a rejection the director may send a corrected request from the panel.
     retry = await client.post(
         f"{ORG}/clubs",
-        json={"name": factory.name("club-retry"), "association_id": ntam["id"], "city": "Reynosa"},
+        json={
+            "name": factory.name("club-retry"),
+            "association_id": ntam["id"],
+            "church_name": factory.name("iglesia-retry"),
+            "city": "Reynosa",
+        },
         headers=director["headers"],
     )
     assert retry.status_code == 201, retry.text
@@ -452,7 +479,11 @@ async def test_director_without_club_creates_it_from_the_panel(client, factory):
     assert body["club_approval"] is None and body["organization_id"] is None
     headers = _bearer(body["access_token"])
 
-    club = {"name": factory.name("club-later"), "association_id": ntam["id"]}
+    club = {
+        "name": factory.name("club-later"),
+        "association_id": ntam["id"],
+        "church_name": factory.name("iglesia-later"),
+    }
     assert (await client.post(f"{ORG}/clubs", json=club)).status_code == 401
     student = await factory.user("later-student", role="STUDENT")
     assert (

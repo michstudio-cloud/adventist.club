@@ -1,4 +1,5 @@
 import logging
+from datetime import date
 from typing import Any
 
 from pydantic import field_validator
@@ -33,6 +34,12 @@ class Settings(BaseSettings):
     # `organizations.code` of the entity that issues certificates (Unión/Asociación).
     # PROTOTYPE keeps the self-created placeholder until the real one exists.
     ISSUER_ORGANIZATION_CODE: str = "PROTOTYPE"
+    # Deploy switch of the church letter for club leaders (E7), as an ISO date.
+    # UNSET (the default) means `rbac.may_handle_minors` is always true, so
+    # production behaves exactly as before the letter existed. The owner sets
+    # the day enforcement starts once every active association has at least one
+    # validator; from that day a director's 60-day grace is counted too.
+    LEADER_VERIFICATION_ENFORCED_FROM: date | None = None
 
     # --- Cloudflare R2 (optional: without it media upload answers 503) ---
     R2_ACCOUNT_ID: str | None = None
@@ -130,6 +137,23 @@ class Settings(BaseSettings):
             logger.warning("Invalid integer for %s; using default %s", info.field_name, default)
             return default
         return number if number > 0 else default
+
+    @field_validator("LEADER_VERIFICATION_ENFORCED_FROM", mode="before")
+    @classmethod
+    def _lenient_date(cls, value: Any) -> Any:
+        """A malformed switch must never stop the service from booting, and it
+        must never turn enforcement ON by accident: anything unreadable means
+        "not configured", which is the permissive setting."""
+        if value is None or isinstance(value, date):
+            return value
+        text = str(value).strip()
+        if not text:
+            return None
+        try:
+            return date.fromisoformat(text)
+        except ValueError:
+            logger.warning("Invalid date for LEADER_VERIFICATION_ENFORCED_FROM; ignoring it")
+            return None
 
     @property
     def cors_list(self) -> list[str]:

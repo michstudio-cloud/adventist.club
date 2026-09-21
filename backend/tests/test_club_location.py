@@ -21,7 +21,13 @@ async def _club_of(client, director) -> str:
 async def _approved_director(client, factory, label, ntam, admin, **club):
     director = await _register_director(client, factory, label, ntam, **club)
     club_id = await _club_of(client, director)
-    ok = await client.post(f"{ORG}/{club_id}/approve", headers=admin["headers"])
+    # E6: approving is also placing — the association assigns the zone and the
+    # declared church is created under it.
+    ok = await client.post(
+        f"{ORG}/{club_id}/approve",
+        json={"zone_name": factory.name("zona")},
+        headers=admin["headers"],
+    )
     assert ok.status_code == 200, ok.text
     return director, club_id
 

@@ -19,21 +19,26 @@ from app.models import Organization, User
 from app.rbac import can_decide_club, club_scope_paths, get_org_path, is_master, org_in_subtree
 from app.schemas.org import (
     ORG_HIERARCHY,
+    ChurchPlacement,
+    ClubApproval,
     ClubDecision,
     ClubLocation,
+    ClubPlacement,
     ClubSignup,
     NearbyClub,
     OrgNodeCreate,
     OrgNodeResponse,
     OrgNodeUpdate,
-    OrgRef,
     OrgSearchResult,
     PendingClubResponse,
+    PlacementProposal,
+    UnplacedClub,
 )
-from app.security import ADMIN_ROLES, utcnow
+from app.security import ADMIN_ROLES, CLUB_DIRECTOR, utcnow
 from app.services import clubs as club_service
 from app.services import memberships as membership_service
 from app.services import email as email_service
+from app.services import placement
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/org-nodes", tags=["organizations"])
@@ -129,11 +134,15 @@ async def list_org_nodes(
 async def search_org_nodes(
     q: str = Query("", max_length=100),
     type: str = Query("association", description="ASSOCIATION, UNION, ... (case-insensitive)"),
+    within: uuid.UUID | None = Query(
+        None, description="Only nodes under this ancestor (zone and church pickers)"
+    ),
     limit: int = Query(20, ge=1, le=50),
     db: AsyncSession = Depends(get_db),
 ):
     """Public picker search: active nodes of one type, by name or code, with
-    the parent's name so that homonyms can be told apart."""
+    the parent's name so that homonyms can be told apart. `within` narrows the
+    search to one subtree, which is what the zone and church pickers need."""
     parent = aliased(Organization)
     term = q.strip()
     stmt = (
@@ -144,6 +153,11 @@ async def search_org_nodes(
             Organization.status == club_service.STATUS_ACTIVE,
         )
     )
+    if within is not None:
+        within_path = await get_org_path(db, within)
+        if not within_path:
+            return []
+        stmt = stmt.where(Organization.path.op("<@")(within_path))
     if term:
         # accent- and case-insensitive: people type "asociacion", the directory stores "Asociación"
         needle = "".join(c for c in unicodedata.normalize("NFKD", term) if not unicodedata.combining(c))
@@ -180,23 +194,38 @@ async def list_pending_clubs(
     paths = await club_scope_paths(db, current_user)
     if paths is not None and not paths:
         return []
-    association = aliased(Organization)
-    stmt = (
-        select(Organization, association)
-        .outerjoin(association, association.id == Organization.parent_id)
-        .where(
-            Organization.type == club_service.CLUB_TYPE,
-            Organization.status == club_service.STATUS_PENDING,
-        )
+    stmt = select(Organization).where(
+        Organization.type == club_service.CLUB_TYPE,
+        Organization.status == club_service.STATUS_PENDING,
     )
     if paths is not None:
         stmt = stmt.where(or_(*(Organization.path.op("<@")(path) for path in paths)))
     stmt = stmt.order_by(Organization.created_at, Organization.id).limit(limit).offset(offset)
-    rows = (await db.execute(stmt)).all()
-    return [
-        PendingClubResponse.build(club, parent, await club_service.requester_of(db, club))
-        for club, parent in rows
-    ]
+    clubs = list((await db.execute(stmt)).scalars().all())
+    # `club_scope_paths` is the coarse SQL filter; the last word is the same
+    # rule that decides (E6): a zone coordinator never sees another zone's.
+    clubs = [club for club in clubs if await can_decide_club(db, current_user, club)]
+    return await _pending_rows(db, clubs)
+
+
+async def _pending_rows(db: AsyncSession, clubs: list[Organization]) -> list[PendingClubResponse]:
+    """The association, zone and church of each club come from its ANCESTORS:
+    a club may hang from its church, and an unplaced one from the association."""
+    refs = await placement.refs_for(db, clubs)
+    rows = []
+    for club in clubs:
+        found = refs.get(club.id, {})
+        rows.append(
+            PendingClubResponse.build(
+                club,
+                found.get(placement.ASSOCIATION),
+                await club_service.requester_of(db, club),
+                zone=found.get(placement.ZONE),
+                church=found.get(placement.CHURCH),
+                declared=placement.declared_placement(club) or None,
+            )
+        )
+    return rows
 
 
 @router.post("/clubs", response_model=OrgNodeResponse, status_code=status.HTTP_201_CREATED)
@@ -235,37 +264,38 @@ async def nearby_clubs(
     lon_delta = math.degrees(radius_km / (EARTH_RADIUS_KM * cos_lat)) if cos_lat > 0.01 else 180.0
 
     club = Organization
-    association = aliased(Organization)
     d_lat = func.radians(club.latitude - lat) / 2
     d_lon = func.radians(club.longitude - lon) / 2
     a = func.pow(func.sin(d_lat), 2) + math.cos(math.radians(lat)) * func.cos(func.radians(club.latitude)) * func.pow(func.sin(d_lon), 2)
     distance = (2 * EARTH_RADIUS_KM * func.asin(func.sqrt(func.least(1.0, a)))).label("distance_km")
 
-    stmt = (
-        select(club, association, distance)
-        .outerjoin(association, association.id == club.parent_id)
-        .where(
-            club.type == club_service.CLUB_TYPE,
-            club.status == club_service.STATUS_ACTIVE,
-            club.latitude.is_not(None),
-            club.longitude.is_not(None),
-            club.latitude.between(lat - lat_delta, lat + lat_delta),
-        )
+    stmt = select(club, distance).where(
+        club.type == club_service.CLUB_TYPE,
+        club.status == club_service.STATUS_ACTIVE,
+        club.latitude.is_not(None),
+        club.longitude.is_not(None),
+        club.latitude.between(lat - lat_delta, lat + lat_delta),
     )
     if lon_delta < 180 and -180 <= lon - lon_delta and lon + lon_delta <= 180:
         stmt = stmt.where(club.longitude.between(lon - lon_delta, lon + lon_delta))
     stmt = stmt.where(distance <= radius_km).order_by(distance, club.name).limit(limit)
 
+    rows = (await db.execute(stmt)).all()
+    # Association, zone and church come from the ANCESTORS of each club: since
+    # E6 a club hangs from its church, and an unplaced one from the association.
+    refs = await placement.refs_for(db, [node for node, _ in rows])
     return [
         NearbyClub(
             id=str(node.id), name=node.name, distance_km=round(float(km), 2),
             latitude=round(node.latitude, 5), longitude=round(node.longitude, 5),
             city=node.city, state=node.state, country=node.country,
-            church=(node.metadata_json or {}).get("church"),
+            church=placement.church_name_of(node, refs.get(node.id, {})),
+            church_ref=placement.as_ref(refs.get(node.id, {}).get(placement.CHURCH)),
+            zone=placement.as_ref(refs.get(node.id, {}).get(placement.ZONE)),
             accepts_requests=membership_service.accepts_requests(node),
-            association=OrgRef(id=str(parent.id), name=parent.name, code=parent.code) if parent else None,
+            association=placement.as_ref(refs.get(node.id, {}).get(placement.ASSOCIATION)),
         )
-        for node, parent, km in (await db.execute(stmt)).all()
+        for node, km in rows
     ]
 
 
@@ -292,6 +322,183 @@ async def set_club_location(
                  request=request)
     await db.commit()
     return OrgNodeResponse.from_model(club)
+
+
+# ----------------------------------------------------------------------------
+# Zone and church (E6). The association draws the map: it creates zones and
+# churches and decides which of them each club belongs to (decision D3).
+# ----------------------------------------------------------------------------
+@router.get("/unplaced-clubs", response_model=list[UnplacedClub])
+async def list_unplaced_clubs(
+    limit: int = Query(200, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Active clubs that still hang straight off their association, with the
+    church their director declared. Nothing about them is blocked: they keep
+    working exactly as before (spec §5.5)."""
+    paths = await club_scope_paths(db, current_user)
+    if paths is not None and not paths:
+        return []
+    association = aliased(Organization)
+    stmt = (
+        select(Organization, association)
+        .join(association, association.id == Organization.parent_id)
+        .where(
+            Organization.type == club_service.CLUB_TYPE,
+            Organization.status == club_service.STATUS_ACTIVE,
+            association.type == placement.ASSOCIATION,
+        )
+    )
+    if paths is not None:
+        stmt = stmt.where(or_(*(Organization.path.op("<@")(path) for path in paths)))
+    stmt = stmt.order_by(Organization.name, Organization.id).limit(limit).offset(offset)
+    rows = (await db.execute(stmt)).all()
+    return [
+        UnplacedClub(
+            id=str(club.id),
+            name=club.name,
+            city=club.city,
+            association=placement.as_ref(parent),
+            declared=placement.declared_placement(club) or None,
+            created_at=club.created_at,
+        )
+        for club, parent in rows
+        if await can_decide_club(db, current_user, club)
+    ]
+
+
+@router.put("/clubs/{club_id}/placement-proposal", response_model=OrgNodeResponse)
+async def propose_placement(
+    club_id: uuid.UUID,
+    payload: PlacementProposal,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The director declares their CHURCH — never the zone (decision D3). It
+    moves nothing: it writes the declaration the association will resolve."""
+    club = await _get_club_or_404(db, club_id)
+    if not (current_user.organization_id == club.id and current_user.role == CLUB_DIRECTOR):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo la dirección de ese club declara su iglesia"
+        )
+    association = await placement.require_association(db, club)
+    church = None
+    if payload.church_id is not None:
+        church = await db.get(Organization, payload.church_id)
+        if (
+            church is None
+            or church.type != placement.CHURCH
+            or church.status != club_service.STATUS_ACTIVE
+            or not church.path
+            or not church.path.startswith(f"{association.path}.")
+        ):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, "church_id no es una iglesia activa de tu asociación"
+            )
+
+    metadata = dict(club.metadata_json or {})
+    metadata["placement"] = {
+        **(metadata.get("placement") or {}),
+        "church_id": str(church.id) if church is not None else None,
+        "church_name": church.name if church is not None else payload.church_name,
+        "declared_by": str(current_user.id),
+        "declared_at": utcnow().isoformat(),
+    }
+    metadata["church"] = church.name if church is not None else payload.church_name
+    club.metadata_json = metadata
+    club.updated_at = utcnow()
+    record_audit(
+        db,
+        action="CLUB_PLACEMENT_PROPOSE",
+        entity_type="ORGANIZATION",
+        entity_id=club.id,
+        actor=current_user,
+        details=f"Declared church for {club.name}",
+        metadata={"placement": metadata["placement"]},
+        request=request,
+    )
+    await db.commit()
+    return OrgNodeResponse.from_model(club)
+
+
+@router.post("/clubs/{club_id}/place", response_model=PendingClubResponse)
+async def place_club(
+    club_id: uuid.UUID,
+    payload: ClubPlacement,
+    request: Request,
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Move a club under its church, assigning the zone. Ids never change, so
+    members, memberships, enrollments and certificates are untouched."""
+    club = await _get_club_or_404(db, club_id)
+    if not await can_decide_club(db, current_user, club):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "This club is outside your administrative scope"
+        )
+    association = await placement.require_association(db, club)
+    zone, church = await placement.place_club(
+        db,
+        club,
+        actor=current_user,
+        association=association,
+        church_id=payload.church_id,
+        church_name=payload.church_name,
+        zone_id=payload.zone_id,
+        zone_name=payload.zone_name,
+        city=payload.city,
+        request=request,
+    )
+    response = PendingClubResponse.build(
+        club,
+        association,
+        await club_service.requester_of(db, club),
+        zone=zone,
+        church=church,
+        declared=placement.declared_placement(club) or None,
+    )
+    await db.commit()
+    return response
+
+
+@router.post("/churches/{church_id}/place", response_model=OrgNodeResponse)
+async def place_church(
+    church_id: uuid.UUID,
+    payload: ChurchPlacement,
+    request: Request,
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """The association moves a church — with its clubs — from one of its zones
+    to another. The zone coordinators' scope follows the tree, so it changes on
+    its own (spec §5.5)."""
+    church = await _get_node_or_404(db, church_id)
+    if church.type != placement.CHURCH:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Ese nodo no es una iglesia")
+    placement.require_structure_admin(current_user)
+    await _require_in_scope(db, current_user, church)
+    zone = await db.get(Organization, payload.zone_id)
+    if zone is None or zone.type != placement.ZONE or zone.status != club_service.STATUS_ACTIVE:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "zone_id no es una zona activa")
+    await _require_in_scope(db, current_user, zone)
+    association = await placement.association_of(db, church)
+    if association is None or not zone.path or not zone.path.startswith(f"{association.path}."):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, placement.OUTSIDE_ASSOCIATION)
+    await placement.move_node(
+        db, church, zone, actor=current_user, action="CHURCH_PLACE", request=request
+    )
+    await db.commit()
+    return OrgNodeResponse.from_model(church)
+
+
+async def _get_club_or_404(db: AsyncSession, club_id: uuid.UUID) -> Organization:
+    club = await db.get(Organization, club_id)
+    if club is None or club.type != club_service.CLUB_TYPE:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Club not found")
+    return club
 
 
 @router.get("/type/{node_type}", response_model=list[OrgNodeResponse])
@@ -361,6 +568,12 @@ async def create_org_node(
 ):
     node_id = uuid.uuid4()
     label = node_id.hex
+
+    if payload.type in (placement.ZONE, placement.CHURCH):
+        # E6 / decision D3: the association draws its own map. A zone
+        # coordinator administers what is inside their zone but never creates
+        # structure, and a director never creates any.
+        placement.require_structure_admin(current_user)
 
     if payload.parent_id is None:
         if payload.type != ORG_HIERARCHY[0]:
@@ -449,6 +662,8 @@ async def update_org_node(
 ):
     node = await _get_node_or_404(db, node_id)
     _require_hierarchy_node(node)
+    if node.type in (placement.ZONE, placement.CHURCH):
+        placement.require_structure_admin(current_user)
     await _require_in_scope(db, current_user, node)
     _require_decided(node)
 
@@ -527,6 +742,7 @@ async def _decide_club(
     background: BackgroundTasks,
     actor: User,
     db: AsyncSession,
+    approval: ClubApproval | None = None,
 ) -> PendingClubResponse:
     club = await _get_node_or_404(db, node_id)
     # Scope before state, so an outsider learns nothing about the request.
@@ -541,11 +757,38 @@ async def _decide_club(
             status.HTTP_409_CONFLICT, f"This club request is already {club.status.upper()}"
         )
 
+    declared = placement.declared_placement(club)
+    zone = church = None
+    association = await placement.association_of(db, club)
+    extra: dict = {}
+    if approve:
+        # E6: whoever approves may correct what the director declared, and
+        # ASSIGNS the zone. A club never becomes `active` without both.
+        if association is None:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT, "El club no cuelga de ninguna asociación"
+            )
+        extra = {"declared": declared or None}
+        if approval is not None and approval.club_name:
+            await _require_unique_club_name(db, association, approval.club_name, club.id)
+            club.name = approval.club_name
+        if approval is not None and approval.city:
+            club.city = approval.city
+        zone, church = await _resolve_club_placement(
+            db, club, actor=actor, association=association, approval=approval, request=request
+        )
+        extra["zone_id"] = str(zone.id)
+        extra["church_id"] = str(church.id)
+        extra["final_name"] = club.name
+
     director = await club_service.stage_club_decision(
-        db, club, actor, approve=approve, reason=reason, request=request
+        db, club, actor, approve=approve, reason=reason, request=request, extra_metadata=extra
     )
-    association = await db.get(Organization, club.parent_id) if club.parent_id else None
-    response = PendingClubResponse.build(club, association, director)
+    if association is None:
+        association = await placement.association_of(db, club)
+    response = PendingClubResponse.build(
+        club, association, director, zone=zone, church=church, declared=declared or None
+    )
     await db.commit()
 
     # Only after the commit, and never able to fail the request.
@@ -561,14 +804,81 @@ async def _decide_club(
     return response
 
 
+async def _require_unique_club_name(
+    db: AsyncSession, association: Organization, name: str, club_id: uuid.UUID
+) -> None:
+    duplicate = select(Organization.id).where(
+        Organization.type == club_service.CLUB_TYPE,
+        Organization.status.in_((club_service.STATUS_ACTIVE, club_service.STATUS_PENDING)),
+        Organization.path.op("<@")(association.path),
+        func.lower(Organization.name) == name.lower(),
+        Organization.id != club_id,
+    )
+    if (await db.execute(duplicate.limit(1))).scalar_one_or_none():
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "A club with this name already exists in the association"
+        )
+
+
+async def _resolve_club_placement(
+    db: AsyncSession,
+    club: Organization,
+    *,
+    actor: User,
+    association: Organization,
+    approval: ClubApproval | None,
+    request: Request,
+) -> tuple[Organization, Organization]:
+    """The zone and the church the club ends up under. What the body says wins;
+    what it leaves out falls back to where the club already is and, failing
+    that, to what the director declared."""
+    ancestors = await placement.ancestors_of(db, club)
+    declared = placement.declared_placement(club)
+    body = approval or ClubApproval()
+
+    zone_id, zone_name = body.zone_id, body.zone_name
+    if zone_id is None and zone_name is None and ancestors.get(placement.ZONE) is not None:
+        zone_id = ancestors[placement.ZONE].id
+    if zone_id is None and zone_name is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, placement.NOT_PLACED_DETAIL)
+
+    church_id, church_name = body.church_id, body.church_name
+    if church_id is None and church_name is None:
+        if ancestors.get(placement.CHURCH) is not None:
+            church_id = ancestors[placement.CHURCH].id
+        elif declared.get("church_id"):
+            church_id = uuid.UUID(str(declared["church_id"]))
+        elif declared.get("church_name"):
+            church_name = declared["church_name"]
+        else:
+            raise HTTPException(status.HTTP_409_CONFLICT, placement.NOT_PLACED_DETAIL)
+
+    return await placement.place_club(
+        db,
+        club,
+        actor=actor,
+        association=association,
+        church_id=church_id,
+        church_name=church_name,
+        zone_id=zone_id,
+        zone_name=zone_name,
+        city=body.city,
+        request=request,
+    )
+
+
 @router.post("/{node_id}/approve", response_model=PendingClubResponse)
 async def approve_club(
     node_id: uuid.UUID,
     request: Request,
     background: BackgroundTasks,
+    payload: ClubApproval | None = None,
     current_user: User = Depends(require_org_admin),
     db: AsyncSession = Depends(get_db),
 ):
+    """Approve the request and, in the same act, place the club: whoever
+    approves may correct the club's name, city and church, and ASSIGNS the
+    zone. Without a zone and a church the club does not become `active`."""
     return await _decide_club(
         node_id,
         approve=True,
@@ -577,6 +887,7 @@ async def approve_club(
         background=background,
         actor=current_user,
         db=db,
+        approval=payload,
     )
 
 

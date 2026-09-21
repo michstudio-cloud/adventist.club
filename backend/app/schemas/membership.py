@@ -10,6 +10,8 @@ from typing import Literal
 
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
+from app.schemas.unit import PersonRef, UnitRef
+
 MembershipStatus = Literal[
     "PENDING_CONSENT", "PENDING_APPROVAL", "ACTIVE", "ENDED", "REJECTED", "CANCELLED"
 ]
@@ -37,6 +39,10 @@ class MembershipOut(BaseModel):
     since: datetime | None = None
     ended_at: datetime | None = None
     end_reason: str | None = None
+    # E5. The unit the person is in, and who leads it: that is the adult their
+    # family will deal with week after week.
+    unit: UnitRef | None = None
+    counselor: PersonRef | None = None
 
 
 class MyMembership(BaseModel):
@@ -61,6 +67,7 @@ class MemberRow(BaseModel):
     age: int | None = None
     since: datetime | None = None
     consent: ConsentSummary | None = None
+    unit: UnitRef | None = None
 
 
 class ManagedMemberRow(MemberRow):
@@ -122,9 +129,10 @@ class ClubProfileOut(BaseModel):
 # ----------------------------------------------------------------------------
 # Invitations (E3)
 # ----------------------------------------------------------------------------
-# What a link may grant today. CLUB_SECRETARY is appointed from the roster
-# until E8 opens invitations to it (spec §5.7).
-InvitableRole = Literal["STUDENT", "COUNSELOR", "INSTRUCTOR"]
+# What a link may grant. Since E8 that includes CLUB_SECRETARY, which — like
+# every staff role — is always single-use and nominal (spec §5.7). Who may
+# actually hand each one out is decided in `rbac.can_grant_club_role`.
+InvitableRole = Literal["STUDENT", "COUNSELOR", "INSTRUCTOR", "CLUB_SECRETARY"]
 
 
 class InvitationCreate(BaseModel):
@@ -133,6 +141,9 @@ class InvitationCreate(BaseModel):
     expires_in_days: int | None = Field(default=None, ge=1, le=90)
     # Nominal invitation: only the account with this address may accept it.
     email: EmailStr | None = None
+    # E5: the link may already point at a unit. If it is full when the person
+    # arrives, they still join the club — without a unit.
+    unit_id: uuid_module.UUID | None = None
 
     model_config = {"extra": "forbid"}
 
@@ -145,6 +156,7 @@ class InvitationOut(BaseModel):
     club_id: str
     role: str
     email: str | None = None
+    unit_id: str | None = None
     max_uses: int
     uses: int
     expires_at: datetime
@@ -326,6 +338,7 @@ def as_invitation_out(invitation, *, state: str, requires_approval: bool) -> Inv
         club_id=str(invitation.club_id),
         role=invitation.role,
         email=invitation.email,
+        unit_id=str(invitation.unit_id) if invitation.unit_id else None,
         max_uses=invitation.max_uses,
         uses=invitation.uses,
         expires_at=invitation.expires_at,
@@ -336,7 +349,7 @@ def as_invitation_out(invitation, *, state: str, requires_approval: bool) -> Inv
     )
 
 
-def as_membership_out(membership, club) -> MembershipOut:
+def as_membership_out(membership, club, *, unit=None, counselor=None) -> MembershipOut:
     return MembershipOut(
         membership_id=str(membership.id),
         club=as_club_ref(club),
@@ -346,6 +359,10 @@ def as_membership_out(membership, club) -> MembershipOut:
         since=membership.started_at,
         ended_at=membership.ended_at,
         end_reason=membership.end_reason,
+        unit=UnitRef(id=str(unit.id), name=unit.name) if unit is not None else None,
+        counselor=(
+            PersonRef(id=str(counselor.id), name=counselor.name) if counselor is not None else None
+        ),
     )
 
 

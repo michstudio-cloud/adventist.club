@@ -18,10 +18,12 @@ from app.models import ClubInvitation, ClubMembership, Guardianship, Organizatio
 from app.people import age_in_years, is_minor_user
 from app.rbac import (
     CONSENT_GRANTED,
+    can_appoint_counselor,
     can_grant_club_role,
     can_manage_members,
     can_view_guardian_contact,
     can_view_roster,
+    may_handle_minors,
 )
 from app.schemas.membership import (
     BulkApproval,
@@ -44,11 +46,20 @@ from app.schemas.membership import (
     as_invitation_out,
     as_membership_out,
 )
+from app.schemas.unit import (
+    CounselorAssign,
+    MemberUnitAssign,
+    MemberUnitOut,
+    UnitCreate,
+    UnitOut,
+    UnitUpdate,
+)
 from app.security import COUNSELOR, STUDENT, utcnow
 from app.services import email as email_service
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
 from app.services import notifications
+from app.services import units as unit_service
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/clubs", tags=["clubs"])
@@ -72,6 +83,7 @@ async def list_members(
     club_id: uuid.UUID,
     status_filter: MembershipStatus | None = Query(None, alias="status"),
     role: ClubRole | None = None,
+    unit_id: uuid.UUID | None = None,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> list[MemberRow | ManagedMemberRow]:
@@ -83,10 +95,6 @@ async def list_members(
         raise HTTPException(status.HTTP_403_FORBIDDEN, NOT_ROSTER_DETAIL)
     manages = await can_manage_members(db, current_user, club)
     sees_guardians = await can_view_guardian_contact(db, current_user, club)
-    if not manages and current_user.role == COUNSELOR:
-        # A counselor only ever sees the members of their own units, and units
-        # arrive with E5: until then there is nobody they may look at.
-        return []
 
     stmt = (
         select(ClubMembership, User)
@@ -97,13 +105,30 @@ async def list_members(
             ClubMembership.status == (status_filter or membership_service.ACTIVE),
         )
     )
+    if not manages and current_user.role == COUNSELOR:
+        # A counselor sees the members of THEIR units and nobody else (D7).
+        mine = await unit_service.counselor_unit_ids(db, club.id, current_user.id)
+        if not mine:
+            return []
+        stmt = stmt.where(ClubMembership.unit_id.in_(mine))
     if role:
         stmt = stmt.where(ClubMembership.role == role)
+    if unit_id:
+        stmt = stmt.where(ClubMembership.unit_id == unit_id)
     rows = (await db.execute(stmt.order_by(User.name, User.id))).all()
+    units = await unit_service.units_by_id(db, club.id)
+    # E7: for an INSTRUCTOR or a COUNSELOR the rows of MINORS only come through
+    # when they may handle minors. Whoever manages the club (director in grace,
+    # secretary, administrators) reads the whole roster: that is how a club is
+    # run and how an unverified instructor is noticed in the first place.
+    hide_minors = not manages and not may_handle_minors(current_user)
 
     return [
-        await _member_row(db, membership, member, include_guardian_email=sees_guardians)
+        await _member_row(
+            db, membership, member, include_guardian_email=sees_guardians, units=units
+        )
         for membership, member in rows
+        if not (hide_minors and is_minor_user(member))
     ]
 
 
@@ -113,6 +138,7 @@ async def _member_row(
     member: User,
     *,
     include_guardian_email: bool,
+    units: dict | None = None,
 ) -> MemberRow | ManagedMemberRow:
     minor = is_minor_user(member)
     consent = None
@@ -121,6 +147,8 @@ async def _member_row(
             status="APPROVED" if membership.consent_at else None,
             guardian_name=await _guardian_name(db, membership, member),
         )
+    if units is None:
+        units = await unit_service.units_by_id(db, membership.club_id)
     fields = dict(
         membership_id=str(membership.id),
         user_id=str(member.id),
@@ -132,6 +160,7 @@ async def _member_row(
         age=age_in_years(member.birth_date),
         since=membership.started_at,
         consent=consent,
+        unit=unit_service.unit_ref(units.get(membership.unit_id)),
     )
     if not include_guardian_email:
         return MemberRow(**fields)
@@ -400,6 +429,7 @@ async def create_invitation(
         max_uses=payload.max_uses,
         expires_in_days=payload.expires_in_days,
         email=payload.email,
+        unit_id=payload.unit_id,
         request=request,
     )
     log = None
@@ -519,3 +549,136 @@ async def update_club_profile(
     )
     await db.commit()
     return ClubProfileOut(club_id=str(club.id), name=club.name, profile=profile)
+
+
+# ----------------------------------------------------------------------------
+# Units (E5). A unit is a light table, not a node of the tree: the member keeps
+# hanging from the club, which is what the whole RBAC reads.
+# ----------------------------------------------------------------------------
+@router.get("/{club_id}/units", response_model=list[UnitOut])
+async def list_units(
+    club_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Active units with their headcount, cap, age bracket and counselor."""
+    club = await membership_service.get_club(db, club_id)
+    if not await can_view_roster(db, current_user, club):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, NOT_ROSTER_DETAIL)
+    counts = await unit_service.member_counts(db, club.id)
+    return [
+        await unit_service.as_out(db, unit, members=counts.get(unit.id, 0))
+        for unit in await unit_service.active_units(db, club.id)
+    ]
+
+
+@router.post("/{club_id}/units", response_model=UnitOut, status_code=status.HTTP_201_CREATED)
+async def create_unit(
+    club_id: uuid.UUID,
+    payload: UnitCreate,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    club = await _club_for_manager(db, current_user, club_id)
+    unit = await unit_service.create(
+        db,
+        club=club,
+        actor=current_user,
+        name=payload.name,
+        min_age=payload.min_age,
+        max_age=payload.max_age,
+        capacity=payload.capacity,
+        request=request,
+    )
+    await db.commit()
+    return await unit_service.as_out(db, unit, members=0)
+
+
+@router.patch("/{club_id}/units/{unit_id}", response_model=UnitOut)
+async def update_unit(
+    club_id: uuid.UUID,
+    unit_id: uuid.UUID,
+    payload: UnitUpdate,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The cap is hard, so it never drops below the people already inside."""
+    club = await _club_for_manager(db, current_user, club_id)
+    unit = await unit_service.get_unit(db, club, unit_id)
+    changes = payload.model_dump(exclude_unset=True)
+    if not changes:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "No hay nada que actualizar")
+    await unit_service.update(db, unit, actor=current_user, changes=changes, request=request)
+    await db.commit()
+    return await unit_service.as_out(db, unit)
+
+
+@router.delete("/{club_id}/units/{unit_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def archive_unit(
+    club_id: uuid.UUID,
+    unit_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Archive, never delete: the year's history stays and the name is freed."""
+    club = await _club_for_manager(db, current_user, club_id)
+    unit = await unit_service.get_unit(db, club, unit_id)
+    await unit_service.archive(db, unit, actor=current_user, request=request)
+    await db.commit()
+
+
+@router.put("/{club_id}/units/{unit_id}/counselor", response_model=UnitOut)
+async def set_unit_counselor(
+    club_id: uuid.UUID,
+    unit_id: uuid.UUID,
+    payload: CounselorAssign,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The director's act, not the secretary's: whoever leads a unit is alone
+    with a group of minors (spec §5.7)."""
+    club = await membership_service.get_club(db, club_id)
+    if not await can_appoint_counselor(db, current_user, club):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo la dirección del club nombra consejeros de unidad"
+        )
+    unit = await unit_service.get_unit(db, club, unit_id)
+    membership = (
+        await membership_service.get_membership_of_club(db, club, payload.membership_id)
+        if payload.membership_id is not None
+        else None
+    )
+    await unit_service.set_counselor(
+        db, unit, membership=membership, actor=current_user, request=request
+    )
+    await db.commit()
+    return await unit_service.as_out(db, unit)
+
+
+@router.put("/{club_id}/members/{membership_id}/unit", response_model=MemberUnitOut)
+async def set_member_unit(
+    club_id: uuid.UUID,
+    membership_id: uuid.UUID,
+    payload: MemberUnitAssign,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Put a member in a unit, move them, or take them out (`unit_id: null`).
+    The cap is hard; the age bracket only comes back as `age_warning`."""
+    club = await _club_for_manager(db, current_user, club_id)
+    membership = await membership_service.get_membership_of_club(db, club, membership_id)
+    result = await unit_service.assign_member(
+        db,
+        club=club,
+        membership=membership,
+        unit_id=payload.unit_id,
+        actor=current_user,
+        request=request,
+    )
+    await db.commit()
+    return result

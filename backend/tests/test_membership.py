@@ -491,7 +491,11 @@ async def test_the_founder_gets_a_membership_with_the_club(client, factory):
             "password": DEFAULT_PASSWORD,
             "name": factory.name("founder"),
             "role": "CLUB_DIRECTOR",
-            "club": {"name": factory.name("founder-club"), "association_id": association["id"]},
+            "club": {
+                    "name": factory.name("founder-club"),
+                    "association_id": association["id"],
+                    "church_name": factory.name("founder-iglesia"),
+                },
         },
     )
     assert response.status_code == 201, response.text

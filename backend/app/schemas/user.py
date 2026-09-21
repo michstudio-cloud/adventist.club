@@ -75,6 +75,9 @@ class UserUpdate(BaseModel):
 
     name: str | None = Field(default=None, min_length=1, max_length=180)
     avatar_url: str | None = Field(default=None, max_length=2048)
+    # Bloque E, E9: switches OFF the portfolio progress e-mails. The security,
+    # invitation, consent and membership ones are never silenced.
+    notify_progress: bool | None = None
     # Admin-only fields
     role: RoleName | None = None
     organization_id: uuid.UUID | None = Field(

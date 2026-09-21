@@ -41,7 +41,7 @@ from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/users", tags=["users"])
 
-SELF_EDITABLE_FIELDS = {"name", "avatar_url"}
+SELF_EDITABLE_FIELDS = {"name", "avatar_url", "notify_progress"}
 ADMIN_ONLY_FIELDS = {
     "role",
     "organization_id",

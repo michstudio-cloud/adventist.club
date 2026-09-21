@@ -13,6 +13,7 @@ from app.models import Organization, User
 from app.schemas.org import ClubSignup
 from app.security import CLUB_APPROVED, CLUB_DIRECTOR, CLUB_PENDING, CLUB_REJECTED, utcnow
 from app.services import memberships as membership_service
+from app.services import placement
 from app.services.audit import record_audit
 
 CLUB_TYPE = "club"
@@ -54,15 +55,24 @@ async def stage_pending_club(
             status.HTTP_409_CONFLICT, "A club with this name already exists in the association"
         )
 
+    # E6 / decision D3: the director declares their CHURCH, never the zone.
+    # With a church that already has a zone the club is born in its final
+    # place; otherwise it is born under the association, as before, and the
+    # declaration waits in `metadata_json.placement` for the association.
+    church = await _declared_church(db, association, payload)
+    parent = association
+    if church is not None and (await placement.ancestors_of(db, church)).get(placement.ZONE):
+        parent = church
+
     club_id = uuid.uuid4()
     now = utcnow()
     club = Organization(
         id=club_id,
-        parent_id=association.id,
+        parent_id=parent.id,
         type=CLUB_TYPE,
         name=payload.name,
         status=STATUS_PENDING,
-        path=f"{association.path}.{club_id.hex}",
+        path=f"{parent.path}.{club_id.hex}",
         city=payload.city,
         country=association.country,
         latitude=payload.latitude,
@@ -70,7 +80,14 @@ async def stage_pending_club(
         metadata_json={
             "requested_by": str(director.id),
             "requested_at": now.isoformat(),
-            "church": payload.church,
+            # Kept for the pre-E6 readers; the node is the truth once placed.
+            "church": church.name if church is not None else payload.church_name,
+            "placement": {
+                "church_id": str(church.id) if church is not None else None,
+                "church_name": church.name if church is not None else payload.church_name,
+                "declared_by": str(director.id),
+                "declared_at": now.isoformat(),
+            },
             "contact": payload.contact or director.email,
         },
         created_at=now,
@@ -114,6 +131,28 @@ async def stage_pending_club(
     return club
 
 
+async def _declared_church(
+    db: AsyncSession, association: Organization, payload: ClubSignup
+) -> Organization | None:
+    """`church_id` must be an ACTIVE church of this association; a `church_name`
+    that already exists is silently the same church, so nobody creates a second
+    «Iglesia Central» by typing it."""
+    if payload.church_id is not None:
+        church = await db.get(Organization, payload.church_id)
+        if (
+            church is None
+            or church.type != placement.CHURCH
+            or church.status != STATUS_ACTIVE
+            or not church.path
+            or not church.path.startswith(f"{association.path}.")
+        ):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, "church_id no es una iglesia activa de esa asociación"
+            )
+        return church
+    return await placement.find_church(db, association, payload.church_name or "")
+
+
 async def requester_of(db: AsyncSession, club: Organization) -> User | None:
     raw = (club.metadata_json or {}).get("requested_by")
     try:
@@ -130,6 +169,7 @@ async def stage_club_decision(
     approve: bool,
     reason: str | None,
     request: Request | None,
+    extra_metadata: dict | None = None,
 ) -> User | None:
     """Flip the club and its director. Returns the director (for the email)."""
     now = utcnow()
@@ -165,6 +205,8 @@ async def stage_club_decision(
             "director_id": str(director.id) if director else None,
             "parent_id": str(club.parent_id) if club.parent_id else None,
             "reason": reason,
+            # E6: what was declared and what the association finally decided.
+            **(extra_metadata or {}),
         },
         request=request,
     )

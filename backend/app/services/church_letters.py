@@ -14,6 +14,7 @@ as portfolio evidence: this API never receives the file and stores no URL.
 Each function commits its change together with its audit row.
 """
 import uuid
+from datetime import timedelta
 
 from fastapi import HTTPException, Request, status
 from sqlalchemy import or_, select
@@ -23,7 +24,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import violated_constraint
 from app.models import ChurchLetter, Organization, User
-from app.rbac import club_scope_paths, instructor_is_verified, is_master, org_in_review_scope
+from app.rbac import (
+    club_scope_paths,
+    instructor_is_verified,
+    is_master,
+    is_verified_leader,
+    org_in_review_scope,
+)
 from app.schemas.church_letter import (
     LetterCreate,
     LetterOut,
@@ -33,8 +40,8 @@ from app.schemas.church_letter import (
     VerificationChecklist,
 )
 from app.schemas.portfolio import PersonRef, SignedUrl, UploadTarget
-from app.security import INSTRUCTOR, utcnow
-from app.services import private_storage
+from app.security import CLUB_DIRECTOR, CLUB_SECRETARY, COUNSELOR, INSTRUCTOR, utcnow
+from app.services import notifications, private_storage
 from app.services.audit import record_audit
 from app.workflow import ASSOCIATION_REVIEWERS, ZONE_REVIEWERS
 
@@ -46,9 +53,17 @@ REJECTED = "REJECTED"
 REVOKED = "REVOKED"
 LIVE_STATUSES = (SUBMITTED, ZONE_VALIDATED, AUTHORIZED)
 
-# Offices a church letter may back. Bloques E (director, club) and F widen this tuple and
-# pass their role to `create`; the column is already varchar(40), so nothing migrates.
-LETTER_ROLES = (INSTRUCTOR,)
+# Offices a church letter may back. E7 widens the tuple as the spec foresaw: the column is
+# varchar(40) and the rule lives here, so no migration was needed and there is ONE letters
+# table in the platform. The secretary is not REQUIRED to present one (they never rule on
+# evidence) but may, because a secretary can be the counselor of a unit (§5.4).
+LETTER_ROLES = (INSTRUCTOR, CLUB_DIRECTOR, COUNSELOR, CLUB_SECRETARY)
+
+# Decision D5: 12 months, renewable from 60 days before, never more than 24.
+DEFAULT_VALIDITY_DAYS = 365
+MAX_VALIDITY_DAYS = 730
+RENEWAL_WINDOW_DAYS = 60
+EXPIRY_NOTICE_DAYS = 30
 
 # A letter is one signed page: 10 MB is plenty for a scan and keeps the bucket tidy.
 MAX_SIZE_BYTES = 10 * 1024 * 1024
@@ -103,6 +118,25 @@ async def _live_letter(db: AsyncSession, user_id: uuid.UUID, role: str) -> Churc
     return (await db.execute(stmt)).scalar_one_or_none()
 
 
+RENEWAL_TOO_EARLY = (
+    f"Tu carta sigue vigente: podrás renovarla desde {RENEWAL_WINDOW_DAYS} días antes de que venza."
+)
+SUPERSEDED_NOTE = "Sustituida por una renovación de la misma persona"
+
+
+def _renewable(live: ChurchLetter) -> bool:
+    """Decision D5: a renewal may START 60 days before the letter expires.
+
+    Until then the answer is «not yet»: one live letter per person and office
+    is exactly what the unique index of `009` guarantees.
+    """
+    if live.status != AUTHORIZED:
+        return False
+    if live.valid_until is None:
+        return False
+    return live.valid_until <= utcnow().date() + timedelta(days=RENEWAL_WINDOW_DAYS)
+
+
 async def _latest_letter(db: AsyncSession, user_id: uuid.UUID, role: str) -> ChurchLetter | None:
     """The live one when there is one, else the last decision (so its note stays readable)."""
     stmt = (
@@ -137,14 +171,34 @@ def _letter_out(letter: ChurchLetter) -> LetterOut:
 # The instructor's side
 # ----------------------------------------------------------------------------
 async def checklist(db: AsyncSession, actor: User) -> VerificationChecklist:
-    letter = await _latest_letter(db, actor.id, INSTRUCTOR)
+    """What is still missing for this person's office. `verified` keeps meaning
+    what Bloque B's badge means for an instructor; for a club office it is the
+    single gate of E7, `rbac.is_verified_leader`."""
+    role = actor.role if actor.role in LETTER_ROLES else INSTRUCTOR
+    letter = await _latest_letter(db, actor.id, role)
+    verified = (
+        await instructor_is_verified(db, actor)
+        if role == INSTRUCTOR
+        else is_verified_leader(actor)
+    )
     return VerificationChecklist(
         role=actor.role,
         email_verified=actor.verification_status == "VERIFIED",
         child_protection=actor.child_protection_completed,
         letter=_letter_out(letter) if letter else None,
-        verified=await instructor_is_verified(db, actor),
+        verified=verified,
+        valid_until=letter.valid_until if letter and letter.status == AUTHORIZED else None,
+        expires_soon=_expires_soon(actor),
     )
+
+
+def _expires_soon(user: User) -> bool:
+    """The panel warns from 30 days before; the e-mail is sent by the Cron
+    script `migrations/notify_expiring_letters.py` (decision D5)."""
+    if user.leader_verified_until is None:
+        return False
+    today = utcnow().date()
+    return today <= user.leader_verified_until <= today + timedelta(days=EXPIRY_NOTICE_DAYS)
 
 
 async def create(
@@ -152,11 +206,13 @@ async def create(
     actor: User,
     payload: LetterCreate,
     request: Request | None,
-    role_requested: str = INSTRUCTOR,
+    role_requested: str | None = None,
 ) -> LetterUpload:
     """Reserve the letter and hand out the presigned PUT. It only counts once `complete`
     has seen the object in the bucket, exactly like an evidence."""
     _require_private_storage()
+    # E7: the office defaults to the one the person actually holds.
+    role_requested = role_requested or payload.role_requested or actor.role
     if role_requested not in LETTER_ROLES:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Cargo no admitido para una carta")
     if actor.is_minor:
@@ -168,8 +224,10 @@ async def create(
             status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             f"El archivo supera el tamaño máximo de {MAX_SIZE_BYTES // (1024 * 1024)} MB",
         )
-    if await _live_letter(db, actor.id, role_requested) is not None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Ya tienes una carta en trámite o autorizada")
+    live = await _live_letter(db, actor.id, role_requested)
+    if live is not None and not _renewable(live):
+        raise HTTPException(status.HTTP_409_CONFLICT, RENEWAL_TOO_EARLY if live.status == AUTHORIZED
+                            else "Ya tienes una carta en trámite o autorizada")
 
     letter_id = uuid.uuid4()
     now = utcnow()
@@ -197,7 +255,7 @@ async def create(
 
 
 async def complete(
-    db: AsyncSession, actor: User, letter_id: uuid.UUID, request: Request | None
+    db: AsyncSession, actor: User, letter_id: uuid.UUID, request: Request | None, background=None
 ) -> LetterOut:
     """PENDING_UPLOAD -> SUBMITTED, once the object is in the bucket with the declared size and type."""
     _require_private_storage()
@@ -218,6 +276,33 @@ async def complete(
             status.HTTP_409_CONFLICT, "El archivo subido no coincide con el tamaño o el tipo declarados"
         )
 
+    # E7 renewal: one live letter per person and office, so the one being
+    # replaced is closed here. `users.leader_verified_until` is NOT touched —
+    # the verification already earned lasts until its own date, which is the
+    # whole point of keeping the date on the account and not on the row.
+    previous = await _live_letter(db, actor.id, letter.role_requested)
+    if previous is not None and previous.id != letter.id:
+        if not _renewable(previous):
+            raise HTTPException(status.HTTP_409_CONFLICT, RENEWAL_TOO_EARLY)
+        previous.status = REVOKED
+        previous.decision_note = SUPERSEDED_NOTE
+        previous.decided_by_id = actor.id
+        previous.decided_at = utcnow()
+        previous.updated_at = utcnow()
+        # Written BEFORE the new row becomes SUBMITTED: the unique index of
+        # `009` allows exactly one live letter per person and office.
+        await db.flush()
+        record_audit(
+            db,
+            action="LETTER_REVOKE",
+            entity_type=ENTITY,
+            entity_id=previous.id,
+            actor=actor,
+            details=SUPERSEDED_NOTE,
+            metadata={"superseded_by": str(letter.id), "role_requested": letter.role_requested},
+            request=request,
+        )
+
     letter.status = SUBMITTED
     letter.updated_at = utcnow()
     record_audit(
@@ -229,6 +314,9 @@ async def complete(
         metadata={"role_requested": letter.role_requested, "organization_id": str(letter.organization_id)},
         request=request,
     )
+    # Staged inside this transaction, sent after its commit: a mail outage can
+    # never fail the upload that caused it (the pattern of `org.py`).
+    await notifications.queue_letter_submitted(db, background, letter=letter, applicant=actor)
     try:
         await db.commit()
     except IntegrityError as exc:
@@ -293,11 +381,57 @@ async def queue(
             organization_name=organization.name if organization else None,
         )
         for letter, applicant, organization in rows
+        # `club_scope_paths` is the coarse SQL filter; the last word is the rule
+        # that actually decides, so E6's narrower zone scope also narrows the
+        # queue: a coordinator never reads another zone's letters.
+        if await org_in_review_scope(db, actor, letter.organization_id)
     ]
 
 
+def _authorized_until(asked, today):
+    """Decision D5: 12 months by default, never more than 24, never in the past.
+
+    Bloque B allowed `NULL = no expiry`; a letter that backs an office over
+    minors does not get to be eternal, so an omitted date now means 12 months.
+    """
+    if asked is None:
+        return today + timedelta(days=DEFAULT_VALIDITY_DAYS)
+    if asked < today:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "La fecha de vigencia ya pasó")
+    cap = today + timedelta(days=MAX_VALIDITY_DAYS)
+    if asked > cap:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            "Una carta no puede valer más de 24 meses: los cargos de iglesia se nombran por periodo.",
+        )
+    return asked
+
+
+def _write_verification(applicant: User, letter: ChurchLetter) -> None:
+    """The copy `rbac.is_verified_leader` reads. Only ever moved FORWARD, so a
+    second office of the same person cannot shorten a verification in force."""
+    if applicant.leader_verified_until is None or (
+        letter.valid_until is not None and letter.valid_until > applicant.leader_verified_until
+    ):
+        applicant.leader_verified_until = letter.valid_until
+
+
+def _clear_verification(applicant: User, letter: ChurchLetter) -> None:
+    """Rejecting or revoking takes the verification away at once. A rejection of
+    a letter that was never authorized leaves an older, still valid one alone."""
+    if letter.valid_until is not None and applicant.leader_verified_until == letter.valid_until:
+        applicant.leader_verified_until = None
+    elif letter.status == REVOKED:
+        applicant.leader_verified_until = None
+
+
 async def review(
-    db: AsyncSession, actor: User, letter_id: uuid.UUID, payload: LetterReviewIn, request: Request | None
+    db: AsyncSession,
+    actor: User,
+    letter_id: uuid.UUID,
+    payload: LetterReviewIn,
+    request: Request | None,
+    background=None,
 ) -> LetterOut:
     letter = await _get_letter(db, letter_id, lock=True)
     if letter.user_id == actor.id:
@@ -313,22 +447,29 @@ async def review(
             status.HTTP_403_FORBIDDEN, f"No decides cartas en el escalón {letter.status}"
         )
 
+    applicant = await db.get(User, letter.user_id)
     now = utcnow()
     previous = letter.status
     if payload.action == "VALIDATE":
         letter.status = ZONE_VALIDATED
         letter.zone_validated_by_id, letter.zone_validated_at = actor.id, now
     elif payload.action == "AUTHORIZE":
-        if payload.valid_until is not None and payload.valid_until < now.date():
-            raise HTTPException(
-                status.HTTP_422_UNPROCESSABLE_ENTITY, "La fecha de vigencia ya pasó"
-            )
+        letter.valid_until = _authorized_until(payload.valid_until, now.date())
         letter.status = AUTHORIZED
-        letter.valid_until = payload.valid_until
         letter.decided_by_id, letter.decided_at = actor.id, now
+        if applicant is not None:
+            # Whoever validates the letter may tick the child protection course
+            # in the same act (spec §5.6); the flag itself is still an
+            # administrator's to give through POST /users/{id}/child-protection-cert.
+            if payload.child_protection_completed and not applicant.child_protection_completed:
+                applicant.child_protection_completed = True
+                applicant.child_protection_completed_at = now
+            _write_verification(applicant, letter)
     else:
         letter.status = REJECTED if payload.action == "REJECT" else REVOKED
         letter.decided_by_id, letter.decided_at = actor.id, now
+        if applicant is not None:
+            _clear_verification(applicant, letter)
     letter.decision_note = payload.note
     letter.updated_at = now
 
@@ -348,5 +489,10 @@ async def review(
         },
         request=request,
     )
+    if payload.action != "VALIDATE":
+        # The zone step is internal; the person hears about the final answer.
+        await notifications.queue_letter_decision(
+            db, background, letter=letter, applicant=applicant
+        )
     await db.commit()
     return _letter_out(letter)

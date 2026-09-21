@@ -7,7 +7,7 @@ Literal routes are declared before the `/{letter_id}` routes.
 """
 import uuid
 
-from fastapi import APIRouter, Depends, Query, Request, Response, status
+from fastapi import APIRouter, BackgroundTasks, Depends, Query, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -23,7 +23,6 @@ from app.schemas.church_letter import (
     VerificationChecklist,
 )
 from app.schemas.portfolio import SignedUrl
-from app.security import INSTRUCTOR
 from app.services import church_letters
 from app.workflow import ZONE_REVIEWERS
 
@@ -54,10 +53,15 @@ async def validation_queue(
 async def present_letter(
     payload: LetterCreate,
     request: Request,
-    current_user: User = Depends(require_roles(INSTRUCTOR)),
+    current_user: User = Depends(require_roles(*church_letters.LETTER_ROLES)),
     db: AsyncSession = Depends(get_db),
 ):
-    """Step 1 of 3. Step 2: PUT the file to `upload.url` with `upload.headers`. Step 3: `/complete`."""
+    """Step 1 of 3. Step 2: PUT the file to `upload.url` with `upload.headers`. Step 3: `/complete`.
+
+    E7 widened this from the virtual instructor of Bloque B to every office of a
+    club: director, instructor and counselor need the letter to handle minors,
+    and the secretary may present one to lead a unit.
+    """
     return await church_letters.create(db, current_user, payload, request)
 
 
@@ -65,10 +69,11 @@ async def present_letter(
 async def complete_letter(
     letter_id: uuid.UUID,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await church_letters.complete(db, current_user, letter_id, request)
+    return await church_letters.complete(db, current_user, letter_id, request, background)
 
 
 @router.get("/{letter_id}/url", response_model=SignedUrl)
@@ -87,8 +92,9 @@ async def review_letter(
     letter_id: uuid.UUID,
     payload: LetterReviewIn,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(require_roles(*ZONE_REVIEWERS)),
     db: AsyncSession = Depends(get_db),
 ):
     """VALIDATE (zone) · AUTHORIZE (association) · REJECT · REVOKE. Nobody decides on their own."""
-    return await church_letters.review(db, current_user, letter_id, payload, request)
+    return await church_letters.review(db, current_user, letter_id, payload, request, background)

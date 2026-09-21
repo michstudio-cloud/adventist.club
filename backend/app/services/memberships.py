@@ -37,6 +37,7 @@ from app.security import (
     sha256_hex,
     utcnow,
 )
+from app.services import units
 from app.services.audit import record_audit
 
 CLUB_TYPE = "club"
@@ -167,6 +168,10 @@ async def activate(
         if current.club_id == membership.club_id:
             raise HTTPException(status.HTTP_409_CONFLICT, "Ya eres miembro de este club.")
         _close(current, end_reason=TRANSFERRED, actor=actor, now=now)
+        # E7: the letter backs the person before the church of the club they
+        # are leaving; the new club validates them again (integrity rule 7).
+        member.leader_verified_until = None
+        await units.release_counselor_posts(db, current.club_id, member.id)
         record_audit(
             db,
             action="MEMBERSHIP_TRANSFER",
@@ -196,6 +201,12 @@ async def activate(
     membership.ended_at = None
     membership.end_reason = None
     membership.updated_at = now
+    # E5: an invitation may already point at a unit. A full unit never stops
+    # somebody joining the club — they land without one and the club is told.
+    if membership.unit_id is None and membership.invitation_id is not None:
+        invitation = await db.get(ClubInvitation, membership.invitation_id)
+        if invitation is not None:
+            await units.place_on_activation(db, membership, invitation.unit_id)
     if actor is not None and membership.decided_by_id is None:
         membership.decided_by_id = actor.id
         membership.decided_at = now
@@ -236,6 +247,14 @@ async def end(
     """
     now = utcnow()
     _close(membership, end_reason=end_reason, actor=actor, now=now, reason=reason)
+
+    # E5: leaving the club leaves its unit, and whoever is gone leads none of
+    # the club's units any more.
+    await units.detach_member(db, membership)
+    await units.release_counselor_posts(db, membership.club_id, member.id)
+    # E7: the church letter vouches for the person before THAT church, so
+    # leaving the club leaves the verification behind (integrity rule 7).
+    member.leader_verified_until = None
 
     member.organization_id = None
     if member.role in CLUB_SCOPED_ROLES:

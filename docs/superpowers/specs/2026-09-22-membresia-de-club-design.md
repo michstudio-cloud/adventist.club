@@ -623,7 +623,7 @@ destructivo; cada paso se deshace desactivando código, no datos.
 
 ## Desviaciones al implementar E1–E4 (22 sep 2026)
 
-Lo que el código hace distinto de lo escrito arriba, y por qué. E5–E9 siguen sin implementar.
+Lo que el código hace distinto de lo escrito arriba, y por qué.
 
 1. **`POST /auth/register` con `organization_id` responde 403, no 400** (§5.1, §10). El repo ya había cerrado el
    hallazgo 1 antes de este bloque (commit «members cannot list the directory nor attach themselves») y responde
@@ -656,6 +656,66 @@ Lo que el código hace distinto de lo escrito arriba, y por qué. E5–E9 siguen
 10. **El test existente `test_guardianship_rules` cambió una aserción**: exigía 403 para un adulto que no fuera
     `PARENT_GUARDIAN`, que es justo la regla que D9 sustituye. Ahora comprueba lo contrario (un adulto sí, un
     menor no).
+
+## Desviaciones al implementar E5–E9 (22 sep 2026)
+
+1. **La carta de los cargos del club NO tiene tabla propia.** §3 y §5.6 describen
+   `leader_verifications`; el bloque B ya había enviado `church_letters` (migración `009`) con el doble escalón
+   zona → Asociación, el bucket privado y el mismo *handshake* de subida. **Decisión tomada: una sola tabla de
+   cartas en la plataforma.** E7 la reutiliza ampliando `role_requested` (`CLUB_DIRECTOR`, `COUNSELOR`,
+   `CLUB_SECRETARY` además de `INSTRUCTOR`, que ya era `varchar(40)`), y `008f` añade **una sola columna**,
+   `users.leader_verified_until`. Dos tablas para lo mismo habrían significado dos verdades sobre quién puede
+   estar con menores. Consecuencias de la adaptación:
+   - **No existen `issued_on`, `signer_name` ni `signer_position`.** `church_letters` guarda `church_name` y
+     `pastor_name`, que cubren quién firma. Se descartó añadir columnas porque la tabla es de otro bloque y
+     nadie las lee todavía; entran el día que el responsable pida la fecha de la carta.
+   - El **alcance** de quién valida no es `can_validate_leader` sino el que ya existía
+     (`org_in_review_scope` + «nadie valida su propia carta» + los escalones de `STAGE_REVIEWERS`), que dice lo
+     mismo con el código que ya estaba probado.
+   - `role_requested` **no es obligatorio** en el cuerpo: por defecto es el cargo que la persona tiene.
+2. **`AUTHORIZE` sin fecha ya no significa «sin caducidad»** sino 12 meses (D5), con 24 como tope duro. El
+   bloque B permitía `NULL = para siempre`; una carta que respalda un cargo sobre menores no puede ser eterna.
+   Ningún test del bloque B dependía de ese `NULL`.
+3. **La renovación sustituye la carta anterior** en vez de convivir con ella: el índice único de `009`
+   (`(user_id, role_requested)` sobre los estados vivos) sólo admite una. Al completar la subida de la
+   renovación, la anterior queda `REVOKED` con la nota «Sustituida por una renovación» y su fila de auditoría.
+   **La verificación ya ganada no se pierde mientras se revisa la nueva**, porque la puerta es
+   `users.leader_verified_until` y no el estado de la fila: es justo para esto que la spec puso la fecha en la
+   cuenta.
+4. **`may_handle_minors` es síncrona y pura**, como pedía §4, y por eso la condición «el consejero debe poder
+   hacerse cargo de menores» se comprueba en `services/units.py`, donde vive la unidad, llamando a la función
+   de `rbac.py`. La puerta sigue decidiéndose en un solo sitio.
+5. **El `COUNSELOR` no entra en `can_view_user`.** §4 dice que ve a los miembros `ACTIVE` de sus unidades y §7
+   dice que «la Secretaría y los consejeros no pasan por `GET /users/{id}`». Se implementó la lectura
+   restringida por la **nómina** (`GET /clubs/{id}/members`, que ya recorta los datos) y `GET /users/{id}`
+   siguió cerrado: es la lectura más privada de la API (correo y fecha de nacimiento) y la spec la prohíbe
+   explícitamente en §7.
+6. **El director declara su iglesia, nunca la zona** (D3, resuelta por el responsable), así que la cláusula de
+   §4 «clubes que … no proponen una zona existente distinta de la suya» queda sin objeto: no hay forma de
+   proponer una zona. El atajo del coordinador de zona se conserva sólo para lo que **no vive dentro de ninguna
+   zona**, que es exactamente lo que mantiene vivos los clubes heredados sin dejarle ver la zona de al lado.
+7. **`club_scope_paths` sigue siendo ancho**: es el filtro SQL de las LISTAS. La última palabra la tiene
+   `org_in_decision_scope`, y las lecturas que podían enseñar de más (`pending-clubs`, `unplaced-clubs`, la cola
+   de cartas) filtran con ella después de consultar.
+8. **`NearbyClub.church` sigue siendo el NOMBRE** (una cadena) y se añadieron `church_ref` y `zone` como
+   `OrgRef`. §5.5 decía que `church` pasara a ser `OrgRef`; cambiar el tipo de un campo que el frontend ya lee
+   habría roto `/clubs` sin ganar nada. `PendingClubResponse`, que no tenía el campo, sí usa `OrgRef`.
+9. **Una iglesia declarada por nombre que ya existe se resuelve al nodo existente** desde el alta, así que al
+   aprobar el 409 que sale es «esa iglesia ya pertenece a otra zona» **con su id**, no «ya existe esa iglesia».
+   Escribir el nombre directamente en el cuerpo de la aprobación sí da el 409 de §5.5. Los dos llevan el id
+   para que se elija la fila que existe en vez de duplicarla.
+10. **El tope de 12 h de E9 no retiene el correo de «certificado emitido»**. §5.10 dice «uno por inscripción
+    cada 12 h»; una inscripción se certifica una sola vez y ese aviso es el que cierra la historia, así que
+    habría sido el único mensaje que el tope podía hacer desaparecer para siempre.
+11. **`users.notify_progress` se cambia con `PATCH /users/{id}` sobre uno mismo** (entra en
+    `SELF_EDITABLE_FIELDS`); no se creó un endpoint de preferencias, que sería una segunda forma de escribir lo
+    mismo.
+12. **La Secretaría puede presentar carta aunque no se le exija.** §5.6 dice que no se le pide, y sigue sin
+    pedírsele; pero §5.4 la admite como consejera de unidad, y eso sí exige `may_handle_minors`. Dejarle la
+    puerta abierta es lo que hace coherentes las dos secciones.
+13. **`ClubSignup` exige iglesia y eso cambió tests existentes** de `test_club_signup.py`, `test_club_location.py`,
+    `test_membership.py` y `test_invitations.py`: ahora declaran `church_name`, y las aprobaciones pasan la zona.
+    Es el cambio de contrato deliberado que anuncia §12.
 
 ## Fuera de alcance de E
 

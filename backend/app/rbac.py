@@ -7,12 +7,14 @@ MASTER_GC is global. The legacy API only compared organization ids for
 equality and left the hierarchy as a TODO.
 """
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.models import ChurchLetter, Course, Guardianship, HonorEnrollment, Organization, User
+from app.people import is_minor_user
 from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
@@ -90,11 +92,13 @@ def director_blocked(user: User) -> bool:
 
 async def club_scope_paths(db: AsyncSession, actor: User) -> list[str] | None:
     """
-    Subtrees whose club requests `actor` may see and decide. None means global.
+    Subtrees `actor` may LIST. None means global.
 
-    Administrators decide on clubs below their own organization. A zone
-    coordinator sits *beside* the clubs (both hang from the association), so
-    their scope is the whole association that contains their organization.
+    Administrators read below their own organization. Before E6 a zone
+    coordinator sat *beside* the clubs (both hung from the association), so
+    their reading scope is still the whole association that contains their
+    organization. Deciding is narrower and lives in `org_in_decision_scope`:
+    this function is the coarse SQL filter, never the last word.
     """
     if is_master(actor):
         return None
@@ -113,14 +117,49 @@ async def club_scope_paths(db: AsyncSession, actor: User) -> list[str] | None:
     return paths
 
 
-async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> bool:
-    paths = await club_scope_paths(db, actor)
-    if paths is None:
+async def _ancestor_path(db: AsyncSession, path: str, node_type: str) -> str | None:
+    stmt = select(Organization.path).where(
+        Organization.type == node_type, Organization.path.op("@>")(path)
+    )
+    return (await db.execute(stmt.limit(1))).scalar_one_or_none()
+
+
+async def org_in_decision_scope(
+    db: AsyncSession, actor: User, organization_id: uuid.UUID | None
+) -> bool:
+    """The ONE rule for "does `actor` decide about what hangs from this node?".
+
+    Club requests (`can_decide_club`), church letters and courses
+    (`org_in_review_scope`) all ask exactly this, so they all call this.
+
+    An administrator decides about their own subtree. A zone coordinator does
+    too — and, because E6 only now starts hanging clubs from
+    association -> zone -> church, also about what still hangs straight off
+    their association WITHOUT living inside a zone. That legacy arm is what
+    keeps existing clubs (and the letters of their instructors) working, and it
+    stops exactly where another zone begins: a coordinator never decides about
+    somebody else's zone.
+    """
+    if is_master(actor):
         return True
-    for scope_path in paths:
-        if await org_in_subtree(db, club.id, scope_path):
-            return True
-    return False
+    if organization_id is None or actor.role not in ADMIN_ROLES:
+        return False
+    own_path = await get_org_path(db, actor.organization_id)
+    if not own_path:
+        return False
+    if await org_in_subtree(db, organization_id, own_path):
+        return True
+    if actor.role != COORDINATOR_ZONE:
+        return False
+    association_path = await _ancestor_path(db, own_path, "association")
+    if not association_path or not await org_in_subtree(db, organization_id, association_path):
+        return False
+    target_path = await get_org_path(db, organization_id)
+    return bool(target_path) and await _ancestor_path(db, target_path, "zone") is None
+
+
+async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> bool:
+    return await org_in_decision_scope(db, actor, club.id)
 
 
 # ----------------------------------------------------------------------------
@@ -183,10 +222,84 @@ async def can_view_roster(db: AsyncSession, actor: User, club: Organization) -> 
     return actor.role in (INSTRUCTOR, COUNSELOR) and _attached_to(actor, club)
 
 
+# ----------------------------------------------------------------------------
+# The church letter of a club leader (E7): the ONE gate that says whether an
+# adult of a club may be trusted with minors.
+# ----------------------------------------------------------------------------
+DIRECTOR_GRACE_DAYS = 60
+
+
+def _today(today: date | None = None) -> date:
+    return today or datetime.now(timezone.utc).date()
+
+
+def is_verified_leader(user: User, today: date | None = None) -> bool:
+    """Pure: the child protection course AND a church letter still in force.
+
+    `users.leader_verified_until` is the copy the letter service writes when a
+    letter is authorized and erases when it is rejected, revoked, or when the
+    person changes club — the letter vouches for them before THAT church.
+    """
+    return bool(
+        user.child_protection_completed
+        and user.leader_verified_until is not None
+        and user.leader_verified_until >= _today(today)
+    )
+
+
+def director_in_grace(user: User, today: date | None = None) -> bool:
+    """Decision D4: the approval of the club — a human act of the association —
+    covers a director for 60 days, counted from the later of that approval and
+    the day enforcement was switched on. Without it no club could rule on a
+    minor until a zone coordinator existed and acted, and block A would be born
+    standing still."""
+    if user.role != CLUB_DIRECTOR or director_blocked(user):
+        return False
+    started = user.club_approval_at or user.created_at
+    if started is None:
+        return False
+    start = started.date() if isinstance(started, datetime) else started
+    enforced_from = settings.LEADER_VERIFICATION_ENFORCED_FROM
+    if enforced_from is not None and enforced_from > start:
+        start = enforced_from
+    return _today(today) <= start + timedelta(days=DIRECTOR_GRACE_DAYS)
+
+
+def may_handle_minors(user: User, today: date | None = None) -> bool:
+    """**The single gate** every other permission asks about minors.
+
+    With `LEADER_VERIFICATION_ENFORCED_FROM` unset it is always true, so the
+    code ships long before the rule bites and production does not change until
+    the owner turns it on. `is_verified_leader` on its own only decides the
+    «Instructor activo verificado» badge.
+    """
+    enforced_from = settings.LEADER_VERIFICATION_ENFORCED_FROM
+    if enforced_from is None or _today(today) < enforced_from:
+        return True
+    return is_master(user) or is_verified_leader(user, today) or director_in_grace(user, today)
+
+
+async def can_appoint_counselor(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """Put somebody in charge of a unit, or take the post away (E5).
+
+    Narrower than `can_manage_members` on purpose: the secretary creates and
+    edits units and moves members between them, but appointing the adult who
+    will be alone with a group of minors is the director's act (spec §5.7).
+    """
+    if not await can_manage_members(db, actor, club):
+        return False
+    return is_admin_role(actor) or actor.role == CLUB_DIRECTOR
+
+
 async def can_view_user(db: AsyncSession, actor: User, target: User) -> bool:
     if actor.id == target.id or is_master(actor):
         return True
     if director_blocked(actor):
+        return False
+    if actor.role in CLUB_REVIEW_ROLES and is_minor_user(target) and not may_handle_minors(actor):
+        # E7: a director out of grace or an instructor without a valid church
+        # letter reads nothing of a minor — not even the user record, which
+        # carries an e-mail and a birth date.
         return False
     if actor.role in MEMBER_VIEW_ROLES:
         return await org_in_user_scope(db, actor, target.organization_id)
@@ -243,8 +356,13 @@ async def _has_club_jurisdiction(
     (not the club stored on the enrollment: a member who moves takes their reviewers along)."""
     if not club_staff_in_good_standing(actor, roles):
         return False
-    club = await member_club(db, await db.get(User, enrollment.user_id))
-    return club is not None and club.id == actor.organization_id
+    member = await db.get(User, enrollment.user_id)
+    club = await member_club(db, member)
+    if club is None or club.id != actor.organization_id:
+        return False
+    # E7: staff without a church letter in force never rule on a MINOR. They
+    # keep every other power, including ruling on the enrollments of adults.
+    return member is None or not is_minor_user(member) or may_handle_minors(actor)
 
 
 async def can_review(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> bool:
@@ -314,16 +432,13 @@ LETTER_AUTHORIZED = "AUTHORIZED"
 async def org_in_review_scope(
     db: AsyncSession, actor: User, organization_id: uuid.UUID | None
 ) -> bool:
-    """Does `actor` review what hangs from `organization_id`? Same rule as `can_decide_club`
-    (a zone coordinator sits beside the clubs, so their scope is the whole association),
-    by organization id: church letters and courses are not clubs."""
-    paths = await club_scope_paths(db, actor)
-    if paths is None:
-        return True  # MASTER_GC
-    for scope_path in paths:
-        if await org_in_subtree(db, organization_id, scope_path):
-            return True
-    return False
+    """Does `actor` review what hangs from `organization_id`? Exactly the rule of
+    `can_decide_club`, by organization id: church letters and courses are not clubs.
+
+    Bloque B duplicated the body on purpose to avoid a merge conflict; E6 makes
+    the two share one implementation, as the spec asks.
+    """
+    return await org_in_decision_scope(db, actor, organization_id)
 
 
 async def instructor_is_verified(db: AsyncSession, user: User) -> bool:

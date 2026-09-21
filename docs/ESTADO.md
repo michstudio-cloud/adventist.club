@@ -122,7 +122,7 @@ evidencias privadas, dictamen del club, «listo para certificar» automático y 
 - [ ] Ver el portafolio y abrir evidencias sigue la jerarquía de `can_view_user`: un instructor del club aún sin verificar
       no dictamina, pero sí ve a los miembros de su club. Decidir en el bloque E si la lectura también exige verificación.
 
-## Bloque E — Membresía de club (22 sep) — E1–E4 en backend, sin desplegar
+## Bloque E — Membresía de club (22 sep) — E1–E9 en backend, sin desplegar
 
 Spec: `docs/superpowers/specs/2026-09-22-membresia-de-club-design.md` (ver «Desviaciones» al final).
 Pertenecer a un club deja de ser un campo suelto: `club_memberships` es el libro (quién entró, cómo, quién lo
@@ -148,10 +148,40 @@ solo servicio**, `app/services/memberships.py`. Ningún router toca esas dos col
 - **E4 — Solicitudes desde `/clubs` y traslados** (sin migración). Solicitar, aprobar, rechazar, «aprobar todas»
   y cerrar la puerta (`accepts_requests`). Un menor que solicita no es visible para el club hasta que su tutor
   autoriza.
+- **E5 — Unidades** (`008d_club_units.sql`). `club_units` es una tabla **ligera**, no un nodo del árbol: si el
+  miembro colgara de su unidad, `users.organization_id` dejaría de ser el club y se rompería `can_review` del
+  bloque A. Cupo **duro** (con `SELECT … FOR UPDATE`) y tramo de edad como **aviso** (`age_warning`), porque los
+  cumpleaños mueven a la gente de tramo a mitad de año. `GET/POST /clubs/{id}/units`, `PATCH`, `DELETE`
+  (archiva, nunca borra), `PUT …/units/{id}/counselor` (sólo dirección) y `PUT …/members/{id}/unit`. El
+  consejero ve en la nómina **sólo a los miembros de sus unidades**. Una invitación puede traer `unit_id`.
+- **E6 — Zona e iglesia** (`008e_club_placement.sql`, sólo índices). Decisión D3 del responsable: **las zonas
+  las administra la asociación**. El director declara su iglesia (`church_id | church_name`, exactamente uno) y
+  nunca la zona; la asociación acepta o corrige y **asigna la zona** al aprobar. Un club no pasa a `active` sin
+  iglesia y zona. Mover un nodo reescribe el `path` suyo y el de sus descendientes en una sentencia y **no
+  cambia ningún id**. Nuevos: `GET /org-nodes/unplaced-clubs`, `PUT …/clubs/{id}/placement-proposal`,
+  `POST …/clubs/{id}/place`, `POST …/churches/{id}/place`, `search?within=`. `can_decide_club` y
+  `org_in_review_scope` comparten ya una implementación.
+- **E7 — Carta de la iglesia para los cargos del club** (`008f_leader_verification.sql`). **Una sola tabla de
+  cartas en la plataforma**: se reutiliza `church_letters` del bloque B ampliando `role_requested`; no existe
+  `leader_verifications`. La migración añade **una columna**, `users.leader_verified_until`.
+  `rbac.may_handle_minors` es la única puerta y entra en `can_review`, `can_issue`, `can_view_portfolio`,
+  `can_view_user`, la nómina y el nombramiento de consejeros. Vigencia 12 meses (24 como tope), renovación
+  desde 60 días antes, gracia de 60 días para el director (D4).
+- **E8 — Secretaría de club** (sin migración). `CLUB_SECRETARY` pasa a ser invitable, siempre con enlace
+  **nominal y de un solo uso**. Gestiona nómina recortada, invitaciones y solicitudes de `STUDENT`, unidades y
+  datos de control; nunca dictamina, certifica, ve portafolios, cartas, `guardian_email` ni `GET /users`, y no
+  nombra consejeros.
+- **E9 — Correos de avance del portafolio** (`008g_notify_progress.sql`). Requisito **incompleto** con
+  observación, inscripción **lista** para certificar y **certificado emitido**; un `COMPLETE` suelto no envía
+  nada. Tope de uno por inscripción cada 12 h en `notification_log`; los tutores sólo reciben el de
+  certificado. Se apagan con `users.notify_progress` desde `PATCH /users/{yo}`.
 
-**Variable nueva en Render: `MASTER_MFA_ENFORCED`** (por defecto `false`). Con `false` no se exige nada y el
-comportamiento es el de hoy; con `true`, un `MASTER_GC` sin MFA sólo puede darse de alta (403 en el resto) y un
-token sin el *claim* recibe 401.
+**Variables nuevas en Render**
+
+| Variable | Por defecto | Qué hace |
+|---|---|---|
+| `MASTER_MFA_ENFORCED` | `false` | Con `false` no se exige nada. Con `true`, un `MASTER_GC` sin MFA sólo puede darse de alta (403 en el resto) y un token sin el *claim* recibe 401 |
+| `LEADER_VERIFICATION_ENFORCED_FROM` | *(sin valor)* | Fecha ISO desde la que se exige la carta de la iglesia (E7). **Sin valor, `may_handle_minors` es siempre cierto y producción se comporta como hoy.** Un valor ilegible se ignora: el interruptor nunca se enciende por accidente. Encenderlo sólo cuando cada asociación activa tenga al menos un validador; desde ese día corre también la gracia de 60 días del director |
 
 **Orden de despliegue** (cada incremento se despliega solo; migración en Neon **antes** del backend):
 
@@ -163,17 +193,29 @@ token sin el *claim* recibe 401.
    desde la nómina.
 3. `008c_club_invitations.sql` → backend.
 4. E4 no lleva migración.
+5. `008d_club_units.sql` → backend.
+6. **Antes** de `008e_club_placement.sql`, comprobar que no hay zonas ni iglesias duplicadas bajo un mismo padre
+   (la consulta está en la cabecera del archivo; hoy no hay zonas cargadas). Luego migración → backend → cargar
+   zonas e iglesias de NTAM (`python backend/migrations/import_zones_churches.py zonas.csv --association NTAM`,
+   simulacro por defecto) y **ubicar los clubes existentes** desde `GET /org-nodes/unplaced-clubs`. Los clubes
+   sin ubicar siguen funcionando igual mientras tanto.
+7. `008f_leader_verification.sql` → backend. Requiere `R2_PRIVATE_BUCKET_NAME` (el mismo bucket privado de A).
+   Fijar `LEADER_VERIFICATION_ENFORCED_FROM` **sólo** cuando haya al menos un validador por asociación activa.
+   Opcional después: Cron Job diario con `python backend/migrations/notify_expiring_letters.py --commit`
+   (aviso 30 días antes) y `purge_leader_letters.py --commit` (borra del bucket, nunca filas).
+8. E8 no lleva migración.
+9. `008g_notify_progress.sql` → backend. Tiene sentido con `007_portfolio.sql` ya aplicado.
 
 `007_portfolio.sql` (bloque A) aún no está en Neon: aplícalo antes o después, da igual. `on_club_changed`
 comprueba una vez si la tabla existe y no hace nada si falta, así que E2 puede desplegarse sin A.
 
 Nada es destructivo; cada paso se deshace desactivando código, no datos.
 
-- [ ] E5 (unidades), E6 (zona e iglesia), E7 (carta de la iglesia), E8 (Secretaría completa) y E9 (correos de
-      avance del portafolio) siguen pendientes. Las juntas que dejan E2–E4: `club_memberships.invitation_id`
-      ya tiene su FK y `unit_id` lo añade `008d`; `can_view_roster` ya admite al `COUNSELOR` (hoy no ve a
-      nadie porque no hay unidades); `may_handle_minors` es el único punto que falta dentro de `can_review`,
-      `can_issue` y `can_view_portfolio` para que E7 los cierre sobre menores.
+- [ ] Frontend de E5–E9 (spec §9): `/panel/club` con Unidades, `OrgPicker` de zona e iglesia, «Clubes por
+      ubicar», «Cartas por validar», tarjeta de verificación de liderazgo y la preferencia `notify_progress`.
+- [ ] Cambios de contrato que el frontend debe acompañar: `ClubSignup` exige iglesia (`church_id | church_name`;
+      `church` sigue aceptándose un ciclo), `POST /org-nodes/{id}/approve` admite cuerpo con la ubicación, y las
+      respuestas de clubes añaden `zone` y `church`.
 
 ## Pendiente — backend
 
