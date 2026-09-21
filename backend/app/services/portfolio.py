@@ -78,6 +78,9 @@ from app.schemas.portfolio import (
 )
 from app.security import CLUB_APPROVED, CLUB_DIRECTOR, utcnow
 from app.services import private_storage
+# Bloque F: the requirement adapter (§1.1) and everything a program adds on top of block A.
+# Neither module imports this one at import time, so there is no cycle.
+from app.services import curriculum, programs
 from app.services.audit import record_audit
 from app.services.certificates import (
     get_or_create_club,
@@ -96,6 +99,11 @@ PUBLISHED = "PUBLISHED"
 EVIDENCE_MAX_PER_REQUIREMENT = 6
 DEFAULT_CERTIFICATE_TEMPLATE = "especialidad-basica"
 ACTIVE_ENROLLMENT_CONSTRAINT = "honor_enrollments_user_honor_active_key"
+# Bloque F: the same rule for a program, on its own partial unique index.
+ACTIVE_ENROLLMENT_CONSTRAINTS = (
+    ACTIVE_ENROLLMENT_CONSTRAINT,
+    "honor_enrollments_user_program_active_key",
+)
 
 ENROLLMENT, PROGRESS, EVIDENCE, CERTIFICATE = "ENROLLMENT", "REQUIREMENT_PROGRESS", "EVIDENCE", "CERTIFICATE"
 
@@ -266,8 +274,12 @@ def _evidence_out(evidence: Evidence) -> EvidenceOut:
 async def _honor_refs(
     db: AsyncSession, enrollments: list[HonorEnrollment]
 ) -> dict[uuid.UUID, HonorRef]:
-    """Honor of each enrollment, named in the enrollment's language when a translation exists."""
-    honor_ids = {e.honor_id for e in enrollments}
+    """Honor of each enrollment, named in the enrollment's language when a translation exists.
+
+    Bloque F: enrollments in a PROGRAM have no honor and are simply absent from the result,
+    so every caller reads it with `.get()` and no program is ever named as an honor.
+    """
+    honor_ids = {e.honor_id for e in enrollments if e.honor_id is not None}
     if not honor_ids:
         return {}
     honors = {
@@ -279,6 +291,8 @@ async def _honor_refs(
         translations.setdefault(row.honor_id, {})[row.locale] = row.name
     refs = {}
     for enrollment in enrollments:
+        if enrollment.honor_id is None:
+            continue
         honor = honors[enrollment.honor_id]
         names = translations.get(honor.id, {})
         is_source = enrollment.locale.lower().split("-")[0] == SOURCE_LOCALE
@@ -359,6 +373,7 @@ async def _summaries(db: AsyncSession, enrollments: list[HonorEnrollment]) -> li
         certificates = {uuid.UUID(c.id): c for c in await _certificates_out(db, rows)}
 
     honors = await _honor_refs(db, enrollments)
+    programs_by_enrollment = await programs.program_refs(db, enrollments)  # Bloque F
     courses = await _course_refs(db, enrollments)
     summaries = []
     for e in enrollments:
@@ -374,7 +389,9 @@ async def _summaries(db: AsyncSession, enrollments: list[HonorEnrollment]) -> li
                 locale=e.locale,
                 user=PersonRef(id=str(e.user_id), name=users[e.user_id].name),
                 club=ClubRef(id=str(club.id), name=club.name) if club else None,
-                honor=honors[e.id],
+                honor=honors.get(e.id),
+                type="program" if e.program_id else "honor",       # Bloque F
+                program=programs_by_enrollment.get(e.id),
                 counters=Counters(
                     total=sum(by_status.values()),
                     complete=by_status.get(COMPLETE, 0),
@@ -450,9 +467,11 @@ async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) ->
         )
     ).scalars().all()
 
-    listed, _ = await _requirement_list(db, enrollment.honor_id, enrollment.locale)
-    text_by_id = {row.id: row for _, row in listed}
-    text_by_position = dict(listed)
+    # Bloque F: ONE adapter, two catalogues. For an honor this is exactly the list
+    # `_requirement_list` returned before; for a program, its sections and requirements.
+    specs = await curriculum.enrollment_specs(db, enrollment)
+    text_by_id = {spec.source_id: spec for spec in specs if spec.source_id is not None}
+    text_by_position = {spec.position: spec for spec in specs}
 
     evidences: dict[uuid.UUID, list[EvidenceOut]] = {}
     stmt = (
@@ -470,11 +489,17 @@ async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) ->
         reviewers = {user_id: PersonRef(id=str(user_id), name=name) for user_id, name in await db.execute(stmt)}
 
     plan = await course_plan(db, enrollment)
+    # Bloque F: label, kind, target, what satisfied it and the approved hours. Empty dict
+    # on an honor enrollment, so block A's payload is byte for byte the one it was.
+    extras = await programs.requirement_extras(db, enrollment, progress_rows, specs)
     requirements = []
     for p in progress_rows:
-        source = text_by_id.get(p.requirement_id) or text_by_position.get(p.requirement_position)
+        source = text_by_id.get(p.program_requirement_id or p.requirement_id) or text_by_position.get(
+            p.requirement_position
+        )
         requirements.append(
             RequirementOut(
+                **extras.get(p.id, {}),
                 assessment=plan.get(p.requirement_position),
                 position=p.requirement_position,
                 requirement_id=str(p.requirement_id) if p.requirement_id else None,
@@ -496,16 +521,28 @@ async def _detail(db: AsyncSession, actor: User, enrollment: HonorEnrollment) ->
         can_review=await can_review(db, actor, enrollment),
         can_issue=await can_issue(db, actor, enrollment),
     )
-    return EnrollmentDetail(**summary.model_dump(), requirements=requirements, permissions=permissions)
+    return EnrollmentDetail(
+        **summary.model_dump(),
+        requirements=requirements,
+        permissions=permissions,
+        sections=programs.sections_of(specs, progress_rows),  # Bloque F: the card
+    )
 
 
 # ----------------------------------------------------------------------------
 # Enrollment
 # ----------------------------------------------------------------------------
-async def _live_enrollment(db: AsyncSession, user_id: uuid.UUID, honor_id: uuid.UUID) -> HonorEnrollment | None:
+async def _live_enrollment(
+    db: AsyncSession,
+    user_id: uuid.UUID,
+    honor_id: uuid.UUID | None = None,
+    program_id: uuid.UUID | None = None,   # Bloque F
+) -> HonorEnrollment | None:
     stmt = select(HonorEnrollment).where(
         HonorEnrollment.user_id == user_id,
-        HonorEnrollment.honor_id == honor_id,
+        HonorEnrollment.honor_id == honor_id
+        if program_id is None
+        else HonorEnrollment.program_id == program_id,
         HonorEnrollment.status != WITHDRAWN,
     )
     return (await db.execute(stmt)).scalar_one_or_none()
@@ -514,26 +551,26 @@ async def _live_enrollment(db: AsyncSession, user_id: uuid.UUID, honor_id: uuid.
 async def enroll(
     db: AsyncSession, actor: User, payload: EnrollmentCreate, request: Request | None
 ) -> tuple[EnrollmentDetail, bool]:
-    """Idempotent: a live enrollment in the same honor is returned as it is. -> (detail, created)"""
-    existing = await _live_enrollment(db, actor.id, payload.honor_id)
+    """Idempotent: a live enrollment in the same honor (or program) is returned as it is.
+
+    Bloque F: `curriculum.resolve` turns either catalogue into the same requirement list,
+    and from the `now = utcnow()` below everything is block A's code with no branch.
+    -> (detail, created)
+    """
+    existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
     if existing is not None:
         return await _detail(db, actor, existing), False
 
-    honor = await db.get(Honor, payload.honor_id)
-    if honor is None or honor.status != PUBLISHED:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Especialidad no encontrada")
-    requirements, locale = await _requirement_list(db, honor.id, payload.locale)
-    if not requirements:
-        raise HTTPException(
-            status.HTTP_409_CONFLICT, "La especialidad todavía no tiene requisitos cargados"
-        )
+    source = await curriculum.resolve(db, payload.honor_id, payload.program_id, payload.locale)
+    requirements, locale = source.specs, source.locale
 
     now = utcnow()
     club = await member_club(db, actor)
     enrollment = HonorEnrollment(
         id=uuid.uuid4(),
         user_id=actor.id,
-        honor_id=honor.id,
+        honor_id=source.honor_id,
+        program_id=source.program_id,
         mode="CLUB",
         club_id=club.id if club else None,
         locale=locale,
@@ -548,7 +585,9 @@ async def enroll(
         entity_type=ENROLLMENT,
         entity_id=enrollment.id,
         actor=actor,
-        metadata={"honor_id": str(honor.id), "locale": locale, "requirements": len(requirements)},
+        metadata={"honor_id": str(source.honor_id) if source.honor_id else None,
+                  "program_id": str(source.program_id) if source.program_id else None,
+                  "locale": locale, "requirements": len(requirements)},
         request=request,
     )
     try:
@@ -558,21 +597,30 @@ async def enroll(
             RequirementProgress(
                 id=uuid.uuid4(),
                 enrollment_id=enrollment.id,
-                requirement_position=position,
-                requirement_id=requirement.id,
-                is_practical=not requirement.is_theoretical,
+                requirement_position=spec.position,
+                requirement_id=spec.source_id if source.honor_id else None,
+                program_requirement_id=spec.source_id if source.program_id else None,
+                kind=spec.kind,
+                is_practical=spec.evidence_required,
                 status=PENDING,
             )
-            for position, requirement in requirements
+            for spec in requirements
         )
         await db.commit()
     except IntegrityError as exc:
         await db.rollback()
-        if violated_constraint(exc) != ACTIVE_ENROLLMENT_CONSTRAINT:
+        if violated_constraint(exc) not in ACTIVE_ENROLLMENT_CONSTRAINTS:
             raise
         # Two requests at once (a double click): the other one won, answer with its row.
-        existing = await _live_enrollment(db, actor.id, payload.honor_id)
+        existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
         return await _detail(db, actor, existing), False
+    if source.program_id is not None:
+        # Bloque F · F2: what the member already holds (an honor, a program, approved hours)
+        # completes its requirement now, inside this same request.
+        from app.services import portfolio_links
+
+        if await portfolio_links.sync(db, actor, user_id=actor.id, request=request):
+            await db.commit()
     return await _detail(db, actor, enrollment), True
 
 
@@ -623,8 +671,16 @@ async def update_requirement(
     enrollment = await _get_enrollment(db, enrollment_id, lock=True)
     _require_owner(actor, enrollment)
     _require_open(enrollment)
+    if payload.honor_enrollment_id is not None:
+        # Bloque F · F2: an OPEN `HONOR` slot — which of my certified honors fills it.
+        from app.services import portfolio_links
+
+        return await portfolio_links.link_open_honor(
+            db, actor, enrollment, position, payload.honor_enrollment_id, request
+        )
     progress = await _get_progress(db, enrollment, position)
     _require_open_requirement(progress)
+    programs.require_manual_route(progress)   # Bloque F · F2: hours are never sent by hand
     if payload.status == PENDING and progress.status == INCOMPLETE:
         # Already reviewed: the only way forward is to fix it and send it again.
         raise HTTPException(
@@ -879,12 +935,16 @@ async def review_queue(
             .order_by(HonorEnrollment.ready_at, HonorEnrollment.id)
         )
         rows = (await db.execute(stmt.limit(limit).offset(offset))).all()
-        honors = await _honor_refs(db, [enrollment for enrollment, _ in rows])
+        queued = [enrollment for enrollment, _ in rows]
+        honors = await _honor_refs(db, queued)
+        program_refs = await programs.program_refs(db, queued)   # Bloque F
         return [
             QueueReady(
                 enrollment_id=str(enrollment.id),
                 member=PersonRef(id=str(member.id), name=member.name),
-                honor=honors[enrollment.id],
+                honor=honors.get(enrollment.id),
+                type="program" if enrollment.program_id else "honor",
+                program=program_refs.get(enrollment.id),
                 ready_at=enrollment.ready_at,
                 can_issue=await can_issue(db, actor, enrollment),
             )
@@ -899,7 +959,9 @@ async def review_queue(
         .order_by(RequirementProgress.submitted_at, RequirementProgress.id)
     )
     rows = (await db.execute(stmt.limit(limit).offset(offset))).all()
-    honors = await _honor_refs(db, [enrollment for _, enrollment, _ in rows])
+    queued = [enrollment for _, enrollment, _ in rows]
+    honors = await _honor_refs(db, queued)
+    program_refs = await programs.program_refs(db, queued)   # Bloque F
     evidence_counts = {}
     if rows:
         counts = (
@@ -914,7 +976,9 @@ async def review_queue(
             position=progress.requirement_position,
             is_practical=progress.is_practical,
             member=PersonRef(id=str(member.id), name=member.name),
-            honor=honors[enrollment.id],
+            honor=honors.get(enrollment.id),
+            type="program" if enrollment.program_id else "honor",
+            program=program_refs.get(enrollment.id),
             member_note=progress.member_note,
             submitted_at=progress.submitted_at,
             evidence_count=evidence_counts.get(progress.id, 0),
@@ -941,6 +1005,8 @@ async def review_requirement(
         )
     _require_open(enrollment)
     progress = await _get_progress(db, enrollment, position)
+    if payload.verdict == COMPLETE:
+        programs.require_manual_route(progress)   # Bloque F · F2: hours are never signed
     # A verdict answers a submission. The one exception is rule 4: reopening a COMPLETE one.
     reopening = progress.status == COMPLETE and payload.verdict == INCOMPLETE
     if progress.status != SUBMITTED and not reopening:
@@ -973,6 +1039,10 @@ async def review_requirement(
     previous = progress.status
     progress.status = payload.verdict
     progress.completed_via = "REVIEW" if payload.verdict == COMPLETE else None
+    if payload.verdict != COMPLETE:
+        # Bloque F · F2, rule 8: reopening one that completed itself breaks the link, so the
+        # automation does not put it back the moment the page is read again.
+        progress.satisfied_by_enrollment_id = None
     progress.reviewed_by_id = actor.id
     progress.reviewed_at = now
     progress.review_note = payload.note
@@ -1067,34 +1137,40 @@ async def issue(
     if enrollment.status != READY:
         raise HTTPException(status.HTTP_409_CONFLICT, "La inscripción no está lista para certificar")
 
-    slug = payload.template or DEFAULT_CERTIFICATE_TEMPLATE
-    try:
-        svg_template = load_template(slug)
-    except TemplateError as exc:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, str(exc))
+    # Bloque F: what is being awarded — an honor (block A) or a program (an investiture).
+    # For an honor `award` carries exactly what `honors` carried before.
+    award = await curriculum.award_for(db, enrollment)
+    if award.ministry_id is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "La especialidad no pertenece a ningún ministerio")
+    if award.kind == "program":
+        svg_template = await programs.program_template(db, payload.template, award)
+        slug = svg_template.slug
+    else:
+        slug = payload.template or DEFAULT_CERTIFICATE_TEMPLATE
+        try:
+            svg_template = load_template(slug)
+        except TemplateError as exc:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, str(exc))
 
     member = await db.get(User, enrollment.user_id)
-    honor = await db.get(Honor, enrollment.honor_id)
-    if honor.ministry_id is None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "La especialidad no pertenece a ningún ministerio")
     organization = await resolve_issuer_organization(db)
     application = (
         await db.execute(
             select(Application)
-            .where(Application.ministry_id == honor.ministry_id, Application.status == "active")
+            .where(Application.ministry_id == award.ministry_id, Application.status == "active")
             .order_by(Application.created_at)
             .limit(1)
         )
     ).scalars().first()
     member_org = await member_club(db, member)
     club = (
-        await get_or_create_club(db, organization.id, honor.ministry_id, member_org.name)
+        await get_or_create_club(db, organization.id, award.ministry_id, member_org.name)
         if member_org
         else None
     )
     width_in, height_in = round(svg_template.width_pt / 72, 4), round(svg_template.height_pt / 72, 4)
     template = await get_or_create_template(
-        db, honor.ministry_id, slug, width_in, height_in,
+        db, award.ministry_id, slug, width_in, height_in,
         orientation="landscape" if width_in >= height_in else "portrait", supports_svg=True,
     )
 
@@ -1105,12 +1181,13 @@ async def issue(
         director_name = await _director_name(db, actor, member_org)
     certificate = await issue_certificate(
         db,
-        ministry_id=honor.ministry_id,
+        ministry_id=award.ministry_id,
         application_id=application.id if application else None,
         organization=organization,
         club=club,
-        honor_id=honor.id,
-        honor_name=(await _honor_refs(db, [enrollment]))[enrollment.id].name,
+        honor_id=award.honor_id,
+        program_id=award.program_id,   # Bloque F: NULL on an honor, and vice versa
+        honor_name=award.name,
         template=template,
         recipient_name=member.name,
         issued_date=payload.issued_date,
@@ -1134,9 +1211,15 @@ async def issue(
         metadata={"enrollment_id": str(enrollment.id), "user_id": str(member.id),
                   "certificate_no": certificate.certificate_no, "template": slug,
                   "mode": enrollment.mode,
+                  "program_id": str(award.program_id) if award.program_id else None,
                   "course_id": str(enrollment.course_id) if enrollment.course_id else None},
         request=request,
     )
+    # Bloque F · F2: this achievement may be the one another card was waiting for. Same
+    # transaction as the certificate, and idempotent.
+    from app.services import portfolio_links
+
+    await portfolio_links.sync(db, actor, user_id=member.id, request=request)
     await db.commit()
     return (await _certificates_out(db, [certificate]))[0]
 
@@ -1176,3 +1259,70 @@ async def portfolio_of(db: AsyncSession, actor: User, user_id: uuid.UUID) -> Por
         enrollments=await _summaries(db, enrollments),
         certificates=await _certificates_out(db, certificates),
     )
+
+
+# ----------------------------------------------------------------------------
+# Bloque F · F2: the ONE door through which a requirement completes itself.
+#
+# `app/services/portfolio_links.py` (HONOR, PROGRAM, HOURS) uses it today and blocks B–D
+# will use it for `COURSE` in F9. It stages the change on the caller's session — the caller
+# commits — and it never overrides a verdict: a row that is already COMPLETE is not touched.
+# ----------------------------------------------------------------------------
+async def auto_complete(
+    db: AsyncSession,
+    actor: User | None,
+    enrollment: HonorEnrollment,
+    progress: RequirementProgress,
+    *,
+    via: str,
+    source: HonorEnrollment | None = None,
+    request: Request | None = None,
+    action: str = "REQUIREMENT_AUTOCOMPLETE",
+    after_verdict: bool = False,
+) -> bool:
+    """-> True when it completed the requirement, False when it deliberately did nothing."""
+    if enrollment.status in FROZEN or progress.status == COMPLETE:
+        return False
+    if progress.status == INCOMPLETE and progress.reviewed_by_id is not None and not after_verdict:
+        # A reviewer looked at this one and said no. The automation does not argue with a
+        # person: the member fixes it and sends it again. `after_verdict` is the member's
+        # own explicit act (choosing an honor for an open slot), which is not the automation.
+        return False
+    previous = progress.status
+    progress.status = COMPLETE
+    progress.completed_via = via
+    # Nobody judged this: `reviewed_by_id` stays empty on purpose, so the card can say
+    # «se completó solo» and a reviewer's signature is never invented.
+    progress.reviewed_by_id = None
+    progress.reviewed_at = None
+    progress.submitted_at = None
+    progress.satisfied_by_enrollment_id = source.id if source else None
+    record_audit(
+        db,
+        action=action,
+        entity_type=PROGRESS,
+        entity_id=progress.id,
+        actor=actor,
+        metadata={"enrollment_id": str(enrollment.id), "position": progress.requirement_position,
+                  "from": previous, "via": via,
+                  "source_enrollment_id": str(source.id) if source else None},
+        request=request,
+    )
+    await db.flush()
+    return True
+
+
+async def recompute_ready(db: AsyncSession, enrollment: HonorEnrollment) -> None:
+    """Rule 2 of block A, applied after an automatic change: READY is never set by hand."""
+    if enrollment.status in FROZEN:
+        return
+    open_rows = select(func.count()).where(
+        RequirementProgress.enrollment_id == enrollment.id, RequirementProgress.status != COMPLETE
+    )
+    all_complete = (await db.execute(open_rows)).scalar_one() == 0
+    now = utcnow()
+    if all_complete and enrollment.status != READY:
+        enrollment.status, enrollment.ready_at = READY, now
+    elif not all_complete and enrollment.status == READY:
+        enrollment.status, enrollment.ready_at = IN_PROGRESS, None
+    enrollment.updated_at = now

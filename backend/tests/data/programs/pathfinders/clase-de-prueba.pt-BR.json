@@ -1,0 +1,4 @@
+{
+  "name": "Classe de teste",
+  "requirements": {"1": {"description": "Só o primeiro requisito: este idioma se omite."}}
+}

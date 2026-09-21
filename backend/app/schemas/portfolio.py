@@ -5,6 +5,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from app.schemas.program import (
+    EnrollmentSection,
+    ProgramRef,
+    QuantityOut,
+    RequirementTarget,
+    SatisfiedBy,
+)
 from app.services.locales import LOCALE_PATTERN
 
 EnrollmentStatus = Literal["IN_PROGRESS", "READY", "CERTIFIED", "WITHDRAWN"]
@@ -23,8 +30,17 @@ def _blank_to_none(value):
 # Requests
 # ----------------------------------------------------------------------------
 class EnrollmentCreate(BaseModel):
-    honor_id: uuid.UUID
+    # Bloque F, rule 6: an honor OR a program, never both and never neither. `honor_id`
+    # alone is still exactly the request block A accepts.
+    honor_id: uuid.UUID | None = None
+    program_id: uuid.UUID | None = None
     locale: str | None = Field(default=None, pattern=LOCALE_PATTERN, max_length=35)
+
+    @model_validator(mode="after")
+    def _exactly_one_curriculum(self):
+        if (self.honor_id is None) == (self.program_id is None):
+            raise ValueError("Envía honor_id o program_id, exactamente uno de los dos.")
+        return self
 
 
 class RequirementUpdate(BaseModel):
@@ -32,6 +48,9 @@ class RequirementUpdate(BaseModel):
     # Without `status` it is a draft: the answer typed in the card saves itself, nothing is sent.
     status: Literal["SUBMITTED", "PENDING"] | None = None
     member_note: str | None = Field(default=None, max_length=NOTE_MAX_LENGTH)
+    # Bloque F · F2: the member's choice for an OPEN `HONOR` requirement ("an honor of
+    # Nature"): which of their certified honors fills the slot.
+    honor_enrollment_id: uuid.UUID | None = None
 
 
 class EvidenceCreate(BaseModel):
@@ -161,6 +180,12 @@ class CertificateOut(BaseModel):
 
 class RequirementOut(BaseModel):
     position: int
+    # Bloque F: set only on a program enrollment; None for every honor (block A unchanged).
+    label: str | None = None
+    kind: str = "FREE"
+    target: RequirementTarget | None = None
+    satisfied_by: SatisfiedBy | None = None
+    quantity: QuantityOut | None = None
     requirement_id: str | None
     description: str | None
     instructions: str | None
@@ -191,7 +216,11 @@ class EnrollmentSummary(BaseModel):
     user: PersonRef
     # None = no approved club: nobody can review this enrollment yet.
     club: ClubRef | None
-    honor: HonorRef
+    # Bloque F: `honor` on an honor enrollment, `program` on a program one — never both.
+    # A program is NOT served as an honor anywhere, at any depth of any payload.
+    honor: HonorRef | None
+    type: Literal["honor", "program"] = "honor"
+    program: ProgramRef | None = None
     counters: Counters
     certificate: CertificateOut | None
     started_at: datetime
@@ -208,6 +237,8 @@ class EnrollmentSummary(BaseModel):
 class EnrollmentDetail(EnrollmentSummary):
     requirements: list[RequirementOut]
     permissions: Permissions
+    # Bloque F: the digital card groups the requirements above by section. None on an honor.
+    sections: list[EnrollmentSection] | None = None
 
 
 class QueueRequirement(BaseModel):
@@ -216,7 +247,9 @@ class QueueRequirement(BaseModel):
     position: int
     is_practical: bool
     member: PersonRef
-    honor: HonorRef
+    honor: HonorRef | None
+    type: Literal["honor", "program"] = "honor"
+    program: ProgramRef | None = None
     member_note: str | None
     submitted_at: datetime | None
     evidence_count: int
@@ -226,7 +259,9 @@ class QueueReady(BaseModel):
     """status=READY: an enrollment waiting for its certificate."""
     enrollment_id: str
     member: PersonRef
-    honor: HonorRef
+    honor: HonorRef | None
+    type: Literal["honor", "program"] = "honor"
+    program: ProgramRef | None = None
     ready_at: datetime | None
     can_issue: bool
 

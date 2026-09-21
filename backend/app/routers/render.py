@@ -8,7 +8,7 @@ import urllib.request
 from typing import Literal
 from urllib.parse import urlsplit
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import BaseModel, Field
 
 from app.certificates.render import TemplateError, fonts_installed, list_templates, qr_data_url, render_certificate
@@ -55,9 +55,15 @@ class RenderRequest(BaseModel):
 
 
 @router.get("/templates")
-async def templates():
+async def templates(
+    ministry: str | None = Query(None, pattern=r"^[a-z0-9-]{2,40}$"),
+    kind: Literal["honor", "program"] | None = None,
+):
+    """Bloque F §1.7: `ministry` and `kind` filter by the template's optional meta.json.
+    Without filters the answer is exactly what it was before F (every template)."""
     return [{"slug": t.slug, "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
-             "locales": t.locales, "fields": t.fields} for t in list_templates()]
+             "locales": t.locales, "fields": t.fields, "kinds": t.kinds, "ministries": t.ministries}
+            for t in list_templates() if t.serves(ministry, kind)]
 
 
 @router.post("/render")

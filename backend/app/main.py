@@ -18,6 +18,9 @@ from app.routers import auth as auth_router, clubs as clubs_router, honors as ho
 from app.routers import church_letters as church_letters_router, courses as courses_router
 # Bloque C: los intentos de examen del curso.
 from app.routers import exams as exams_router
+# Bloque F: el catálogo de programas (clases de club, Guía Mayor, EMC, CMJA) y el registro
+# de actividades (horas de servicio y asistencia).
+from app.routers import activity as activity_router, programs as programs_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
@@ -27,7 +30,7 @@ app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credent
 app.state.limiter=limiter
 app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 # GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
-for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router):app.include_router(_router.router)
+for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router,programs_router,activity_router):app.include_router(_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
@@ -129,12 +132,13 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     # fact certified, and `canonical()` must never change (hallazgo 7). Revocation adds a
     # status and a date and NOTHING else about the person (§5.5): not the reason, which is
     # for the holder and the audit trail, and no identifier.
+    # Bloque F §1.7: `kind` tells each frontend whether to write «especialidad» or «investidura».
     mode,course_title=await course_context(db,c)
     if c.certificate_hash!=current:state="modificado"
     elif c.status==REVOKED_STATUS:state="revocado"
     elif valid:state="válido"
     else:state=c.status
-    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None}
+    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):

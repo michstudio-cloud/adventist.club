@@ -616,3 +616,99 @@ del CORE; F sólo deja escrito el contrato de la regla 11); estadísticas por As
 - El bloque E puede definir su propia forma de alta de menores sin correo: `018` debe reconciliarse con `008` antes de escribirse.
 - La clave de cifrado de la bitácora es un secreto operativo nuevo con pérdida irreversible: custodia y respaldo son
   responsabilidad del responsable y se documentan en `ESTADO.md` al desplegar F6.
+
+## 12. Desviaciones al implementar F1 y F2
+
+Escrito al implementar (rama `block-f-programs`). El bloque A creció desde que se escribió
+este documento; **donde la spec y el código de hoy no coincidían, manda el código**. Cada
+punto dice qué se hizo y por qué.
+
+### F1
+
+1. **`programs.issuer_level` entra en `012`, no en `014`.** §9 pedía no adelantar columnas de
+   gobierno y §2.3 la ponía en F4, pero la decisión **D3** es de F1 («las clases de club las
+   emite el director; GM / EMC / CMJA, la Asociación») y una investidura de Guía Mayor firmada
+   por un director es justo lo que hay que impedir desde el primer día. La columna nace **con
+   comportamiento**: `can_issue` deniega a todo el mundo salvo `MASTER_GC` cuando
+   `issuer_level = 'ASSOCIATION'`. La rama que *concede* el permiso a `ADMIN_ASSOCIATION` con
+   jurisdicción sigue siendo F4. No se adelantan `requires_verified`,
+   `requires_child_protection`, `min_age` ni `mentoring`.
+2. **`kind = 'COURSE'` no se declara** en el CHECK de `program_requirements` (§9). Llega en F9
+   con su migración.
+3. **El adaptador no reimplementa la lista del bloque A.** `curriculum.load_honor_specs`
+   envuelve `portfolio._requirement_list` (importación local, para no crear un ciclo), de modo
+   que las especialidades siguen resolviendo idioma y posiciones exactamente con el mismo
+   código de antes. `portfolio.enroll` llama a `curriculum.resolve(...)` **después** de buscar
+   una inscripción viva, para no cambiar un comportamiento de producción: hoy, si alguien
+   reintenta inscribirse en una especialidad que ya no está `PUBLISHED`, recibe su inscripción
+   existente y no un 404.
+4. **La tarjeta se sirve con `sections[]` + la lista plana `requirements[]`**, en vez de
+   anidar los requisitos dentro de las secciones como sugería §1.6. Cada sección lleva
+   `positions`, `complete` y `total`. Así el contrato de `requirements[]` del bloque A no
+   cambia **en absoluto** y la tarjeta agrupa por posición.
+5. **`EnrollmentSummary.honor` pasa a ser opcional** y aparecen `type: "honor" | "program"` y
+   `program`. Lo mismo en las dos colas de revisión. Se descartó reutilizar `HonorRef` para los
+   programas: un programa que viaja donde el frontend espera una especialidad es exactamente la
+   confusión que §1.1 quiere evitar. En una inscripción de especialidad `honor` sigue viniendo
+   siempre.
+6. **`RequirementOut` gana `label`, `kind`, `target`, `satisfied_by` y `quantity`**, todos
+   `None`/`FREE` en especialidades. El id del requisito de programa **no** se expone: el
+   contrato sigue teniendo un solo `requirement_id`, el de `honor_requirements`.
+7. **`evidence_required` de un requisito `HONOR`/`PROGRAM` se fuerza a `true` y el de `HOURS`
+   a `false`** al cargar el spec (§1.3), pase lo que pase en el JSON: la vía manual («lo gané
+   en papel») exige evidencia y las horas no se dictaminan nunca a mano.
+8. **Plantillas**: `meta.json` es opcional y su ausencia significa «todos los ministerios, tipo
+   `honor`», como pedía §1.7. `GET /certificates/templates` acepta `?ministry=&kind=` y sin
+   filtros responde exactamente lo de antes. Se añade `templates/certificates/investidura-clase/`
+   con un diseño **provisional** (marcado como tal en su README) para que el flujo funcione de
+   punta a punta; el responsable lo sustituye antes de publicar «Amigo». Sin plantilla de tipo
+   `program` para el ministerio, la emisión responde 409, nunca cae en una plantilla de
+   especialidad.
+9. **`certificates.canonical()` NO cambia**: `program_id` queda fuera del hash, así que los
+   certificados ya emitidos verifican igual. La verificación pública gana `kind`.
+10. **El correo de avance del bloque E** (`notifications._enrollment_context`) nombraba la
+    especialidad con `honors.name`; ahora, cuando la inscripción es de programa, usa el nombre
+    del programa en el idioma de la inscripción. Sin este cambio el correo decía «tu
+    especialidad» y SQLAlchemy avisaba de un `db.get(Honor, None)`.
+11. **El importador** (`migrations/import_programs.py`) lee JSON ya escrito en disco, no rastrea
+    nada, es simulacro por defecto y falla en voz alta si un `target_*_slug` no existe. El
+    `code` de una versión nueva lleva el mismo sufijo que el slug (`TEST-v2`) porque es único
+    por ministerio. La fixture de `backend/tests/data/` es **dato de prueba** y así está
+    marcada; el contenido oficial no vive en el repositorio.
+
+### F2
+
+12. **El hueco abierto (`HONOR` por categoría o libre) NO se completa solo**, ni siquiera
+    cuando el miembro tiene una sola especialidad que encaja. Lo elige él
+    (`PUT …/requirements/{position}` con `{honor_enrollment_id}`). Con eso, la regla 9
+    («los de destino concreto se resuelven antes que los abiertos») se cumple sola: la
+    automatización nunca gasta en un hueco libre la especialidad que otro requisito
+    necesitaba. El índice único parcial sigue siendo la última palabra (409).
+13. **La automatización no discute con una persona.** `auto_complete` no toca una fila que un
+    revisor dejó `INCOMPLETE` (`reviewed_by_id` no nulo); si lo hiciera, reabrir un requisito
+    sería inútil porque la siguiente lectura lo volvería a cerrar. El miembro lo corrige y lo
+    envía de nuevo. La elección del hueco abierto sí puede (es un acto explícito del miembro,
+    no la automatización): pasa `after_verdict=True`.
+14. **`sync` se ejecuta en tres escrituras, no «al leer»**: al inscribirse en un programa, al
+    emitir CUALQUIER certificado del miembro y al decidir una actividad. `GET` no escribe
+    nunca. La spec decía «se evalúa al leer y en las escrituras»; evaluar al leer convertiría
+    un `GET` en una escritura y habría que serializarlo contra el dictamen. Lo que el miembro
+    ve siempre está al día porque las tres escrituras son justo los momentos en que algo puede
+    cambiar.
+15. **`HOURS` no se envía a revisión** (además de no dictaminarse), con el mismo 409: si el
+    miembro pudiera enviarlo, el requisito quedaría esperando un dictamen que nadie puede dar.
+16. **Bajar las horas devuelve el requisito a `PENDING`**, sólo si lo había completado esta
+    misma mecánica (`completed_via = 'HOURS'`) y la inscripción no está congelada. Un
+    `COMPLETE` de un revisor jamás se toca.
+17. **Las horas cuentan desde `started_at` de la inscripción**, con granularidad de día
+    (`performed_on >= started_at::date`). Lo aprobado antes de empezar la clase no cuenta.
+18. **`portfolio_links.unlink`** existe ya (regla 11), aunque nadie la llame todavía: la
+    anulación de certificados por fraude es del CORE. Devuelve a `PENDING` lo que el logro
+    anulado había completado y, si la inscripción ya está certificada, **no la reabre**: deja
+    `needs_audit: true` en la auditoría, porque retirar una investidura es una decisión humana.
+19. **`can_approve_activity`** vive en `app/rbac.py` junto al resto: director del club actual
+    del miembro (aprobado, no bloqueado), administrador con jurisdicción, o `MASTER_GC`; nunca
+    uno mismo; nunca el instructor; y, con E7 activo, nunca sobre un menor sin carta vigente.
+20. **El director registra horas ya aprobadas** para varios miembros con una fila de auditoría
+    **por miembro** (`ACTIVITY_LOG_CREATE`, `on_behalf: true`), para que el rastro de cada
+    menor esté completo por sí solo.

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 396 306" width="5.5in" height="4.25in" data-template="investidura-clase" data-version="1">
+  <!-- INVESTIDURA DE CLASE (Conquistadores / Aventureros). ¼ carta horizontal (5.5 × 4.25 in).
+       DISEÑO PROVISIONAL: mismo armazón que `especialidad-basica` con los textos de investidura,
+       para que el flujo funcione de punta a punta. El responsable lo sustituye por el diseño
+       definitivo antes de publicar la primera clase (tools/design_to_template.py), manteniendo
+       los `id`. Los campos dinámicos son los mismos de todo certificado: el nombre de la clase
+       viaja en `honor_name`, que es lo que el contrato de ids llama «lo que se obtuvo». -->
+  <rect width="396" height="306" fill="#ffffff"/>
+  <rect x="8.6" y="8.6" width="378.8" height="288.8" fill="none" stroke="#1d4e89" stroke-width="2.5"/>
+
+  <image id="emblem" x="178" y="16.8" width="40" height="39.8" xlink:href="" />
+
+  <text id="t_club_line" x="198" y="65.8" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="8" fill="#1d4e89">CLUB DE CONQUISTADORES</text>
+  <text id="t_title" x="198" y="84.2" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="16.5" fill="#111827">CERTIFICADO DE INVESTIDURA</text>
+  <text id="t_awarded_to" x="198" y="111.7" text-anchor="middle" font-family="Noto Sans" font-size="8" fill="#6b7280">Se otorga el presente certificado a:</text>
+
+  <text id="recipient_name" x="198" y="137.7" text-anchor="middle" font-family="Noto Serif" font-weight="700" font-size="27.5"
+        fill="#1d4e89" data-fit="shrink" data-min-size="14" data-max-width="300">Nombre del conquistador</text>
+  <line x1="71.3" y1="153" x2="324.7" y2="153" stroke="#d1d5db" stroke-width="0.6"/>
+
+  <text id="t_for_completing" x="198" y="177.5" text-anchor="middle" font-family="Noto Sans" font-size="7.3" fill="#6b7280">Por haber completado satisfactoriamente los requisitos de la clase:</text>
+  <text id="honor_name" x="198" y="202" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="21.4"
+        fill="#111827" data-fit="shrink" data-min-size="11.6" data-max-width="285">Clase</text>
+  <text id="issue_line" x="198" y="232.5" text-anchor="middle" font-family="Noto Sans" font-weight="500" font-size="7.3" fill="#4b5563"
+        data-template-text="{club_name}  ·  {place}  ·  {issued_date}">Club  ·  Lugar  ·  Fecha</text>
+
+  <line x1="75.2" y1="269.3" x2="162.4" y2="269.3" stroke="#9ca3af" stroke-width="0.45"/>
+  <line x1="233.6" y1="269.3" x2="320.8" y2="269.3" stroke="#9ca3af" stroke-width="0.45"/>
+  <text id="director_name" x="118.8" y="281.5" text-anchor="middle" font-family="Noto Sans" font-size="5.5" fill="#6b7280">Director(a) del club</text>
+  <text id="instructor_name" x="277.2" y="281.5" text-anchor="middle" font-family="Noto Sans" font-size="5.5" fill="#6b7280">Consejero(a)</text>
+
+  <image id="qr" x="316.3" y="217.3" width="42.8" height="42.8" xlink:href=""/>
+  <text id="certificate_no" x="17.2" y="287.7" font-family="Noto Sans Mono" font-size="4.3" fill="#6b7280">CC-XXXXXXXXXX</text>
+  <text id="issuer_name" x="17.2" y="293.5" font-family="Noto Sans" font-size="4.3" fill="#6b7280">Organización emisora</text>
+</svg>

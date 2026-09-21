@@ -159,6 +159,9 @@ async def issue_certificate(
     # Bloque D · I7: extra keys for the `issued` event, e.g. `{auto, attempt_id}` when an
     # exam issued the certificate on its own (spec §5.3). Never part of the hash.
     event_metadata: dict | None = None,
+    # Bloque F: an investiture of a program. Exactly one of honor_id / program_id is set on
+    # a portfolio certificate, and only `honor_id` enables buying the patch.
+    program_id: uuid.UUID | None = None,
 ) -> Certificate:
     """Stage one issued certificate with its hash and `issued` event (flushed, not committed)."""
     certificate = Certificate(
@@ -182,6 +185,7 @@ async def issue_certificate(
         enrollment_id=enrollment_id,
         issued_by_id=issued_by.id if issued_by else None,
         issued_role=issued_by.role if issued_by else None,
+        program_id=program_id,
     )
     certificate.certificate_hash = hash_cert(certificate)
     db.add(certificate)

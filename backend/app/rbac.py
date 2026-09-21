@@ -13,7 +13,15 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.models import ChurchLetter, Course, Guardianship, HonorEnrollment, Organization, User
+from app.models import (
+    ChurchLetter,
+    Course,
+    Guardianship,
+    HonorEnrollment,
+    Organization,
+    Program,
+    User,
+)
 from app.people import is_minor_user
 from app.security import (
     ADMIN_ROLES,
@@ -381,6 +389,11 @@ async def can_issue(db: AsyncSession, actor: User, enrollment: HonorEnrollment) 
         return False
     if is_master(actor):
         return True
+    # Bloque F · D3: an investiture whose issuer is the Association (Master Guide, EMC,
+    # CMJA) is never signed by a club director. Granting it to ADMIN_ASSOCIATION with
+    # jurisdiction is F4; until then this branch only DENIES, which is the safe half.
+    if enrollment.program_id is not None and not await program_issued_by_club(db, enrollment):
+        return False
     if enrollment.mode != "CLUB":
         return await is_course_instructor(db, actor, enrollment)  # COURSE (Bloque D · I3)
     return await _has_club_jurisdiction(db, actor, enrollment, (CLUB_DIRECTOR,))
@@ -558,3 +571,52 @@ async def can_revoke(db: AsyncSession, actor: User, certificate) -> bool:
     else:
         target = enrollment.club_id
     return await org_in_review_scope(db, actor, target)
+
+
+# Bloque F: the program catalogue, the investiture and the hours of a member.
+# Every program permission is decided here and nowhere else.
+# ----------------------------------------------------------------------------
+# D3: who signs the investiture of a program.
+ISSUER_CLUB, ISSUER_ASSOCIATION = "CLUB", "ASSOCIATION"
+
+
+def can_publish_program(actor: User) -> bool:
+    """An official curriculum is not written by an instructor (§1.5). Territorial variants
+    published by an Association are out of scope until D2 asks for them."""
+    return is_master(actor)
+
+
+async def program_issued_by_club(db: AsyncSession, enrollment: HonorEnrollment) -> bool:
+    """Is this enrollment's program invested by the club (as in block A)?
+
+    False for `ASSOCIATION` programs and also for an enrollment whose program vanished:
+    when in doubt about who may sign a certificate, nobody may.
+    """
+    if enrollment.program_id is None:
+        return True
+    level = await db.scalar(
+        select(Program.issuer_level).where(Program.id == enrollment.program_id)
+    )
+    return level == ISSUER_CLUB
+
+
+async def can_approve_activity(db: AsyncSession, actor: User, member: User) -> bool:
+    """Approve (or reject) a service / attendance log of `member` — F2 §1.3.
+
+    The club jurisdiction of `can_review` without its course branch: the DIRECTOR of the
+    member's current club, or MASTER_GC. An instructor does NOT approve hours, and nobody
+    approves their own: a director's hours are decided by their Zone or Association.
+    """
+    if actor.id == member.id:
+        return False
+    if is_master(actor):
+        return True
+    if actor.role in ADMIN_ROLES:
+        return await org_in_decision_scope(db, actor, member.organization_id)
+    if not club_staff_in_good_standing(actor, (CLUB_DIRECTOR,)):
+        return False
+    club = await member_club(db, member)
+    if club is None or club.id != actor.organization_id:
+        return False
+    # E7: staff without a church letter in force never decide about a MINOR.
+    return not is_minor_user(member) or may_handle_minors(actor)

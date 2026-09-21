@@ -447,8 +447,16 @@ async def _enrollment_context(db: AsyncSession, enrollment_id):
     if enrollment is None:
         return None, None, ""
     member = await db.get(User, enrollment.user_id)
-    honor = await db.get(Honor, enrollment.honor_id)
-    return enrollment, member, honor.name if honor is not None else "tu especialidad"
+    honor = await db.get(Honor, enrollment.honor_id) if enrollment.honor_id else None
+    if honor is not None:
+        return enrollment, member, honor.name
+    if enrollment.program_id is not None:
+        # Bloque F: the same notice, naming the class or the program the member is doing.
+        from app.services import curriculum
+
+        award = await curriculum.award_for(db, enrollment)
+        return enrollment, member, award.name
+    return enrollment, member, "tu especialidad"
 
 
 async def queue_review_outcome(

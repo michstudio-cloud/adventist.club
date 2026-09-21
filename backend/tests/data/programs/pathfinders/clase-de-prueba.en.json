@@ -1,0 +1,12 @@
+{
+  "name": "Test class",
+  "sections": {"general": "General", "servicio": "Service"},
+  "requirements": {
+    "1": {"description": "Memorize the pledge."},
+    "2": {"description": "Pitch a tent."},
+    "3": {"description": "Six hours of community service."}
+  },
+  "source": "test-fixture",
+  "source_url": "https://example.invalid/datos-de-prueba",
+  "license": "CC BY-SA 3.0"
+}
