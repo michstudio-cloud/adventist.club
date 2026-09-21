@@ -1,0 +1,91 @@
+"""Render certificates from SVG templates (PNG / PDF / filled SVG)."""
+from __future__ import annotations
+
+import asyncio
+import base64
+import re
+import urllib.request
+from typing import Literal
+from urllib.parse import urlsplit
+
+from fastapi import APIRouter, HTTPException, Response
+from pydantic import BaseModel, Field
+
+from app.certificates.render import TemplateError, fonts_installed, list_templates, qr_data_url, render_certificate
+from app.config import settings
+
+router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
+
+DATA_URL_RE = re.compile(r"^data:image/(png|jpeg|webp|svg\+xml);base64,[A-Za-z0-9+/=\s]+$")
+HTTPS_RE = re.compile(r"^https://[^\s]+$")
+MAX_FIELD_LEN = 400
+MAX_REMOTE_IMAGE_BYTES = 2 * 1024 * 1024
+REMOTE_IMAGE_TYPES = {"image/png", "image/jpeg", "image/webp"}
+
+
+def _allowed_media_host() -> str:
+    return urlsplit(settings.R2_PUBLIC_URL).hostname or ""
+
+
+def _fetch_media_image(url: str) -> str:
+    """resvg never loads remote URLs. Only our own media bucket is fetched (no SSRF surface),
+    with a size cap and an image content-type, and handed to the renderer as a data URL."""
+    request = urllib.request.Request(url, headers={"User-Agent": "adventist.club-renderer"})
+    with urllib.request.urlopen(request, timeout=10) as response:  # noqa: S310 - host is allowlisted
+        mime = (response.headers.get("content-type") or "").split(";")[0].strip().lower()
+        if mime not in REMOTE_IMAGE_TYPES:
+            raise ValueError("tipo de imagen no permitido")
+        body = response.read(MAX_REMOTE_IMAGE_BYTES + 1)
+    if len(body) > MAX_REMOTE_IMAGE_BYTES:
+        raise ValueError("imagen demasiado grande")
+    return f"data:{mime};base64,{base64.b64encode(body).decode()}"
+
+
+class RenderRequest(BaseModel):
+    template: str = Field(pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
+    locale: str = Field(default="es", pattern=r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
+    format: Literal["png", "pdf", "svg"] = "png"
+    dpi: int = Field(default=300, ge=72, le=600)
+    data: dict[str, str] = Field(default_factory=dict)
+    images: dict[str, str] = Field(default_factory=dict)
+    certificate_no: str | None = Field(default=None, max_length=80)
+
+
+@router.get("/templates")
+async def templates():
+    return [{"slug": t.slug, "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
+             "locales": t.locales, "fields": t.fields} for t in list_templates()]
+
+
+@router.post("/render")
+async def render(payload: RenderRequest):
+    for key, value in payload.data.items():
+        if len(value) > MAX_FIELD_LEN:
+            raise HTTPException(422, f"El campo '{key}' es demasiado largo.")
+    for key, value in payload.images.items():
+        if not (DATA_URL_RE.match(value) or HTTPS_RE.match(value)):
+            raise HTTPException(422, f"La imagen '{key}' debe ser una data URL o una URL https.")
+    if payload.format != "svg" and not fonts_installed():
+        # without the bundled fonts resvg would return a certificate with no text at all
+        raise HTTPException(503, "Fuentes tipográficas no instaladas en el servidor.")
+    images = dict(payload.images)
+    for key, value in list(images.items()):
+        if HTTPS_RE.match(value):
+            if (urlsplit(value).hostname or "") != _allowed_media_host():
+                raise HTTPException(422, f"La imagen '{key}' debe venir de {_allowed_media_host()} o ser una data URL.")
+            try:
+                images[key] = await asyncio.to_thread(_fetch_media_image, value)
+            except Exception as exc:  # unreachable / wrong type / too big: render without it
+                raise HTTPException(422, f"No se pudo cargar la imagen '{key}': {exc}") from exc
+    data = dict(payload.data)
+    if payload.certificate_no:
+        data.setdefault("certificate_no", payload.certificate_no)
+        images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))
+    try:
+        body, media_type = render_certificate(payload.template, data, images, locale=payload.locale,
+                                              fmt=payload.format, dpi=payload.dpi)
+    except TemplateError as exc:
+        raise HTTPException(404 if "no existe" in str(exc) else 422, str(exc)) from exc
+    ext = {"image/png": "png", "application/pdf": "pdf", "image/svg+xml": "svg"}[media_type]
+    name = f"certificado-{payload.certificate_no or payload.template}.{ext}"
+    return Response(body, media_type=media_type, headers={"Content-Disposition": f'inline; filename="{name}"'})

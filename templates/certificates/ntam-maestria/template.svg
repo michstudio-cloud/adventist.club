@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 792 612" width="11in" height="8.5in" data-template="ntam-maestria" data-version="1">
+  <!-- Carta horizontal. Fondo: diseño oficial de la Asociación Norte de Tamaulipas (arte fijo, texto en curvas).
+       Encima van los campos vivos. Fuentes: Noto Sans / Noto Serif. -->
+  <image id="background" x="0" y="0" width="792" height="612" xlink:href="background.png" preserveAspectRatio="none"/>
+
+  <text id="recipient_name" x="396" y="372" text-anchor="middle" font-family="Noto Serif" font-weight="700" font-size="30"
+        fill="#1f1a10" data-fit="shrink" data-min-size="15" data-max-width="500">Nombre del participante</text>
+  <text id="honor_name" x="396" y="445" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="17"
+        fill="#1f1a10" data-fit="shrink" data-min-size="10" data-max-width="250">Especialidad</text>
+
+  <text id="issued_day" x="161" y="519" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="13" fill="#c9a227">DD</text>
+  <text id="issued_month" x="203" y="519" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="13" fill="#c9a227">MM</text>
+  <text id="issued_year" x="256" y="519" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="13" fill="#c9a227">AAAA</text>
+
+  <text id="director_name" x="401" y="500" text-anchor="middle" font-family="Noto Sans" font-size="7" fill="#1f1a10"
+        data-fit="shrink" data-min-size="5" data-max-width="74"></text>
+  <text id="coordinator_name" x="495" y="500" text-anchor="middle" font-family="Noto Sans" font-size="7" fill="#1f1a10"
+        data-fit="shrink" data-min-size="5" data-max-width="74"></text>
+
+  <image id="qr" x="72" y="524" width="30" height="30" xlink:href=""/>
+  <text id="certificate_no" x="108" y="536" font-family="Noto Sans Mono" font-size="5.5" fill="#6b6455">CC-XXXXXXXXXX</text>
+  <text id="t_verify" x="108" y="545" font-family="Noto Sans" font-size="5" fill="#6b6455">Verifica este certificado escaneando el código</text>
+</svg>
