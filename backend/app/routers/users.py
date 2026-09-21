@@ -203,6 +203,7 @@ async def my_children(
                 child_age=age_in_years(child.birth_date),
                 club=as_club_ref(club) if club is not None else None,
                 membership_status=membership.status if membership else None,
+                membership_id=str(membership.id) if membership else None,
                 pending_consents=[
                     str(row.id) for row in pending if row.status == membership_service.PENDING_CONSENT
                 ],

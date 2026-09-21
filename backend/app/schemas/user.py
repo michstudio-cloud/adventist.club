@@ -111,6 +111,8 @@ class ChildGuardianship(BaseModel):
     child_age: int | None = None
     club: ClubRef | None = None
     membership_status: str | None = None
+    # The active membership's id, so the panel can call .../{membership_id}/consent/revoke.
+    membership_id: str | None = None
     pending_consents: list[str] = []
 
 

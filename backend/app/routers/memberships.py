@@ -234,14 +234,12 @@ def _as_request_out(membership, club) -> JoinRequestOut:
 # ----------------------------------------------------------------------------
 @router.post("/consents/preview", response_model=ConsentPreview)
 @limiter.limit("10/minute")
-async def preview_consent(
-    request: Request,
-    payload: TokenIn,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-):
+async def preview_consent(request: Request, payload: TokenIn, db: AsyncSession = Depends(get_db)):
     """What the guardian reads before deciding: who the minor is, which club,
-    and in plain words what the club will see and who inside it."""
+    and in plain words what the club will see and who inside it. Public, like
+    `/invitations/preview`: a guardian following the e-mail/WhatsApp link has
+    no account yet, and this never names anyone beyond what the token already
+    proves the caller was sent."""
     membership = await membership_service.consent_by_token(db, payload.token)
     member = await db.get(User, membership.user_id)
     club = await db.get(Organization, membership.club_id)

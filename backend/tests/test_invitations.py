@@ -438,9 +438,8 @@ async def test_a_minor_waits_for_a_guardian_before_entering(client, world, facto
     )
     assert self_signed.status_code == 403
 
-    preview = await client.post(
-        f"{MEMBERSHIPS}/consents/preview", json={"token": token}, headers=guardian["headers"]
-    )
+    # Public: a guardian arriving from the e-mail/WhatsApp link has no account yet.
+    preview = await client.post(f"{MEMBERSHIPS}/consents/preview", json={"token": token})
     assert preview.status_code == 200, preview.text
     body = preview.json()
     assert body["child"]["name"]
@@ -448,6 +447,11 @@ async def test_a_minor_waits_for_a_guardian_before_entering(client, world, facto
     assert body["club"]["director_name"]
     # The guardian is told exactly what the club will see.
     assert set(body["club_will_see"]) >= {"name", "age", "progress", "evidence"}
+    # Same result if they happen to be signed in when they open the link.
+    signed_in = await client.post(
+        f"{MEMBERSHIPS}/consents/preview", json={"token": token}, headers=guardian["headers"]
+    )
+    assert signed_in.status_code == 200 and signed_in.json() == body
 
     approved = await client.post(
         f"{MEMBERSHIPS}/consents/decide",
@@ -528,6 +532,9 @@ async def test_any_adult_can_be_a_guardian(client, world, factory, mails):
     assert [row["child_id"] for row in children] == [minor["id"]]
     assert children[0]["club"]["id"] == world["club"]["id"]
     assert children[0]["membership_status"] == "ACTIVE"
+    # The guardian's panel needs this to offer "revoke": .../{membership_id}/consent/revoke.
+    active = await _membership_of(minor)
+    assert children[0]["membership_id"] == active["id"]
 
 
 async def test_a_guardian_can_withdraw_the_authorization(client, world, factory, mails):
