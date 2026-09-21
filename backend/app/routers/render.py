@@ -87,9 +87,10 @@ async def render(payload: RenderRequest):
         data.setdefault("certificate_no", payload.certificate_no)
         images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))
     try:
-        body, media_type = render_certificate(payload.template, data, images, locale=payload.locale,
-                                              fmt=payload.format, dpi=payload.dpi, ministry=payload.ministry,
-                                              width_in=payload.width_in)
+        # CPU-bound (seconds on a small instance): off the event loop, so the API keeps answering meanwhile
+        body, media_type = await asyncio.to_thread(
+            render_certificate, payload.template, data, images, locale=payload.locale, fmt=payload.format,
+            dpi=payload.dpi, ministry=payload.ministry, width_in=payload.width_in)
     except TemplateError as exc:
         raise HTTPException(404 if "no existe" in str(exc) else 422, str(exc)) from exc
     ext = {"image/png": "png", "application/pdf": "pdf", "image/svg+xml": "svg"}[media_type]

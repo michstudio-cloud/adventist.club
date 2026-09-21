@@ -162,3 +162,33 @@ def test_other_physical_sizes():
     assert (half.width_pt, half.height_pt) == (612.0, 396.0)
     png, _ = render_certificate("especialidad-basica-media", {"recipient_name": "Ana"}, {}, dpi=100)
     assert struct.unpack(">II", png[16:24]) == (850, 550)
+
+
+def test_raster_background_is_composited_outside_resvg(monkeypatch):
+    """resvg spends ~10x longer resampling a 300-dpi page image than drawing the text. On the small
+    production CPU that was 30 s per certificate, so the page image is pasted with Pillow instead."""
+    import io
+
+    from PIL import Image
+
+    from app.certificates import render as module
+
+    template = load_template("ntam-maestria")
+    svg = fill_svg(template, {"recipient_name": "Prueba"}, {})
+    background, rest = module.split_raster_background(svg, template)
+    assert background == template.directory / "background.png" and "background.png" not in rest
+    assert 'id="recipient_name"' in rest
+    assert module.split_raster_background(fill_svg(load_template("especialidad-basica"), {}, {}),
+                                          load_template("especialidad-basica")) is None   # vector template: untouched
+
+    seen = []
+    real = module.resvg_py.svg_to_bytes
+    monkeypatch.setattr(module.resvg_py, "svg_to_bytes", lambda **kw: seen.append(kw["svg_string"]) or real(**kw))
+    png, _ = render_certificate("ntam-maestria", {"recipient_name": "Prueba", "honor_name": "Nudos"}, {}, dpi=100)
+    assert seen and all("background.png" not in svg_string for svg_string in seen)        # resvg never sees the page image
+    image = Image.open(io.BytesIO(png)).convert("RGB")
+    assert image.size == (1100, 850)
+    r, g, b = image.getpixel((12, 12))
+    assert r > 150 and r > b + 40                                                        # the gold frame is there
+    name_band = image.crop((300, 470, 800, 530)).convert("L")
+    assert name_band.getextrema()[0] < 80                                                # and so is the live text

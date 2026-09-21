@@ -22,7 +22,7 @@ from pathlib import Path
 
 import qrcode
 import resvg_py
-from PIL import ImageFont
+from PIL import Image, ImageFont
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 from xml.etree import ElementTree as ET
@@ -228,15 +228,47 @@ def output_size_pt(template: Template, width_in: float | None) -> tuple[float, f
     return width_pt, width_pt * template.height_pt / template.width_pt
 
 
+BACKGROUND_RE = re.compile(r'<image\b[^>]*\bid="background"[^>]*/>')
+
+
+def split_raster_background(svg: str, template: Template) -> tuple[Path, str] | None:
+    """A template may put a full-page raster under the live fields (`<image id="background" href="file.png">`).
+    resvg spends ~10x longer resampling that page than drawing everything else, so it is taken out
+    here and pasted with Pillow. Returns (file, svg without it), or None for a plain vector template."""
+    found = BACKGROUND_RE.search(svg)
+    href = re.search(r'href="([^"]+)"', found.group(0)) if found else None
+    if not href or href.group(1).startswith("data:"):
+        return None
+    path = (template.directory / href.group(1)).resolve()
+    if template.directory.resolve() not in path.parents or not path.is_file():
+        return None
+    return template.directory / href.group(1), svg[:found.start()] + svg[found.end():]
+
+
+@lru_cache(maxsize=4)
+def _page_image(path: str, modified: float, width: int, height: int) -> Image.Image:
+    with Image.open(path) as page:
+        page = page.convert("RGBA")
+        return page if page.size == (width, height) else page.resize((width, height), Image.LANCZOS)
+
+
 def render_png(svg: str, template: Template, dpi: int = 300, width_in: float | None = None) -> bytes:
     width_pt, height_pt = output_size_pt(template, width_in)
     width = round(width_pt / POINTS_PER_INCH * dpi)
     height = round(height_pt / POINTS_PER_INCH * dpi)
     font_dirs = [str(FONTS_DIR)] if FONTS_DIR.exists() else None
-    return bytes(resvg_py.svg_to_bytes(
-        svg_string=svg, width=width, height=height, resources_dir=str(template.directory),
+    split = split_raster_background(svg, template)
+    layer = bytes(resvg_py.svg_to_bytes(
+        svg_string=split[1] if split else svg, width=width, height=height, resources_dir=str(template.directory),
         font_dirs=font_dirs, skip_system_fonts=bool(font_dirs), sans_serif_family="Noto Sans",
         serif_family="Noto Serif", monospace_family="Noto Sans Mono"))
+    if not split:
+        return layer
+    page = _page_image(str(split[0]), split[0].stat().st_mtime, width, height).copy()
+    page.alpha_composite(Image.open(io.BytesIO(layer)).convert("RGBA"))
+    out = io.BytesIO()
+    (page.convert("RGB") if page.getextrema()[3][0] == 255 else page).save(out, "PNG", compress_level=3)
+    return out.getvalue()
 
 
 def png_to_pdf(png: bytes, template: Template, width_in: float | None = None) -> bytes:
