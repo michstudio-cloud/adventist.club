@@ -679,7 +679,11 @@ async def test_an_invitation_and_a_club_are_mutually_exclusive(client, world, fa
             "name": factory.name("reg-both"),
             "role": "CLUB_DIRECTOR",
             "invitation_token": created["token"],
-            "club": {"name": factory.name("x-club"), "association_id": world["association"]["id"]},
+            "club": {
+                "name": factory.name("x-club"),
+                "association_id": world["association"]["id"],
+                "church_name": factory.name("x-iglesia"),
+            },
         },
     )
     assert response.status_code == 400

@@ -90,11 +90,13 @@ def director_blocked(user: User) -> bool:
 
 async def club_scope_paths(db: AsyncSession, actor: User) -> list[str] | None:
     """
-    Subtrees whose club requests `actor` may see and decide. None means global.
+    Subtrees `actor` may LIST. None means global.
 
-    Administrators decide on clubs below their own organization. A zone
-    coordinator sits *beside* the clubs (both hang from the association), so
-    their scope is the whole association that contains their organization.
+    Administrators read below their own organization. Before E6 a zone
+    coordinator sat *beside* the clubs (both hung from the association), so
+    their reading scope is still the whole association that contains their
+    organization. Deciding is narrower and lives in `org_in_decision_scope`:
+    this function is the coarse SQL filter, never the last word.
     """
     if is_master(actor):
         return None
@@ -113,14 +115,49 @@ async def club_scope_paths(db: AsyncSession, actor: User) -> list[str] | None:
     return paths
 
 
-async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> bool:
-    paths = await club_scope_paths(db, actor)
-    if paths is None:
+async def _ancestor_path(db: AsyncSession, path: str, node_type: str) -> str | None:
+    stmt = select(Organization.path).where(
+        Organization.type == node_type, Organization.path.op("@>")(path)
+    )
+    return (await db.execute(stmt.limit(1))).scalar_one_or_none()
+
+
+async def org_in_decision_scope(
+    db: AsyncSession, actor: User, organization_id: uuid.UUID | None
+) -> bool:
+    """The ONE rule for "does `actor` decide about what hangs from this node?".
+
+    Club requests (`can_decide_club`), church letters and courses
+    (`org_in_review_scope`) all ask exactly this, so they all call this.
+
+    An administrator decides about their own subtree. A zone coordinator does
+    too — and, because E6 only now starts hanging clubs from
+    association -> zone -> church, also about what still hangs straight off
+    their association WITHOUT living inside a zone. That legacy arm is what
+    keeps existing clubs (and the letters of their instructors) working, and it
+    stops exactly where another zone begins: a coordinator never decides about
+    somebody else's zone.
+    """
+    if is_master(actor):
         return True
-    for scope_path in paths:
-        if await org_in_subtree(db, club.id, scope_path):
-            return True
-    return False
+    if organization_id is None or actor.role not in ADMIN_ROLES:
+        return False
+    own_path = await get_org_path(db, actor.organization_id)
+    if not own_path:
+        return False
+    if await org_in_subtree(db, organization_id, own_path):
+        return True
+    if actor.role != COORDINATOR_ZONE:
+        return False
+    association_path = await _ancestor_path(db, own_path, "association")
+    if not association_path or not await org_in_subtree(db, organization_id, association_path):
+        return False
+    target_path = await get_org_path(db, organization_id)
+    return bool(target_path) and await _ancestor_path(db, target_path, "zone") is None
+
+
+async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> bool:
+    return await org_in_decision_scope(db, actor, club.id)
 
 
 # ----------------------------------------------------------------------------
@@ -316,16 +353,13 @@ LETTER_AUTHORIZED = "AUTHORIZED"
 async def org_in_review_scope(
     db: AsyncSession, actor: User, organization_id: uuid.UUID | None
 ) -> bool:
-    """Does `actor` review what hangs from `organization_id`? Same rule as `can_decide_club`
-    (a zone coordinator sits beside the clubs, so their scope is the whole association),
-    by organization id: church letters and courses are not clubs."""
-    paths = await club_scope_paths(db, actor)
-    if paths is None:
-        return True  # MASTER_GC
-    for scope_path in paths:
-        if await org_in_subtree(db, organization_id, scope_path):
-            return True
-    return False
+    """Does `actor` review what hangs from `organization_id`? Exactly the rule of
+    `can_decide_club`, by organization id: church letters and courses are not clubs.
+
+    Bloque B duplicated the body on purpose to avoid a merge conflict; E6 makes
+    the two share one implementation, as the spec asks.
+    """
+    return await org_in_decision_scope(db, actor, organization_id)
 
 
 async def instructor_is_verified(db: AsyncSession, user: User) -> bool:

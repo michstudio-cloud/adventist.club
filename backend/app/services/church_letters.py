@@ -293,6 +293,10 @@ async def queue(
             organization_name=organization.name if organization else None,
         )
         for letter, applicant, organization in rows
+        # `club_scope_paths` is the coarse SQL filter; the last word is the rule
+        # that actually decides, so E6's narrower zone scope also narrows the
+        # queue: a coordinator never reads another zone's letters.
+        if await org_in_review_scope(db, actor, letter.organization_id)
     ]
 
 

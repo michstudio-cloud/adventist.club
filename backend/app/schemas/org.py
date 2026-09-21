@@ -71,10 +71,19 @@ class OrgNodeUpdate(_OrgWritable):
 
 class ClubSignup(BaseModel):
     """A director's request to open a club under an association. Used both by
-    `POST /auth/register` (field `club`) and `POST /org-nodes/clubs`."""
+    `POST /auth/register` (field `club`) and `POST /org-nodes/clubs`.
+
+    Decision D3: the director declares their CHURCH — an existing one of the
+    association (`church_id`) or the name of a new one (`church_name`) — and
+    never the zone. Zones are the association's to draw, and it assigns one
+    when it accepts the request.
+    """
 
     name: str = Field(min_length=2, max_length=180)
     association_id: uuid.UUID
+    church_id: uuid.UUID | None = None
+    church_name: str | None = Field(default=None, max_length=180)
+    # Pre-E6 free-text field, accepted one more cycle as an alias of church_name.
     church: str | None = Field(default=None, max_length=180)
     city: str | None = Field(default=None, max_length=120)
     contact: str | None = Field(default=None, max_length=180)
@@ -90,7 +99,18 @@ class ClubSignup(BaseModel):
             raise ValueError("latitude and longitude go together")
         return self
 
-    @field_validator("name", "church", "city", "contact")
+    @model_validator(mode="after")
+    def _exactly_one_church(self):
+        if self.church_name is None and self.church is not None:
+            self.church_name = self.church
+        if bool(self.church_id) == bool(self.church_name):
+            raise ValueError(
+                "Indica la iglesia del club: elige una existente (church_id)"
+                " o escribe su nombre (church_name)"
+            )
+        return self
+
+    @field_validator("name", "church", "church_name", "city", "contact")
     @classmethod
     def _trimmed(cls, value: str | None) -> str | None:
         if value is None:
@@ -114,6 +134,97 @@ class ClubDecision(BaseModel):
     def _trimmed(cls, value: str | None) -> str | None:
         value = (value or "").strip()
         return value or None
+
+
+class _ChurchChoice(BaseModel):
+    """One of the two ways to name a church: pick the row that exists, or
+    propose a name. Never both, never neither."""
+
+    church_id: uuid.UUID | None = None
+    church_name: str | None = Field(default=None, max_length=180)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("church_name")
+    @classmethod
+    def _trimmed_church(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+    @model_validator(mode="after")
+    def _exactly_one_church(self):
+        if bool(self.church_id) == bool(self.church_name):
+            raise ValueError("Indica `church_id` o `church_name`, exactamente uno")
+        return self
+
+
+class PlacementProposal(_ChurchChoice):
+    """What the director declares about an existing unplaced club: their
+    church, never the zone (decision D3)."""
+
+
+class ClubPlacement(_ChurchChoice):
+    """What the association resolves: the zone it assigns and the church the
+    club hangs from. Creating a zone or a church by name is reserved to the
+    administration of the association (or above)."""
+
+    zone_id: uuid.UUID | None = None
+    zone_name: str | None = Field(default=None, max_length=180)
+    city: str | None = Field(default=None, max_length=120)
+
+    @field_validator("zone_name", "city")
+    @classmethod
+    def _trimmed_zone(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+    @model_validator(mode="after")
+    def _exactly_one_zone(self):
+        if bool(self.zone_id) == bool(self.zone_name):
+            raise ValueError("Indica `zone_id` o `zone_name`, exactamente uno")
+        return self
+
+
+class ClubApproval(BaseModel):
+    """Optional body of `POST /org-nodes/{id}/approve`: whoever approves may
+    correct what the director declared (club name, city, church) and assigns
+    the zone. An already placed club needs none of it."""
+
+    club_name: str | None = Field(default=None, min_length=2, max_length=180)
+    city: str | None = Field(default=None, max_length=120)
+    church_id: uuid.UUID | None = None
+    church_name: str | None = Field(default=None, max_length=180)
+    zone_id: uuid.UUID | None = None
+    zone_name: str | None = Field(default=None, max_length=180)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("club_name", "city", "church_name", "zone_name")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+    @model_validator(mode="after")
+    def _at_most_one_of_each(self):
+        if self.church_id and self.church_name:
+            raise ValueError("Indica `church_id` o `church_name`, no los dos")
+        if self.zone_id and self.zone_name:
+            raise ValueError("Indica `zone_id` o `zone_name`, no los dos")
+        return self
+
+    @property
+    def names_a_placement(self) -> bool:
+        return any((self.church_id, self.church_name, self.zone_id, self.zone_name))
+
+
+class ChurchPlacement(BaseModel):
+    """`POST /org-nodes/churches/{id}/place`: the association moves a church —
+    with its clubs — from one of its zones to another."""
+
+    zone_id: uuid.UUID
+
+    model_config = {"extra": "forbid"}
 
 
 class OrgSearchResult(BaseModel):
@@ -187,29 +298,48 @@ class ClubRequester(BaseModel):
 
 
 class PendingClubResponse(OrgNodeResponse):
-    """A club request as coordinators see it."""
+    """A club request as coordinators see it.
+
+    `association`, `zone` and `church` come from the ANCESTORS of the club, not
+    from its parent: since E6 a club may hang from its church, and a club that
+    is not placed yet still hangs straight off the association (spec §5.5).
+    `declared` is what the director asked for and nobody has resolved yet.
+    """
 
     association: OrgRef | None = None
+    zone: OrgRef | None = None
+    church: OrgRef | None = None
+    declared: dict[str, Any] | None = None
     requested_by: ClubRequester | None = None
 
     @classmethod
     def build(
-        cls, node: Organization, association: Organization | None, requester=None
+        cls,
+        node: Organization,
+        association: Organization | None,
+        requester=None,
+        *,
+        zone: Organization | None = None,
+        church: Organization | None = None,
+        declared: dict | None = None,
     ) -> "PendingClubResponse":
         base = OrgNodeResponse.from_model(node).model_dump()
         return cls(
             **base,
-            association=(
-                OrgRef(id=str(association.id), name=association.name, code=association.code)
-                if association is not None
-                else None
-            ),
+            association=_ref(association),
+            zone=_ref(zone),
+            church=_ref(church),
+            declared=declared or None,
             requested_by=(
                 ClubRequester(id=str(requester.id), name=requester.name, email=requester.email)
                 if requester is not None
                 else None
             ),
         )
+
+
+def _ref(node: Organization | None) -> OrgRef | None:
+    return OrgRef(id=str(node.id), name=node.name, code=node.code) if node is not None else None
 
 
 def _ancestor_ids(path: str | None) -> list[str]:
@@ -243,8 +373,26 @@ class NearbyClub(BaseModel):
     city: str | None = None
     state: str | None = None
     country: str | None = None
+    # The NAME of the church: the node's when the club is placed, the
+    # declaration while it is not. Kept as a string so pre-E6 clients keep
+    # working; `church_ref` is the node itself when there is one.
     church: str | None = None
+    church_ref: OrgRef | None = None
+    zone: OrgRef | None = None
     # Whether the club is taking join requests today (spec E §5.2): `/clubs`
     # shows «Solicitar unirme» or «No recibe solicitudes» from this.
     accepts_requests: bool = True
     association: OrgRef | None = None
+
+
+class UnplacedClub(BaseModel):
+    """An active club that still hangs straight off its association, with the
+    church its director declared, if any. Nothing about it is blocked: E6 is
+    not destructive (spec §5.5)."""
+
+    id: str
+    name: str
+    city: str | None = None
+    association: OrgRef | None = None
+    declared: dict[str, Any] | None = None
+    created_at: datetime
