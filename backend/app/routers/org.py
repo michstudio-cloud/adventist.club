@@ -4,6 +4,7 @@ Club sign-up lives here too: a CLUB_DIRECTOR requests a club (`pending`), a
 coordinator of the association approves or rejects it. Pending and rejected
 clubs never show up on public reads.
 """
+import math
 import unicodedata
 import uuid
 
@@ -19,10 +20,13 @@ from app.rbac import can_decide_club, club_scope_paths, get_org_path, is_master,
 from app.schemas.org import (
     ORG_HIERARCHY,
     ClubDecision,
+    ClubLocation,
     ClubSignup,
+    NearbyClub,
     OrgNodeCreate,
     OrgNodeResponse,
     OrgNodeUpdate,
+    OrgRef,
     OrgSearchResult,
     PendingClubResponse,
 )
@@ -204,6 +208,86 @@ async def request_club(
     """A CLUB_DIRECTOR without a club opens one. It stays `pending` until a
     coordinator of the association approves it."""
     club = await club_service.stage_pending_club(db, current_user, payload, request)
+    await db.commit()
+    return OrgNodeResponse.from_model(club)
+
+
+EARTH_RADIUS_KM = 6371.0088
+
+
+@router.get("/clubs/nearby", response_model=list[NearbyClub])
+async def nearby_clubs(
+    lat: float = Query(ge=-90, le=90),
+    lon: float = Query(ge=-180, le=180),
+    radius_km: float = Query(25, gt=0, le=500),
+    limit: int = Query(50, ge=1, le=200),
+    db: AsyncSession = Depends(get_db),
+):
+    """Public: active clubs with a pinned location within `radius_km`, nearest first.
+
+    Haversine in SQL (no PostGIS). A bounding box goes first so the
+    (latitude, longitude) index prunes the scan; near the poles or the
+    antimeridian the box is simply not applied to longitude.
+    """
+    lat_delta = math.degrees(radius_km / EARTH_RADIUS_KM)
+    cos_lat = math.cos(math.radians(lat))
+    lon_delta = math.degrees(radius_km / (EARTH_RADIUS_KM * cos_lat)) if cos_lat > 0.01 else 180.0
+
+    club = Organization
+    association = aliased(Organization)
+    d_lat = func.radians(club.latitude - lat) / 2
+    d_lon = func.radians(club.longitude - lon) / 2
+    a = func.pow(func.sin(d_lat), 2) + math.cos(math.radians(lat)) * func.cos(func.radians(club.latitude)) * func.pow(func.sin(d_lon), 2)
+    distance = (2 * EARTH_RADIUS_KM * func.asin(func.sqrt(func.least(1.0, a)))).label("distance_km")
+
+    stmt = (
+        select(club, association, distance)
+        .outerjoin(association, association.id == club.parent_id)
+        .where(
+            club.type == club_service.CLUB_TYPE,
+            club.status == club_service.STATUS_ACTIVE,
+            club.latitude.is_not(None),
+            club.longitude.is_not(None),
+            club.latitude.between(lat - lat_delta, lat + lat_delta),
+        )
+    )
+    if lon_delta < 180 and -180 <= lon - lon_delta and lon + lon_delta <= 180:
+        stmt = stmt.where(club.longitude.between(lon - lon_delta, lon + lon_delta))
+    stmt = stmt.where(distance <= radius_km).order_by(distance, club.name).limit(limit)
+
+    return [
+        NearbyClub(
+            id=str(node.id), name=node.name, distance_km=round(float(km), 2),
+            latitude=round(node.latitude, 5), longitude=round(node.longitude, 5),
+            city=node.city, state=node.state, country=node.country,
+            church=(node.metadata_json or {}).get("church"),
+            association=OrgRef(id=str(parent.id), name=parent.name, code=parent.code) if parent else None,
+        )
+        for node, parent, km in (await db.execute(stmt)).all()
+    ]
+
+
+@router.put("/clubs/{club_id}/location", response_model=OrgNodeResponse)
+async def set_club_location(
+    club_id: uuid.UUID,
+    payload: ClubLocation,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The director pins (or corrects) where their own club meets. Admins in scope may too."""
+    club = await db.get(Organization, club_id)
+    if club is None or club.type != club_service.CLUB_TYPE:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Club not found")
+    own = current_user.organization_id == club.id and current_user.role == club_service.CLUB_DIRECTOR
+    admin_in_scope = current_user.role in ADMIN_ROLES and await can_decide_club(db, current_user, club)
+    if not own and not admin_in_scope:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "You can only set the location of your own club")
+    club.latitude, club.longitude = payload.latitude, payload.longitude
+    club.updated_at = utcnow()
+    record_audit(db, action="CLUB_LOCATION", entity_type="ORGANIZATION", entity_id=club.id, actor=current_user,
+                 details=f"Location of {club.name} set", metadata={"latitude": payload.latitude, "longitude": payload.longitude},
+                 request=request)
     await db.commit()
     return OrgNodeResponse.from_model(club)
 

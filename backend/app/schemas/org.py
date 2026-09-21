@@ -78,8 +78,17 @@ class ClubSignup(BaseModel):
     church: str | None = Field(default=None, max_length=180)
     city: str | None = Field(default=None, max_length=120)
     contact: str | None = Field(default=None, max_length=180)
+    # Where the physical club meets, so people can find it by location.
+    latitude: float | None = Field(default=None, ge=-90, le=90)
+    longitude: float | None = Field(default=None, ge=-180, le=180)
 
     model_config = {"extra": "forbid"}
+
+    @model_validator(mode="after")
+    def _both_coordinates(self):
+        if (self.latitude is None) != (self.longitude is None):
+            raise ValueError("latitude and longitude go together")
+        return self
 
     @field_validator("name", "church", "city", "contact")
     @classmethod
@@ -214,3 +223,25 @@ def _ancestor_ids(path: str | None) -> list[str]:
         except ValueError:
             ancestors.append(label)
     return ancestors
+
+
+class ClubLocation(BaseModel):
+    latitude: float = Field(ge=-90, le=90)
+    longitude: float = Field(ge=-180, le=180)
+
+    model_config = {"extra": "forbid"}
+
+
+class NearbyClub(BaseModel):
+    """A club found by location. Coordinates are those of the meeting place the director pinned."""
+
+    id: str
+    name: str
+    distance_km: float
+    latitude: float
+    longitude: float
+    city: str | None = None
+    state: str | None = None
+    country: str | None = None
+    church: str | None = None
+    association: OrgRef | None = None

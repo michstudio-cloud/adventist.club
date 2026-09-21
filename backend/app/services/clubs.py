@@ -64,6 +64,8 @@ async def stage_pending_club(
         path=f"{association.path}.{club_id.hex}",
         city=payload.city,
         country=association.country,
+        latitude=payload.latitude,
+        longitude=payload.longitude,
         metadata_json={
             "requested_by": str(director.id),
             "requested_at": now.isoformat(),
