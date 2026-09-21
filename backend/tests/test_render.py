@@ -151,3 +151,14 @@ def test_defaults_emblem_placeholders_and_no_sample_text():
     assert "Director(a) del club" in spanish
     other = fill_svg(template, {}, {}, locale="es", ministry="no-such-ministry")
     assert re.search(r'id="emblem"[^>]*opacity="0"', other)
+
+
+def test_other_physical_sizes():
+    png, _ = render_certificate("especialidad-basica", {"recipient_name": "Ana"}, {}, dpi=100, width_in=11)
+    assert struct.unpack(">II", png[16:24]) == (1100, 850)               # letter, same proportions
+    pdf, _ = render_certificate("especialidad-basica", {}, {}, fmt="pdf", dpi=72, width_in=11)
+    assert re.search(rb"/MediaBox\s*\[\s*0 0 792 612\s*\]", pdf)
+    half = load_template("especialidad-basica-media")
+    assert (half.width_pt, half.height_pt) == (612.0, 396.0)
+    png, _ = render_certificate("especialidad-basica-media", {"recipient_name": "Ana"}, {}, dpi=100)
+    assert struct.unpack(">II", png[16:24]) == (850, 550)

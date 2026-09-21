@@ -47,6 +47,8 @@ class RenderRequest(BaseModel):
     format: Literal["png", "pdf", "svg"] = "png"
     ministry: str = Field(default="pathfinders", pattern=r"^[a-z0-9-]{2,40}$")
     dpi: int = Field(default=300, ge=72, le=600)
+    # output width in inches; height keeps the template proportions. Pixel budget is capped below.
+    width_in: float | None = Field(default=None, gt=1, le=24)
     data: dict[str, str] = Field(default_factory=dict)
     images: dict[str, str] = Field(default_factory=dict)
     certificate_no: str | None = Field(default=None, max_length=80)
@@ -69,6 +71,8 @@ async def render(payload: RenderRequest):
     if payload.format != "svg" and not fonts_installed():
         # without the bundled fonts resvg would return a certificate with no text at all
         raise HTTPException(503, "Fuentes tipográficas no instaladas en el servidor.")
+    if (payload.width_in or 11) * payload.dpi > 7200:
+        raise HTTPException(422, "Combinación de tamaño y DPI demasiado grande.")
     images = dict(payload.images)
     for key, value in list(images.items()):
         if HTTPS_RE.match(value):
@@ -84,7 +88,8 @@ async def render(payload: RenderRequest):
         images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))
     try:
         body, media_type = render_certificate(payload.template, data, images, locale=payload.locale,
-                                              fmt=payload.format, dpi=payload.dpi, ministry=payload.ministry)
+                                              fmt=payload.format, dpi=payload.dpi, ministry=payload.ministry,
+                                              width_in=payload.width_in)
     except TemplateError as exc:
         raise HTTPException(404 if "no existe" in str(exc) else 422, str(exc)) from exc
     ext = {"image/png": "png", "application/pdf": "pdf", "image/svg+xml": "svg"}[media_type]

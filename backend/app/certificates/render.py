@@ -219,9 +219,19 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
     return ET.tostring(root, encoding="unicode")
 
 
-def render_png(svg: str, template: Template, dpi: int = 300) -> bytes:
-    width = round(template.width_pt / POINTS_PER_INCH * dpi)
-    height = round(template.height_pt / POINTS_PER_INCH * dpi)
+def output_size_pt(template: Template, width_in: float | None) -> tuple[float, float]:
+    """Physical output size. Templates are vector: the same artwork can be produced at another
+    size with the same proportions (quarter letter -> letter)."""
+    if not width_in:
+        return template.width_pt, template.height_pt
+    width_pt = width_in * POINTS_PER_INCH
+    return width_pt, width_pt * template.height_pt / template.width_pt
+
+
+def render_png(svg: str, template: Template, dpi: int = 300, width_in: float | None = None) -> bytes:
+    width_pt, height_pt = output_size_pt(template, width_in)
+    width = round(width_pt / POINTS_PER_INCH * dpi)
+    height = round(height_pt / POINTS_PER_INCH * dpi)
     font_dirs = [str(FONTS_DIR)] if FONTS_DIR.exists() else None
     return bytes(resvg_py.svg_to_bytes(
         svg_string=svg, width=width, height=height, resources_dir=str(template.directory),
@@ -229,26 +239,27 @@ def render_png(svg: str, template: Template, dpi: int = 300) -> bytes:
         serif_family="Noto Serif", monospace_family="Noto Sans Mono"))
 
 
-def png_to_pdf(png: bytes, template: Template) -> bytes:
+def png_to_pdf(png: bytes, template: Template, width_in: float | None = None) -> bytes:
+    width_pt, height_pt = output_size_pt(template, width_in)
     out = io.BytesIO()
-    pdf = canvas.Canvas(out, pagesize=(template.width_pt, template.height_pt))
-    pdf.drawImage(ImageReader(io.BytesIO(png)), 0, 0, width=template.width_pt, height=template.height_pt)
+    pdf = canvas.Canvas(out, pagesize=(width_pt, height_pt))
+    pdf.drawImage(ImageReader(io.BytesIO(png)), 0, 0, width=width_pt, height=height_pt)
     pdf.save()
     return out.getvalue()
 
 
 def render_certificate(slug: str, data: dict[str, str], images: dict[str, str], *, locale: str = "es",
                        fmt: str = "png", dpi: int = 300, base: Path = TEMPLATES_DIR,
-                       ministry: str = "pathfinders") -> tuple[bytes, str]:
+                       ministry: str = "pathfinders", width_in: float | None = None) -> tuple[bytes, str]:
     if not LOCALE_RE.match(locale):
         raise TemplateError("Idioma no válido.")
     template = load_template(slug, base)
     svg = fill_svg(template, data, images, locale, ministry)
     if fmt == "svg":
         return svg.encode("utf-8"), "image/svg+xml"
-    png = render_png(svg, template, dpi)
+    png = render_png(svg, template, dpi, width_in)
     if fmt == "png":
         return png, "image/png"
     if fmt == "pdf":
-        return png_to_pdf(png, template), "application/pdf"
+        return png_to_pdf(png, template, width_in), "application/pdf"
     raise TemplateError("Formato no válido.")

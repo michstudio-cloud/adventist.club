@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 612 396" width="8.5in" height="5.5in" data-template="especialidad-basica-media" data-version="1">
+  <!-- ½ carta horizontal (8.5 × 5.5 in), derivada de especialidad-basica. 1 unidad = 1 pt. Textos con id se rellenan en el servidor;
+       t_* son textos fijos traducibles (strings.<locale>.json). Fuentes: Noto Sans / Noto Serif. -->
+  <rect width="612" height="396" fill="#ffffff"/>
+  <rect x="13.29" y="11.13" width="585.42" height="373.74" fill="none" stroke="#b89b54" stroke-width="5.01"/>
+
+  <image id="emblem" x="280.12" y="21.74" width="51.76" height="51.51" xlink:href="" />
+
+  <text id="t_club_line" x="306" y="85.15" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="10.35" fill="#7f1d1d">CLUB DE CONQUISTADORES</text>
+  <text id="t_title" x="306" y="108.96" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="21.35" fill="#111827">CERTIFICADO DE ESPECIALIDAD</text>
+  <text id="t_awarded_to" x="306" y="144.55" text-anchor="middle" font-family="Noto Sans" font-size="10.35" fill="#6b7280">Se otorga el presente certificado a:</text>
+
+  <text id="recipient_name" x="306" y="178.2" text-anchor="middle" font-family="Noto Serif" font-weight="700" font-size="35.59"
+        fill="#991b1b" data-fit="shrink" data-min-size="18.12" data-max-width="463.64">Nombre del conquistador</text>
+  <line x1="110.19" y1="198" x2="501.81" y2="198" stroke="#d1d5db" stroke-width="0.78"/>
+
+  <text id="t_for_completing" x="306" y="229.71" text-anchor="middle" font-family="Noto Sans" font-size="9.45" fill="#6b7280">Por haber completado satisfactoriamente los requisitos de la especialidad:</text>
+  <text id="honor_name" x="306" y="261.41" text-anchor="middle" font-family="Noto Sans" font-weight="700" font-size="27.69"
+        fill="#111827" data-fit="shrink" data-min-size="15.01" data-max-width="440.45">Especialidad</text>
+  <text id="issue_line" x="306" y="300.88" text-anchor="middle" font-family="Noto Sans" font-weight="500" font-size="9.45" fill="#4b5563"
+        data-template-text="{club_name}  ·  {place}  ·  {issued_date}">Club  ·  Lugar  ·  Fecha</text>
+
+  <image id="honor_patch" x="262.38" y="316.93" width="87.09" height="51.51" xlink:href="" preserveAspectRatio="xMidYMid meet"/>
+
+  <line x1="116.22" y1="348.51" x2="250.98" y2="348.51" stroke="#9ca3af" stroke-width="0.58"/>
+  <line x1="361.02" y1="348.51" x2="495.78" y2="348.51" stroke="#9ca3af" stroke-width="0.58"/>
+  <text id="director_name" x="183.6" y="364.29" text-anchor="middle" font-family="Noto Sans" font-size="7.12" fill="#6b7280">Director(a) del club</text>
+  <text id="instructor_name" x="428.4" y="364.29" text-anchor="middle" font-family="Noto Sans" font-size="7.12" fill="#6b7280">Instructor(a)</text>
+
+  <image id="qr" x="494.21" y="281.21" width="55.39" height="55.39" xlink:href=""/>
+  <text id="certificate_no" x="26.58" y="372.32" font-family="Noto Sans Mono" font-size="5.56" fill="#6b7280">CC-XXXXXXXXXX</text>
+  <text id="issuer_name" x="26.58" y="379.82" font-family="Noto Sans" font-size="5.56" fill="#6b7280">Organización emisora</text>
+</svg>
