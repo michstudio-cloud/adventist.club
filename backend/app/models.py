@@ -1,7 +1,7 @@
 import uuid
 from datetime import date, datetime
 from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, Integer, SmallInteger, String, Text, func
-from sqlalchemy.dialects.postgresql import CITEXT, INET, JSONB, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
 
@@ -330,6 +330,10 @@ class HonorReview(Base):
     action: Mapped[str] = mapped_column(String(20))
     comments: Mapped[str | None] = mapped_column(Text)
     reviewed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 009b_courses.sql — set on the review of a COURSE; NULL means "review of the honor".
+    course_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE", use_alter=True)
+    )
 
 
 class HonorResource(Base):
@@ -461,3 +465,80 @@ class ChurchLetter(Base):
     valid_until: Mapped[date | None] = mapped_column(Date)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 009b_courses.sql: an instructor's offering of a published honor, with lessons
+# and the per-requirement evaluation plan.
+# ---------------------------------------------------------------------------
+
+
+class Course(Base):
+    __tablename__ = "courses"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    # The published version the course was built on; it never moves.
+    honor_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("honors.id"))
+    instructor_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    # The instructor's organization when they created it: it decides which reviewers see it.
+    org_scope_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    locale: Mapped[str] = mapped_column(String(16), server_default="es")
+    title: Mapped[str] = mapped_column(String(180))
+    summary: Mapped[str | None] = mapped_column(String(600))
+    cover_url: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), server_default="DRAFT")
+    # True only when a reviewer withdrew it, not when the instructor archived it.
+    archived_by_authority: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    archive_reason: Mapped[str | None] = mapped_column(Text)
+    version: Mapped[int] = mapped_column(Integer, server_default="1")
+    previous_version_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id")
+    )
+    changes_description: Mapped[str | None] = mapped_column(Text)
+    approved_zone_org_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    approved_association_org_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    # Operational: they stay editable on a published course.
+    enrollment_open: Mapped[bool] = mapped_column(Boolean, server_default="true")
+    capacity: Mapped[int | None] = mapped_column(Integer)
+    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    archived_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class CourseLesson(Base):
+    __tablename__ = "course_lessons"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    course_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE")
+    )
+    position: Mapped[int] = mapped_column(Integer)
+    title: Mapped[str] = mapped_column(String(180))
+    requirement_positions: Mapped[list[int]] = mapped_column(ARRAY(Integer), server_default="{}")
+    # The content blocks (text, image, pdf, video): always read and written with their lesson.
+    blocks: Mapped[list] = mapped_column(JSONB, server_default="[]")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class CourseRequirement(Base):
+    """How this course evaluates each requirement of the honor. Never more lenient than
+    the honor: a practical requirement must stay EVIDENCE."""
+
+    __tablename__ = "course_requirements"
+
+    course_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE"), primary_key=True
+    )
+    requirement_position: Mapped[int] = mapped_column(Integer, primary_key=True)
+    assessment: Mapped[str] = mapped_column(String(10))
+    # Questions drawn per attempt; only an EXAM requirement has a bank (Bloque C).
+    draw_count: Mapped[int] = mapped_column(SmallInteger, server_default="0")
+    guidance: Mapped[str | None] = mapped_column(Text)

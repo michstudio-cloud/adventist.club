@@ -16,7 +16,7 @@ ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
 ALLOWED_DOCUMENT_TYPES = {"application/pdf"}
 # SVG is markup that browsers execute, so it has extra rules: see the router.
 ALLOWED_TYPES = ALLOWED_IMAGE_TYPES | ALLOWED_DOCUMENT_TYPES | {SVG_TYPE}
-ALLOWED_FOLDERS = {"specialties", "patches", "general", "resources", "avatars", "logos"}
+ALLOWED_FOLDERS = {"specialties", "patches", "general", "resources", "avatars", "logos", "courses"}
 SVG_FOLDERS = {"patches", "logos"}
 DEFAULT_FOLDER = "general"
 

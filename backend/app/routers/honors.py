@@ -322,7 +322,9 @@ async def _build_detail(
     reviews = (
         await db.execute(
             select(HonorReview)
-            .where(HonorReview.honor_id == honor.id)
+            # `honor_reviews` is shared with the courses of Bloque B: their rows carry
+            # `course_id` and belong to the course's history, not to the honor's.
+            .where(HonorReview.honor_id == honor.id, HonorReview.course_id.is_(None))
             .order_by(HonorReview.reviewed_at)
         )
     ).scalars().all()
