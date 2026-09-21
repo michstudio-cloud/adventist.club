@@ -190,6 +190,12 @@ class Certificate(Base):
     enrollment_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_enrollments.id"))
     issued_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
     issued_role: Mapped[str|None]=mapped_column(String(40))
+    # 011_certificate_revocation.sql (Bloque D I7) — annulling is never a delete, and none
+    # of these three is part of `canonical()`: the hash of a revoked certificate is the
+    # one it was issued with, so it verifies as «revocado», never as «modificado».
+    revoked_at: Mapped[datetime|None]=mapped_column(DateTime(timezone=True))
+    revoked_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
+    revocation_reason: Mapped[str|None]=mapped_column(Text)
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"
@@ -532,8 +538,12 @@ class Course(Base):
     max_exam_attempts: Mapped[int] = mapped_column(Integer, server_default="3")
     exam_mode: Mapped[str] = mapped_column(String(10), server_default="ONLINE")
     # Operational: the code an instructor dictates in the classroom (Bloque C · I6).
+    # `session_code` is the plain column `010` created and I6 left unused (always NULL):
+    # the code is a shared secret, so what is stored is the SHA-256 of
+    # "<course_id>:<CODE>" in `session_code_hash` (010b_exam_session_code.sql).
     session_code: Mapped[str | None] = mapped_column(String(8))
     session_code_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    session_code_hash: Mapped[str | None] = mapped_column(String(64))
 
 
 class CourseLesson(Base):

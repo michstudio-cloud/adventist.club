@@ -597,3 +597,46 @@ async def send_club_decision_email(
         logger.exception("Failed to render club decision email")
         return False
     return await send_email(to, subject, html)
+
+
+# ----------------------------------------------------------------------------
+# A certificate was annulled (Bloque D · I7, spec §5.5)
+# ----------------------------------------------------------------------------
+def certificate_revoked_email_html(name: str, certificate_no: str, honor_name: str | None) -> str:
+    """The holder — and the guardians of a minor — are told that a certificate with their
+    name on it is no longer valid.
+
+    What it does NOT carry: the reason, who decided it, the course or the instructor. The
+    reason is a judgement about a person and can name a third party; it lives in the
+    portfolio, behind a session, for whoever is entitled to read it. An e-mail is not a
+    private channel: it sits in an inbox a whole family may share.
+    """
+    frontend = settings.frontend_url
+    honor = f" de <strong>{escape(honor_name)}</strong>" if honor_name else ""
+    content = f"""
+        <h2>Tu certificado fue anulado</h2>
+        <p>Hola {escape(name)},</p>
+        <p>
+            El certificado{honor}, con folio
+            <strong>{escape(certificate_no)}</strong>, ha sido anulado por la Asociación y
+            ya no verifica como válido.
+        </p>
+        <p>
+            Entra en tu portafolio para ver el motivo. Si crees que hay un error, habla con
+            la dirección de tu club.
+        </p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/portafolio" class="button">Ver mi portafolio</a>
+        </div>
+    """
+    return base_template(content, "Tu certificado fue anulado - Adventist.Club")
+
+
+async def send_certificate_revoked_email(
+    to: str, name: str, certificate_no: str, honor_name: str | None = None
+) -> bool:
+    return await send_email(
+        to,
+        "Tu certificado fue anulado - Adventist.Club",
+        certificate_revoked_email_html(name, certificate_no, honor_name),
+    )

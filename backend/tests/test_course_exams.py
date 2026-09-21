@@ -458,8 +458,9 @@ async def test_submit_refuses_more_than_sixty_drawn_questions(client, world, fac
 
 
 @pytest.mark.asyncio
-async def test_submit_refuses_questions_nobody_can_grade_yet(client, world, factory):
-    """I6 gate: until manual grading exists, no attempt may end up waiting for a grader."""
+async def test_submit_accepts_questions_a_person_grades(client, world, factory):
+    """Until I6 this was a 400: no answer could wait for a grader that did not exist.
+    Manual grading exists now (tests/test_exam_grading.py), so the gate is gone."""
     honor = await _honor(factory, "needs-grader")
     course = await _draft(client, world, honor)
     essay = {
@@ -468,13 +469,12 @@ async def test_submit_refuses_questions_nobody_can_grade_yet(client, world, fact
         "correct_answer": "Rúbrica: menciona dos usos.",
     }
     assert (await _set_bank(client, world, course["id"], 1, [essay])).status_code == 200
-    refused = await _submit(client, world, course["id"])
-    assert refused.status_code == 400
-    assert "calificación manual" in refused.json()["detail"].lower()
+    assert (await _submit(client, world, course["id"])).status_code == 200
 
 
 @pytest.mark.asyncio
-async def test_submit_refuses_an_in_person_exam_for_now(client, world, factory):
+async def test_submit_accepts_an_in_person_exam(client, world, factory):
+    """Also a 400 until I6, for want of a session code to open."""
     honor = await _honor(factory, "in-person")
     course = await _draft(client, world, honor)
     assert (await _set_bank(client, world, course["id"], 1, [MC])).status_code == 200
@@ -485,8 +485,7 @@ async def test_submit_refuses_an_in_person_exam_for_now(client, world, factory):
             headers=world["instructor"]["headers"],
         )
     ).status_code == 200
-    refused = await _submit(client, world, course["id"])
-    assert refused.status_code == 400 and "presencial" in refused.json()["detail"].lower()
+    assert (await _submit(client, world, course["id"])).status_code == 200
 
 
 @pytest.mark.asyncio

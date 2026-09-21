@@ -503,3 +503,58 @@ async def can_view_enrollment(
         return True
     owner = await db.get(User, enrollment.user_id)
     return owner is not None and await can_view_portfolio(db, actor, owner)
+
+
+# ----------------------------------------------------------------------------
+# Bloque C · I6: grading and voiding an exam attempt.
+# ----------------------------------------------------------------------------
+async def can_grade_attempt(
+    db: AsyncSession, actor: User, enrollment: HonorEnrollment
+) -> bool:
+    """Grade a pending answer, or void an attempt, of THIS enrollment (spec §4.4 and §4.8).
+
+    The exam belongs to the course, so the club's director never grades it: only the
+    instructor of that course — while their church letter is authorized and the course was
+    not withdrawn by a reviewer — or MASTER_GC. `is_course_instructor` already refuses the
+    owner of the enrollment, so nobody grades or voids their own attempt (rule 5 of C).
+    """
+    if actor.id == enrollment.user_id:
+        return False
+    if is_master(actor):
+        return True
+    return await is_course_instructor(db, actor, enrollment)
+
+
+# ----------------------------------------------------------------------------
+# Bloque D · I7: annulling a certificate already issued.
+# ----------------------------------------------------------------------------
+async def can_revoke(db: AsyncSession, actor: User, certificate) -> bool:
+    """Who annuls a certificate (spec §5.5): MASTER_GC, or an association reviewer whose
+    scope contains the club of the enrollment (CLUB) or the course's `org_scope_id`
+    (COURSE).
+
+    The instructor who signed it and the club's director do **not**: they ask their
+    association, which is the escalation path of the vision (Director -> Zona -> Asociación)
+    and the reason decision D4 can let the instructor have the last word on a verdict. The
+    holder never annuls their own certificate — not even a MASTER_GC who happens to be the
+    holder, which is rule 5 of A applied to the last act of the chain.
+    """
+    from app.workflow import ASSOCIATION_REVIEWERS
+
+    if certificate.user_id is not None and certificate.user_id == actor.id:
+        return False
+    if is_master(actor):
+        return True
+    if actor.role not in ASSOCIATION_REVIEWERS:
+        return False
+    if certificate.enrollment_id is None:
+        return False
+    enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
+    if enrollment is None:
+        return False
+    if enrollment.mode == "COURSE" and enrollment.course_id is not None:
+        course = await db.get(Course, enrollment.course_id)
+        target = course.org_scope_id if course is not None else None
+    else:
+        target = enrollment.club_id
+    return await org_in_review_scope(db, actor, target)

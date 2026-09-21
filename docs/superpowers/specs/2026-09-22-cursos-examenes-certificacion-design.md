@@ -904,6 +904,68 @@ hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del d
     pueden llegar a `SUBMITTED` (el envío responde 409 y unirse devuelve a `PENDING` las filas
     `SUBMITTED` de requisitos `EXAM`), así que no hizo falta un filtro aparte.
 
+## Desviaciones de la implementación (I6, I7 y el hueco de cartas, 21 sep 2026)
+
+31. **El código de sesión se guarda con hash, en una columna nueva.** §4.6 lo ponía en
+    `courses.session_code`, en claro. Un código en claro es un secreto compartido legible
+    para cualquiera que pueda leer la fila del curso (un volcado, una consulta de soporte),
+    y abre un examen. Se guarda `sha256('<course_id>:<CODIGO>')` en
+    `courses.session_code_hash` (migración `010b_exam_session_code.sql`), porque un hash de
+    64 caracteres no cabe en el `varchar(8)` de la columna anterior. `session_code` se
+    conserva intacta y sin uso —hoy vale NULL en todas las filas— en vez de borrarla, que
+    sería destructivo. El salado por id de curso hace además que un código valga para un
+    solo curso, que es lo que §4.6 pide con «una sesión por curso».
+32. **El límite de cinco códigos fallidos se cuenta en `audit_log`, no con el `limiter`.**
+    §4.6 lo pedía «con el `limiter` existente», que es por IP, en memoria y se apaga en los
+    tests. Un bloqueo por **persona**, en la base de datos, es el que de verdad impide
+    adivinar seis caracteres desde varias IP, se puede probar y deja el intento de
+    adivinanza escrito donde tiene que estar. Acción nueva `EXAM_SESSION_CODE_FAILED`
+    (`entity_type = 'COURSE'`), que §7 no listaba. El `limiter` sigue puesto en `start` y en
+    `save` como estaba.
+33. **Un código incorrecto y uno vencido dan el mismo 403 y el mismo mensaje.**
+    Distinguirlos le diría a quien está probando que el código existía.
+34. **En una calificación manual, `is_correct` significa la nota completa.** §4.4 admite
+    crédito parcial (0…`points_possible`) pero no decía qué es entonces `exam_answers.
+    is_correct`. Con 2 de 4 puntos la respuesta no es «correcta»; la nota parcial sí viaja
+    en `points_awarded`, que es lo que el miembro y el desglose leen.
+35. **`GET /exams/grading/queue` responde 403 a quien no enseña nada**, no una lista vacía.
+    Es la regla que I3 ya fijó para `GET /portfolio/review/queue` (desviación 15): sin cola
+    de la que hablar, 403.
+36. **Anular exige inscripción no congelada, no sólo «no `CERTIFIED`».** §4.4 nombraba
+    `CERTIFIED`; `WITHDRAWN` congela igual (regla 3 de A), así que el 409 cubre las dos.
+37. **La revocación de un intento sólo devuelve las filas que siguen siendo del examen.**
+    §4.4 dice «las filas de `completed_positions` vuelven a `PENDING`». Se revierten las que
+    siguen `COMPLETE` **con `completed_via = 'EXAM'`**: si entre medias el instructor
+    reabrió y volvió a dictaminar una a mano, esa es suya y no la toca la anulación.
+38. **La emisión automática vive en `app/services/auto_certificate.py` y repite el montaje
+    de `portfolio.issue` en vez de extraerlo.** Es duplicación deliberada: `portfolio.issue`
+    es el camino de A para la emisión manual y no cambia de forma. Queda escrito en el
+    módulo para que una divergencia futura sea una decisión y no un descuido.
+39. **`issue_certificate` acepta `event_metadata`.** §5.3 pide el evento `issued` con
+    `{auto: true, attempt_id}`; se añadió un parámetro opcional al final de la firma en vez
+    de escribir el evento dos veces. No toca `canonical()` ni el hash.
+40. **`can_revoke` niega también al titular antes que a nadie, incluso si es MASTER_GC.**
+    §5.5 no lo decía porque no hace falta hoy; es la regla 5 de A aplicada al último acto de
+    la cadena, y cuesta una línea.
+41. **El correo de anulación no lleva el motivo.** §5.5 pide avisar al titular «sin filtrar
+    detalles». El motivo es un juicio sobre una persona y puede nombrar a un tercero; el
+    correo dice qué certificado y que fue anulado, y el motivo se lee en el portafolio,
+    detrás de una sesión. Tampoco es un aviso de avance: `users.notify_progress` no lo
+    apaga y el tope de 12 h no lo retiene, porque es una decisión sobre un documento con el
+    nombre de la persona. `kind = 'CERTIFICATE_REVOKED'`.
+42. **La verificación pública ordena «modificado» antes que «revocado».** Un certificado
+    anulado conserva su hash, así que las dos condiciones no se cruzan; si algún día se
+    cruzaran, que el documento esté alterado es la noticia más grave.
+43. **`GET /church-letters/queue?status=` acepta también `AUTHORIZED`, `REJECTED` y
+    `REVOKED`.** §3.1 sólo listaba los dos escalones pendientes, y con eso la UI no podía
+    llegar nunca a `REVOKE`: nada devolvía una carta ya autorizada. Amplía lo que se
+    **lista**, no quién puede verlo (el alcance sigue siendo `org_in_review_scope`, y quien
+    ya podía abrir el documento con la URL firmada es el mismo). El acto de revocar sigue
+    siendo de un revisor de Asociación.
+44. **`GET /church-letters/{id}` responde 404, no 403, a quien no es el dueño ni revisor en
+    alcance.** Una carta es un documento personal: confirmar que ese id existe ya diría que
+    alguien presentó una. Devuelve los mismos metadatos que la cola y nunca `storage_key`.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de

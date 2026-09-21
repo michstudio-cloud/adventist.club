@@ -315,6 +315,8 @@ async def _certificates_out(db: AsyncSession, certificates: list[Certificate]) -
             enrollment_id=str(c.enrollment_id) if c.enrollment_id else None,
             issued_by_id=str(c.issued_by_id) if c.issued_by_id else None,
             issued_role=c.issued_role,
+            revoked_at=c.revoked_at,
+            revocation_reason=c.revocation_reason,
         )
         for c in certificates
     ]

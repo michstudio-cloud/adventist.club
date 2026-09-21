@@ -468,3 +468,93 @@ async def test_each_condition_of_the_gate_on_its_own(client, world, r2, clean):
 async def test_a_letter_of_someone_else_never_verifies_you(client, world, r2, clean):
     await _authorized(client, r2, world, world["instructor"])
     assert (await _me(client, world["instructor2"])).json()["verified"] is False
+
+
+# ----------------------------------------------------------------------------
+# Reading one letter, and the queue of letters already decided
+#
+# The UI could reach VALIDATE, AUTHORIZE and REJECT, but never REVOKE: nothing in the API
+# returned a letter that was already AUTHORIZED, so the screen that revokes one had no way
+# to open it. These two are that gap, with the same privacy as the signed URL: metadata
+# only, and only for the owner or a reviewer with scope over the letter.
+# ----------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_one_letter_is_read_by_its_owner_and_by_a_reviewer_in_scope(
+    client, world, r2, clean
+):
+    letter = await _authorized(client, r2, world, world["instructor"])
+
+    for who in ("instructor", "zone_coordinator", "assoc_admin", "master"):
+        seen = await client.get(f"{LETTERS}/{letter['id']}", headers=world[who]["headers"])
+        assert seen.status_code == 200, f"{who}: {seen.text}"
+        body = seen.json()
+        assert body["id"] == letter["id"] and body["status"] == "AUTHORIZED"
+        assert body["user"]["id"] == world["instructor"]["id"]
+        # Same privacy as GET /{id}/url: metadata only. No storage key, no e-mail, and
+        # never the document itself — that still takes a signed URL.
+        assert "storage_key" not in seen.text and "email" not in seen.text
+        assert body["valid_until"] is not None
+
+    # An association that does not cover this letter, another instructor and a member:
+    # 404, because confirming that a letter exists is already telling them something.
+    for who in ("other_admin", "instructor2", "student"):
+        refused = await client.get(f"{LETTERS}/{letter['id']}", headers=world[who]["headers"])
+        assert refused.status_code == 404, f"{who}: {refused.text}"
+
+    missing = await client.get(
+        f"{LETTERS}/{uuid.uuid4()}", headers=world["assoc_admin"]["headers"]
+    )
+    assert missing.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_the_queue_also_lists_the_letters_already_decided(client, world, r2, clean):
+    authorized = await _authorized(client, r2, world, world["instructor"])
+    rejected = await _submitted(client, r2, world["instructor2"])
+    assert (
+        await _review(client, world["zone_coordinator"], rejected["id"], "REJECT", note="Ilegible")
+    ).status_code == 200
+
+    def ids(response):
+        assert response.status_code == 200, response.text
+        return [row["id"] for row in response.json()]
+
+    assert authorized["id"] in ids(
+        await client.get(f"{LETTERS}/queue?status=AUTHORIZED", headers=world["assoc_admin"]["headers"])
+    )
+    assert rejected["id"] in ids(
+        await client.get(f"{LETTERS}/queue?status=REJECTED", headers=world["zone_coordinator"]["headers"])
+    )
+    # ...which is what finally lets the association reach REVOKE from a screen.
+    assert (
+        await _review(client, world["assoc_admin"], authorized["id"], "REVOKE", note="Cambió de iglesia")
+    ).status_code == 200
+    assert authorized["id"] in ids(
+        await client.get(f"{LETTERS}/queue?status=REVOKED", headers=world["assoc_admin"]["headers"])
+    )
+    assert authorized["id"] not in ids(
+        await client.get(f"{LETTERS}/queue?status=AUTHORIZED", headers=world["assoc_admin"]["headers"])
+    )
+
+
+@pytest.mark.asyncio
+async def test_the_decided_queue_keeps_the_scope_and_the_pagination(client, world, r2, clean):
+    letter = await _authorized(client, r2, world, world["instructor"])
+    url = f"{LETTERS}/queue?status=AUTHORIZED"
+
+    def ids(response):
+        return [row["id"] for row in response.json()]
+
+    assert letter["id"] not in ids(
+        await client.get(url, headers=world["other_admin"]["headers"])
+    )
+    assert (await client.get(url, headers=world["instructor"]["headers"])).status_code == 403
+    assert (await client.get(url, headers=world["student"]["headers"])).status_code == 403
+    # A zone coordinator keeps reading, in their own scope, what they validated.
+    assert letter["id"] in ids(
+        await client.get(url, headers=world["zone_coordinator"]["headers"])
+    )
+
+    assert (await client.get(f"{url}&limit=1&offset=0", headers=world["assoc_admin"]["headers"])).status_code == 200
+    assert len((await client.get(f"{url}&limit=1", headers=world["assoc_admin"]["headers"])).json()) <= 1
+    assert (await client.get(f"{url}&limit=0", headers=world["assoc_admin"]["headers"])).status_code == 422

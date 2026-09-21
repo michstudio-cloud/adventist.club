@@ -15,7 +15,18 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.models import Certificate, CertificateEvent, CertificateTemplate, Club, Organization, User
+from app.models import (
+    Certificate,
+    CertificateEvent,
+    CertificateTemplate,
+    Club,
+    Course,
+    HonorEnrollment,
+    Organization,
+    User,
+)
+from app.security import utcnow
+from app.services.audit import record_audit
 
 
 def cert_no() -> str:
@@ -145,6 +156,9 @@ async def issue_certificate(
     user_id: uuid.UUID | None = None,
     enrollment_id: uuid.UUID | None = None,
     issued_by: User | None = None,
+    # Bloque D · I7: extra keys for the `issued` event, e.g. `{auto, attempt_id}` when an
+    # exam issued the certificate on its own (spec §5.3). Never part of the hash.
+    event_metadata: dict | None = None,
 ) -> Certificate:
     """Stage one issued certificate with its hash and `issued` event (flushed, not committed)."""
     certificate = Certificate(
@@ -178,7 +192,101 @@ async def issue_certificate(
             certificate_id=certificate.id,
             event_type="issued",
             actor_id=issued_by.id if issued_by else None,
-            metadata_json={"hash": certificate.certificate_hash},
+            metadata_json={"hash": certificate.certificate_hash, **(event_metadata or {})},
         )
+    )
+    return certificate
+
+
+# ----------------------------------------------------------------------------
+# Bloque D · I7 — The course shown by relation, and revocation.
+#
+# Neither of the two touches `canonical()`. That function is frozen (hallazgo 7 of the
+# spec): adding one key to it would change the hash of every certificate ever issued and
+# they would all stop verifying. So the course title travels by relation, outside the hash,
+# and revoking writes only columns the hash does not cover.
+# ----------------------------------------------------------------------------
+REVOKED_STATUS = "revoked"
+CERTIFIED, WITHDRAWN = "CERTIFIED", "WITHDRAWN"  # honor_enrollments.status (block A)
+
+
+async def course_context(db: AsyncSession, certificate: Certificate) -> tuple[str | None, str | None]:
+    """`(mode, course_title)` of the enrollment this certificate froze (spec §5.4).
+
+    Nothing is stored on `certificates` for this — no `course_id` column — because the
+    enrollment is frozen the moment it is certified and already keeps it.
+    """
+    if certificate.enrollment_id is None:
+        return None, None
+    enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
+    if enrollment is None:
+        return None, None
+    if enrollment.mode != "COURSE" or enrollment.course_id is None:
+        return enrollment.mode, None
+    course = await db.get(Course, enrollment.course_id)
+    return enrollment.mode, course.title if course else None
+
+
+async def revoke_certificate(
+    db: AsyncSession,
+    certificate: Certificate,
+    actor: User,
+    reason: str,
+    request=None,
+) -> Certificate:
+    """Annul an issued certificate (spec §5.5). Staged on the caller's session.
+
+    Revoking is **never** a delete: the row keeps its folio, its hash, its signatures and
+    its whole `certificate_events` history, so the story of what happened stays readable.
+    What changes is `status`, and the public verification — which already answers "not
+    valid" to anything that is not `issued` — starts saying «revocado» with its date.
+
+    The enrollment goes CERTIFIED -> WITHDRAWN, which is the ONLY transition of its kind in
+    the platform (spec §2.2), and keeps `certificate_id` as history: it is frozen, and the
+    member may start the honor again from zero. There is no un-revoking.
+
+    Who may do this is `rbac.can_revoke`, decided by the caller.
+    """
+    if certificate.status == REVOKED_STATUS:
+        raise HTTPException(409, "Este certificado ya está anulado")
+    now = utcnow()
+    certificate.status = REVOKED_STATUS
+    certificate.revoked_at = now
+    certificate.revoked_by_id = actor.id
+    certificate.revocation_reason = reason
+    certificate.updated_at = now
+    db.add(
+        CertificateEvent(
+            id=uuid.uuid4(),
+            certificate_id=certificate.id,
+            event_type="revoked",
+            actor_id=actor.id,
+            metadata_json={"reason": reason},
+        )
+    )
+
+    enrollment = (
+        await db.get(HonorEnrollment, certificate.enrollment_id)
+        if certificate.enrollment_id
+        else None
+    )
+    if enrollment is not None and enrollment.status == CERTIFIED:
+        enrollment.status = WITHDRAWN
+        enrollment.withdrawn_at = now
+        enrollment.updated_at = now
+    record_audit(
+        db,
+        action="CERTIFICATE_REVOKE",
+        entity_type="CERTIFICATE",
+        entity_id=certificate.id,
+        actor=actor,
+        details=reason,
+        metadata={
+            "certificate_no": certificate.certificate_no,
+            "enrollment_id": str(certificate.enrollment_id) if certificate.enrollment_id else None,
+            "user_id": str(certificate.user_id) if certificate.user_id else None,
+            "issued_by_id": str(certificate.issued_by_id) if certificate.issued_by_id else None,
+        },
+        request=request,
     )
     return certificate

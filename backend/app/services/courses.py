@@ -85,9 +85,6 @@ EXAM, REVIEW, EVIDENCE = "EXAM", "REVIEW", "EVIDENCE"
 IN_REVIEW = (ZONE_REVIEW, ASSOCIATION_REVIEW)
 # Enrollments that take up a seat (the statuses of Bloque A that are still open).
 LIVE_ENROLLMENT_STATUSES = ("IN_PROGRESS", "READY")
-# Question types a machine cannot decide. They arrive with I6 (manual grading); until then
-# a course carrying them is not allowed into review, so no attempt waits for nobody.
-NEEDS_MANUAL_GRADING = {"SHORT_ANSWER", "ESSAY"}
 # A course keeps its content open only while it is a draft.
 EDITABLE = (DRAFT,)
 
@@ -886,8 +883,12 @@ async def _missing_before_submit(db: AsyncSession, course: Course) -> list[str]:
 async def _missing_exam(
     db: AsyncSession, course: Course, plan: list[CourseRequirement]
 ) -> list[str]:
-    """Nobody publishes an exam that cannot be sat, and — until I6 — nobody publishes one
-    whose answers would sit waiting for a grader that does not exist yet (§10, I6)."""
+    """Nobody publishes an exam that cannot be sat.
+
+    Until I6 this also refused SHORT_ANSWER, ESSAY and the IN_PERSON mode, so no answer
+    could end up waiting for a grader that did not exist and no attempt could ask for a
+    session code nobody could open. I6 built both, so both gates are gone.
+    """
     exam_rows = [row for row in plan if row.assessment == EXAM]
     if not exam_rows:
         return []
@@ -907,23 +908,6 @@ async def _missing_exam(
     if drawn > MAX_DRAWN_QUESTIONS:
         missing.append(
             f"el examen sortearía {drawn} preguntas y el máximo es {MAX_DRAWN_QUESTIONS}"
-        )
-    # --- I6 gate -------------------------------------------------------------
-    types = {
-        row.question_type
-        for row in await _bank_rows(db, course.id)
-        if row.requirement_position in {r.requirement_position for r in exam_rows}
-    }
-    needs_grader = sorted(types & NEEDS_MANUAL_GRADING)
-    if needs_grader:
-        missing.append(
-            "todavía no existe la calificación manual, así que el banco no puede llevar"
-            f" preguntas de tipo {', '.join(needs_grader)}"
-        )
-    if course.exam_mode != "ONLINE":
-        missing.append(
-            "el examen presencial (código de sesión) todavía no está disponible: deja el"
-            " examen en modo ONLINE"
         )
     return missing
 

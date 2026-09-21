@@ -34,10 +34,11 @@ from app.schemas.course import (
     PlanItemIn,
     RequirementQuestionsIn,
 )
+from app.schemas.exam import ExamSessionIn, ExamSessionOut
 from app.schemas.honor import HonorReviewIn
 from app.schemas.portfolio import EnrollmentDetail
 from app.security import INSTRUCTOR
-from app.services import course_enrollment, courses
+from app.services import course_enrollment, courses, exam_sessions
 from app.services.locales import LOCALE_PATTERN
 from app.workflow import ZONE_REVIEWERS
 
@@ -330,3 +331,30 @@ async def remove_course_member(
     await course_enrollment.remove_member(
         db, current_user, course_id, enrollment_id, payload, request
     )
+
+
+# ----------------------------------------------------------------------------
+# I6 — The in-person session: a short-lived code the instructor dictates (§4.6)
+# ----------------------------------------------------------------------------
+@router.post("/{course_id}/exam-session", response_model=ExamSessionOut)
+async def open_exam_session(
+    course_id: uuid.UUID,
+    request: Request,
+    payload: ExamSessionIn | None = Body(default=None),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The code is shown ONCE; only its hash is stored. Opening another replaces it."""
+    return await exam_sessions.open_session(
+        db, current_user, course_id, payload or ExamSessionIn(), request
+    )
+
+
+@router.delete("/{course_id}/exam-session", status_code=status.HTTP_204_NO_CONTENT)
+async def close_exam_session(
+    course_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    await exam_sessions.close_session(db, current_user, course_id, request)

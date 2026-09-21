@@ -15,6 +15,7 @@ from app.models import User
 from app.schemas.portfolio import (
     CertificateIssue,
     CertificateOut,
+    CertificateRevokeIn,
     EnrollmentCreate,
     EnrollmentDetail,
     EnrollmentStatus,
@@ -30,7 +31,7 @@ from app.schemas.portfolio import (
     ReviewIn,
     SignedUrl,
 )
-from app.services import notifications, portfolio
+from app.services import certificate_revocation, notifications, portfolio
 
 router = APIRouter(prefix="/api/v1/portfolio", tags=["portfolio"])
 
@@ -220,3 +221,22 @@ async def user_portfolio(
     db: AsyncSession = Depends(get_db),
 ):
     return await portfolio.portfolio_of(db, current_user, user_id)
+
+
+# ----------------------------------------------------------------------------
+# Bloque D · I7 — Annulling a certificate (spec §5.5)
+# ----------------------------------------------------------------------------
+@router.post("/certificates/{certificate_id}/revoke", response_model=CertificateOut)
+async def revoke_certificate(
+    certificate_id: uuid.UUID,
+    payload: CertificateRevokeIn,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """MASTER_GC or the association in scope, always with a reason. Never a delete: the
+    certificate keeps its folio and its hash, and stops verifying as valid."""
+    return await certificate_revocation.revoke(
+        db, current_user, certificate_id, payload, request, background
+    )
