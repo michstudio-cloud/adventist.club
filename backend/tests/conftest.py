@@ -197,6 +197,29 @@ class Factory:
                     ),
                     params,
                 )
+            # Bloque B: church letters hang from the user and cascade, but they are deleted
+            # explicitly so a module that only creates letters cleans up after itself too.
+            if await db.scalar(text("SELECT to_regclass('public.church_letters')")):
+                await db.execute(text(f"DELETE FROM church_letters WHERE user_id IN ({users})"), params)
+            if await db.scalar(text("SELECT to_regclass('public.courses')")):
+                # Courses point at honors and users without cascade, so they go first; their
+                # lessons, plan and review rows cascade from the course. Newer versions point
+                # at older ones, so the delete runs until nothing is left.
+                courses = (
+                    f"SELECT id FROM courses WHERE instructor_id IN ({users})"
+                    f" OR honor_id IN ({honors})"
+                )
+                for _ in range(5):
+                    deleted = await db.execute(
+                        text(
+                            f"DELETE FROM courses WHERE id IN ({courses})"
+                            f" AND id NOT IN (SELECT previous_version_id FROM courses"
+                            "  WHERE previous_version_id IS NOT NULL)"
+                        ),
+                        params,
+                    )
+                    if deleted.rowcount == 0:
+                        break
             await db.execute(text(f"DELETE FROM honors WHERE id IN ({honors})"), params)
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)

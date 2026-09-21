@@ -7,11 +7,12 @@ MASTER_GC is global. The legacy API only compared organization ids for
 equality and left the hierarchy as a TODO.
 """
 import uuid
+from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import Guardianship, HonorEnrollment, Organization, User
+from app.models import ChurchLetter, Guardianship, HonorEnrollment, Organization, User
 from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
@@ -226,3 +227,46 @@ async def can_view_portfolio(db: AsyncSession, actor: User, target: User) -> boo
         if await can_review(db, actor, enrollment):
             return True
     return False
+
+
+# ----------------------------------------------------------------------------
+# Bloque B: the church letter and the single gate for the virtual instructor.
+# ----------------------------------------------------------------------------
+LETTER_AUTHORIZED = "AUTHORIZED"
+
+
+async def org_in_review_scope(
+    db: AsyncSession, actor: User, organization_id: uuid.UUID | None
+) -> bool:
+    """Does `actor` review what hangs from `organization_id`? Same rule as `can_decide_club`
+    (a zone coordinator sits beside the clubs, so their scope is the whole association),
+    by organization id: church letters and courses are not clubs."""
+    paths = await club_scope_paths(db, actor)
+    if paths is None:
+        return True  # MASTER_GC
+    for scope_path in paths:
+        if await org_in_subtree(db, organization_id, scope_path):
+            return True
+    return False
+
+
+async def instructor_is_verified(db: AsyncSession, user: User) -> bool:
+    """The ONLY thing the rest of Bloque B asks about the instructor's verification.
+
+    `users.verification_status = 'VERIFIED'` means "confirmed e-mail" and nothing more, so
+    it is one condition among several and never the answer on its own. The letter carries
+    the real authorisation, and losing it (suspension, REVOKE, expiry) takes every power
+    away at once without touching the courses or the enrollments.
+    """
+    if user.role != INSTRUCTOR or user.status != "ACTIVE" or user.is_minor:
+        return False
+    if user.verification_status != "VERIFIED" or not user.child_protection_completed:
+        return False
+    today = datetime.now(timezone.utc).date()
+    letter = select(ChurchLetter.id).where(
+        ChurchLetter.user_id == user.id,
+        ChurchLetter.role_requested == INSTRUCTOR,
+        ChurchLetter.status == LETTER_AUTHORIZED,
+        or_(ChurchLetter.valid_until.is_(None), ChurchLetter.valid_until >= today),
+    )
+    return (await db.execute(letter.limit(1))).scalar_one_or_none() is not None

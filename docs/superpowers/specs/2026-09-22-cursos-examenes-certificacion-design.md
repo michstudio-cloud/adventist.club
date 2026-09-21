@@ -793,6 +793,41 @@ Numeración: `008` queda reservada para otro bloque; aquí va un número por blo
 sufijo de letra por incremento, de modo que `012` en adelante queda libre para los bloques siguientes. Todas son
 aditivas e idempotentes (`IF NOT EXISTS`), como `007`.
 
+## Desviaciones de la implementación (I1 e I2, 21 sep 2026)
+
+Lo implementado sigue el documento; estas son las únicas decisiones que el texto no fijaba y que
+hubo que tomar al escribir el código. Ninguna cambia una regla ni un dato del diseño.
+
+1. **`LETTER_ROLES` vive en `app/services/church_letters.py`**, no en `rbac.py`: `rbac` se queda sólo
+   con la puerta `instructor_is_verified`, y `create(..., role_requested=INSTRUCTOR)` valida contra la
+   constante. El bloque E amplía la tupla y pasa su cargo; la columna ya es `varchar(40)`.
+2. **`AUTHORIZE` con un `valid_until` ya pasado responde 422.** El documento no lo decía; autorizar
+   una carta nacida caducada sólo produce un instructor que no puede actuar y nadie sabe por qué.
+   Para probar la caducidad, los tests vencen la fecha en la tabla.
+3. **`valid_until` sólo se lee en `AUTHORIZE`.** En `REJECT` y `REVOKE` se ignora, en vez de inventar
+   un código de error que §3.1 no lista.
+4. **`POST /courses/{id}/submit` devuelve el 400 con la lista de lo que falta como texto** («Antes de
+   enviar a revisión: …; …»), no como un objeto JSON: el resto del API responde `detail` en forma de
+   cadena y la pantalla puede pintarlo tal cual.
+5. **`POST /courses/{id}/version` no exige `instructor_is_verified`**, igual que crear y editar un
+   borrador (§3.1 sólo pide la puerta para enviar a revisión, publicar, descubrir, inscribir,
+   dictaminar, calificar y emitir). Quien pierde la carta puede preparar la versión, no enviarla.
+6. **`{honor_id}` en `POST /courses/{id}/version` debe ser una versión posterior de la misma
+   especialidad** (se sigue `previous_version_id` hasta 10 saltos). El documento no acotaba el
+   destino y sin esa comprobación un curso podría saltar a otra especialidad.
+7. **`courses.archived_by_authority` implica `enrollment_open = false`**, igual que archivar. El
+   documento lo da por supuesto al decir «sin altas nuevas»; queda escrito en el dato, no sólo en la
+   consulta de descubrimiento.
+8. **El escaparate (`GET /courses`) pagina de forma aproximada**: filtra por instructor verificado en
+   memoria sobre el doble del `limit` pedido. Con los volúmenes de hoy (cursos por especialidad) es
+   exacto; si crece, la condición pasa a SQL.
+9. **`rbac.org_in_review_scope` repite el cuerpo de `can_decide_club`** (una por id de organización,
+   la otra por club). Se dejó así a propósito para que las ramas de los bloques B y E se fusionen sin
+   conflicto; al integrar conviene que `can_decide_club` delegue en la nueva.
+10. **Las lecciones devuelven sus bloques tal como se guardaron** (`list[dict]`), sin revalidar el
+    esquema en cada lectura: un cambio futuro del dominio de medios convertiría lecciones válidas en
+    errores 500. La validación sigue siendo estricta al escribir.
+
 ## 11. Fuera de alcance de B, C y D
 
 Marketplace, pagos y comisiones a instructores; funciones sociales (foros, comentarios, mensajería, valoraciones de
