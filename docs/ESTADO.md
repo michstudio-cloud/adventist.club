@@ -83,9 +83,12 @@ plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejem
       `/honors/{id}`. Idioma siempre explícito (no `Accept-Language`). Detalle, atribución CC BY-SA y lista para enlazar
       a mano: `docs/ESPECIALIDADES_WIKI.md`. 131 tests.
 - [x] Clubes por ubicación (migración 004): `GET /org-nodes/clubs/nearby`, `PUT /org-nodes/clubs/{id}/location`.
-- [ ] Requisitos oficiales por idioma: el HTML crudo se está bajando con `catalog_tools/crawl_wiki_requirements.py`
-      (reanudable, 1 página / 10 s, fuera del repo en `~/adventist-wiki`). Falta `locale` en `honor_requirements`
-      (migración aditiva), el parser y el importador con atribución.
+- [x] Requisitos oficiales por idioma (22 sep): migración 006, `catalog_tools/crawl_wiki_requirements.py` (1 página/10 s,
+      HTML crudo en `~/adventist-wiki`, fuera del repo), `parse_wiki_requirements.py` e `import_wiki_requirements.py`.
+      En Neon: **457 especialidades en español (4 060 requisitos) y 506 en inglés (4 571)**, todos con `source`,
+      `source_url` y `license` CC BY-SA 3.0. 30 títulos sin página en español y 19 con traducción parcial (se omiten
+      hasta que la wiki las complete; volver a ejecutar el rastreo + importador es idempotente). Nunca sustituye una
+      lista escrita por un instructor. `is_theoretical` queda en su valor por defecto: decidirlo es tarea de revisión.
 - [ ] `users.locale`.
 - [ ] next-intl en el frontend (`/es`, `/en`), selector de idioma, Noto Sans, RTL.
 

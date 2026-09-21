@@ -55,7 +55,14 @@ parecidos (`IMAGE_REJECTED`) están en ese archivo y son la memoria de las decis
   una pantalla en español en un navegador en inglés se llenaba de nombres en inglés.
 - Nuevos campos públicos: `wiki_title`, `authority` (GC/NAD), `skill_level`, `year_introduced`.
 
-## Siguiente paso: requisitos oficiales
+## Requisitos oficiales — hecho (22 sep 2026)
+
+Cargados en Neon con `import_wiki_requirements.py`: 457 especialidades en español (4 060 requisitos) y 506 en inglés
+(4 571). `GET /honors/{id}?locale=` devuelve una sola lista (idioma pedido → español → lo que exista) y cada fila lleva
+`source`, `source_url` y `license`; el frontend muestra la atribución junto a los requisitos. Para renovar: volver a
+ejecutar el rastreo (sólo baja lo que falte) y el importador con `--commit`.
+
+## Plan original
 
 Cada especialidad enlazada tiene `wiki_title`; sus requisitos están en
 `/w/AY_Honors/<wiki_title>/Requirements` (+ `/es`, `/pt-br`, `/fr`) y las respuestas en `/Answer_Key`.
