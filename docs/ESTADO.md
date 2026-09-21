@@ -31,7 +31,7 @@ Supabase y MongoDB quedan **retirados**. El backend central es multi-ministerio
 | Catálogo | **809 especialidades, 13 categorías, 809 parches reales** en R2, PDF de requisitos y `source_url` por especialidad |
 | Medios | `POST /media/upload` → R2 (probado con 809 subidas, 0 fallos) |
 | Datos migrados | los 5 usuarios de Mongo están en Neon con su hash bcrypt original |
-| Tests | 92 (`backend/tests`), necesitan un Postgres local en `TEST_DATABASE_URL` |
+| Tests | 230 (`backend/tests`), necesitan un Postgres local en `TEST_DATABASE_URL` |
 
 Decisiones de modelo: las «specialties» del sistema viejo **son** `honors`; los `org_nodes` viven en
 `organizations` (tipo en minúsculas, `path` ltree); ids nuevos = `uuid5(ObjectId)`; `email_verifications`
@@ -121,6 +121,59 @@ evidencias privadas, dictamen del club, «listo para certificar» automático y 
   la protección real es que `POST /auth/register` ya no acepta `organization_id`.
 - [ ] Ver el portafolio y abrir evidencias sigue la jerarquía de `can_view_user`: un instructor del club aún sin verificar
       no dictamina, pero sí ve a los miembros de su club. Decidir en el bloque E si la lectura también exige verificación.
+
+## Bloque E — Membresía de club (22 sep) — E1–E4 en backend, sin desplegar
+
+Spec: `docs/superpowers/specs/2026-09-22-membresia-de-club-design.md` (ver «Desviaciones» al final).
+Pertenecer a un club deja de ser un campo suelto: `club_memberships` es el libro (quién entró, cómo, quién lo
+aprobó, cuándo salió) y `users.organization_id` sigue siendo la verdad del RBAC, pero ahora los escribe **un
+solo servicio**, `app/services/memberships.py`. Ningún router toca esas dos columnas por su cuenta,
+`PATCH /users/{id}` incluido.
+
+- **E1 — 2FA obligatorio para `MASTER_GC`** (`008_mfa_recovery.sql`). Política en `services/mfa.policy_error`,
+  aplicada en `deps.get_current_user`; `get_authenticated_user` es la autenticación a secas. Tokens de
+  `POST /auth/mfa/verify` llevan el *claim* `mfa` y `refresh` lo hereda. 10 códigos de recuperación
+  (`XXXXX-XXXXX`, sólo hash SHA-256, mostrados una vez), `POST /auth/mfa/recovery-codes` para regenerarlos y
+  `POST /users/{id}/mfa-reset` sólo por otro MASTER y nunca sobre sí mismo. Último recurso con un solo MASTER:
+  `migrations/reset_mfa.py --email … --commit`.
+- **E2 — Núcleo de membresía** (`008b_club_membership.sql`). Roles nuevos `CLUB_SECRETARY` y `COUNSELOR`,
+  `club_memberships` con relleno no destructivo desde los `organization_id` de hoy, `GET/DELETE /memberships/me`,
+  nómina, cambio de rol, baja con motivo y `PATCH /clubs/{id}/profile`. El traslado es cerrar una membresía y
+  activar otra en la misma transacción. `portfolio.on_club_changed` mueve las inscripciones `IN_PROGRESS` /
+  `READY` al club nuevo y congela `CERTIFIED`.
+- **E3 — Invitaciones y consentimiento** (`008c_club_invitations.sql`). Enlace de un uso (activa a un adulto) y
+  multiuso (sólo `STUDENT`, siempre con confirmación del director); los roles de personal son nominales.
+  `/join` y `/consent` con un solo 404 para cualquier enlace inservible. Un menor no queda activo sin la
+  autorización de un adulto **para ese club**. `POST /auth/register` acepta `invitation_token`.
+- **E4 — Solicitudes desde `/clubs` y traslados** (sin migración). Solicitar, aprobar, rechazar, «aprobar todas»
+  y cerrar la puerta (`accepts_requests`). Un menor que solicita no es visible para el club hasta que su tutor
+  autoriza.
+
+**Variable nueva en Render: `MASTER_MFA_ENFORCED`** (por defecto `false`). Con `false` no se exige nada y el
+comportamiento es el de hoy; con `true`, un `MASTER_GC` sin MFA sólo puede darse de alta (403 en el resto) y un
+token sin el *claim* recibe 401.
+
+**Orden de despliegue** (cada incremento se despliega solo; migración en Neon **antes** del backend):
+
+1. `008_mfa_recovery.sql` → backend. **Antes de encender `MASTER_MFA_ENFORCED`**: listar las cuentas MASTER sin
+   segundo factor (`python backend/migrations/reset_mfa.py --list`) y darlas de alta. Sólo entonces poner la
+   variable en `true`, para que nadie pueda inscribir un segundo factor con sólo la contraseña.
+2. `008b_club_membership.sql` → backend. Después, **revisar a mano las membresías `BACKFILL`**: antes de cerrar
+   `POST /auth/register` un `INSTRUCTOR` podía apuntarse solo a cualquier club; quien lo hiciera se da de baja
+   desde la nómina.
+3. `008c_club_invitations.sql` → backend.
+4. E4 no lleva migración.
+
+`007_portfolio.sql` (bloque A) aún no está en Neon: aplícalo antes o después, da igual. `on_club_changed`
+comprueba una vez si la tabla existe y no hace nada si falta, así que E2 puede desplegarse sin A.
+
+Nada es destructivo; cada paso se deshace desactivando código, no datos.
+
+- [ ] E5 (unidades), E6 (zona e iglesia), E7 (carta de la iglesia), E8 (Secretaría completa) y E9 (correos de
+      avance del portafolio) siguen pendientes. Las juntas que dejan E2–E4: `club_memberships.invitation_id`
+      ya tiene su FK y `unit_id` lo añade `008d`; `can_view_roster` ya admite al `COUNSELOR` (hoy no ve a
+      nadie porque no hay unidades); `may_handle_minors` es el único punto que falta dentro de `can_review`,
+      `can_issue` y `can_view_portfolio` para que E7 los cierre sobre menores.
 
 ## Pendiente — backend
 
