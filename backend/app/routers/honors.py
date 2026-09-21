@@ -62,11 +62,10 @@ from app.security import (
     utcnow,
 )
 from app.services.audit import record_audit
+from app.services.locales import LOCALE_PATTERN, SOURCE_LOCALE, best_locale
 from app.text import escape_like, slugify
 
 SPANISH_COLLATION = "es-x-icu"
-SOURCE_LOCALE = "es"  # honors.name / honor_categories.name are written in Spanish
-LOCALE_PATTERN = r"^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
 
 router = APIRouter(prefix="/api/v1/honors", tags=["honors"])
 
@@ -171,19 +170,6 @@ async def _resolve_locale(db: AsyncSession, model, requested: str | None) -> str
     return by_lower.get(requested.lower()) or by_lower.get(language) or next(iter(by_lower.values()), None)
 
 
-def _best_locale(stored: list[str], requested: str | None) -> str:
-    """Among the locales a text exists in: the requested one (exact, language, any region), then the
-    source language, then English, then whatever there is."""
-    by_lower = {value.lower(): value for value in sorted(stored)}
-    if requested:
-        language = requested.lower().split("-")[0]
-        regional = next((v for k, v in by_lower.items() if k.startswith(f"{language}-")), None)
-        match = by_lower.get(requested.lower()) or by_lower.get(language) or regional
-        if match:
-            return match
-    return by_lower.get(SOURCE_LOCALE) or by_lower.get("en") or next(iter(by_lower.values()), SOURCE_LOCALE)
-
-
 def _category_out(category: HonorCategory | None, translated: str | None = None) -> CategoryOut | None:
     if category is None:
         return None
@@ -255,7 +241,7 @@ async def _build_detail(
             select(HonorRequirement.locale).where(HonorRequirement.honor_id == honor.id).distinct()
         )
     ).scalars().all()
-    requirements_locale = _best_locale(stored, locale)
+    requirements_locale = best_locale(stored, locale)
     requirements = (
         await db.execute(
             select(HonorRequirement)

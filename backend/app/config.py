@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     R2_SECRET_ACCESS_KEY: str | None = None
     R2_BUCKET_NAME: str = "adventist-media"
     R2_PUBLIC_URL: str = "https://media.adventist.club"
+    # Second bucket, no public domain: portfolio evidence (photos of minors). Same credentials.
+    # Without it the evidence endpoints answer 503 and everything else works.
+    R2_PRIVATE_BUCKET_NAME: str | None = None
 
     # --- Email via Resend (optional: without it emails are logged and skipped) ---
     RESEND_API_KEY: str | None = None
@@ -62,6 +65,7 @@ class Settings(BaseSettings):
         "R2_ACCOUNT_ID",
         "R2_ACCESS_KEY_ID",
         "R2_SECRET_ACCESS_KEY",
+        "R2_PRIVATE_BUCKET_NAME",
         "RESEND_API_KEY",
         "FRONTEND_URL",
         "SENTRY_DSN",
@@ -141,6 +145,10 @@ class Settings(BaseSettings):
     @property
     def storage_configured(self) -> bool:
         return bool(self.R2_ACCOUNT_ID and self.R2_ACCESS_KEY_ID and self.R2_SECRET_ACCESS_KEY)
+
+    @property
+    def private_storage_configured(self) -> bool:
+        return bool(self.storage_configured and self.R2_PRIVATE_BUCKET_NAME)
 
     @property
     def email_configured(self) -> bool:

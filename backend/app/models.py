@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import Boolean, Date, DateTime, Float, ForeignKey, Integer, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -185,6 +185,11 @@ class Certificate(Base):
     certificate_hash: Mapped[str|None]=mapped_column(String(64))
     created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
     updated_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
+    # 007_portfolio.sql — set only on certificates issued from a portfolio; never part of the hash
+    user_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
+    enrollment_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_enrollments.id"))
+    issued_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
+    issued_role: Mapped[str|None]=mapped_column(String(40))
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"
@@ -337,3 +342,79 @@ class HonorResource(Base):
     url: Mapped[str] = mapped_column(Text)
     type: Mapped[str | None] = mapped_column(String(40))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 007_portfolio.sql: enrollment in an honor, progress per requirement, evidence.
+# ---------------------------------------------------------------------------
+
+
+class HonorEnrollment(Base):
+    __tablename__ = "honor_enrollments"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    # The published version the member enrolled in; it never moves to a newer one.
+    honor_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("honors.id"))
+    mode: Mapped[str] = mapped_column(String(10), server_default="CLUB")
+    # Follows the member's current club on every write; frozen once certified.
+    club_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id")
+    )
+    locale: Mapped[str] = mapped_column(String(16), server_default="es")
+    status: Mapped[str] = mapped_column(String(15), server_default="IN_PROGRESS")
+    # certificates.enrollment_id points back here: use_alter breaks the cycle for the metadata sort.
+    certificate_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("certificates.id", use_alter=True)
+    )
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    ready_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    certified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    withdrawn_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class RequirementProgress(Base):
+    __tablename__ = "requirement_progress"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    enrollment_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("honor_enrollments.id", ondelete="CASCADE")
+    )
+    # Stable across languages: requirement 3 in `es` and in `en` is the same requirement.
+    requirement_position: Mapped[int] = mapped_column(Integer)
+    requirement_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("honor_requirements.id", ondelete="SET NULL")
+    )
+    is_practical: Mapped[bool] = mapped_column(Boolean)
+    status: Mapped[str] = mapped_column(String(12), server_default="PENDING")
+    completed_via: Mapped[str | None] = mapped_column(String(8))
+    member_note: Mapped[str | None] = mapped_column(Text)
+    submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    reviewed_by_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    review_note: Mapped[str | None] = mapped_column(Text)
+
+
+class Evidence(Base):
+    __tablename__ = "evidences"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    progress_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("requirement_progress.id", ondelete="CASCADE")
+    )
+    uploaded_by_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    kind: Mapped[str] = mapped_column(String(8))
+    status: Mapped[str] = mapped_column(String(15), server_default="PENDING_UPLOAD")
+    # Key in the PRIVATE bucket, never a URL.
+    storage_key: Mapped[str] = mapped_column(Text, unique=True)
+    content_type: Mapped[str] = mapped_column(String(40))
+    size_bytes: Mapped[int] = mapped_column(BigInteger)
+    sha256: Mapped[str | None] = mapped_column(String(64))
+    taken_on: Mapped[date | None] = mapped_column(Date)
+    place: Mapped[str | None] = mapped_column(String(180))
+    caption: Mapped[str | None] = mapped_column(String(500))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    removed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Set by migrations/purge_removed_evidence.py once the object is gone from the bucket.
+    purged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

@@ -11,7 +11,7 @@ import uuid
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import Organization, User
+from app.models import Guardianship, HonorEnrollment, Organization, User
 from app.security import (
     ADMIN_ROLES,
     CLUB_APPROVED,
@@ -135,3 +135,94 @@ async def can_manage_user(db: AsyncSession, actor: User, target: User) -> bool:
     if not outranks(actor, target.role):
         return False
     return await org_in_user_scope(db, actor, target.organization_id)
+
+
+# ----------------------------------------------------------------------------
+# Portfolio (Bloque A): who reviews, who issues, who may look.
+# ----------------------------------------------------------------------------
+# guardianships.consent_status once the guardian granted consent (the column's CHECK
+# allows PENDING / APPROVED / REJECTED).
+CONSENT_GRANTED = "APPROVED"
+CLUB_REVIEW_ROLES = (CLUB_DIRECTOR, INSTRUCTOR)
+
+
+async def member_club(db: AsyncSession, member: User | None) -> Organization | None:
+    """The member's CURRENT club: their organization, when it is an active club."""
+    if member is None or member.organization_id is None:
+        return None
+    club = await db.get(Organization, member.organization_id)
+    if club is None or club.type != "club" or club.status != "active":
+        return None
+    return club
+
+
+def club_staff_in_good_standing(actor: User, roles: tuple[str, ...] = CLUB_REVIEW_ROLES) -> bool:
+    """May `actor` act as staff of the club they are attached to? A director needs an approved
+    club (`director_blocked`); an instructor needs an active, VERIFIED account. VERIFIED today
+    only means a confirmed e-mail or an administrator's approval, not a vetted instructor: the
+    real protection is that nobody picks their own `organization_id` (POST /auth/register
+    rejects it), so whoever is attached to a club was placed there by an administrator."""
+    if actor.role not in roles or actor.organization_id is None or actor.status != "ACTIVE":
+        return False
+    if actor.role == INSTRUCTOR and actor.verification_status != "VERIFIED":
+        return False
+    return not director_blocked(actor)
+
+
+async def _has_club_jurisdiction(
+    db: AsyncSession, actor: User, enrollment: HonorEnrollment, roles: tuple[str, ...]
+) -> bool:
+    """`actor` holds one of `roles` in the club the enrolled member belongs to today
+    (not the club stored on the enrollment: a member who moves takes their reviewers along)."""
+    if not club_staff_in_good_standing(actor, roles):
+        return False
+    club = await member_club(db, await db.get(User, enrollment.user_id))
+    return club is not None and club.id == actor.organization_id
+
+
+async def can_review(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> bool:
+    """The single place that decides who gives verdicts on an enrollment."""
+    if actor.id == enrollment.user_id:
+        return False  # nobody reviews their own work, whatever their role
+    if is_master(actor):
+        return True
+    if await _has_club_jurisdiction(db, actor, enrollment, CLUB_REVIEW_ROLES):
+        return True
+    # Bloque B: `or` the instructor of the course of a COURSE enrollment, here and only here.
+    return False
+
+
+async def can_issue(db: AsyncSession, actor: User, enrollment: HonorEnrollment) -> bool:
+    if actor.id == enrollment.user_id:
+        return False
+    if is_master(actor):
+        return True
+    if enrollment.mode != "CLUB":
+        return False  # COURSE: the course instructor issues (Bloque D)
+    return await _has_club_jurisdiction(db, actor, enrollment, (CLUB_DIRECTOR,))
+
+
+async def can_view_portfolio(db: AsyncSession, actor: User, target: User) -> bool:
+    """Read access to someone's enrollments, evidence and certificates."""
+    if await can_view_user(db, actor, target):
+        # the person themself, MASTER_GC and the hierarchy above them. Club staff only while in
+        # good standing: a portfolio holds evidence of minors, the user directory does not.
+        own_or_admin = actor.id == target.id or actor.role not in CLUB_REVIEW_ROLES
+        if own_or_admin or club_staff_in_good_standing(actor):
+            return True
+    consent = select(Guardianship.id).where(
+        Guardianship.guardian_id == actor.id,
+        Guardianship.child_id == target.id,
+        Guardianship.consent_status == CONSENT_GRANTED,
+    )
+    if (await db.execute(consent.limit(1))).scalar_one_or_none() is not None:
+        return True
+    # Reviewers with jurisdiction over any live enrollment. Today can_view_user already
+    # covers the club's staff; course instructors (Bloque B) will only get in through here.
+    enrollments = select(HonorEnrollment).where(
+        HonorEnrollment.user_id == target.id, HonorEnrollment.status != "WITHDRAWN"
+    )
+    for enrollment in (await db.execute(enrollments)).scalars().all():
+        if await can_review(db, actor, enrollment):
+            return True
+    return False

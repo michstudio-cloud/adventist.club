@@ -1,4 +1,4 @@
-import hashlib, json, re, secrets, unicodedata, uuid
+import re, unicodedata, uuid
 from typing import Literal
 from datetime import date
 from fastapi import Depends, FastAPI, HTTPException, Response
@@ -10,10 +10,12 @@ from app.config import settings
 from app.db import get_db
 from app.printing import LayoutRequest, compute_layout, render_pdf
 from slowapi.errors import RateLimitExceeded
-from app.models import Application, Certificate, CertificateEvent, CertificateTemplate, Club, Honor, Ministry, Organization
+from app.models import Application, Certificate, Honor, Ministry, Organization
 from app.monitoring import init_sentry
 from app.rate_limit import limiter, rate_limit_exceeded_handler
-from app.routers import auth as auth_router, honors as honors_router, media as media_router, org as org_router, render as render_router, users as users_router
+from app.routers import auth as auth_router, honors as honors_router, media as media_router, org as org_router, portfolio as portfolio_router, render as render_router, users as users_router
+# Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
+from app.services.certificates import get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
 init_sentry()  # no-op unless SENTRY_DSN is set
 app=FastAPI(title=settings.APP_NAME,version="0.3.0")
@@ -21,7 +23,7 @@ app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credent
 app.state.limiter=limiter
 app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 # GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
-for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router):app.include_router(_router.router)
+for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router):app.include_router(_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
@@ -70,15 +72,6 @@ def slugify(value:str)->str:
     value=unicodedata.normalize("NFKD",value).encode("ascii","ignore").decode()
     return re.sub(r"[^a-zA-Z0-9]+","-",value).strip("-").lower() or "especialidad"
 
-def cert_no()->str:return f"CC-{secrets.token_hex(5).upper()}"
-
-def canonical(c:Certificate)->dict:
-    return {"certificate_no":c.certificate_no,"application_id":str(c.application_id) if c.application_id else None,"ministry_id":str(c.ministry_id),"organization_id":str(c.organization_id),"club_id":str(c.club_id) if c.club_id else None,"honor_id":str(c.honor_id) if c.honor_id else None,"template_id":str(c.template_id),"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"place":c.place,"instructor_name":c.instructor_name,"director_name":c.director_name}
-
-def hash_cert(c:Certificate)->str:
-    raw=json.dumps(canonical(c),sort_keys=True,ensure_ascii=False,separators=(",",":"))
-    return hashlib.sha256(raw.encode()).hexdigest()
-
 @app.get("/")
 async def root():return {"service":"adventist.club","api":"/api/v1","docs":"/docs"}
 
@@ -97,28 +90,13 @@ async def applications(db:AsyncSession=Depends(get_db)):
     rows=(await db.execute(select(Application).where(Application.status=="active").order_by(Application.name))).scalars().all()
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
-async def resolve_issuer_organization(db:AsyncSession)->Organization:
-    """The organisation named as issuer on certificates (ISSUER_ORGANIZATION_CODE).
-
-    Only the PROTOTYPE placeholder is ever auto-created; a real code that does
-    not exist yet is a configuration error, not something to invent.
-    """
-    code=settings.ISSUER_ORGANIZATION_CODE.strip()
-    org=(await db.execute(select(Organization).where(Organization.code==code,Organization.status=="active"))).scalar_one_or_none()
-    if org:return org
-    if code!="PROTOTYPE":raise HTTPException(503,f"Organización emisora '{code}' no existe todavía.")
-    org=Organization(id=uuid.uuid4(),type="club_network",name="Red Global de Certificados — Prototipo",code="PROTOTYPE",status="active");db.add(org);await db.flush()
-    return org
-
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
 async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
     ministry=(await db.execute(select(Ministry).where(Ministry.slug==payload.ministry,Ministry.status=="active"))).scalar_one_or_none()
     if not ministry:raise HTTPException(404,"Ministerio no encontrado.")
     approw=(await db.execute(select(Application).where(Application.slug==payload.application))).scalar_one_or_none()
     org=await resolve_issuer_organization(db)
-    club=(await db.execute(select(Club).where(Club.organization_id==org.id,Club.ministry_id==ministry.id,Club.name==payload.club_name.strip()))).scalar_one_or_none()
-    if not club:
-        club=Club(id=uuid.uuid4(),organization_id=org.id,ministry_id=ministry.id,name=payload.club_name.strip(),status="active");db.add(club);await db.flush()
+    club=await get_or_create_club(db,org.id,ministry.id,payload.club_name.strip())
     honor=await db.get(Honor,payload.honor_id) if payload.honor_id else None
     if not honor:
         # Honor versions share a name: take the newest live one instead of failing on duplicates.
@@ -128,15 +106,12 @@ async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(g
         while (await db.execute(select(Honor).where(Honor.ministry_id==ministry.id,Honor.slug==slug))).scalar_one_or_none():slug=f"{base}-{i}";i+=1
         honor=Honor(id=uuid.uuid4(),ministry_id=ministry.id,name=payload.honor_name.strip(),slug=slug,source_url="https://www.guiasmayores.com/especialidades-ja.html",active=True,status="DRAFT");db.add(honor);await db.flush()
     tname=f"Prototipo {payload.width_in:g}x{payload.height_in:g}in"
-    template=(await db.execute(select(CertificateTemplate).where(CertificateTemplate.ministry_id==ministry.id,CertificateTemplate.name==tname))).scalar_one_or_none()
-    if not template:
-        template=CertificateTemplate(id=uuid.uuid4(),ministry_id=ministry.id,name=tname,width=payload.width_in,height=payload.height_in,unit="in",orientation="landscape",bleed=0,safe_margin=.125,supports_svg=False,active=True);db.add(template);await db.flush()
+    template=await get_or_create_template(db,ministry.id,tname,payload.width_in,payload.height_in)
     created=[]
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        c=Certificate(id=uuid.uuid4(),application_id=approw.id if approw else None,ministry_id=ministry.id,organization_id=org.id,club_id=club.id,honor_id=honor.id,template_id=template.id,certificate_no=cert_no(),recipient_name=name,club_name_snapshot=club.name,honor_name_snapshot=honor.name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,status="issued")
-        c.certificate_hash=hash_cert(c);db.add(c);await db.flush();db.add(CertificateEvent(id=uuid.uuid4(),certificate_id=c.id,event_type="issued",metadata_json={"hash":c.certificate_hash}));created.append(c)
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name))
     await db.commit()
     return [{"id":str(c.id),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name_snapshot":c.honor_name_snapshot,"club_name_snapshot":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"status":c.status,"certificate_hash":c.certificate_hash} for c in created]
 

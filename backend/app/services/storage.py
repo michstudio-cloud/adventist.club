@@ -106,6 +106,7 @@ def get_client():
     if not settings.storage_configured:
         raise StorageNotConfigured("R2 credentials are not configured")
     import boto3
+    from botocore.config import Config
 
     return boto3.client(
         "s3",
@@ -113,6 +114,8 @@ def get_client():
         aws_access_key_id=settings.R2_ACCESS_KEY_ID,
         aws_secret_access_key=settings.R2_SECRET_ACCESS_KEY,
         region_name="auto",
+        # R2 only speaks SigV4; explicit so presigned URLs (private_storage.py) never fall back to V2.
+        config=Config(signature_version="s3v4"),
     )
 
 

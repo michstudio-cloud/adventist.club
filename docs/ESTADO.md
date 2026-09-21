@@ -92,6 +92,36 @@ plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejem
 - [ ] `users.locale`.
 - [ ] next-intl en el frontend (`/es`, `/en`), selector de idioma, Noto Sans, RTL.
 
+## Bloque A — Portafolio (22 sep) — backend listo, sin desplegar
+
+Spec: `docs/superpowers/specs/2026-09-22-portafolio-design.md`. Inscripción en una especialidad, progreso por requisito,
+evidencias privadas, dictamen del club, «listo para certificar» automático y certificado ligado a la cuenta.
+
+- Migración `007_portfolio.sql` (aditiva, idempotente): `honor_enrollments`, `requirement_progress`, `evidences` y columnas
+  opcionales en `certificates` (`user_id`, `enrollment_id`, `issued_by_id`, `issued_role`; fuera del hash, los certificados
+  ya emitidos siguen verificando).
+- API `/api/v1/portfolio/*` (todo con sesión): `app/routers/portfolio.py` (fino) → `app/services/portfolio.py` (reglas y
+  transiciones) → permisos `can_review` / `can_issue` / `can_view_portfolio` en `app/rbac.py`. La jurisdicción es el club
+  **actual** del miembro; nadie dictamina ni certifica lo suyo. Auditoría: `ENROLL`, `ENROLLMENT_WITHDRAW`,
+  `REQUIREMENT_SUBMIT`, `REQUIREMENT_REVIEW`, `EVIDENCE_ADD`, `EVIDENCE_REMOVE`, `CERTIFICATE_ISSUE`.
+- La emisión vive en `app/services/certificates.py::issue_certificate`; la usan `prototype-batch` (mismo contrato) y el portafolio.
+- Evidencias: bucket R2 **privado** (`app/services/private_storage.py`), subida directa con URL firmada PUT de 10 min que fija
+  tipo y tamaño, lectura con URL firmada GET de 5 min. Variable nueva en Render: **`R2_PRIVATE_BUCKET_NAME`** (mismas
+  credenciales R2; sin ella los endpoints de evidencia responden 503 y lo demás funciona). CORS del bucket: `PUT, GET, HEAD`
+  desde `https://conquistadores.app`, `https://www.conquistadores.app` y `http://localhost:3100`, cabecera `content-type`.
+- `migrations/purge_removed_evidence.py [--days 30] [--commit]`: borra del bucket lo `REMOVED` / `PENDING_UPLOAD` viejo y lo
+  marca con `evidences.purged_at`. Simulacro por defecto.
+- Tests: 159 (`tests/test_portfolio.py`, `tests/test_private_storage.py`). El Postgres local necesita antes
+  `backend/tests/sql/base_certificates.sql` (las tablas de certificados son anteriores a las migraciones numeradas; **sólo
+  para bases de prueba**) y después `007`. Con eso también corre por fin una prueba real de `prototype-batch`.
+- **Orden de despliegue**: 1) `007_portfolio.sql` en Neon; 2) bucket privado + CORS + `R2_PRIVATE_BUCKET_NAME` en Render;
+  3) backend; 4) frontend. Nada destructivo.
+- Un `INSTRUCTOR` sólo dictamina si su cuenta está `VERIFIED` y activa; un director, si su club está aprobado
+  (`rbac.club_staff_in_good_standing`). `VERIFIED` hoy sólo significa correo confirmado o visto bueno de un administrador:
+  la protección real es que `POST /auth/register` ya no acepta `organization_id`.
+- [ ] Ver el portafolio y abrir evidencias sigue la jerarquía de `can_view_user`: un instructor del club aún sin verificar
+      no dictamina, pero sí ve a los miembros de su club. Decidir en el bloque E si la lectura también exige verificación.
+
 ## Pendiente — backend
 
 - [ ] Firmas criptográficas reales con `issuer_keys` / `certificate_signatures` (hoy solo hash SHA-256; una imagen de firma **no** es una firma).

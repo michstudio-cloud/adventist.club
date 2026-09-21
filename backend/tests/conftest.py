@@ -22,6 +22,7 @@ for _name in (
     "R2_ACCOUNT_ID",
     "R2_ACCESS_KEY_ID",
     "R2_SECRET_ACCESS_KEY",
+    "R2_PRIVATE_BUCKET_NAME",
 ):
     os.environ.pop(_name, None)
 
@@ -164,13 +165,39 @@ class Factory:
                 ),
                 params,
             )
-            await db.execute(
-                text(
-                    "DELETE FROM honors WHERE code LIKE :like OR name LIKE :like"
-                    " OR created_by_id IN (SELECT id FROM users WHERE email LIKE :like)"
-                ),
-                params,
+            honors = (
+                "SELECT id FROM honors WHERE code LIKE :like OR name LIKE :like"
+                " OR created_by_id IN (SELECT id FROM users WHERE email LIKE :like)"
             )
+            users = "SELECT id FROM users WHERE email LIKE :like"
+            has_portfolio = await db.scalar(text("SELECT to_regclass('public.honor_enrollments')"))
+            if has_portfolio:
+                # Certificates and enrollments point at honors without cascade: they go first.
+                # Progress rows and evidences cascade from the enrollment.
+                certificates = (
+                    "SELECT id FROM certificates WHERE recipient_name LIKE :like"
+                    f" OR user_id IN ({users}) OR honor_id IN ({honors})"
+                )
+                await db.execute(
+                    text(f"DELETE FROM certificate_events WHERE certificate_id IN ({certificates})"),
+                    params,
+                )
+                await db.execute(text(f"DELETE FROM certificates WHERE id IN ({certificates})"), params)
+                await db.execute(
+                    text(
+                        "DELETE FROM clubs WHERE name LIKE :like OR organization_id IN"
+                        " (SELECT id FROM organizations WHERE name LIKE :like)"
+                    ),
+                    params,
+                )
+                await db.execute(
+                    text(
+                        f"DELETE FROM honor_enrollments WHERE user_id IN ({users})"
+                        f" OR honor_id IN ({honors})"
+                    ),
+                    params,
+                )
+            await db.execute(text(f"DELETE FROM honors WHERE id IN ({honors})"), params)
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)
             await db.commit()
