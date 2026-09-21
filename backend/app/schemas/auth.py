@@ -60,6 +60,9 @@ class LoginResponse(BaseModel):
     token_type: str = "bearer"
     mfa_required: bool = False
     temp_token: str | None = None
+    # The role obliges a second factor and this account has not enrolled yet.
+    # Advisory while `MASTER_MFA_ENFORCED` is off, a hard block once it is on.
+    mfa_enrollment_required: bool = False
 
 
 class RefreshRequest(BaseModel):
@@ -82,8 +85,31 @@ class MFACodeRequest(BaseModel):
 
 
 class MFAVerifyRequest(BaseModel):
+    """Second login step: exactly one of `totp_code` or `recovery_code`."""
+
     temp_token: str
-    totp_code: str = Field(min_length=6, max_length=10)
+    totp_code: str | None = Field(default=None, min_length=6, max_length=10)
+    recovery_code: str | None = Field(default=None, min_length=10, max_length=20)
+
+    @model_validator(mode="after")
+    def _one_factor(self):
+        if bool(self.totp_code) == bool(self.recovery_code):
+            raise ValueError("Provide either `totp_code` or `recovery_code`")
+        return self
+
+
+class MFAEnrollResponse(BaseModel):
+    """Answer to verify-setup and to recovery-codes: the codes travel once."""
+
+    message: str
+    recovery_codes: list[str]
+    # True when the current token will stop working because the policy now
+    # demands a session born of the second factor.
+    reauth_required: bool = False
+
+
+class MFAResetRequest(BaseModel):
+    reason: str = Field(min_length=3, max_length=1000)
 
 
 class TokenPairResponse(BaseModel):

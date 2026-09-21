@@ -184,6 +184,41 @@ def club_decision_email_html(name: str, club_name: str, approved: bool, reason: 
     return base_template(content, "Registro de club - Adventist.Club")
 
 
+def mfa_reset_email_html(name: str, reason: str) -> str:
+    frontend = settings.frontend_url
+    content = f"""
+        <h2>Se restableció tu verificación en dos pasos</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Otro administrador con rol MASTER restableció la verificación en dos pasos de tu cuenta.
+           Tu autenticador y tus códigos de recuperación anteriores ya no sirven.</p>
+        <div class="info"><strong>Motivo registrado:</strong><br>{escape(reason)}</div>
+        <div class="warning">
+            <strong>⚠️ Si no pediste esto</strong>, avisa de inmediato al equipo: alguien con acceso
+            MASTER actuó sobre tu cuenta. El cambio queda registrado en la auditoría.
+        </div>
+        <p>Vuelve a activar la verificación en dos pasos en cuanto inicies sesión.</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{frontend}/panel" class="button">Ir a mi panel</a>
+        </div>
+    """
+    return base_template(content, "Verificación en dos pasos restablecida - Adventist.Club")
+
+
+def recovery_code_used_email_html(name: str) -> str:
+    content = f"""
+        <h2>Se usó uno de tus códigos de recuperación</h2>
+        <p>Hola {escape(name)},</p>
+        <p>Alguien inició sesión en tu cuenta con un código de recuperación en lugar del código
+           de tu aplicación de autenticación. Ese código ya quedó marcado como usado.</p>
+        <div class="warning">
+            <strong>⚠️ Si no fuiste tú</strong>, cambia tu contraseña ahora mismo y pide que se
+            restablezca tu verificación en dos pasos.
+        </div>
+        <p>Si perdiste tu autenticador, vuelve a configurarlo y genera códigos nuevos desde tu perfil.</p>
+    """
+    return base_template(content, "Código de recuperación usado - Adventist.Club")
+
+
 def _from_header() -> str:
     sender = settings.EMAIL_FROM
     if "<" in sender:
@@ -226,6 +261,23 @@ async def send_password_reset_email(to: str, name: str, code: str, token: str) -
 
 async def send_welcome_email(to: str, name: str, role: str) -> bool:
     return await send_email(to, "¡Bienvenido a Adventist.Club! 🎉", welcome_email_html(name, role))
+
+
+async def send_mfa_reset_email(to: str, name: str, reason: str) -> bool:
+    """Security notice: it cannot be switched off by the account holder."""
+    return await send_email(
+        to,
+        "Se restableció tu verificación en dos pasos - Adventist.Club",
+        mfa_reset_email_html(name, reason),
+    )
+
+
+async def send_recovery_code_used_email(to: str, name: str) -> bool:
+    return await send_email(
+        to,
+        "Se usó un código de recuperación - Adventist.Club",
+        recovery_code_used_email_html(name),
+    )
 
 
 async def send_club_decision_email(

@@ -1,13 +1,13 @@
 """User management and guardianships."""
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db, violated_constraint
-from app.deps import get_current_user
+from app.deps import get_authenticated_user, get_current_user
 from app.models import Guardianship, Organization, User
 from app.rbac import (
     MEMBER_VIEW_ROLES,
@@ -20,7 +20,7 @@ from app.rbac import (
     org_in_user_scope,
     outranks,
 )
-from app.schemas.auth import RoleName
+from app.schemas.auth import MFAResetRequest, RoleName
 from app.schemas.user import (
     GuardianshipCreate,
     GuardianshipResponse,
@@ -28,6 +28,8 @@ from app.schemas.user import (
     UserUpdate,
 )
 from app.security import INSTRUCTOR, MASTER_GC, PARENT_GUARDIAN, STUDENT, utcnow
+from app.services import email as email_service
+from app.services import mfa as mfa_service
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/users", tags=["users"])
@@ -57,8 +59,54 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_my_profile(current_user: User = Depends(get_current_user)):
+async def get_my_profile(current_user: User = Depends(get_authenticated_user)):
+    """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
     return UserResponse.from_model(current_user)
+
+
+@router.post("/{user_id}/mfa-reset", response_model=UserResponse)
+async def reset_mfa(
+    user_id: uuid.UUID,
+    payload: MFAResetRequest,
+    request: Request,
+    background: BackgroundTasks,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Last resort for an account that lost its authenticator and its recovery
+    codes. Only another `MASTER_GC` and never on oneself: two people have to be
+    involved, so a single stolen session cannot shed the second factor.
+    """
+    if not is_master(current_user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Sólo un MASTER_GC puede restablecer la verificación en dos pasos"
+        )
+    if user_id == current_user.id:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "No puedes restablecer tu propia verificación en dos pasos"
+        )
+    target = await _get_user_or_404(db, user_id)
+
+    await mfa_service.clear_second_factor(db, target)
+    record_audit(
+        db,
+        action="MFA_RESET",
+        entity_type="USER",
+        entity_id=target.id,
+        actor=current_user,
+        details=f"MFA reset by {current_user.email}",
+        metadata={"reason": payload.reason},
+        request=request,
+    )
+    await db.commit()
+    await db.refresh(target)
+
+    # After the commit, and never able to fail the request.
+    background.add_task(
+        email_service.send_mfa_reset_email, target.email, target.name, payload.reason
+    )
+    return UserResponse.from_model(target)
 
 
 # ----------------------------------------------------------------------------

@@ -10,7 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import get_db
 from app.models import User
-from app.security import TOKEN_ACCESS, decode_token, require_auth_configured
+from app.security import TOKEN_ACCESS, born_of_mfa, decode_claims, require_auth_configured
+from app.services import mfa as mfa_service
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -43,18 +44,34 @@ async def load_user_by_subject(db: AsyncSession, subject: str | None) -> User | 
     return None
 
 
-async def get_current_user(
+async def get_authenticated_user(
     _: None = Depends(require_auth_configured),
     credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
     db: AsyncSession = Depends(get_db),
 ) -> User:
+    """
+    A valid access token and an active account, and nothing else. Only the
+    handful of endpoints that let an obliged account enrol its second factor
+    depend on this directly; everything else uses `get_current_user`.
+    """
     if credentials is None:
         raise credentials_error()
-    user = await load_user_by_subject(db, decode_token(credentials.credentials, TOKEN_ACCESS))
+    claims = decode_claims(credentials.credentials, TOKEN_ACCESS)
+    user = await load_user_by_subject(db, claims.get("sub") if claims else None)
     if user is None:
         raise credentials_error()
     if user.status != "ACTIVE":
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Account is {user.status}")
+    # Transient, not a column: whether THIS session passed a second factor.
+    user.token_born_of_mfa = born_of_mfa(claims)
+    return user
+
+
+async def get_current_user(user: User = Depends(get_authenticated_user)) -> User:
+    """Authenticated *and* compliant with the MFA policy (spec E §5.8)."""
+    error = mfa_service.policy_error(user, getattr(user, "token_born_of_mfa", False))
+    if error is not None:
+        raise error
     return user
 
 
@@ -65,8 +82,13 @@ async def get_optional_user(
     """For public endpoints that show more to signed-in users. Never raises."""
     if credentials is None or not settings.auth_configured:
         return None
-    user = await load_user_by_subject(db, decode_token(credentials.credentials, TOKEN_ACCESS))
+    claims = decode_claims(credentials.credentials, TOKEN_ACCESS)
+    user = await load_user_by_subject(db, claims.get("sub") if claims else None)
     if user is None or user.status != "ACTIVE":
+        return None
+    # An account that owes a second factor is treated as anonymous here rather
+    # than refused: these endpoints are public and must keep answering.
+    if mfa_service.policy_error(user, born_of_mfa(claims)) is not None:
         return None
     return user
 

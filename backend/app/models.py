@@ -418,3 +418,21 @@ class Evidence(Base):
     removed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     # Set by migrations/purge_removed_evidence.py once the object is gone from the bucket.
     purged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+# ---------------------------------------------------------------------------
+# 008_mfa_recovery.sql: the way back in when the authenticator is lost.
+# ---------------------------------------------------------------------------
+
+
+class MfaRecoveryCode(Base):
+    __tablename__ = "mfa_recovery_codes"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    # SHA-256 of the code shown once. The plain code is never stored anywhere.
+    code_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
