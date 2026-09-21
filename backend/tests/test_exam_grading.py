@@ -513,15 +513,14 @@ async def test_voiding_a_passed_attempt_reverts_exactly_what_it_completed(client
     course = await _course(
         client, world, factory, "void-revert", bank=[_mc(1)], theoretical=(True, True)
     )
-    # Requirement 2 is settled by a human verdict, and stays settled after the void.
     enrollment = await _join(client, world["member"], course["id"])
-    await _judge(client, world, world["member"], enrollment["id"], 2)
-
     paper = (await _start(client, world["member"], enrollment["id"])).json()
     await _answer_all(client, world["member"], paper)
     assert (await _submit(client, world["member"], paper["id"])).json()["status"] == "PASSED"
-    ready = await client.get(f"{ENROLLMENTS}/{enrollment['id']}", headers=world["member"]["headers"])
-    assert ready.json()["status"] == "READY"
+    # Requirement 2 is settled by a human verdict AFTER the exam — which is also what keeps
+    # the automatic issuance of I7 out of this test: it only fires from a passing attempt.
+    ready = await _judge(client, world, world["member"], enrollment["id"], 2)
+    assert ready["status"] == "READY"
 
     voided = await _void(client, world["instructor"], paper["id"])
     assert voided.status_code == 200, voided.text

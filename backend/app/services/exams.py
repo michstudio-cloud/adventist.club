@@ -67,7 +67,7 @@ from app.schemas.exam import (
 )
 from app.schemas.portfolio import PersonRef
 from app.security import utcnow
-from app.services import course_enrollment, exam_sessions, portfolio
+from app.services import auto_certificate, course_enrollment, exam_sessions, portfolio
 from app.services.audit import record_audit
 from app.services.courses import EXAM
 
@@ -486,6 +486,7 @@ async def _close(
     submitted_at,
     actor: User | None,
     request: Request | None,
+    background=None,
 ) -> None:
     """Grade what a machine can, resolve the three outcomes of §4.4 and, if it passed,
     complete the theoretical requirements. Staged on the caller's session."""
@@ -502,7 +503,9 @@ async def _close(
         answer.points_awarded = answer.points_possible if verdict else 0
 
     attempt.submitted_at = attempt.submitted_at or submitted_at
-    await _settle(db, attempt, answers=answers, actor=actor, request=request)
+    await _settle(
+        db, attempt, answers=answers, actor=actor, request=request, background=background
+    )
     record_audit(
         db,
         action="EXAM_SUBMIT",
@@ -524,6 +527,7 @@ async def _settle(
     answers: list[ExamAnswer] | None = None,
     actor: User | None,
     request: Request | None,
+    background=None,
 ) -> None:
     """The three outcomes of §4.4, evaluated over whatever is graded RIGHT NOW.
 
@@ -550,17 +554,23 @@ async def _settle(
     else:
         attempt.status, attempt.finished_at = PENDING_GRADING, None
     if attempt.status == PASSED:
-        await _complete_exam_requirements(db, attempt, actor, request)
+        await _complete_exam_requirements(db, attempt, actor, request, background)
 
 
 async def _complete_exam_requirements(
-    db: AsyncSession, attempt: ExamAttempt, actor: User | None, request: Request | None
+    db: AsyncSession,
+    attempt: ExamAttempt,
+    actor: User | None,
+    request: Request | None,
+    background=None,
 ) -> None:
     """Rule 3: the ONLY place that writes `completed_via = 'EXAM'`, and only over requirements
     the plan evaluates with the exam. Then rule 2 of A decides whether the enrollment is READY.
 
-    Seam for I7: automatic issuance hangs from here, inside a SAVEPOINT, when the enrollment
-    becomes READY and no requirement of the plan is practical.
+    ...and, since I7, automatic issuance hangs from the end of it: inside a SAVEPOINT, only
+    when the enrollment has just become READY and not one requirement of the plan is
+    practical (spec §5.3, app/services/auto_certificate.py). A failure to issue never
+    reaches this far: the savepoint gives back the certificate and keeps the exam.
     """
     enrollment = await portfolio._get_enrollment(db, attempt.enrollment_id, lock=True)
     positions = await _exam_positions(db, enrollment)
@@ -597,10 +607,17 @@ async def _complete_exam_requirements(
                       "enrollment_status": enrollment.status},
             request=request,
         )
+    # Bloque D · I7. The LAST thing that happens after a pass, and the only thing here
+    # that can fail without consequences: it runs inside its own SAVEPOINT.
+    await auto_certificate.maybe_issue(db, enrollment, attempt, actor, request, background)
 
 
 async def submit_attempt(
-    db: AsyncSession, actor: User, attempt_id: uuid.UUID, request: Request | None
+    db: AsyncSession,
+    actor: User,
+    attempt_id: uuid.UUID,
+    request: Request | None,
+    background=None,
 ):
     """Hand it in. Idempotent: an attempt already closed answers with its result."""
     attempt = await _get_attempt(db, attempt_id, lock=True)
@@ -608,7 +625,9 @@ async def submit_attempt(
     await finalize_if_expired(db, attempt, request)
     if attempt.status != IN_PROGRESS:
         return await _result_for_owner(db, attempt)
-    await _close(db, attempt, submitted_at=utcnow(), actor=actor, request=request)
+    await _close(
+        db, attempt, submitted_at=utcnow(), actor=actor, request=request, background=background
+    )
     await db.commit()
     return await _result_for_owner(db, attempt)
 
@@ -1009,6 +1028,7 @@ async def grade(
     position: int,
     payload: GradeIn,
     request: Request | None,
+    background=None,
 ):
     """One answer, 0…`points_possible`. After each grade the attempt is settled again and
     closes as soon as the outcome is decided (§4.4)."""
@@ -1050,7 +1070,7 @@ async def grade(
                   "enrollment_id": str(attempt.enrollment_id)},
         request=request,
     )
-    await _settle(db, attempt, actor=actor, request=request)
+    await _settle(db, attempt, actor=actor, request=request, background=background)
     await db.commit()
     return await _result(db, attempt, with_solutions=True)
 

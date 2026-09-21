@@ -19,7 +19,7 @@ from app.routers import church_letters as church_letters_router, courses as cour
 # Bloque C: los intentos de examen del curso.
 from app.routers import exams as exams_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
-from app.services.certificates import get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
+from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
 init_sentry()  # no-op unless SENTRY_DSN is set
 app=FastAPI(title=settings.APP_NAME,version="0.3.0")
@@ -124,7 +124,17 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     c=(await db.execute(select(Certificate).where(Certificate.certificate_no==certificate_no))).scalar_one_or_none()
     if not c:raise HTTPException(404,"Certificado no encontrado")
     current=hash_cert(c);org=await db.get(Organization,c.organization_id);valid=c.status=="issued" and c.certificate_hash==current
-    return {"valid":valid,"status":"válido" if valid else ("modificado" if c.certificate_hash!=current else c.status),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None}
+    # Bloque D I7 §5.4: the course and its instructor are shown BY RELATION
+    # (certificate -> enrollment -> course), outside the hash: they are context, not the
+    # fact certified, and `canonical()` must never change (hallazgo 7). Revocation adds a
+    # status and a date and NOTHING else about the person (§5.5): not the reason, which is
+    # for the holder and the audit trail, and no identifier.
+    mode,course_title=await course_context(db,c)
+    if c.certificate_hash!=current:state="modificado"
+    elif c.status==REVOKED_STATUS:state="revocado"
+    elif valid:state="válido"
+    else:state=c.status
+    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):

@@ -12,7 +12,7 @@ I6 adds the instructor's side: the grading queue, grading one answer and voiding
 """
 import uuid
 
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, BackgroundTasks, Depends, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -97,11 +97,13 @@ async def save_answer(
 async def submit_attempt(
     attempt_id: uuid.UUID,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Hand it in; idempotent once handed in."""
-    return await exams.submit_attempt(db, current_user, attempt_id, request)
+    """Hand it in; idempotent once handed in. A pass may certify on its own (I7), and
+    then E9 tells the member (and the guardians of a minor) after the commit."""
+    return await exams.submit_attempt(db, current_user, attempt_id, request, background)
 
 
 # ----------------------------------------------------------------------------
@@ -125,11 +127,14 @@ async def grade_answer(
     position: int,
     payload: GradeIn,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """One answer, 0…`points_possible`; the attempt closes as soon as it is decided."""
-    return await exams.grade(db, current_user, attempt_id, position, payload, request)
+    return await exams.grade(
+        db, current_user, attempt_id, position, payload, request, background
+    )
 
 
 @router.post("/attempts/{attempt_id}/void", response_model=None)

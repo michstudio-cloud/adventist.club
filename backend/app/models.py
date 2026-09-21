@@ -190,6 +190,12 @@ class Certificate(Base):
     enrollment_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_enrollments.id"))
     issued_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
     issued_role: Mapped[str|None]=mapped_column(String(40))
+    # 011_certificate_revocation.sql (Bloque D I7) — annulling is never a delete, and none
+    # of these three is part of `canonical()`: the hash of a revoked certificate is the
+    # one it was issued with, so it verifies as «revocado», never as «modificado».
+    revoked_at: Mapped[datetime|None]=mapped_column(DateTime(timezone=True))
+    revoked_by_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("users.id"))
+    revocation_reason: Mapped[str|None]=mapped_column(Text)
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"

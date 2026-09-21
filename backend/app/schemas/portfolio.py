@@ -153,6 +153,10 @@ class CertificateOut(BaseModel):
     enrollment_id: str | None
     issued_by_id: str | None
     issued_role: str | None
+    # Bloque D · I7: annulling is never a delete, so a revoked certificate keeps showing up
+    # in the portfolio — with its date and the reason its holder is entitled to read.
+    revoked_at: datetime | None = None
+    revocation_reason: str | None = None
 
 
 class RequirementOut(BaseModel):
@@ -238,3 +242,19 @@ class PortfolioOut(BaseModel):
     user: PortfolioUser
     enrollments: list[EnrollmentSummary]
     certificates: list[CertificateOut]
+
+
+# ----------------------------------------------------------------------------
+# Bloque D · I7 — annulling a certificate
+# ----------------------------------------------------------------------------
+class CertificateRevokeIn(BaseModel):
+    """The reason is mandatory (spec §5.5): a certificate carries somebody's name and a
+    signature, so withdrawing it is always explained. It reaches the holder and the audit
+    trail, never the public verification page."""
+
+    reason: str = Field(min_length=3, max_length=NOTE_MAX_LENGTH)
+
+    @field_validator("reason", mode="before")
+    @classmethod
+    def _strip(cls, value):
+        return value.strip() if isinstance(value, str) else value

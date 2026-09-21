@@ -40,11 +40,15 @@ PROGRESS_READY = "PROGRESS_READY"
 PROGRESS_CERTIFIED = "PROGRESS_CERTIFIED"
 PROGRESS_KINDS = (PROGRESS_INCOMPLETE, PROGRESS_READY, PROGRESS_CERTIFIED)
 
+# Bloque D · I7: not a progress notice — a decision about a document with the person's name.
+CERTIFICATE_REVOKED = "CERTIFICATE_REVOKED"
+
 MEMBERSHIP = "MEMBERSHIP"
 INVITATION = "INVITATION"
 ORGANIZATION = "ORGANIZATION"
 CHURCH_LETTER = "CHURCH_LETTER"
 ENROLLMENT = "ENROLLMENT"
+CERTIFICATE = "CERTIFICATE"
 
 # A minor's club must never become a way to send somebody mail.
 CONSENT_RESENDS_PER_DAY = 3
@@ -478,3 +482,52 @@ async def queue_certificate_issued(db: AsyncSession, background, *, enrollment_i
         db, background, enrollment=enrollment, member=member, kind=PROGRESS_CERTIFIED,
         honor_name=honor_name,
     )
+
+
+# ----------------------------------------------------------------------------
+# A certificate was annulled (Bloque D · I7, spec §5.5)
+# ----------------------------------------------------------------------------
+async def queue_certificate_revoked(
+    db: AsyncSession, background, *, certificate, reason: str | None = None
+) -> None:
+    """The holder is always told, and the guardians of a minor with them.
+
+    Not a progress notice: `users.notify_progress` switches off the rhythm of the
+    portfolio, not a decision taken about a document that carries the person's name, so
+    this one is never held back and never capped.
+
+    The message says WHICH certificate and that it was annulled. It does not carry the
+    reason, whoever decided it, the course or the enrollment: the reason is a judgement
+    about a person, it may name a third party, and the screen the link opens shows it to
+    whoever is entitled to read it. An e-mail is not a private channel.
+    """
+    from app.models import User
+
+    if background is None or certificate.user_id is None:
+        return
+    member = await db.get(User, certificate.user_id)
+    if member is None:
+        return
+    recipients = [(member.id, member.email, member.name)]
+    if member.is_minor or member.birth_date is not None:
+        for guardian in await memberships.approved_guardians(db, member.id):
+            recipients.append((guardian.id, guardian.email, member.name))
+
+    for user_id, address, name in recipients:
+        log = stage_log(
+            db,
+            kind=CERTIFICATE_REVOKED,
+            email=address,
+            entity_type=CERTIFICATE,
+            entity_id=certificate.id,
+            user_id=user_id,
+        )
+        background.add_task(
+            send_and_record,
+            email_service.send_certificate_revoked_email,
+            log.id,
+            address,
+            name,
+            certificate.certificate_no,
+            certificate.honor_name_snapshot,
+        )

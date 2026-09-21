@@ -523,3 +523,38 @@ async def can_grade_attempt(
     if is_master(actor):
         return True
     return await is_course_instructor(db, actor, enrollment)
+
+
+# ----------------------------------------------------------------------------
+# Bloque D · I7: annulling a certificate already issued.
+# ----------------------------------------------------------------------------
+async def can_revoke(db: AsyncSession, actor: User, certificate) -> bool:
+    """Who annuls a certificate (spec §5.5): MASTER_GC, or an association reviewer whose
+    scope contains the club of the enrollment (CLUB) or the course's `org_scope_id`
+    (COURSE).
+
+    The instructor who signed it and the club's director do **not**: they ask their
+    association, which is the escalation path of the vision (Director -> Zona -> Asociación)
+    and the reason decision D4 can let the instructor have the last word on a verdict. The
+    holder never annuls their own certificate — not even a MASTER_GC who happens to be the
+    holder, which is rule 5 of A applied to the last act of the chain.
+    """
+    from app.workflow import ASSOCIATION_REVIEWERS
+
+    if certificate.user_id is not None and certificate.user_id == actor.id:
+        return False
+    if is_master(actor):
+        return True
+    if actor.role not in ASSOCIATION_REVIEWERS:
+        return False
+    if certificate.enrollment_id is None:
+        return False
+    enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
+    if enrollment is None:
+        return False
+    if enrollment.mode == "COURSE" and enrollment.course_id is not None:
+        course = await db.get(Course, enrollment.course_id)
+        target = course.org_scope_id if course is not None else None
+    else:
+        target = enrollment.club_id
+    return await org_in_review_scope(db, actor, target)

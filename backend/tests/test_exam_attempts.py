@@ -480,7 +480,14 @@ async def test_passing_completes_the_theoretical_requirements(client, world, fac
 
 
 @pytest.mark.asyncio
-async def test_passing_the_last_requirement_leaves_the_enrollment_ready(client, world, factory):
+async def test_passing_the_last_requirement_finishes_the_enrollment(client, world, factory):
+    """Rule 2 of A fires: every requirement COMPLETE, so the enrollment leaves IN_PROGRESS.
+
+    Until I7 it stopped at READY and waited for the instructor to press a button. With
+    Bloque D · I7 a course with no practical requirement issues the certificate in the same
+    request (spec §5.3), so what this test now sees is the step after READY. The rule that
+    got it there did not change; tests/test_certification.py owns the issuance itself.
+    """
     course = await _course_with_exam(client, world, factory, "ready")
     enrollment = await _join(client, world["member2"], course["id"])
     paper = (await _start(client, world["member2"], enrollment["id"])).json()
@@ -489,7 +496,7 @@ async def test_passing_the_last_requirement_leaves_the_enrollment_ready(client, 
     detail = await client.get(
         f"{ENROLLMENTS}/{enrollment['id']}", headers=world["member2"]["headers"]
     )
-    assert detail.json()["status"] == "READY"
+    assert detail.json()["status"] == "CERTIFIED"
 
 
 @pytest.mark.asyncio
@@ -672,7 +679,10 @@ async def test_every_step_of_an_attempt_is_audited(client, world, factory):
 
 @pytest.mark.asyncio
 async def test_the_instructor_reopens_a_requirement_completed_by_the_exam(client, world, factory):
-    course = await _course_with_exam(client, world, factory, "reopen")
+    # A practical requirement keeps the automatic issuance of I7 away, which is what leaves
+    # the enrollment open long enough to be reopened at all: §5.3 never issues when a row
+    # of the plan is practical, and rule 3 of A freezes a certified enrollment.
+    course = await _course_with_exam(client, world, factory, "reopen", theoretical=(True, False))
     enrollment = await _join(client, world["member2"], course["id"])
     paper = (await _start(client, world["member2"], enrollment["id"])).json()
     await _answer_all(client, world["member2"], paper)
@@ -708,12 +718,18 @@ async def test_nothing_is_written_on_a_frozen_enrollment(client, world, factory,
     paper = (await _start(client, world["member3"], enrollment["id"])).json()
     await _answer_all(client, world["member3"], paper)
     assert (await _submit(client, world["member3"], paper["id"])).json()["status"] == "PASSED"
-    issued = await client.post(
+    # Since I7 the certificate is issued in that same request, so the enrollment is already
+    # frozen here; a second issuance is refused for the same reason a second attempt is.
+    detail = await client.get(
+        f"{ENROLLMENTS}/{enrollment['id']}", headers=world["member3"]["headers"]
+    )
+    assert detail.json()["status"] == "CERTIFIED"
+    again = await client.post(
         f"{ENROLLMENTS}/{enrollment['id']}/certificate",
         json={"issued_date": "2026-09-21"},
         headers=world["instructor"]["headers"],
     )
-    assert issued.status_code == 201, issued.text
+    assert again.status_code == 409
     refused = await _start(client, world["member3"], enrollment["id"])
     assert refused.status_code == 409
 
