@@ -51,8 +51,9 @@ async def test_names_follow_the_requested_locale(client, factory):
 
     by_translation = await _find(client, honor, q=english, locale="en")                # search works in that language
     assert by_translation is not None
+    # the browser's language never decides: a Spanish UI must not fill up with English names
     header = await client.get(HONORS, params={"q": honor["name"]}, headers={"Accept-Language": "en-GB,en;q=0.9,es;q=0.5"})
-    assert next(r for r in header.json() if r["id"] == honor["id"])["name"] == english
+    assert next(r for r in header.json() if r["id"] == honor["id"])["name"] == honor["name"]
 
     detail = await client.get(f"{HONORS}/{honor['id']}", params={"locale": "en"})
     assert detail.status_code == 200 and detail.json()["name"] == english

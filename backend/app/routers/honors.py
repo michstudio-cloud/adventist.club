@@ -9,7 +9,7 @@ Literal routes are declared before the `/{honor_id}` routes.
 import re
 import uuid
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
 from sqlalchemy import delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -154,14 +154,6 @@ async def _can_view_unpublished(db: AsyncSession, user: User | None, honor: Hono
 # ----------------------------------------------------------------------------
 # Serialization
 # ----------------------------------------------------------------------------
-def _requested_locale(locale: str | None, accept_language: str | None) -> str | None:
-    """`?locale=` wins; otherwise the first language of Accept-Language."""
-    if locale:
-        return locale
-    first = (accept_language or "").split(",")[0].split(";")[0].strip()
-    return first if re.match(LOCALE_PATTERN, first) else None
-
-
 async def _resolve_locale(db: AsyncSession, model, requested: str | None) -> str | None:
     """The stored locale that best serves the request: exact, then the bare language, then any
     region of that language (pt -> pt-BR). None means "answer with the source text"."""
@@ -522,13 +514,13 @@ async def list_honors(
     limit: int = Query(500, ge=1, le=500),
     offset: int = Query(0, ge=0),
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
-    accept_language: str | None = Header(None),
     current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
     """
-    Public list: only PUBLISHED + active honors. Names come in `locale` (or Accept-Language)
-    when a translation exists, otherwise in the source language. `status` is honoured for
+    Public list: only PUBLISHED + active honors. Names come in `locale` when a translation
+    exists, otherwise in the source language. The language is always the caller's explicit choice
+    (the UI language), never Accept-Language: a Spanish screen must not fill up with English names. `status` is honoured for
     signed-in reviewers (their scope) and instructors (their own honors);
     for anyone else it is ignored. Total row count: `X-Total-Count` header.
     """
@@ -550,9 +542,8 @@ async def list_honors(
     if category:
         conditions.append(HonorCategory.slug == category)
 
-    requested = _requested_locale(locale, accept_language)
-    name_locale = await _resolve_locale(db, HonorTranslation, requested)
-    category_locale = await _resolve_locale(db, HonorCategoryTranslation, requested)
+    name_locale = await _resolve_locale(db, HonorTranslation, locale)
+    category_locale = await _resolve_locale(db, HonorCategoryTranslation, locale)
     shown_name = func.coalesce(HonorTranslation.name, Honor.name)
 
     def localized(stmt):
@@ -622,13 +613,12 @@ async def _staff_list_conditions(db: AsyncSession, user: User) -> list | None:
 async def list_categories(
     ministry: str = "pathfinders",
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
-    accept_language: str | None = Header(None),
     db: AsyncSession = Depends(get_db),
 ):
     ministry_row = await _get_ministry(db, ministry)
     if ministry_row is None:
         return []
-    resolved = await _resolve_locale(db, HonorCategoryTranslation, _requested_locale(locale, accept_language))
+    resolved = await _resolve_locale(db, HonorCategoryTranslation, locale)
     stmt = (
         select(HonorCategory, HonorCategoryTranslation.name)
         .outerjoin(
@@ -826,7 +816,6 @@ async def create_honor(
 async def get_honor(
     honor_id: uuid.UUID,
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
-    accept_language: str | None = Header(None),
     current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ) -> HonorDetail | HonorStaffDetail:
@@ -836,7 +825,7 @@ async def get_honor(
     if honor.status != PUBLISHED and not staff:
         # 404 rather than 403: do not confirm that an unpublished honor exists.
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Honor not found")
-    return await _build_detail(db, honor, staff=staff, locale=_requested_locale(locale, accept_language))
+    return await _build_detail(db, honor, staff=staff, locale=locale)
 
 
 @router.get("/{honor_id}/instructor", response_model=HonorInstructorDetail)
