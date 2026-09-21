@@ -67,10 +67,21 @@ su parche desde R2, 13 categorías), `/certificates/new`, `/certificates/print`,
 - [ ] Licencia de los parches: se tomaron de guiasmayores.com por decisión del responsable del proyecto; el sitio
       permite rastreo y no publica licencia. Conservar `source_url` y, si procede, pedir autorización formal.
 
+## Idiomas y plantillas (21 sep)
+
+Decisión y contrato en `docs/I18N_Y_PLANTILLAS.md`: next-intl + ICU en la UI, tablas de traducción para el catálogo,
+plantillas de certificado en **SVG** renderizadas en el servidor con resvg (ejemplo en `templates/certificates/especialidad-basica/`).
+Árbol de organizaciones cargado con el directorio mundial del Yearbook (992 entidades); emisor = `ISSUER_ORGANIZATION_CODE=NTAM`
+(Asociación Norte de Tamaulipas), verificado en producción.
+
+- [ ] Motor de plantillas + `POST /certificates/render` (resvg, fuentes Noto incrustadas, `data-fit`).
+- [ ] `users.locale`, `honor_translations`, `Accept-Language`; catálogo en inglés y portugués.
+- [ ] next-intl en el frontend (`/es`, `/en`), selector de idioma, Noto Sans, RTL.
+
 ## Pendiente — backend
 
 - [ ] Firmas criptográficas reales con `issuer_keys` / `certificate_signatures` (hoy solo hash SHA-256; una imagen de firma **no** es una firma).
-- [ ] `prototype-batch` sigue fijo a `pathfinders` / app `conquistadores` y no exige autenticación: parametrizar ministerio/app y decidir quién puede emitir.
+- [ ] `prototype-batch` acepta `ministry`/`application` (20 sep) pero sigue sin exigir autenticación: decidir quién puede emitir.
 - [x] Impresión (20 sep): `POST /printing/layout` + `/printing/pdf` con orientación auto, márgenes por lado, gaps X/Y, bleed, marcas de corte reales y retícula centrada (`app/printing.py`, 13 tests).
 - [ ] Persistir `print_presets` / `print_jobs` (tablas existen, sin uso).
 - [ ] Las «Doctrinales» (28) no tienen PDF de requisitos en la fuente.
