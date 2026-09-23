@@ -19,6 +19,8 @@ ALLOWED_TYPES = ALLOWED_IMAGE_TYPES | ALLOWED_DOCUMENT_TYPES | {SVG_TYPE}
 ALLOWED_FOLDERS = {
     "specialties", "patches", "general", "resources", "avatars", "logos", "courses", "covers",
 }
+# The bucket also holds `sheets/` (rendered honor PDFs, app/services/sheet_cache.py). It is
+# written only by the API itself and deliberately NOT in the client upload whitelist above.
 # Bloque G: the profile photo and cover. Any signed-in person uploads here (their own
 # profile), raster images only; a minor never uploads a cover (spec §1, rule 4).
 PROFILE_FOLDERS = {"avatars", "covers"}

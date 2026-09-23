@@ -19,6 +19,16 @@ there, to check that none of it shows) that is inserted, rendered and DELETED ag
 --patch-dir DIR draws the patch from DIR/<slug>.webp|png when present (the local copy of the
 catalogue's patches) instead of fetching `image_url`. The database is only read, except for
 the --demo honor.
+
+--warm (OPTIONAL and MANUAL: no startup job or cron runs it; the API already stores each PDF
+lazily on its first request) pre-stores the PDFs in the public R2 bucket with the same key and
+upload the API uses (app/services/sheet_cache.py). Dry-run by default: it only counts, without
+rendering or touching R2. --apply renders and uploads what is missing (needs the R2_* variables)
+and deletes the older versions of each variant:
+
+    DATABASE_URL=... python scripts/render_honor_sheets.py --warm --all-published [--modes hoja ficha]
+    DATABASE_URL=... R2_ACCOUNT_ID=... R2_ACCESS_KEY_ID=... R2_SECRET_ACCESS_KEY=... R2_BUCKET_NAME=... \\
+        python scripts/render_honor_sheets.py --warm --all-published --modes hoja --apply
 """
 from __future__ import annotations
 
@@ -38,6 +48,8 @@ from sqlalchemy import func, or_, select, text  # noqa: E402
 
 from app.db import SessionLocal, engine  # noqa: E402
 from app.models import Honor, HonorRequirement, HonorResource  # noqa: E402
+from app.config import settings  # noqa: E402
+from app.services import sheet_cache  # noqa: E402
 from app.services.honor_sheet import load_sheet_data, render_sheet_pdf  # noqa: E402
 
 DEMO_REQUIREMENTS = [
@@ -182,9 +194,34 @@ async def drop_demo(db, honor_id: uuid.UUID) -> None:
     await db.commit()
 
 
+async def warm(db, honors: list[Honor], modes: tuple[str, ...], locale: str, paper: str, apply: bool) -> dict:
+    """Pre-store in R2 (manual). Without `apply` (the default) it only counts: no render, no R2 call."""
+    total = len(honors) * len(modes)
+    if not apply:
+        print(f"dry-run: {len(honors)} especialidades publicadas × {len(modes)} modo(s) = {total} PDF "
+              f"({locale}, {paper}). Nada se renderiza ni se sube; añade --apply para hacerlo.")
+        return {"dry-run": total}
+    if not settings.storage_configured:
+        raise SystemExit("R2 no está configurado (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY)")
+    counts: dict[str, int] = {}
+    for index, honor in enumerate(honors, 1):
+        for mode in modes:
+            started = time.perf_counter()
+            result = await sheet_cache.warm_sheet(db, honor, locale=locale, paper=paper, mode=mode)
+            counts[result] = counts.get(result, 0) + 1
+            print(f"[{index}/{len(honors)}] {honor.slug} {mode}: {result} "
+                  f"({(time.perf_counter() - started) * 1000:.0f} ms)")
+    print("resumen: " + ", ".join(f"{name}={count}" for name, count in sorted(counts.items())))
+    return counts
+
+
 async def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--out", type=Path, help="output folder (required unless --warm)")
+    parser.add_argument("--warm", action="store_true", help="pre-store in R2 instead of writing files (manual)")
+    run = parser.add_mutually_exclusive_group()
+    run.add_argument("--dry-run", action="store_true", help="with --warm: only count (the default)")
+    run.add_argument("--apply", action="store_true", help="with --warm: really render and upload")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--ids", nargs="+", help="honor ids or slugs")
     group.add_argument("--all-published", action="store_true")
@@ -195,7 +232,14 @@ async def main() -> None:
     parser.add_argument("--patch-dir", type=Path)
     parser.add_argument("--modes", nargs="+", choices=("hoja", "ficha"), default=["hoja", "ficha"])
     args = parser.parse_args()
-    args.out.mkdir(parents=True, exist_ok=True)
+    if args.warm and args.samples:
+        parser.error("--warm works with --ids or --all-published")
+    if not args.warm and args.out is None:
+        parser.error("--out is required (unless --warm)")
+    if not args.warm and args.apply:
+        parser.error("--apply only makes sense with --warm")
+    if args.out is not None:
+        args.out.mkdir(parents=True, exist_ok=True)
     modes = tuple(dict.fromkeys(args.modes))
 
     async with SessionLocal() as db:
@@ -227,6 +271,10 @@ async def main() -> None:
                         print(f"no existe: {key}", file=sys.stderr)
                     else:
                         honors.append(honor)
+            if args.warm:
+                await warm(db, honors, modes, args.locale, args.paper, args.apply)
+                await engine.dispose()
+                return
             for honor in honors:
                 await render_one(db, honor, args.out, honor.slug, args.locale, args.paper, args.patch_dir,
                                  modes=modes)
