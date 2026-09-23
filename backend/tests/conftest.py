@@ -265,6 +265,16 @@ class Factory:
                 text("DELETE FROM honor_categories WHERE name LIKE :like OR slug LIKE :like"),
                 params,
             )
+            # Bloque H: officers and attendance cascade from the membership, but meetings
+            # point at a club of this run and go before the organizations.
+            if await db.scalar(text("SELECT to_regclass('public.club_meetings')")):
+                clubs = "SELECT id FROM organizations WHERE name LIKE :like"
+                await db.execute(
+                    text(f"DELETE FROM club_officers WHERE club_id IN ({clubs})"), params
+                )
+                await db.execute(
+                    text(f"DELETE FROM club_meetings WHERE club_id IN ({clubs})"), params
+                )
             # Memberships cascade from the user, but a membership can also point
             # at an organization of this run whose member is not: delete by club
             # too, before the organizations go.

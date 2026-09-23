@@ -272,3 +272,46 @@ async def revoke(
             request=request,
         )
     return invitation
+
+
+RENEW_MULTI_ONLY = "Sólo se renuevan los enlaces multiuso del club"
+
+
+async def renew(
+    db: AsyncSession,
+    invitation: ClubInvitation,
+    *,
+    club: Organization,
+    actor: User,
+    request: Request | None = None,
+) -> tuple[ClubInvitation, str]:
+    """Bloque H §4: the club's multi-use link, again. A NEW link with the same rules (role,
+    uses, unit and the same length, never beyond `MAX_EXPIRY_DAYS`) and the old one revoked,
+    whatever state it was in. Returns the new row and its plain token, shown ONCE."""
+    if invitation.max_uses <= 1:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, RENEW_MULTI_ONLY)
+    lasted = round((invitation.expires_at - invitation.created_at).total_seconds() / 86400)
+    days = min(max(lasted, 1), MAX_EXPIRY_DAYS)
+    await revoke(db, invitation, actor=actor, request=request)
+    await db.flush()  # the old link stops counting against MAX_LIVE_PER_CLUB
+    renewed, token = await create(
+        db,
+        club=club,
+        actor=actor,
+        role=invitation.role,
+        max_uses=invitation.max_uses,
+        expires_in_days=days,
+        email=invitation.email,
+        unit_id=invitation.unit_id,
+        request=request,
+    )
+    record_audit(
+        db,
+        action="INVITATION_RENEW",
+        entity_type=INVITATION,
+        entity_id=renewed.id,
+        actor=actor,
+        metadata={"club_id": str(club.id), "role": renewed.role, "renewed_from": str(invitation.id)},
+        request=request,
+    )
+    return renewed, token

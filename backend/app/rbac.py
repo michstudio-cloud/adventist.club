@@ -659,12 +659,20 @@ async def program_issued_by_club(db: AsyncSession, enrollment: HonorEnrollment) 
     return level == ISSUER_CLUB
 
 
-async def can_approve_activity(db: AsyncSession, actor: User, member: User) -> bool:
+ATTENDANCE_CATEGORY = "ATTENDANCE"
+
+
+async def can_approve_activity(
+    db: AsyncSession, actor: User, member: User, category: str | None = None
+) -> bool:
     """Approve (or reject) a service / attendance log of `member` — F2 §1.3.
 
     The club jurisdiction of `can_review` without its course branch: the DIRECTOR of the
     member's current club, or MASTER_GC. An instructor does NOT approve hours, and nobody
     approves their own: a director's hours are decided by their Zone or Association.
+
+    Bloque H: for an ATTENDANCE log (`category`), the club's SECRETARY too — «pasar lista»
+    is the secretary's day-to-day. Service hours stay the director's.
     """
     if actor.id == member.id:
         return False
@@ -672,7 +680,10 @@ async def can_approve_activity(db: AsyncSession, actor: User, member: User) -> b
         return True
     if actor.role in ADMIN_ROLES:
         return await org_in_decision_scope(db, actor, member.organization_id)
-    if not club_staff_in_good_standing(actor, (CLUB_DIRECTOR,)):
+    roles = (
+        (CLUB_DIRECTOR, CLUB_SECRETARY) if category == ATTENDANCE_CATEGORY else (CLUB_DIRECTOR,)
+    )
+    if not club_staff_in_good_standing(actor, roles):
         return False
     club = await member_club(db, member)
     if club is None or club.id != actor.organization_id:
@@ -775,3 +786,52 @@ async def can_award_xp(
     if actor.role in COUNSELOR_ROLES and membership.unit_id is not None:
         return membership.unit_id in await counselor_unit_ids(db, club.id, actor.id)
     return False
+
+
+# ----------------------------------------------------------------------------
+# Bloque H: the club's secretariat — officers, «pasar lista» and the club's score.
+# ----------------------------------------------------------------------------
+# Titles only the direction hands out (spec H §1).
+DIRECTION_TITLES = ("DIRECTOR", "SUBDIRECTOR")
+# Who records the attendance of the whole club.
+ATTENDANCE_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY)
+
+
+async def can_manage_officers(
+    db: AsyncSession, actor: User, club: Organization, title: str | None = None
+) -> bool:
+    """Name, edit or close a cargo (§1): the direction and the secretary of the club, and
+    MASTER/the administration in scope — i.e. `can_manage_members`. The secretary names
+    every cargo except DIRECTOR and SUBDIRECTOR. A cargo is a title, never a permission."""
+    if not await can_manage_members(db, actor, club):
+        return False
+    return not (actor.role == CLUB_SECRETARY and title in DIRECTION_TITLES)
+
+
+async def can_record_attendance(
+    db: AsyncSession, actor: User, club: Organization, unit_id: uuid.UUID | None = None
+) -> bool:
+    """«Pasar lista» (§2): the director and the secretary of the club, for everybody; the
+    counselor of a unit, for that unit only (`unit_id`). The club's day-to-day, like the XP
+    awards: administrators do not record it. The minor gate (E7) is asked per member by the
+    caller, exactly as `can_approve_activity` does."""
+    if club.type != "club" or club.status != "active":
+        return False
+    if not _attached_to(actor, club) or director_blocked(actor):
+        return False
+    if actor.role in ATTENDANCE_ROLES:
+        return True
+    if unit_id is None:
+        return False
+    from app.services.units import COUNSELOR_ROLES, counselor_unit_ids
+
+    return actor.role in COUNSELOR_ROLES and unit_id in await counselor_unit_ids(
+        db, club.id, actor.id
+    )
+
+
+async def can_view_club_score(db: AsyncSession, actor: User, club: Organization) -> bool:
+    """§6: the club — its staff and its active members — and the hierarchy above it."""
+    if await can_view_roster(db, actor, club):
+        return True
+    return club.type == "club" and club.status == "active" and _attached_to(actor, club)

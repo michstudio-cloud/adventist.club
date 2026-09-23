@@ -25,6 +25,8 @@ from app.routers import activity as activity_router, programs as programs_router
 from app.routers import maps as maps_router
 # Bloque G: el perfil público, el XP y la barra de buena conducta.
 from app.routers import profiles as profiles_router
+# Bloque H: la secretaría del club (cargos, pasar lista, página pública y puntuación).
+from app.routers import secretaria as secretaria_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
@@ -37,6 +39,7 @@ app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 for _router in (auth_router,users_router,org_router,honors_router,media_router,render_router,portfolio_router,church_letters_router,courses_router,memberships_router,clubs_router,exams_router,programs_router,activity_router,maps_router):app.include_router(_router.router)
 app.include_router(profiles_router.router)
 app.include_router(profiles_router.clubs_router)
+app.include_router(secretaria_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)

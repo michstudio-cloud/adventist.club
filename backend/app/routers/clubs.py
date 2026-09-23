@@ -6,9 +6,11 @@ serializer is deliberately narrow (spec §7): years of age, never a birth date,
 never an e-mail, and `guardian_email` only for the director and the
 administrators above them — not even for the club's own secretary.
 """
+import csv
+import io
 import uuid
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, Response, status
 from sqlalchemy import exists, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -48,6 +50,7 @@ from app.schemas.membership import (
     as_invitation_out,
     as_membership_out,
 )
+from app.schemas.secretaria import Completeness
 from app.schemas.unit import (
     CounselorAssign,
     MemberUnitAssign,
@@ -57,10 +60,12 @@ from app.schemas.unit import (
     UnitUpdate,
 )
 from app.security import COUNSELOR, STUDENT, utcnow
+from app.services import attendance as attendance_service
 from app.services import email as email_service
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
 from app.services import notifications
+from app.services import officers as officer_service
 from app.services import units as unit_service
 from app.services.audit import record_audit
 
@@ -101,7 +106,7 @@ async def list_members(
     stmt = (
         # `has_guardian` rides along (the profile's minor rule for accounts without a birth
         # date), so the photo of every row costs no query of its own.
-        select(ClubMembership, User, _HAS_GUARDIAN)
+        select(ClubMembership, User, _HAS_GUARDIAN, _HAS_APPROVED_GUARDIAN)
         .join(User, User.id == ClubMembership.user_id)
         .where(
             ClubMembership.club_id == club.id,
@@ -126,6 +131,9 @@ async def list_members(
     # secretary, administrators) reads the whole roster: that is how a club is
     # run and how an unverified instructor is noticed in the first place.
     hide_minors = not manages and not may_handle_minors(current_user)
+    rows = [row for row in rows if not (hide_minors and is_minor_user(row[1]))]
+    # Bloque H: cargos and attendance for the whole page in two queries, never one per row.
+    extras = await _roster_extras(db, club.id, [row[0].id for row in rows])
 
     return [
         await _member_row(
@@ -135,15 +143,45 @@ async def list_members(
             include_guardian_email=sees_guardians,
             units=units,
             has_guardian=has_guardian,
+            has_approved_guardian=has_approved_guardian,
+            extras=extras,
         )
-        for membership, member, has_guardian in rows
-        if not (hide_minors and is_minor_user(member))
+        for membership, member, has_guardian, has_approved_guardian in rows
     ]
 
 
 _HAS_GUARDIAN = (
     exists().where(Guardianship.child_id == User.id).correlate(User).label("has_guardian")
 )
+# Bloque H: the «guardian» flag of the roster's completeness.
+_HAS_APPROVED_GUARDIAN = (
+    exists()
+    .where(Guardianship.child_id == User.id, Guardianship.consent_status == CONSENT_GRANTED)
+    .correlate(User)
+    .label("has_approved_guardian")
+)
+
+
+async def _roster_extras(
+    db: AsyncSession, club_id: uuid.UUID, membership_ids: list[uuid.UUID]
+) -> tuple[dict, dict]:
+    """(cargos by membership, attendance % of the last 90 days by membership)."""
+    return (
+        await officer_service.titles_by_membership(db, membership_ids),
+        await attendance_service.pct_90d(db, club_id, membership_ids),
+    )
+
+
+def _completeness(
+    membership: ClubMembership, member: User, *, minor: bool, has_approved_guardian: bool
+) -> Completeness:
+    """Flags, never the data. Consent and guardian only apply to a minor."""
+    return Completeness(
+        birth_date=member.birth_date is not None,
+        consent=not minor or membership.consent_at is not None,
+        guardian=not minor or has_approved_guardian,
+        email_verified=member.verification_status == "VERIFIED",
+    )
 
 
 async def _member_row(
@@ -154,8 +192,25 @@ async def _member_row(
     include_guardian_email: bool,
     units: dict | None = None,
     has_guardian: bool | None = None,
+    has_approved_guardian: bool | None = None,
+    extras: tuple[dict, dict] | None = None,
 ) -> MemberRow | ManagedMemberRow:
     minor = is_minor_user(member)
+    if extras is None:
+        # A single row (after a role change): the same data, for one membership.
+        extras = await _roster_extras(db, membership.club_id, [membership.id])
+    if has_approved_guardian is None:
+        has_approved_guardian = bool(
+            await db.scalar(
+                select(
+                    exists().where(
+                        Guardianship.child_id == member.id,
+                        Guardianship.consent_status == CONSENT_GRANTED,
+                    )
+                )
+            )
+        )
+    titles, attendance = extras
     if has_guardian is None:
         # A single row (after a role change): ask only when it can change the answer.
         has_guardian = (
@@ -185,6 +240,11 @@ async def _member_row(
         since=membership.started_at,
         consent=consent,
         unit=unit_service.unit_ref(units.get(membership.unit_id)),
+        officer_titles=titles.get(membership.id, []),
+        completeness=_completeness(
+            membership, member, minor=minor, has_approved_guardian=has_approved_guardian
+        ),
+        attendance_pct_90d=attendance.get(membership.id),
     )
     if not include_guardian_email:
         return MemberRow(**fields)
@@ -207,6 +267,120 @@ async def _guardian_name(db: AsyncSession, membership: ClubMembership, member: U
         .limit(1)
     )
     return (await db.execute(stmt)).scalars().first()
+
+
+# ----------------------------------------------------------------------------
+# The roster as a spreadsheet (Bloque H §3)
+# ----------------------------------------------------------------------------
+CSV_COLUMNS = [
+    "Nombre", "Cargo", "Rol", "Unidad", "Edad", "Estado", "Fecha de ingreso", "Asistencia 90 d (%)",
+]
+CSV_CONTACT_COLUMNS = ["Correo", "Tutor"]
+# A cell that starts like a formula is neutralized (CSV injection).
+_FORMULA_START = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _cell(value) -> str:
+    text = "" if value is None else str(value)
+    return f"'{text}" if text.startswith(_FORMULA_START) else text
+
+
+async def _guardian_names(db: AsyncSession, rows: list) -> dict[uuid.UUID, str]:
+    """Who authorized each minor of the page, in two queries (see `_guardian_name`)."""
+    minors = [(membership, member) for membership, member in rows if is_minor_user(member)]
+    if not minors:
+        return {}
+    by_consent = {m.consent_by_id for m, _ in minors if m.consent_by_id is not None}
+    consent_names = (
+        dict((await db.execute(select(User.id, User.name).where(User.id.in_(by_consent)))).all())
+        if by_consent
+        else {}
+    )
+    approved: dict[uuid.UUID, str] = {}
+    stmt = (
+        select(Guardianship.child_id, User.name)
+        .join(User, User.id == Guardianship.guardian_id)
+        .where(
+            Guardianship.child_id.in_([member.id for _, member in minors]),
+            Guardianship.consent_status == CONSENT_GRANTED,
+        )
+        .order_by(Guardianship.created_at, Guardianship.id)
+    )
+    for child_id, name in (await db.execute(stmt)).all():
+        approved.setdefault(child_id, name)
+    out = {}
+    for membership, member in minors:
+        name = consent_names.get(membership.consent_by_id) or approved.get(member.id)
+        if name:
+            out[member.id] = name
+    return out
+
+
+@router.get("/{club_id}/members/export.csv", response_class=Response)
+async def export_members(
+    club_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The ACTIVE roster as CSV (UTF-8 with BOM, so a spreadsheet opens the accents right).
+    The director and the administrators above also get the adult member's e-mail and the
+    name of a minor's guardian; the secretary never does (spec §5.7). Audited."""
+    club = await _club_for_manager(db, current_user, club_id)
+    with_contact = await can_view_guardian_contact(db, current_user, club)
+    rows = (
+        await db.execute(
+            select(ClubMembership, User)
+            .join(User, User.id == ClubMembership.user_id)
+            .where(
+                ClubMembership.club_id == club.id,
+                ClubMembership.status == membership_service.ACTIVE,
+            )
+            .order_by(User.name, User.id)
+        )
+    ).all()
+    titles, attendance = await _roster_extras(db, club.id, [row[0].id for row in rows])
+    units = await unit_service.units_by_id(db, club.id)
+    guardians = await _guardian_names(db, rows) if with_contact else {}
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\r\n")
+    writer.writerow(CSV_COLUMNS + (CSV_CONTACT_COLUMNS if with_contact else []))
+    for membership, member in rows:
+        unit = units.get(membership.unit_id)
+        pct = attendance.get(membership.id)
+        line = [
+            member.name,
+            "; ".join(titles.get(membership.id, [])),
+            membership.role,
+            unit.name if unit is not None else "",
+            age_in_years(member.birth_date),
+            membership.status,
+            membership.started_at.date().isoformat() if membership.started_at else "",
+            f"{pct:.1f}" if pct is not None else "",
+        ]
+        if with_contact:
+            # A minor's e-mail never leaves the backend (spec E §7).
+            line += ["" if is_minor_user(member) else member.email, guardians.get(member.id, "")]
+        writer.writerow([_cell(value) for value in line])
+
+    record_audit(
+        db,
+        action="EXPORT",
+        entity_type="CLUB_ROSTER",
+        entity_id=club.id,
+        actor=current_user,
+        details=f"Roster of club {club.id} as CSV ({len(rows)} rows)",
+        metadata={"rows": len(rows), "with_contact": with_contact},
+        request=request,
+    )
+    await db.commit()
+    filename = f"nomina-{utcnow().date().isoformat()}.csv"
+    return Response(
+        content="\ufeff" + buffer.getvalue(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 # ----------------------------------------------------------------------------
@@ -537,6 +711,47 @@ async def revoke_invitation(
     await db.commit()
 
 
+@router.post(
+    "/{club_id}/invitations/{invitation_id}/renew",
+    response_model=InvitationCreated,
+    status_code=status.HTTP_201_CREATED,
+)
+async def renew_invitation(
+    club_id: uuid.UUID,
+    invitation_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Bloque H §4: a new multi-use link with the same rules (role, uses, unit, length,
+    within the 90-day maximum); the old one is revoked. Its token comes back ONCE."""
+    club = await _club_for_manager(db, current_user, club_id)
+    stmt = select(ClubInvitation).where(
+        ClubInvitation.id == invitation_id, ClubInvitation.club_id == club.id
+    )
+    invitation = (await db.execute(stmt)).scalar_one_or_none()
+    if invitation is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Invitación no encontrada en este club")
+    if not can_grant_club_role(current_user, invitation.role):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "No puedes renovar invitaciones de ese rol."
+        )
+    renewed, token = await invitation_service.renew(
+        db, invitation, club=club, actor=current_user, request=request
+    )
+    await db.commit()
+    return InvitationCreated(
+        invitation=as_invitation_out(
+            renewed,
+            state=invitation_service.state_of(renewed),
+            requires_approval=invitation_service.requires_approval(renewed),
+        ),
+        token=token,
+        url=invitation_service.join_url(token),
+        whatsapp_url=invitation_service.whatsapp_url(club.name, token),
+    )
+
+
 # ----------------------------------------------------------------------------
 # Control data of the club
 # ----------------------------------------------------------------------------
@@ -548,7 +763,8 @@ async def update_club_profile(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Meeting day and time, contact and whether the club takes join requests.
+    """Meeting day and time, contact, whether the club takes join requests and (Bloque H)
+    the description and logo of its public page (`GET /clubs/{id}/profile`).
     A whitelist inside `metadata_json.profile`: it never touches the name, the
     location or the place of the club in the tree."""
     club = await _club_for_manager(db, current_user, club_id)
