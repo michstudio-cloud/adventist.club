@@ -27,6 +27,8 @@ from app.routers import maps as maps_router
 from app.routers import profiles as profiles_router
 # Bloque H: la secretaría del club (cargos, pasar lista, página pública y puntuación).
 from app.routers import secretaria as secretaria_router
+# La ficha de especialidad en PDF, generada desde los datos propios (reemplaza los PDF de terceros).
+from app.routers import honor_sheets as honor_sheets_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
 
@@ -40,6 +42,7 @@ for _router in (auth_router,users_router,org_router,honors_router,media_router,r
 app.include_router(profiles_router.router)
 app.include_router(profiles_router.clubs_router)
 app.include_router(secretaria_router.router)
+app.include_router(honor_sheets_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
