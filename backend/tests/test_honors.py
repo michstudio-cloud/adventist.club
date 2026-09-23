@@ -568,6 +568,185 @@ async def test_my_created_and_stats(client, staff, factory):
         assert body["by_status"].get("PUBLISHED", 0) >= 1
 
 
+async def _translations(honor_id):
+    return await fetch_all(
+        "SELECT locale, name, description, created_at, updated_at FROM honor_translations"
+        " WHERE honor_id = :id ORDER BY locale",
+        id=uuid.UUID(honor_id),
+    )
+
+
+async def test_translation_is_created_then_replaced(client, staff, factory):
+    honor = await _create(client, staff, factory, "tr-upsert")
+    url = f"{HONORS}/{honor['id']}/translations/en"
+    headers = staff["instructor"]["headers"]
+
+    created = await client.put(
+        url, json={"name": factory.name("Knots"), "description": "Knots and lashings, in English"},
+        headers=headers,
+    )
+    assert created.status_code == 200, created.text
+    body = created.json()
+    # The whole honor comes back, as after PUT /honors/{id}: still in Spanish, still a draft.
+    assert body["id"] == honor["id"] and body["status"] == "DRAFT"
+    assert body["name"] == honor["name"] and "review_history" in body
+    rows = await _translations(honor["id"])
+    assert [(r["locale"], r["name"], r["description"]) for r in rows] == [
+        ("en", factory.name("Knots"), "Knots and lashings, in English")
+    ]
+    first_update = rows[0]["updated_at"]
+
+    replaced = await client.put(url, json={"name": factory.name("Knot Tying")}, headers=headers)
+    assert replaced.status_code == 200, replaced.text
+    rows = await _translations(honor["id"])
+    # Replaced, not added: one row, the new name, and a description that was not sent is gone.
+    assert [(r["locale"], r["name"], r["description"]) for r in rows] == [
+        ("en", factory.name("Knot Tying"), None)
+    ]
+    assert rows[0]["updated_at"] > first_update
+
+    # A region is its own row, and the casing of the tag does not make a second one.
+    assert (
+        await client.put(f"{HONORS}/{honor['id']}/translations/pt-br",
+                         json={"name": factory.name("Nós")}, headers=headers)
+    ).status_code == 200
+    assert (
+        await client.put(f"{HONORS}/{honor['id']}/translations/pt-BR",
+                         json={"name": factory.name("Nós e amarras")}, headers=headers)
+    ).status_code == 200
+    rows = await _translations(honor["id"])
+    assert [(r["locale"], r["name"]) for r in rows] == [
+        ("en", factory.name("Knot Tying")),
+        ("pt-BR", factory.name("Nós e amarras")),
+    ]
+
+    # The author reads the draft in that language.
+    detail = await client.get(f"{HONORS}/{honor['id']}", params={"locale": "en"}, headers=headers)
+    assert detail.json()["name"] == factory.name("Knot Tying")
+
+    audit = await fetch_all(
+        "SELECT action, metadata_json FROM audit_log WHERE entity_type = 'HONOR' AND entity_id = :id"
+        " ORDER BY created_at",
+        id=honor["id"],
+    )
+    assert [r["action"] for r in audit] == ["CREATE", "UPDATE", "UPDATE", "UPDATE", "UPDATE"]
+    assert audit[1]["metadata_json"]["translation"] == "en"
+
+
+async def test_translation_rules(client, staff, factory):
+    honor = await _create(client, staff, factory, "tr-rules")
+    url = f"{HONORS}/{honor['id']}/translations/fr"
+    body = {"name": factory.name("Noeuds"), "description": None}
+
+    assert (await client.put(url, json=body)).status_code == 401
+    for who in ("instructor2", "assoc_admin", "student"):
+        response = await client.put(url, json=body, headers=staff[who]["headers"])
+        assert response.status_code == 403, who
+    assert await _translations(honor["id"]) == []
+
+    by_master = await client.put(url, json=body, headers=staff["master"]["headers"])
+    assert by_master.status_code == 200, by_master.text
+
+    headers = staff["instructor"]["headers"]
+    # Spanish lives in the honor's own columns: never a row in honor_translations.
+    for source in ("es", "ES", "es-MX"):
+        response = await client.put(
+            f"{HONORS}/{honor['id']}/translations/{source}", json=body, headers=headers
+        )
+        assert response.status_code == 422, source
+    # The last one is a well-formed tag longer than honor_translations.locale (16).
+    for bad in ("not a locale", "e", "en_US", "en-abcdefgh-abcdefgh"):
+        response = await client.put(
+            f"{HONORS}/{honor['id']}/translations/{bad}", json=body, headers=headers
+        )
+        assert response.status_code == 422, bad
+    # The same length limits as HonorCreate / HonorUpdate.
+    for name in ("x", "x" * 181):
+        response = await client.put(url, json={"name": name}, headers=headers)
+        assert response.status_code == 422, len(name)
+    assert (await client.put(url, json={"description": "no name"}, headers=headers)).status_code == 422
+
+    missing = await client.put(
+        f"{HONORS}/{uuid.uuid4()}/translations/fr", json=body, headers=staff["master"]["headers"]
+    )
+    assert missing.status_code == 404
+    assert [r["locale"] for r in await _translations(honor["id"])] == ["fr"]
+
+
+async def test_translation_works_in_every_status(client, staff, factory):
+    """Unlike PUT /honors/{id}, a translation is parallel content: review and publication do
+    not lock it."""
+    honor = await _create(client, staff, factory, "tr-status")
+    headers = staff["instructor"]["headers"]
+    submitted = await client.post(f"{HONORS}/{honor['id']}/submit", headers=headers)
+    assert submitted.status_code == 200, submitted.text
+    in_review = await client.put(
+        f"{HONORS}/{honor['id']}/translations/en", json={"name": factory.name("In review")},
+        headers=headers,
+    )
+    assert in_review.status_code == 200 and in_review.json()["status"] == "ZONE_REVIEW"
+
+    await _review(client, staff["coordinator"], honor["id"], "APPROVE")
+    published = await _review(client, staff["assoc_admin"], honor["id"], "APPROVE")
+    assert published.json()["status"] == "PUBLISHED"
+    # The source content is locked...
+    locked = await client.put(
+        f"{HONORS}/{honor['id']}", json={"description": "x"}, headers=headers
+    )
+    assert locked.status_code == 400
+    # ...its translations are not.
+    for locale, name in (("en", "Knot Tying"), ("uk", "Вузли")):
+        response = await client.put(
+            f"{HONORS}/{honor['id']}/translations/{locale}",
+            json={"name": factory.name(name), "description": f"{name} description"},
+            headers=headers,
+        )
+        assert response.status_code == 200, response.text
+        assert response.json()["status"] == "PUBLISHED"
+
+    public = await client.get(f"{HONORS}/{honor['id']}", params={"locale": "uk"})
+    assert public.status_code == 200 and public.json()["name"] == factory.name("Вузли")
+    listed = await client.get(HONORS, params={"q": factory.name("Knot Tying"), "locale": "en"})
+    assert factory.name("Knot Tying") in {row["name"] for row in listed.json()}
+
+
+async def test_translation_delete(client, staff, factory):
+    honor = await _create(client, staff, factory, "tr-del")
+    headers = staff["instructor"]["headers"]
+    url = f"{HONORS}/{honor['id']}/translations/en"
+    assert (
+        await client.put(url, json={"name": factory.name("Wrong one")}, headers=headers)
+    ).status_code == 200
+    await client.post(f"{HONORS}/{honor['id']}/publish", headers=staff["master"]["headers"])
+
+    assert (await client.delete(url)).status_code == 401
+    for who in ("instructor2", "assoc_admin"):
+        assert (await client.delete(url, headers=staff[who]["headers"])).status_code == 403, who
+    assert (
+        await client.delete(f"{HONORS}/{honor['id']}/translations/es", headers=headers)
+    ).status_code == 422
+    assert (
+        await client.delete(f"{HONORS}/{uuid.uuid4()}/translations/en", headers=headers)
+    ).status_code == 404
+
+    deleted = await client.delete(f"{HONORS}/{honor['id']}/translations/EN", headers=headers)
+    assert deleted.status_code == 204 and deleted.content == b""
+    assert await _translations(honor["id"]) == []
+    again = await client.delete(url, headers=headers)
+    assert again.status_code == 404
+
+    # The honor itself is untouched: still published, back to its Spanish name in English.
+    public = await client.get(f"{HONORS}/{honor['id']}", params={"locale": "en"})
+    assert public.status_code == 200 and public.json()["name"] == honor["name"]
+    audit = await fetch_all(
+        "SELECT action FROM audit_log WHERE entity_type = 'HONOR' AND entity_id = :id"
+        " ORDER BY created_at",
+        id=honor["id"],
+    )
+    # Removing a translation updates the honor; DELETE on HONOR means archiving it.
+    assert [r["action"] for r in audit] == ["CREATE", "UPDATE", "PUBLISH", "UPDATE"]
+
+
 async def test_public_endpoints_ignore_a_bad_token(client):
     headers = {"Authorization": "Bearer not-a-jwt"}
     assert (await client.get(HONORS, headers=headers)).status_code == 200

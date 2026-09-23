@@ -9,7 +9,7 @@ Literal routes are declared before the `/{honor_id}` routes.
 import re
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Path, Query, Request, Response, status
 from sqlalchemy import delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -40,6 +40,7 @@ from app.schemas.honor import (
     HonorStaffDetail,
     HonorStats,
     HonorStatus,
+    HonorTranslationIn,
     HonorUpdate,
     HonorVersionCreate,
     PaginatedHonors,
@@ -60,7 +61,13 @@ from app.security import (
     utcnow,
 )
 from app.services.audit import record_audit
-from app.services.locales import LOCALE_PATTERN, SOURCE_LOCALE, best_locale
+from app.services.locales import (
+    LOCALE_PATTERN,
+    SOURCE_LOCALE,
+    best_locale,
+    canonical_locale,
+    is_source_locale,
+)
 from app.text import escape_like, slugify
 # The stages and their reviewers are shared with the courses of Bloque B: one definition,
 # two routers (app/workflow.py). Re-exported here so importers of this module keep working.
@@ -936,6 +943,95 @@ async def update_honor(
     )
     await db.commit()
     return await _build_detail(db, honor, staff=True)
+
+
+# honor_translations.locale is VARCHAR(16): a longer tag is a 422, not a 500 at INSERT.
+TranslationLocale = Path(pattern=LOCALE_PATTERN, max_length=16)
+
+
+async def _honor_for_translation(
+    db: AsyncSession, honor_id: uuid.UUID, locale: str, user: User
+) -> tuple[Honor, str]:
+    """
+    The honor, locked, and the stored spelling of `locale`. Same gate as update_honor (the
+    creator or MASTER_GC) but in any status: a translation is content in parallel to the
+    source text that went through review, not a change to it.
+    """
+    if is_source_locale(locale):
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            f"'{SOURCE_LOCALE}' is the source language: edit it with PUT /honors/{{honor_id}}",
+        )
+    honor = await _get_honor_or_404(db, honor_id, lock=True)
+    if honor.created_by_id != user.id and not is_master(user):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Only the creator can translate this honor"
+        )
+    return honor, canonical_locale(locale)
+
+
+@router.put("/{honor_id}/translations/{locale}", response_model=HonorStaffDetail)
+async def put_honor_translation(
+    honor_id: uuid.UUID,
+    payload: HonorTranslationIn,
+    request: Request,
+    locale: str = TranslationLocale,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Create or replace the honor's name and description in `locale`."""
+    honor, locale = await _honor_for_translation(db, honor_id, locale, current_user)
+    # The honor row is locked: two requests for a new locale cannot both INSERT.
+    translation = await db.get(HonorTranslation, (honor.id, locale))
+    created = translation is None
+    if created:
+        translation = HonorTranslation(honor_id=honor.id, locale=locale)
+        db.add(translation)
+    # Attribution (source, source_url, license) of an imported row is kept: a corrected
+    # CC BY-SA text is still a derivative of it.
+    translation.name = payload.name.strip()
+    translation.description = payload.description
+    translation.updated_at = utcnow()
+    record_audit(
+        db,
+        action="UPDATE",
+        entity_type=ENTITY,
+        entity_id=honor.id,
+        actor=current_user,
+        details=f"{'Added' if created else 'Replaced'} {locale} translation of honor: {honor.name}",
+        metadata={"translation": locale, "created": created},
+        request=request,
+    )
+    await db.commit()
+    return await _build_detail(db, honor, staff=True)
+
+
+@router.delete("/{honor_id}/translations/{locale}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_honor_translation(
+    honor_id: uuid.UUID,
+    request: Request,
+    locale: str = TranslationLocale,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Remove a translation loaded by mistake. The honor then answers in the source text."""
+    honor, locale = await _honor_for_translation(db, honor_id, locale, current_user)
+    translation = await db.get(HonorTranslation, (honor.id, locale))
+    if translation is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Translation not found")
+    await db.delete(translation)
+    # UPDATE, not DELETE: on an HONOR entity, DELETE means the honor was archived.
+    record_audit(
+        db,
+        action="UPDATE",
+        entity_type=ENTITY,
+        entity_id=honor.id,
+        actor=current_user,
+        details=f"Removed {locale} translation of honor: {honor.name}",
+        metadata={"translation": locale, "removed": True},
+        request=request,
+    )
+    await db.commit()
 
 
 @router.post("/{honor_id}/submit", response_model=HonorStaffDetail)

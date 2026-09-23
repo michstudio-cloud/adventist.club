@@ -83,6 +83,14 @@ class HonorUpdate(BaseModel):
     )
 
 
+class HonorTranslationIn(BaseModel):
+    """The honor's name and description in one language other than the source (Spanish).
+    PUT replaces the whole row: a description that is not sent is cleared."""
+
+    name: str = Field(min_length=2, max_length=180)
+    description: str | None = None
+
+
 class HonorReviewIn(BaseModel):
     action: ReviewAction
     comments: str | None = None
