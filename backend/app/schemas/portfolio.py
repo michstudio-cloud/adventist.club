@@ -293,3 +293,65 @@ class CertificateRevokeIn(BaseModel):
     @classmethod
     def _strip(cls, value):
         return value.strip() if isinstance(value, str) else value
+
+
+# ----------------------------------------------------------------------------
+# Álbum de evidencias: a folder per honor, and everything uploaded to one enrollment
+# ----------------------------------------------------------------------------
+class AlbumCategory(BaseModel):
+    id: str
+    name: str
+    slug: str
+
+
+class AlbumHonor(BaseModel):
+    id: str
+    name: str
+    slug: str
+    # The patch, shown as the album's sticker.
+    image_url: str | None
+    category: AlbumCategory | None
+
+
+class AlbumCertificate(BaseModel):
+    certificate_no: str
+    issued_date: date
+    # The public page the certificate's QR points at.
+    verify_url: str
+    # "issued" or "revoked": an annulled certificate keeps its folio (Bloque D · I7).
+    status: str
+
+
+class EvidencePreview(BaseModel):
+    """One photo or PDF. `url` is a presigned GET on the PRIVATE bucket: a short-lived
+    credential, never stored and never cached (the endpoints answer `no-store`)."""
+
+    id: str
+    requirement_id: str | None
+    requirement_position: int
+    content_type: str
+    url: str
+    # Same as `url` until thumbnails exist.
+    thumbnail_url: str
+    created_at: datetime
+
+
+class EvidenceAlbum(BaseModel):
+    enrollment_id: str
+    honor: AlbumHonor
+    status: str
+    requirements_total: int
+    requirements_done: int
+    evidence_count: int
+    # Up to four, newest first.
+    latest: list[EvidencePreview]
+    certificate: AlbumCertificate | None
+    updated_at: datetime
+
+
+class EvidenceItem(EvidencePreview):
+    requirement_description: str | None
+    # The requirement's status: PENDING | SUBMITTED | COMPLETE | INCOMPLETE.
+    status: str
+    # The member's caption of the photo.
+    note: str | None

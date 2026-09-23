@@ -20,7 +20,9 @@ from app.schemas.portfolio import (
     EnrollmentDetail,
     EnrollmentStatus,
     EnrollmentSummary,
+    EvidenceAlbum,
     EvidenceCreate,
+    EvidenceItem,
     EvidenceOut,
     EvidenceUpload,
     PortfolioOut,
@@ -31,7 +33,7 @@ from app.schemas.portfolio import (
     ReviewIn,
     SignedUrl,
 )
-from app.services import certificate_revocation, notifications, portfolio
+from app.services import certificate_revocation, evidence_albums, notifications, portfolio
 
 router = APIRouter(prefix="/api/v1/portfolio", tags=["portfolio"])
 
@@ -134,6 +136,31 @@ async def evidence_url(
 ):
     response.headers["Cache-Control"] = "no-store"  # a signed URL is a credential
     return await portfolio.evidence_url(db, current_user, evidence_id)
+
+
+@router.get("/enrollments/{enrollment_id}/evidence", response_model=list[EvidenceItem])
+async def enrollment_evidence(
+    enrollment_id: uuid.UUID,
+    response: Response,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Every photo and PDF of one enrollment, by requirement, each with a 15-minute URL."""
+    response.headers["Cache-Control"] = "no-store"  # signed URLs are credentials
+    return await evidence_albums.enrollment_evidence(db, current_user, enrollment_id)
+
+
+@router.get("/albums", response_model=list[EvidenceAlbum])
+async def evidence_album_list(
+    response: Response,
+    user_id: uuid.UUID | None = Query(None),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Álbum de evidencias: one folder per honor in progress or earned, newest activity
+    first. Another person's only under the portfolio's rule, and 404 (never 403) otherwise."""
+    response.headers["Cache-Control"] = "no-store"
+    return await evidence_albums.albums_of(db, current_user, user_id)
 
 
 @router.delete("/evidences/{evidence_id}", status_code=status.HTTP_204_NO_CONTENT)
