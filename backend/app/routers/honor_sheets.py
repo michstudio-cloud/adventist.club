@@ -76,8 +76,9 @@ async def honor_sheet(
     if key is not None:
         if not download:
             if await sheet_cache.exists(key):
+                # La redirección se cachea poco: tras una edición la versión vieja desaparece del CDN.
                 return RedirectResponse(sheet_cache.public_url(key), status_code=status.HTTP_302_FOUND,
-                                        headers=headers)
+                                        headers={**headers, "Cache-Control": "public, max-age=300"})
         else:
             stored = await sheet_cache.fetch(key)
             if stored is not None:
