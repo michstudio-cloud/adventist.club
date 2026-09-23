@@ -43,7 +43,7 @@ from app.schemas.program import (
     SatisfiedBy,
 )
 from app.security import utcnow
-from app.services import curriculum
+from app.services import curriculum, program_recommendations
 from app.services.audit import record_audit
 
 DRAFT, PUBLISHED, ARCHIVED = "DRAFT", "PUBLISHED", "ARCHIVED"
@@ -75,6 +75,29 @@ async def get_program_or_404(db: AsyncSession, program_id: uuid.UUID) -> Program
     return program
 
 
+async def get_visible_program_or_404(
+    db: AsyncSession, program_id: uuid.UUID, actor: User | None
+) -> Program:
+    """A program that is not published does not exist for anyone but whoever may publish it."""
+    program = await get_program_or_404(db, program_id)
+    if program.status != PUBLISHED and not can_view_unpublished(actor):
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Programa no encontrado")
+    return program
+
+
+ALL_STATUSES = (DRAFT, PUBLISHED, ARCHIVED)
+
+
+def visible_statuses(actor: User | None, requested: str | None) -> tuple[str, ...]:
+    """Which statuses the catalogue lists for `actor`. Only whoever may publish chooses
+    (`ALL` = every one); without a filter, and for everybody else, it is the public list."""
+    if requested is None or not can_view_unpublished(actor):
+        return (PUBLISHED,)
+    if requested == "ALL":
+        return ALL_STATUSES
+    return (requested,)
+
+
 async def _requirement_counts(db: AsyncSession, program_ids: list[uuid.UUID]) -> dict[uuid.UUID, int]:
     if not program_ids:
         return {}
@@ -90,14 +113,18 @@ async def _requirement_counts(db: AsyncSession, program_ids: list[uuid.UUID]) ->
 # Catalogue
 # ----------------------------------------------------------------------------
 async def list_programs(
-    db: AsyncSession, ministry_slug: str, kind: str | None, locale: str | None
+    db: AsyncSession,
+    ministry_slug: str,
+    kind: str | None,
+    locale: str | None,
+    statuses: tuple[str, ...] = (PUBLISHED,),
 ) -> list[ProgramListItem]:
-    """Published programs of ONE ministry. `ministry` is mandatory at the router: nothing in
-    block F carries a hidden default ministry."""
+    """Programs of ONE ministry in `statuses` (the public: published only). `ministry` is
+    mandatory at the router: nothing in block F carries a hidden default ministry."""
     ministry = await _get_ministry(db, ministry_slug)
     if ministry is None:
         return []
-    conditions = [Program.ministry_id == ministry.id, Program.status == PUBLISHED]
+    conditions = [Program.ministry_id == ministry.id, Program.status.in_(statuses)]
     if kind:
         conditions.append(Program.kind == kind)
     rows = (
@@ -214,6 +241,9 @@ async def program_detail(
         if program.source or program.source_url or program.license
         else None,
         sections=sorted(sections.values(), key=lambda s: s.position),
+        recommendations_count=await program_recommendations.count_recommendations(
+            db, program, specs, resolved
+        ),
     )
 
 

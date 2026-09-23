@@ -7,14 +7,20 @@ it against the manual in force (decision D2).
 """
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
 from app.deps import get_current_user, get_optional_user
 from app.models import User
-from app.schemas.program import ProgramDetail, ProgramKind, ProgramListItem
-from app.services import programs
+from app.schemas.program import (
+    ProgramDetail,
+    ProgramKind,
+    ProgramListItem,
+    ProgramRecommendations,
+    ProgramStatusFilter,
+)
+from app.services import program_recommendations, programs
 from app.services.locales import LOCALE_PATTERN
 
 router = APIRouter(prefix="/api/v1/programs", tags=["programs"])
@@ -26,11 +32,17 @@ async def list_programs(
     ministry: str = Query(min_length=2, max_length=60),
     kind: ProgramKind | None = None,
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    status_filter: ProgramStatusFilter | None = Query(None, alias="status"),
+    current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Public: the PUBLISHED programs of one ministry, named in `locale` when a translation
-    exists. An unknown ministry is an empty list, not an error."""
-    return await programs.list_programs(db, ministry, kind, locale)
+    exists. An unknown ministry is an empty list, not an error.
+
+    `/admin/clases`: whoever may publish a program (MASTER_GC) filters by `status`
+    (`ALL` = every status). For everybody else `status` is ignored: drafts do not exist."""
+    statuses = programs.visible_statuses(current_user, status_filter)
+    return await programs.list_programs(db, ministry, kind, locale, statuses)
 
 
 @router.get("/{program_id}", response_model=ProgramDetail)
@@ -42,10 +54,22 @@ async def get_program(
 ):
     """Sections -> requirements, with the attribution of every row. A program that is not
     published does not exist for anyone but whoever may publish it."""
-    program = await programs.get_program_or_404(db, program_id)
-    if program.status != programs.PUBLISHED and not programs.can_view_unpublished(current_user):
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Programa no encontrado")
+    program = await programs.get_visible_program_or_404(db, program_id, current_user)
     return await programs.program_detail(db, program, locale)
+
+
+@router.get("/{program_id}/recommendations", response_model=ProgramRecommendations)
+async def program_recommendations_list(
+    program_id: uuid.UUID,
+    locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    current_user: User | None = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """The honors each requirement asks for — named, from a category, of free choice, or
+    mentioned in the text — so a leader can plan the class. Same visibility as the detail."""
+    program = await programs.get_visible_program_or_404(db, program_id, current_user)
+    items, resolved = await program_recommendations.build_recommendations(db, program, locale)
+    return ProgramRecommendations(program_id=str(program.id), locale=resolved, items=items)
 
 
 @router.post("/{program_id}/publish", response_model=ProgramDetail)

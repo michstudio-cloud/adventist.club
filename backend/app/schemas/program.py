@@ -11,6 +11,8 @@ from pydantic import BaseModel
 
 ProgramKind = Literal["CLASS", "CURRICULUM"]
 ProgramStatus = Literal["DRAFT", "PUBLISHED", "ARCHIVED"]
+# The filter of `/admin/clases` (MASTER_GC only; everybody else sees PUBLISHED).
+ProgramStatusFilter = Literal["ALL", "DRAFT", "PUBLISHED", "ARCHIVED"]
 RequirementKind = Literal["FREE", "HONOR", "PROGRAM", "HOURS"]
 ActivityCategory = Literal["SERVICE", "ATTENDANCE"]
 IssuerLevel = Literal["CLUB", "ASSOCIATION"]
@@ -114,6 +116,50 @@ class ProgramDetail(ProgramListItem):
     locale: str
     attribution: Attribution | None
     sections: list[ProgramSectionOut]
+    # Requirements that carry a list of honors to plan with (see /recommendations).
+    recommendations_count: int = 0
+
+
+# ----------------------------------------------------------------------------
+# /programs/{id}/recommendations — the honors a class asks for
+# ----------------------------------------------------------------------------
+RecommendationKind = Literal["HONOR", "HONOR_FROM_CATEGORY", "HONOR_ANY", "TEXT"]
+# one = pick one of `honors` (or of the categories); all = every one of `honors`;
+# any = any honor of the member's choice.
+RecommendationChoice = Literal["one", "all", "any"]
+
+
+class RecommendedHonor(BaseModel):
+    id: str
+    name: str
+    slug: str
+    image_url: str | None = None
+    category_slug: str | None = None
+    skill_level: int | None = None
+
+
+class RecommendationSection(BaseModel):
+    slug: str
+    name: str
+
+
+class RecommendationItem(BaseModel):
+    requirement_id: str
+    section: RecommendationSection | None
+    label: str
+    text: str | None
+    kind: RecommendationKind
+    choose: RecommendationChoice
+    # `category` is the first of `categories` (a text may name two: «Artes Domésticas o …»).
+    category: CategoryTargetRef | None = None
+    categories: list[CategoryTargetRef] = []
+    honors: list[RecommendedHonor] = []
+
+
+class ProgramRecommendations(BaseModel):
+    program_id: str
+    locale: str
+    items: list[RecommendationItem]
 
 
 class EnrollmentSection(BaseModel):
