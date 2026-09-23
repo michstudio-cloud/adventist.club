@@ -28,6 +28,7 @@ from app.models import (
     Ministry,
     Organization,
     ProgramRequirement,
+    RequirementProgress,
     User,
 )
 from app.rbac import get_org_path, is_master, org_in_user_scope
@@ -52,7 +53,9 @@ from app.schemas.honor import (
     PaginatedHonors,
     QuestionOut,
     RequirementIn,
+    RequirementOrderIn,
     RequirementOut,
+    RequirementPatch,
     RequirementWithQuestionsOut,
     ResourceIn,
     ResourceOut,
@@ -102,6 +105,16 @@ CATEGORY_SLUG_CONSTRAINT = "honor_categories_ministry_id_slug_key"
 CATEGORY_SLUG_MAX_LENGTH = 120
 CODE_MAX_LENGTH = 40
 SLUG_MAX_LENGTH = 180
+DRAFT_ONLY = "Only draft honors can be updated. Create a new version instead."
+# What MASTER_GC may still adjust once the honor left DRAFT ("ajustes mínimos"): everything
+# visible but the requirement list, which is edited in place (`/{honor_id}/requirements/...`).
+LIGHT_FIELDS = frozenset({
+    "name", "description", "category", "difficulty_level", "honor_type", "estimated_hours",
+    "exam_passing_score", "exam_time_limit_minutes", "max_exam_attempts", "thumbnail_url",
+    "image_url", "source_url", "wiki_title", "authority", "skill_level", "year_introduced",
+    "active", "resources",
+})
+LIST_FIELDS = ("requirements", "resources")
 
 
 # ----------------------------------------------------------------------------
@@ -1142,9 +1155,12 @@ async def update_honor(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Content moves only while the honor is a DRAFT. The one exception is `active`, which
-    MASTER_GC toggles in any status to hide a published honor from the public catalogue (or
-    show it again). `org_scope_id` is MASTER_GC's alone."""
+    """The author edits content only while the honor is a DRAFT. MASTER_GC, in any status, makes
+    "ajustes mínimos": the light fields (`LIGHT_FIELDS`: everything visible, `active` and the
+    resources) move without a new version. A new requirement list is refused outside DRAFT
+    (`requirements_locked_use_inplace`): it would give every requirement a new id under the
+    enrollments that reference them; `/honors/{id}/requirements/...` edits them in place.
+    `org_scope_id` is MASTER_GC's alone, and only on a draft."""
     honor = await _get_honor_or_404(db, honor_id, lock=True)
     master = is_master(current_user)
     if honor.created_by_id != current_user.id and not master:
@@ -1153,12 +1169,16 @@ async def update_honor(
     changes = payload.model_dump(exclude_unset=True)
     if "org_scope_id" in changes and not master:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "org_scope_master_only")
-    only_visibility = master and set(changes) == {"active"}
-    if honor.status != DRAFT and not only_visibility:
-        raise HTTPException(
-            status.HTTP_400_BAD_REQUEST,
-            "Only draft honors can be updated. Create a new version instead.",
-        )
+    # An explicit null list means "leave it as it is", as it always did.
+    sent = {key for key, value in changes.items() if not (key in LIST_FIELDS and value is None)}
+    inplace = honor.status != DRAFT
+    if inplace:
+        if not master:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, DRAFT_ONLY)
+        if "requirements" in sent:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "requirements_locked_use_inplace")
+        if not sent <= LIGHT_FIELDS:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, DRAFT_ONLY)
     if changes.get("name", "") is None:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "name cannot be null")
     if changes.get("org_scope_id") is not None and await db.get(
@@ -1166,12 +1186,19 @@ async def update_honor(
     ) is None:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "org_scope_not_found")
 
+    changed: set[str] = set()
+
+    def assign(key: str, column: str, value) -> None:
+        if getattr(honor, column) != value:
+            setattr(honor, column, value)
+            changed.add(key)
+
     if "category" in changes:
         slug = changes["category"]
         category = await _get_category(db, honor.ministry_id, slug) if slug else None
-        honor.category_id = category.id if category else None
+        assign("category", "category_id", category.id if category else None)
     if "name" in changes:
-        honor.name = changes["name"].strip()
+        assign("name", "name", changes["name"].strip())
 
     for column in (
         "description",
@@ -1189,10 +1216,10 @@ async def update_honor(
         "org_scope_id",
     ):
         if column in changes:
-            setattr(honor, column, changes[column])
+            assign(column, column, changes[column])
     for column in ("exam_passing_score", "max_exam_attempts", "active"):  # NOT NULL columns
         if changes.get(column) is not None:
-            setattr(honor, column, changes[column])
+            assign(column, column, changes[column])
 
     if payload.requirements is not None:
         # Questions go with their requirement (ON DELETE CASCADE). The editor works on the source
@@ -1203,23 +1230,277 @@ async def update_honor(
             )
         )
         await _stage_requirements(db, honor.id, payload.requirements)
+        changed.add("requirements")
     if payload.resources is not None:
+        # Nothing references a resource: replacing the list is safe in any status.
         await db.execute(delete(HonorResource).where(HonorResource.honor_id == honor.id))
         _stage_resources(db, honor.id, payload.resources)
+        changed.add("resources")
 
     honor.updated_at = utcnow()
+    metadata = {"fields": sorted(changes), "changed": sorted(changed)}
+    if inplace:
+        metadata = {**metadata, "inplace": True, "status": honor.status}
     record_audit(
         db,
         action="UPDATE",
         entity_type=ENTITY,
         entity_id=honor.id,
         actor=current_user,
-        details=f"Updated honor: {honor.name}",
-        metadata={"fields": sorted(changes)},
+        details=f"{'Adjusted' if inplace else 'Updated'} honor: {honor.name}",
+        metadata=metadata,
         request=request,
     )
     await db.commit()
     return await _build_detail(db, honor, staff=True)
+
+
+# ----------------------------------------------------------------------------
+# Requirements edited in place: ids are preserved, so the progress rows of the enrollments
+# (requirement_progress.requirement_id) keep pointing at the same requirement. The honor's
+# `version` does not move: these are "ajustes mínimos", not a new version.
+# ----------------------------------------------------------------------------
+async def _honor_for_requirement_edit(db: AsyncSession, honor_id: uuid.UUID, user: User) -> Honor:
+    """Same gate as update_honor: the creator while DRAFT, MASTER_GC in any status. Locked, so
+    two edits of the same list are serialized."""
+    honor = await _get_honor_or_404(db, honor_id, lock=True)
+    master = is_master(user)
+    if honor.created_by_id != user.id and not master:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Only the creator can update this honor")
+    if honor.status != DRAFT and not master:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, DRAFT_ONLY)
+    return honor
+
+
+async def _editing_locale(db: AsyncSession, honor_id: uuid.UUID) -> str:
+    """The list the editor shows (`requirements_locale` of GET /instructor): the source language
+    when it exists, else English, else whatever there is. Imported honors may only have `en`."""
+    stored = (
+        await db.execute(
+            select(HonorRequirement.locale).where(HonorRequirement.honor_id == honor_id).distinct()
+        )
+    ).scalars().all()
+    return best_locale(stored, None)
+
+
+async def _requirement_rows(db: AsyncSession, honor_id: uuid.UUID, locale: str) -> list[HonorRequirement]:
+    return list(
+        (
+            await db.execute(
+                select(HonorRequirement)
+                .where(HonorRequirement.honor_id == honor_id, HonorRequirement.locale == locale)
+                .order_by(HonorRequirement.position, HonorRequirement.created_at)
+            )
+        ).scalars().all()
+    )
+
+
+async def _get_requirement_or_404(
+    db: AsyncSession, honor: Honor, requirement_id: uuid.UUID
+) -> HonorRequirement:
+    requirement = await db.get(HonorRequirement, requirement_id)
+    if requirement is None or requirement.honor_id != honor.id:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Requirement not found")
+    return requirement
+
+
+def _stage_questions(db: AsyncSession, requirement_id: uuid.UUID, bank: list) -> None:
+    db.add_all(_question_row(requirement_id, index + 1, question) for index, question in enumerate(bank))
+
+
+def _requirement_audit(
+    db: AsyncSession, honor: Honor, user: User, request: Request, operation: str, details: str, **extra
+) -> None:
+    """UPDATE, not DELETE, on the HONOR entity: DELETE there means the honor was archived."""
+    honor.updated_at = utcnow()
+    record_audit(
+        db,
+        action="UPDATE",
+        entity_type=ENTITY,
+        entity_id=honor.id,
+        actor=user,
+        details=f"{details} ({honor.name})",
+        metadata={"inplace": True, "operation": operation, "status": honor.status, **extra},
+        request=request,
+    )
+
+
+async def _instructor_detail(db: AsyncSession, honor: Honor) -> HonorInstructorDetail:
+    return await _build_detail(db, honor, staff=True, with_questions=True)
+
+
+@router.put("/{honor_id}/requirements/order", response_model=HonorInstructorDetail)
+async def reorder_requirements(
+    honor_id: uuid.UUID,
+    payload: RequirementOrderIn,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Renumber the edited list 1..n in the order of `ids`, which must be exactly its ids.
+    When that list was numbered 1..n, the lists in other languages follow the same
+    permutation: requirement 3 in `es` and in `en` stays the same requirement. Progress rows
+    are not touched (they reach their text through `requirement_id`)."""
+    honor = await _honor_for_requirement_edit(db, honor_id, current_user)
+    locale = await _editing_locale(db, honor.id)
+    rows = await _requirement_rows(db, honor.id, locale)
+    if len(set(payload.ids)) != len(payload.ids) or set(payload.ids) != {row.id for row in rows}:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "requirement_order_mismatch")
+
+    by_id = {row.id: row for row in rows}
+    aligned = sorted(row.position for row in rows) == list(range(1, len(rows) + 1))
+    moved: dict[int, int] = {}
+    for position, requirement_id in enumerate(payload.ids, start=1):
+        row = by_id[requirement_id]
+        moved[row.position] = position
+        row.position = position
+    others_followed = False
+    if aligned:
+        others = (
+            await db.execute(
+                select(HonorRequirement).where(
+                    HonorRequirement.honor_id == honor.id, HonorRequirement.locale != locale
+                )
+            )
+        ).scalars().all()
+        for row in others:
+            if row.position in moved:
+                row.position = moved[row.position]
+                others_followed = True
+
+    _requirement_audit(
+        db, honor, current_user, request, "requirements_reordered", "Reordered honor requirements",
+        locale=locale, ids=[str(i) for i in payload.ids], other_locales_followed=others_followed,
+    )
+    await db.commit()
+    return await _instructor_detail(db, honor)
+
+
+@router.post(
+    "/{honor_id}/requirements",
+    response_model=HonorInstructorDetail,
+    status_code=status.HTTP_201_CREATED,
+)
+async def add_requirement(
+    honor_id: uuid.UUID,
+    payload: RequirementIn,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Add one requirement to the edited list: last when `position` is not sent (or is past the
+    end), otherwise at that place, the ones from there on moving down one."""
+    honor = await _honor_for_requirement_edit(db, honor_id, current_user)
+    locale = await _editing_locale(db, honor.id)
+    rows = await _requirement_rows(db, honor.id, locale)
+    if 1 <= payload.position <= len(rows):
+        position = payload.position
+        for index, row in enumerate(rows, start=1):
+            row.position = index + (1 if index >= position else 0)
+    else:
+        position = max((row.position for row in rows), default=0) + 1
+
+    requirement = HonorRequirement(
+        id=uuid.uuid4(),
+        honor_id=honor.id,
+        position=position,
+        description=payload.description,
+        is_theoretical=payload.is_theoretical,
+        instructions=payload.instructions,
+        locale=locale,
+    )
+    db.add(requirement)
+    await db.flush()  # the requirement before the questions that reference it (no relationship())
+    _stage_questions(db, requirement.id, payload.question_bank)
+    _requirement_audit(
+        db, honor, current_user, request, "requirement_added", f"Added requirement {position}",
+        requirement_id=str(requirement.id), position=position, locale=locale,
+        questions=len(payload.question_bank),
+    )
+    await db.commit()
+    return await _instructor_detail(db, honor)
+
+
+@router.patch("/{honor_id}/requirements/{requirement_id}", response_model=HonorInstructorDetail)
+async def patch_requirement(
+    honor_id: uuid.UUID,
+    requirement_id: uuid.UUID,
+    payload: RequirementPatch,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Correct one requirement in place. `is_theoretical` changes the catalogue only: every
+    enrollment copied it into `requirement_progress.is_practical` and keeps its copy.
+    `question_bank` replaces this requirement's questions; nothing references an honor question
+    (a course copies the bank into its own `course_questions`)."""
+    changes = payload.model_dump(exclude_unset=True)
+    if not changes:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "nothing_to_update")
+    for field in ("description", "is_theoretical", "question_bank"):
+        if field in changes and changes[field] is None:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, f"{field} cannot be null")
+
+    honor = await _honor_for_requirement_edit(db, honor_id, current_user)
+    requirement = await _get_requirement_or_404(db, honor, requirement_id)
+    for field in ("description", "instructions", "is_theoretical"):
+        if field in changes:
+            setattr(requirement, field, getattr(payload, field))
+    if payload.question_bank is not None:
+        await db.execute(delete(HonorQuestion).where(HonorQuestion.requirement_id == requirement.id))
+        _stage_questions(db, requirement.id, payload.question_bank)
+    # Attribution of an imported row (source, source_url, license) stays: a corrected
+    # CC BY-SA text is still a derivative of it.
+    _requirement_audit(
+        db, honor, current_user, request, "requirement_updated",
+        f"Updated requirement {requirement.position}",
+        requirement_id=str(requirement.id), position=requirement.position, locale=requirement.locale,
+        fields=sorted(changes),
+        **({"questions": len(payload.question_bank)} if payload.question_bank is not None else {}),
+    )
+    await db.commit()
+    return await _instructor_detail(db, honor)
+
+
+@router.delete("/{honor_id}/requirements/{requirement_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_requirement(
+    honor_id: uuid.UUID,
+    requirement_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Remove one requirement (its questions go with it, ON DELETE CASCADE). Outside DRAFT only
+    while no progress row references it (`requirement_in_use`), and never the last requirement
+    of the honor (`honor_without_requirements`). The others keep their ids and positions."""
+    honor = await _honor_for_requirement_edit(db, honor_id, current_user)
+    requirement = await _get_requirement_or_404(db, honor, requirement_id)
+    if honor.status != DRAFT:
+        in_use = (
+            await db.execute(
+                select(RequirementProgress.id)
+                .where(RequirementProgress.requirement_id == requirement.id)
+                .limit(1)
+            )
+        ).scalar_one_or_none()
+        if in_use is not None:
+            raise HTTPException(status.HTTP_409_CONFLICT, "requirement_in_use")
+        remaining = (
+            await db.execute(
+                select(func.count(HonorRequirement.id)).where(HonorRequirement.honor_id == honor.id)
+            )
+        ).scalar_one()
+        if remaining <= 1:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "honor_without_requirements")
+
+    position, locale = requirement.position, requirement.locale
+    await db.execute(delete(HonorRequirement).where(HonorRequirement.id == requirement.id))
+    _requirement_audit(
+        db, honor, current_user, request, "requirement_deleted", f"Deleted requirement {position}",
+        requirement_id=str(requirement.id), position=position, locale=locale,
+        description=requirement.description[:200],
+    )
+    await db.commit()
 
 
 # honor_translations.locale is VARCHAR(16): a longer tag is a 422, not a 500 at INSERT.

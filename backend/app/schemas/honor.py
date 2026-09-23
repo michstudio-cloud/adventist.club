@@ -57,6 +57,24 @@ class RequirementIn(BaseModel):
     question_bank: list[QuestionIn] = Field(default_factory=list, max_length=MAX_BANK_PER_REQUIREMENT)
 
 
+class RequirementPatch(BaseModel):
+    """PATCH /honors/{id}/requirements/{requirement_id}: only the fields present are applied and
+    the requirement keeps its id (and so the progress rows that reference it). `instructions`
+    may be cleared with null; the other three may not be null. `question_bank` replaces this
+    requirement's questions only."""
+
+    description: str | None = Field(default=None, min_length=1)
+    instructions: str | None = None
+    is_theoretical: bool | None = None
+    question_bank: list[QuestionIn] | None = Field(default=None, max_length=MAX_BANK_PER_REQUIREMENT)
+
+
+class RequirementOrderIn(BaseModel):
+    """PUT /honors/{id}/requirements/order: every id of the edited list, in the new order."""
+
+    ids: list[uuid.UUID] = Field(min_length=1, max_length=500)
+
+
 class ResourceIn(BaseModel):
     name: str = Field(min_length=1, max_length=255)
     url: str = Field(min_length=1, max_length=2000)
@@ -127,8 +145,9 @@ class HonorUpdate(BaseModel):
     authority: str | None = Field(default=None, max_length=10)
     skill_level: int | None = Field(default=None, ge=1, le=3)
     year_introduced: int | None = Field(default=None, ge=1900, le=2100)
-    # MASTER_GC only. Unlike the rest, `active` also moves on a published honor (MASTER_GC):
-    # it hides it from, or shows it again in, the public catalogue.
+    # `org_scope_id` is MASTER_GC only, and only on a draft. Outside DRAFT, MASTER_GC may still
+    # send every field here except `requirements` and `org_scope_id` (routers/honors.LIGHT_FIELDS);
+    # `active: false` hides a published honor from the public catalogue.
     org_scope_id: uuid.UUID | None = None
     active: bool | None = None
 

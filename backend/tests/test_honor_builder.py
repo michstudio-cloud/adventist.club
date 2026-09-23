@@ -256,8 +256,10 @@ async def test_master_toggles_active_on_a_published_honor(client, staff, factory
     url = f"{HONORS}/{honor['id']}"
     assert (await client.post(f"{url}/publish", headers=staff["master"]["headers"])).status_code == 200
 
-    # Only `active` moves on a published honor, and only for MASTER_GC.
-    for who, body in (("instructor", {"active": False}), ("master", {"active": False, "description": "x"})):
+    # The author cannot touch a published honor; MASTER_GC cannot replace its requirement list
+    # (the light fields and in-place requirement edits are in test_honor_inplace.py).
+    for who, body in (("instructor", {"active": False}),
+                      ("master", {"active": False, "requirements": [{"description": "x"}]})):
         response = await client.put(url, json=body, headers=staff[who]["headers"])
         assert response.status_code == 400, who
 
