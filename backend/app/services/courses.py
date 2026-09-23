@@ -10,14 +10,18 @@ honor in ONE language. Integrity rules (spec §3.9):
   2. The plan covers every requirement of the honor in the course's language, exactly once.
   3. The plan is never more lenient than the honor: a practical requirement stays EVIDENCE.
   4. Everything the instructor does beyond preparing a draft goes through the single gate
-     `rbac.instructor_is_verified`, checked at that moment.
+     `rbac.course_author_in_good_standing`, checked at that moment: the church letter
+     (`instructor_is_verified`) for an INSTRUCTOR; never for an institutional author
+     (ADMIN_ASSOCIATION, MASTER_GC), who is the authority that vouches.
 
 The review flow, its stages and its reviewers are the honors' ones (app/workflow.py), and
-the history is written to `honor_reviews` with `course_id` set.
+the history is written to `honor_reviews` with `course_id` set. An institutional author's
+course skips it: submitting publishes it at once, inside the author's scope.
 
 Each function commits its change together with its audit row.
 """
 import json
+import unicodedata
 import uuid
 
 from fastapi import HTTPException, Request, status
@@ -37,10 +41,20 @@ from app.models import (
     HonorQuestion,
     HonorRequirement,
     HonorReview,
+    HonorTranslation,
     Organization,
     User,
 )
-from app.rbac import club_scope_paths, instructor_is_verified, is_master, org_in_review_scope
+from app.rbac import (
+    club_scope_paths,
+    course_author_in_good_standing,
+    decision_scope_condition,
+    get_org_path,
+    is_institutional_author,
+    is_master,
+    org_in_review_scope,
+    org_in_user_scope,
+)
 from app.schemas.content import MAX_BANK_PER_REQUIREMENT, GradableQuestion
 from app.schemas.course import (
     MAX_DRAWN_QUESTIONS,
@@ -49,8 +63,10 @@ from app.schemas.course import (
     MAX_LESSONS_PER_COURSE,
     MIN_PASSING_SCORE,
     TIME_LIMIT_MINUTES,
+    AdminCourseRow,
     AssessmentCounts,
     CourseArchive,
+    CourseAuthorRef,
     CourseCard,
     CourseCreate,
     CourseDetail,
@@ -69,6 +85,7 @@ from app.schemas.course import (
     RequirementQuestionsIn,
 )
 from app.schemas.honor import HonorReviewIn, ReviewOut
+from app.schemas.org import OrgRef
 from app.schemas.portfolio import PersonRef
 from app.security import utcnow
 from app.services.audit import record_audit
@@ -148,8 +165,9 @@ def _require_draft(course: Course) -> None:
 
 
 async def _require_verified(db: AsyncSession, actor: User) -> None:
-    """Rule 4: the gate is asked NOW, so a revoked or expired letter stops everything at once."""
-    if not await instructor_is_verified(db, actor):
+    """Rule 4: the gate is asked NOW, so a revoked or expired letter stops everything at once.
+    An institutional author is never asked for a letter."""
+    if not await course_author_in_good_standing(db, actor):
         raise HTTPException(
             status.HTTP_403_FORBIDDEN,
             "Necesitas la carta de tu iglesia autorizada para actuar como instructor",
@@ -298,7 +316,7 @@ async def _card_fields(db: AsyncSession, course: Course) -> dict:
         "capacity": course.capacity,
         "enrolled_count": enrolled,
         "seats_left": None if course.capacity is None else max(course.capacity - enrolled, 0),
-        "instructor_verified": await instructor_is_verified(db, instructor),
+        "instructor_verified": await course_author_in_good_standing(db, instructor),
         "published_at": course.published_at,
         # I4: the rules of the exam are public (the member decides whether to join knowing
         # the threshold, the clock and how many attempts they get). The questions are not.
@@ -406,8 +424,7 @@ async def create(
 ) -> CourseStaffDetail:
     """201 DRAFT with the plan preloaded from the honor. Preparing a draft does NOT need the
     verification gate: the instructor works while the letter is being validated."""
-    if actor.organization_id is None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Elige primero tu Asociación o club")
+    org_scope_id = await _creation_scope(db, actor, payload.org_scope_id)
     honor = await db.get(Honor, payload.honor_id)
     if honor is None or honor.status != PUBLISHED:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Especialidad no encontrada")
@@ -423,7 +440,7 @@ async def create(
         id=uuid.uuid4(),
         honor_id=honor.id,
         instructor_id=actor.id,
-        org_scope_id=actor.organization_id,
+        org_scope_id=org_scope_id,
         locale=resolved,
         title=payload.title.strip(),
         summary=payload.summary,
@@ -447,10 +464,41 @@ async def create(
     )
     record_course_audit(
         db, "CREATE", course, actor, request,
-        metadata={"honor_id": str(honor.id), "locale": resolved, "requirements": len(requirements)},
+        metadata={"honor_id": str(honor.id), "locale": resolved, "requirements": len(requirements),
+                  "org_scope_id": str(org_scope_id),
+                  "institutional": is_institutional_author(actor)},
     )
     await _commit_unique(db, "Ya tienes un curso de esta especialidad en ese idioma")
     return await _detail(db, actor, course, staff=True)
+
+
+async def _creation_scope(
+    db: AsyncSession, actor: User, requested: uuid.UUID | None
+) -> uuid.UUID:
+    """The organization the new course hangs from, which decides who reviews and lists it.
+
+    The author's own by default. Choosing another is an institutional act (MASTER_GC, who
+    hangs from no organization, has to): an instructor who picked their scope would pick
+    their reviewers, and an Association administrator stays inside their own subtree.
+    """
+    if requested is None or requested == actor.organization_id:
+        if actor.organization_id is None:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                "Indica la organización del curso (org_scope_id)"
+                if is_institutional_author(actor)
+                else "Elige primero tu Asociación o club",
+            )
+        return actor.organization_id
+    if not is_institutional_author(actor):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Solo la administración elige la organización de un curso"
+        )
+    if await db.get(Organization, requested) is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Organización no encontrada")
+    if not await org_in_user_scope(db, actor, requested):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Esa organización está fuera de tu alcance")
+    return requested
 
 
 def _clamp(value: int, low: int, high: int) -> int:
@@ -976,7 +1024,11 @@ async def _missing_exam(
 async def submit(
     db: AsyncSession, actor: User, course_id: uuid.UUID, request: Request | None
 ) -> CourseStaffDetail:
-    """DRAFT -> ZONE_REVIEW. From here on the instructor must be verified."""
+    """DRAFT -> ZONE_REVIEW. From here on the instructor must be verified.
+
+    An institutional author's course is published at once (DRAFT -> PUBLISHED): the
+    Association or MASTER_GC is the very authority the review would ask. Same validations,
+    and only inside the author's review scope (MASTER_GC anywhere)."""
     course = await _get_course(db, course_id, lock=True)
     await _require_author(db, actor, course)
     await _require_verified(db, actor)
@@ -987,12 +1039,50 @@ async def submit(
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, "Antes de enviar a revisión: " + "; ".join(missing)
         )
+    if is_institutional_author(actor):
+        return await _publish_institutional(db, actor, course, request)
 
     course.status = ZONE_REVIEW
     course.updated_at = utcnow()
     record_course_audit(db, "SUBMIT", course, actor, request, details=f"Curso enviado: {course.title}")
     await db.commit()
     return await _detail(db, actor, course, staff=True)
+
+
+async def _publish_institutional(
+    db: AsyncSession, actor: User, course: Course, request: Request | None
+) -> CourseStaffDetail:
+    """No review queue and no `honor_reviews` row (nobody reviewed it): the audit row with
+    `via: institutional` is the record. The badge names the association the course hangs
+    from, as a reviewed course names the association that approved it."""
+    if not await org_in_review_scope(db, actor, course.org_scope_id):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Este curso está fuera de tu alcance")
+    now = utcnow()
+    association = await _association_of(db, course.org_scope_id)
+    course.approved_association_org_id = association.id if association else None
+    await _publish(db, course, now)
+    course.updated_at = now
+    record_course_audit(
+        db, "PUBLISH", course, actor, request,
+        details=f"Curso publicado por la administración: {course.title}",
+        metadata={"via": "institutional", "from": DRAFT, "to": PUBLISHED,
+                  "org_scope_id": str(course.org_scope_id)},
+    )
+    await _commit_unique(db, "Ya tienes un curso publicado de esta especialidad")
+    return await _detail(db, actor, course, staff=True)
+
+
+async def _association_of(
+    db: AsyncSession, organization_id: uuid.UUID | None
+) -> Organization | None:
+    """The association `organization_id` sits in (itself when it is one), or None."""
+    path = await get_org_path(db, organization_id)
+    if not path:
+        return None
+    stmt = select(Organization).where(
+        Organization.type == "association", Organization.path.op("@>")(path)
+    )
+    return (await db.execute(stmt.limit(1))).scalar_one_or_none()
 
 
 async def review(
@@ -1295,7 +1385,8 @@ async def get_detail(
 async def discover(
     db: AsyncSession, honor_id: uuid.UUID | None, locale: str | None, limit: int, offset: int
 ) -> list[CourseCard]:
-    """The shop window: published courses, open for enrolment, of verified instructors.
+    """The shop window: published courses, open for enrolment, whose author is in good
+    standing (an instructor with the letter in force, or an institutional author).
     Global by design (D3a); the card says which association approved the course."""
     conditions = [Course.status == PUBLISHED, Course.enrollment_open.is_(True)]
     if honor_id is not None:
@@ -1315,7 +1406,7 @@ async def discover(
     for course in rows:
         if course.instructor_id not in verified:
             instructor = await db.get(User, course.instructor_id)
-            verified[course.instructor_id] = await instructor_is_verified(db, instructor)
+            verified[course.instructor_id] = await course_author_in_good_standing(db, instructor)
         if not verified[course.instructor_id]:
             continue
         cards.append(CourseCard(**await _card_fields(db, course)))
@@ -1373,3 +1464,92 @@ async def pending_reviews(db: AsyncSession, actor: User, limit: int) -> list[Cou
         )
     ).scalars().all()
     return [CourseCard(**await _card_fields(db, course)) for course in rows]
+
+
+# ----------------------------------------------------------------------------
+# The administration's list (admin.adventist.club/admin/cursos)
+# ----------------------------------------------------------------------------
+def _fold(term: str) -> str:
+    """Accents off, as `unaccent` takes them off the column: "optica" finds "Óptica"."""
+    return "".join(c for c in unicodedata.normalize("NFKD", term) if not unicodedata.combining(c))
+
+
+async def admin_list(
+    db: AsyncSession,
+    actor: User,
+    *,
+    q: str | None,
+    status_filter: str | None,
+    association_id: uuid.UUID | None,
+    instructor_id: uuid.UUID | None,
+    limit: int,
+    offset: int,
+) -> tuple[list[AdminCourseRow], int]:
+    """Every course the caller reviews (MASTER_GC: all), newest change first, with the
+    total for `X-Total-Count`. The scope is exactly the reviewer's one over `org_scope_id`
+    (`rbac.decision_scope_condition`, the rule of `_is_reviewer`): the rows carry the
+    author's e-mail. `association_id` only narrows it, never widens it."""
+    conditions = []
+    scope = await decision_scope_condition(db, actor, Course.org_scope_id)
+    if scope is not None:
+        conditions.append(scope)
+    if association_id is not None:
+        path = await get_org_path(db, association_id)
+        if not path:
+            return [], 0
+        conditions.append(
+            Course.org_scope_id.in_(
+                select(Organization.id).where(Organization.path.op("<@")(path))
+            )
+        )
+    if status_filter:
+        conditions.append(Course.status == status_filter)
+    if instructor_id is not None:
+        conditions.append(Course.instructor_id == instructor_id)
+    term = q.strip() if q else ""
+    if term:
+        needle = _fold(term)
+        honors = select(Honor.id).where(func.unaccent(Honor.name).icontains(needle, autoescape=True))
+        translated = select(HonorTranslation.honor_id).where(
+            func.unaccent(HonorTranslation.name).icontains(needle, autoescape=True)
+        )
+        conditions.append(
+            or_(
+                func.unaccent(Course.title).icontains(needle, autoescape=True),
+                Course.honor_id.in_(honors),
+                Course.honor_id.in_(translated),
+            )
+        )
+
+    total = (await db.execute(select(func.count(Course.id)).where(*conditions))).scalar_one()
+    rows = (
+        await db.execute(
+            select(Course)
+            .where(*conditions)
+            .order_by(Course.updated_at.desc(), Course.id)
+            .limit(limit)
+            .offset(offset)
+        )
+    ).scalars().all()
+
+    associations: dict[uuid.UUID | None, OrgRef | None] = {}
+    items = []
+    for course in rows:
+        fields = await _card_fields(db, course)
+        author = await db.get(User, course.instructor_id)
+        if author.organization_id not in associations:
+            node = await _association_of(db, author.organization_id)
+            associations[author.organization_id] = (
+                OrgRef(id=str(node.id), name=node.name, code=node.code) if node else None
+            )
+        fields["instructor"] = CourseAuthorRef(
+            id=str(author.id), name=author.name, email=author.email, role=author.role
+        )
+        items.append(
+            AdminCourseRow(
+                **fields,
+                association=associations[author.organization_id],
+                updated_at=course.updated_at,
+            )
+        )
+    return items, total

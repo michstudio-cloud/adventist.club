@@ -46,7 +46,7 @@ from app.rbac import (
     can_view_enrollment,
     can_view_portfolio,
     club_staff_in_good_standing,
-    instructor_is_verified,
+    course_author_in_good_standing,
     is_course_instructor,
     is_master,
     member_club,
@@ -909,7 +909,7 @@ async def _reviewer_scope(db: AsyncSession, actor: User) -> list | None:
 async def _taught_course_ids(db: AsyncSession, actor: User) -> list[uuid.UUID]:
     """Courses whose enrollments `actor` may act on right now: theirs, live, and only while
     the letter holds. `can_review` / `can_issue` decide again row by row."""
-    if not await instructor_is_verified(db, actor):
+    if not await course_author_in_good_standing(db, actor):
         return []
     stmt = select(Course.id).where(
         Course.instructor_id == actor.id,

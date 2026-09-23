@@ -8,13 +8,15 @@ before `/lessons/{lesson_id}`.
 """
 import uuid
 
-from fastapi import APIRouter, Body, Depends, Query, Request, status
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
 from app.deps import get_current_user, get_optional_user, require_roles
 from app.models import User
+from app.rbac import COURSE_AUTHOR_ROLES
 from app.schemas.course import (
+    AdminCourseRow,
     CourseArchive,
     CourseCard,
     CourseCreate,
@@ -37,10 +39,9 @@ from app.schemas.course import (
 from app.schemas.exam import ExamSessionIn, ExamSessionOut
 from app.schemas.honor import HonorReviewIn
 from app.schemas.portfolio import EnrollmentDetail
-from app.security import INSTRUCTOR
 from app.services import course_enrollment, courses, exam_sessions
 from app.services.locales import LOCALE_PATTERN
-from app.workflow import ZONE_REVIEWERS
+from app.workflow import ARCHIVED, ASSOCIATION_REVIEW, DRAFT, PUBLISHED, ZONE_REVIEW, ZONE_REVIEWERS
 
 router = APIRouter(prefix="/api/v1/courses", tags=["courses"])
 
@@ -65,9 +66,11 @@ async def my_courses(
     status_filter: CourseStatus | None = Query(None, alias="status"),
     limit: int = Query(20, ge=1, le=100),
     offset: int = Query(0, ge=0),
-    current_user: User = Depends(require_roles(INSTRUCTOR)),
+    current_user: User = Depends(require_roles(*COURSE_AUTHOR_ROLES)),
     db: AsyncSession = Depends(get_db),
 ):
+    """The courses I wrote: an instructor's, or the administration's own (ADMIN_ASSOCIATION,
+    MASTER_GC)."""
     return await courses.my_created(db, current_user, status_filter, limit, offset)
 
 
@@ -78,6 +81,44 @@ async def pending_reviews(
 ):
     """Courses waiting for the caller's review level, inside the caller's subtree."""
     return await courses.pending_reviews(db, current_user, limit=200)
+
+
+ADMIN_STATUSES = (DRAFT, ZONE_REVIEW, ASSOCIATION_REVIEW, PUBLISHED, ARCHIVED)
+
+
+@router.get("/admin", response_model=list[AdminCourseRow])
+async def admin_courses(
+    response: Response,
+    q: str | None = Query(None, max_length=120),
+    status_filter: str = Query("all", alias="status", max_length=40),
+    association_id: uuid.UUID | None = None,
+    instructor_id: uuid.UUID | None = None,
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_roles(*ZONE_REVIEWERS)),
+    db: AsyncSession = Depends(get_db),
+):
+    """The administration's list: every course in the caller's subtree (MASTER_GC: all),
+    newest change first. `status` is a course status (any case) or `all`; `q` looks in the
+    course title and the honor name, accents and case aside. Total: `X-Total-Count`."""
+    wanted = status_filter.strip().upper()
+    if wanted != "ALL" and wanted not in ADMIN_STATUSES:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            f"status debe ser uno de {[*ADMIN_STATUSES, 'all']}",
+        )
+    items, total = await courses.admin_list(
+        db,
+        current_user,
+        q=q,
+        status_filter=None if wanted == "ALL" else wanted,
+        association_id=association_id,
+        instructor_id=instructor_id,
+        limit=limit,
+        offset=offset,
+    )
+    response.headers["X-Total-Count"] = str(total)
+    return items
 
 
 @router.get("/my/joined", response_model=list[JoinedCourse])
@@ -96,10 +137,12 @@ async def my_joined_courses(
 async def create_course(
     payload: CourseCreate,
     request: Request,
-    current_user: User = Depends(require_roles(INSTRUCTOR)),
+    current_user: User = Depends(require_roles(*COURSE_AUTHOR_ROLES)),
     db: AsyncSession = Depends(get_db),
 ):
-    """201 DRAFT with the plan preloaded from the honor. A draft needs no verified letter."""
+    """201 DRAFT with the plan preloaded from the honor. A draft needs no verified letter.
+    INSTRUCTOR, ADMIN_ASSOCIATION and MASTER_GC write courses; only the last two may send
+    `org_scope_id` (MASTER_GC, who hangs from no organization, must)."""
     return await courses.create(db, current_user, payload, request)
 
 
@@ -227,7 +270,9 @@ async def submit_course(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """DRAFT -> ZONE_REVIEW. 400 lists what is still missing; 403 without the letter."""
+    """DRAFT -> ZONE_REVIEW. 400 lists what is still missing; 403 without the letter.
+    An institutional author's course (ADMIN_ASSOCIATION in scope, MASTER_GC) goes straight
+    to PUBLISHED instead."""
     return await courses.submit(db, current_user, course_id, request)
 
 
