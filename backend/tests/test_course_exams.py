@@ -566,3 +566,93 @@ async def test_a_new_version_copies_the_bank_and_the_parameters(client, world, f
         b=uuid.UUID(copy["id"]),
     )
     assert len(rows) == 4
+
+
+@pytest.mark.asyncio
+async def test_importing_skips_and_reports_invalid_honor_questions(client, world, factory):
+    """The honor bank may hold legacy rows the course rules refuse: they are left out and
+    named in `warnings`, never copied. Points out of range are still clamped (legacy data)."""
+    mine = await _honor(factory, "mine-dirty", (True, True), created_by=world["instructor"]["id"])
+    await _honor_bank(mine["id"], 1, how_many=2)
+    async with SessionLocal() as db:
+        requirement = (
+            await db.execute(
+                text("SELECT id FROM honor_requirements WHERE honor_id = :h AND position = 1"),
+                {"h": uuid.UUID(mine["id"])},
+            )
+        ).scalar_one()
+        for position, answer, options, points in (
+            (3, "Quizás", '["Sí", "No"]', 1),  # the answer is not one of the options
+            (4, "Sí", '["Sí"]', 1),  # a single option
+            (5, "Sí", '["Sí", "No"]', 0),  # legacy points: clamped to 1, still imported
+        ):
+            await db.execute(
+                text(
+                    "INSERT INTO honor_questions (id, requirement_id, position, question_text,"
+                    " question_type, options, correct_answer, points)"
+                    " VALUES (:id, :r, :pos, :q, 'MULTIPLE_CHOICE', :opts, :a, :pts)"
+                ),
+                {"id": uuid.uuid4(), "r": requirement, "pos": position, "q": f"Legada {position}",
+                 "opts": options, "a": answer, "pts": points},
+            )
+        await db.commit()
+    course = await _draft(client, world, mine)
+    imported = await client.post(
+        f"{COURSES}/{course['id']}/import-honor-bank", headers=world["instructor"]["headers"]
+    )
+    assert imported.status_code == 200, imported.text
+    banks = {row["position"]: row for row in imported.json()["question_banks"]}
+    texts = [q["question_text"] for q in banks[1]["questions"]]
+    assert texts == ["Pregunta oficial 1", "Pregunta oficial 2", "Legada 5"]
+    assert banks[1]["questions"][2]["points"] == 1
+    skipped = [w for w in imported.json()["warnings"] if "no se importó" in w]
+    assert len(skipped) == 2
+    assert any("Legada 3" in w for w in skipped) and any("Legada 4" in w for w in skipped)
+
+
+# ----------------------------------------------------------------------------
+# The exam starts from the honor's own parameters
+# ----------------------------------------------------------------------------
+async def _set_honor_exam(honor_id, passing, minutes, attempts):
+    async with SessionLocal() as db:
+        await db.execute(
+            text(
+                "UPDATE honors SET exam_passing_score = :p, exam_time_limit_minutes = :m,"
+                " max_exam_attempts = :a WHERE id = :id"
+            ),
+            {"p": passing, "m": minutes, "a": attempts, "id": uuid.UUID(honor_id)},
+        )
+        await db.commit()
+
+
+@pytest.mark.asyncio
+async def test_a_new_course_starts_from_the_honor_exam_parameters(client, world, factory):
+    strict = await _honor(factory, "defaults-strict")
+    await _set_honor_exam(strict["id"], 90, 45, 5)
+    course = await _draft(client, world, strict)
+    assert (course["exam_passing_score"], course["exam_time_limit_minutes"], course["max_exam_attempts"]) == (
+        90, 45, 5,
+    )
+
+    # Never below the floor of the vision, and always inside what a course accepts.
+    lenient = await _honor(factory, "defaults-lenient")
+    await _set_honor_exam(lenient["id"], 60, 500, 30)
+    course = await _draft(client, world, lenient)
+    assert (course["exam_passing_score"], course["exam_time_limit_minutes"], course["max_exam_attempts"]) == (
+        80, 180, 10,
+    )
+
+    # What the instructor sends wins over the honor.
+    chosen = await _honor(factory, "defaults-chosen")
+    await _set_honor_exam(chosen["id"], 90, 45, 5)
+    course = await _draft(
+        client, world, chosen, exam_passing_score=95, exam_time_limit_minutes=20, max_exam_attempts=2
+    )
+    assert (course["exam_passing_score"], course["exam_time_limit_minutes"], course["max_exam_attempts"]) == (
+        95, 20, 2,
+    )
+    bad = await client.post(
+        COURSES, json={"honor_id": chosen["id"], "title": "Otro curso", "exam_passing_score": 79},
+        headers=world["instructor"]["headers"],
+    )
+    assert bad.status_code == 422

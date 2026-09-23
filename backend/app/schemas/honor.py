@@ -1,25 +1,51 @@
 """Honor (legacy "specialty") schemas."""
 import uuid
 from datetime import datetime
+from enum import Enum
 from typing import Literal
 
-from pydantic import AliasChoices, BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+
+from app.schemas.content import (  # noqa: F401  (QuestionType is re-exported)
+    MAX_BANK_PER_REQUIREMENT,
+    GradableQuestion,
+    QuestionType,
+    canonical_video_url,
+    http_url,
+    media_url,
+)
 
 DifficultyLevel = Literal["BEGINNER", "INTERMEDIATE", "ADVANCED"]
 HonorType = Literal["OFFICIAL_GC", "DIVISIONAL", "LOCAL"]
 HonorStatus = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED"]
-QuestionType = Literal["MULTIPLE_CHOICE", "TRUE_FALSE", "SHORT_ANSWER", "ESSAY"]
+# `ALL` is a staff-only filter of GET /honors: every status inside the caller's scope.
+HonorStatusFilter = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED", "ALL"]
 ReviewAction = Literal["APPROVE", "REJECT", "REQUEST_CHANGES"]
+CATEGORY_SLUG_PATTERN = r"^[a-z0-9-]{2,120}$"
+
+
+class ResourceType(str, Enum):
+    VIDEO = "VIDEO"
+    PDF = "PDF"
+    LINK = "LINK"
+    IMAGE = "IMAGE"
+
+
+def _resource_type(value):
+    """Lowercase is accepted; nothing sent means a plain link."""
+    if value is None:
+        return ResourceType.LINK
+    return value.strip().upper() if isinstance(value, str) else value
+
+
+def _optional_http_url(value: str | None) -> str | None:
+    return http_url(value) if value is not None else None
 
 
 # ----- requests -----------------------------------------------------------
-class QuestionIn(BaseModel):
-    question_text: str = Field(min_length=1)
-    question_type: QuestionType
-    options: list[str] | None = None
-    correct_answer: str
-    points: int = Field(default=1, ge=0)
-    explanation: str | None = None
+class QuestionIn(GradableQuestion):
+    """Same rules as a course question (app/schemas/content.py): the honor's bank is what an
+    instructor imports into a course, so it must already be gradable."""
 
 
 class RequirementIn(BaseModel):
@@ -28,13 +54,27 @@ class RequirementIn(BaseModel):
     description: str = Field(min_length=1)
     is_theoretical: bool = True
     instructions: str | None = None
-    question_bank: list[QuestionIn] = Field(default_factory=list)
+    question_bank: list[QuestionIn] = Field(default_factory=list, max_length=MAX_BANK_PER_REQUIREMENT)
 
 
 class ResourceIn(BaseModel):
     name: str = Field(min_length=1, max_length=255)
-    url: str = Field(min_length=1)
-    type: str | None = Field(default=None, max_length=40)
+    url: str = Field(min_length=1, max_length=2000)
+    type: ResourceType = ResourceType.LINK
+
+    _type = field_validator("type", mode="before")(_resource_type)
+
+    @model_validator(mode="after")
+    def _url_matches_type(self):
+        """A video is a YouTube / Vimeo one (stored as its canonical watch URL), a PDF or an
+        image lives in our own bucket, and a link is an absolute http(s) URL."""
+        if self.type == ResourceType.VIDEO:
+            self.url = canonical_video_url(self.url)
+        elif self.type in (ResourceType.PDF, ResourceType.IMAGE):
+            self.url = media_url(self.url.strip())
+        else:
+            self.url = http_url(self.url)
+        return self
 
 
 class HonorCreate(BaseModel):
@@ -81,6 +121,18 @@ class HonorUpdate(BaseModel):
     image_url: str | None = Field(
         default=None, validation_alias=AliasChoices("image_url", "patch_image_url")
     )
+    # Catalogue facts (Constructor de especialidades).
+    source_url: str | None = Field(default=None, max_length=2000)
+    wiki_title: str | None = Field(default=None, max_length=200)
+    authority: str | None = Field(default=None, max_length=10)
+    skill_level: int | None = Field(default=None, ge=1, le=3)
+    year_introduced: int | None = Field(default=None, ge=1900, le=2100)
+    # MASTER_GC only. Unlike the rest, `active` also moves on a published honor (MASTER_GC):
+    # it hides it from, or shows it again in, the public catalogue.
+    org_scope_id: uuid.UUID | None = None
+    active: bool | None = None
+
+    _source_url = field_validator("source_url")(_optional_http_url)
 
 
 class HonorTranslationIn(BaseModel):
@@ -96,6 +148,34 @@ class HonorReviewIn(BaseModel):
     comments: str | None = None
 
 
+def _strip_text(value):
+    return value.strip() if isinstance(value, str) else value
+
+
+class CategoryCreate(BaseModel):
+    ministry: str = "pathfinders"
+    name: str = Field(min_length=2, max_length=120)
+    # Taken from the name when it is not sent.
+    slug: str | None = Field(default=None, pattern=CATEGORY_SLUG_PATTERN)
+
+    _strip = field_validator("name", mode="before")(_strip_text)
+
+
+class CategoryUpdate(BaseModel):
+    """Only fields present in the body are applied; neither may be null."""
+
+    name: str | None = Field(default=None, min_length=2, max_length=120)
+    slug: str | None = Field(default=None, pattern=CATEGORY_SLUG_PATTERN)
+
+    _strip = field_validator("name", mode="before")(_strip_text)
+
+
+class CategoryTranslationIn(BaseModel):
+    name: str = Field(min_length=2, max_length=120)
+
+    _strip = field_validator("name", mode="before")(_strip_text)
+
+
 class HonorVersionCreate(BaseModel):
     changes_description: str = Field(min_length=1)
     description: str | None = None
@@ -107,6 +187,12 @@ class CategoryOut(BaseModel):
     id: str
     name: str
     slug: str
+
+
+class CategoryCountOut(CategoryOut):
+    """GET /honors/categories?include_counts=true, for staff: honors of every status in scope."""
+
+    honor_count: int
 
 
 class HonorListItem(BaseModel):
@@ -173,7 +259,14 @@ class ResourceOut(BaseModel):
     position: int
     name: str
     url: str
-    type: str | None
+    type: ResourceType
+
+    @field_validator("type", mode="before")
+    @classmethod
+    def _legacy_type(cls, value):
+        """Rows written before the enum carry free text or NULL: anything unknown is a link."""
+        value = _resource_type(value)
+        return value if value in ResourceType._value2member_map_ else ResourceType.LINK
 
 
 class ReviewOut(BaseModel):

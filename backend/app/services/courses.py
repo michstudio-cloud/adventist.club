@@ -21,6 +21,7 @@ import json
 import uuid
 
 from fastapi import HTTPException, Request, status
+from pydantic import ValidationError
 from sqlalchemy import delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -40,10 +41,14 @@ from app.models import (
     User,
 )
 from app.rbac import club_scope_paths, instructor_is_verified, is_master, org_in_review_scope
+from app.schemas.content import MAX_BANK_PER_REQUIREMENT, GradableQuestion
 from app.schemas.course import (
     MAX_DRAWN_QUESTIONS,
+    MAX_EXAM_ATTEMPTS,
     MAX_LESSON_BYTES,
     MAX_LESSONS_PER_COURSE,
+    MIN_PASSING_SCORE,
+    TIME_LIMIT_MINUTES,
     AssessmentCounts,
     CourseArchive,
     CourseCard,
@@ -427,6 +432,7 @@ async def create(
         version=1,
         created_at=now,
         updated_at=now,
+        **_exam_defaults(honor, payload),
     )
     db.add(course)
     db.add_all(
@@ -445,6 +451,29 @@ async def create(
     )
     await _commit_unique(db, "Ya tienes un curso de esta especialidad en ese idioma")
     return await _detail(db, actor, course, staff=True)
+
+
+def _clamp(value: int, low: int, high: int) -> int:
+    return min(max(value, low), high)
+
+
+def _exam_defaults(honor: Honor, payload: CourseCreate) -> dict:
+    """The exam starts from the honor's own parameters, kept inside what a course accepts
+    (the 80 floor of the vision, 5–180 minutes, 1–10 attempts). What the request sets wins."""
+    passing = payload.exam_passing_score
+    if passing is None:
+        passing = _clamp(honor.exam_passing_score or MIN_PASSING_SCORE, MIN_PASSING_SCORE, 100)
+    minutes = payload.exam_time_limit_minutes
+    if minutes is None and honor.exam_time_limit_minutes is not None:
+        minutes = _clamp(honor.exam_time_limit_minutes, *TIME_LIMIT_MINUTES)
+    attempts = payload.max_exam_attempts
+    if attempts is None:
+        attempts = _clamp(honor.max_exam_attempts or 3, 1, MAX_EXAM_ATTEMPTS)
+    return {
+        "exam_passing_score": passing,
+        "exam_time_limit_minutes": minutes,
+        "max_exam_attempts": attempts,
+    }
 
 
 async def _commit_unique(db: AsyncSession, conflict_detail: str) -> None:
@@ -805,11 +834,38 @@ async def import_honor_bank(
     ).all()
 
     imported: dict[int, int] = {}
+    skipped: list[str] = []
     for question, position in source:
         requirement = requirements.get(position)
         row = plan.get(position)
         if requirement is None or row is None or not requirement.is_theoretical:
             continue  # a practical requirement keeps its evidence
+        # The same rules as a bank the instructor types in: a legacy row the course could not
+        # grade is left out and named, never copied. Only the points are clamped (legacy data).
+        try:
+            valid = GradableQuestion.model_validate(
+                {
+                    "question_text": question.question_text,
+                    "question_type": question.question_type,
+                    "options": list(question.options) if question.options else None,
+                    "correct_answer": question.correct_answer,
+                    "points": min(max(question.points or 1, 1), 10),
+                    "explanation": question.explanation,
+                }
+            )
+        except ValidationError as exc:
+            reason = "; ".join(error["msg"] for error in exc.errors())
+            skipped.append(
+                f"La pregunta «{question.question_text[:80]}» del requisito {position} no se"
+                f" importó: {reason}"
+            )
+            continue
+        if imported.get(position, 0) >= MAX_BANK_PER_REQUIREMENT:
+            skipped.append(
+                f"La pregunta «{question.question_text[:80]}» del requisito {position} no se"
+                f" importó: el banco admite como mucho {MAX_BANK_PER_REQUIREMENT} preguntas"
+            )
+            continue
         if position not in imported:
             await db.execute(
                 delete(CourseQuestion).where(
@@ -827,26 +883,31 @@ async def import_honor_bank(
                 course_id=course.id,
                 requirement_position=position,
                 position=imported[position],
-                question_text=question.question_text,
-                question_type=question.question_type,
-                options=list(question.options) if question.options else None,
-                correct_answer=question.correct_answer,
-                points=min(max(question.points, 1), 10),
-                explanation=question.explanation,
+                question_text=valid.question_text,
+                question_type=valid.question_type,
+                options=valid.options,
+                correct_answer=valid.correct_answer,
+                points=valid.points,
+                explanation=valid.explanation,
                 created_at=utcnow(),
             )
         )
     if not imported:
         raise HTTPException(
-            status.HTTP_409_CONFLICT, "La especialidad no tiene preguntas que importar"
+            status.HTTP_409_CONFLICT,
+            "La especialidad no tiene preguntas válidas que importar"
+            if skipped
+            else "La especialidad no tiene preguntas que importar",
         )
     course.updated_at = utcnow()
     record_course_audit(
         db, "UPDATE", course, actor, request, details="Banco importado de la especialidad",
-        metadata={"imported": imported},
+        metadata={"imported": imported, "skipped": len(skipped)},
     )
     await db.commit()
-    return await _detail(db, actor, course, staff=True)
+    detail = await _detail(db, actor, course, staff=True)
+    detail.warnings = [*skipped, *detail.warnings]
+    return detail
 
 
 # ----------------------------------------------------------------------------

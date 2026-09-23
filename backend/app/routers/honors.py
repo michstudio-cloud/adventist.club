@@ -1,7 +1,7 @@
 """
 Honors (legacy "specialties"): public catalogue plus the authoring workflow
 
-    DRAFT -> ZONE_REVIEW -> ASSOCIATION_REVIEW -> PUBLISHED   (-> ARCHIVED)
+    DRAFT -> ZONE_REVIEW -> ASSOCIATION_REVIEW -> PUBLISHED   (-> ARCHIVED -> DRAFT on restore)
 
 Every mutation writes its audit_log row in the same transaction.
 Literal routes are declared before the `/{honor_id}` routes.
@@ -27,11 +27,16 @@ from app.models import (
     HonorTranslation,
     Ministry,
     Organization,
+    ProgramRequirement,
     User,
 )
 from app.rbac import get_org_path, is_master, org_in_user_scope
 from app.schemas.honor import (
+    CategoryCountOut,
+    CategoryCreate,
     CategoryOut,
+    CategoryTranslationIn,
+    CategoryUpdate,
     HonorCreate,
     HonorDetail,
     HonorInstructorDetail,
@@ -40,6 +45,7 @@ from app.schemas.honor import (
     HonorStaffDetail,
     HonorStats,
     HonorStatus,
+    HonorStatusFilter,
     HonorTranslationIn,
     HonorUpdate,
     HonorVersionCreate,
@@ -90,7 +96,10 @@ AUTHOR_ROLES = (INSTRUCTOR, ADMIN_ASSOCIATION, MASTER_GC)
 INSTRUCTOR_VIEW_ROLES = (INSTRUCTOR, COORDINATOR_ZONE, ADMIN_ASSOCIATION, MASTER_GC)
 
 ENTITY = "HONOR"
+CATEGORY_ENTITY = "HONOR_CATEGORY"
 HONOR_UNIQUE_CONSTRAINTS = {"honors_ministry_id_code_key", "honors_ministry_id_slug_key"}
+CATEGORY_SLUG_CONSTRAINT = "honor_categories_ministry_id_slug_key"
+CATEGORY_SLUG_MAX_LENGTH = 120
 CODE_MAX_LENGTH = 40
 SLUG_MAX_LENGTH = 180
 
@@ -426,7 +435,7 @@ def _stage_resources(db: AsyncSession, honor_id: uuid.UUID, resources: list[Reso
                 position=index + 1,
                 name=resource.name,
                 url=resource.url,
-                type=resource.type,
+                type=resource.type.value,
             )
         )
 
@@ -515,6 +524,17 @@ async def _insert_honor(db: AsyncSession, honor: Honor, conflict_detail: str) ->
         raise HTTPException(status.HTTP_409_CONFLICT, conflict_detail) from exc
 
 
+async def _require_requirements(db: AsyncSession, honor: Honor) -> None:
+    """Nothing reaches review or the catalogue without requirements, in any language."""
+    requirement_count = (
+        await db.execute(
+            select(func.count(HonorRequirement.id)).where(HonorRequirement.honor_id == honor.id)
+        )
+    ).scalar_one()
+    if requirement_count == 0:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "honor_without_requirements")
+
+
 def _publish(honor: Honor) -> None:
     now = utcnow()
     honor.status = PUBLISHED
@@ -532,7 +552,7 @@ async def list_honors(
     q: str | None = Query(None, max_length=100),
     ministry: str = "pathfinders",
     category: str | None = Query(None, description="Category slug"),
-    status_filter: HonorStatus | None = Query(None, alias="status"),
+    status_filter: HonorStatusFilter | None = Query(None, alias="status"),
     limit: int = Query(500, ge=1, le=500),
     offset: int = Query(0, ge=0),
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
@@ -544,19 +564,25 @@ async def list_honors(
     exists, otherwise in the source language. The language is always the caller's explicit choice
     (the UI language), never Accept-Language: a Spanish screen must not fill up with English names. `status` is honoured for
     signed-in reviewers (their scope) and instructors (their own honors);
-    for anyone else it is ignored. Total row count: `X-Total-Count` header.
+    for anyone else it is ignored. `status=ALL` (every status, hidden ones included, inside the
+    caller's scope) is staff-only: anyone else gets 403. Total row count: `X-Total-Count` header.
     """
+    staff_scope = None
+    wants_unpublished = status_filter is not None and status_filter != PUBLISHED
+    if wants_unpublished and current_user is not None:
+        staff_scope = await _staff_list_conditions(db, current_user)
+    if status_filter == "ALL" and staff_scope is None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "status_all_staff_only")
+
     ministry_row = await _get_ministry(db, ministry)
     if ministry_row is None:
         response.headers["X-Total-Count"] = "0"
         return []
 
     conditions = [Honor.ministry_id == ministry_row.id]
-    wants_unpublished = status_filter is not None and status_filter != PUBLISHED
-    staff_scope = None
-    if wants_unpublished and current_user is not None:
-        staff_scope = await _staff_list_conditions(db, current_user)
-    if staff_scope is not None:
+    if status_filter == "ALL":
+        conditions += staff_scope
+    elif staff_scope is not None:
         conditions += [Honor.status == status_filter, *staff_scope]
     else:
         conditions += [Honor.status == PUBLISHED, Honor.active.is_(True)]
@@ -631,12 +657,19 @@ async def _staff_list_conditions(db: AsyncSession, user: User) -> list | None:
     return None
 
 
-@router.get("/categories", response_model=list[CategoryOut])
+@router.get(
+    "/categories", response_model=None, responses={200: {"model": list[CategoryCountOut]}}
+)
 async def list_categories(
     ministry: str = "pathfinders",
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
+    include_counts: bool = Query(False, description="Staff only: honor_count per category"),
+    current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
-):
+) -> list[CategoryOut]:
+    """Public list. With `include_counts=true` a staff caller also gets `honor_count`: the
+    honors of every status inside their scope (as `GET /honors?status=ALL`). For anyone else
+    the flag is ignored."""
     ministry_row = await _get_ministry(db, ministry)
     if ministry_row is None:
         return []
@@ -651,7 +684,234 @@ async def list_categories(
         .where(HonorCategory.ministry_id == ministry_row.id)
         .order_by(HonorCategory.name.collate(SPANISH_COLLATION))
     )
-    return [_category_out(row, translated) for row, translated in (await db.execute(stmt)).all()]
+    rows = (await db.execute(stmt)).all()
+
+    scope = None
+    if include_counts and current_user is not None:
+        scope = await _staff_list_conditions(db, current_user)
+    if scope is None:
+        return [_category_out(row, translated) for row, translated in rows]
+    counts = dict(
+        (
+            await db.execute(
+                select(Honor.category_id, func.count(Honor.id))
+                .where(Honor.ministry_id == ministry_row.id, Honor.category_id.is_not(None), *scope)
+                .group_by(Honor.category_id)
+            )
+        ).all()
+    )
+    return [
+        CategoryCountOut(
+            **_category_out(row, translated).model_dump(), honor_count=counts.get(row.id, 0)
+        )
+        for row, translated in rows
+    ]
+
+
+# ----------------------------------------------------------------------------
+# Categories (MASTER_GC). Declared before the `/{honor_id}` routes.
+# ----------------------------------------------------------------------------
+def _category_slug(name: str) -> str:
+    slug = slugify(name, "category")[:CATEGORY_SLUG_MAX_LENGTH].strip("-")
+    return slug if len(slug) >= 2 else "category"
+
+
+async def _get_category_or_404(
+    db: AsyncSession, category_id: uuid.UUID, lock: bool = False
+) -> HonorCategory:
+    stmt = select(HonorCategory).where(HonorCategory.id == category_id)
+    if lock:
+        stmt = stmt.with_for_update()
+    category = (await db.execute(stmt)).scalar_one_or_none()
+    if category is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Category not found")
+    return category
+
+
+async def _category_slug_taken(
+    db: AsyncSession, ministry_id: uuid.UUID | None, slug: str, exclude: uuid.UUID | None = None
+) -> bool:
+    stmt = select(HonorCategory.id).where(
+        HonorCategory.ministry_id == ministry_id, HonorCategory.slug == slug
+    )
+    if exclude is not None:
+        stmt = stmt.where(HonorCategory.id != exclude)
+    return (await db.execute(stmt.limit(1))).scalar_one_or_none() is not None
+
+
+async def _commit_category(db: AsyncSession) -> None:
+    """The unique index is the real guard against two requests taking the same slug."""
+    try:
+        await db.commit()
+    except IntegrityError as exc:
+        await db.rollback()
+        if violated_constraint(exc) != CATEGORY_SLUG_CONSTRAINT:
+            raise
+        raise HTTPException(status.HTTP_409_CONFLICT, "category_slug_taken") from exc
+
+
+def _category_audit(
+    db: AsyncSession, action: str, category: HonorCategory, user: User, request: Request, details: str,
+    metadata: dict | None = None,
+) -> None:
+    record_audit(
+        db,
+        action=action,
+        entity_type=CATEGORY_ENTITY,
+        entity_id=category.id,
+        actor=user,
+        details=details,
+        metadata=metadata,
+        request=request,
+    )
+
+
+@router.post("/categories", response_model=CategoryOut, status_code=status.HTTP_201_CREATED)
+async def create_category(
+    payload: CategoryCreate,
+    request: Request,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    ministry_row = await _get_ministry(db, payload.ministry)
+    if ministry_row is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, f"Unknown ministry '{payload.ministry}'")
+    slug = payload.slug or _category_slug(payload.name)
+    if await _category_slug_taken(db, ministry_row.id, slug):
+        raise HTTPException(status.HTTP_409_CONFLICT, "category_slug_taken")
+    now = utcnow()
+    category = HonorCategory(
+        id=uuid.uuid4(),
+        ministry_id=ministry_row.id,
+        name=payload.name,
+        slug=slug,
+        created_at=now,
+        updated_at=now,
+    )
+    db.add(category)
+    _category_audit(
+        db, "CREATE", category, current_user, request, f"Created honor category: {category.name}",
+        {"ministry": ministry_row.slug, "slug": slug},
+    )
+    await _commit_category(db)
+    return _category_out(category)
+
+
+@router.put("/categories/{category_id}", response_model=CategoryOut)
+async def update_category(
+    category_id: uuid.UUID,
+    payload: CategoryUpdate,
+    request: Request,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    category = await _get_category_or_404(db, category_id, lock=True)
+    changes = payload.model_dump(exclude_unset=True)
+    if any(value is None for value in changes.values()):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "name and slug cannot be null")
+    if "slug" in changes and await _category_slug_taken(
+        db, category.ministry_id, changes["slug"], exclude=category.id
+    ):
+        raise HTTPException(status.HTTP_409_CONFLICT, "category_slug_taken")
+    for column, value in changes.items():
+        setattr(category, column, value)
+    category.updated_at = utcnow()
+    _category_audit(
+        db, "UPDATE", category, current_user, request, f"Updated honor category: {category.name}",
+        {"fields": sorted(changes)},
+    )
+    await _commit_category(db)
+    return _category_out(category)
+
+
+@router.delete("/categories/{category_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_category(
+    category_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    """Only a category nothing points at: no honor in any status, no program requirement."""
+    category = await _get_category_or_404(db, category_id, lock=True)
+    in_use = False
+    for column in (Honor.category_id, ProgramRequirement.target_category_id):
+        stmt = select(column).where(column == category.id).limit(1)
+        in_use = in_use or (await db.execute(stmt)).scalar_one_or_none() is not None
+    if in_use:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "category_in_use")
+    # Its translations go with it (ON DELETE CASCADE).
+    await db.delete(category)
+    _category_audit(
+        db, "DELETE", category, current_user, request, f"Deleted honor category: {category.name}",
+        {"slug": category.slug},
+    )
+    await db.commit()
+
+
+# honor_category_translations.locale is VARCHAR(16), like honor_translations.locale.
+CategoryLocale = Path(pattern=LOCALE_PATTERN, max_length=16)
+
+
+def _category_locale(locale: str) -> str:
+    if is_source_locale(locale):
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            f"'{SOURCE_LOCALE}' is the source language: edit it with PUT /honors/categories/{{category_id}}",
+        )
+    return canonical_locale(locale)
+
+
+@router.put("/categories/{category_id}/translations/{locale}", response_model=CategoryOut)
+async def put_category_translation(
+    category_id: uuid.UUID,
+    payload: CategoryTranslationIn,
+    request: Request,
+    locale: str = CategoryLocale,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    """Create or replace the category's name in `locale`; answers with the name in it."""
+    locale = _category_locale(locale)
+    # The category row is locked: two requests for a new locale cannot both INSERT.
+    category = await _get_category_or_404(db, category_id, lock=True)
+    translation = await db.get(HonorCategoryTranslation, (category.id, locale))
+    created = translation is None
+    if created:
+        translation = HonorCategoryTranslation(category_id=category.id, locale=locale)
+        db.add(translation)
+    translation.name = payload.name
+    translation.updated_at = utcnow()
+    _category_audit(
+        db, "UPDATE", category, current_user, request,
+        f"{'Added' if created else 'Replaced'} {locale} translation of honor category: {category.name}",
+        {"translation": locale, "created": created},
+    )
+    await db.commit()
+    return _category_out(category, translation.name)
+
+
+@router.delete(
+    "/categories/{category_id}/translations/{locale}", status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_category_translation(
+    category_id: uuid.UUID,
+    request: Request,
+    locale: str = CategoryLocale,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    locale = _category_locale(locale)
+    category = await _get_category_or_404(db, category_id, lock=True)
+    translation = await db.get(HonorCategoryTranslation, (category.id, locale))
+    if translation is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Translation not found")
+    await db.delete(translation)
+    _category_audit(
+        db, "UPDATE", category, current_user, request,
+        f"Removed {locale} translation of honor category: {category.name}",
+        {"translation": locale, "removed": True},
+    )
+    await db.commit()
 
 
 @router.get("/my/created", response_model=PaginatedHonors)
@@ -882,18 +1142,29 @@ async def update_honor(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """Content moves only while the honor is a DRAFT. The one exception is `active`, which
+    MASTER_GC toggles in any status to hide a published honor from the public catalogue (or
+    show it again). `org_scope_id` is MASTER_GC's alone."""
     honor = await _get_honor_or_404(db, honor_id, lock=True)
-    if honor.created_by_id != current_user.id and not is_master(current_user):
+    master = is_master(current_user)
+    if honor.created_by_id != current_user.id and not master:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Only the creator can update this honor")
-    if honor.status != DRAFT:
+
+    changes = payload.model_dump(exclude_unset=True)
+    if "org_scope_id" in changes and not master:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "org_scope_master_only")
+    only_visibility = master and set(changes) == {"active"}
+    if honor.status != DRAFT and not only_visibility:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST,
             "Only draft honors can be updated. Create a new version instead.",
         )
-
-    changes = payload.model_dump(exclude_unset=True)
     if changes.get("name", "") is None:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "name cannot be null")
+    if changes.get("org_scope_id") is not None and await db.get(
+        Organization, changes["org_scope_id"]
+    ) is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "org_scope_not_found")
 
     if "category" in changes:
         slug = changes["category"]
@@ -910,10 +1181,16 @@ async def update_honor(
         "exam_time_limit_minutes",
         "thumbnail_url",
         "image_url",
+        "source_url",
+        "wiki_title",
+        "authority",
+        "skill_level",
+        "year_introduced",
+        "org_scope_id",
     ):
         if column in changes:
             setattr(honor, column, changes[column])
-    for column in ("exam_passing_score", "max_exam_attempts"):  # NOT NULL columns
+    for column in ("exam_passing_score", "max_exam_attempts", "active"):  # NOT NULL columns
         if changes.get(column) is not None:
             setattr(honor, column, changes[column])
 
@@ -1041,23 +1318,15 @@ async def submit_honor(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """DRAFT -> ZONE_REVIEW."""
+    """DRAFT -> ZONE_REVIEW. The creator, or MASTER_GC on their behalf."""
     honor = await _get_honor_or_404(db, honor_id, lock=True)
-    if honor.created_by_id != current_user.id:
+    if honor.created_by_id != current_user.id and not is_master(current_user):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Only the creator can submit this honor")
     if honor.status != DRAFT:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, "Only draft honors can be submitted for review"
         )
-    requirement_count = (
-        await db.execute(
-            select(func.count(HonorRequirement.id)).where(HonorRequirement.honor_id == honor.id)
-        )
-    ).scalar_one()
-    if requirement_count == 0:
-        raise HTTPException(
-            status.HTTP_400_BAD_REQUEST, "Honor must have at least one requirement"
-        )
+    await _require_requirements(db, honor)
 
     honor.status = ZONE_REVIEW
     honor.updated_at = utcnow()
@@ -1147,6 +1416,7 @@ async def publish_honor(
     honor = await _get_honor_or_404(db, honor_id, lock=True)
     if honor.status == ARCHIVED:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Archived honors cannot be published")
+    await _require_requirements(db, honor)
 
     previous_status = honor.status
     _publish(honor)
@@ -1158,6 +1428,34 @@ async def publish_honor(
         actor=current_user,
         details=f"Published directly (MASTER_GC): {honor.name}",
         metadata={"from": previous_status, "to": PUBLISHED},
+        request=request,
+    )
+    await db.commit()
+    return await _build_detail(db, honor, staff=True)
+
+
+@router.post("/{honor_id}/restore", response_model=HonorStaffDetail)
+async def restore_honor(
+    honor_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(require_roles(MASTER_GC)),
+    db: AsyncSession = Depends(get_db),
+):
+    """ARCHIVED -> DRAFT, hidden (`active=false`) until it is published again."""
+    honor = await _get_honor_or_404(db, honor_id, lock=True)
+    if honor.status != ARCHIVED:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "honor_not_archived")
+    honor.status = DRAFT
+    honor.active = False
+    honor.updated_at = utcnow()
+    record_audit(
+        db,
+        action="RESTORE",
+        entity_type=ENTITY,
+        entity_id=honor.id,
+        actor=current_user,
+        details=f"Restored archived honor to draft: {honor.name}",
+        metadata={"from": ARCHIVED, "to": DRAFT},
         request=request,
     )
     await db.commit()

@@ -4,15 +4,28 @@ The content blocks are a discriminated union validated on the server: a course i
 minors, so what an instructor may put in a lesson is a closed list (spec §3.3).
 """
 import re
-import urllib.parse
 import uuid
 from datetime import datetime
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from app.config import settings
-from app.schemas.honor import HonorReviewIn, QuestionType, ReviewOut  # noqa: F401  (shared)
+# The media, video and question rules are shared with the honors (app/schemas/content.py);
+# re-exported here so importers of this module keep working.
+from app.schemas.content import (  # noqa: F401
+    MAX_BANK_PER_REQUIREMENT,
+    MAX_SHORT_ANSWER_LENGTH,
+    MAX_SHORT_ANSWERS,
+    MULTIPLE_CHOICE_OPTIONS,
+    SHORT_ANSWER_SEPARATOR,
+    VIDEO_ID as _VIDEO_ID,
+    GradableQuestion,
+    QuestionType,
+    blank_to_none as _blank_to_none,
+    media_url,
+    parse_video,
+)
+from app.schemas.honor import HonorReviewIn, ReviewOut  # noqa: F401  (shared)
 from app.schemas.portfolio import ClubRef, Counters, HonorRef, PersonRef  # noqa: F401  (shared)
 from app.services.locales import LOCALE_PATTERN
 
@@ -28,62 +41,14 @@ GUIDANCE_MAX_LENGTH = 2000
 
 # The whole exam draws at most this many questions (spec §4.1).
 MAX_DRAWN_QUESTIONS = 60
-MAX_BANK_PER_REQUIREMENT = 200
-# SHORT_ANSWER: accepted answers separated by "|".
-SHORT_ANSWER_SEPARATOR = "|"
-MAX_SHORT_ANSWERS = 10
-MAX_SHORT_ANSWER_LENGTH = 120
-MULTIPLE_CHOICE_OPTIONS = (2, 6)
 # The floor of the vision: an instructor may raise the bar, never lower it.
 MIN_PASSING_SCORE = 80
+TIME_LIMIT_MINUTES = (5, 180)
+MAX_EXAM_ATTEMPTS = 10
 
 # Raw HTML never travels in a lesson: the frontend renders Markdown with HTML turned off,
 # and anything that looks like a tag is refused here as well (defence in depth).
 _HTML_LIKE = re.compile(r"<\s*[a-zA-Z!/?]")
-_VIDEO_ID = {
-    "youtube": re.compile(r"^[A-Za-z0-9_-]{6,20}$"),
-    "vimeo": re.compile(r"^[0-9]{6,12}$"),
-}
-_YOUTUBE_HOSTS = {"youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be", "www.youtu.be"}
-_VIMEO_HOSTS = {"vimeo.com", "www.vimeo.com", "player.vimeo.com"}
-
-
-def _blank_to_none(value):
-    if isinstance(value, str):
-        value = value.strip()
-    return value or None
-
-
-def media_url(value: str) -> str:
-    """Only the platform's own media bucket: an `<img>` from anywhere else is a beacon
-    that tells a third party which minor opened the lesson, and can change under us."""
-    base = settings.R2_PUBLIC_URL.rstrip("/")
-    if not value.startswith(f"{base}/") or len(value) > 600:
-        raise ValueError(f"El archivo debe estar alojado en {base}")
-    return value
-
-
-def parse_video(url: str) -> tuple[str, str]:
-    """(provider, video_id) from a YouTube or Vimeo URL. Only these two, and only the id is
-    stored: the frontend embeds it with youtube-nocookie.com / player.vimeo.com."""
-    parsed = urllib.parse.urlparse(url.strip())
-    host = (parsed.hostname or "").lower()
-    if host in _YOUTUBE_HOSTS:
-        if host.endswith("youtu.be"):
-            video_id = parsed.path.lstrip("/")
-        elif parsed.path.startswith("/embed/"):
-            video_id = parsed.path[len("/embed/"):]
-        else:
-            video_id = urllib.parse.parse_qs(parsed.query).get("v", [""])[0]
-        provider = "youtube"
-    elif host in _VIMEO_HOSTS:
-        video_id, provider = parsed.path.rstrip("/").rsplit("/", 1)[-1], "vimeo"
-    else:
-        raise ValueError("Solo se admiten vídeos de YouTube o Vimeo")
-    video_id = video_id.split("?")[0].split("&")[0].strip()
-    if not _VIDEO_ID[provider].match(video_id):
-        raise ValueError("No se reconoce el vídeo en esa dirección")
-    return provider, video_id
 
 
 # ----------------------------------------------------------------------------
@@ -159,6 +124,12 @@ class CourseCreate(BaseModel):
     title: str = Field(min_length=3, max_length=180)
     summary: str | None = Field(default=None, max_length=600)
     cover_url: str | None = None
+    # I4 — left out, they start from the honor's own parameters (services/courses.create).
+    exam_passing_score: int | None = Field(default=None, ge=MIN_PASSING_SCORE, le=100)
+    exam_time_limit_minutes: int | None = Field(
+        default=None, ge=TIME_LIMIT_MINUTES[0], le=TIME_LIMIT_MINUTES[1]
+    )
+    max_exam_attempts: int | None = Field(default=None, ge=1, le=MAX_EXAM_ATTEMPTS)
 
     _clean = field_validator("summary", mode="before")(_blank_to_none)
 
@@ -174,8 +145,10 @@ class CourseUpdate(BaseModel):
     cover_url: str | None = None
     # I4 — exam parameters. They are content: they only move while the course is a draft.
     exam_passing_score: int | None = Field(default=None, ge=MIN_PASSING_SCORE, le=100)
-    exam_time_limit_minutes: int | None = Field(default=None, ge=5, le=180)
-    max_exam_attempts: int | None = Field(default=None, ge=1, le=10)
+    exam_time_limit_minutes: int | None = Field(
+        default=None, ge=TIME_LIMIT_MINUTES[0], le=TIME_LIMIT_MINUTES[1]
+    )
+    max_exam_attempts: int | None = Field(default=None, ge=1, le=MAX_EXAM_ATTEMPTS)
     exam_mode: ExamMode | None = None
 
     _clean = field_validator("summary", mode="before")(_blank_to_none)
@@ -189,54 +162,10 @@ class CourseUpdate(BaseModel):
 # ----------------------------------------------------------------------------
 # I4 — the course's question bank
 # ----------------------------------------------------------------------------
-class CourseQuestionIn(BaseModel):
-    """One question of the course's own bank. Same shape as `honor_questions`, but every
-    rule of §4.1 is enforced here: a bank that cannot be graded is a bank nobody can sit."""
-
-    question_text: str = Field(min_length=1, max_length=1000)
-    question_type: QuestionType
-    options: list[str] | None = None
-    correct_answer: str = Field(min_length=1, max_length=2000)
-    points: int = Field(default=1, ge=1, le=10)
-    explanation: str | None = Field(default=None, max_length=1000)
-
-    _clean = field_validator("explanation", mode="before")(_blank_to_none)
-
-    @model_validator(mode="after")
-    def _matches_its_type(self):
-        low, high = MULTIPLE_CHOICE_OPTIONS
-        if self.question_type == "MULTIPLE_CHOICE":
-            options = [option.strip() for option in self.options or []]
-            if not low <= len(options) <= high:
-                raise ValueError(f"Una pregunta de opción múltiple lleva de {low} a {high} opciones")
-            if len(set(options)) != len(options):
-                raise ValueError("Las opciones no pueden repetirse")
-            if self.correct_answer.strip() not in options:
-                raise ValueError("La respuesta correcta debe ser una de las opciones")
-            self.options, self.correct_answer = options, self.correct_answer.strip()
-            return self
-        if self.options:
-            raise ValueError("Solo una pregunta de opción múltiple lleva opciones")
-        self.options = None
-        if self.question_type == "TRUE_FALSE":
-            value = self.correct_answer.strip().lower()
-            if value not in ("true", "false"):
-                raise ValueError("La respuesta de verdadero o falso es «true» o «false»")
-            self.correct_answer = value
-        elif self.question_type == "SHORT_ANSWER":
-            answers = [part.strip() for part in self.correct_answer.split(SHORT_ANSWER_SEPARATOR)]
-            answers = [answer for answer in answers if answer]
-            if not 1 <= len(answers) <= MAX_SHORT_ANSWERS:
-                raise ValueError(
-                    f"Una respuesta corta admite de 1 a {MAX_SHORT_ANSWERS} respuestas aceptadas,"
-                    f" separadas por «{SHORT_ANSWER_SEPARATOR}»"
-                )
-            if any(len(answer) > MAX_SHORT_ANSWER_LENGTH for answer in answers):
-                raise ValueError(
-                    f"Cada respuesta aceptada ocupa como mucho {MAX_SHORT_ANSWER_LENGTH} caracteres"
-                )
-            self.correct_answer = SHORT_ANSWER_SEPARATOR.join(answers)
-        return self
+class CourseQuestionIn(GradableQuestion):
+    """One question of the course's own bank. Same shape and same rules as the honor's
+    (`app.schemas.content.GradableQuestion`): a bank that cannot be graded is a bank nobody
+    can sit."""
 
 
 class RequirementQuestionsIn(BaseModel):

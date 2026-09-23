@@ -57,21 +57,21 @@ def _body(factory, label, **extra):
                     {
                         "question_text": "Which knot makes a fixed loop?",
                         "question_type": "MULTIPLE_CHOICE",
-                        "options": ["Bowline", "Sheet bend"],
+                        "options": ["SECRET-ANSWER-BOWLINE", "Sheet bend"],
                         "correct_answer": "SECRET-ANSWER-BOWLINE",
                         "points": 2,
                         "explanation": "SECRET-EXPLANATION",
                     },
                     {
-                        "question_text": "A reef knot is secure for climbing",
-                        "question_type": "TRUE_FALSE",
+                        "question_text": "Name a knot that is not secure for climbing",
+                        "question_type": "SHORT_ANSWER",
                         "correct_answer": "SECRET-ANSWER-FALSE",
                     },
                 ],
             },
             {"order": 2, "description": "Demonstrate a square lashing", "is_theoretical": False},
         ],
-        "resources": [{"name": "Manual", "url": "https://media.example/manual.pdf", "type": "pdf"}],
+        "resources": [{"name": "Manual", "url": "https://media.example/manual.pdf", "type": "link"}],
         **extra,
     }
 
@@ -293,7 +293,7 @@ async def test_instructor_detail_has_question_bank(client, staff, factory):
     assert own.status_code == 200, own.text
     bank = own.json()["requirements_with_questions"][0]["question_bank"]
     assert [q["correct_answer"] for q in bank] == ["SECRET-ANSWER-BOWLINE", "SECRET-ANSWER-FALSE"]
-    assert bank[0]["options"] == ["Bowline", "Sheet bend"] and bank[0]["points"] == 2
+    assert bank[0]["options"] == ["SECRET-ANSWER-BOWLINE", "Sheet bend"] and bank[0]["points"] == 2
     assert bank[0]["explanation"] == "SECRET-EXPLANATION"
 
     await _publish_through_workflow(client, staff, honor["id"])
