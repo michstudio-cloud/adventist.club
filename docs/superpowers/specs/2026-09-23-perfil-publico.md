@@ -73,6 +73,30 @@ Niveles: 0 Explorador · 250 Rastreador · 750 Excursionista · 1 500 Guía · 3
 6 000 Maestro. Se calcula con una consulta agregada cacheada 10 min. Sólo lo ve el propio
 usuario, su club y su asociación; en el perfil **público** se muestra el **nivel**, no el número.
 
+### 4.1 Puntos otorgados por el director («barra de buena conducta») — aprobado 2026-09-23
+
+El propietario: «el director puede dar más puntos por buena conducta (que exista la barra de
+buena conducta), por ser puntual o algunas otras cosas».
+
+- Tabla `xp_awards` (en la misma migración `014_profiles.sql`): `id`, `user_id`, `club_id`,
+  `awarded_by_id`, `category` (`conducta` | `puntualidad` | `uniforme` | `participacion` |
+  `servicio` | `otro`), `points` (smallint, −50..+50), `note` (≤200), `occurred_on` (date),
+  `created_at`. Nunca se borra: un error se corrige con otro registro negativo (auditable).
+- Quién otorga: CLUB_DIRECTOR y CLUB_SECRETARY del club del miembro (y consejero de su unidad
+  cuando exista la unidad); sólo a miembros ACTIVOS de su club. Tope: 100 puntos por
+  miembro y semana por club (evita inflación); el API responde 409 `xp_weekly_cap`.
+- **Barra de buena conducta**: puntuación móvil de las últimas 8 semanas en `conducta` +
+  `puntualidad` + `uniforme` (0–100, arranca en 70 y sube/baja con los premios/penalizaciones).
+  Sólo la ve el miembro, sus tutores y el staff del club; nunca en el perfil público ni en
+  rankings entre personas. Los puntos positivos sí suman al XP total.
+- Endpoints: `POST /api/v1/clubs/{club_id}/members/{membership_id}/xp` (crear premio),
+  `GET /api/v1/clubs/{club_id}/xp?week=` (resumen por miembro para el director),
+  `GET /api/v1/profiles/me/xp` (historial propio con la barra). Notificación de progreso
+  opcional al tutor cuando el miembro es menor (respeta `notify_progress`).
+- UI: en el roster del club, en cada miembro, botón «Puntos» → hoja con categorías como
+  chips, ±, nota y fecha; en el portafolio propio, tarjeta «Conducta» con la barra y el
+  historial. Ranking por **unidad/club** (equipo) en el panel del director, no por persona.
+
 ## 5. Insignias derivadas (v1)
 
 `primera-especialidad`, `cinco-especialidades`, `diez-especialidades`, `categoria-completa:<slug>`
