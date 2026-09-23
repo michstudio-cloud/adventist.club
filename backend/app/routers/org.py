@@ -7,18 +7,32 @@ clubs never show up on public reads.
 import math
 import unicodedata
 import uuid
+from typing import Literal
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Depends,
+    HTTPException,
+    Query,
+    Request,
+    Response,
+    status,
+)
 from sqlalchemy import not_, or_, select, true, func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import aliased
 
-from app.db import get_db
+from app.db import get_db, violated_constraint
 from app.deps import get_current_user, get_optional_user, require_roles
-from app.models import Organization, User
+from app.models import ClubMembership, Organization, User
 from app.rbac import can_decide_club, club_scope_paths, get_org_path, is_master, org_in_subtree
 from app.schemas.org import (
+    CLUB_LIST_STATUSES,
     ORG_HIERARCHY,
+    AdminClubCreate,
+    AdminClubRow,
     ChurchPlacement,
     ClubApproval,
     ClubDecision,
@@ -33,6 +47,7 @@ from app.schemas.org import (
     PendingClubResponse,
     PlacementProposal,
     UnplacedClub,
+    person_ref,
 )
 from app.security import ADMIN_ROLES, CLUB_DIRECTOR, utcnow
 from app.services import clubs as club_service
@@ -240,6 +255,160 @@ async def request_club(
     club = await club_service.stage_pending_club(db, current_user, payload, request)
     await db.commit()
     return OrgNodeResponse.from_model(club)
+
+
+# ----------------------------------------------------------------------------
+# The administration opens and lists clubs itself. Literal routes: they must
+# stay above every `/{node_id}` route.
+# ----------------------------------------------------------------------------
+require_structure_role = require_roles(*placement.STRUCTURE_ADMIN_ROLES)
+
+
+@router.post(
+    "/clubs/admin", response_model=PendingClubResponse, status_code=status.HTTP_201_CREATED
+)
+async def create_admin_club(
+    payload: AdminClubCreate,
+    request: Request,
+    current_user: User = Depends(require_structure_role),
+    db: AsyncSession = Depends(get_db),
+):
+    """Open a club already ACTIVE under an association of the caller's scope,
+    optionally placed in its zone and church and with its director appointed
+    — the state a director's request reaches once approved, in one step."""
+    try:
+        club, refs, director = await club_service.stage_admin_club(
+            db, current_user, payload, request
+        )
+        response = PendingClubResponse.build(
+            club,
+            refs.get(placement.ASSOCIATION),
+            zone=refs.get(placement.ZONE),
+            church=refs.get(placement.CHURCH),
+            declared=placement.declared_placement(club) or None,
+            director=director,
+        )
+        await db.commit()
+    except IntegrityError as exc:
+        # Two people typing the same code at once: the unique index decides.
+        await db.rollback()
+        if violated_constraint(exc) != "organizations_code_key":
+            raise
+        raise HTTPException(status.HTTP_409_CONFLICT, club_service.CLUB_CODE_TAKEN)
+    return response
+
+
+@router.get("/clubs/admin", response_model=list[AdminClubRow])
+async def list_admin_clubs(
+    response: Response,
+    q: str | None = Query(None, max_length=100),
+    status_filter: Literal[CLUB_LIST_STATUSES] = Query("all", alias="status"),
+    association_id: uuid.UUID | None = None,
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_org_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Every club of the caller's subtree, any status, with its association,
+    zone, church, director and active members. MASTER_GC sees them all; a zone
+    coordinator reads their own zone and changes nothing here. Total rows in
+    `X-Total-Count`."""
+    conditions = [Organization.type == club_service.CLUB_TYPE]
+    if not is_master(current_user):
+        own_path = await get_org_path(db, current_user.organization_id)
+        if not own_path:
+            response.headers["X-Total-Count"] = "0"
+            return []
+        conditions.append(Organization.path.op("<@")(own_path))
+    if association_id is not None:
+        association_path = await get_org_path(db, association_id)
+        if not association_path:
+            response.headers["X-Total-Count"] = "0"
+            return []
+        conditions.append(Organization.path.op("<@")(association_path))
+    if status_filter != "all":
+        conditions.append(Organization.status == status_filter)
+    term = (q or "").strip()
+    if term:
+        needle = placement.normalize(term)
+        conditions.append(
+            or_(
+                func.unaccent(Organization.name).icontains(needle, autoescape=True),
+                func.unaccent(func.coalesce(Organization.code, "")).icontains(
+                    needle, autoescape=True
+                ),
+            )
+        )
+
+    total = await db.scalar(select(func.count()).select_from(Organization).where(*conditions))
+    response.headers["X-Total-Count"] = str(total or 0)
+    stmt = (
+        select(Organization)
+        .where(*conditions)
+        .order_by(Organization.name, Organization.id)
+        .limit(limit)
+        .offset(offset)
+    )
+    clubs = list((await db.execute(stmt)).scalars().all())
+    return await _admin_rows(db, clubs)
+
+
+async def _admin_rows(db: AsyncSession, clubs: list[Organization]) -> list[AdminClubRow]:
+    """Ancestors, directors and member counts for a whole page: three grouped
+    queries, whatever the page size."""
+    if not clubs:
+        return []
+    ids = [club.id for club in clubs]
+    refs = await placement.refs_for(db, clubs)
+
+    directors: dict[uuid.UUID, User] = {}
+    director_rows = (
+        await db.execute(
+            select(User)
+            .where(User.organization_id.in_(ids), User.role == CLUB_DIRECTOR)
+            .order_by(User.created_at, User.id)
+        )
+    ).scalars()
+    for person in director_rows:
+        directors.setdefault(person.organization_id, person)
+
+    counts = dict(
+        (
+            await db.execute(
+                select(ClubMembership.club_id, func.count())
+                .where(
+                    ClubMembership.club_id.in_(ids),
+                    ClubMembership.status == membership_service.ACTIVE,
+                )
+                .group_by(ClubMembership.club_id)
+            )
+        ).all()
+    )
+
+    rows = []
+    for club in clubs:
+        found = refs.get(club.id, {})
+        rows.append(
+            AdminClubRow(
+                id=str(club.id),
+                name=club.name,
+                code=club.code,
+                status=club.status.upper(),
+                city=club.city,
+                state=club.state,
+                country=club.country,
+                latitude=club.latitude,
+                longitude=club.longitude,
+                association=placement.as_ref(found.get(placement.ASSOCIATION)),
+                zone=placement.as_ref(found.get(placement.ZONE)),
+                church=placement.as_ref(found.get(placement.CHURCH)),
+                director=person_ref(directors.get(club.id)),
+                members_count=int(counts.get(club.id, 0)),
+                created_at=club.created_at,
+                updated_at=club.updated_at,
+            )
+        )
+    return rows
 
 
 EARTH_RADIUS_KM = 6371.0088
