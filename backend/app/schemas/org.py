@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 from app.models import Organization
 
@@ -218,6 +218,61 @@ class ClubApproval(BaseModel):
         return any((self.church_id, self.church_name, self.zone_id, self.zone_name))
 
 
+CLUB_LIST_STATUSES = ("active", "pending", "rejected", "inactive", "all")
+
+
+class AdminClubCreate(BaseModel):
+    """`POST /org-nodes/clubs/admin`: the administration opens a club itself,
+    already ACTIVE and connected to its association.
+
+    The placement is optional and follows the rules of `ClubPlacement`: zone
+    and church each by id OR by name, never both. A zone or a church typed by
+    name is created only when both are given (a church never hangs straight
+    off an association); a church alone that already has a zone places the
+    club under it, and otherwise it stays declared for later, as a director's
+    request would.
+    """
+
+    name: str = Field(min_length=2, max_length=180)
+    code: str | None = Field(default=None, max_length=60)
+    association_id: uuid.UUID
+    zone_id: uuid.UUID | None = None
+    zone_name: str | None = Field(default=None, max_length=180)
+    church_id: uuid.UUID | None = None
+    church_name: str | None = Field(default=None, max_length=180)
+    city: str | None = Field(default=None, max_length=120)
+    state: str | None = Field(default=None, max_length=120)
+    country: str | None = Field(default=None, max_length=120)
+    latitude: float | None = Field(default=None, ge=-90, le=90)
+    longitude: float | None = Field(default=None, ge=-180, le=180)
+    director_email: EmailStr | None = None
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("name", "code", "zone_name", "church_name", "city", "state", "country")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+    @field_validator("name")
+    @classmethod
+    def _name_required(cls, value: str | None) -> str:
+        if not value or len(value) < 2:
+            raise ValueError("name must have at least 2 characters")
+        return value
+
+    @model_validator(mode="after")
+    def _consistent(self):
+        if (self.latitude is None) != (self.longitude is None):
+            raise ValueError("latitude and longitude go together")
+        if self.zone_id and self.zone_name:
+            raise ValueError("Indica `zone_id` o `zone_name`, no los dos")
+        if self.church_id and self.church_name:
+            raise ValueError("Indica `church_id` o `church_name`, no los dos")
+        return self
+
+
 class ChurchPlacement(BaseModel):
     """`POST /org-nodes/churches/{id}/place`: the association moves a church —
     with its clubs — from one of its zones to another."""
@@ -311,6 +366,9 @@ class PendingClubResponse(OrgNodeResponse):
     church: OrgRef | None = None
     declared: dict[str, Any] | None = None
     requested_by: ClubRequester | None = None
+    # Whoever the administration appointed when it created the club itself
+    # (`POST /org-nodes/clubs/admin`). A request carries `requested_by` instead.
+    director: ClubRequester | None = None
 
     @classmethod
     def build(
@@ -322,6 +380,7 @@ class PendingClubResponse(OrgNodeResponse):
         zone: Organization | None = None,
         church: Organization | None = None,
         declared: dict | None = None,
+        director=None,
     ) -> "PendingClubResponse":
         base = OrgNodeResponse.from_model(node).model_dump()
         return cls(
@@ -330,12 +389,35 @@ class PendingClubResponse(OrgNodeResponse):
             zone=_ref(zone),
             church=_ref(church),
             declared=declared or None,
-            requested_by=(
-                ClubRequester(id=str(requester.id), name=requester.name, email=requester.email)
-                if requester is not None
-                else None
-            ),
+            requested_by=person_ref(requester),
+            director=person_ref(director),
         )
+
+
+def person_ref(user) -> ClubRequester | None:
+    return ClubRequester(id=str(user.id), name=user.name, email=user.email) if user else None
+
+
+class AdminClubRow(BaseModel):
+    """One row of `GET /org-nodes/clubs/admin`. `association`, `zone` and
+    `church` come from the ANCESTORS of the club, like every E6 read."""
+
+    id: str
+    name: str
+    code: str | None = None
+    status: str
+    city: str | None = None
+    state: str | None = None
+    country: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
+    association: OrgRef | None = None
+    zone: OrgRef | None = None
+    church: OrgRef | None = None
+    director: ClubRequester | None = None
+    members_count: int = 0
+    created_at: datetime
+    updated_at: datetime
 
 
 def _ref(node: Organization | None) -> OrgRef | None:
