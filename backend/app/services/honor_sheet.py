@@ -373,9 +373,19 @@ def _media_host() -> str:
     return urlsplit(settings.R2_PUBLIC_URL).hostname or ""
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Una redirección podría sacar la petición del host permitido: se rechaza."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D401 - firma de urllib
+        raise ValueError(f"redirect refused: {code}")
+
+
+_opener = urllib.request.build_opener(_NoRedirect)
+
+
 def _download(url: str) -> bytes:
     request = urllib.request.Request(url, headers={"User-Agent": "adventist.club-honor-sheet"})
-    with urllib.request.urlopen(request, timeout=PATCH_TIMEOUT_S) as response:  # noqa: S310 - host allowlisted
+    with _opener.open(request, timeout=PATCH_TIMEOUT_S) as response:  # noqa: S310 - host allowlisted, sin redirecciones
         mime = (response.headers.get("content-type") or "").split(";")[0].strip().lower()
         if not mime.startswith("image/"):
             raise ValueError(f"not an image: {mime}")
