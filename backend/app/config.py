@@ -51,6 +51,21 @@ class Settings(BaseSettings):
     # Without it the evidence endpoints answer 503 and everything else works.
     R2_PRIVATE_BUCKET_NAME: str | None = None
 
+    # --- Apple Maps (MapKit JS) (optional: without it /maps/apple-token answers 503) ---
+    # Team ID (10 chars), the MapKit JS key ID and the .p8 private key (PEM; a single-line
+    # value with literal "\n" is accepted). The key never leaves the server: the API signs
+    # short-lived tokens that the browser hands to MapKit JS.
+    APPLE_MAPKIT_TEAM_ID: str | None = None
+    APPLE_MAPKIT_KEY_ID: str | None = None
+    APPLE_MAPKIT_PRIVATE_KEY: str | None = None
+    # Origins a token may be bound to (comma-separated). A request naming another origin gets
+    # a token without the `origin` claim, which MapKit JS accepts from any page.
+    APPLE_MAPKIT_ORIGINS: str = (
+        "https://conquistadores.app,https://www.conquistadores.app,"
+        "https://adventist.club,https://www.adventist.club,https://admin.adventist.club"
+    )
+    APPLE_MAPKIT_TOKEN_MINUTES: int = 30
+
     # --- Email via Resend (optional: without it emails are logged and skipped) ---
     RESEND_API_KEY: str | None = None
     EMAIL_FROM: str = "Adventist.Club <hi@adventist.club>"
@@ -77,6 +92,9 @@ class Settings(BaseSettings):
         "R2_ACCESS_KEY_ID",
         "R2_SECRET_ACCESS_KEY",
         "R2_PRIVATE_BUCKET_NAME",
+        "APPLE_MAPKIT_TEAM_ID",
+        "APPLE_MAPKIT_KEY_ID",
+        "APPLE_MAPKIT_PRIVATE_KEY",
         "RESEND_API_KEY",
         "FRONTEND_URL",
         "SENTRY_DSN",
@@ -158,6 +176,14 @@ class Settings(BaseSettings):
     @property
     def cors_list(self) -> list[str]:
         return [x.strip() for x in self.CORS_ORIGINS.split(",") if x.strip()]
+
+    @property
+    def apple_maps_configured(self) -> bool:
+        return bool(self.APPLE_MAPKIT_TEAM_ID and self.APPLE_MAPKIT_KEY_ID and self.APPLE_MAPKIT_PRIVATE_KEY)
+
+    @property
+    def apple_mapkit_origins(self) -> list[str]:
+        return [x.strip().rstrip("/").lower() for x in self.APPLE_MAPKIT_ORIGINS.split(",") if x.strip()]
 
     @property
     def environment(self) -> str:
