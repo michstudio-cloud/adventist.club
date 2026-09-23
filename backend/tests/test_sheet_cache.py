@@ -140,7 +140,7 @@ async def test_first_request_renders_and_uploads_then_redirects_to_the_cdn(clien
     second = await client.get(url)
     assert second.status_code == 302
     assert second.headers["location"] == f"https://media.test/{key}"
-    assert second.headers["cache-control"] == "public, max-age=3600"
+    assert second.headers["cache-control"] == "public, max-age=300"
     assert second.headers["etag"] == first.headers["etag"]
     assert renders == ["hoja"]                                         # no second render
 
