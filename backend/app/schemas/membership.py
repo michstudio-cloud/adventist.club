@@ -10,6 +10,8 @@ from typing import Literal
 
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
+from app.config import settings
+from app.schemas.secretaria import Completeness
 from app.schemas.unit import PersonRef, UnitRef
 
 MembershipStatus = Literal[
@@ -72,6 +74,11 @@ class MemberRow(BaseModel):
     since: datetime | None = None
     consent: ConsentSummary | None = None
     unit: UnitRef | None = None
+    # Bloque H §3: the cargos in force (the code, or the free text of OTRO), whether the
+    # record is complete (flags, never the data) and the attendance of the last 90 days.
+    officer_titles: list[str] = Field(default_factory=list)
+    completeness: Completeness | None = None
+    attendance_pct_90d: float | None = None
 
 
 class ManagedMemberRow(MemberRow):
@@ -112,6 +119,10 @@ class ClubProfileUpdate(BaseModel):
     meeting_time: str | None = Field(default=None, max_length=20)
     contact: str | None = Field(default=None, max_length=180)
     accepts_requests: bool | None = None
+    # Bloque H §5: shown on the public page of the club.
+    description: str | None = Field(default=None, max_length=600)
+    # An image already uploaded to the `logos` folder of the platform's bucket.
+    logo_url: str | None = Field(default=None, max_length=500)
 
     model_config = {"extra": "forbid"}
 
@@ -122,6 +133,32 @@ class ClubProfileUpdate(BaseModel):
             return None
         value = " ".join(value.split())
         return value or None
+
+    @field_validator("description")
+    @classmethod
+    def _paragraphs(cls, value: str | None) -> str | None:
+        """Spaces squeezed inside each line; the line breaks are kept."""
+        if value is None:
+            return None
+        value = "\n".join(" ".join(line.split()) for line in value.splitlines()).strip()
+        return value or None
+
+    @field_validator("logo_url")
+    @classmethod
+    def _a_logo_of_ours(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = value.strip()
+        prefix = f"{settings.R2_PUBLIC_URL.rstrip('/')}/logos/"
+        rest = value[len(prefix):]
+        if (
+            not value.startswith(prefix)
+            or not rest
+            or ".." in rest
+            or any(char.isspace() for char in value)
+        ):
+            raise ValueError("logo_url debe ser una imagen de la carpeta logos de la plataforma")
+        return value
 
 
 class ClubProfileOut(BaseModel):

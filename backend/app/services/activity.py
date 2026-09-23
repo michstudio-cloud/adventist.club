@@ -95,7 +95,7 @@ async def _out(
                     deciders
                     and log.status == SUBMITTED
                     and member is not None
-                    and await can_approve_activity(db, actor, member)
+                    and await can_approve_activity(db, actor, member, log.category)
                 ),
             )
         )
@@ -119,7 +119,7 @@ async def create_logs(
             member = await db.get(User, user_id)
             if member is None:
                 raise HTTPException(status.HTTP_404_NOT_FOUND, "Miembro no encontrado")
-            if not await can_approve_activity(db, actor, member):
+            if not await can_approve_activity(db, actor, member, payload.category):
                 raise HTTPException(
                     status.HTTP_403_FORBIDDEN,
                     "Solo el director del club (o su Asociación) registra horas de otros miembros",
@@ -271,7 +271,7 @@ async def decide(
 ) -> ActivityOut:
     log = await _get_log(db, log_id)
     member = await db.get(User, log.user_id)
-    if member is None or not await can_approve_activity(db, actor, member):
+    if member is None or not await can_approve_activity(db, actor, member, log.category):
         raise HTTPException(
             status.HTTP_403_FORBIDDEN,
             "Nadie aprueba sus propias horas" if log.user_id == actor.id

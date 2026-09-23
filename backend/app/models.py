@@ -981,6 +981,11 @@ class ActivityLog(Base):
     decision_note: Mapped[str | None] = mapped_column(String(500))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 015_secretaria.sql (Bloque H): the meeting whose list produced this attendance. At most
+    # one row per meeting and person (partial unique index); NULL for everything else.
+    meeting_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("club_meetings.id", ondelete="SET NULL")
+    )
 
 
 class XpAward(Base):
@@ -1021,3 +1026,63 @@ class ProgramRequirementText(Base):
     license: Mapped[str | None] = mapped_column(String(40))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 015_secretaria.sql (Bloque H): the club's officers and «pasar lista».
+# ---------------------------------------------------------------------------
+
+
+class ClubOfficer(Base):
+    """A cargo of the club. A TITLE, never a permission: permissions keep coming from
+    `club_memberships.role` / `users.role`. Never deleted: closed with `until`."""
+
+    __tablename__ = "club_officers"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    membership_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("club_memberships.id", ondelete="CASCADE")
+    )
+    title: Mapped[str] = mapped_column(String(12))
+    custom_title: Mapped[str | None] = mapped_column(String(60))
+    since: Mapped[date] = mapped_column(Date)
+    until: Mapped[date | None] = mapped_column(Date)
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ClubMeeting(Base):
+    __tablename__ = "club_meetings"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    held_on: Mapped[date] = mapped_column(Date)
+    kind: Mapped[str] = mapped_column(String(12))
+    title: Mapped[str | None] = mapped_column(String(120))
+    notes: Mapped[str | None] = mapped_column(String(500))
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ClubAttendance(Base):
+    """The status of one member in one meeting. What earns XP is the `activity_logs` row
+    that a PRESENT entry keeps in step (`app/services/attendance.py`)."""
+
+    __tablename__ = "club_attendance"
+
+    meeting_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("club_meetings.id", ondelete="CASCADE"), primary_key=True
+    )
+    membership_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("club_memberships.id", ondelete="CASCADE"), primary_key=True
+    )
+    status: Mapped[str] = mapped_column(String(10))
+    recorded_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

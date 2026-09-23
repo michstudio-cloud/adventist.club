@@ -12,6 +12,8 @@ from app.security import (
     ADMIN_ASSOCIATION,
     ADMIN_DIVISION,
     ADMIN_UNION,
+    CLUB_DIRECTOR,
+    CLUB_SECRETARY,
     COORDINATOR_ZONE,
     INSTRUCTOR,
     MASTER_GC,
@@ -30,6 +32,8 @@ UPLOAD_ROLES = (
     MASTER_GC,
 )
 STORAGE_NOT_CONFIGURED_DETAIL = "Almacenamiento no configurado"
+CLUB_LOGO_FOLDER = "logos"
+CLUB_LOGO_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY)
 
 
 class UploadResponse(BaseModel):
@@ -54,10 +58,13 @@ async def upload_media(
     carries no scripts, event handlers or javascript: URLs.
     `avatars` and `covers` (Bloque G): any signed-in person, raster images only; a minor
     never uploads a cover, nor a photo until a guardian allowed it.
+    `logos` (Bloque H): also CLUB_DIRECTOR and CLUB_SECRETARY, raster images only.
     """
     target_folder = storage.resolve_folder(folder)
     profile_media = target_folder in storage.PROFILE_FOLDERS
-    if current_user.role not in UPLOAD_ROLES and not profile_media:
+    # Bloque H §5: the direction and the secretary of a club upload its logo, and only that.
+    club_logo = target_folder == CLUB_LOGO_FOLDER and current_user.role in CLUB_LOGO_ROLES
+    if current_user.role not in UPLOAD_ROLES and not profile_media and not club_logo:
         raise HTTPException(
             status.HTTP_403_FORBIDDEN,
             f"Insufficient permissions. Required roles: {list(UPLOAD_ROLES)}",
@@ -94,6 +101,8 @@ async def upload_media(
 
     if profile_media and content_type not in storage.ALLOWED_IMAGE_TYPES:
         raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "profile_media_images_only")
+    if club_logo and current_user.role not in UPLOAD_ROLES and content_type not in storage.ALLOWED_IMAGE_TYPES:
+        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "club_logo_images_only")
 
     max_size = storage.max_size_for(content_type)
     too_large = HTTPException(
