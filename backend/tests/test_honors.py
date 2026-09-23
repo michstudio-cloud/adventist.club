@@ -563,6 +563,8 @@ async def test_my_created_and_stats(client, staff, factory):
             "by_category",
             "by_difficulty",
             "recently_published",
+            "missing_requirements",
+            "foreign_only",
         }
         assert body["total_honors"] == sum(body["by_status"].values())
         assert body["by_status"].get("PUBLISHED", 0) >= 1

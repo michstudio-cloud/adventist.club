@@ -10,7 +10,7 @@ import re
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Query, Request, Response, status
-from sqlalchemy import delete, func, or_, select
+from sqlalchemy import case, delete, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -38,12 +38,14 @@ from app.schemas.honor import (
     CategoryOut,
     CategoryTranslationIn,
     CategoryUpdate,
+    HonorContentFilter,
     HonorCreate,
     HonorDetail,
     HonorInstructorDetail,
     HonorListItem,
     HonorReviewIn,
     HonorStaffDetail,
+    HonorStaffListItem,
     HonorStats,
     HonorStatus,
     HonorStatusFilter,
@@ -241,6 +243,47 @@ def _list_fields(
 
 def _list_item(honor: Honor, category: HonorCategory | None) -> HonorListItem:
     return HonorListItem(**_list_fields(honor, category))
+
+
+def _requirements_summary():
+    """One row per honor that has requirements: the locale the editor shows (the source language,
+    else English, else the first one, like `_editing_locale`) and how many rows it has there.
+    Honors without rows are absent, so an outer join leaves both columns NULL."""
+    per_locale = (
+        select(
+            HonorRequirement.honor_id.label("honor_id"),
+            HonorRequirement.locale.label("locale"),
+            func.count().label("count"),
+        )
+        .group_by(HonorRequirement.honor_id, HonorRequirement.locale)
+        .subquery("requirements_per_locale")
+    )
+    language = func.lower(per_locale.c.locale)
+    return (
+        select(per_locale.c.honor_id, per_locale.c.locale, per_locale.c.count)
+        .distinct(per_locale.c.honor_id)
+        .order_by(
+            per_locale.c.honor_id,
+            case((language == SOURCE_LOCALE, 0), (language == "en", 1), else_=2),
+            per_locale.c.locale,
+        )
+        .subquery("requirements_summary")
+    )
+
+
+def _content_condition(summary, content: str):
+    if content == "missing_requirements":
+        return summary.c.honor_id.is_(None)
+    has_source = func.lower(summary.c.locale) == SOURCE_LOCALE
+    if content == "foreign_only":
+        return summary.c.honor_id.is_not(None) & ~has_source
+    return has_source
+
+
+def _is_staff(user: User | None) -> bool:
+    """The callers `_staff_list_conditions` does not turn away (those allowed `status=ALL`),
+    decided from the role alone so the public catalogue pays nothing for it."""
+    return user is not None and (is_master(user) or user.role in ZONE_REVIEWERS or user.role == INSTRUCTOR)
 
 
 def _with_category(stmt):
@@ -559,13 +602,16 @@ def _publish(honor: Honor) -> None:
 # ----------------------------------------------------------------------------
 # Public catalogue
 # ----------------------------------------------------------------------------
-@router.get("", response_model=list[HonorListItem])
+@router.get("", response_model=None, responses={200: {"model": list[HonorStaffListItem]}})
 async def list_honors(
     response: Response,
     q: str | None = Query(None, max_length=100),
     ministry: str = "pathfinders",
     category: str | None = Query(None, description="Category slug"),
     status_filter: HonorStatusFilter | None = Query(None, alias="status"),
+    content: HonorContentFilter | None = Query(
+        None, description="Staff only: missing_requirements | foreign_only | complete"
+    ),
     limit: int = Query(500, ge=1, le=500),
     offset: int = Query(0, ge=0),
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
@@ -579,6 +625,10 @@ async def list_honors(
     signed-in reviewers (their scope) and instructors (their own honors);
     for anyone else it is ignored. `status=ALL` (every status, hidden ones included, inside the
     caller's scope) is staff-only: anyone else gets 403. Total row count: `X-Total-Count` header.
+
+    Staff (the same callers) also get `requirements_count` / `requirements_locale` on every item
+    and may filter with `content` (missing_requirements, foreign_only, complete); for anyone else
+    `content` is ignored and the items keep the public shape.
     """
     staff_scope = None
     wants_unpublished = status_filter is not None and status_filter != PUBLISHED
@@ -607,9 +657,14 @@ async def list_honors(
     category_locale = await _resolve_locale(db, HonorCategoryTranslation, locale)
     shown_name = func.coalesce(HonorTranslation.name, Honor.name)
 
+    staff = _is_staff(current_user)
+    summary = _requirements_summary() if staff else None
+    if summary is not None and content:
+        conditions.append(_content_condition(summary, content))
+
     def localized(stmt):
         # The locale is a constant in both joins, so they never multiply rows.
-        return _with_category(stmt).outerjoin(
+        stmt = _with_category(stmt).outerjoin(
             HonorTranslation,
             (HonorTranslation.honor_id == Honor.id) & (HonorTranslation.locale == name_locale),
         ).outerjoin(
@@ -617,6 +672,10 @@ async def list_honors(
             (HonorCategoryTranslation.category_id == HonorCategory.id)
             & (HonorCategoryTranslation.locale == category_locale),
         )
+        # One row per honor at most (DISTINCT ON), so this join does not multiply rows either.
+        if summary is not None:
+            stmt = stmt.outerjoin(summary, summary.c.honor_id == Honor.id)
+        return stmt
 
     # The database collation is C.UTF-8, which sorts "Árboles" and "Óptica" after "Z".
     order_by = [shown_name.collate(SPANISH_COLLATION if name_locale is None else "und-x-icu"), Honor.id]
@@ -638,20 +697,28 @@ async def list_honors(
         )
 
     total = (await db.execute(localized(select(func.count(Honor.id))).where(*conditions))).scalar_one()
+    columns = [Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name]
+    if summary is not None:
+        columns += [summary.c.count, summary.c.locale]
     rows = (
         await db.execute(
-            localized(select(Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name))
-            .where(*conditions)
-            .order_by(*order_by)
-            .limit(limit)
-            .offset(offset)
+            localized(select(*columns)).where(*conditions).order_by(*order_by).limit(limit).offset(offset)
         )
     ).all()
     response.headers["X-Total-Count"] = str(total)
     response.headers["Content-Language"] = name_locale or SOURCE_LOCALE
+    if summary is None:
+        return [
+            HonorListItem(**_list_fields(honor, category_row, translated, name_locale, translated_category))
+            for honor, category_row, translated, translated_category in rows
+        ]
     return [
-        HonorListItem(**_list_fields(honor, category_row, translated, name_locale, translated_category))
-        for honor, category_row, translated, translated_category in rows
+        HonorStaffListItem(
+            **_list_fields(honor, category_row, translated, name_locale, translated_category),
+            requirements_count=count or 0,
+            requirements_locale=requirements_locale,
+        )
+        for honor, category_row, translated, translated_category, count, requirements_locale in rows
     ]
 
 
@@ -1022,6 +1089,18 @@ async def stats_overview(
         return {(key or "unset"): count for key, count in (await db.execute(stmt)).all()}
 
     by_status = await grouped(Honor.status)
+    summary = _requirements_summary()
+    missing, foreign_only = (
+        await db.execute(
+            select(
+                func.count(Honor.id).filter(_content_condition(summary, "missing_requirements")),
+                func.count(Honor.id).filter(_content_condition(summary, "foreign_only")),
+            )
+            .select_from(Honor)
+            .outerjoin(summary, summary.c.honor_id == Honor.id)
+            .where(*conditions)
+        )
+    ).one()
     recent = (
         await db.execute(
             _with_category(select(Honor, HonorCategory))
@@ -1036,6 +1115,8 @@ async def stats_overview(
         by_category=await grouped(HonorCategory.slug),
         by_difficulty=await grouped(Honor.difficulty_level),
         recently_published=[_list_item(honor, category) for honor, category in recent],
+        missing_requirements=missing,
+        foreign_only=foreign_only,
     )
 
 

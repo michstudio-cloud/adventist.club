@@ -20,6 +20,9 @@ HonorType = Literal["OFFICIAL_GC", "DIVISIONAL", "LOCAL"]
 HonorStatus = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED"]
 # `ALL` is a staff-only filter of GET /honors: every status inside the caller's scope.
 HonorStatusFilter = Literal["DRAFT", "ZONE_REVIEW", "ASSOCIATION_REVIEW", "PUBLISHED", "ARCHIVED", "ALL"]
+# Staff-only filter of GET /honors by requirements: none at all, only in a foreign language
+# (no `es` rows), or with the source (`es`) text.
+HonorContentFilter = Literal["missing_requirements", "foreign_only", "complete"]
 ReviewAction = Literal["APPROVE", "REJECT", "REQUEST_CHANGES"]
 CATEGORY_SLUG_PATTERN = r"^[a-z0-9-]{2,120}$"
 
@@ -244,6 +247,14 @@ class HonorListItem(BaseModel):
     year_introduced: int | None = None
 
 
+class HonorStaffListItem(HonorListItem):
+    """What staff get from GET /honors: how many requirements the honor has in its source
+    language (`es` when there is any, else the language with rows); locale None = no rows."""
+
+    requirements_count: int = 0
+    requirements_locale: str | None = None
+
+
 class QuestionOut(BaseModel):
     id: str
     position: int
@@ -345,3 +356,6 @@ class HonorStats(BaseModel):
     by_category: dict[str, int]
     by_difficulty: dict[str, int]
     recently_published: list[HonorListItem]
+    # Honors without any requirement row, and with rows only in a foreign language (no `es`).
+    missing_requirements: int = 0
+    foreign_only: int = 0
