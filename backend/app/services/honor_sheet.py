@@ -690,6 +690,34 @@ def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float, color: 
 # ---------------------------------------------------------------------------------------
 MARGIN_X = 34.0  # 12 mm: el propietario pidió menos margen lateral (antes 17 mm)
 MARGIN_TOP = 50.0
+# ---------------------------------------------------------------------------------------
+# App icon (bottom-right corner of every page): the brand SVG rasterised once with resvg
+# ---------------------------------------------------------------------------------------
+APP_ICON_SVG = Path(__file__).resolve().parents[1] / "assets" / "app-icon.svg"
+
+
+@lru_cache(maxsize=1)
+def app_icon_png() -> bytes | None:
+    """The app icon as PNG bytes (256 px), or None if the asset or resvg is unavailable."""
+    try:
+        import resvg_py
+
+        svg = APP_ICON_SVG.read_text(encoding="utf-8")
+        return bytes(resvg_py.svg_to_bytes(svg_string=svg, width=256, height=256))
+    except Exception as exc:  # the sheet never fails because of the icon
+        logger.warning("honor sheet: app icon unavailable: %s", exc)
+        return None
+
+
+def draw_app_icon(c: canvas.Canvas, x: float, y: float, size: float) -> bool:
+    """Draws the icon with its bottom-left corner at (x, y); returns False if unavailable."""
+    png = app_icon_png()
+    if not png:
+        return False
+    c.drawImage(ImageReader(BytesIO(png)), x, y, width=size, height=size, mask="auto")
+    return True
+
+
 FOOTER_TOP = 104.0          # content never goes below this line
 CONTENT_BOTTOM = FOOTER_TOP + 14.0
 
@@ -1115,8 +1143,10 @@ class _SheetRenderer:
         self.text(tx, 67, labels["version"].format(n=data.version, date=format_date(data.updated_at, data.language)),
                   self.regular, 7.5, MUTED)
 
-        self.text(right, 80, labels["page"].format(x=page, y=total), self.bold, 8, TEXT_2, align="right")
-        self.text(right, 67, ellipsize(data.name, self.regular, 7.5, 150), self.regular, 7.5, MUTED, align="right")
+        icon = 26.0
+        text_right = right - (icon + 10 if draw_app_icon(c, right - icon, 62, icon) else 0)
+        self.text(text_right, 80, labels["page"].format(x=page, y=total), self.bold, 8, TEXT_2, align="right")
+        self.text(text_right, 67, ellipsize(data.name, self.regular, 7.5, 150), self.regular, 7.5, MUTED, align="right")
 
     # ----------------------------------------------------------------- document
     def render(self) -> bytes:
@@ -1632,9 +1662,11 @@ class _WorksheetRenderer(_SheetRenderer):
         labels = self.labels
         self.rule(self.left, self.right, WS_FOOTER_RULE, WS_RULE, 0.5)
         page_label = labels["page"].format(x=page, y=total)
-        page_w = self.text(self.right, 42, page_label, self.bold, 8, WS_LABEL, align="right")
+        icon = 22.0
+        text_right = self.right - (icon + 8 if draw_app_icon(c, self.right - icon, 34, icon) else 0)
+        page_w = self.text(text_right, 42, page_label, self.bold, 8, WS_LABEL, align="right")
         left = f"{self.data.name} · {labels['ws_title']}"
-        self.text(self.left, 42, ellipsize(left, self.regular, 7.5, self.content_w - page_w - 20),
+        self.text(self.left, 42, ellipsize(left, self.regular, 7.5, self.content_w - page_w - icon - 28),
                   self.regular, 7.5, WS_HINT)
 
     # ----------------------------------------------------------------- document
