@@ -294,13 +294,21 @@ async def _honor_refs(
         if enrollment.honor_id is None:
             continue
         honor = honors[enrollment.honor_id]
-        names = translations.get(honor.id, {})
-        is_source = enrollment.locale.lower().split("-")[0] == SOURCE_LOCALE
-        translated = None if is_source else names.get(match_locale(list(names), enrollment.locale))
         refs[enrollment.id] = HonorRef(
-            id=str(honor.id), name=translated or honor.name, slug=honor.slug, image_url=honor.image_url
+            id=str(honor.id),
+            name=honor_name_in(honor.name, translations.get(honor.id, {}), enrollment.locale),
+            slug=honor.slug,
+            image_url=honor.image_url,
         )
     return refs
+
+
+def honor_name_in(source_name: str, names: dict[str, str], locale: str) -> str:
+    """The honor's name in the enrollment's language: the translation when one matches,
+    the source text otherwise (and always for the source language)."""
+    if locale.lower().split("-")[0] == SOURCE_LOCALE or not names:
+        return source_name
+    return names.get(match_locale(list(names), locale)) or source_name
 
 
 async def _certificates_out(db: AsyncSession, certificates: list[Certificate]) -> list[CertificateOut]:

@@ -21,6 +21,9 @@ MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024
 MAX_PDF_SIZE_BYTES = 20 * 1024 * 1024
 PUT_EXPIRES_SECONDS = 10 * 60
 GET_EXPIRES_SECONDS = 5 * 60
+# The evidence album shows up to four photos per honor: a page the member browses for a
+# while, so its links live longer than the single "open this file" link above.
+ALBUM_GET_EXPIRES_SECONDS = 15 * 60
 
 # content type -> (evidence kind, stored extension). The extension comes from the
 # validated MIME type, never from a client-supplied file name.
@@ -106,12 +109,13 @@ def presign_put(key: str, content_type: str, size_bytes: int) -> dict:
     }
 
 
-def presign_get(key: str) -> dict:
+def presign_get(key: str, expires_in: int = GET_EXPIRES_SECONDS) -> dict:
+    """Local HMAC signing, no network call: cheap enough to sign a page of thumbnails."""
     bucket = _bucket()
     url = get_client().generate_presigned_url(
-        "get_object", Params={"Bucket": bucket, "Key": key}, ExpiresIn=GET_EXPIRES_SECONDS
+        "get_object", Params={"Bucket": bucket, "Key": key}, ExpiresIn=expires_in
     )
-    return {"url": url, "expires_in": GET_EXPIRES_SECONDS}
+    return {"url": url, "expires_in": expires_in}
 
 
 def head_object(key: str) -> StoredObject | None:
