@@ -688,7 +688,7 @@ def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float, color: 
 # ---------------------------------------------------------------------------------------
 # Rendering
 # ---------------------------------------------------------------------------------------
-MARGIN_X = 48.0
+MARGIN_X = 34.0  # 12 mm: el propietario pidió menos margen lateral (antes 17 mm)
 MARGIN_TOP = 50.0
 FOOTER_TOP = 104.0          # content never goes below this line
 CONTENT_BOTTOM = FOOTER_TOP + 14.0
