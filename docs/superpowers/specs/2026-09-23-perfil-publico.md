@@ -72,6 +72,9 @@ visibility, is_me, can_edit
 Niveles: 0 Explorador · 250 Rastreador · 750 Excursionista · 1 500 Guía · 3 000 Pionero ·
 6 000 Maestro. Se calcula con una consulta agregada cacheada 10 min. Sólo lo ve el propio
 usuario, su club y su asociación; en el perfil **público** se muestra el **nivel**, no el número.
+Ajuste 2026-09-23 (implementado): el **tutor aprobado de un menor** también ve el número y la
+barra de conducta de ese hijo (no de un adulto al que tutele). Los pares con visibilidad `club`
+ven solo el nivel.
 
 ### 4.1 Puntos otorgados por el director («barra de buena conducta») — aprobado 2026-09-23
 
