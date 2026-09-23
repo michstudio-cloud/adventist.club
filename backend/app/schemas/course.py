@@ -26,6 +26,7 @@ from app.schemas.content import (  # noqa: F401
     parse_video,
 )
 from app.schemas.honor import HonorReviewIn, ReviewOut  # noqa: F401  (shared)
+from app.schemas.org import OrgRef
 from app.schemas.portfolio import ClubRef, Counters, HonorRef, PersonRef  # noqa: F401  (shared)
 from app.services.locales import LOCALE_PATTERN
 
@@ -130,6 +131,10 @@ class CourseCreate(BaseModel):
         default=None, ge=TIME_LIMIT_MINUTES[0], le=TIME_LIMIT_MINUTES[1]
     )
     max_exam_attempts: int | None = Field(default=None, ge=1, le=MAX_EXAM_ATTEMPTS)
+    # The organization the course hangs from (it decides who reviews and who lists it).
+    # Left out, it is the author's own. Only an institutional author may choose another one,
+    # inside their subtree (MASTER_GC anywhere): an instructor never picks their reviewers.
+    org_scope_id: uuid.UUID | None = None
 
     _clean = field_validator("summary", mode="before")(_blank_to_none)
 
@@ -318,6 +323,22 @@ class CourseStaffDetail(CourseDetail):
     question_banks: list[RequirementBankOut] = Field(default_factory=list)
     # Non-blocking notes for the author and the reviewers (a short bank, automatic issuance).
     warnings: list[str] = Field(default_factory=list)
+
+
+class CourseAuthorRef(PersonRef):
+    """The author as the administration reads them: STAFF ONLY (it carries the e-mail)."""
+
+    email: str
+    role: str
+
+
+class AdminCourseRow(CourseCard):
+    """One row of `GET /courses/admin`: the card plus what the administration manages by."""
+
+    instructor: CourseAuthorRef
+    # The association the author hangs from today (None for an author outside any).
+    association: OrgRef | None
+    updated_at: datetime
 
 
 class PaginatedCourses(BaseModel):

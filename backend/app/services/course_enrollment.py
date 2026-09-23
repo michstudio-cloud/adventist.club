@@ -8,7 +8,8 @@ ever deleted or reset, so a member who leaves (or is removed) keeps every verdic
 Integrity rules (spec §3.9):
   2. `mode = 'COURSE'` <=> `course_id` is set (CHECK) and `course.honor_id = enrollment.honor_id`.
   3. One course per enrollment, one enrollment per honor (index of A).
-  5. Everything the instructor does on an enrollment asks `instructor_is_verified` NOW.
+  5. Everything the instructor does on an enrollment asks `course_author_in_good_standing`
+     (the letter, or an institutional author) NOW.
   6. Rules 1-5 of A keep applying to COURSE enrollments without exception.
 
 Each function commits its change together with its audit row.
@@ -29,7 +30,7 @@ from app.models import (
     RequirementProgress,
     User,
 )
-from app.rbac import CONSENT_GRANTED, instructor_is_verified, is_master
+from app.rbac import CONSENT_GRANTED, course_author_in_good_standing, is_master
 from app.schemas.course import CourseMember, CourseMemberRemove, JoinedCourse
 from app.schemas.portfolio import ClubRef, Counters, EnrollmentCreate, EnrollmentDetail, PersonRef
 from app.security import utcnow
@@ -64,7 +65,7 @@ async def _require_joinable(db: AsyncSession, actor: User, course: Course) -> No
     if course.instructor_id == actor.id:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "No puedes inscribirte en tu propio curso")
     instructor = await db.get(User, course.instructor_id)
-    if instructor is None or not await instructor_is_verified(db, instructor):
+    if not await course_author_in_good_standing(db, instructor):
         raise HTTPException(
             status.HTTP_409_CONFLICT,
             "El instructor del curso no tiene su carta autorizada en este momento",

@@ -49,7 +49,7 @@ from app.models import (
     RequirementProgress,
     User,
 )
-from app.rbac import COURSE_LIVE_STATUSES, instructor_is_verified, member_club
+from app.rbac import COURSE_LIVE_STATUSES, course_author_in_good_standing, member_club
 from app.security import utcnow
 from app.services.audit import record_audit
 from app.services.certificates import (
@@ -85,7 +85,7 @@ async def maybe_issue(
     instructor = await db.get(User, course.instructor_id)
     if instructor is None or instructor.id == enrollment.user_id:
         return None
-    if not await instructor_is_verified(db, instructor):
+    if not await course_author_in_good_standing(db, instructor):
         # The letter is the authorisation. Without it nobody signs, and the enrollment
         # waits: this is not an error, it is the gate doing its job.
         return None

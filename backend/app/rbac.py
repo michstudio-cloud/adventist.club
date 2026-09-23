@@ -9,8 +9,9 @@ equality and left the hierarchy as a TODO.
 import uuid
 from datetime import date, datetime, timedelta, timezone
 
-from sqlalchemy import or_, select
+from sqlalchemy import exists, false, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import aliased
 
 from app.config import settings
 from app.models import (
@@ -24,6 +25,7 @@ from app.models import (
 )
 from app.people import is_minor_user
 from app.security import (
+    ADMIN_ASSOCIATION,
     ADMIN_ROLES,
     CLUB_APPROVED,
     CLUB_DIRECTOR,
@@ -164,6 +166,34 @@ async def org_in_decision_scope(
         return False
     target_path = await get_org_path(db, organization_id)
     return bool(target_path) and await _ancestor_path(db, target_path, "zone") is None
+
+
+async def decision_scope_condition(db: AsyncSession, actor: User, organization_column):
+    """`org_in_decision_scope` as ONE SQL condition over `organization_column`, for a list
+    that must hold (and count) exactly what the caller decides about — not the coarser
+    reading scope of `club_scope_paths`. None means global (MASTER_GC)."""
+    if is_master(actor):
+        return None
+    if actor.role not in ADMIN_ROLES:
+        return false()
+    own_path = await get_org_path(db, actor.organization_id)
+    if not own_path:
+        return false()
+    condition = organization_column.in_(
+        select(Organization.id).where(Organization.path.op("<@")(own_path))
+    )
+    if actor.role != COORDINATOR_ZONE:
+        return condition
+    association_path = await _ancestor_path(db, own_path, "association")
+    if not association_path:
+        return condition
+    # The legacy arm: what hangs from the association without living inside any zone.
+    zone = aliased(Organization)
+    loose = select(Organization.id).where(
+        Organization.path.op("<@")(association_path),
+        ~exists().where(zone.type == "zone", zone.path.op("@>")(Organization.path)),
+    )
+    return or_(condition, organization_column.in_(loose))
 
 
 async def can_decide_club(db: AsyncSession, actor: User, club: Organization) -> bool:
@@ -477,6 +507,35 @@ async def instructor_is_verified(db: AsyncSession, user: User) -> bool:
 
 
 # ----------------------------------------------------------------------------
+# Courses written by the administration (admin.adventist.club/admin/cursos).
+# ----------------------------------------------------------------------------
+# The Association and MASTER_GC write courses too. The church letter is how a PERSON is
+# vouched for before the Church; an institutional author IS the authority that vouches, so
+# the letter is never asked of them (rule 4 of the courses) and their course needs no review.
+INSTITUTIONAL_COURSE_AUTHORS = (ADMIN_ASSOCIATION, MASTER_GC)
+COURSE_AUTHOR_ROLES = (INSTRUCTOR, *INSTITUTIONAL_COURSE_AUTHORS)
+
+
+def is_institutional_author(user: User | None) -> bool:
+    return (
+        user is not None
+        and user.role in INSTITUTIONAL_COURSE_AUTHORS
+        and user.status == "ACTIVE"
+    )
+
+
+async def course_author_in_good_standing(db: AsyncSession, user: User | None) -> bool:
+    """The ONE gate every course act asks about its author (rule 4 of the courses): an
+    institutional author in an active account, or an instructor with the letter in force
+    (`instructor_is_verified`). Asked at the moment of the act, like the letter itself."""
+    if user is None:
+        return False
+    if is_institutional_author(user):
+        return True
+    return await instructor_is_verified(db, user)
+
+
+# ----------------------------------------------------------------------------
 # Bloque B · I3: the instructor of the course an enrollment is being taken in.
 # ----------------------------------------------------------------------------
 # A course still serves its members once archived, but not when a reviewer withdrew it.
@@ -500,7 +559,7 @@ async def is_course_instructor(
         return False
     if course.status not in COURSE_LIVE_STATUSES or course.archived_by_authority:
         return False
-    return await instructor_is_verified(db, actor)
+    return await course_author_in_good_standing(db, actor)
 
 
 async def can_view_enrollment(

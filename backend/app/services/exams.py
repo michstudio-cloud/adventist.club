@@ -43,7 +43,7 @@ from app.rbac import (
     CONSENT_GRANTED,
     can_grade_attempt,
     can_view_enrollment,
-    instructor_is_verified,
+    course_author_in_good_standing,
     is_course_instructor,
     is_master,
 )
@@ -117,7 +117,7 @@ async def _live_course(db: AsyncSession, enrollment: HonorEnrollment) -> Course:
             status.HTTP_409_CONFLICT, "El curso fue retirado y su examen está cerrado"
         )
     instructor = await db.get(User, course.instructor_id)
-    if instructor is None or not await instructor_is_verified(db, instructor):
+    if not await course_author_in_good_standing(db, instructor):
         raise HTTPException(
             status.HTTP_409_CONFLICT,
             "El instructor del curso no tiene su carta autorizada en este momento",
@@ -959,7 +959,7 @@ async def grading_queue(
     """
     taught = None
     if not is_master(actor):
-        if not await instructor_is_verified(db, actor):
+        if not await course_author_in_good_standing(db, actor):
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN, "No tienes cola de calificación de exámenes"
             )
