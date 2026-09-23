@@ -325,6 +325,6 @@ async def test_no_progress_email_ever_carries_another_persons_data(world):
         "Ana", "PROGRESS_INCOMPLETE", "Nudos y amarres", "Falta la foto", "https://x/portafolio/1"
     )
     assert "Nudos y amarres" in html and "Falta la foto" in html
-    assert "<img" not in html.split("</div>")[2]  # only the header logo, above the content
+    assert html.count("<img") == 1  # only the header logo, above the content
     for other in (world["minor"]["email"], world["guardian"]["email"]):
         assert other not in html

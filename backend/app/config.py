@@ -71,6 +71,8 @@ class Settings(BaseSettings):
     EMAIL_FROM: str = "Adventist.Club <hi@adventist.club>"
     EMAIL_FROM_NAME: str = "Adventist.Club"
     FRONTEND_URL: str | None = None
+    # Base URL of the staff links in emails (admin.adventist.club). Falls back to FRONTEND_URL.
+    ADMIN_WEB_URL: str | None = None
 
     # --- Monitoring (optional: no-op without SENTRY_DSN) ---
     SENTRY_DSN: str | None = None
@@ -97,6 +99,7 @@ class Settings(BaseSettings):
         "APPLE_MAPKIT_PRIVATE_KEY",
         "RESEND_API_KEY",
         "FRONTEND_URL",
+        "ADMIN_WEB_URL",
         "SENTRY_DSN",
         "SERVER_NAME",
         mode="before",
@@ -193,6 +196,11 @@ class Settings(BaseSettings):
     def frontend_url(self) -> str:
         """Base URL used in emailed links."""
         return (self.FRONTEND_URL or self.PUBLIC_WEB_URL).rstrip("/")
+
+    @property
+    def admin_url(self) -> str:
+        """Base URL of the staff links in emails; the member app serves /admin too."""
+        return (self.ADMIN_WEB_URL or self.frontend_url).rstrip("/")
 
     @property
     def auth_configured(self) -> bool:

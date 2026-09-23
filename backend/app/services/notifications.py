@@ -213,7 +213,7 @@ async def queue_pending_requests_notice(
 # The church letter of a club leader (E7)
 # ----------------------------------------------------------------------------
 def letters_queue_url() -> str:
-    return f"{settings.frontend_url}/panel/cartas"
+    return f"{settings.admin_url}/admin/cartas"
 
 
 async def letter_validators(db: AsyncSession, letter) -> list:
@@ -363,7 +363,7 @@ async def queue_membership_decision(
 # would turn into noise.
 # ----------------------------------------------------------------------------
 def portfolio_url(enrollment_id) -> str:
-    return f"{settings.frontend_url}/portafolio/{enrollment_id}"
+    return f"{settings.frontend_url}/portfolio/enrollments/{enrollment_id}"
 
 
 async def _progress_allowed(db: AsyncSession, enrollment_id, kind: str) -> bool:
