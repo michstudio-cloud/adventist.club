@@ -9,7 +9,7 @@ administrators above them — not even for the club's own secretary.
 import uuid
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
-from sqlalchemy import select
+from sqlalchemy import exists, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -24,6 +24,8 @@ from app.rbac import (
     can_view_guardian_contact,
     can_view_roster,
     may_handle_minors,
+    profile_is_minor,
+    visible_avatar,
 )
 from app.schemas.membership import (
     BulkApproval,
@@ -97,7 +99,9 @@ async def list_members(
     sees_guardians = await can_view_guardian_contact(db, current_user, club)
 
     stmt = (
-        select(ClubMembership, User)
+        # `has_guardian` rides along (the profile's minor rule for accounts without a birth
+        # date), so the photo of every row costs no query of its own.
+        select(ClubMembership, User, _HAS_GUARDIAN)
         .join(User, User.id == ClubMembership.user_id)
         .where(
             ClubMembership.club_id == club.id,
@@ -125,11 +129,21 @@ async def list_members(
 
     return [
         await _member_row(
-            db, membership, member, include_guardian_email=sees_guardians, units=units
+            db,
+            membership,
+            member,
+            include_guardian_email=sees_guardians,
+            units=units,
+            has_guardian=has_guardian,
         )
-        for membership, member in rows
+        for membership, member, has_guardian in rows
         if not (hide_minors and is_minor_user(member))
     ]
+
+
+_HAS_GUARDIAN = (
+    exists().where(Guardianship.child_id == User.id).correlate(User).label("has_guardian")
+)
 
 
 async def _member_row(
@@ -139,8 +153,16 @@ async def _member_row(
     *,
     include_guardian_email: bool,
     units: dict | None = None,
+    has_guardian: bool | None = None,
 ) -> MemberRow | ManagedMemberRow:
     minor = is_minor_user(member)
+    if has_guardian is None:
+        # A single row (after a role change): ask only when it can change the answer.
+        has_guardian = (
+            not minor
+            and member.birth_date is None
+            and bool(await db.scalar(select(exists().where(Guardianship.child_id == member.id))))
+        )
     consent = None
     if minor:
         consent = ConsentSummary(
@@ -153,6 +175,8 @@ async def _member_row(
         membership_id=str(membership.id),
         user_id=str(member.id),
         name=member.name,
+        handle=member.handle,
+        avatar_url=visible_avatar(member, is_minor=profile_is_minor(member, has_guardian)),
         role=membership.role,
         status=membership.status,
         is_minor=minor,

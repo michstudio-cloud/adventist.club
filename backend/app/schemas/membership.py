@@ -61,6 +61,10 @@ class MemberRow(BaseModel):
     membership_id: str
     user_id: str
     name: str
+    # Bloque G: the link to `/u/{handle}` and the photo — None for a minor until a
+    # guardian allowed it (rule 4 of the profile spec).
+    handle: str | None = None
+    avatar_url: str | None = None
     role: str
     status: str
     is_minor: bool

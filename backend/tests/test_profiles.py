@@ -380,8 +380,39 @@ async def test_xp_number_only_for_self_staff_and_hierarchy(client, world):
     for viewer in (None, "mate", "outsider"):
         body = (await _profile(client, world["public"], world[viewer] if viewer else None)).json()
         assert body["xp"]["total"] is None, viewer
+    # The approved guardian of a minor sees the number too (and the conduct bar, below).
     guardian_view = (await _profile(client, world["minor"], world["guardian"])).json()
-    assert guardian_view["xp"]["total"] is None
+    assert isinstance(guardian_view["xp"]["total"], int)
+
+
+async def test_conduct_bar_only_for_guardians_staff_and_hierarchy(client, factory, world):
+    minor = world["minor"]
+    own = (await client.get(f"{PROFILES}/me", headers=minor["headers"])).json()
+    for viewer in ("guardian", "director", "secretary", "counselor", "admin", "master", "minor"):
+        response = await _profile(client, minor, world[viewer])
+        assert response.status_code == 200, viewer
+        body = response.json()
+        # Exactly the shape of /profiles/me.
+        assert body["conduct"] == own["conduct"], viewer
+        assert body["xp"]["total"] == own["xp"]["total"], viewer
+    # The guardian of an account without birth date (a minor for the profile) too.
+    nobd = (await _profile(client, world["nobd"], world["guardian"])).json()
+    assert nobd["conduct"]["start"] == 70 and isinstance(nobd["xp"]["total"], int)
+
+    # `club`-visibility peers and the public: never the bar, never the number.
+    peer = (await _profile(client, world["clubvis"], world["mate"])).json()
+    assert "conduct" not in peer and peer["xp"]["total"] is None
+    for viewer in (None, "stranger", "mate", "outsider"):
+        body = (await _profile(client, world["public"], world[viewer] if viewer else None)).json()
+        assert "conduct" not in body and body["xp"]["total"] is None, viewer
+    # Staff of the member's club see an adult's bar too.
+    staff = (await _profile(client, world["public"], world["director"])).json()
+    assert staff["conduct"]["window_weeks"] == 8
+
+    # A guardianship that is not approved opens nothing.
+    pending = await factory.user("pending-guardian", "PARENT_GUARDIAN")
+    await _guardianship(pending, minor, consent="PENDING")
+    assert (await _profile(client, minor, pending)).status_code == 404
 
 
 async def test_minor_photo_only_when_the_guardian_allows_it(client, world):
@@ -841,6 +872,105 @@ async def test_club_weekly_summary(client, factory, world):
     mine = await client.get(f"/api/v1/clubs/{club['id']}/xp", headers=world["counselor"]["headers"])
     assert mine.status_code == 200
     assert {m["unit_id"] for m in mine.json()["members"]} == {world["unit_id"]}
+
+
+async def test_unit_counselor_awards_whatever_their_role(client, factory, world):
+    """Who leads the unit is `club_units.counselor_id`; an INSTRUCTOR may lead one."""
+    club = world["club"]
+    leader = await factory.user("unit-leader", "INSTRUCTOR", club["id"])
+    await _membership(leader, club, role="INSTRUCTOR")
+    unit_id = uuid.uuid4()
+    await _exec(
+        "INSERT INTO club_units (id, club_id, name, counselor_id) VALUES (:id, :club, :name, :c)",
+        id=unit_id, club=uuid.UUID(club["id"]), name=factory.name("unidad-b"),
+        c=uuid.UUID(leader["id"]),
+    )
+    member = await factory.user("led", "STUDENT", club["id"])
+    in_unit = await _membership(member, club, unit_id=unit_id)
+    ok = await _award(client, leader, club, in_unit, points=2)
+    assert ok.status_code == 201, ok.text
+    # Not the members of other units, nor of none.
+    for membership in (world["memberships"]["minor"], world["memberships"]["mate"]):
+        assert (await _award(client, leader, club, membership)).status_code == 403
+    # Once the unit is closed, the post goes with it.
+    await _exec("UPDATE club_units SET status = 'archived' WHERE id = :id", id=unit_id)
+    assert (await _award(client, leader, club, in_unit)).status_code == 403
+
+
+# ----------------------------------------------------------------------------
+# The guardian's panel and the roster link to the profile
+# ----------------------------------------------------------------------------
+async def test_my_children_carry_handle_and_avatar_switch(client, world):
+    guardian, minor = world["guardian"], world["minor"]
+    await _set(minor, guardian_allows_avatar=False)
+    url = "/api/v1/users/guardianships/my-children"
+    rows = (await client.get(url, headers=guardian["headers"])).json()
+    row = next(r for r in rows if r["child_id"] == minor["id"])
+    handle = (await fetch_one("SELECT handle FROM users WHERE id = :id", id=uuid.UUID(minor["id"])))["handle"]
+    assert row["handle"] == handle and row["guardian_allows_avatar"] is False
+    assert all(isinstance(r["handle"], str) and r["handle"] for r in rows)
+
+    allowed = await client.patch(
+        f"/api/v1/users/{minor['id']}", json={"guardian_allows_avatar": True}, headers=guardian["headers"]
+    )
+    assert allowed.status_code == 200
+    rows = (await client.get(url, headers=guardian["headers"])).json()
+    assert next(r for r in rows if r["child_id"] == minor["id"])["guardian_allows_avatar"] is True
+    await _set(minor, guardian_allows_avatar=False)
+
+
+async def test_roster_rows_link_to_the_profile(client, world):
+    club, director = world["club"], world["director"]
+    await _set(world["mate"], avatar_url=f"{MEDIA}/avatars/mate.png")
+    await _set(world["minor"], guardian_allows_avatar=False)
+    url = f"/api/v1/clubs/{club['id']}/members"
+
+    def by_user(rows):
+        return {row["user_id"]: row for row in rows}
+
+    rows = by_user((await client.get(url, headers=director["headers"])).json())
+    handles = {
+        str(r["id"]): r["handle"]
+        for r in await fetch_all("SELECT id, handle FROM users WHERE id = ANY(:ids)",
+                                 ids=[uuid.UUID(uid) for uid in rows])
+    }
+    assert all(row["handle"] == handles[uid] for uid, row in rows.items())
+    assert rows[world["mate"]["id"]]["avatar_url"] == f"{MEDIA}/avatars/mate.png"
+    # Rule 4: a minor's photo only once a guardian allowed it.
+    assert rows[world["minor"]["id"]]["avatar_url"] is None
+    await _set(world["minor"], guardian_allows_avatar=True)
+    rows = by_user((await client.get(url, headers=director["headers"])).json())
+    assert rows[world["minor"]["id"]]["avatar_url"] == f"{MEDIA}/avatars/kid.png"
+    # The secretary's rows (no guardian_email) carry the same link.
+    secretary_rows = by_user((await client.get(url, headers=world["secretary"]["headers"])).json())
+    assert secretary_rows[world["mate"]["id"]]["handle"] == handles[world["mate"]["id"]]
+    await _set(world["minor"], guardian_allows_avatar=False)
+
+
+async def test_roster_query_count_does_not_grow_with_adults(client, factory, world):
+    """The link fields come in the roster's own query: no statement per row."""
+    club, director = world["club"], world["director"]
+    url = f"/api/v1/clubs/{club['id']}/members"
+
+    async def statements() -> int:
+        seen = []
+
+        def count(conn, cursor, statement, parameters, context, executemany):
+            seen.append(statement)
+
+        event.listen(engine.sync_engine, "before_cursor_execute", count)
+        try:
+            assert (await client.get(url, headers=director["headers"])).status_code == 200
+        finally:
+            event.remove(engine.sync_engine, "before_cursor_execute", count)
+        return len(seen)
+
+    before = await statements()
+    for index in range(3):
+        adult = await factory.user(f"roster-adult-{index}", "STUDENT", club["id"])
+        await _set(adult, avatar_url=f"{MEDIA}/avatars/a{index}.png")
+        await _membership(adult, club)
+    assert await statements() == before
 
 
 # ----------------------------------------------------------------------------

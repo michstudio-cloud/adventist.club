@@ -216,6 +216,8 @@ async def my_children(
             ChildGuardianship(
                 **GuardianshipResponse.from_model(guardianship).model_dump(),
                 child_name=child.name,
+                handle=child.handle,
+                guardian_allows_avatar=bool(child.guardian_allows_avatar),
                 child_age=age_in_years(child.birth_date),
                 club=as_club_ref(club) if club is not None else None,
                 membership_status=membership.status if membership else None,

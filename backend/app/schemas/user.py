@@ -115,6 +115,10 @@ class ChildGuardianship(BaseModel):
     consent_granted_at: datetime | None
     created_at: datetime
     child_name: str
+    # Bloque G: the link to `/u/{handle}` (always filled by the trigger of 014_profiles.sql;
+    # typed like `PublicProfile.handle`) and the current state of the photo switch.
+    handle: str | None = None
+    guardian_allows_avatar: bool = False
     child_age: int | None = None
     club: ClubRef | None = None
     membership_status: str | None = None

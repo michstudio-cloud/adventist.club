@@ -22,7 +22,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import violated_constraint
 from app.models import Guardianship, User
-from app.rbac import CONSENT_GRANTED, profile_access, profile_is_minor
+from app.rbac import CONSENT_GRANTED, profile_access, profile_is_minor, visible_avatar
 from app.schemas.profile import (
     ConductBar,
     HonorEarned,
@@ -35,6 +35,7 @@ from app.schemas.profile import (
     ProfileMasterGuide,
     ProfileStats,
     ProfileUpdate,
+    ProfileWithConduct,
     ProfileXp,
     PublicProfile,
 )
@@ -319,7 +320,7 @@ def _badges(
 
 async def build_profile(
     db: AsyncSession, viewer: User | None, target: User, *, as_owner: bool = False
-) -> PublicProfile | MyProfile:
+) -> PublicProfile | ProfileWithConduct | MyProfile:
     """The profile of `target` as `viewer` may see it; 404 when they may not see it."""
     club, association = await _organizations(db, target.organization_id)
     guardianships = await guardianships_of(db, target.id)
@@ -328,7 +329,7 @@ async def build_profile(
         guardian_id == viewer.id and consent == CONSENT_GRANTED
         for guardian_id, consent in guardianships
     )
-    visible, sees_total = await profile_access(
+    visible, privileged = await profile_access(
         db, viewer, target, target_club=club, is_minor=is_minor,
         viewer_is_guardian=viewer_is_guardian,
     )
@@ -377,8 +378,7 @@ async def build_profile(
         id=str(target.id),
         handle=target.handle,
         name=target.name,
-        # Rule 4: a minor's photo only once a guardian allowed it; until then, the initial.
-        avatar_url=target.avatar_url if (not is_minor or target.guardian_allows_avatar) else None,
+        avatar_url=visible_avatar(target, is_minor=is_minor),
         cover_url=None if is_minor else target.cover_url,
         bio=target.bio,
         club=ProfileClub(id=str(club.id), name=club.name, city=club.city) if club else None,
@@ -396,7 +396,7 @@ async def build_profile(
             attendance=int(attendance),
         ),
         xp=ProfileXp(
-            total=total if sees_total else None,
+            total=total if privileged else None,
             level=level.level,
             level_name=level.name,
             next_level_at=level.next_level_at,
@@ -408,15 +408,20 @@ async def build_profile(
         is_me=is_me,
         can_edit=is_me,
     )
-    if not as_owner:
+    if not privileged:
         return PublicProfile(**fields)
+    # Spec §4.1: the bar is for the member, their guardians and the club's staff (and the
+    # hierarchy above) — never for the public nor for `club`-visibility peers.
+    conduct = conduct_bar(xp.conduct_score(conduct_points))
+    if not as_owner:
+        return ProfileWithConduct(**fields, conduct=conduct)
     return MyProfile(
         **fields,
         is_minor=is_minor,
         guardian_allows_avatar=target.guardian_allows_avatar,
         handle_changed_at=target.handle_changed_at,
         handle_locked_until=handle_locked_until(target),
-        conduct=conduct_bar(xp.conduct_score(conduct_points)),
+        conduct=conduct,
     )
 
 
@@ -424,7 +429,9 @@ def conduct_bar(score: int) -> ConductBar:
     return ConductBar(score=score, start=xp.CONDUCT_START, window_weeks=xp.CONDUCT_WEEKS)
 
 
-async def profile_for(db: AsyncSession, viewer: User | None, handle_or_id: str) -> PublicProfile:
+async def profile_for(
+    db: AsyncSession, viewer: User | None, handle_or_id: str
+) -> PublicProfile | ProfileWithConduct:
     target = await find_user(db, handle_or_id)
     if target is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, NOT_FOUND)

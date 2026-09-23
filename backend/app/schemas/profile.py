@@ -110,13 +110,20 @@ class ConductBar(BaseModel):
     window_weeks: int
 
 
-class MyProfile(PublicProfile):
+class ProfileWithConduct(PublicProfile):
+    """The profile as the member, their approved guardians (of a minor), the staff of
+    their club and the hierarchy above read it: with the conduct bar (and `xp.total`).
+    Its own class so that `conduct` is ABSENT, not null, for everybody else."""
+
+    conduct: ConductBar
+
+
+class MyProfile(ProfileWithConduct):
     is_minor: bool
     guardian_allows_avatar: bool
     handle_changed_at: datetime | None = None
     # When the handle may change again (30 days after the last change); None = now.
     handle_locked_until: datetime | None = None
-    conduct: ConductBar
 
 
 class ProfileUpdate(BaseModel):

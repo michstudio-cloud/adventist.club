@@ -697,6 +697,12 @@ def profile_is_minor(user: User, has_guardian: bool) -> bool:
     return is_minor_user(user) or (user.birth_date is None and has_guardian)
 
 
+def visible_avatar(user: User, *, is_minor: bool) -> str | None:
+    """Rule 4 of the spec: a minor's photo only once a guardian allowed it; until then,
+    None (the UI shows the initial). The profile and the roster read it from here."""
+    return user.avatar_url if (not is_minor or user.guardian_allows_avatar) else None
+
+
 async def profile_access(
     db: AsyncSession,
     viewer: User | None,
@@ -706,11 +712,13 @@ async def profile_access(
     is_minor: bool,
     viewer_is_guardian: bool,
 ) -> tuple[bool, bool]:
-    """-> (may see the profile, may see the XP number).
+    """-> (may see the profile, may see the private figures: the XP number and the
+    conduct bar).
 
     Always: the person, their approved guardians, the staff of their club and the
-    hierarchy above them. Then, for an ADULT only: everybody when `public`, the members of
-    the same club when `club`. Anybody else gets a 404 from the caller, never a 403.
+    hierarchy above them — and those, the figures too (a guardian, of a minor only).
+    Then, for an ADULT only: everybody when `public`, the members of the same club when
+    `club`, without the figures. Anybody else gets a 404 from the caller, never a 403.
     """
     if viewer is not None and viewer.id == target.id:
         return True, True
@@ -731,7 +739,7 @@ async def profile_access(
         if staff or hierarchy:
             return True, True
         if viewer_is_guardian:
-            return True, False
+            return True, is_minor
     if is_minor:
         return False, False
     if target.profile_visibility == "public":
@@ -760,8 +768,10 @@ async def can_award_xp(
         return False
     if actor.role in XP_AWARD_ROLES:
         return True
-    if actor.role == COUNSELOR and membership.unit_id is not None:
-        from app.services.units import counselor_unit_ids
+    # Who leads the unit is `club_units.counselor_id`, whatever their role: an INSTRUCTOR
+    # may lead one too (units.COUNSELOR_ROLES).
+    from app.services.units import COUNSELOR_ROLES, counselor_unit_ids
 
+    if actor.role in COUNSELOR_ROLES and membership.unit_id is not None:
         return membership.unit_id in await counselor_unit_ids(db, club.id, actor.id)
     return False

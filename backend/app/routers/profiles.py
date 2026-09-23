@@ -25,6 +25,7 @@ from app.schemas.profile import (
     ClubXpUnit,
     MyProfile,
     MyXp,
+    ProfileWithConduct,
     ProfileXp,
     PublicProfile,
     XpAwardCreate,
@@ -111,7 +112,9 @@ async def my_xp(
     )
 
 
-@router.get("/{handle_or_id}", response_model=PublicProfile)
+# Order matters: the richer class first, so a profile WITH the conduct bar keeps it and
+# one without falls through to `PublicProfile` (no `conduct` key at all, not null).
+@router.get("/{handle_or_id}", response_model=ProfileWithConduct | PublicProfile)
 @limiter.limit("60/minute")
 async def get_profile(
     request: Request,
@@ -119,7 +122,9 @@ async def get_profile(
     viewer: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Anyone may ask; only an adult with `public` visibility answers without a session."""
+    """Anyone may ask; only an adult with `public` visibility answers without a session.
+    The member, their approved guardians (of a minor), their club's staff and the hierarchy
+    above also get `xp.total` and the conduct bar, exactly as `/profiles/me`."""
     return await profile_service.profile_for(db, viewer, handle_or_id)
 
 
