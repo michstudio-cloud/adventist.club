@@ -1,7 +1,20 @@
-"""«Ficha de especialidad»: the printable sheet of an honor, generated from our own data.
+"""Printable PDFs of an honor, generated from our own data, in two modes:
 
-It replaces the third-party requirement PDFs (guiasmayores.com) with a sheet in the visual
-language of conquistadores.app, in its LIGHT theme because the sheet is printed:
+  * «hoja» (default) — the WORKSHEET («hoja de trabajo») a Pathfinder fills in by hand, strictly
+    black / white / grey (the patch is the only colour): header without a background (patch,
+    category, title, «Nivel · año»), ruled fields (name, club, unit, instructor, dates), every
+    requirement and sub-item with a checkbox and ruled answer lines (practical ones with an
+    evidence/verification row), and a last-page approval block with signatures and a notes box.
+    See `_WorksheetRenderer`.
+  * «ficha» — the compact catalogue sheet (hero card, requirement cards, resources) in the
+    coloured design described below.
+
+Neither mode shows references for now (owner's decision): no «Fuente», no attribution of the
+requirement text, no `source_url`; resources hosted on guiasmayores.com are never listed
+(BLOCKED_HOSTS). The rows' `source`/`source_url`/`license` stay in `SheetRequirement` so the
+attribution can come back without touching the loader.
+
+The «ficha» uses the visual language of conquistadores.app, in its LIGHT theme (it is printed):
 
   * page white, text near-black (#0b0b0d), muted grey (#636a76 = `--muted-foreground`),
     cards #f4f5f7 with 14/20/28 pt corners (the app's `--radius-md/lg/xl`), pills fully rounded
@@ -65,10 +78,24 @@ from app.services.locales import SOURCE_LOCALE, best_locale, match_locale
 logger = logging.getLogger(__name__)
 
 # Bump when the design changes: it is part of the ETag, so cached sheets are refreshed.
-RENDERER_VERSION = "1"
+RENDERER_VERSION = "2"
 HONOR_PAGE_BASE = "https://www.conquistadores.app/honors/"
 Paper = Literal["a4", "letter"]
+Mode = Literal["hoja", "ficha"]
 PAGE_SIZES = {"a4": A4, "letter": LETTER}
+# Never shown nor linked on a sheet (owner's decision): the platform replaces that site.
+BLOCKED_HOSTS = ("guiasmayores.com",)
+
+
+def is_blocked(url_or_host: str | None) -> bool:
+    """True for a URL, a bare host or a `source` label that points to a blocked site."""
+    value = (url_or_host or "").strip().lower()
+    if not value:
+        return False
+    host = urlsplit(value).hostname if "://" in value else value.split("/")[0]
+    host = host or ""
+    return any(host == blocked or host.endswith("." + blocked) for blocked in BLOCKED_HOSTS)
+
 
 # ---------------------------------------------------------------------------------------
 # Palette. (bright `--sys-*` token from conquistadores-app/app/globals.css, print ink)
@@ -155,6 +182,33 @@ def sheet_fonts() -> tuple[str, str]:
     return "Helvetica", "Helvetica-Bold"
 
 
+CHECKBOX_CHAR = "☐"
+
+
+@lru_cache(maxsize=1)
+def marker_font() -> str | None:
+    """A private copy of Noto Sans in which «☐» (absent from it) points at the space glyph.
+    It is used only for the invisible text layer of the worksheet's checkboxes, so copying,
+    searching or reading the PDF aloud meets a «☐» where a box is drawn. None if unavailable."""
+    path = FONTS_DIR / "NotoSans-Regular.ttf"
+    if not path.exists():
+        return None
+    with _font_lock:
+        try:
+            font = TTFont("CQSans-Marks", str(path))
+            # reportlab shares one font object per face name: rename it, or the patch below would
+            # be ignored in favour of the already registered Noto Sans
+            font.face.name = b"CQSansMarks"
+            space = ord(" ")
+            font.face.charToGlyph[ord(CHECKBOX_CHAR)] = font.face.charToGlyph[space]
+            font.face.charWidths[ord(CHECKBOX_CHAR)] = font.face.charWidths[space]
+            pdfmetrics.registerFont(font)
+            return "CQSans-Marks"
+        except Exception:
+            logger.exception("could not register the checkbox marker font")
+            return None
+
+
 # ---------------------------------------------------------------------------------------
 # Copy (the sheet's own labels; the content comes from the database)
 # ---------------------------------------------------------------------------------------
@@ -172,10 +226,8 @@ LABELS = {
         "pending_body": "Estamos preparando los requisitos de esta especialidad. "
                         "Consulta la versión más reciente en",
         "foreign": "Requisitos disponibles por ahora solo en {language}; la traducción está en preparación.",
-        "req_source": "Texto de los requisitos: {source}",
         "version": "Versión {n} · actualizada {date}",
         "page": "Página {x} de {y}",
-        "source": "Fuente: {host}",
         "year": "Desde {year}",
         "code": "Código {code}",
         "level_n": "Nivel {n}",
@@ -189,6 +241,21 @@ LABELS = {
         "languages": {"en": "inglés", "es": "español", "pt": "portugués", "fr": "francés"},
         "months": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
         "title": "Ficha de especialidad",
+        # worksheet («hoja de trabajo»)
+        "ws_title": "Hoja de trabajo",
+        "fields": {"name": "Nombre", "club": "Club", "unit": "Unidad", "instructor": "Instructor/a",
+                   "start": "Fecha de inicio", "end": "Fecha de finalización"},
+        "evidence": "Evidencia:",
+        "evidence_kinds": ["foto", "demostración", "informe"],
+        "verified_by": "Verificado por:",
+        "date": "Fecha:",
+        "approval": "Aprobación",
+        "sign_instructor": "Instructor/a",
+        "sign_director": "Director/a del club",
+        "signature": "Firma",
+        "notes": "Notas",
+        "generated": "Generado en ",
+        "version_short": "Versión {n} · {date}",
     },
     "en": {
         "eyebrow": "Honor",
@@ -202,10 +269,8 @@ LABELS = {
         "pending_title": "Requirements in preparation",
         "pending_body": "We are preparing the requirements of this honor. See the latest version at",
         "foreign": "Requirements are only available in {language} for now; the translation is in progress.",
-        "req_source": "Requirement text: {source}",
         "version": "Version {n} · updated {date}",
         "page": "Page {x} of {y}",
-        "source": "Source: {host}",
         "year": "Since {year}",
         "code": "Code {code}",
         "level_n": "Level {n}",
@@ -219,9 +284,22 @@ LABELS = {
         "languages": {"en": "English", "es": "Spanish", "pt": "Portuguese", "fr": "French"},
         "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         "title": "Honor sheet",
+        "ws_title": "Worksheet",
+        "fields": {"name": "Name", "club": "Club", "unit": "Unit", "instructor": "Instructor",
+                   "start": "Start date", "end": "Completion date"},
+        "evidence": "Evidence:",
+        "evidence_kinds": ["photo", "demonstration", "report"],
+        "verified_by": "Verified by:",
+        "date": "Date:",
+        "approval": "Approval",
+        "sign_instructor": "Instructor",
+        "sign_director": "Club director",
+        "signature": "Signature",
+        "notes": "Notes",
+        "generated": "Generated at ",
+        "version_short": "Version {n} · {date}",
     },
 }
-SOURCE_NAMES = {"pathfinder-wiki": "Pathfinder Wiki"}
 
 
 def _ui_language(locale: str | None) -> str:
@@ -277,11 +355,15 @@ class SheetData:
     def page_url(self) -> str:
         return HONOR_PAGE_BASE + self.slug
 
-    def fingerprint(self, paper: Paper = "a4") -> str:
+    def fingerprint(self, paper: Paper = "a4", mode: Mode = "hoja") -> str:
         """Everything the PDF depends on. Used as the ETag: any edit changes it."""
-        payload = json.dumps({"v": RENDERER_VERSION, "paper": paper, **asdict(self)},
+        payload = json.dumps({"v": RENDERER_VERSION, "paper": paper, "mode": mode, **asdict(self)},
                              sort_keys=True, default=str, ensure_ascii=False)
         return hashlib.sha256(payload.encode()).hexdigest()
+
+    @property
+    def visible_resources(self) -> list[SheetResource]:
+        return [r for r in self.resources if not is_blocked(r.url)]
 
 
 async def load_sheet_data(db: AsyncSession, honor: Honor, locale: str | None = SOURCE_LOCALE) -> SheetData:
@@ -334,7 +416,7 @@ async def load_sheet_data(db: AsyncSession, honor: Honor, locale: str | None = S
         description=(translation.description if translation and translation.description else None)
         or honor.description,
         image_url=honor.image_url,
-        source_url=honor.source_url,
+        source_url=None if is_blocked(honor.source_url) else honor.source_url,
         difficulty_level=honor.difficulty_level,
         skill_level=honor.skill_level,
         honor_type=honor.honor_type,
@@ -346,16 +428,16 @@ async def load_sheet_data(db: AsyncSession, honor: Honor, locale: str | None = S
         requirements_locale=requirements_locale,
         requirements=[SheetRequirement(r.position, r.description, bool(r.is_theoretical), r.instructions,
                                        r.source, r.source_url, r.license) for r in requirements],
-        resources=[SheetResource(r.name, r.url, r.type) for r in resources],
+        resources=[SheetResource(r.name, r.url, r.type) for r in resources if not is_blocked(r.url)],
     )
 
 
 async def render_honor_sheet(db: AsyncSession, honor: Honor, locale: str = SOURCE_LOCALE, *,
-                             paper: Paper = "a4", patch_image: bytes | None = None,
+                             paper: Paper = "a4", mode: Mode = "hoja", patch_image: bytes | None = None,
                              fetch_image: bool = True) -> bytes:
     """The sheet as PDF bytes. CPU-bound: API callers run `render_sheet_pdf` in a thread."""
     data = await load_sheet_data(db, honor, locale)
-    return render_sheet_pdf(data, paper=paper, patch_image=patch_image, fetch_image=fetch_image)
+    return render_sheet_pdf(data, paper=paper, mode=mode, patch_image=patch_image, fetch_image=fetch_image)
 
 
 # ---------------------------------------------------------------------------------------
@@ -457,13 +539,50 @@ class SubItem:
     text: str
 
 
+# «… términos: a) Barbotina b) Engobe c) Bizcocho» — a marker after a space or punctuation
+_INLINE_MARKER_RE = re.compile(r"(?:^|(?<=[\s:;,.]))\(?(?P<letter>[a-z])(?P<punct>[.)])\s+")
+
+
+def split_inline_items(line: str) -> tuple[str, list[SubItem]]:
+    """Sub-items written on the same line as the requirement. Only a run of consecutive letters
+    starting at «a» with the same punctuation counts (at least «a)» and «b)»), so a stray
+    «(ver punto b)» or an abbreviation never splits the text. Inline «•» bullets split too."""
+    matches = list(_INLINE_MARKER_RE.finditer(line))
+    for start, first in enumerate(matches):
+        if first["letter"] != "a":
+            continue
+        run = [first]
+        for match in matches[start + 1:]:
+            if match["punct"] == first["punct"] and ord(match["letter"]) == ord(run[-1]["letter"]) + 1:
+                run.append(match)
+        if len(run) < 2:
+            continue
+        head = line[:first.start()].strip()
+        items = []
+        for i, match in enumerate(run):
+            end = run[i + 1].start() if i + 1 < len(run) else len(line)
+            body = line[match.end():end].strip().rstrip(";,").strip()
+            if body:
+                marker = f"{match['letter']}{match['punct']}"
+                items.append(SubItem(1, marker, body))
+        if len(items) >= 2:
+            return head, items
+    if "•" in line.lstrip("•").strip():
+        head, *rest = [part.strip() for part in line.split("•")]
+        items = [SubItem(1, "•", part) for part in rest if part]
+        if len(items) >= 1 and head:
+            return head, items
+    return line, []
+
+
 def parse_requirement(text: str) -> tuple[str, list[SubItem]]:
     """First line is the requirement; the following lines are its sub-items («a)», «b.», «•»),
-    nested by their leading spaces (two per level, as the catalogue stores them)."""
+    nested by their leading spaces (two per level, as the catalogue stores them). Sub-items
+    written inline in the first line («… a) uno b) dos») are split out as well."""
     lines = [line.rstrip() for line in clean_text(text).split("\n") if line.strip()]
     if not lines:
         return "", []
-    head, items = lines[0].strip(), []
+    head, items = split_inline_items(lines[0].strip())
     for raw in lines[1:]:
         indent = len(raw) - len(raw.lstrip(" "))
         body = raw.strip()
@@ -511,9 +630,14 @@ def wrap(text: str, font: str, size: float, width: float, first_width: float | N
 def ellipsize(text: str, font: str, size: float, width: float, char_space: float = 0.0) -> str:
     if _width(text, font, size, char_space) <= width:
         return text
-    while text and _width(text + "…", font, size, char_space) > width:
-        text = text[:-1]
-    return text.rstrip() + "…"
+    low, high = 0, len(text)              # longest prefix that fits with the ellipsis (binary search)
+    while low < high:
+        mid = (low + high + 1) // 2
+        if _width(text[:mid] + "…", font, size, char_space) <= width:
+            low = mid
+        else:
+            high = mid - 1
+    return text[:low].rstrip() + "…"
 
 
 def initials(name: str) -> str:
@@ -541,6 +665,24 @@ def qr_matrix(payload: str) -> tuple[tuple[bool, ...], ...]:
     code.add_data(payload)
     code.make(fit=True)
     return tuple(tuple(row) for row in code.get_matrix())
+
+
+def draw_qr(c: canvas.Canvas, url: str, x: float, y: float, size: float, color: Color = TEXT) -> None:
+    """A vector QR (runs of dark modules merged into rects) linking to `url`."""
+    matrix = qr_matrix(url)
+    cell = size / len(matrix)
+    c.setFillColor(color)
+    for r, row in enumerate(matrix):
+        col = 0
+        while col < len(row):
+            if row[col]:
+                start = col
+                while col < len(row) and row[col]:
+                    col += 1
+                c.rect(x + start * cell, y + size - (r + 1) * cell, (col - start) * cell, cell, stroke=0, fill=1)
+            else:
+                col += 1
+    c.linkURL(url, (x, y, x + size, y + size), relative=0)
 
 
 # ---------------------------------------------------------------------------------------
@@ -596,6 +738,10 @@ class _Row:
 
 
 class _SheetRenderer:
+    """The compact «ficha» (modo=ficha)."""
+
+    content_bottom = CONTENT_BOTTOM
+
     def __init__(self, data: SheetData, paper: Paper, patch_png: bytes | None):
         self.data = data
         self.labels = LABELS[data.language]
@@ -615,7 +761,7 @@ class _SheetRenderer:
         self.y = self.page_h - MARGIN_TOP
 
     def room(self) -> float:
-        return self.y - CONTENT_BOTTOM
+        return self.y - self.content_bottom
 
     def ensure(self, height: float) -> None:
         if height > self.room():
@@ -834,7 +980,7 @@ class _SheetRenderer:
                   lead: Callable[[float, float], None] | None = None) -> None:
         """Draw a rounded card holding `rows`, splitting it across pages when needed."""
         x, w = MARGIN_X, self.content_w
-        full_page = self.page_h - MARGIN_TOP - CONTENT_BOTTOM
+        full_page = self.page_h - MARGIN_TOP - self.content_bottom
         total = 2 * pad_y + sum(r.height for r in rows)
         min_first = 2 * pad_y + sum(r.height for r in rows[:3])
         if total > self.room() and (total <= full_page or self.room() < min_first):
@@ -911,21 +1057,6 @@ class _SheetRenderer:
             self.draw_card(rows, badge=str(index), practical=not requirement.is_theoretical,
                            text_offset=text_offset)
 
-        sources = []
-        for r in reqs:
-            if not (r.source or r.license):
-                continue
-            parts = [SOURCE_NAMES.get(r.source or "", r.source or "")]
-            if r.license:
-                parts.append(r.license)
-            if host_of(r.source_url):
-                parts.append(host_of(r.source_url))
-            label = " · ".join(p for p in parts if p)
-            if label not in sources:
-                sources.append(label)
-        if sources:
-            self.y -= 2
-            self.paragraph(labels["req_source"].format(source="; ".join(sources)), size=7.5, color=MUTED)
 
     def draw_pending(self) -> None:
         labels, url = self.labels, self.data.page_url
@@ -938,7 +1069,7 @@ class _SheetRenderer:
                        fill=tint(self.accent.bright, 0.07), link=url)
 
     def draw_resources(self) -> None:
-        resources = self.data.resources
+        resources = self.data.visible_resources
         if not resources:
             return
         self.y -= 8
@@ -972,21 +1103,7 @@ class _SheetRenderer:
         c.line(left, FOOTER_TOP, right, FOOTER_TOP)
 
         qr_size, qr_y = 50.0, 42.0
-        matrix = qr_matrix(data.page_url)
-        cell = qr_size / len(matrix)
-        c.setFillColor(TEXT)
-        for r, row in enumerate(matrix):
-            col = 0
-            while col < len(row):
-                if row[col]:
-                    start = col
-                    while col < len(row) and row[col]:
-                        col += 1
-                    c.rect(left + start * cell, qr_y + qr_size - (r + 1) * cell, (col - start) * cell, cell,
-                           stroke=0, fill=1)
-                else:
-                    col += 1
-        c.linkURL(data.page_url, (left, qr_y, left + qr_size, qr_y + qr_size), relative=0)
+        draw_qr(c, data.page_url, left, qr_y, qr_size)
 
         tx = left + qr_size + 12
         brand = "Adventist.Club"
@@ -997,9 +1114,6 @@ class _SheetRenderer:
         c.linkURL(data.page_url, (tx, 76, tx + w + _width(url_text, self.regular, 8.5), 90), relative=0)
         self.text(tx, 67, labels["version"].format(n=data.version, date=format_date(data.updated_at, data.language)),
                   self.regular, 7.5, MUTED)
-        host = host_of(data.source_url)
-        if host:
-            self.text(tx, 55, labels["source"].format(host=host), self.regular, 7.5, MUTED)
 
         self.text(right, 80, labels["page"].format(x=page, y=total), self.bold, 8, TEXT_2, align="right")
         self.text(right, 67, ellipsize(data.name, self.regular, 7.5, 150), self.regular, 7.5, MUTED, align="right")
@@ -1023,9 +1137,533 @@ class _SheetRenderer:
         return self.out.getvalue()
 
 
-def render_sheet_pdf(data: SheetData, *, paper: Paper = "a4", patch_image: bytes | None = None,
-                     fetch_image: bool = True) -> bytes:
-    """Draw the sheet. `patch_image` (any raster) wins over fetching `data.image_url`."""
+# ---------------------------------------------------------------------------------------
+# Worksheet («hoja de trabajo», modo=hoja): what a Pathfinder fills in by hand
+# ---------------------------------------------------------------------------------------
+MM = 72.0 / 25.4
+WS_FOOTER_RULE = 56.0           # thin footer rule on every page (text below it at 42 pt)
+WS_CONTENT_BOTTOM = 70.0
+WS_COLOPHON_TOP = 134.0         # the last page's QR block (top at 116 pt) lives under this line
+ANSWER_GAP = 8 * MM             # ruled answer lines, 8 mm apart
+# Black / white / grey (owner's decision): no bands, no tinted cards. The only colour is the patch
+# and the small pills (level/kind/year in the category colour, «Práctico» in green).
+WS_INK = HexColor("#111111")      # text, checkboxes, numbers, QR
+WS_LABEL = HexColor("#555555")    # labels, category, level/year, instructions
+WS_HINT = HexColor("#999999")     # small print, baselines of the fields and signatures
+WS_RULE = HexColor("#d9d9d9")     # answer lines, notes box, footer rule
+ANSWER_INK = WS_RULE
+FIELD_INK = WS_HINT
+BOX_INK = WS_INK
+NOTES_BORDER = WS_RULE
+NOTES_RULE = WS_RULE
+CHECKBOX = 4 * MM
+SUB_CHECKBOX = 3.2 * MM
+EVIDENCE_BOX = 3 * MM
+NOTES_H = 60 * MM
+NOTES_MIN_H = 48 * MM           # the notes box shrinks this far before the closing block moves page
+LONG_REQUIREMENT = 220          # characters: a requirement this long gets 6 answer lines
+
+# «explica / describe / menciona / enumera / define» (and English) → 6 answer lines instead of 4
+_LONG_ANSWER_RE = re.compile(r"\b(explic|describ|mencion|enumer|defin|explain|enumerat|list\b|name\b)")
+# a sub-item that is itself a question or an instruction to answer in writing
+_QUESTION_RE = re.compile(
+    r"^(¿|que\b|como\b|cual|cuando|donde|quien|cuant|por que\b|para que\b|explic|describ|mencion|enumer|"
+    r"defin|nombr|identific|compar|diferenci|what\b|how\b|why\b|which\b|when\b|where\b|who\b|explain|"
+    r"describ|list\b|name\b|defin|identif|compar)")
+# a parent asking for the meaning of a list of terms: each short term gets its own inline rule
+_TERMS_RE = re.compile(r"(defin|significado|termino|explic|describ|identific|nombr|mencion|meaning|terms?\b|"
+                       r"explain|identif|name\b)")
+
+
+def _plain(value: str) -> str:
+    """Lowercase without accents, for keyword matching («Qué» → «que»)."""
+    return "".join(ch for ch in unicodedata.normalize("NFD", value.lower()) if not unicodedata.combining(ch))
+
+
+def answer_line_count(requirement: SheetRequirement, sub_items_answered: bool = False) -> int:
+    """Ruled lines under a requirement: practical → 2 (plus the evidence row); theoretical → 4,
+    or 6 when the text is long or asks to explain/describe/list/define; 2 when its sub-items
+    already carry their own lines (the rest is room for a conclusion)."""
+    if not requirement.is_theoretical or sub_items_answered:
+        return 2
+    text = clean_text(requirement.description)
+    return 6 if len(text) > LONG_REQUIREMENT or _LONG_ANSWER_RE.search(_plain(text)) else 4
+
+
+def sub_item_answer(text: str, parent: str) -> str | None:
+    """«lines» (2 ruled lines under it) for a sub-item that reads as a question, «inline» (a
+    rule after it) for a short term whose meaning the parent asks for, else None."""
+    plain = _plain(text.strip())
+    if "?" in text or _QUESTION_RE.match(plain):
+        return "lines"
+    parent_plain = _plain(parent)
+    short = len(text.split()) <= 5 and len(text) <= 45 and not text.rstrip().endswith(".")
+    if short and _TERMS_RE.search(parent_plain):
+        return "inline"
+    if not short and _LONG_ANSWER_RE.search(parent_plain):
+        return "lines"          # «Describir: a) Qué ocurre… b) La diferencia entre…» — each is a topic
+    return None
+
+
+@dataclass
+class _Flow:
+    """One unbreakable strip of the worksheet: `draw(top)` paints it below `top`."""
+    height: float
+    draw: Callable[[float], None]
+    keep_with_next: bool = False
+    gap_before: float = 0.0
+
+
+class _WorksheetRenderer(_SheetRenderer):
+    content_bottom = WS_CONTENT_BOTTOM
+
+    def __init__(self, data: SheetData, paper: Paper, patch_png: bytes | None):
+        super().__init__(data, paper, patch_png)
+        self.left = MARGIN_X
+        self.right = MARGIN_X + self.content_w
+        self.marker_font = marker_font() if self.regular != "Helvetica" else None
+        widest = max([f"{len(data.requirements)}.", "00."], key=lambda s: _width(s, self.bold, 10.5))
+        self.text_x = self.left + CHECKBOX + 7 + _width(widest, self.bold, 10.5) + 7
+
+    # ----------------------------------------------------------------- primitives
+    def at_top(self) -> bool:
+        return self.y >= self.page_h - MARGIN_TOP - 0.01
+
+    def checkbox(self, x: float, y: float, size: float, width: float = 0.6) -> None:
+        """An empty square to tick by hand; (x, y) is its bottom-left. It also carries an
+        invisible «☐», so text extraction, search and screen readers see the checkbox."""
+        c = self.c
+        c.setStrokeColor(BOX_INK)
+        c.setLineWidth(width)
+        c.rect(x, y, size, size, stroke=1, fill=0)
+        if self.marker_font:
+            c.saveState()
+            obj = c.beginText(x, y + size * 0.12)
+            obj.setTextRenderMode(3)
+            obj.setFont(self.marker_font, size)
+            obj.textOut(CHECKBOX_CHAR)
+            c.drawText(obj)
+            c.restoreState()
+
+    def small_caps(self, x: float, baseline: float, value: str, size: float, color: Color,
+                   tracking: float = 0.5) -> float:
+        """Label in small caps: capitals stay full size, lowercase letters become smaller
+        capitals («Fecha de inicio» → F + ECHA DE INICIO). Returns its width."""
+        obj = self.c.beginText(x, baseline)
+        obj.setFillColor(color)
+        obj.setCharSpace(tracking)
+        width = 0.0
+        for run in re.findall(r"[^a-záéíóúüñ]+|[a-záéíóúüñ]+", value):
+            run_size = size * 0.8 if run[0].islower() else size
+            run = run.upper()
+            obj.setFont(self.bold, run_size)
+            obj.textOut(run)
+            width += _width(run, self.bold, run_size, tracking)
+        obj.setCharSpace(0)
+        self.c.drawText(obj)
+        return width
+
+    def rule(self, x0: float, x1: float, y: float, color: Color = FIELD_INK, width: float = 0.5) -> None:
+        self.c.setStrokeColor(color)
+        self.c.setLineWidth(width)
+        self.c.line(x0, y, x1, y)
+
+    def flow(self, items: list[_Flow]) -> None:
+        """Lay strips top to bottom. A run of `keep_with_next` strips (a requirement's text and
+        its first two answer lines) moves to the next page as a whole when it does not fit."""
+        full_page = self.page_h - MARGIN_TOP - self.content_bottom
+        i = 0
+        while i < len(items):
+            j, chain = i, items[i].height + items[i].gap_before
+            while items[j].keep_with_next and j + 1 < len(items):
+                j += 1
+                chain += items[j].height + items[j].gap_before
+            if chain > self.room() and chain - items[i].gap_before <= full_page and not self.at_top():
+                self.new_page()
+            for item in items[i:j + 1]:
+                gap = 0.0 if self.at_top() else item.gap_before
+                if gap + item.height > self.room() and not self.at_top():
+                    self.new_page()
+                    gap = 0.0
+                self.y -= gap
+                item.draw(self.y)
+                self.y -= item.height
+            i = j + 1
+
+    # ----------------------------------------------------------------- header (no background)
+    def ws_header(self) -> None:
+        """No band or box: the patch at the left, the category in grey small caps, the title and
+        the small coloured pills of the «ficha» (level, kind, year) in the category colour."""
+        data, labels = self.data, self.labels
+        top, patch = self.y, 26 * MM
+        text_x = self.left + patch + 18
+        text_w = self.right - text_x
+
+        eyebrow = labels["eyebrow"]
+        if data.category_name:
+            eyebrow += " · " + data.category_name
+        eyebrow_size = 8.0
+        while _width(eyebrow.upper(), self.bold, eyebrow_size, 0.6) > text_w and len(eyebrow) > 4:
+            eyebrow = eyebrow[:-2].rstrip() + "…"
+
+        size = 24.0
+        while True:
+            title_lines = wrap(data.name, self.bold, size, text_w)
+            if len(title_lines) <= 2 or size <= 16:
+                break
+            size -= 1
+        if len(title_lines) > 2:
+            title_lines = [title_lines[0], ellipsize(" ".join(title_lines[1:]), self.bold, size, text_w)]
+        leading = size * 1.1
+
+        pill_h, pill_gap, pill_size = 17.0, 5.0, 7.5
+        rows: list[list[tuple[str, bool, float]]] = [[]]
+        row_w = 0.0
+        for label, solid in self.hero_pills()[:3]:            # level, kind, year (no code)
+            label = ellipsize(label, self.bold, pill_size, text_w - 2 * pill_h * 0.48)
+            pw = self.pill_width(label, size=pill_size, height=pill_h)
+            if rows[-1] and row_w + pill_gap + pw > text_w:
+                rows.append([])
+                row_w = 0.0
+            row_w += (pill_gap if rows[-1] else 0) + pw
+            rows[-1].append((label, solid, pw))
+        rows = [r for r in rows if r]
+        pills_h = len(rows) * pill_h + max(len(rows) - 1, 0) * pill_gap
+
+        text_h = eyebrow_size + 8 + len(title_lines) * leading + (8 + pills_h if rows else 0)
+        block_h = max(patch, text_h)
+
+        patch_y = top - (block_h - patch) / 2 - patch
+        drawn = False
+        if self.patch_png:
+            try:
+                self.c.drawImage(ImageReader(BytesIO(self.patch_png)), self.left, patch_y, width=patch,
+                                 height=patch, preserveAspectRatio=True, anchor="c", mask="auto")
+                drawn = True
+            except Exception as exc:  # a corrupt cached file still yields a sheet
+                logger.warning("honor sheet: patch not drawable: %s", exc)
+        if not drawn:
+            self.c.setStrokeColor(WS_RULE)
+            self.c.setLineWidth(0.8)
+            self.c.circle(self.left + patch / 2, patch_y + patch / 2, patch / 2 - 2, stroke=1, fill=0)
+            self.text(self.left + patch / 2, patch_y + patch / 2 - 9, initials(data.name), self.bold, 26,
+                      WS_LABEL, align="center")
+
+        cursor = top - (block_h - text_h) / 2
+        self.small_caps(text_x, cursor - eyebrow_size, eyebrow, eyebrow_size, WS_LABEL, tracking=0.6)
+        cursor -= eyebrow_size + 8
+        for line in title_lines:
+            self.text(text_x, cursor - size * 0.92, line, self.bold, size, WS_INK, char_space=-size * 0.02)
+            cursor -= leading
+        if rows:
+            cursor -= 8
+            for row in rows:
+                px = text_x
+                for label, solid, pw in row:
+                    if solid:
+                        self.pill(px, cursor - pill_h, label, fill=self.accent.ink, ink=WHITE, size=pill_size,
+                                  height=pill_h)
+                    else:
+                        self.pill(px, cursor - pill_h, label, fill=WHITE, ink=TEXT_2, size=pill_size,
+                                  height=pill_h, stroke=tint(self.accent.bright, 0.35))
+                    px += pw + pill_gap
+                cursor -= pill_h + pill_gap
+        self.y = top - block_h - 22
+
+    def ws_fields(self) -> None:
+        """Nombre / Club, Unidad / Instructor/a, Fecha de inicio / Fecha de finalización."""
+        fields = self.labels["fields"]
+        rows = [("name", "club"), ("unit", "instructor"), ("start", "end")]
+        gap = 24.0
+        col_w = (self.content_w - gap) / 2
+        pitch, top = 27.0, self.y
+        for r, pair in enumerate(rows):
+            base = top - 20 - r * pitch
+            for k, key in enumerate(pair):
+                cx = self.left + k * (col_w + gap)
+                width = self.small_caps(cx, base + 2, fields[key], 7.5, WS_LABEL)
+                self.rule(cx + width + 6, cx + col_w, base)
+        self.y = top - 20 - (len(rows) - 1) * pitch - 22
+
+    def ws_section_title(self, title: str, meta: str | None = None) -> None:
+        """Bold black title with a 0.5 pt rule under it."""
+        self.text(self.left, self.y - 13, title, self.bold, 13, WS_INK, char_space=-13 * 0.01)
+        if meta:
+            self.text(self.right, self.y - 12, meta, self.regular, 8, WS_LABEL, align="right")
+        self.rule(self.left, self.right, self.y - 19, WS_INK, 0.5)
+        self.y -= 25
+
+    # ----------------------------------------------------------------- requirements
+    def text_flow(self, x: float, line: str, font: str, size: float, color: Color, leading: float,
+                  gap_before: float = 0.0, before: Callable[[float, float], None] | None = None,
+                  after: Callable[[float, float], None] | None = None) -> _Flow:
+        def draw(top: float) -> None:
+            mid = top - leading / 2
+            baseline = mid - size * 0.36
+            if before is not None:
+                before(mid, baseline)
+            self.text(x, baseline, line, font, size, color)
+            if after is not None:
+                after(mid, baseline)
+        return _Flow(leading, draw, keep_with_next=True, gap_before=gap_before)
+
+    def answer_flows(self, x: float, count: int, keep_last: bool = False) -> list[_Flow]:
+        flows = []
+        for k in range(count):
+            def draw(top: float, x: float = x) -> None:
+                self.rule(x, self.right, top - ANSWER_GAP, ANSWER_INK, 0.4)
+            keep = (k == 0 and count > 1) or (keep_last and k == count - 1)
+            flows.append(_Flow(ANSWER_GAP, draw, keep_with_next=keep))
+        return flows
+
+    def evidence_flow(self, x: float) -> _Flow:
+        """«Evidencia: ☐ foto ☐ demostración ☐ informe · Verificado por: ____ Fecha: ____»
+        on one row, or two when the column is too narrow for useful rules."""
+        labels, size = self.labels, 8.0
+        kinds = labels["evidence_kinds"]
+        evidence_w = _width(labels["evidence"], self.bold, size) + 8 + sum(
+            EVIDENCE_BOX + 4 + _width(kind, self.regular, size) + 10 for kind in kinds)
+        verify_w = _width(labels["verified_by"], self.bold, size) + 6 + 12 + _width(labels["date"], self.bold, size) + 6
+        avail = self.right - x
+        one_row = avail - evidence_w - 14 - verify_w >= 60 + 45
+        height = 20.0 if one_row else 40.0
+
+        def draw(top: float) -> None:
+            mid = top - 10
+            baseline = mid - size * 0.36
+            cx = x + self.text(x, baseline, labels["evidence"], self.bold, size, WS_LABEL) + 8
+            for kind in kinds:
+                self.checkbox(cx, mid - EVIDENCE_BOX / 2, EVIDENCE_BOX, width=0.5)
+                cx += EVIDENCE_BOX + 4
+                cx += self.text(cx, baseline, kind, self.regular, size, WS_LABEL) + 10
+            if one_row:
+                cx += self.text(cx - 2, baseline, "·", self.bold, size, WS_HINT) + 12
+            else:
+                cx, baseline = x, baseline - 20
+            rules = self.right - cx - verify_w
+            cx += self.text(cx, baseline, labels["verified_by"], self.bold, size, WS_LABEL) + 6
+            self.rule(cx, cx + rules * 0.6, baseline - 1.5)
+            cx += rules * 0.6 + 12
+            cx += self.text(cx, baseline, labels["date"], self.bold, size, WS_LABEL) + 6
+            self.rule(cx, self.right, baseline - 1.5)
+        return _Flow(height, draw, gap_before=4)
+
+    def requirement_flows(self, number: int, requirement: SheetRequirement) -> list[_Flow]:
+        labels, left, right = self.labels, self.left, self.right
+        text_x = self.text_x
+        practical = not requirement.is_theoretical
+        head, items = parse_requirement(requirement.description)
+        size, leading = 10.5, 14.5
+        tag = labels["practical"]
+        tag_w = self.pill_width(tag, size=7, height=15, dot=True) if practical else 0.0
+        flows: list[_Flow] = []
+
+        def lead(mid: float, baseline: float) -> None:
+            self.checkbox(left, mid - CHECKBOX / 2, CHECKBOX)
+            self.text(left + CHECKBOX + 7, baseline, f"{number}.", self.bold, size, WS_INK)
+            if practical:                             # the one coloured marker inside the list
+                self.pill(right - tag_w, mid - 7.5, tag, fill=tint(SUCCESS, 0.16), ink=SUCCESS_INK, size=7,
+                          height=15, dot=SUCCESS)
+
+        width = right - text_x
+        head_lines = wrap(head, self.regular, size, width, width - tag_w - 8 if practical else None)
+        for j, line in enumerate(head_lines):
+            flows.append(self.text_flow(text_x, line, self.regular, size, WS_INK, leading,
+                                        gap_before=14 if j == 0 else 0, before=lead if j == 0 else None))
+
+        answered = False
+        for item in items:
+            indent = text_x + max(item.level - 1, 0) * 16
+            if item.marker is None:                   # a continuation paragraph
+                x = indent if item.level else text_x
+                for j, line in enumerate(wrap(item.text, self.regular, 10, right - x)):
+                    flows.append(self.text_flow(x, line, self.regular, 10, WS_INK, 14,
+                                                gap_before=3 if j == 0 else 0))
+                continue
+            bullet = not item.marker[0].isalnum() and item.marker[0] != "("
+            marker_x = indent + SUB_CHECKBOX + 6
+            body_x = marker_x if bullet else marker_x + max(15.0, _width(item.marker, self.bold, 9.5) + 5)
+            kind = sub_item_answer(item.text, head)
+            lines = wrap(item.text, self.regular, 10, right - body_x)
+            if kind == "inline" and right - (body_x + _width(lines[-1], self.regular, 10) + 8) < 90:
+                kind = "below"
+            for j, line in enumerate(lines):
+                def before(mid: float, baseline: float, box_x: float = indent, marker: str = item.marker,
+                           bullet: bool = bullet, marker_x: float = marker_x) -> None:
+                    self.checkbox(box_x, mid - SUB_CHECKBOX / 2, SUB_CHECKBOX, width=0.55)
+                    if not bullet:
+                        self.text(marker_x, baseline, marker, self.bold, 9.5, WS_INK)
+
+                def after(mid: float, baseline: float, line: str = line, body_x: float = body_x) -> None:
+                    self.rule(body_x + _width(line, self.regular, 10) + 8, right, baseline - 1.5, ANSWER_INK, 0.4)
+
+                last = j == len(lines) - 1
+                flows.append(self.text_flow(body_x, line, self.regular, 10, WS_INK, 15 if kind == "inline" else 14,
+                                            gap_before=4 if j == 0 else 0, before=before if j == 0 else None,
+                                            after=after if kind == "inline" and last else None))
+            if kind == "lines":
+                flows.extend(self.answer_flows(body_x, 2))
+                answered = True
+            elif kind == "below":
+                flows.extend(self.answer_flows(body_x, 1))
+                answered = True
+            elif kind == "inline":
+                answered = True
+
+        instructions = clean_text(requirement.instructions).strip()
+        if instructions:
+            first = True
+            for block in [b for b in instructions.split("\n") if b.strip()]:
+                for line in wrap(block.strip(), self.regular, 8.5, right - text_x):
+                    flows.append(self.text_flow(text_x, line, self.regular, 8.5, WS_LABEL, 11.8,
+                                                gap_before=5 if first else 0))
+                    first = False
+
+        flows.extend(self.answer_flows(text_x, answer_line_count(requirement, answered), keep_last=practical))
+        if practical:
+            flows.append(self.evidence_flow(text_x))
+        return flows
+
+    def ws_requirements(self) -> None:
+        data, labels = self.data, self.labels
+        reqs = data.requirements
+        practical = sum(1 for r in reqs if not r.is_theoretical)
+        meta = labels["count_one"] if len(reqs) == 1 else labels["count"].format(n=len(reqs))
+        if practical:
+            meta += " · " + (labels["count_practical_one"] if practical == 1
+                             else labels["count_practical"].format(n=practical))
+        self.ensure(24 + 120)
+        self.ws_section_title(labels["requirements"], meta)
+        req_language = (data.requirements_locale or "").lower().split("-")[0]
+        if req_language and req_language != data.language:
+            language = labels["languages"].get(req_language, data.requirements_locale)
+            self.paragraph(labels["foreign"].format(language=language), size=8.5, color=WS_LABEL)
+        flows: list[_Flow] = []
+        for number, requirement in enumerate(reqs, 1):
+            flows.extend(self.requirement_flows(number, requirement))
+        if flows:
+            flows[0].gap_before = 4
+        self.flow(flows)
+
+    def ws_pending(self) -> None:
+        """«Requisitos en preparación»: a thin grey outline, no fill."""
+        labels, url = self.labels, self.data.page_url
+        pad, width = 18.0, self.content_w - 36
+        body = wrap(labels["pending_body"], self.regular, 9.5, width)
+        h = 2 * pad + 17 + 4 + len(body) * 13.5 + 15
+        top = self.y - 6
+        self.c.setStrokeColor(WS_RULE)
+        self.c.setLineWidth(0.7)
+        self.c.roundRect(self.left, top - h, self.content_w, h, 8, stroke=1, fill=0)
+        self.c.linkURL(url, (self.left, top - h, self.right, top), relative=0)
+        cursor = top - pad
+        self.text(self.left + pad, cursor - 12, labels["pending_title"], self.bold, 12, WS_INK)
+        cursor -= 17 + 4
+        for line in body:
+            self.text(self.left + pad, cursor - 10, line, self.regular, 9.5, WS_LABEL)
+            cursor -= 13.5
+        self.text(self.left + pad, cursor - 11, url.removeprefix("https://"), self.bold, 9.5, WS_INK)
+        self.y = top - h - 4
+
+    # ----------------------------------------------------------------- closing block
+    def ws_closing(self, approval: bool) -> None:
+        """«Aprobación» (signatures + dates) and the «Notas» box, kept together on the last page
+        above the colophon; the notes box shrinks a little before the block changes page."""
+        labels = self.labels
+        approval_h = 24 + 66.0 if approval else 0.0
+        notes_top_gap = 18.0
+        lead_gap = 26.0
+        need = lead_gap + approval_h + notes_top_gap + 14 + NOTES_H
+        room = self.y - WS_COLOPHON_TOP
+        notes_h = NOTES_H
+        if need > room:
+            if need - (NOTES_H - NOTES_MIN_H) <= room:
+                notes_h = NOTES_H - (need - room)
+            else:
+                self.new_page()
+        if not self.at_top():
+            self.y -= lead_gap
+
+        if approval:
+            self.ws_section_title(labels["approval"])
+            gap = 28.0
+            col_w = (self.content_w - gap) / 2
+            sign_y = self.y - 40
+            for k, who in enumerate((labels["sign_instructor"], labels["sign_director"])):
+                cx = self.left + k * (col_w + gap)
+                sign_end = cx + col_w * 0.62
+                self.rule(cx, sign_end, sign_y)
+                w = self.text(cx, sign_y - 12, who, self.bold, 8.5, WS_INK)
+                self.text(cx + w, sign_y - 12, " · " + labels["signature"], self.regular, 8, WS_HINT)
+                self.rule(sign_end + 12, cx + col_w, sign_y)
+                self.text(sign_end + 12, sign_y - 12, labels["date"].rstrip(":"), self.regular, 8, WS_HINT)
+            self.y -= 66
+            self.y -= notes_top_gap
+
+        self.small_caps(self.left, self.y - 9, labels["notes"], 8, WS_LABEL)
+        self.y -= 14
+        box_top, box_bottom = self.y, self.y - notes_h
+        self.c.setStrokeColor(NOTES_BORDER)
+        self.c.setLineWidth(0.7)
+        self.c.roundRect(self.left, box_bottom, self.content_w, notes_h, 10, stroke=1, fill=0)
+        line_y = box_top - ANSWER_GAP
+        while line_y > box_bottom + ANSWER_GAP * 0.6:
+            self.rule(self.left + 12, self.right - 12, line_y, NOTES_RULE, 0.4)
+            line_y -= ANSWER_GAP
+        self.y = box_bottom
+
+    def ws_colophon(self) -> None:
+        """Last page, above the footer: QR, «Generado en Adventist.Club · …/honors/<slug>», version."""
+        data, labels = self.data, self.labels
+        qr, y0 = 46.0, WS_FOOTER_RULE + 14
+        draw_qr(self.c, data.page_url, self.left, y0, qr, WS_INK)
+        tx = self.left + qr + 12
+        base = y0 + 28
+        w = self.text(tx, base, labels["generated"], self.regular, 8, WS_LABEL)
+        w += self.text(tx + w, base, "Adventist.Club", self.bold, 8, WS_LABEL)
+        url_text = ellipsize(" · " + data.page_url.removeprefix("https://www."), self.regular, 8,
+                             self.right - tx - w)
+        w += self.text(tx + w, base, url_text, self.regular, 8, WS_LABEL)
+        self.c.linkURL(data.page_url, (tx, base - 4, tx + w, base + 10), relative=0)
+        self.text(tx, base - 13, labels["version_short"].format(
+            n=data.version, date=format_date(data.updated_at, data.language)), self.regular, 7.5, WS_HINT)
+
+    def _footer(self, c: canvas.Canvas, page: int, total: int) -> None:
+        labels = self.labels
+        self.rule(self.left, self.right, WS_FOOTER_RULE, WS_RULE, 0.5)
+        page_label = labels["page"].format(x=page, y=total)
+        page_w = self.text(self.right, 42, page_label, self.bold, 8, WS_LABEL, align="right")
+        left = f"{self.data.name} · {labels['ws_title']}"
+        self.text(self.left, 42, ellipsize(left, self.regular, 7.5, self.content_w - page_w - 20),
+                  self.regular, 7.5, WS_HINT)
+
+    # ----------------------------------------------------------------- document
+    def render(self) -> bytes:
+        c, data = self.c, self.data
+        c.setTitle(f"{self.labels['ws_title']} · {data.name}")
+        c.setAuthor("Adventist.Club")
+        c.setSubject(data.page_url)
+        c.setCreator("Adventist.Club API")
+        c.setKeywords([data.slug] + ([data.category_name] if data.category_name else []))
+        self.ws_header()
+        self.ws_fields()
+        if data.requirements:
+            self.ws_requirements()
+            self.ws_closing(approval=True)
+        else:
+            self.ws_section_title(self.labels["requirements"])
+            self.ws_pending()
+            self.ws_closing(approval=False)
+        self.ws_colophon()
+        c.showPage()
+        c.save()
+        return self.out.getvalue()
+
+
+def render_sheet_pdf(data: SheetData, *, paper: Paper = "a4", mode: Mode = "hoja",
+                     patch_image: bytes | None = None, fetch_image: bool = True) -> bytes:
+    """Draw the worksheet (`mode="hoja"`, default) or the compact «ficha» (`mode="ficha"`).
+    `patch_image` (any raster) wins over fetching `data.image_url`."""
     patch = None
     if patch_image:
         try:
@@ -1034,4 +1672,5 @@ def render_sheet_pdf(data: SheetData, *, paper: Paper = "a4", patch_image: bytes
             logger.warning("honor sheet: supplied patch unreadable: %s", exc)
     elif fetch_image:
         patch = load_patch(data.image_url)
-    return _SheetRenderer(data, paper, patch).render()
+    renderer = _SheetRenderer if mode == "ficha" else _WorksheetRenderer
+    return renderer(data, paper, patch).render()

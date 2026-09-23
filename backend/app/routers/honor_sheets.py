@@ -1,4 +1,7 @@
-"""GET /api/v1/honors/{id}/sheet.pdf — the «Ficha de especialidad» generated from our data.
+"""GET /api/v1/honors/{id}/sheet.pdf — the honor's printable PDF, generated from our data.
+
+`modo=hoja` (default) is the worksheet a Pathfinder fills in by hand (fields, checkboxes, answer
+lines, approval signatures); `modo=ficha` is the compact catalogue sheet.
 
 Public for published, active honors (cacheable); the creator and the reviewers in scope also
 get unpublished ones (never cached by shared caches). The ETag covers every field the PDF
@@ -40,6 +43,7 @@ async def honor_sheet(
     locale: str | None = Query(None, pattern=LOCALE_PATTERN, max_length=35),
     download: bool = False,
     paper: Literal["a4", "letter"] = "a4",
+    modo: Literal["hoja", "ficha"] = "hoja",
     current_user: User | None = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ) -> Response:
@@ -50,7 +54,7 @@ async def honor_sheet(
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Honor not found")
 
     data = await load_sheet_data(db, honor, locale or SOURCE_LOCALE)
-    etag = f'"{data.fingerprint(paper)}"'
+    etag = f'"{data.fingerprint(paper, modo)}"'
     headers = {
         "ETag": etag,
         "Cache-Control": "public, max-age=3600" if public else "private, no-store",
@@ -60,6 +64,6 @@ async def honor_sheet(
         return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers=headers)
 
     # CPU-bound (and possibly a short patch download): off the event loop.
-    body = await asyncio.to_thread(render_sheet_pdf, data, paper=paper)
+    body = await asyncio.to_thread(render_sheet_pdf, data, paper=paper, mode=modo)
     headers["Content-Disposition"] = f'{"attachment" if download else "inline"}; filename="{_filename(honor.slug)}"'
     return Response(body, media_type="application/pdf", headers=headers)

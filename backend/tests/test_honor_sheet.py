@@ -1,4 +1,4 @@
-"""«Ficha de especialidad»: the honor sheet PDF generated from our own data."""
+"""Honor PDFs generated from our own data: the worksheet («hoja», default) and the «ficha»."""
 import io
 import time
 import uuid
@@ -15,9 +15,11 @@ from app.services.honor_sheet import (
     SheetData,
     SheetRequirement,
     SheetResource,
+    answer_line_count,
     category_accent,
     parse_requirement,
     render_sheet_pdf,
+    sub_item_answer,
 )
 from tests.conftest import module_factory, requires_db
 
@@ -36,10 +38,17 @@ def flat(value: str) -> str:
     return " ".join(value.split())
 
 
+def no_references(content: str) -> bool:
+    """«por ahora no mostremos referencias»: no source, attribution or third-party site."""
+    squashed = content.lower().replace(" ", "")
+    return not any(ref in squashed for ref in ("guiasmayores", "wiki.pathfindersonline", "pathfinderwiki",
+                                                "fuente:", "textodelosrequisitos"))
+
+
 async def _honor(factory, label: str, *, status: str = "PUBLISHED", active: bool = True,
                  requirements: list[tuple[str, str, bool, str | None]] = (),
                  resources: list[tuple[str, str, str]] = (), created_by: str | None = None,
-                 translations: dict[str, str] | None = None) -> dict:
+                 translations: dict[str, str] | None = None, source: str | None = None) -> dict:
     honor_id, name, slug = uuid.uuid4(), factory.name(label), f"{factory.prefix}-{label}"
     async with SessionLocal() as db:
         category = (await db.execute(text(
@@ -53,9 +62,10 @@ async def _honor(factory, label: str, *, status: str = "PUBLISHED", active: bool
         for position, (locale, description, theoretical, instructions) in enumerate(requirements, 1):
             await db.execute(text(
                 "INSERT INTO honor_requirements (id, honor_id, position, description, is_theoretical, instructions,"
-                " locale) VALUES (:id, :honor, :position, :description, :theoretical, :instructions, :locale)"),
+                " locale, source) VALUES (:id, :honor, :position, :description, :theoretical, :instructions,"
+                " :locale, :source)"),
                 {"id": uuid.uuid4(), "honor": honor_id, "position": position, "description": description,
-                 "theoretical": theoretical, "instructions": instructions, "locale": locale})
+                 "theoretical": theoretical, "instructions": instructions, "locale": locale, "source": source})
         for position, (resource_name, url, kind) in enumerate(resources, 1):
             await db.execute(text(
                 "INSERT INTO honor_resources (id, honor_id, position, name, url, type)"
@@ -73,16 +83,22 @@ async def _honor(factory, label: str, *, status: str = "PUBLISHED", active: bool
 # ------------------------------------------------------------------ endpoint
 
 
+ALFARERIA_REQUIREMENTS = [
+    ("es", "Explicar qué es la arcilla y cómo se forma en la naturaleza.", True, None),
+    ("es", NESTED, True, None),
+    ("es", "Hacer una vasija con la técnica de rollos.", False, "El instructor verificará la pieza."),
+]
+ALFARERIA_RESOURCES = [
+    ("Técnicas de modelado", "https://www.youtube.com/watch?v=demo", "video"),
+    ("Guía de seguridad", "https://media.adventist.club/resources/seguridad.pdf", "pdf"),
+    ("Requisitos en guiasmayores", "https://www.guiasmayores.com/alfareria.html", "link"),
+]
+
+
 @requires_db
-async def test_public_sheet_has_the_honor_its_requirements_and_resources(client, factory):
-    honor = await _honor(factory, "alfareria", requirements=[
-        ("es", "Explicar qué es la arcilla y cómo se forma en la naturaleza.", True, None),
-        ("es", NESTED, True, None),
-        ("es", "Hacer una vasija con la técnica de rollos.", False, "El instructor verificará la pieza."),
-    ], resources=[
-        ("Técnicas de modelado", "https://www.youtube.com/watch?v=demo", "video"),
-        ("Guía de seguridad", "https://media.adventist.club/resources/seguridad.pdf", "pdf"),
-    ])
+async def test_default_sheet_is_the_worksheet(client, factory):
+    honor = await _honor(factory, "alfareria", requirements=ALFARERIA_REQUIREMENTS, resources=ALFARERIA_RESOURCES,
+                         source="guiasmayores.com")
     response = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf")
     assert response.status_code == 200, response.text
     assert response.headers["content-type"] == "application/pdf"
@@ -93,18 +109,47 @@ async def test_public_sheet_has_the_honor_its_requirements_and_resources(client,
     pages, content = pdf_text(response.content)
     assert pages >= 1
     assert flat(honor["name"]) in content
-    assert "Explicar qué es la arcilla y cómo se forma en la naturaleza." in content
+    lowered = content.lower()
+    for field in ("nombre", "club", "unidad", "instructor/a", "fecha de inicio", "fecha de finalización"):
+        assert field in lowered, field                                       # the fill-in block (small caps)
+    assert "Aprobación" in content and "Instructor/a" in content and "Director/a del club" in content
+    assert "NOTAS" in content or "Notas" in content
+    assert "ESPECIALIDAD · ARTES" in content and "Nivel 1" in content and "Desde 1929" in content
+    for piece in ("Explicar qué es la arcilla y cómo se forma en la naturaleza.", "Conocer los siguientes términos:",
+                  "Barbotina", "Engobe coloreado", "Bizcocho", "Hacer una vasija con la técnica de rollos.",
+                  "El instructor verificará la pieza.", "Evidencia:", "demostración", "Verificado por:"):
+        assert piece in content, piece
+    # one checkbox per requirement, per sub-item (a, b, i, c) and per evidence kind
+    assert content.count("☐") >= 3 + 4 + 3
+    assert f"Generado en Adventist.Club · conquistadores.app/honors/{honor['slug']}" in content
+    assert "Página 1 de" in content
+    # no references: no «Fuente», no guiasmayores resource, no attribution of the rows
+    assert no_references(content)
+    assert "Recursos" not in content                                          # the worksheet has no resource list
+
+    download = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf", params={"download": 1})
+    assert download.headers["content-disposition"] == f'attachment; filename="{honor["slug"]}.pdf"'
+    assert (await client.get(f"{HONORS}/{honor['id']}/sheet.pdf", params={"modo": "otro"})).status_code == 422
+
+
+@requires_db
+async def test_ficha_mode_keeps_the_compact_sheet_without_guiasmayores(client, factory):
+    honor = await _honor(factory, "ficha", requirements=ALFARERIA_REQUIREMENTS, resources=ALFARERIA_RESOURCES,
+                         source="guiasmayores.com")
+    response = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf", params={"modo": "ficha", "download": 1})
+    assert response.status_code == 200, response.text
+    assert response.headers["content-disposition"] == f'attachment; filename="{honor["slug"]}.pdf"'
+    _, content = pdf_text(response.content)
+    assert flat(honor["name"]) in content
     for piece in ("Conocer los siguientes términos:", "Barbotina", "Engobe coloreado", "Bizcocho",
                   "Hacer una vasija con la técnica de rollos.", "El instructor verificará la pieza."):
         assert piece in content, piece
     assert "Práctico" in content and "3 requisitos · 1 práctico" in content
     assert "Recursos" in content and "Técnicas de modelado" in content and "Guía de seguridad" in content
-    assert f"conquistadores.app/honors/{honor['slug']}" in content
-    assert "Fuente: guiasmayores.com" in content and "Página 1 de" in content
+    assert "Requisitos en guiasmayores" not in content and no_references(content)
+    assert f"conquistadores.app/honors/{honor['slug']}" in content and "Página 1 de" in content
     assert "Nivel 1" in content and "Oficial (Asociación General)" in content and "Desde 1929" in content
-
-    download = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf", params={"download": 1})
-    assert download.headers["content-disposition"] == f'attachment; filename="{honor["slug"]}.pdf"'
+    assert "Aprobación" not in content and "☐" not in content
 
 
 @requires_db
@@ -112,10 +157,16 @@ async def test_sheet_without_requirements_says_they_are_in_preparation(client, f
     honor = await _honor(factory, "vacia")
     response = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf")
     assert response.status_code == 200
-    _, content = pdf_text(response.content)
-    assert "Requisitos en preparación" in content
+    pages, content = pdf_text(response.content)
+    assert pages == 1
+    assert "Requisitos en preparación" in content and "nombre" in content.lower()
+    assert "NOTAS" in content and "Aprobación" not in content and "☐" not in content
     assert f"www.conquistadores.app/honors/{honor['slug']}" in content
-    assert "Recursos" not in content
+    assert "Recursos" not in content and no_references(content)
+
+    ficha = await client.get(f"{HONORS}/{honor['id']}/sheet.pdf", params={"modo": "ficha"})
+    _, content = pdf_text(ficha.content)
+    assert "Requisitos en preparación" in content and "Recursos" not in content and no_references(content)
 
 
 @requires_db
@@ -149,6 +200,12 @@ async def test_etag_is_stable_answers_304_and_changes_with_the_content(client, f
 
     assert (await client.get(url, params={"locale": "en"})).headers["etag"] != etag
     assert (await client.get(url, params={"paper": "letter"})).headers["etag"] != etag
+    ficha = await client.get(url, params={"modo": "ficha"})
+    assert ficha.headers["etag"] not in (etag, None)
+    assert (await client.get(url, params={"modo": "hoja"})).headers["etag"] == etag      # hoja is the default
+    assert (await client.get(url, params={"modo": "ficha"},
+                             headers={"If-None-Match": ficha.headers["etag"]})).status_code == 304
+    assert (await client.get(url, headers={"If-None-Match": ficha.headers["etag"]})).status_code == 200
 
     async with SessionLocal() as db:
         await db.execute(text("UPDATE honor_requirements SET description = 'Texto corregido del requisito.'"
@@ -196,6 +253,37 @@ def _data(**overrides) -> SheetData:
     return SheetData(**fields)
 
 
+def test_parse_requirement_splits_inline_sub_items():
+    head, items = parse_requirement("Conocer los términos: a) Barbotina b) Engobe; c) Bizcocho")
+    assert head == "Conocer los términos:"
+    assert [(i.level, i.marker, i.text) for i in items] == [(1, "a)", "Barbotina"), (1, "b)", "Engobe"),
+                                                            (1, "c)", "Bizcocho")]
+    head, items = parse_requirement("Nombrar: a. el torno b. el horno")
+    assert head == "Nombrar:" and [i.marker for i in items] == ["a.", "b."]
+    head, items = parse_requirement("Hacer una pieza • con rollos • con placas")
+    assert head == "Hacer una pieza" and [(i.marker, i.text) for i in items] == [("•", "con rollos"),
+                                                                                 ("•", "con placas")]
+    # a lone marker, a run not starting at «a» or mixed punctuation never split the text
+    for text_value in ("Repasar el punto b) del requisito anterior.", "Ver a) y luego c) del manual.",
+                       "Explicar a) la cocción b. el esmaltado"):
+        assert parse_requirement(text_value) == (text_value, [])
+
+
+def test_answer_lines_follow_the_kind_of_requirement():
+    def req(text_value, theoretical=True):
+        return SheetRequirement(1, text_value, theoretical, None)
+    assert answer_line_count(req("Conocer las causas del choque.")) == 4
+    assert answer_line_count(req("Explicar qué es la arcilla.")) == 6
+    assert answer_line_count(req("Describir el proceso de cocción.")) == 6
+    assert answer_line_count(req("Conocer " + "mucho " * 60)) == 6                  # long text
+    assert answer_line_count(req("Explicar la cocción.", theoretical=False)) == 2   # practical: + evidence
+    assert answer_line_count(req("Explicar la cocción."), sub_items_answered=True) == 2
+    assert sub_item_answer("¿Qué ocurre con la arcilla?", "Responder:") == "lines"
+    assert sub_item_answer("Qué ocurre con la arcilla durante la cocción", "Describir el proceso:") == "lines"
+    assert sub_item_answer("Barbotina", "Conocer el significado de los siguientes términos:") == "inline"
+    assert sub_item_answer("Una vasija con la técnica de pellizco", "Hacer a mano las siguientes piezas:") is None
+
+
 def test_parse_requirement_nests_sub_items():
     head, items = parse_requirement(NESTED)
     assert head == "Conocer los siguientes términos:"
@@ -211,16 +299,76 @@ def test_category_palette_is_fixed_for_the_catalogue_and_stable_for_the_rest():
     assert category_accent(None).name == "blue"
 
 
-def test_long_sheet_paginates_and_renders_fast():
-    render_sheet_pdf(_data(requirements=[]), fetch_image=False)             # warm-up: font registration
+@pytest.mark.parametrize("mode, version", [("hoja", "Versión 3 · 23 sep 2026"),
+                                           ("ficha", "Versión 3 · actualizada 23 sep 2026")])
+def test_long_sheet_paginates_and_renders_fast(mode, version):
+    render_sheet_pdf(_data(requirements=[]), mode=mode, fetch_image=False)   # warm-up: font registration
     started = time.perf_counter()
-    body = render_sheet_pdf(_data(), fetch_image=False)
-    assert time.perf_counter() - started < 1.5
+    body = render_sheet_pdf(_data(), mode=mode, fetch_image=False)
+    assert time.perf_counter() - started < 2.5
     pages, content = pdf_text(body)
     assert pages >= 3 and f"Página {pages} de {pages}" in content
-    assert "Versión 3 · actualizada 23 sep 2026" in content
-    letter = PdfReader(io.BytesIO(render_sheet_pdf(_data(), paper="letter", fetch_image=False)))
+    assert version in content
+    for number in (1, 20, 40):
+        assert f"Requisito número {number}:" in content
+    letter = PdfReader(io.BytesIO(render_sheet_pdf(_data(), paper="letter", mode=mode, fetch_image=False)))
     assert [round(float(v)) for v in letter.pages[0].mediabox.upper_right] == [612, 792]
+
+
+def test_worksheet_has_a_checkbox_per_requirement_and_sub_item():
+    body = render_sheet_pdf(_data(), fetch_image=False)
+    _, content = pdf_text(body)
+    # 40 requirements, each with 4 sub-items (a, b, i, c), and 3 evidence boxes per practical one
+    practical = sum(1 for i in range(1, 41) if i % 3 == 0)
+    assert content.count("☐") == 40 + 40 * 4 + 3 * practical
+    assert content.count("Evidencia:") == practical and "Aprobación" in content
+
+
+def _sourced(source, url=None, license_=None, n=3):
+    return [SheetRequirement(i, f"Requisito {i}.", True, None, source, url, license_) for i in range(1, n + 1)]
+
+
+@pytest.mark.parametrize("mode", ["hoja", "ficha"])
+def test_no_references_are_shown_in_either_mode(mode):
+    wiki = _data(requirements=_sourced("pathfinder-wiki", "https://wiki.pathfindersonline.org/w/Pottery",
+                                       "CC BY-SA 3.0"), source_url="https://wiki.pathfindersonline.org/w/Pottery")
+    _, content = pdf_text(render_sheet_pdf(wiki, mode=mode, fetch_image=False))
+    assert "Requisito 1." in content and no_references(content) and "Pathfinder Wiki" not in content
+
+    imported = _data(requirements=_sourced("guiasmayores.com", "https://www.guiasmayores.com/alfareria.html"),
+                     source_url="https://www.guiasmayores.com/alfareria.html",
+                     resources=[SheetResource("Requisitos", "https://guiasmayores.com/a.pdf", "pdf"),
+                                SheetResource("Manual", "https://media.adventist.club/resources/a.pdf", "pdf")])
+    _, content = pdf_text(render_sheet_pdf(imported, mode=mode, fetch_image=False))
+    assert no_references(content)
+    assert ("Manual" in content) == (mode == "ficha")               # the other resource is listed (ficha)
+
+
+def _colours(body: bytes) -> set[tuple[str, str, str]]:
+    import re
+
+    found = set()
+    for page in PdfReader(io.BytesIO(body)).pages:
+        stream = page.get_contents().get_data().decode("latin-1")
+        found |= set(re.findall(r"([\d.]+) ([\d.]+) ([\d.]+) (?:rg|RG)\b", stream))
+    return found
+
+
+def test_worksheet_is_black_white_and_grey_apart_from_the_pills():
+    """No band, no tinted cards: without pills (no level/kind/year) and without practical
+    requirements every fill/stroke colour is a grey (r == g == b); the patch is an image."""
+    plain = _data(skill_level=None, honor_type=None, year_introduced=None,
+                  requirements=[SheetRequirement(i, f"Requisito {i}: {NESTED}", True, None) for i in range(1, 30)])
+    colours = _colours(render_sheet_pdf(plain, fetch_image=False))
+    assert colours and all(r == g == b for r, g, b in colours), colours
+    # the pills (level/kind/year, «Práctico») are the only coloured marks
+    assert any(len(set(c)) > 1 for c in _colours(render_sheet_pdf(_data(), fetch_image=False)))
+    assert any(len(set(c)) > 1 for c in _colours(render_sheet_pdf(_data(), mode="ficha", fetch_image=False)))
+
+
+def test_fingerprint_depends_on_the_mode():
+    data = _data()
+    assert data.fingerprint("a4", "hoja") == data.fingerprint() != data.fingerprint("a4", "ficha")
 
 
 def test_unreachable_patch_never_breaks_the_sheet(monkeypatch, tmp_path):
@@ -260,8 +408,11 @@ def test_patch_is_fetched_once_and_cached_on_disk(monkeypatch, tmp_path):
     assert render_sheet_pdf(_data(image_url=url, requirements=[])).startswith(b"%PDF")
 
 
-@pytest.mark.parametrize("text_value", ["", "   ", "Una sola palabra" * 40, "https://" + "x" * 400])
-def test_degenerate_texts_still_render(text_value):
+@pytest.mark.parametrize("mode", ["hoja", "ficha"])
+@pytest.mark.parametrize("text_value", ["", "   ", "Una sola palabra" * 40, "https://" + "x" * 400,
+                                        "Explicar:\n" + "\n".join(f"  a) {'palabra ' * 30}" for _ in range(60))],
+                         ids=["empty", "blank", "long-word", "long-url", "many-long-sub-items"])
+def test_degenerate_texts_still_render(text_value, mode):
     data = _data(requirements=[SheetRequirement(1, text_value, False, text_value)], description=text_value,
                  name=text_value or "Sin nombre")
-    assert render_sheet_pdf(data, fetch_image=False).startswith(b"%PDF")
+    assert render_sheet_pdf(data, mode=mode, fetch_image=False).startswith(b"%PDF")

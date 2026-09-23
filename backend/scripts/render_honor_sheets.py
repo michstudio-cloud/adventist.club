@@ -1,15 +1,20 @@
-"""Render «Fichas de especialidad» (honor sheets) to disk, for the owner's and designer's review.
+"""Render honor sheets (worksheet «hoja» and/or compact «ficha») to disk, for the owner's review.
 
     cd backend
     DATABASE_URL=postgresql://... python scripts/render_honor_sheets.py --out DIR --ids <uuid|slug> ...
     DATABASE_URL=postgresql://... python scripts/render_honor_sheets.py --out DIR --all-published
     DATABASE_URL=postgresql://... python scripts/render_honor_sheets.py --out DIR --samples [--demo]
 
+--modes hoja ficha (default: both) picks the layouts; every PDF is written as
+<name>-<modo>.pdf with PNG previews of its first and last page next to it (pypdfium2;
+skipped with a warning when it is not installed).
+
 --samples picks three honors from the database: the published one with the most requirements
 among those that also have resources, one whose requirements have sub-items («a)», «b)»…) and a
 published one WITHOUT requirements. --demo replaces the sub-items sample with a temporary
-«Alfarería» honor (invented but realistic Spanish text, three resources) that is inserted,
-rendered and DELETED again in the same run.
+«Alfarería» honor (invented but realistic Spanish text: sub-items on their own lines and
+inline, practical requirements, rows marked as imported from guiasmayores.com and one resource
+there, to check that none of it shows) that is inserted, rendered and DELETED again.
 
 --patch-dir DIR draws the patch from DIR/<slug>.webp|png when present (the local copy of the
 catalogue's patches) instead of fetching `image_url`. The database is only read, except for
@@ -49,6 +54,9 @@ DEMO_REQUIREMENTS = [
     ("Describir el proceso de cocción:\n  a) Qué ocurre con la arcilla durante la primera cocción\n  b) La "
      "diferencia entre un horno eléctrico, uno de leña y uno de gas\n  c) Las medidas de seguridad al cargar y "
      "descargar un horno", True, None),
+    ("Mencionar tres usos de las vasijas de barro en tiempos bíblicos: a) Para guardar agua, aceite o grano "
+     "b) Para cocinar y servir los alimentos c) Para conservar documentos, como los rollos del mar Muerto",
+     True, None),
     ("Leer Jeremías 18:1-6 y explicar con tus propias palabras qué enseña la figura del alfarero y el barro "
      "sobre la relación de Dios con nosotros.", True, None),
 ]
@@ -57,6 +65,7 @@ DEMO_RESOURCES = [
     ("Guía de seguridad en el taller de cerámica", "https://media.adventist.club/resources/alfareria-seguridad.pdf",
      "pdf"),
     ("Glosario de cerámica y alfarería", "https://www.conquistadores.app/honors/alfareria", "link"),
+    ("Requisitos (sitio externo)", "https://www.guiasmayores.com/alfareria.html", "link"),   # never shown
 ]
 
 
@@ -70,17 +79,44 @@ def patch_for(slug: str, patch_dir: Path | None) -> bytes | None:
     return None
 
 
+def write_previews(pdf: Path, body: bytes) -> list[Path]:
+    """PNGs of the first and the last page next to the PDF (<name>-p1.png, <name>-p<N>.png)."""
+    try:
+        import pypdfium2 as pdfium
+    except ImportError:
+        print("  (pypdfium2 no está instalado: sin vistas previas PNG)", file=sys.stderr)
+        return []
+    document = pdfium.PdfDocument(body)
+    try:
+        pages = sorted({0, len(document) - 1})
+        paths = []
+        for index in pages:
+            path = pdf.with_name(f"{pdf.stem}-p{index + 1}.png")
+            document[index].render(scale=150 / 72).to_pil().save(path)
+            paths.append(path)
+        return paths
+    finally:
+        document.close()
+
+
 async def render_one(db, honor: Honor, out: Path, name: str, locale: str, paper: str,
-                     patch_dir: Path | None, patch_slug: str | None = None) -> Path:
+                     patch_dir: Path | None, patch_slug: str | None = None,
+                     modes: tuple[str, ...] = ("hoja", "ficha")) -> list[Path]:
     data = await load_sheet_data(db, honor, locale)
-    started = time.perf_counter()
-    body = render_sheet_pdf(data, paper=paper, patch_image=patch_for(patch_slug or honor.slug, patch_dir))
-    elapsed = time.perf_counter() - started
-    path = out / f"{name}.pdf"
-    path.write_bytes(body)
-    print(f"{path}  {len(body) / 1024:.0f} KB  {elapsed * 1000:.0f} ms  "
-          f"({len(data.requirements)} requisitos, {len(data.resources)} recursos)")
-    return path
+    patch = patch_for(patch_slug or honor.slug, patch_dir)
+    written = []
+    for mode in modes:
+        started = time.perf_counter()
+        body = render_sheet_pdf(data, paper=paper, mode=mode, patch_image=patch)
+        elapsed = time.perf_counter() - started
+        path = out / f"{name}-{mode}.pdf"
+        path.write_bytes(body)
+        previews = write_previews(path, body)
+        print(f"{path}  {len(body) / 1024:.0f} KB  {elapsed * 1000:.0f} ms  "
+              f"({len(data.requirements)} requisitos, {len(data.visible_resources)} recursos)"
+              + (f"  + {len(previews)} PNG" if previews else ""))
+        written.append(path)
+    return written
 
 
 async def find_honor(db, key: str) -> Honor | None:
@@ -127,7 +163,8 @@ async def seed_demo(db) -> uuid.UUID:
     for position, (description, theoretical, instructions) in enumerate(DEMO_REQUIREMENTS, 1):
         await db.execute(text(
             "INSERT INTO honor_requirements (id, honor_id, position, description, is_theoretical, instructions,"
-            " locale) VALUES (:id, :honor, :position, :description, :theoretical, :instructions, 'es')"),
+            " locale, source) VALUES (:id, :honor, :position, :description, :theoretical, :instructions, 'es',"
+            " 'guiasmayores.com')"),
             {"id": uuid.uuid4(), "honor": honor_id, "position": position, "description": description,
              "theoretical": theoretical, "instructions": instructions})
     for position, (name, url, kind) in enumerate(DEMO_RESOURCES, 1):
@@ -156,8 +193,10 @@ async def main() -> None:
     parser.add_argument("--locale", default="es")
     parser.add_argument("--paper", choices=("a4", "letter"), default="a4")
     parser.add_argument("--patch-dir", type=Path)
+    parser.add_argument("--modes", nargs="+", choices=("hoja", "ficha"), default=["hoja", "ficha"])
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
+    modes = tuple(dict.fromkeys(args.modes))
 
     async with SessionLocal() as db:
         if args.samples:
@@ -168,10 +207,10 @@ async def main() -> None:
                     if demo_id is not None and label == "02-con-subitems":
                         demo = await db.get(Honor, demo_id)
                         await render_one(db, demo, args.out, f"{label}-alfareria", args.locale, args.paper,
-                                         args.patch_dir, "alfareria")
+                                         args.patch_dir, "alfareria", modes)
                         continue
                     await render_one(db, honor, args.out, f"{label}-{honor.slug}", args.locale, args.paper,
-                                     args.patch_dir)
+                                     args.patch_dir, modes=modes)
             finally:
                 if demo_id is not None:
                     await drop_demo(db, demo_id)
@@ -189,7 +228,8 @@ async def main() -> None:
                     else:
                         honors.append(honor)
             for honor in honors:
-                await render_one(db, honor, args.out, honor.slug, args.locale, args.paper, args.patch_dir)
+                await render_one(db, honor, args.out, honor.slug, args.locale, args.paper, args.patch_dir,
+                                 modes=modes)
     await engine.dispose()
 
 
