@@ -1,10 +1,13 @@
 """Media upload to Cloudflare R2."""
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.deps import require_roles
+from app.db import get_db
+from app.deps import get_current_user
 from app.models import User
+from app.rbac import profile_is_minor
 from app.security import (
     ADMIN_ASSOCIATION,
     ADMIN_DIVISION,
@@ -14,6 +17,7 @@ from app.security import (
     MASTER_GC,
 )
 from app.services import storage
+from app.services.profiles import guardianships_of
 
 router = APIRouter(prefix="/api/v1/media", tags=["media"])
 
@@ -39,15 +43,32 @@ class UploadResponse(BaseModel):
 async def upload_media(
     file: UploadFile = File(...),
     folder: str = Form(default=storage.DEFAULT_FOLDER),
-    current_user: User = Depends(require_roles(*UPLOAD_ROLES)),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """
     Images (JPEG, PNG, WebP, GIF) up to 10 MB or PDF up to 50 MB.
-    `folder`: specialties | patches | general | resources | avatars | logos
+    `folder`: specialties | patches | general | resources | avatars | covers | logos
     (anything else falls back to `general`).
     SVG: MASTER_GC only, only into `patches` or `logos`, and only when it
     carries no scripts, event handlers or javascript: URLs.
+    `avatars` and `covers` (Bloque G): any signed-in person, raster images only; a minor
+    never uploads a cover, nor a photo until a guardian allowed it.
     """
+    target_folder = storage.resolve_folder(folder)
+    profile_media = target_folder in storage.PROFILE_FOLDERS
+    if current_user.role not in UPLOAD_ROLES and not profile_media:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            f"Insufficient permissions. Required roles: {list(UPLOAD_ROLES)}",
+        )
+    if profile_media:
+        guardians = await guardianships_of(db, current_user.id)
+        if profile_is_minor(current_user, has_guardian=bool(guardians)):
+            if target_folder == "covers":
+                raise HTTPException(status.HTTP_403_FORBIDDEN, "minor_cannot_upload_cover")
+            if not current_user.guardian_allows_avatar:
+                raise HTTPException(status.HTTP_403_FORBIDDEN, "minor_avatar_not_allowed")
     if not settings.storage_configured:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, STORAGE_NOT_CONFIGURED_DETAIL)
 
@@ -70,6 +91,9 @@ async def upload_media(
                 status.HTTP_400_BAD_REQUEST,
                 "Los archivos SVG solo se aceptan en las carpetas: patches, logos",
             )
+
+    if profile_media and content_type not in storage.ALLOWED_IMAGE_TYPES:
+        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "profile_media_images_only")
 
     max_size = storage.max_size_for(content_type)
     too_large = HTTPException(

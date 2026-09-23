@@ -13,6 +13,8 @@ from app.people import age_in_years, is_minor_user
 from app.rbac import (
     ADMIN_ROLES,
     CLUB_REVIEW_ROLES,
+    CONSENT_GRANTED,
+    profile_is_minor,
     club_staff_in_good_standing,
     member_club,
     can_manage_user,
@@ -26,6 +28,7 @@ from app.rbac import (
 )
 from app.schemas.auth import MFAResetRequest, RoleName
 from app.schemas.membership import as_club_ref
+from app.schemas.profile import MyProfile, ProfileUpdate
 from app.schemas.user import (
     ChildGuardianship,
     GuardianshipCreate,
@@ -37,6 +40,7 @@ from app.security import INSTRUCTOR, MASTER_GC, PARENT_GUARDIAN, STUDENT, utcnow
 from app.services import email as email_service
 from app.services import memberships as membership_service
 from app.services import mfa as mfa_service
+from app.services import profiles as profile_service
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/users", tags=["users"])
@@ -69,6 +73,18 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
 async def get_my_profile(current_user: User = Depends(get_authenticated_user)):
     """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
     return UserResponse.from_model(current_user)
+
+
+@router.patch("/me/profile", response_model=MyProfile)
+async def update_my_profile(
+    payload: ProfileUpdate,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Bloque G: name, @handle, bio, photo, cover and visibility of one's own profile.
+    A minor can never be `public` nor have a cover (spec §1)."""
+    return await profile_service.update_profile(db, current_user, payload, request)
 
 
 @router.post("/{user_id}/mfa-reset", response_model=UserResponse)
@@ -365,10 +381,26 @@ async def update_user(
 
     is_self = target.id == current_user.id
     manages_target = await can_manage_user(db, current_user, target)
-    if not is_self and not manages_target:
+    guardianships = await profile_service.guardianships_of(db, target.id)
+    # Bloque G: the photo of a minor is the guardian's decision (spec §1, rule 4). An
+    # approved guardian (or MASTER_GC) sets the flag; the minor never does it themselves.
+    is_guardian = any(
+        guardian_id == current_user.id and consent == CONSENT_GRANTED
+        for guardian_id, consent in guardianships
+    )
+    if "guardian_allows_avatar" in changes and not (
+        is_guardian or (is_master(current_user) and not is_self)
+    ):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "guardian_allows_avatar_forbidden")
+    guardian_only = is_guardian and set(changes) == {"guardian_allows_avatar"}
+    if not is_self and not manages_target and not guardian_only:
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "You do not have permission to modify this user"
         )
+    if changes.get("avatar_url") is not None and profile_is_minor(
+        target, has_guardian=bool(guardianships)
+    ) and not changes.get("guardian_allows_avatar", target.guardian_allows_avatar):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "minor_avatar_not_allowed")
 
     if manages_target:
         allowed_admin_fields = ADMIN_ONLY_FIELDS
@@ -396,7 +428,7 @@ async def update_user(
     )
     skip = {"organization_id", "role"} if delegated else set()
 
-    for field in (SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS) - skip:
+    for field in (SELF_EDITABLE_FIELDS | ADMIN_ONLY_FIELDS | {"guardian_allows_avatar"}) - skip:
         if field in changes:
             value = changes[field]
             setattr(target, field, value.strip() if field == "name" else value)

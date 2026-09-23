@@ -39,6 +39,9 @@ class UserResponse(BaseModel):
     club_approval_reason: str | None = None
     created_at: datetime
     last_login: datetime | None
+    # Bloque G: the public @handle and whether a guardian allows the minor's photo.
+    handle: str | None = None
+    guardian_allows_avatar: bool = False
 
     @classmethod
     def from_model(cls, user: User) -> "UserResponse":
@@ -64,6 +67,8 @@ class UserResponse(BaseModel):
             club_approval_reason=user.club_approval_reason,
             created_at=user.created_at,
             last_login=user.last_login,
+            handle=user.handle,
+            guardian_allows_avatar=user.guardian_allows_avatar,
         )
 
 
@@ -78,6 +83,8 @@ class UserUpdate(BaseModel):
     # Bloque E, E9: switches OFF the portfolio progress e-mails. The security,
     # invitation, consent and membership ones are never silenced.
     notify_progress: bool | None = None
+    # Bloque G: only an approved guardian of the minor (or MASTER_GC) sets it.
+    guardian_allows_avatar: bool | None = None
     # Admin-only fields
     role: RoleName | None = None
     organization_id: uuid.UUID | None = Field(

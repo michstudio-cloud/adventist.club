@@ -679,3 +679,89 @@ async def can_approve_activity(db: AsyncSession, actor: User, member: User) -> b
         return False
     # E7: staff without a church letter in force never decide about a MINOR.
     return not is_minor_user(member) or may_handle_minors(actor)
+
+
+# ----------------------------------------------------------------------------
+# Bloque G: the public profile and the director's XP awards.
+# ----------------------------------------------------------------------------
+# Staff of a club who may see the profile of any of its members, whatever its visibility.
+PROFILE_STAFF_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY, INSTRUCTOR, COUNSELOR)
+# Who awards XP: the director and the secretary of the member's club (§4.1), and the
+# counselor of the member's unit.
+XP_AWARD_ROLES = (CLUB_DIRECTOR, CLUB_SECRETARY)
+
+
+def profile_is_minor(user: User, has_guardian: bool) -> bool:
+    """Rule 1 of the spec: `is_minor` (or an age under 18) — and, without a birth date,
+    anyone who has a guardian. A minor's profile is never open to the internet."""
+    return is_minor_user(user) or (user.birth_date is None and has_guardian)
+
+
+async def profile_access(
+    db: AsyncSession,
+    viewer: User | None,
+    target: User,
+    *,
+    target_club: Organization | None,
+    is_minor: bool,
+    viewer_is_guardian: bool,
+) -> tuple[bool, bool]:
+    """-> (may see the profile, may see the XP number).
+
+    Always: the person, their approved guardians, the staff of their club and the
+    hierarchy above them. Then, for an ADULT only: everybody when `public`, the members of
+    the same club when `club`. Anybody else gets a 404 from the caller, never a 403.
+    """
+    if viewer is not None and viewer.id == target.id:
+        return True, True
+    if target.status != "ACTIVE":
+        return False, False
+    if viewer is not None:
+        staff = (
+            target_club is not None
+            and viewer.organization_id == target_club.id
+            and club_staff_in_good_standing(viewer, PROFILE_STAFF_ROLES)
+            and (not is_minor or may_handle_minors(viewer))
+        )
+        hierarchy = is_master(viewer) or (
+            viewer.role in ADMIN_ROLES
+            and viewer.status == "ACTIVE"
+            and await org_in_user_scope(db, viewer, target.organization_id)
+        )
+        if staff or hierarchy:
+            return True, True
+        if viewer_is_guardian:
+            return True, False
+    if is_minor:
+        return False, False
+    if target.profile_visibility == "public":
+        return True, False
+    if target.profile_visibility == "club" and viewer is not None:
+        same_club = (
+            target_club is not None
+            and viewer.organization_id == target_club.id
+            and viewer.status == "ACTIVE"
+        )
+        return same_club, False
+    return False, False
+
+
+async def can_award_xp(
+    db: AsyncSession, actor: User, club: Organization, membership, member: User
+) -> bool:
+    """§4.1: the director or the secretary of the member's club, or the counselor of the
+    member's unit — never to themselves, and (E7) never to a minor without a church letter
+    in force. Administrators do not award points: it is the club's day-to-day."""
+    if actor.id == member.id or club.type != "club" or club.status != "active":
+        return False
+    if not _attached_to(actor, club) or director_blocked(actor):
+        return False
+    if is_minor_user(member) and not may_handle_minors(actor):
+        return False
+    if actor.role in XP_AWARD_ROLES:
+        return True
+    if actor.role == COUNSELOR and membership.unit_id is not None:
+        from app.services.units import counselor_unit_ids
+
+        return membership.unit_id in await counselor_unit_ids(db, club.id, actor.id)
+    return False

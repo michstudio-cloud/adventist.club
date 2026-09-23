@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, FetchedValue, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -253,6 +253,14 @@ class User(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
+    # 014_profiles.sql (Bloque G): the public profile. `handle` is filled by a database
+    # trigger on insert (from the e-mail's local part), so no sign-up path sets it.
+    handle: Mapped[str | None] = mapped_column(String(32), unique=True, server_default=FetchedValue())
+    bio: Mapped[str | None] = mapped_column(String(280))
+    cover_url: Mapped[str | None] = mapped_column(Text)
+    profile_visibility: Mapped[str] = mapped_column(String(10), server_default="private")
+    guardian_allows_avatar: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    handle_changed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
 class Guardianship(Base):
@@ -973,6 +981,30 @@ class ActivityLog(Base):
     decision_note: Mapped[str | None] = mapped_column(String(500))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class XpAward(Base):
+    """014_profiles.sql (Bloque G §4.1) — points a club's staff awards a member.
+
+    Never deleted: a mistake is corrected with another, negative row. `conducta`,
+    `puntualidad` and `uniforme` feed the «barra de buena conducta».
+    """
+
+    __tablename__ = "xp_awards"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    awarded_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    category: Mapped[str] = mapped_column(String(15))
+    points: Mapped[int] = mapped_column(SmallInteger)
+    note: Mapped[str | None] = mapped_column(String(200))
+    occurred_on: Mapped[date] = mapped_column(Date)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class ProgramRequirementText(Base):

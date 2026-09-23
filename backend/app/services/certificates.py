@@ -199,6 +199,10 @@ async def issue_certificate(
             metadata_json={"hash": certificate.certificate_hash, **(event_metadata or {})},
         )
     )
+    # Bloque G: the holder's cached XP is stale from this moment on.
+    from app.services import xp
+
+    xp.invalidate(user_id)
     return certificate
 
 
@@ -293,4 +297,7 @@ async def revoke_certificate(
         },
         request=request,
     )
+    from app.services import xp  # Bloque G: the holder's cached XP is stale
+
+    xp.invalidate(certificate.user_id)
     return certificate

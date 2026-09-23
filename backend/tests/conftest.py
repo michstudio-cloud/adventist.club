@@ -230,6 +230,16 @@ class Factory:
                     ),
                     params,
                 )
+            # Bloque G: awards cascade from the member, but an award also points at a club
+            # of this run (and at whoever awarded it).
+            if await db.scalar(text("SELECT to_regclass('public.xp_awards')")):
+                await db.execute(
+                    text(
+                        f"DELETE FROM xp_awards WHERE user_id IN ({users})"
+                        " OR club_id IN (SELECT id FROM organizations WHERE name LIKE :like)"
+                    ),
+                    params,
+                )
             # Bloque F: programs are pointed at by enrollments and certificates, both
             # already deleted above; their sections, requirements and texts cascade. A
             # program is also pointed at by its next version and by the requirements that

@@ -16,7 +16,12 @@ ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
 ALLOWED_DOCUMENT_TYPES = {"application/pdf"}
 # SVG is markup that browsers execute, so it has extra rules: see the router.
 ALLOWED_TYPES = ALLOWED_IMAGE_TYPES | ALLOWED_DOCUMENT_TYPES | {SVG_TYPE}
-ALLOWED_FOLDERS = {"specialties", "patches", "general", "resources", "avatars", "logos", "courses"}
+ALLOWED_FOLDERS = {
+    "specialties", "patches", "general", "resources", "avatars", "logos", "courses", "covers",
+}
+# Bloque G: the profile photo and cover. Any signed-in person uploads here (their own
+# profile), raster images only; a minor never uploads a cover (spec §1, rule 4).
+PROFILE_FOLDERS = {"avatars", "covers"}
 SVG_FOLDERS = {"patches", "logos"}
 DEFAULT_FOLDER = "general"
 

@@ -40,6 +40,8 @@ class Settings(BaseSettings):
     # the day enforcement starts once every active association has at least one
     # validator; from that day a director's 60-day grace is counted too.
     LEADER_VERIFICATION_ENFORCED_FROM: date | None = None
+    # Bloque G: accounts created before this day wear the «fundador» badge. Unset = nobody.
+    PUBLIC_LAUNCH_DATE: date | None = None
 
     # --- Cloudflare R2 (optional: without it media upload answers 503) ---
     R2_ACCOUNT_ID: str | None = None
