@@ -105,3 +105,14 @@ No trae imágenes de los parches.
    claves en `strings.*.json`) y el emblema de Aventureros (`public/brand/aventureros.svg`).
 7. Licencia: el libro es © GC Youth Ministries; confirmar permiso de uso de los textos antes de publicarlos
    (igual que con guiasmayores.com). Mientras tanto, DRAFT y `SHOW_SOURCES` apagado.
+
+### 6.1 Fuentes revisadas y parches (2026-09-24, noche)
+
+| Fuente | Qué aporta | Estado |
+|---|---|---|
+| *Award Book 2020* (PDF) | Requisitos + guía del instructor de los 155 awards, en inglés. **Los parches van en vector** (dibujos en el PDF; solo «Artist» y «Building Blocks» son raster, 360×265 y 86×61 px). | **Extraídos los 155** a `~/Documents/DEEL/aventureros/parches-pdf/` (PNG 300 dpi con transparencia + SVG por award; índice `backend/data/adventurer_awards_patches.csv`). Herramienta: PyMuPDF (`pymupdf` en el venv de pruebas). |
+| mundoja.org/especialidades/aventureros (DIA, «nuevo currículo») | Solo la categoría **Espirituales**: 34 awards con **nombre en español**, ficha con **requisitos en español** y guía del instructor (voluntarios de Mundo J.A). Imágenes PNG de **158×158 px** (misma familia de diseño que el libro). | Descargadas a `~/Documents/DEEL/aventureros/parches-mundoja/` (índice `backend/data/adventurer_awards_mundoja.csv`). El sitio bloquea `curl` sin cabeceras de navegador y las imágenes se cargan por JS. |
+| clubministries.org/adventurers (NAD) | Lista de 137 awards por clase (21 Little Lamb stars, 26 Eager Beaver chips, 17 Busy Bee, 23 Sunbeam, 28 Builder, 24 Helping Hand, 10 multinivel, 2 especiales), Director's Guide en inglés/español, logos e imágenes de Aventureros; fichas en Wikibooks y en el USB de AdventSource. | Contexto y mapeo award → clase (NAD). |
+| guiasmayores.com/especialidades-de-aventureros | Fichas por nivel en español (Estrellitas de Corderito, Fichas de Castorcito, Abejita Industriosa, Rayito de Sol, Constructor, Manitas Ayudadoras, Multinivel, Otras regiones), libro de la AG y póster. | Contexto; sin permiso de uso (como con Conquistadores). |
+
+**Recomendación al retomar:** usar los **vectores del Award Book** como imagen de catálogo de los 155 (calidad ilimitada, set completo y coherente) y mundoja.org como fuente de **nombres y requisitos en español** de Espirituales (y para comparar diseños). Si el propietario prefiere las imágenes de mundoja, solo cubren 34 awards y a 158 px (se verían borrosas en escritorio y en certificados). Confirmar el permiso de uso de los textos del libro (© GC Youth Ministries) antes de publicar.
