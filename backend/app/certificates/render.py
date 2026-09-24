@@ -86,7 +86,16 @@ class Template:
         declared = self.meta.get("ministries")
         return [str(m) for m in declared] if isinstance(declared, list) and declared else None
 
+    @property
+    def listed(self) -> bool:
+        """`"listed": false` retires a template from the pickers (owner, 2026-09-24: only the v4
+        honor designs and the investiture template are offered) while certificates already issued
+        with it keep rendering: `load_template` never looks at this."""
+        return self.meta.get("listed", True) is not False
+
     def serves(self, ministry: str | None = None, kind: str | None = None) -> bool:
+        if not self.listed:
+            return False
         if kind is not None and kind not in self.kinds:
             return False
         allowed = self.ministries
