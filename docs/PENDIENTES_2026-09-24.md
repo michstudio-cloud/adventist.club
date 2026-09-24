@@ -128,3 +128,20 @@ raster en el libro: PNG nativos de 351×250 y 86×61 px, este último necesita s
 mundoja en `adventurer_awards_mundoja_map.csv` (todos casan). **Subida a R2 pendiente**: `upload --r2` con las variables
 `R2_*` de Render (clave estable `patches/adventurers/<slug>.webp`, caché inmutable) o `--api` con un token INSTRUCTOR+
 (nombre elegido por el API). Licencia © GC Youth Ministries: confirmar antes de publicar.
+
+### 6.3 Cargadas en producción (2026-09-24, noche) — en BORRADOR
+
+`migrations/import_adventurer_awards.py --commit` aplicado en Neon: 6 categorías `av-*` del ministerio `adventurers`
+(Comunidad, Manualidades, Hogar, Naturaleza, Recreación, Espiritual, con en/pt), **164 awards en `DRAFT`** con parche en R2,
+`honor_type='OFFICIAL_GC'`, slug `av-<slug>`, y 989 requisitos: base en español (191 de mundoja.org para 31 Espirituales,
+798 de **traducción no oficial hecha con IA**, marcada así en `source`) + traducción al inglés desde el libro
+(`source='gc-award-book-2020'`, licencia «© GC Youth Ministries, permiso pendiente»). Idempotente (segunda pasada: 0 cambios).
+Notas del instructor («Supporting Answers») NO cargadas (flag `--instructor-notes`, porque la hoja del miembro las imprimiría).
+Clase sugerida en la descripción («Clase sugerida: …») hasta que existan los programas de clases de Aventureros.
+Parches subidos por `POST /media/upload` con la cuenta `importer@adventist.club` (reactivada y vuelta a INACTIVE con
+contraseña invalidada).
+
+**Antes de publicar (`--publish` o desde `/admin/especialidades`):** revisión humana de la traducción no oficial
+(130 awards), decidir las 3 fichas de mundoja con versión antigua (Amigo de Jesús, Temperancia, Mayordomo sabio: hoy va la
+lista del libro 2020 con nombre de mundoja; `--mundoja-always` para la de mundoja), sustituto del parche «Building Blocks»
+(86×61 px), permiso de la GC, y crear las clases de Aventureros (`programs`) para colgar las recomendaciones.
