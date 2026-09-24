@@ -72,6 +72,7 @@ Nature,Astronomer,Builder,189
 Nature,Birds,Early Bird,191
 Nature,Bodies of Water,Little Lamb,197
 Nature,Butterflies (Formerly Butterfly),Busy Bee,199
+Nature,Dogs (Formerly Dog),Multi-level,201
 Nature,Environmentalist,Helping Hands,203
 Nature,Feathered Friends,Sunbeam,205
 Nature,Fish,Busy Bee,207
@@ -96,6 +97,7 @@ Nature,Seasons,Sunbeam,243
 Nature,Seeds (Formerly Seed),Sunbeam,245
 Nature,Stars,Little Lamb,247
 Nature,Trees,Sunbeam,249
+Nature,Universe,Multi-level,251
 Nature,Weather I,Little Lamb,253
 Nature,Weather II,Helping Hands,255
 Nature,Whales (Formerly Whale),Sunbeam,257
@@ -112,11 +114,14 @@ Recreation,First Aid Helper,Builder,283
 Recreation,Fitness Fun,Sunbeam,285
 Recreation,Guide,Busy Bee,287
 Recreation,Gymnast,Builder,289
+Recreation,Horsemanship,Multi-level,291
 Recreation,Left and Right,Early Bird,293
 Recreation,Olympics (Formerly Olympic),Builder,295
+Recreation,Photo Fun,Multi-level,297
 Recreation,Playing with Friends,Early Bird,299
 Recreation,Skater,Helping Hands,305
 Recreation,Skier,Sunbeam,307
+Recreation,Snowshoeing,Multi-level,309
 Recreation,Spotter,Busy Bee,311
 Recreation,Swimmer I (Formerly Beginning Swimming),Early Bird,313
 Recreation,Swimmer II (Formerly Swimmer I),Busy Bee,315
@@ -132,6 +137,8 @@ Spiritual,Bible II,Sunbeam,341
 Spiritual,Bible III (Formerly Bible II),Builder,343
 Spiritual,Bible IV,Helping Hands,345
 Spiritual,Bible Royalty,Helping Hands,347
+Spiritual,Bible Storytelling,Multi-level,349
+Spiritual,Bread of Life,Multi-level,351
 Spiritual,Creation,Little Lamb,353
 Spiritual,Delightful Sabbath,Busy Bee,357
 Spiritual,Disciples,Builder,359
@@ -139,6 +146,7 @@ Spiritual,Early Adventist Pioneers,Helping Hands,361
 Spiritual,Friend of Jesus,Sunbeam,363
 Spiritual,Fruits of the Spirit,Helping Hands,365
 Spiritual,God’s World,Early Bird,367
+Spiritual,Good Samaritan,Multi-level,369
 Spiritual,Jesus’ Special Supper,Early Bird,371
 Spiritual,Jesus’ Star,Early Bird,373
 Spiritual,Listening,Busy Bee,375
@@ -149,6 +157,7 @@ Spiritual,Parables of Jesus,Sunbeam,389
 Spiritual,Pearly Gates,Helping Hands,391
 Spiritual,Prayer,Builder,393
 Spiritual,Prayer Warrior,Helping Hands,395
+Spiritual,Purity,Multi-level,397
 Spiritual,Rainbow Promise,Helping Hands,399
 Spiritual,Steps to Jesus,Helping Hands,401
 Spiritual,Tabernacle,Helping Hands,403

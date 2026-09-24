@@ -1,0 +1,8 @@
+# Tools outside the API (tools/*.py). Not installed on Render.
+# tools/adventurer_patches.py
+pymupdf==1.28.2
+pillow==12.3.0
+defusedxml==0.7.1
+boto3==1.40.30
+# optional: extra SVG optimisation pass (~10% smaller) when installed
+scour==0.38.2
