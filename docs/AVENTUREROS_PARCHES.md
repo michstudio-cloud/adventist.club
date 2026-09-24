@@ -1,8 +1,9 @@
 # Aventureros · librería de parches (Award Book 2020)
 
 Encargo del propietario (2026-09-24): «extrae los parches [de Aventureros] por ahora y deja la
-librería lista». Esto es **solo la librería de imágenes**: no crea honors, categorías ni filas en
-ninguna base de datos.
+librería lista». Las secciones siguientes tratan **solo la librería de imágenes**; la carga de los
+awards y sus requisitos a la base (encargo del mismo día: «súbelas a la base de datos junto con sus
+requisitos») está en [Carga a la base](#carga-a-la-base).
 
 ## Qué hay
 
@@ -118,6 +119,89 @@ roles INSTRUCTOR, COORDINATOR_ZONE, ADMIN_* o MASTER_GC (SVG solo MASTER_GC); im
 **El API elige la clave** (`patches/<uuid>.webp`) y no fija `Cache-Control`: la URL que devuelve se
 guarda en `webp_url`, pero no es estable entre subidas. Reanudable: salta las filas que ya tienen
 `webp_url` (salvo `--force`).
+
+## Carga a la base
+Encargo del propietario (2026-09-24): «sube [las especialidades de Aventureros] a la base de datos junto
+con sus requisitos». Tres pasos; los dos primeros ya están hechos y su resultado está en el repo.
+
+| Paso | Herramienta | Resultado (en `backend/data/`) |
+|---|---|---|
+| 1. Requisitos en inglés del PDF | `backend/migrations/extract_adventurer_awards.py` (pymupdf) | `adventurer_awards.json`: 164 awards, 989 requisitos, sub-incisos, notas del instructor |
+| 2a. Español de mundoja (Espirituales) | `backend/migrations/catalog_tools/fetch_mundoja_awards.py` | `adventurer_awards_mundoja_es.json`: 34 fichas (nombre, requisitos «tal cual», «Ayuda») |
+| 2b. Español del resto | traducción (ver abajo) | `adventurer_awards_es.json`: nombres y requisitos de 133 awards |
+| 3. Carga | `backend/migrations/import_adventurer_awards.py` | 6 categorías, 164 honors, 1.978 filas de requisitos |
+
+### Extracción (paso 1)
+Cada award va de su página (manifiesto) a la anterior al award siguiente. El título es el texto
+grande (≥ 24 pt); «Requirements» abre la lista y «Supporting Answers» la cierra y abre la guía del
+instructor. Un «N.» abre el requisito N solo si es el siguiente esperado (así una lista interna que
+reinicia en 1 no rompe la numeración). Los sub-incisos se guardan **dentro del requisito**, una línea
+por inciso con su marcador y dos espacios por nivel (`"  a. …"`, `"    i. …"`), igual que las filas de
+la wiki de Conquistadores en `honor_requirements.description`: la hoja de la especialidad y el
+editor los leen así. Una frase sin marcador después de los incisos («Memorize and repeat two of them.»)
+queda como línea sin sangría. Casos del libro resueltos: *Technology* (p. 177) imprime el requisito 1
+sin «1.»; «I. Diskette» tras «k.» es «l.»; *Cyclist I*, *Manners Fun* y *Toys* imprimen respuestas bajo
+la lista («Answer for #3:», «Idea for #8:»), que pasan a notas; la p. 186 repite los requisitos de
+*Animal Homes* y se ignora. «Supporting Answers» numeradas → `instructor_notes_en` del requisito
+(«1-2.» cubre ambos); el texto sin número → `general_notes_en`. En 8 awards la guía del libro no sigue
+la numeración (My Picture Book, Postcards, Collector, Geologist, Ladybugs, Trees, Camper, Swimmer II) y
+se guarda entera en `general_notes_en`; 30 awards no traen guía. Seis awards comprobados a mano contra
+el PDF (págs. 17, 177, 201, 203, 339, 405) quedan fijados en `backend/tests/test_adventurer_awards_import.py`.
+
+```bash
+python backend/migrations/extract_adventurer_awards.py [--pdf "~/Documents/DEEL/aventureros/Award Book 2020.pdf"]
+python backend/migrations/catalog_tools/fetch_mundoja_awards.py [--offline]   # caché en ~/Documents/DEEL/aventureros/mundoja-fichas
+```
+
+### Español: oficial (mundoja) y **traducción no oficial**
+- **mundoja.org** (voluntarios de Mundo J.A., DIA; sin licencia explícita): nombres de los 34 Espirituales
+  y requisitos de 31 de ellos, copiados tal cual (`source='mundoja.org'`, `source_url` = ficha,
+  `license` NULL). 191 requisitos. Arrastran erratas del sitio («gramo.» por «g.», «29: 44-» cortado).
+- Tres fichas de mundoja traen **otra versión** (más antigua) de la lista, con distinto número de
+  requisitos: *Amigo de Jesús* (9 vs 8), *Temperancia* (8 vs 7), *Mayordomo sabio* (8 vs 6). Por defecto
+  se usa su nombre de mundoja pero la lista **traducida del libro 2020**; `--mundoja-always` carga la de mundoja.
+- **Traducción no oficial** (`source='traduccion-no-oficial-gc-award-book-2020'`, licencia del libro):
+  los nombres de 130 awards y los requisitos de 133 (798 requisitos) + las introducciones del libro
+  («Awarded to Adventurers who read…»). La hizo una IA (Claude) a partir del texto extraído, fiel al
+  libro (mismos requisitos, mismos incisos, en infinitivo, terminología DIA: Corderitos, Aves
+  Madrugadoras, Abejas Industriosas, Rayos de Sol, Constructores, Manos Ayudadoras); se revisó por
+  muestreo. **Debe revisarla una persona antes de publicarla.** Decisiones a revisar: *Build & Fly* 3
+  («kit» del libro → «cometa»), *Outdoor Explorer* 5a (abecedario con ejemplos en español),
+  *Basic Knots* 2 (nombres de nudos), *Baking* 3 (términos de repostería), *Gymnast* 6.
+- El inglés va siempre como `locale='en'`, `source='gc-award-book-2020'`,
+  `source_url=https://www.gcyouthministries.org/ministries/adventurers/#page=<pág. del libro>`,
+  `license='© GC Youth Ministries, permiso pendiente'` (40 caracteres: el ancho de la columna; «(permiso
+  pendiente)» entre paréntesis no cabía).
+
+### Qué escribe el importador
+- Ministerio `adventurers` (debe existir). Categorías `av-comunidad`, `av-manualidades`, `av-hogar`,
+  `av-naturaleza`, `av-recreacion`, `av-espiritual` (nombre es + `honor_category_translations` en/pt).
+- 164 `honors`: `slug='av-<slug>'`, `code` NULL, `honor_type='OFFICIAL_GC'` (el CHECK solo admite
+  OFFICIAL_GC/DIVISIONAL/LOCAL; un award del libro de la Asociación General es lo más cercano a
+  «award»), `authority='GC'`, `status='DRAFT'` al crearse, `active=true`, `image_url` = `webp_url` del
+  manifiesto, `source_url` = página del libro, `description` = introducción del libro (si la hay) +
+  «Clase sugerida: …» (o «Multinivel»). No hay programas de clases de Aventureros todavía, así que la
+  clase va en la descripción y no como recomendación.
+- `honor_translations` en (nombre y descripción del libro); pt no (no hay texto).
+- `honor_requirements`: lista base `es` + lista `en` (un juego de filas por idioma, como Conquistadores).
+- **Notas del instructor**: se quedan en el JSON y **no se cargan por defecto**: `instructions` se
+  imprime bajo cada requisito en la hoja del miembro y esas notas traen las respuestas.
+  `--instructor-notes` las carga igualmente.
+- Idempotente: los honors se buscan por (ministerio, slug) y conservan su id; un honor existente
+  conserva su estado; los requisitos solo se borran y recrean si cambió el hash de lo que carga el
+  importador desde su última ejecución (queda en `audit_log`, acción `HONOR_IMPORT`), así que las
+  ediciones hechas en la app y el progreso de los miembros sobreviven a una reejecución; una lista `es`
+  escrita en el editor (filas sin `source`) no se toca nunca.
+
+### Comandos (producción: los ejecuta el coordinador)
+```bash
+cd backend
+DATABASE_URL="$NEON_URL" python migrations/import_adventurer_awards.py              # simulacro (ROLLBACK), imprime conteos
+DATABASE_URL="$NEON_URL" python migrations/import_adventurer_awards.py --commit     # carga como BORRADOR
+DATABASE_URL="$NEON_URL" python migrations/import_adventurer_awards.py --commit --publish   # decisión del propietario
+```
+Opciones: `--mundoja-always`, `--instructor-notes`, `--operator correo@…` (para `audit_log`).
+Necesita `pip install "psycopg[binary]"` (como los demás importadores de `migrations/`; no está en `requirements.txt`) y no descarga nada.
 
 ## Licencia
 El libro es © GC Youth Ministries. Antes de publicar los parches o los textos, confirmar el permiso
