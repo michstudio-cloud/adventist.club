@@ -116,3 +116,15 @@ No trae imágenes de los parches.
 | guiasmayores.com/especialidades-de-aventureros | Fichas por nivel en español (Estrellitas de Corderito, Fichas de Castorcito, Abejita Industriosa, Rayito de Sol, Constructor, Manitas Ayudadoras, Multinivel, Otras regiones), libro de la AG y póster. | Contexto; sin permiso de uso (como con Conquistadores). |
 
 **Recomendación al retomar:** usar los **vectores del Award Book** como imagen de catálogo de los 155 (calidad ilimitada, set completo y coherente) y mundoja.org como fuente de **nombres y requisitos en español** de Espirituales (y para comparar diseños). Si el propietario prefiere las imágenes de mundoja, solo cubren 34 awards y a 158 px (se verían borrosas en escritorio y en certificados). Confirmar el permiso de uso de los textos del libro (© GC Youth Ministries) antes de publicar.
+
+### 6.2 Librería de parches lista (2026-09-24, noche)
+
+`tools/adventurer_patches.py` (+ `docs/AVENTUREROS_PARCHES.md`): **164 awards** (el libro trae 9 «multinivel» que el índice
+omitía: Dogs, Universe, Horsemanship, Photo Fun, Snowshoeing, Bible Storytelling, Bread of Life, Good Samaritan, Purity).
+Todos limpios en la hoja de contacto (`~/Documents/DEEL/aventureros/libreria/contact-sheet.png`). En el repo:
+`backend/data/adventurer_awards_library.csv` (manifiesto con slug, nombres y clases es/en, hashes, notas),
+`backend/data/adventurer_awards/webp/` (164 × 512 px, 2,8 MB) y `svg/` (162, 2,0 MB; «Artist» y «Building Blocks» son
+raster en el libro: PNG nativos de 351×250 y 86×61 px, este último necesita sustituto). Correspondencia con los 34 de
+mundoja en `adventurer_awards_mundoja_map.csv` (todos casan). **Subida a R2 pendiente**: `upload --r2` con las variables
+`R2_*` de Render (clave estable `patches/adventurers/<slug>.webp`, caché inmutable) o `--api` con un token INSTRUCTOR+
+(nombre elegido por el API). Licencia © GC Youth Ministries: confirmar antes de publicar.
