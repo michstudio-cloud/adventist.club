@@ -451,7 +451,10 @@ async def can_view_portfolio(db: AsyncSession, actor: User, target: User) -> boo
         Guardianship.child_id == target.id,
         Guardianship.consent_status == CONSENT_GRANTED,
     )
-    if (await db.execute(consent.limit(1))).scalar_one_or_none() is not None:
+    # SEC-02: a guardianship is over a MINOR. Once the person turns 18 it opens nothing;
+    # without a birth date, having a guardian is what makes them a minor (profile rule 1).
+    still_a_minor = is_minor_user(target) or target.birth_date is None
+    if still_a_minor and (await db.execute(consent.limit(1))).scalar_one_or_none() is not None:
         return True
     # Reviewers with jurisdiction over any live enrollment. Today can_view_user already
     # covers the club's staff; course instructors (Bloque B) will only get in through here.
@@ -749,8 +752,9 @@ async def profile_access(
         )
         if staff or hierarchy:
             return True, True
-        if viewer_is_guardian:
-            return True, is_minor
+        if viewer_is_guardian and is_minor:
+            # SEC-02: of a minor only; an adult's profile follows their own visibility.
+            return True, True
     if is_minor:
         return False, False
     if target.profile_visibility == "public":

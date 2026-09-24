@@ -564,3 +564,26 @@ async def test_open_enrollments_follow_the_member_to_the_new_club(client, world,
         id=person["id"],
     )
     assert {row["club"] for row in after if row["status"] != "CERTIFIED"} == {None}
+
+
+# ----------------------------------------------------------------------------
+# SEC-07 (revisión de seguridad 2026-09): el filtro de estado del plantel
+# ----------------------------------------------------------------------------
+async def test_sec07_the_club_staff_only_lists_active_and_waiting_members(client, world):
+    url = f"/api/v1/clubs/{world['club_a']['id']}/members"
+    for staff in ("director", "secretary", "instructor"):
+        headers = world[staff]["headers"]
+        for hidden in ("PENDING_CONSENT", "ENDED", "CANCELLED", "REJECTED"):
+            # Minors without consent, or whose guardian withdrew it, are not the club's to see.
+            refused = await client.get(url, params={"status": hidden}, headers=headers)
+            assert refused.status_code == 403, (staff, hidden)
+        assert (await client.get(url, params={"status": "ACTIVE"}, headers=headers)).status_code == 200
+    waiting = await client.get(
+        url, params={"status": "PENDING_APPROVAL"}, headers=world["director"]["headers"]
+    )
+    assert waiting.status_code == 200
+    # The association above the club keeps the whole history.
+    history = await client.get(
+        url, params={"status": "ENDED"}, headers=world["admin"]["headers"]
+    )
+    assert history.status_code == 200

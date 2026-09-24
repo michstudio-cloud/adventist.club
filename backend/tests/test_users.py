@@ -5,6 +5,7 @@ import uuid
 import pytest_asyncio
 from sqlalchemy import text
 
+from app.config import settings
 from app.db import SessionLocal
 
 from tests.conftest import fetch_all, fetch_one, module_factory, requires_db
@@ -13,6 +14,8 @@ pytestmark = requires_db
 factory = module_factory("users")
 
 USERS = "/api/v1/users"
+# SEC-08: an avatar is a file of the platform's public bucket, `avatars/` folder.
+AVATAR = f"{settings.R2_PUBLIC_URL.rstrip('/')}/avatars/a.png"
 
 
 @pytest_asyncio.fixture(scope="module")
@@ -181,17 +184,17 @@ async def test_self_update_and_clear_avatar(client, tree, factory):
     url = f"{USERS}/{student['id']}"
     updated = await client.patch(
         url,
-        json={"name": factory.name("student-a"), "avatar_url": "https://media.example/a.png"},
+        json={"name": factory.name("student-a"), "avatar_url": AVATAR},
         headers=student["headers"],
     )
     assert updated.status_code == 200, updated.text
-    assert updated.json()["avatar_url"] == "https://media.example/a.png"
+    assert updated.json()["avatar_url"] == AVATAR
 
     # Omitting avatar_url leaves it alone ...
     untouched = await client.patch(
         url, json={"name": factory.name("student-a")}, headers=student["headers"]
     )
-    assert untouched.json()["avatar_url"] == "https://media.example/a.png"
+    assert untouched.json()["avatar_url"] == AVATAR
     # ... an explicit null clears it.
     cleared = await client.patch(url, json={"avatar_url": None}, headers=student["headers"])
     assert cleared.status_code == 200, cleared.text
@@ -290,6 +293,13 @@ async def test_guardianship_rules(client, tree, factory):
     child = await factory.user("child", organization_id=org, is_minor=True)
     adult = await factory.user("adult", organization_id=org)
     url = f"{USERS}/guardianships"
+    # SEC-01: only an adult whose e-mail is verified may declare a guardianship.
+    async with SessionLocal() as db:
+        await db.execute(
+            text("UPDATE users SET verification_status = 'VERIFIED' WHERE id = ANY(:ids)"),
+            {"ids": [uuid.UUID(u["id"]) for u in (guardian, other_guardian, tree["student_a"])]},
+        )
+        await db.commit()
 
     # D9 (bloque E): any ADULT may be a guardian, not only PARENT_GUARDIAN —
     # the director whose own child is a member needs no second account. A minor
@@ -338,10 +348,10 @@ async def test_guardianship_rules(client, tree, factory):
     for outsider in (other_guardian, child, tree["master"]):
         refused = await client.post(f"{url}/{link['id']}/approve", headers=outsider["headers"])
         assert refused.status_code == 403
+    # SEC-01: not even they approve it — that was self-consent. The approval comes from
+    # the consent link e-mailed to the guardian (memberships.decide_consent).
     approved = await client.post(f"{url}/{link['id']}/approve", headers=guardian["headers"])
-    assert approved.status_code == 200
-    assert approved.json()["consent_status"] == "APPROVED"
-    assert approved.json()["consent_granted_at"] is not None
+    assert approved.status_code == 403
     rejected = await client.post(f"{url}/{link['id']}/reject", headers=guardian["headers"])
     assert rejected.status_code == 200
     assert rejected.json()["consent_status"] == "REJECTED"

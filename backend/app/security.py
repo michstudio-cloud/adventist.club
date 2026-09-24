@@ -301,6 +301,9 @@ class FailedAttemptTracker:
         self.max_failures = max_failures
         self.window_seconds = window_seconds
         self._failures: dict[str, list[float]] = {}
+        # SEC-09: keys that reached `max_failures`, until when. Only callers that have no
+        # code to invalidate (the TOTP of the second factor) need to ask `is_locked`.
+        self._locked: dict[str, float] = {}
 
     def record_failure(self, key: str) -> bool:
         now = time.monotonic()
@@ -308,14 +311,27 @@ class FailedAttemptTracker:
         recent.append(now)
         if len(recent) >= self.max_failures:
             self._failures.pop(key, None)
+            self._locked[key] = now + self.window_seconds
+            if len(self._locked) > 10_000:
+                self._locked = {k: t for k, t in self._locked.items() if t > now}
             return True
         self._failures[key] = recent
         if len(self._failures) > 10_000:
             self._failures.clear()
         return False
 
+    def is_locked(self, key: str) -> bool:
+        until = self._locked.get(key)
+        if until is None:
+            return False
+        if time.monotonic() >= until:
+            self._locked.pop(key, None)
+            return False
+        return True
+
     def reset(self, key: str) -> None:
         self._failures.pop(key, None)
+        self._locked.pop(key, None)
 
 
 code_attempts = FailedAttemptTracker()

@@ -25,6 +25,8 @@ from app.rbac import (
     can_manage_members,
     can_view_guardian_contact,
     can_view_roster,
+    is_admin_role,
+    is_master,
     may_handle_minors,
     profile_is_minor,
     visible_avatar,
@@ -99,6 +101,14 @@ async def list_members(
     staff. Declaring one model would put the key back into every payload."""
     club = await membership_service.get_club(db, club_id)
     if not await can_view_roster(db, current_user, club):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, NOT_ROSTER_DETAIL)
+    if (
+        status_filter not in (None, membership_service.ACTIVE, membership_service.PENDING_APPROVAL)
+        and not (is_master(current_user) or is_admin_role(current_user))
+    ):
+        # SEC-07: a minor waiting for consent is invisible to the club until a guardian says
+        # yes, and one whose guardian withdrew it leaves the club "at once". The club's own
+        # staff list who is in, or asking to be; the history stays with the hierarchy.
         raise HTTPException(status.HTTP_403_FORBIDDEN, NOT_ROSTER_DETAIL)
     manages = await can_manage_members(db, current_user, club)
     sees_guardians = await can_view_guardian_contact(db, current_user, club)
