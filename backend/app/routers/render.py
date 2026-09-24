@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 
 from fastapi import APIRouter, HTTPException, Query, Request, Response
 from pydantic import BaseModel, Field
+from sqlalchemy import select
 
 from app.certificates.render import (
     TemplateError, fonts_installed, list_templates, load_template, qr_data_url, render_certificate,
@@ -17,6 +18,8 @@ from app.certificates.signatures import SIGNATURE_FIELDS, SignatureError, normal
 from app.config import settings
 from app.db import SessionLocal
 from app.rate_limit import limiter
+from app.models import Certificate
+from app.services import certificate_signatures, storage
 from app.services.certificates import RECORD_FIELDS, render_data, stored_locale
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
@@ -60,6 +63,35 @@ class RenderRequest(BaseModel):
     certificate_no: str | None = Field(default=None, max_length=80)
 
 
+async def _issued_signatures(certificate_no: str, template: str) -> dict[str, str] | None:
+    """021 — the signatures an issued certificate prints, whoever asks for it again.
+
+    `None`: the caller's signatures stand, as before 021 — there is no such folio, or it is an
+    unaccounted one (the open tool without a session, `official = false`) that kept none.
+    Otherwise `{slot: data URL}` is ALL it prints: the copies kept at issuance, and nothing
+    the caller sends replaces them or fills a line the record left unsigned. A certificate that
+    is no longer `issued` (revoked) prints no signature at all, although it keeps them."""
+    async with SessionLocal() as db:
+        certificate = (
+            await db.execute(select(Certificate).where(Certificate.certificate_no == certificate_no))
+        ).scalar_one_or_none()
+    if certificate is None:
+        return None
+    kept = certificate_signatures.stored_urls(certificate)
+    if not kept and certificate_signatures.is_unaccounted(certificate):
+        return None
+    if certificate.status != "issued":
+        return {}
+    try:
+        slots = load_template(template).fields
+    except TemplateError:
+        slots = list(SIGNATURE_FIELDS)       # the render itself answers 404
+    try:
+        return await certificate_signatures.render_images(certificate, slots)
+    except (storage.StorageNotConfigured, storage.StorageError) as exc:
+        raise HTTPException(502, "No se pudo cargar la firma guardada del certificado.") from exc
+
+
 def _is_element_template(slug: str) -> bool:
     try:
         return load_template(slug).meta.get("engine") == "elements"
@@ -95,6 +127,12 @@ async def render(request: Request, payload: RenderRequest):
     if (payload.width_in or 11) * payload.dpi > 7200:
         raise HTTPException(422, "Combinación de tamaño y DPI demasiado grande.")
     images = dict(payload.images)
+    issued_signatures = (
+        await _issued_signatures(payload.certificate_no, payload.template) if payload.certificate_no else None
+    )
+    if issued_signatures is not None:
+        for key in SIGNATURE_FIELDS:        # the record decides; what the caller sent is not even read
+            images.pop(key, None)
     for key, value in list(images.items()):
         if HTTPS_RE.match(value):
             if (urlsplit(value).hostname or "") != _allowed_media_host():
@@ -111,6 +149,8 @@ async def render(request: Request, payload: RenderRequest):
                 images[key] = await asyncio.to_thread(normalize_signature, images[key])
             except SignatureError as exc:
                 raise HTTPException(422, f"{exc} ({key})") from exc
+    if issued_signatures:
+        images.update(issued_signatures)    # our own copies, already normalized at issuance
     if payload.locale is None:
         stored = None
         if payload.certificate_no:

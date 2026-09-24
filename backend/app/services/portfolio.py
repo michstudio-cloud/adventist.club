@@ -80,7 +80,7 @@ from app.security import CLUB_APPROVED, CLUB_DIRECTOR, utcnow
 from app.services import private_storage
 # Bloque F: the requirement adapter (§1.1) and everything a program adds on top of block A.
 # Neither module imports this one at import time, so there is no cycle.
-from app.services import curriculum, programs
+from app.services import certificate_signatures, curriculum, programs
 from app.services.audit import record_audit
 from app.services.certificates import (
     get_or_create_club,
@@ -346,6 +346,7 @@ async def _certificates_out(db: AsyncSession, certificates: list[Certificate]) -
             issued_role=c.issued_role,
             revoked_at=c.revoked_at,
             revocation_reason=c.revocation_reason,
+            signed=list(certificate_signatures.stored_urls(c)),
         )
         for c in certificates
     ]
@@ -1165,16 +1166,26 @@ async def issue(
     request: Request | None,
     *,
     audit_extra: dict | None = None,
+    signatures: dict[str, bytes] | None = None,
 ) -> CertificateOut:
     """READY -> CERTIFIED: same issuer, folio, hash and QR as every other certificate, now linked
     to the account, the enrollment and whoever pressed the button.
 
-    `audit_extra` (F3): what the investiture of a whole club adds to the audit row."""
+    `audit_extra` (F3): what the investiture of a whole club adds to the audit row.
+    `signatures` (021): already prepared by the caller (the investiture of a club prepares its
+    signature once for every certificate); otherwise they come from `payload`."""
     enrollment = await _get_enrollment(db, enrollment_id, lock=True)
     if not await can_issue(db, actor, enrollment):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "No puedes certificar esta inscripción")
     if enrollment.status != READY:
         raise HTTPException(status.HTTP_409_CONFLICT, "La inscripción no está lista para certificar")
+    if signatures is None:
+        # 021: checked before anything is written; a signature that is not valid or not the
+        # issuer's own saved one is a 422 and nothing is issued.
+        signatures = await certificate_signatures.prepare(
+            {"signature_director": payload.signature_director, "signature_instructor": payload.signature_instructor},
+            actor,
+        )
 
     # Bloque F: what is being awarded — an honor (block A) or a program (an investiture).
     # For an honor `award` carries exactly what `honors` carried before.
@@ -1240,6 +1251,8 @@ async def issue(
         issued_by=actor,
         locale=payload.locale,
     )
+    # 021: an immutable copy in the certificate's own folder; no bucket, no certificate.
+    signed = await certificate_signatures.attach([certificate], signatures)
     await _touch(db, enrollment)  # last refresh: from here on club_id is frozen
     enrollment.status = CERTIFIED
     enrollment.certified_at = utcnow()
@@ -1256,6 +1269,7 @@ async def issue(
                   "mode": enrollment.mode,
                   "program_id": str(award.program_id) if award.program_id else None,
                   "course_id": str(enrollment.course_id) if enrollment.course_id else None,
+                  **({"signed": signed} if signed else {}),
                   **(audit_extra or {})},
         request=request,
     )

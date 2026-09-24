@@ -51,6 +51,7 @@ from app.models import (
 )
 from app.rbac import COURSE_LIVE_STATUSES, course_author_in_good_standing, member_club
 from app.security import utcnow
+from app.services import certificate_signatures
 from app.services.audit import record_audit
 from app.services.certificates import (
     get_or_create_club,
@@ -219,4 +220,10 @@ async def _build(
         # §5.3: the `issued` event says this was nobody's click.
         event_metadata={"auto": True, "attempt_id": str(attempt.id)},
     )
+    # 021: nobody clicked, so nothing new is asked for: the instructor's own saved signature
+    # (`users.signature_url`), if there is one, goes on their line as an immutable copy. Best
+    # effort — a bucket that is down issues the certificate unsigned, never blocks it.
+    saved = await certificate_signatures.saved_signature(instructor)
+    if saved is not None:
+        await certificate_signatures.attach([certificate], {"signature_instructor": saved}, strict=False)
     return certificate

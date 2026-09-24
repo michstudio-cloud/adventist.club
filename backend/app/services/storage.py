@@ -28,6 +28,10 @@ SVG_FOLDERS = {"patches", "logos"}
 # Written only by the API itself, never through `POST /media/upload` (not in ALLOWED_FOLDERS):
 # `signatures/` holds the handwritten signatures saved to an account (020_signatures.sql).
 INTERNAL_FOLDERS = {"signatures"}
+# 021_certificate_signatures.sql: the immutable copy of each signature printed on an issued
+# certificate, `certificates/signatures/<certificate id>/<uuid>.png`. Also internal-only.
+CERTIFICATE_SIGNATURES_PREFIX = "certificates/signatures"
+_CERTIFICATE_SIGNATURE_FOLDER = re.compile(r"^certificates/signatures/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 DEFAULT_FOLDER = "general"
 
 MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024
@@ -101,8 +105,18 @@ def content_matches_type(data: bytes, content_type: str) -> bool:
     return False
 
 
+def certificate_signature_folder(certificate_id: uuid.UUID) -> str:
+    return f"{CERTIFICATE_SIGNATURES_PREFIX}/{certificate_id}"
+
+
+def is_internal_folder(folder: str) -> bool:
+    return folder in INTERNAL_FOLDERS or bool(_CERTIFICATE_SIGNATURE_FOLDER.match(folder))
+
+
 def build_key(folder: str, content_type: str) -> str:
-    target = folder if folder in INTERNAL_FOLDERS else resolve_folder(folder)
+    """`folder` is either one of the API's own folders or goes through the client whitelist.
+    Routers that take a folder from the client resolve it first (`resolve_folder`)."""
+    target = folder if is_internal_folder(folder) else resolve_folder(folder)
     return f"{target}/{uuid.uuid4().hex}{EXTENSIONS.get(content_type, '')}"
 
 
@@ -143,6 +157,33 @@ def _put_object(key: str, data: bytes, content_type: str) -> None:
     get_client().put_object(
         Bucket=settings.R2_BUCKET_NAME, Key=key, Body=data, ContentType=content_type
     )
+
+
+def _get_object(key: str, limit: int) -> tuple[bytes, str]:
+    response = get_client().get_object(Bucket=settings.R2_BUCKET_NAME, Key=key)
+    body = response["Body"]
+    try:
+        data = body.read(limit + 1)
+    finally:
+        close = getattr(body, "close", None)
+        if close:
+            close()
+    return data, (response.get("ContentType") or "").split(";")[0].strip().lower()
+
+
+async def download_bytes(key: str, limit: int) -> tuple[bytes, str]:
+    """Read one of our own objects straight from the bucket (no HTTP, no SSRF surface).
+    Raises StorageError when it is missing, unreachable or larger than `limit`."""
+    if not settings.storage_configured:
+        raise StorageNotConfigured("R2 credentials are not configured")
+    try:
+        data, content_type = await anyio.to_thread.run_sync(_get_object, key, limit)
+    except Exception as exc:
+        logger.warning("R2 download failed for key %s", key, exc_info=True)
+        raise StorageError("No se pudo leer el archivo") from exc
+    if len(data) > limit:
+        raise StorageError("El archivo es demasiado grande")
+    return data, content_type
 
 
 def _delete_object(key: str) -> None:

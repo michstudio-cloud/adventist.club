@@ -11,6 +11,7 @@ from typing import Literal
 from pydantic import BaseModel, Field, field_validator
 
 from app.schemas.ministry import MinistryRef
+from app.schemas.portfolio import SIGNATURE_MAX_LENGTH
 from app.schemas.program import ProgramKind, ProgramRef
 from app.schemas.unit import UnitRef
 
@@ -174,8 +175,13 @@ class InvestIn(BaseModel):
     place: str | None = Field(default=None, max_length=180)
     instructor_name: str | None = Field(default=None, max_length=180)
     template: str | None = Field(default=None, pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
+    # 021: as on the single certificate (CertificateIssue). The club screen sends the
+    # director's own saved signature when there is one; it is prepared once for the batch.
+    signature_director: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
+    signature_instructor: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
 
-    _clean = field_validator("place", "instructor_name", mode="before")(_blank_to_none)
+    _clean = field_validator("place", "instructor_name", "signature_director", "signature_instructor",
+                             mode="before")(_blank_to_none)
 
 
 class InvestedEnrollment(BaseModel):
