@@ -212,3 +212,16 @@ async def test_sec09_the_second_factor_locks_after_repeated_wrong_codes(client, 
         "/api/v1/auth/mfa/verify", json={"temp_token": temp, "totp_code": pyotp.TOTP(secret).now()}
     )
     assert ok.status_code == 200, ok.text
+
+
+# ----------------------------------------------------------------------------
+# SEC-03 / SEC-10: los endpoints abiertos y caros llevan límite de frecuencia.
+# ----------------------------------------------------------------------------
+def test_sec10_open_expensive_endpoints_are_rate_limited():
+    from app.main import app  # noqa: F401 - registers every route
+    from app.rate_limit import limiter
+
+    limited = set(limiter._route_limits)
+    for endpoint in ("app.main.prototype_batch", "app.main.printing_pdf",
+                     "app.routers.render.render"):
+        assert endpoint in limited, endpoint

@@ -1,5 +1,4 @@
 """Render certificates from SVG templates (PNG / PDF / filled SVG)."""
-from __future__ import annotations
 
 import asyncio
 import base64
@@ -8,11 +7,12 @@ import urllib.request
 from typing import Literal
 from urllib.parse import urlsplit
 
-from fastapi import APIRouter, HTTPException, Query, Response
+from fastapi import APIRouter, HTTPException, Query, Request, Response
 from pydantic import BaseModel, Field
 
 from app.certificates.render import TemplateError, fonts_installed, list_templates, qr_data_url, render_certificate
 from app.config import settings
+from app.rate_limit import limiter
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
@@ -49,8 +49,8 @@ class RenderRequest(BaseModel):
     dpi: int = Field(default=300, ge=72, le=600)
     # output width in inches; height keeps the template proportions. Pixel budget is capped below.
     width_in: float | None = Field(default=None, gt=1, le=24)
-    data: dict[str, str] = Field(default_factory=dict)
-    images: dict[str, str] = Field(default_factory=dict)
+    data: dict[str, str] = Field(default_factory=dict, max_length=40)
+    images: dict[str, str] = Field(default_factory=dict, max_length=12)
     certificate_no: str | None = Field(default=None, max_length=80)
 
 
@@ -67,7 +67,9 @@ async def templates(
 
 
 @router.post("/render")
-async def render(payload: RenderRequest):
+# SEC-10: open and CPU-bound (seconds per page on a 0.15-CPU instance): bounded per client.
+@limiter.limit("30/minute")
+async def render(request: Request, payload: RenderRequest):
     for key, value in payload.data.items():
         if len(value) > MAX_FIELD_LEN:
             raise HTTPException(422, f"El campo '{key}' es demasiado largo.")
