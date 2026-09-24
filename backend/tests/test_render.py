@@ -112,7 +112,10 @@ async def test_render_endpoint(client, monkeypatch):
     monkeypatch.setattr("app.routers.render.fonts_installed", lambda: True)
 
     listing = await client.get("/api/v1/certificates/templates")
-    assert listing.status_code == 200 and any(t["slug"] == "ntam-maestria" for t in listing.json())
+    listed = {t["slug"] for t in listing.json()}
+    # Retired templates ("listed": false) leave the picker but still render (issued certificates).
+    assert listing.status_code == 200 and "investidura-clase" in listed
+    assert not {"ntam-maestria", "especialidad-basica", "especialidad-basica-media"} & listed
 
     ok = await client.post("/api/v1/certificates/render", json={
         "template": "especialidad-basica", "locale": "en", "format": "png", "dpi": 72,
