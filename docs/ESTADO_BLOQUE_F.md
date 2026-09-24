@@ -10,7 +10,8 @@ Rama: `block-f-programs`. **Nada desplegado todavía.** Este archivo es el únic
 |---|---|---|---|
 | F1 — Programas y tarjeta digital | **implementado, sin desplegar** | `012_programs.sql` | Catálogo de programas, inscripción de programa sobre el motor del bloque A, requisitos `FREE` por secciones, certificado de investidura del director, importador, permisos y auditoría |
 | F2 — Requisitos enlazados y horas | **implementado, sin desplegar** | `013_activity_logs.sql` | `HONOR` (concreto y abierto), `PROGRAM`, `HOURS`; registro y aprobación de actividades; enlaces idempotentes |
-| F3–F9 | no empezados | — | Ver «Lo que falta» |
+| F3 — El club sigue una clase | **implementado, sin desplegar** | ninguna | `/api/v1/clubs/{id}/classes`: clases del club con contadores, inscripción del club / unidad / lista, matriz miembros × requisitos, «firma en bloque», investidura en bloque |
+| F4–F9 | no empezados | — | Ver «Lo que falta» |
 
 ## Orden de despliegue (obligatorio)
 
@@ -57,12 +58,22 @@ Están escritas en la sección «Desviaciones» al final de la spec de F. En una
 - Las horas aprobadas cuentan desde `started_at` de la inscripción, como dice la spec, y
   `quantity {approved, target}` viaja en el requisito.
 
-## Lo que falta (F3–F9)
+### F3 (desviaciones respecto a §1.8 de la spec)
 
-- **F3** (sin migración): inscripción del club en bloque, matriz miembros × requisitos y firma
-  en bloque. Las costuras están puestas: `can_bulk_sign` / `can_enroll_member` se escriben
-  junto a `can_approve_activity` en `app/rbac.py`, y la firma en bloque es la única excepción
-  a la máquina de estados del bloque A.
+- Rutas bajo `/api/v1/clubs/{club_id}/classes` (contrato acordado con el frontend) en vez de
+  `/portfolio/club/...`. Inscribir = `portfolio.stage_enrollment`, la misma función que la
+  auto-inscripción; firmar = veredicto `COMPLETE` (`completed_via = REVIEW`) + `recompute_ready`;
+  investir = `portfolio.issue` por inscripción.
+- La firma en bloque acepta requisitos prácticos sin evidencia (el líder lo vio): la auditoría
+  `REQUIREMENT_REVIEW` lleva `decided_via: "block_sign"`, `bulk_id` e `is_practical`. `HOURS`
+  sigue teniendo una sola vía (se omite con `hours_only`). Firman el director e instructores
+  del club (`can_review`) y el consejero de la unidad del miembro (`can_bulk_sign`).
+- El ministerio del club sale de `organizations.metadata_json.ministry` si el club lo declara;
+  si no, se ofrecen las clases publicadas de todos los ministerios (no hay columna de
+  ministerio en `organizations` y no se inventa un valor por defecto).
+
+## Lo que falta (F4–F9)
+
 - **F4**: `guiasmayores.app`, monorepo con `cq-kit`, `X-Application`, emisión y revisión por la
   Asociación (`can_issue` ya tiene el punto exacto donde entra esa rama), prerrequisitos
   (`requires_verified`, `requires_child_protection`, `min_age`) en `014`.
@@ -70,7 +81,8 @@ Están escritas en la sección «Desviaciones» al final de la spec de F. En una
   **F8** Aventureros y perfiles gestionados (`018`), **F9** requisito de curso / examen (`019`,
   `kind = 'COURSE'`, que **no** está declarado en el CHECK de `program_requirements` a
   propósito: una columna sin comportamiento se pudre).
-- Frontend de F1–F3 completo (`/classes`, `/classes/[id]`, `/activity`, panel del director).
+- Frontend de F1–F3 completo (`/classes`, `/classes/[id]`, `/activity`, panel del director;
+  la API de F3 ya existe).
 - `catalog_tools/crawl_wiki_programs.py` y `parse_wiki_program.py`: el inventario
   `migrations/data/wiki_program_pages.csv` y el rastreo (una petición cada 10 s, nunca
   `api.php`) siguen pendientes. El importador ya lee JSON de disco y no necesita red.

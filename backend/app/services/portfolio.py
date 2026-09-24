@@ -185,6 +185,10 @@ async def _touch(db: AsyncSession, enrollment: HonorEnrollment) -> None:
     enrollment.updated_at = utcnow()
 
 
+# Bloque F · F3: the club's bulk acts refresh the enrollments they change with the same rule.
+touch = _touch
+
+
 async def _active_evidence_count(db: AsyncSession, progress_id: uuid.UUID) -> int:
     stmt = select(func.count()).where(Evidence.progress_id == progress_id, Evidence.status == ACTIVE)
     return (await db.execute(stmt)).scalar_one()
@@ -562,7 +566,7 @@ async def enroll(
     """Idempotent: a live enrollment in the same honor (or program) is returned as it is.
 
     Bloque F: `curriculum.resolve` turns either catalogue into the same requirement list,
-    and from the `now = utcnow()` below everything is block A's code with no branch.
+    and from `stage_enrollment` on everything is block A's code with no branch.
     -> (detail, created)
     """
     existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
@@ -570,13 +574,48 @@ async def enroll(
         return await _detail(db, actor, existing), False
 
     source = await curriculum.resolve(db, payload.honor_id, payload.program_id, payload.locale)
-    requirements, locale = source.specs, source.locale
+    try:
+        enrollment = await stage_enrollment(db, actor, actor, source, request)
+        await db.commit()
+    except IntegrityError as exc:
+        await db.rollback()
+        if violated_constraint(exc) not in ACTIVE_ENROLLMENT_CONSTRAINTS:
+            raise
+        # Two requests at once (a double click): the other one won, answer with its row.
+        existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
+        return await _detail(db, actor, existing), False
+    if source.program_id is not None:
+        # Bloque F · F2: what the member already holds (an honor, a program, approved hours)
+        # completes its requirement now, inside this same request.
+        from app.services import portfolio_links
 
+        if await portfolio_links.sync(db, actor, user_id=actor.id, request=request):
+            await db.commit()
+    return await _detail(db, actor, enrollment), True
+
+
+async def stage_enrollment(
+    db: AsyncSession,
+    actor: User,
+    member: User,
+    source: "curriculum.Curriculum",
+    request: Request | None,
+    *,
+    audit_extra: dict | None = None,
+) -> HonorEnrollment:
+    """THE enrollment of block A: the row, its audit and one progress row per requirement.
+
+    Staged and flushed on the caller's session, never committed: `enroll` (the member
+    enrolling themself) and F3 (a leader enrolling the club, `audit_extra` says so) share it,
+    so a card opened by the club is exactly the card the member would have opened.
+    Raises IntegrityError when `member` already holds a live enrollment in it.
+    """
+    requirements, locale = source.specs, source.locale
     now = utcnow()
-    club = await member_club(db, actor)
+    club = await member_club(db, member)
     enrollment = HonorEnrollment(
         id=uuid.uuid4(),
-        user_id=actor.id,
+        user_id=member.id,
         honor_id=source.honor_id,
         program_id=source.program_id,
         mode="CLUB",
@@ -595,41 +634,26 @@ async def enroll(
         actor=actor,
         metadata={"honor_id": str(source.honor_id) if source.honor_id else None,
                   "program_id": str(source.program_id) if source.program_id else None,
-                  "locale": locale, "requirements": len(requirements)},
+                  "locale": locale, "requirements": len(requirements), **(audit_extra or {})},
         request=request,
     )
-    try:
-        # The models declare no relationship(): the enrollment goes in before its rows.
-        await db.flush()
-        db.add_all(
-            RequirementProgress(
-                id=uuid.uuid4(),
-                enrollment_id=enrollment.id,
-                requirement_position=spec.position,
-                requirement_id=spec.source_id if source.honor_id else None,
-                program_requirement_id=spec.source_id if source.program_id else None,
-                kind=spec.kind,
-                is_practical=spec.evidence_required,
-                status=PENDING,
-            )
-            for spec in requirements
+    # The models declare no relationship(): the enrollment goes in before its rows.
+    await db.flush()
+    db.add_all(
+        RequirementProgress(
+            id=uuid.uuid4(),
+            enrollment_id=enrollment.id,
+            requirement_position=spec.position,
+            requirement_id=spec.source_id if source.honor_id else None,
+            program_requirement_id=spec.source_id if source.program_id else None,
+            kind=spec.kind,
+            is_practical=spec.evidence_required,
+            status=PENDING,
         )
-        await db.commit()
-    except IntegrityError as exc:
-        await db.rollback()
-        if violated_constraint(exc) not in ACTIVE_ENROLLMENT_CONSTRAINTS:
-            raise
-        # Two requests at once (a double click): the other one won, answer with its row.
-        existing = await _live_enrollment(db, actor.id, payload.honor_id, payload.program_id)
-        return await _detail(db, actor, existing), False
-    if source.program_id is not None:
-        # Bloque F · F2: what the member already holds (an honor, a program, approved hours)
-        # completes its requirement now, inside this same request.
-        from app.services import portfolio_links
-
-        if await portfolio_links.sync(db, actor, user_id=actor.id, request=request):
-            await db.commit()
-    return await _detail(db, actor, enrollment), True
+        for spec in requirements
+    )
+    await db.flush()
+    return enrollment
 
 
 async def list_enrollments(db: AsyncSession, user: User, status_filter: str | None) -> list[EnrollmentSummary]:
@@ -1136,9 +1160,13 @@ async def issue(
     enrollment_id: uuid.UUID,
     payload: CertificateIssue,
     request: Request | None,
+    *,
+    audit_extra: dict | None = None,
 ) -> CertificateOut:
     """READY -> CERTIFIED: same issuer, folio, hash and QR as every other certificate, now linked
-    to the account, the enrollment and whoever pressed the button."""
+    to the account, the enrollment and whoever pressed the button.
+
+    `audit_extra` (F3): what the investiture of a whole club adds to the audit row."""
     enrollment = await _get_enrollment(db, enrollment_id, lock=True)
     if not await can_issue(db, actor, enrollment):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "No puedes certificar esta inscripción")
@@ -1220,7 +1248,8 @@ async def issue(
                   "certificate_no": certificate.certificate_no, "template": slug,
                   "mode": enrollment.mode,
                   "program_id": str(award.program_id) if award.program_id else None,
-                  "course_id": str(enrollment.course_id) if enrollment.course_id else None},
+                  "course_id": str(enrollment.course_id) if enrollment.course_id else None,
+                  **(audit_extra or {})},
         request=request,
     )
     # Bloque F · F2: this achievement may be the one another card was waiting for. Same
