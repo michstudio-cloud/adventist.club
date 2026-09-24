@@ -24,6 +24,8 @@ Tres agentes de la **fase 2 de escritorio** quedaron trabajando al cierre. Sus r
 2. `feat/desktop-honor` — `/honors/[id]` a dos columnas, parche sin caja, barra de acciones fija, migas.
 3. `feat/desktop-catalog` — `/categories` con riel de filtros, retícula densa sin cajas, hovercard, búsqueda solo desde ⌘K.
 
+Estado al cierre: `feat/desktop-catalog` **terminada** (commit `043df76`: gates, 25 tests, e2e 10 en verde; capturas 375/768 idénticas a main; búsqueda vía paleta ⌘K «Filtrar el catálogo por …»; tandas de 96 con carga automática; pendiente comprobar en producción el nº de requisitos de la vista previa). `feat/desktop-member` y `feat/desktop-honor` seguían en marcha.
+
 Si alguno no terminó, su worktree está en el scratchpad de la sesión (`wt-desk-member|honor|catalog`); la rama conserva los commits.
 
 ## 3. Siguiente plan (fases 3–5 de escritorio)
