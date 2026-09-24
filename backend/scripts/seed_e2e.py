@@ -122,11 +122,12 @@ async def seed() -> dict:
         for key, role, name, org in USERS:
             await run(
                 "INSERT INTO users (id, email, password_hash, name, role, organization_id, is_minor,"
-                " status, verification_status, child_protection_completed)"
-                " VALUES (:id, :email, :hash, :name, :role, :org, false, 'ACTIVE', 'VERIFIED', true)"
+                " status, verification_status, child_protection_completed, onboarding_completed_at)"
+                " VALUES (:id, :email, :hash, :name, :role, :org, false, 'ACTIVE', 'VERIFIED', true, now())"
                 " ON CONFLICT (id) DO UPDATE SET password_hash = EXCLUDED.password_hash, role = EXCLUDED.role,"
                 " organization_id = EXCLUDED.organization_id, status = 'ACTIVE',"
-                " verification_status = 'VERIFIED', mfa_enabled = false, mfa_secret = NULL",
+                " verification_status = 'VERIFIED', mfa_enabled = false, mfa_secret = NULL,"
+                " onboarding_completed_at = coalesce(users.onboarding_completed_at, now())",
                 id=sid(f"user:{key}"), email=f"{key}@{DOMAIN}", hash=password_hash, name=name,
                 role=role, org=sid(f"org:{org}") if org else None,
             )
