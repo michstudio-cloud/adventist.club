@@ -63,3 +63,41 @@ Decisiones tomadas hoy (ya aplicadas): firma guardada en bucket público; «uno 
 - Frontend: `npx tsc --noEmit && npx eslint . --ignore-pattern '.claude/**' && rm -rf .next && npm run build && npm test`.
 - e2e: `scripts/e2e/run.mjs` (ver cabecera del archivo).
 - Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **023**).
+
+## 6. Especialidades de Aventureros (awards) — pendiente, documentado
+
+**Fuente oficial** (entregada por el propietario el 2026-09-24): *Adventurer Award Book 2020*, GC Youth Ministries
+(`~/Documents/DEEL/aventureros/Award Book 2020.pdf`, 410 páginas, © GC Youth Ministries Department, foto Shutterstock)
+y la página https://www.gcyouthministries.org/ministries/adventurers/ (bloquea las descargas automatizadas: 403; hay que
+abrirla a mano para bajar recursos, parches e idiomas).
+
+**Qué contiene el libro** (índice extraído en `backend/data/adventurer_awards_index.csv`, 155 awards):
+
+| Categoría (inglés) | Awards | Página |
+|---|---|---|
+| Community | 7 | 13 |
+| Crafts (antes «Arts and Crafts») | 29 | 35 |
+| Home (antes «Household Arts») | 31 | 103 |
+| Nature | 35 | 181 |
+| Recreation | 23 | 265 |
+| Spiritual | 30 | 325 |
+
+Cada award trae: título, **clase sugerida** (Little Lamb 24, Early Bird 27, Busy Bee 20, Sunbeam 23, Builder 29,
+Helping Hand 32), «Requirements» (lista numerada) y «Supporting Answers» (notas para el instructor). Edad 4–9 años.
+No trae imágenes de los parches.
+
+**Plan de importación (cuando se retome):**
+1. Ministerio `adventurers` ya existe (`GET /ministries`). Crear las 6 categorías con `ministry_id=adventurers`
+   (Comunidad, Manualidades, Hogar, Naturaleza, Recreación, Espiritual) sin mezclarlas con las de Conquistadores.
+2. Importador `backend/migrations/import_adventurer_awards.py` al estilo de `import_ay_classes.py`: lee el índice CSV,
+   extrae de cada página «Requirements» → `honor_requirements` (inglés, `source='gc-award-book-2020'`) y «Supporting
+   Answers» → recurso/nota de instructor; `honor_type='award'`, `status='DRAFT'` hasta revisión del propietario.
+3. Traducción al español: buscar la edición DIA/IAD del Award Book (o traducir con revisión); igual para pt.
+4. Parches: conseguir el set oficial (AdventSource / DIA) y subirlos a R2 como los 809 de Conquistadores
+   (`tools/` de catálogo); sin parche se usa la inicial sobre el color del ministerio.
+5. Clases de Aventureros (`programs`, kind CLASS, ministerio `adventurers`): Little Lamb, Early Bird, Busy Bee, Sunbeam,
+   Builder, Helping Hand; recomendaciones de awards por clase a partir de la columna «clase» del índice.
+6. Certificado de award: reutilizar los diseños por elementos con textos «Certificado de Award / Aventureros» (nuevas
+   claves en `strings.*.json`) y el emblema de Aventureros (`public/brand/aventureros.svg`).
+7. Licencia: el libro es © GC Youth Ministries; confirmar permiso de uso de los textos antes de publicarlos
+   (igual que con guiasmayores.com). Mientras tanto, DRAFT y `SHOW_SOURCES` apagado.
