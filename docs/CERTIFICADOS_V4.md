@@ -318,6 +318,11 @@ normalizado, subido por `storage.upload_bytes`; carpeta interna: `POST /media/up
 - **Nunca se borran**: anular el certificado no las toca; borrar (u olvidar) la firma guardada de la cuenta borra
   sólo `signatures/<uuid>.png`, nunca `certificates/signatures/…`; la baja de una cuenta (INACTIVE) tampoco. La copia
   es del certificado.
+- **Límite del lote**: con sesión el lote llega por el proxy de la web (una sola dirección para todos), así que
+  `30/hour` cuenta por cuenta cuando trae un access token válido (`rate_limit.account_or_ip`), por dirección si no.
+- **Pendiente**: el lote del asistente no registra la plantilla del servidor (crea «Prototipo WxHin»), así que
+  `/verify/<folio>` no ofrece descarga para esos folios (`template_slug = null`); `POST /render` con el folio sí
+  imprime su firma guardada. Guardar la plantilla en el lote es un cambio aparte.
 
 ## Pendiente (fuera del backend)
 
