@@ -61,7 +61,11 @@ router = APIRouter(prefix="/api/v1/org-nodes", tags=["organizations"])
 
 require_org_admin = require_roles(*ADMIN_ROLES)
 
-WRITABLE_COLUMNS = ("name", "code", "city", "state", "country", "latitude", "longitude", "status")
+WRITABLE_COLUMNS = (
+    "name", "code", "city", "state", "country", "latitude", "longitude", "status",
+    # 022: the meeting place as Google Places named it.
+    "address", "place_id", "maps_url",
+)
 
 
 async def _get_node_or_404(db: AsyncSession, node_id: uuid.UUID) -> Organization:
@@ -72,22 +76,31 @@ async def _get_node_or_404(db: AsyncSession, node_id: uuid.UUID) -> Organization
 
 
 async def _out(db: AsyncSession, node: Organization) -> OrgNodeResponse:
-    """A node as the API answers it, with the ministry when it is a club."""
-    return OrgNodeResponse.from_model(node, await ministry_service.ref_of(db, node))
+    """A node as the API answers it, with the ministries when it is a club."""
+    ministries = await ministry_service.list_of(db, node)
+    return OrgNodeResponse.from_model(node, ministries[0] if ministries else None, ministries)
 
 
 async def _outs(db: AsyncSession, nodes: list[Organization]) -> list[OrgNodeResponse]:
-    """A page of nodes: the ministries of its clubs come in one query."""
-    refs = await ministry_service.refs_for(db, nodes)
-    return [OrgNodeResponse.from_model(node, refs.get(node.id)) for node in nodes]
+    """A page of nodes: the ministries of its clubs come in two queries."""
+    lists = await ministry_service.lists_for(db, nodes)
+    out = []
+    for node in nodes:
+        ministries = lists.get(node.id, [])
+        out.append(OrgNodeResponse.from_model(node, ministries[0] if ministries else None, ministries))
+    return out
+
+
+async def _club_ministries(db: AsyncSession, club: Organization) -> dict:
+    """`ministry` (principal) and `ministries` (all) of one club, as keyword arguments."""
+    ministries = await ministry_service.list_of(db, club)
+    return {"ministry": ministries[0] if ministries else None, "ministries": ministries}
 
 
 def _ministry_condition(slug: str):
-    """WHERE clause of the `ministry` filter of the club lists: a slug, or `none` for the
-    clubs that still have no ministry (the column; 019 backfilled the declared ones)."""
-    if slug == "none":
-        return Organization.ministry_id.is_(None)
-    return Organization.ministry_id.in_(select(Ministry.id).where(Ministry.slug == slug))
+    """WHERE clause of the `ministry` filter of the club lists: the club works with that
+    ministry (any of them, 022), or `none` for the clubs that still have none."""
+    return ministry_service.club_has_ministry(slug)
 
 
 MINISTRY_FILTER_PATTERN = r"^[a-z0-9-]{2,60}$"
@@ -258,10 +271,11 @@ async def _pending_rows(db: AsyncSession, clubs: list[Organization]) -> list[Pen
     """The association, zone and church of each club come from its ANCESTORS:
     a club may hang from its church, and an unplaced one from the association."""
     refs = await placement.refs_for(db, clubs)
-    ministries = await ministry_service.refs_for(db, clubs)
+    lists = await ministry_service.lists_for(db, clubs)
     rows = []
     for club in clubs:
         found = refs.get(club.id, {})
+        ministries = lists.get(club.id, [])
         rows.append(
             PendingClubResponse.build(
                 club,
@@ -270,7 +284,8 @@ async def _pending_rows(db: AsyncSession, clubs: list[Organization]) -> list[Pen
                 zone=found.get(placement.ZONE),
                 church=found.get(placement.CHURCH),
                 declared=placement.declared_placement(club) or None,
-                ministry=ministries.get(club.id),
+                ministry=ministries[0] if ministries else None,
+                ministries=ministries,
             )
         )
     return rows
@@ -320,7 +335,7 @@ async def create_admin_club(
             church=refs.get(placement.CHURCH),
             declared=placement.declared_placement(club) or None,
             director=director,
-            ministry=await ministry_service.ref_of(db, club),
+            **await _club_ministries(db, club),
         )
         await db.commit()
     except IntegrityError as exc:
@@ -399,7 +414,7 @@ async def _admin_rows(db: AsyncSession, clubs: list[Organization]) -> list[Admin
         return []
     ids = [club.id for club in clubs]
     refs = await placement.refs_for(db, clubs)
-    ministries = await ministry_service.refs_for(db, clubs)
+    lists = await ministry_service.lists_for(db, clubs)
 
     directors: dict[uuid.UUID, User] = {}
     director_rows = (
@@ -444,7 +459,12 @@ async def _admin_rows(db: AsyncSession, clubs: list[Organization]) -> list[Admin
                 church=placement.as_ref(found.get(placement.CHURCH)),
                 director=person_ref(directors.get(club.id)),
                 members_count=int(counts.get(club.id, 0)),
-                ministry=ministries.get(club.id),
+                ministry=(lists.get(club.id) or [None])[0],
+                ministries=lists.get(club.id, []),
+                address=club.address,
+                place_id=club.place_id,
+                maps_url=club.maps_url,
+                logo_url=club.logo_url,
                 created_at=club.created_at,
                 updated_at=club.updated_at,
             )
@@ -499,7 +519,7 @@ async def nearby_clubs(
     # Association, zone and church come from the ANCESTORS of each club: since
     # E6 a club hangs from its church, and an unplaced one from the association.
     refs = await placement.refs_for(db, [node for node, _ in rows])
-    ministries = await ministry_service.refs_for(db, [node for node, _ in rows])
+    lists = await ministry_service.lists_for(db, [node for node, _ in rows])
     return [
         NearbyClub(
             id=str(node.id), name=node.name, distance_km=round(float(km), 2),
@@ -510,7 +530,11 @@ async def nearby_clubs(
             zone=placement.as_ref(refs.get(node.id, {}).get(placement.ZONE)),
             accepts_requests=membership_service.accepts_requests(node),
             association=placement.as_ref(refs.get(node.id, {}).get(placement.ASSOCIATION)),
-            ministry=ministries.get(node.id),
+            ministry=(lists.get(node.id) or [None])[0],
+            ministries=lists.get(node.id, []),
+            address=node.address,
+            maps_url=node.maps_url,
+            logo_url=node.logo_url,
         )
         for node, km in rows
     ]
@@ -524,7 +548,11 @@ async def set_club_location(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """The director pins (or corrects) where their own club meets. Admins in scope may too."""
+    """The director pins (or corrects) where their own club meets. Admins in scope may too.
+
+    Since 022 the body may also carry the address Google Places named (`address`,
+    `place_id`, `maps_url`) and the city / state / country it filled in; only what the body
+    names changes."""
     club = await db.get(Organization, club_id)
     if club is None or club.type != club_service.CLUB_TYPE:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Club not found")
@@ -532,10 +560,16 @@ async def set_club_location(
     admin_in_scope = current_user.role in ADMIN_ROLES and await can_decide_club(db, current_user, club)
     if not own and not admin_in_scope:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "You can only set the location of your own club")
-    club.latitude, club.longitude = payload.latitude, payload.longitude
+    changes = payload.model_dump(exclude_unset=True)
+    for column in ("latitude", "longitude", "address", "place_id", "maps_url", "city", "state", "country"):
+        if column in changes:
+            setattr(club, column, changes[column])
+    if "address" in changes and "place_id" not in changes:
+        # A typed address is not the place Google named before: the old id would lie.
+        club.place_id = None
     club.updated_at = utcnow()
     record_audit(db, action="CLUB_LOCATION", entity_type="ORGANIZATION", entity_id=club.id, actor=current_user,
-                 details=f"Location of {club.name} set", metadata={"latitude": payload.latitude, "longitude": payload.longitude},
+                 details=f"Location of {club.name} set", metadata={key: changes[key] for key in sorted(changes)},
                  request=request)
     await db.commit()
     return await _out(db, club)
@@ -676,7 +710,7 @@ async def place_club(
         zone=zone,
         church=church,
         declared=placement.declared_placement(club) or None,
-        ministry=await ministry_service.ref_of(db, club),
+        **await _club_ministries(db, club),
     )
     await db.commit()
     return response
@@ -813,9 +847,9 @@ async def create_org_node(
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Parent node has no tree path")
         path = f"{parent.path}.{label}"
 
-    # A club always says its ministry (the schema already refused a club without one).
-    ministry = (
-        await ministry_service.require(db, payload.ministry, payload.ministry_id)
+    # A club always says its ministries (the schema already refused a club without one).
+    ministries = (
+        await ministry_service.require_choice(db, payload)
         if payload.type == club_service.CLUB_TYPE
         else None
     )
@@ -835,11 +869,15 @@ async def create_org_node(
         latitude=payload.latitude,
         longitude=payload.longitude,
         metadata_json=payload.metadata,
-        ministry_id=ministry.id if ministry is not None else None,
+        address=payload.address,
+        place_id=payload.place_id,
+        maps_url=payload.maps_url,
         created_at=now,
         updated_at=now,
     )
     db.add(node)
+    if ministries:
+        await ministry_service.set_club_ministries(db, node, ministries)
     record_audit(
         db,
         action="CREATE",
@@ -900,9 +938,9 @@ async def update_org_node(
     for required in ("name", "status"):
         if required in changes and changes[required] is None:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, f"{required} cannot be null")
-    ministry = previous_ministry = None
-    if "ministry" in changes or "ministry_id" in changes:
-        ministry, previous_ministry = await _new_club_ministry(db, current_user, node, payload)
+    ministries = previous = None
+    if "ministry" in changes or "ministry_id" in changes or "ministries" in changes:
+        ministries, previous = await _new_club_ministries(db, current_user, node, payload)
 
     if changes.get("status") == "inactive" and node.status != "inactive":
         await _require_no_active_children(db, node)
@@ -912,10 +950,14 @@ async def update_org_node(
             setattr(node, column, changes[column])
     if "metadata" in changes:
         node.metadata_json = changes["metadata"]
+    if "address" in changes and "place_id" not in changes:
+        # A typed address is not the place Google named before: the old id would lie.
+        node.place_id = None
     audit_metadata: dict = {"fields": sorted(changes)}
-    if ministry is not None:
-        node.ministry_id = ministry.id
-        audit_metadata["ministry"] = {"from": previous_ministry, "to": ministry.slug}
+    if ministries is not None:
+        await ministry_service.set_club_ministries(db, node, ministries)
+        audit_metadata["ministry"] = {"from": previous[0] if previous else None, "to": ministries[0].slug}
+        audit_metadata["ministries"] = {"from": previous, "to": [m.slug for m in ministries]}
     node.updated_at = utcnow()
 
     record_audit(
@@ -932,19 +974,19 @@ async def update_org_node(
     return await _out(db, node)
 
 
-async def _new_club_ministry(
+async def _new_club_ministries(
     db: AsyncSession, actor: User, node: Organization, payload: OrgNodeUpdate
-) -> tuple[Ministry, str | None]:
-    """The ministry a PATCH gives a club, and the slug it had. Only a CLUB has one; only
-    the administration of its association or above changes it (a zone coordinator and the
-    club's own director never do); and it never goes back to «none»."""
+) -> tuple[list[Ministry], list[str]]:
+    """The ministries a PATCH gives a club (principal first), and the slugs it had. Only a
+    CLUB has them; only the administration of its association or above changes them (a zone
+    coordinator and the club's own director never do); and never fewer than one."""
     if node.type != club_service.CLUB_TYPE:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, ministry_service.MINISTRY_NOT_A_CLUB)
     if not placement.is_structure_admin(actor):
         raise HTTPException(status.HTTP_403_FORBIDDEN, ministry_service.MINISTRY_FORBIDDEN)
-    ministry = await ministry_service.require(db, payload.ministry, payload.ministry_id)
-    _declared, previous = await ministry_service.of_club(db, node)
-    return ministry, previous.slug if previous is not None else None
+    ministries = await ministry_service.require_choice(db, payload)
+    _declared, previous = await ministry_service.all_of_club(db, node)
+    return ministries, [row.slug for row in previous]
 
 
 @router.delete("/{node_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -1017,10 +1059,11 @@ async def _decide_club(
                 status.HTTP_409_CONFLICT, "El club no cuelga de ninguna asociación"
             )
         extra = {"declared": declared or None}
-        # Rule 3 of ESTADO.md: a club never becomes `active` without its ministry.
-        ministry, previous_ministry = await _approved_club_ministry(db, actor, club, approval)
-        club.ministry_id = ministry.id
-        extra["ministry"] = {"from": previous_ministry, "to": ministry.slug}
+        # Rule 3 of ESTADO.md: a club never becomes `active` without a ministry.
+        ministries, previous = await _approved_club_ministries(db, actor, club, approval)
+        await ministry_service.set_club_ministries(db, club, ministries)
+        extra["ministry"] = {"from": previous[0] if previous else None, "to": ministries[0].slug}
+        extra["ministries"] = {"from": previous, "to": [m.slug for m in ministries]}
         if approval is not None and approval.club_name:
             await _require_unique_club_name(db, association, approval.club_name, club.id)
             club.name = approval.club_name
@@ -1045,7 +1088,7 @@ async def _decide_club(
         zone=zone,
         church=church,
         declared=declared or None,
-        ministry=await ministry_service.ref_of(db, club),
+        **await _club_ministries(db, club),
     )
     await db.commit()
 
@@ -1062,27 +1105,29 @@ async def _decide_club(
     return response
 
 
-async def _approved_club_ministry(
+async def _approved_club_ministries(
     db: AsyncSession, actor: User, club: Organization, approval: ClubApproval | None
-) -> tuple[Ministry, str | None]:
-    """The ministry a club is approved with, and the slug it had. The request's own
-    one stands unless the body names another; a request without one (older than the
-    registration asking for it) is 422 `club_ministry_required` until the body names
-    it. Filling in a missing ministry is part of deciding the request; CHANGING the
-    one the director chose is the administration's (association or above), as in
-    `PATCH /org-nodes/{id}`."""
+) -> tuple[list[Ministry], list[str]]:
+    """The ministries a club is approved with (principal first), and the slugs it had. The
+    request's own stand unless the body names others; a request without any (older than the
+    registration asking for them) is 422 `club_ministry_required` until the body names one.
+    Filling in missing ministries is part of deciding the request; CHANGING the set the
+    director chose — adding, removing or swapping one — is the administration's (association
+    or above), as in `PATCH /org-nodes/{id}`. The same set in another order is no change."""
     wanted = None
     if approval is not None and approval.names_a_ministry:
-        wanted = await ministry_service.require(db, approval.ministry, approval.ministry_id)
-    _declared, current = await ministry_service.of_club(db, club)
-    previous = current.slug if current is not None else None
+        wanted = await ministry_service.require_choice(db, approval)
+    _declared, current = await ministry_service.all_of_club(db, club)
+    previous = [row.slug for row in current]
     if wanted is None:
-        if current is None:
+        if not current:
             raise HTTPException(
                 status.HTTP_422_UNPROCESSABLE_ENTITY, ministry_service.MINISTRY_REQUIRED
             )
         return current, previous
-    if current is not None and wanted.id != current.id and not placement.is_structure_admin(actor):
+    if current and {row.id for row in wanted} == {row.id for row in current}:
+        return current, previous
+    if current and not placement.is_structure_admin(actor):
         raise HTTPException(status.HTTP_403_FORBIDDEN, ministry_service.MINISTRY_FORBIDDEN)
     return wanted, previous
 

@@ -1,12 +1,13 @@
 """Organization tree schemas."""
 import uuid
 from datetime import datetime
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 from app.models import Organization
 from app.schemas.ministry import MINISTRY_SLUG_PATTERN, MinistryRef
+from app.services import places
 
 # 422 detail of a new CLUB that names no ministry (rule 3 of ESTADO.md: nothing guesses it).
 CLUB_MINISTRY_REQUIRED = "club_ministry_required"
@@ -22,7 +23,51 @@ class GeoPoint(BaseModel):
     coordinates: list[float] = Field(min_length=2, max_length=2)
 
 
-class _OrgWritable(BaseModel):
+MinistrySlug = Annotated[str, Field(pattern=MINISTRY_SLUG_PATTERN)]
+
+
+class _PlaceFields(BaseModel):
+    """Where a club meets, as Google Places named it (022): the formatted `address`, the
+    `place_id` and a Google Maps link. Without a Places key the browser sends a typed address
+    and perhaps a pasted link; the link's coordinates fill `latitude/longitude` when the body
+    brings none (`app/services/places.py`)."""
+
+    address: str | None = Field(default=None, max_length=places.ADDRESS_MAX)
+    place_id: str | None = Field(default=None, pattern=places.PLACE_ID_PATTERN)
+    maps_url: str | None = Field(default=None, max_length=places.MAPS_URL_MAX)
+
+    @field_validator("address")
+    @classmethod
+    def _clean_address(cls, value: str | None) -> str | None:
+        return places.clean_address(value)
+
+    @field_validator("maps_url")
+    @classmethod
+    def _google_maps_only(cls, value: str | None) -> str | None:
+        return places.clean_maps_url(value)
+
+    @model_validator(mode="after")
+    def _link_and_point(self):
+        if self.place_id and not self.maps_url:
+            self.maps_url = places.place_url(self.place_id)
+            self.model_fields_set.add("maps_url")
+        has_point = "latitude" in type(self).model_fields
+        if (
+            has_point
+            and self.maps_url
+            and getattr(self, "latitude", None) is None
+            and getattr(self, "longitude", None) is None
+            and "latitude" not in self.model_fields_set
+            and "longitude" not in self.model_fields_set
+        ):
+            point = places.coords_from_maps_url(self.maps_url)
+            if point is not None:
+                self.latitude, self.longitude = point
+                self.model_fields_set.update({"latitude", "longitude"})
+        return self
+
+
+class _OrgWritable(_PlaceFields):
     city: str | None = Field(default=None, max_length=120)
     state: str | None = Field(default=None, max_length=120)
     country: str | None = Field(default=None, max_length=120)
@@ -43,15 +88,29 @@ class _OrgWritable(BaseModel):
 
 
 class _MinistryChoice(BaseModel):
-    """The ministry of a club, by slug (`ministry`) or by id (`ministry_id`). Both at once
-    must name the same row: the service checks it against the database."""
+    """The ministries of a club (022: it may have several). `ministries: [slug…]` names them
+    all, the first being the principal; `ministry` (slug) or `ministry_id` alone is still a
+    list of one. With both, the single one must be in the list and becomes the principal.
+    The service checks every slug against the database (`ministries.resolve_choice`)."""
 
+    ministries: list[MinistrySlug] | None = Field(default=None, max_length=12)
     ministry: str | None = Field(default=None, pattern=MINISTRY_SLUG_PATTERN)
     ministry_id: uuid.UUID | None = None
 
+    @field_validator("ministries")
+    @classmethod
+    def _at_least_one(cls, value: list[str] | None) -> list[str] | None:
+        if value is None:
+            return None
+        unique = list(dict.fromkeys(value))
+        if not unique:
+            # Minimum one: a club never goes back to «no ministry».
+            raise ValueError(CLUB_MINISTRY_REQUIRED)
+        return unique
+
     @property
     def names_a_ministry(self) -> bool:
-        return bool(self.ministry) or self.ministry_id is not None
+        return bool(self.ministry) or self.ministry_id is not None or bool(self.ministries)
 
 
 class OrgNodeCreate(_OrgWritable, _MinistryChoice):
@@ -96,7 +155,7 @@ class OrgNodeUpdate(_OrgWritable, _MinistryChoice):
         return value
 
 
-class ClubSignup(_MinistryChoice):
+class ClubSignup(_MinistryChoice, _PlaceFields):
     """A director's request to open a club under an association. Used both by
     `POST /auth/register` (field `club`) and `POST /org-nodes/clubs`.
 
@@ -116,6 +175,9 @@ class ClubSignup(_MinistryChoice):
     # Pre-E6 free-text field, accepted one more cycle as an alias of church_name.
     church: str | None = Field(default=None, max_length=180)
     city: str | None = Field(default=None, max_length=120)
+    # Filled from Google Places (022) when the director picks the address; optional.
+    state: str | None = Field(default=None, max_length=120)
+    country: str | None = Field(default=None, max_length=120)
     contact: str | None = Field(default=None, max_length=180)
     # Where the physical club meets, so people can find it by location.
     latitude: float | None = Field(default=None, ge=-90, le=90)
@@ -140,7 +202,7 @@ class ClubSignup(_MinistryChoice):
             )
         return self
 
-    @field_validator("name", "church", "church_name", "city", "contact")
+    @field_validator("name", "church", "church_name", "city", "state", "country", "contact")
     @classmethod
     def _trimmed(cls, value: str | None) -> str | None:
         if value is None:
@@ -255,7 +317,7 @@ class ClubApproval(_MinistryChoice):
 CLUB_LIST_STATUSES = ("active", "pending", "rejected", "inactive", "all")
 
 
-class AdminClubCreate(_MinistryChoice):
+class AdminClubCreate(_MinistryChoice, _PlaceFields):
     """`POST /org-nodes/clubs/admin`: the administration opens a club itself,
     already ACTIVE and connected to its association.
 
@@ -352,10 +414,22 @@ class OrgNodeResponse(BaseModel):
     updated_at: datetime
     # Only a CLUB has one (019_club_ministry.sql); None for every other node and for a
     # club that never declared one. Filled by `app.services.ministries.refs_for`.
+    # Since 022 it is the PRINCIPAL ministry; `ministries` lists them all, principal first.
     ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = []
+    # 022: the meeting place as Google Places named it, and the club's logo.
+    address: str | None = None
+    place_id: str | None = None
+    maps_url: str | None = None
+    logo_url: str | None = None
 
     @classmethod
-    def from_model(cls, node: Organization, ministry: MinistryRef | None = None) -> "OrgNodeResponse":
+    def from_model(
+        cls,
+        node: Organization,
+        ministry: MinistryRef | None = None,
+        ministries: list[MinistryRef] | None = None,
+    ) -> "OrgNodeResponse":
         location = None
         if node.latitude is not None and node.longitude is not None:
             location = GeoPoint(coordinates=[node.longitude, node.latitude])
@@ -379,6 +453,11 @@ class OrgNodeResponse(BaseModel):
             created_at=node.created_at,
             updated_at=node.updated_at,
             ministry=ministry,
+            ministries=ministries if ministries is not None else ([ministry] if ministry else []),
+            address=node.address,
+            place_id=node.place_id,
+            maps_url=node.maps_url,
+            logo_url=node.logo_url,
         )
 
 
@@ -424,8 +503,9 @@ class PendingClubResponse(OrgNodeResponse):
         declared: dict | None = None,
         director=None,
         ministry: MinistryRef | None = None,
+        ministries: list[MinistryRef] | None = None,
     ) -> "PendingClubResponse":
-        base = OrgNodeResponse.from_model(node, ministry).model_dump()
+        base = OrgNodeResponse.from_model(node, ministry, ministries).model_dump()
         return cls(
             **base,
             association=_ref(association),
@@ -460,6 +540,11 @@ class AdminClubRow(BaseModel):
     director: ClubRequester | None = None
     members_count: int = 0
     ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = []
+    address: str | None = None
+    place_id: str | None = None
+    maps_url: str | None = None
+    logo_url: str | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -481,11 +566,32 @@ def _ancestor_ids(path: str | None) -> list[str]:
     return ancestors
 
 
-class ClubLocation(BaseModel):
-    latitude: float = Field(ge=-90, le=90)
-    longitude: float = Field(ge=-180, le=180)
+class ClubLocation(_PlaceFields):
+    """`PUT /org-nodes/clubs/{id}/location`: where the club meets. The point (both or none)
+    and, since 022, the address Google Places named (or a typed one and a pasted link, whose
+    coordinates fill the point), plus the city / state / country Places filled in."""
+
+    latitude: float | None = Field(default=None, ge=-90, le=90)
+    longitude: float | None = Field(default=None, ge=-180, le=180)
+    city: str | None = Field(default=None, max_length=120)
+    state: str | None = Field(default=None, max_length=120)
+    country: str | None = Field(default=None, max_length=120)
 
     model_config = {"extra": "forbid"}
+
+    @field_validator("city", "state", "country")
+    @classmethod
+    def _trimmed(cls, value: str | None) -> str | None:
+        value = " ".join((value or "").split())
+        return value or None
+
+    @model_validator(mode="after")
+    def _something_and_both(self):
+        if (self.latitude is None) != (self.longitude is None):
+            raise ValueError("latitude and longitude go together")
+        if not self.model_fields_set:
+            raise ValueError("Indica la ubicación o la dirección del club")
+        return self
 
 
 class NearbyClub(BaseModel):
@@ -510,6 +616,10 @@ class NearbyClub(BaseModel):
     accepts_requests: bool = True
     association: OrgRef | None = None
     ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = []
+    address: str | None = None
+    maps_url: str | None = None
+    logo_url: str | None = None
 
 
 class UnplacedClub(BaseModel):

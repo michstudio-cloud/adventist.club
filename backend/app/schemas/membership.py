@@ -122,7 +122,9 @@ class ClubProfileUpdate(BaseModel):
     accepts_requests: bool | None = None
     # Bloque H §5: shown on the public page of the club.
     description: str | None = Field(default=None, max_length=600)
-    # An image already uploaded to the `logos` folder of the platform's bucket.
+    # An image already uploaded to the platform's bucket (`logos/`, bloque H, or `clubs/`,
+    # 022). Since 022 it is written to `organizations.logo_url`, and only the director or the
+    # association (or above) changes it — the preferred way is `POST /media/clubs/{id}/logo`.
     logo_url: str | None = Field(default=None, max_length=500)
 
     model_config = {"extra": "forbid"}
@@ -150,11 +152,12 @@ class ClubProfileUpdate(BaseModel):
         if value is None:
             return None
         value = value.strip()
-        prefix = f"{settings.R2_PUBLIC_URL.rstrip('/')}/logos/"
-        rest = value[len(prefix):]
+        base = f"{settings.R2_PUBLIC_URL.rstrip('/')}/"
+        rest = value[len(base):] if value.startswith(base) else ""
+        folder, _, name = rest.partition("/")
         if (
-            not value.startswith(prefix)
-            or not rest
+            folder not in ("logos", "clubs")
+            or not name
             or ".." in rest
             or any(char.isspace() for char in value)
         ):
@@ -166,8 +169,10 @@ class ClubProfileOut(BaseModel):
     club_id: str
     name: str
     profile: dict
-    # Read-only here: the director never changes the ministry of their club.
+    # Read-only here: the director never changes the ministries of their club.
     ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = []
+    logo_url: str | None = None
 
 
 # ----------------------------------------------------------------------------

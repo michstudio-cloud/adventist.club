@@ -817,14 +817,24 @@ async def test_direction_and_secretary_upload_the_logo(client, world, r2):
 
 async def test_profile_patch_description_and_logo(client, world):
     logo = f"{MEDIA}/logos/{'a' * 32}.png"
-    patched = await client.patch(
+    # 022: the logo is the director's (or the association's), never the secretary's.
+    refused = await client.patch(
+        _url(world, "/profile"), json={"logo_url": logo}, headers=world["secretary"]["headers"]
+    )
+    assert refused.status_code == 403 and refused.json()["detail"] == "club_logo_forbidden"
+    described = await client.patch(
         _url(world, "/profile"),
-        json={"description": "  Un club   de exploradores. ", "logo_url": logo, "meeting_day": "Sábado"},
+        json={"description": "  Un club   de exploradores. ", "meeting_day": "Sábado"},
         headers=world["secretary"]["headers"],
+    )
+    assert described.status_code == 200, described.text
+    patched = await client.patch(
+        _url(world, "/profile"), json={"logo_url": logo}, headers=world["director"]["headers"]
     )
     assert patched.status_code == 200, patched.text
     profile = patched.json()["profile"]
     assert profile["description"] == "Un club de exploradores." and profile["logo_url"] == logo
+    assert patched.json()["logo_url"] == logo
     for bad in (f"{MEDIA}/avatars/x.png", "https://evil.example/logos/x.png", f"{MEDIA}/logos/"):
         refused = await client.patch(_url(world, "/profile"), json={"logo_url": bad},
                                      headers=world["director"]["headers"])

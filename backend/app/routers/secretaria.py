@@ -317,6 +317,7 @@ async def public_profile(
             )
         )
     ).scalar_one()
+    ministries = await ministry_service.list_of(db, club)
     return ClubPublicProfile(
         id=str(club.id),
         name=club.name,
@@ -330,14 +331,19 @@ async def public_profile(
         meeting_time=profile.get("meeting_time"),
         contact=profile.get("contact"),
         description=profile.get("description"),
-        logo_url=profile.get("logo_url"),
+        logo_url=club.logo_url,
         officers=[
             PublicOfficer(title=officer.title, custom_title=officer.custom_title, name=member.name)
             for officer, member in officers
         ],
         active_members=active_members,
         accepts_requests=membership_service.accepts_requests(club),
-        ministry=await ministry_service.ref_of(db, club),
+        ministry=ministries[0] if ministries else None,
+        ministries=ministries,
+        address=club.address,
+        maps_url=club.maps_url,
+        latitude=club.latitude,
+        longitude=club.longitude,
     )
 
 

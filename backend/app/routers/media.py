@@ -1,5 +1,7 @@
 """Media upload to Cloudflare R2."""
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+import uuid
+
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -17,8 +19,10 @@ from app.security import (
     COORDINATOR_ZONE,
     INSTRUCTOR,
     MASTER_GC,
+    utcnow,
 )
-from app.services import storage
+from app.services import club_logo, storage
+from app.services.audit import record_audit
 from app.services.profiles import guardianships_of
 
 router = APIRouter(prefix="/api/v1/media", tags=["media"])
@@ -135,3 +139,102 @@ async def upload_media(
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc))
 
     return UploadResponse(url=url, key=key, content_type=content_type, size_bytes=len(data))
+
+
+# ----------------------------------------------------------------------------
+# The logo of a club (022_club_ministries.sql)
+# ----------------------------------------------------------------------------
+class ClubLogoOut(BaseModel):
+    club_id: str
+    logo_url: str | None
+    key: str | None = None
+    content_type: str | None = None
+    size_bytes: int | None = None
+
+
+@router.post(
+    "/clubs/{club_id}/logo", response_model=ClubLogoOut, status_code=status.HTTP_201_CREATED
+)
+async def upload_club_logo(
+    club_id: uuid.UUID,
+    request: Request,
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Upload the club's logo and point the club at it, in one step. Only the club's
+    director and the administration of its association or above (403 `club_logo_forbidden`).
+    The browser sends the square it cropped: WebP (PNG/JPEG if it cannot write WebP), at most
+    512×512 px and 300 KB (413 `club_logo_too_large`, 422 `club_logo_too_big`). Stored at
+    `clubs/<id>/logo-<hash>.webp`; the previous logo of that folder is deleted."""
+    club = await club_logo.get_club(db, club_id)
+    await club_logo.require_logo_rights(db, current_user, club)
+    if not settings.storage_configured:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, STORAGE_NOT_CONFIGURED_DETAIL)
+
+    content_type = (file.content_type or "").split(";")[0].strip().lower()
+    if file.size is not None and file.size > club_logo.LOGO_MAX_BYTES:
+        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, club_logo.LOGO_TOO_LARGE)
+    data = await file.read(club_logo.LOGO_MAX_BYTES + 1)
+    extension = club_logo.validate(data, content_type)
+
+    key = club_logo.key_for(club, data, extension)
+    try:
+        url, key = await storage.upload_bytes_at(key, data, content_type)
+    except storage.StorageNotConfigured:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, STORAGE_NOT_CONFIGURED_DETAIL)
+    except storage.StorageError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc))
+
+    previous = club_logo.own_key(club, club.logo_url)
+    club.logo_url = url
+    club_logo.drop_legacy(club)
+    club.updated_at = utcnow()
+    record_audit(
+        db,
+        action="CLUB_LOGO_UPDATE",
+        entity_type="ORGANIZATION",
+        entity_id=club.id,
+        actor=current_user,
+        details=f"Logo of {club.name} updated",
+        metadata={"key": key, "size_bytes": len(data), "content_type": content_type},
+        request=request,
+    )
+    await db.commit()
+    if previous and previous != key:
+        await storage.delete_quietly(previous)
+    return ClubLogoOut(
+        club_id=str(club.id), logo_url=url, key=key, content_type=content_type, size_bytes=len(data)
+    )
+
+
+@router.delete("/clubs/{club_id}/logo", response_model=ClubLogoOut)
+async def delete_club_logo(
+    club_id: uuid.UUID,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Remove the club's logo (the club goes back to its initial on the ministry's colour).
+    Same rights as the upload."""
+    club = await club_logo.get_club(db, club_id)
+    await club_logo.require_logo_rights(db, current_user, club)
+    previous = club_logo.own_key(club, club.logo_url)
+    had_logo = club.logo_url is not None
+    club.logo_url = None
+    club_logo.drop_legacy(club)
+    if had_logo:
+        club.updated_at = utcnow()
+        record_audit(
+            db,
+            action="CLUB_LOGO_DELETE",
+            entity_type="ORGANIZATION",
+            entity_id=club.id,
+            actor=current_user,
+            details=f"Logo of {club.name} removed",
+            request=request,
+        )
+    await db.commit()
+    if previous:
+        await storage.delete_quietly(previous)
+    return ClubLogoOut(club_id=str(club.id), logo_url=None)
