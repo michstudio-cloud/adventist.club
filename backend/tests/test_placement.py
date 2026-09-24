@@ -71,7 +71,7 @@ async def _director(factory, label: str) -> dict:
 
 async def _request_club(client, factory, world, label: str, **club) -> tuple[dict, dict]:
     director = await _director(factory, f"dir-{label}")
-    body = {"name": factory.name(f"club-{label}"), "association_id": world["association"]["id"]}
+    body = {"name": factory.name(f"club-{label}"), "association_id": world["association"]["id"], "ministry": "pathfinders"}
     body.update(club)
     response = await client.post(f"{ORG}/clubs", json=body, headers=director["headers"])
     assert response.status_code == 201, response.text
@@ -93,7 +93,7 @@ async def test_a_club_request_without_a_church_is_refused(client, factory, world
     director = await _director(factory, "dir-no-church")
     response = await client.post(
         f"{ORG}/clubs",
-        json={"name": factory.name("club-sin-iglesia"), "association_id": world["association"]["id"]},
+        json={"name": factory.name("club-sin-iglesia"), "association_id": world["association"]["id"], "ministry": "pathfinders"},
         headers=director["headers"],
     )
     assert response.status_code == 422, response.text
@@ -103,7 +103,7 @@ async def test_a_club_request_without_a_church_is_refused(client, factory, world
         f"{ORG}/clubs",
         json={
             "name": factory.name("club-con-zona"),
-            "association_id": world["association"]["id"],
+            "association_id": world["association"]["id"], "ministry": "pathfinders",
             "church_name": factory.name("iglesia-central"),
             "zone_id": world["zone_a"]["id"],
         },
@@ -130,7 +130,7 @@ async def test_with_a_church_that_has_a_zone_the_club_is_born_in_its_place(
         f"{ORG}/clubs",
         json={
             "name": factory.name("club-ajeno"),
-            "association_id": world["association"]["id"],
+            "association_id": world["association"]["id"], "ministry": "pathfinders",
             "church_id": outsider_church["id"],
         },
         headers=director["headers"],

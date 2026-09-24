@@ -226,10 +226,15 @@ async def search_org_nodes(
 async def list_pending_clubs(
     limit: int = Query(100, ge=1, le=500),
     offset: int = Query(0, ge=0),
+    ministry: str | None = Query(
+        None, pattern=MINISTRY_FILTER_PATTERN, description=MINISTRY_FILTER_HELP
+    ),
     current_user: User = Depends(require_org_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    """Club requests waiting for a decision, confined to the caller's scope."""
+    """Club requests waiting for a decision, confined to the caller's scope.
+    `?ministry=` narrows them to one ministry, or `none` for the requests that
+    still have to be given one when approved."""
     paths = await club_scope_paths(db, current_user)
     if paths is not None and not paths:
         return []
@@ -239,6 +244,8 @@ async def list_pending_clubs(
     )
     if paths is not None:
         stmt = stmt.where(or_(*(Organization.path.op("<@")(path) for path in paths)))
+    if ministry:
+        stmt = stmt.where(_ministry_condition(ministry))
     stmt = stmt.order_by(Organization.created_at, Organization.id).limit(limit).offset(offset)
     clubs = list((await db.execute(stmt)).scalars().all())
     # `club_scope_paths` is the coarse SQL filter; the last word is the same
@@ -1010,6 +1017,10 @@ async def _decide_club(
                 status.HTTP_409_CONFLICT, "El club no cuelga de ninguna asociación"
             )
         extra = {"declared": declared or None}
+        # Rule 3 of ESTADO.md: a club never becomes `active` without its ministry.
+        ministry, previous_ministry = await _approved_club_ministry(db, actor, club, approval)
+        club.ministry_id = ministry.id
+        extra["ministry"] = {"from": previous_ministry, "to": ministry.slug}
         if approval is not None and approval.club_name:
             await _require_unique_club_name(db, association, approval.club_name, club.id)
             club.name = approval.club_name
@@ -1049,6 +1060,31 @@ async def _decide_club(
             reason,
         )
     return response
+
+
+async def _approved_club_ministry(
+    db: AsyncSession, actor: User, club: Organization, approval: ClubApproval | None
+) -> tuple[Ministry, str | None]:
+    """The ministry a club is approved with, and the slug it had. The request's own
+    one stands unless the body names another; a request without one (older than the
+    registration asking for it) is 422 `club_ministry_required` until the body names
+    it. Filling in a missing ministry is part of deciding the request; CHANGING the
+    one the director chose is the administration's (association or above), as in
+    `PATCH /org-nodes/{id}`."""
+    wanted = None
+    if approval is not None and approval.names_a_ministry:
+        wanted = await ministry_service.require(db, approval.ministry, approval.ministry_id)
+    _declared, current = await ministry_service.of_club(db, club)
+    previous = current.slug if current is not None else None
+    if wanted is None:
+        if current is None:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY, ministry_service.MINISTRY_REQUIRED
+            )
+        return current, previous
+    if current is not None and wanted.id != current.id and not placement.is_structure_admin(actor):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, ministry_service.MINISTRY_FORBIDDEN)
+    return wanted, previous
 
 
 async def _require_unique_club_name(

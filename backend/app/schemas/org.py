@@ -106,8 +106,9 @@ class ClubSignup(_MinistryChoice):
     when it accepts the request.
     """
 
-    # `ministry` / `ministry_id` (inherited): optional here for one more cycle, so the
-    # registration screens keep working; the association assigns it when it is missing.
+    # `ministry` / `ministry_id` (inherited): REQUIRED since the registration screens ask
+    # for it (422 `club_ministry_required`, checked by the service against the database).
+    # Requests older than that may still lack it: whoever approves them assigns it.
     name: str = Field(min_length=2, max_length=180)
     association_id: uuid.UUID
     church_id: uuid.UUID | None = None
@@ -214,10 +215,14 @@ class ClubPlacement(_ChurchChoice):
         return self
 
 
-class ClubApproval(BaseModel):
+class ClubApproval(_MinistryChoice):
     """Optional body of `POST /org-nodes/{id}/approve`: whoever approves may
     correct what the director declared (club name, city, church) and assigns
-    the zone. An already placed club needs none of it."""
+    the zone. An already placed club needs none of it.
+
+    `ministry` / `ministry_id`: REQUIRED when the request has none (requests from
+    before the registration asked for it); otherwise optional, and a different one
+    corrects it — only the administration of the association or above does that."""
 
     club_name: str | None = Field(default=None, min_length=2, max_length=180)
     city: str | None = Field(default=None, max_length=120)

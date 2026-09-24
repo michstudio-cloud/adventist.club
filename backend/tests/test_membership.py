@@ -493,7 +493,7 @@ async def test_the_founder_gets_a_membership_with_the_club(client, factory):
             "role": "CLUB_DIRECTOR",
             "club": {
                     "name": factory.name("founder-club"),
-                    "association_id": association["id"],
+                    "association_id": association["id"], "ministry": "pathfinders",
                     "church_name": factory.name("founder-iglesia"),
                 },
         },
