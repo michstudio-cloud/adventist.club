@@ -331,3 +331,15 @@ def test_behind_the_web_proxy_the_batch_limit_counts_per_account():
     assert account_or_ip(request({**proxy, **auth_headers(two)})) == f"account:{two}"
     assert account_or_ip(request({**proxy, "Authorization": "Bearer nope"})) == "203.0.113.9"
     assert account_or_ip(request(proxy)) == "203.0.113.9"
+
+
+@requires_db
+@pytest.mark.asyncio
+async def test_without_an_account_the_batch_is_one_certificate_per_run(client):
+    """Owner (2026-09-24): «sin cuenta haremos solo uno por uno» — enforced by the API, not only the form."""
+    body = {"recipient_names": ["Ana", "Luis"], "honor_name": "Nudos", "club_name": "Club Orión",
+            "issued_date": "2026-09-21", "width_in": 11, "height_in": 8.5}
+    two = await client.post(BATCH, json=body)
+    assert two.status_code == 422 and two.json()["detail"]["code"] == "batch_requires_account"
+    one = await client.post(BATCH, json={**body, "recipient_names": ["Ana"]})
+    assert one.status_code == 201 and len(one.json()) == 1

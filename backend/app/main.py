@@ -127,6 +127,10 @@ async def applications(db:AsyncSession=Depends(get_db)):
 # 021: with a session it arrives through the web app's proxy (one address for everybody).
 @limiter.limit("30/hour",key_func=account_or_ip)
 async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db),viewer:User|None=Depends(get_optional_user)):
+    # Owner, 2026-09-24: without an account the assistant issues one certificate per run; batches
+    # need a session (the web app enforces it in the form, this makes it true for the API too).
+    if viewer is None and len(payload.recipient_names)>1:
+        raise HTTPException(422,{"code":"batch_requires_account","detail":"Para emitir varios certificados a la vez, crea tu cuenta."})
     # 021: validated before anything is written. Anonymous: nothing is kept (the certificate
     # re-downloads unsigned, the signature travels only in each POST /render).
     signatures=await certificate_signatures.prepare({"signature_director":payload.signature_director,"signature_instructor":payload.signature_instructor},viewer) if viewer else {}
