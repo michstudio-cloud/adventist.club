@@ -809,3 +809,62 @@ async def test_an_adult_sets_their_own_extra_time(client, world, factory):
     assert (
         await client.put(url, json={"percent": 33}, headers=world["member4"]["headers"])
     ).status_code == 422
+
+
+# ----------------------------------------------------------------------------
+# Revisión de seguridad 2026-09
+# ----------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_sec04_withdrawing_and_joining_again_does_not_reset_the_attempts(
+    client, world, factory
+):
+    """SEC-04: the attempts are the member's in the COURSE, not of one enrollment. Withdrawing
+    and joining again used to hand out a fresh set — and the spent ones showed the answers."""
+    member = await factory.user("sec04-member", "STUDENT", world["club"]["id"])
+    course = await _course_with_exam(
+        client, world, factory, "sec04", bank=4, draw=2, max_exam_attempts=2
+    )
+    first = await _join(client, member, course["id"])
+    paper = (await _start(client, member, first["id"])).json()
+    await _answer_all(client, member, paper, correct=False)
+    assert (await _submit(client, member, paper["id"])).json()["status"] == "FAILED"
+
+    withdrawn = await client.delete(
+        f"/api/v1/portfolio/enrollments/{first['id']}", headers=member["headers"]
+    )
+    assert withdrawn.status_code == 204, withdrawn.text
+    second = await _join(client, member, course["id"])
+    assert second["id"] != first["id"]
+
+    paper = (await _start(client, member, second["id"])).json()
+    await _answer_all(client, member, paper, correct=False)
+    last = await _submit(client, member, paper["id"])
+    assert last.json()["status"] == "FAILED"
+    refused = await _start(client, member, second["id"])
+    assert refused.status_code == 409 and "2 intentos" in refused.json()["detail"]
+    state = (
+        await client.get(f"{EXAMS}/enrollments/{second['id']}", headers=member["headers"])
+    ).json()
+    assert state["attempts_used"] == 2 and state["attempts_left"] == 0
+
+
+@pytest.mark.asyncio
+async def test_sec05_the_guardian_does_not_see_the_answers_while_attempts_remain(
+    client, world, factory
+):
+    course = await _course_with_exam(
+        client, world, factory, "sec05", bank=4, draw=2, max_exam_attempts=3
+    )
+    enrollment = await _join(client, world["minor"], course["id"])
+    paper = (await _start(client, world["minor"], enrollment["id"])).json()
+    await _answer_all(client, world["minor"], paper, correct=False)
+    assert (await _submit(client, world["minor"], paper["id"])).json()["status"] == "FAILED"
+
+    read = await client.get(f"{EXAMS}/attempts/{paper['id']}", headers=world["guardian"]["headers"])
+    assert read.status_code == 200, read.text
+    assert SECRET not in read.text and "correct_answer" not in read.text
+    # The instructor of the course still reads the whole attempt.
+    staff = await client.get(
+        f"{EXAMS}/attempts/{paper['id']}", headers=world["instructor"]["headers"]
+    )
+    assert staff.status_code == 200 and SECRET in staff.text

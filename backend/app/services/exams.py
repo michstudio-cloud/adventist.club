@@ -152,6 +152,18 @@ async def _attempts_of(db: AsyncSession, enrollment_id: uuid.UUID) -> list[ExamA
     return list((await db.execute(stmt)).scalars().all())
 
 
+async def _course_attempts_of(
+    db: AsyncSession, user_id: uuid.UUID, course_id: uuid.UUID
+) -> list[ExamAttempt]:
+    """SEC-04: every attempt of this person at this course, across ALL their enrollments.
+    The cap, the grading wait and the answer key count these: withdrawing and joining again
+    opens a new enrollment, never a new set of attempts."""
+    stmt = select(ExamAttempt).where(
+        ExamAttempt.user_id == user_id, ExamAttempt.course_id == course_id
+    )
+    return list((await db.execute(stmt)).scalars().all())
+
+
 async def _answers_of(db: AsyncSession, attempt_id: uuid.UUID) -> list[ExamAnswer]:
     stmt = (
         select(ExamAnswer)
@@ -241,11 +253,12 @@ async def start_attempt(
         raise HTTPException(status.HTTP_409_CONFLICT, "Ya completaste la parte teórica del curso")
 
     attempts = await _attempts_of(db, enrollment.id)
-    if any(attempt.status == PENDING_GRADING for attempt in attempts):
+    in_course = await _course_attempts_of(db, enrollment.user_id, course.id)
+    if any(attempt.status == PENDING_GRADING for attempt in in_course):
         raise HTTPException(
             status.HTTP_409_CONFLICT, "Tu instructor todavía está revisando tu intento anterior"
         )
-    used = [attempt for attempt in attempts if attempt.status != VOIDED]
+    used = [attempt for attempt in in_course if attempt.status != VOIDED]
     if len(used) >= course.max_exam_attempts:
         raise HTTPException(
             status.HTTP_409_CONFLICT,
@@ -326,7 +339,10 @@ async def _draw(
             await db.execute(
                 select(ExamAnswer.question_id)
                 .join(ExamAttempt, ExamAttempt.id == ExamAnswer.attempt_id)
-                .where(ExamAttempt.enrollment_id == attempt.enrollment_id)
+                .where(
+                    ExamAttempt.user_id == attempt.user_id,
+                    ExamAttempt.course_id == attempt.course_id,
+                )
             )
         ).scalars()
     )
@@ -762,7 +778,9 @@ async def _may_see_solutions(db: AsyncSession, attempt: ExamAttempt) -> bool:
     used = (
         await db.execute(
             select(func.count()).where(
-                ExamAttempt.enrollment_id == attempt.enrollment_id,
+                # SEC-04: the person's attempts at the course, not those of one enrollment.
+                ExamAttempt.user_id == attempt.user_id,
+                ExamAttempt.course_id == attempt.course_id,
                 ExamAttempt.status != VOIDED,
             )
         )
@@ -795,8 +813,12 @@ async def get_attempt(db: AsyncSession, actor: User, attempt_id: uuid.UUID):
     if attempt.status == IN_PROGRESS:
         # Nobody watches over a member's shoulder while they answer.
         return AttemptOut(**_base(attempt))
-    if await _reads_the_whole_attempt(db, actor, enrollment):
+    if is_master(actor) or await is_course_instructor(db, actor, enrollment):
         return await _result(db, attempt, with_solutions=True)
+    if await _reads_the_whole_attempt(db, actor, enrollment):
+        # SEC-05: the guardian reads what the member wrote, and the answer key only when the
+        # member may see it too — otherwise it goes home and comes back as the next attempt.
+        return await _result(db, attempt, with_solutions=await _may_see_solutions(db, attempt))
     # The director and the hierarchy: status and score, never the text a minor wrote (§6).
     return AttemptOut(**_base(attempt))
 
@@ -831,9 +853,10 @@ async def exam_state(db: AsyncSession, actor: User, enrollment_id: uuid.UUID) ->
         await finalize_if_expired(db, attempt)
     positions = await _exam_positions(db, enrollment)
     pending = await _pending_positions(db, enrollment, positions)
-    used = [attempt for attempt in attempts if attempt.status != VOIDED]
+    in_course = await _course_attempts_of(db, enrollment.user_id, course.id)
+    used = [attempt for attempt in in_course if attempt.status != VOIDED]
     open_attempt = next((a for a in attempts if a.status == IN_PROGRESS), None)
-    finished = [a for a in used if a.status in CLOSED]
+    finished = [a for a in attempts if a.status != VOIDED and a.status in CLOSED]
 
     blocked = None
     if not positions:
@@ -842,7 +865,7 @@ async def exam_state(db: AsyncSession, actor: User, enrollment_id: uuid.UUID) ->
         blocked = "Ya completaste la parte teórica del curso"
     elif enrollment.status != portfolio.IN_PROGRESS:
         blocked = "La inscripción ya no admite intentos"
-    elif any(a.status == PENDING_GRADING for a in attempts):
+    elif any(a.status == PENDING_GRADING for a in in_course):
         blocked = "Tu instructor todavía está revisando tu intento anterior"
     elif len(used) >= course.max_exam_attempts:
         blocked = f"Ya usaste los {course.max_exam_attempts} intentos de este examen"
