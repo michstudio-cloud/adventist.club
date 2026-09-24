@@ -48,6 +48,22 @@ CASES = [
         )
         for kind in (*mail.PROGRESS_SUBJECTS, "SOMETHING_NEW")
     ],
+    *[
+        (
+            f"progress_program_{kind}",
+            (lambda k=kind: mail.progress_email_html(HOSTILE, k, HOSTILE, HOSTILE, LINK, "program")),
+            LINK,
+            None,
+        )
+        for kind in mail.PROGRESS_SUBJECTS_PROGRAM
+    ],
+    # «Avisos»: the reviewers' digest, and the member's hours and points (progress notices,
+    # switched off by the same preference, so they carry its footnote).
+    ("pending_reviews_one", lambda: mail.pending_reviews_email_html(HOSTILE, HOSTILE, 1, LINK), LINK, None),
+    ("pending_reviews_many", lambda: mail.pending_reviews_email_html(HOSTILE, HOSTILE, 12, LINK), LINK, None),
+    ("progress_hours", lambda: mail.hours_approved_email_html(HOSTILE, 2.5, 1, LINK), LINK, None),
+    ("progress_hours_service_only", lambda: mail.hours_approved_email_html(HOSTILE, 3, 0, LINK), LINK, None),
+    ("progress_xp", lambda: mail.xp_awarded_email_html(HOSTILE, 10, HOSTILE, HOSTILE, LINK), LINK, None),
     ("certificate_revoked", lambda: mail.certificate_revoked_email_html(HOSTILE, HOSTILE, HOSTILE), None, None),
     ("certificate_revoked_no_honor", lambda: mail.certificate_revoked_email_html("Ana", "F-1", None), None, None),
 ]
@@ -154,3 +170,18 @@ def test_palette_keeps_text_contrast_above_aa():
     assert _contrast(mail.BUTTON_TEXT, mail.BUTTON_BG) >= 4.5
     for accent, _glyph in mail.NOTICE_KINDS.values():
         assert _contrast(mail.BUTTON_TEXT, accent) >= 4.5, accent
+
+
+def test_the_avisos_mails_carry_amounts_and_never_names_of_the_queue():
+    digest = mail.pending_reviews_email_html("Ana", "Orión", 3, LINK)
+    assert "3 requisitos enviados" in digest and "Orión" in digest
+    single = mail.pending_reviews_email_html("Ana", "Orión", 1, LINK)
+    assert "un requisito enviado" in single
+    hours = mail.hours_approved_email_html("Ana", 2.5, 2, LINK)
+    assert "2,5" in hours and "2 asistencias" in hours
+    points = mail.xp_awarded_email_html("Ana", 15, "Orión", "participacion", LINK)
+    assert "15 XP" in points and "participación" in points
+    investiture = mail.progress_email_html("Ana", "PROGRESS_CERTIFIED", "Amigo", None, LINK, "program")
+    assert "investidura" in investiture.lower() and "Especialidad" not in investiture
+    for html in (digest, hours, points, investiture):
+        assert "Club Digital" not in html and "Adventist.Club" in html

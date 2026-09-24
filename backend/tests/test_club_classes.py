@@ -643,3 +643,51 @@ async def test_the_default_issued_date_is_today(client, world, factory, issuer):
     certificate = await fetch_one("SELECT issued_date FROM certificates WHERE certificate_no = :n",
                                   n=body["invested"][0]["certificate_no"])
     assert certificate["issued_date"] == date.today()
+
+
+# ----------------------------------------------------------------------------
+# «Avisos»: what the members hear about a block signature and an investiture
+# ----------------------------------------------------------------------------
+async def test_block_sign_and_investiture_reach_the_members_inbox(
+    client, world, factory, issuer, monkeypatch
+):
+    from app.services import email as email_service
+
+    sent = []
+
+    async def progress(to, name, kind, honor_name, note, link, **kwargs):
+        sent.append({"to": to, "kind": kind, "award": honor_name, **kwargs})
+        return True
+
+    monkeypatch.setattr(email_service, "send_progress_email", progress)
+    program = await _program(factory, "avisos", sections=(("a", 2),))
+    enrolled = (await _enroll(client, world, program)).json()["enrolled"]
+    e = {row["membership_id"]: row["enrollment_id"] for row in enrolled}
+    card = e[world["s3"]["membership_id"]]
+    r1, r2 = program["requirements"]
+
+    async def inbox():
+        return await fetch_all(
+            "SELECT kind, count, data FROM notifications WHERE entity_id = :e ORDER BY created_at DESC",
+            e=card,
+        )
+
+    # One of two signed: the inbox counts it; E9 sends no e-mail for a plain COMPLETE.
+    assert (await _sign(client, world, program, [{"enrollment_id": card, "requirement_id": r1}])).status_code == 200
+    rows = await inbox()
+    assert [(row["kind"], row["count"]) for row in rows] == [("REQUIREMENT_APPROVED", 1)]
+    assert rows[0]["data"]["type"] == "program" and rows[0]["data"]["award"] == program["name"]
+    assert sent == []
+
+    # The last one makes the card READY: «lista para la investidura», inbox and e-mail.
+    assert (await _sign(client, world, program, [{"enrollment_id": card, "requirement_id": r2}])).status_code == 200
+    assert [row["kind"] for row in await inbox()] == ["PROGRESS_READY", "REQUIREMENT_APPROVED"]
+    assert [(m["kind"], m.get("award_type")) for m in sent] == [("PROGRESS_READY", "program")]
+
+    # The investiture: the same E9 notice a certificate of the portfolio sends.
+    invested = await client.post(_url(world, program, "/invest"), json={"enrollment_ids": [card]},
+                                 headers=world["director"]["headers"])
+    assert invested.status_code == 200, invested.text
+    assert [row["enrollment_id"] for row in invested.json()["invested"]] == [card]
+    assert (await inbox())[0]["kind"] == "PROGRESS_CERTIFIED"
+    assert [(m["kind"], m["to"]) for m in sent][-1] == ("PROGRESS_CERTIFIED", world["s3"]["email"])
