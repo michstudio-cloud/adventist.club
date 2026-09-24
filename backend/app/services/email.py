@@ -758,6 +758,34 @@ def pending_requests_email_html(director_name: str, club_name: str, pending: int
     )
 
 
+def pending_reviews_email_html(reviewer_name: str, club_name: str, pending: int, link: str) -> str:
+    """«Avisos»: to the club's reviewers, at most once per club every 12 hours. Like the join
+    requests it carries a COUNT and a link, never a name: some of the members whose work
+    is waiting are minors."""
+    count = int(pending)
+    what = "un requisito enviado" if count == 1 else f"{count} requisitos enviados"
+    club = escape(club_name)
+    body = (
+        _hello(reviewer_name)
+        + _p(f"En {_strong(club)} hay {what} por miembros del club esperando revisión.")
+        + _p("Revisa las evidencias y deja tu dictamen: cada requisito aprobado acerca al miembro a su certificado.")
+        + _button("Abrir la cola de revisión", _safe_url(link, _admin_url()))
+    )
+    return _render(
+        title="Requisitos por revisar - Adventist.Club",
+        preheader=f"{club} tiene {what} esperando revisión.",
+        eyebrow="Revisión",
+        heading="Hay requisitos por revisar",
+        tone="blue",
+        body=body,
+        reason=(
+            f"Recibes este correo porque diriges o instruyes en {club}. Como mucho te llega "
+            "uno cada 12 horas; el detalle está siempre en la cola de revisión."
+        ),
+        audience="staff",
+    )
+
+
 def membership_decision_email_html(
     name: str, club_name: str, approved: bool, reason: str | None
 ) -> str:
@@ -921,12 +949,43 @@ PROGRESS_FOOTNOTE = (
 )
 
 
-def progress_email_html(name: str, kind: str, honor_name: str, note: str | None, link: str) -> str:
+PROGRESS_SUBJECTS_PROGRAM = {
+    "PROGRESS_INCOMPLETE": "Tienes una observación en tu clase",
+    "PROGRESS_READY": "¡Tu clase está lista para la investidura!",
+    "PROGRESS_CERTIFIED": "¡Investidura! 🎉",
+}
+
+
+def progress_email_html(
+    name: str,
+    kind: str,
+    honor_name: str,
+    note: str | None,
+    link: str,
+    award_type: str = "honor",
+) -> str:
     """Portfolio progress (E9). It carries the honor, an observation the member
     already wrote or read, and a link. Never an image, never an evidence, never
-    anything about another member."""
+    anything about another member.
+
+    `award_type="program"` (Bloque F: a class or a program) only changes the words:
+    a class is invested, not certified."""
     honor = escape(honor_name)
-    if kind == "PROGRESS_INCOMPLETE":
+    if award_type == "program" and kind == "PROGRESS_READY":
+        heading = "¡Terminaste todos los requisitos!"
+        tone = "blue"
+        preheader = f"{honor} está lista para la investidura."
+        body = _hello(name) + _p(
+            f"{_strong(honor)} está lista para que la dirección de tu club te invista."
+        )
+    elif award_type == "program" and kind == "PROGRESS_CERTIFIED":
+        heading = "¡Investidura!"
+        tone = "green"
+        preheader = f"Recibiste la investidura de {honor}."
+        body = _hello(name) + _p(
+            f"Recibiste la investidura de {_strong(honor)}. Ya puedes descargar tu certificado."
+        )
+    elif kind == "PROGRESS_INCOMPLETE":
         heading = "Tienes una observación por revisar"
         tone = "warm"
         preheader = f"Hay un requisito por corregir en {honor}."
@@ -956,6 +1015,75 @@ def progress_email_html(name: str, kind: str, honor_name: str, note: str | None,
         tone=tone,
         body=body,
         reason=f"Recibes este correo porque {honor} está en tu portafolio de {MEMBER_PRODUCT}.",
+        footnote=PROGRESS_FOOTNOTE,
+    )
+
+
+# ----------------------------------------------------------------------------
+# «Avisos» — hours and points (Bloque F · F2, Bloque G §4.1)
+# ----------------------------------------------------------------------------
+def _number(value) -> str:
+    return f"{float(value):g}".replace(".", ",")
+
+
+def hours_approved_email_html(name: str, service: float, attendance: float, link: str) -> str:
+    """Hours approved by the club. Only the amount: what the member did and where says
+    where a minor was, and it stays in the portfolio behind a session."""
+    parts = []
+    if float(service or 0):
+        parts.append(f"{_strong(_number(service))} h de servicio")
+    if float(attendance or 0):
+        meetings = int(float(attendance))
+        parts.append(_strong("1 asistencia" if meetings == 1 else f"{meetings} asistencias"))
+    what = " y ".join(parts) or "tus horas"
+    body = (
+        _hello(name)
+        + _p(f"La dirección de tu club aprobó {what}.")
+        + _p("Las horas aprobadas cuentan para los requisitos de horas de tu clase y suman XP.")
+        + _button("Ver mis horas", _safe_url(link))
+    )
+    return _render(
+        title="Horas aprobadas - Adventist.Club",
+        preheader="La dirección de tu club aprobó tus horas.",
+        eyebrow="Tus horas",
+        heading="¡Horas aprobadas!",
+        tone="green",
+        body=body,
+        reason=f"Recibes este correo porque registras horas de servicio en {MEMBER_PRODUCT}.",
+        footnote=PROGRESS_FOOTNOTE,
+    )
+
+
+XP_CATEGORY_LABELS = {
+    "conducta": "conducta",
+    "puntualidad": "puntualidad",
+    "uniforme": "uniforme",
+    "participacion": "participación",
+    "servicio": "servicio",
+    "otro": "reconocimiento",
+}
+
+
+def xp_awarded_email_html(name: str, points: int, club_name: str, category: str, link: str) -> str:
+    """Positive points only (a negative award is never announced by e-mail). The note of
+    the award is not copied: it is a judgement about a person."""
+    club = escape(club_name)
+    label = escape(XP_CATEGORY_LABELS.get(category, "reconocimiento"))
+    amount = int(points)
+    body = (
+        _hello(name)
+        + _p(f"La dirección de {_strong(club)} te otorgó {_strong(f'{amount} XP')} por {label}.")
+        + _p("Tus puntos suman para subir de nivel. ¡Sigue así!")
+        + _button("Ver mi perfil", _safe_url(link))
+    )
+    return _render(
+        title="Ganaste puntos - Adventist.Club",
+        preheader=f"{club} te otorgó {amount} XP.",
+        eyebrow="Tus puntos",
+        heading=f"¡Ganaste {amount} XP!",
+        tone="blue",
+        body=body,
+        reason=f"Recibes este correo porque eres miembro de {club} en {MEMBER_PRODUCT}.",
         footnote=PROGRESS_FOOTNOTE,
     )
 
@@ -1105,11 +1233,48 @@ async def send_membership_decision_email(
 
 
 async def send_progress_email(
-    to: str, name: str, kind: str, honor_name: str, note: str | None, link: str
+    to: str,
+    name: str,
+    kind: str,
+    honor_name: str,
+    note: str | None,
+    link: str,
+    award_type: str = "honor",
 ) -> bool:
-    subject = PROGRESS_SUBJECTS.get(kind, "Avance de tu portafolio")
+    subjects = PROGRESS_SUBJECTS_PROGRAM if award_type == "program" else PROGRESS_SUBJECTS
+    subject = subjects.get(kind, "Avance de tu portafolio")
     return await send_email(
-        to, f"{subject} - Adventist.Club", progress_email_html(name, kind, honor_name, note, link)
+        to,
+        f"{subject} - Adventist.Club",
+        progress_email_html(name, kind, honor_name, note, link, award_type),
+    )
+
+
+async def send_pending_reviews_email(
+    to: str, reviewer_name: str, club_name: str, pending: int, link: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Requisitos por revisar en {club_name} - Adventist.Club",
+        pending_reviews_email_html(reviewer_name, club_name, pending, link),
+    )
+
+
+async def send_hours_approved_email(
+    to: str, name: str, service: float, attendance: float, link: str
+) -> bool:
+    return await send_email(
+        to, "¡Horas aprobadas! - Adventist.Club", hours_approved_email_html(name, service, attendance, link)
+    )
+
+
+async def send_xp_awarded_email(
+    to: str, name: str, points: int, club_name: str, category: str, link: str
+) -> bool:
+    return await send_email(
+        to,
+        f"¡Ganaste {int(points)} XP! - Adventist.Club",
+        xp_awarded_email_html(name, points, club_name, category, link),
     )
 
 

@@ -8,7 +8,7 @@ must not reveal that the person exists.
 """
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import aliased
@@ -36,6 +36,7 @@ from app.schemas.profile import (
 )
 from app.security import COUNSELOR, utcnow
 from app.services import memberships as membership_service
+from app.services import notifications
 from app.services import profiles as profile_service
 from app.services import units as unit_service
 from app.services import xp
@@ -141,6 +142,7 @@ async def award_xp(
     membership_id: uuid.UUID,
     payload: XpAwardCreate,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
@@ -164,6 +166,9 @@ async def award_xp(
         occurred_on=payload.occurred_on,
         request=request,
     )
+    # «Avisos»: a positive award reaches the member's inbox and, at most once every 12 hours,
+    # their e-mail. Staged in the award's own transaction; the send runs after the commit.
+    await notifications.queue_xp_awarded(db, background, award=award, member=member, club=club)
     await db.commit()
     conduct = (await xp.conduct_of(db, [member.id]))[member.id]
     return XpAwardCreated(
