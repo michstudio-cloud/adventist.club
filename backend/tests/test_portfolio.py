@@ -747,7 +747,10 @@ async def test_prototype_batch_contract_is_unchanged(client, factory, issuer, wo
     payload = {"recipient_names": [factory.name("Ana"), " ", factory.name("Luis")], "honor_name": factory.name("Prototipo"),
                "club_name": factory.name("club-prototipo"), "issued_date": "2026-09-22", "place": "Reynosa",
                "instructor_name": "I", "director_name": "D", "width_in": 11, "height_in": 8.5}
-    response = await client.post("/api/v1/certificates/prototype-batch", json=payload)      # still no session required
+    # Owner (2026-09-24): a batch of several names needs a session; anonymous is one per run.
+    anonymous = await client.post("/api/v1/certificates/prototype-batch", json=payload)
+    assert anonymous.status_code == 422 and anonymous.json()["detail"]["code"] == "batch_requires_account"
+    response = await client.post("/api/v1/certificates/prototype-batch", json=payload, headers=world["member"]["headers"])
     assert response.status_code == 201, response.text
     rows = response.json()
     assert [row["recipient_name"] for row in rows] == [factory.name("Ana"), factory.name("Luis")]   # blanks are skipped
@@ -768,13 +771,13 @@ async def test_prototype_batch_contract_is_unchanged(client, factory, issuer, wo
     assert [(e["event_type"], e["actor_id"], e["metadata_json"]) for e in events] == [
         ("issued", None, {"hash": rows[0]["certificate_hash"]})]
 
-    second = await client.post("/api/v1/certificates/prototype-batch", json=payload)        # club, honor, template reused
+    second = await client.post("/api/v1/certificates/prototype-batch", json=payload, headers=world["member"]["headers"])  # club, honor, template reused
     assert second.status_code == 201
     counts = await fetch_one(
         "SELECT (SELECT count(*) FROM clubs WHERE name = :club) AS clubs, (SELECT count(*) FROM honors WHERE name = :honor) AS honors",
         club=factory.name("club-prototipo"), honor=factory.name("Prototipo"))
     assert (counts["clubs"], counts["honors"]) == (1, 1)
-    assert (await client.post("/api/v1/certificates/prototype-batch",
+    assert (await client.post("/api/v1/certificates/prototype-batch", headers=world["member"]["headers"],
                               json={**payload, "ministry": "no-existe"})).status_code == 404
 
 
