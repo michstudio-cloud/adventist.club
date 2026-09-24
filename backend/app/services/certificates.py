@@ -237,6 +237,21 @@ async def _association_name(db: AsyncSession, organization_id: uuid.UUID | None)
     return (await db.execute(stmt.order_by(func.nlevel(Organization.path).desc()).limit(1))).scalar_one_or_none()
 
 
+async def _batch_association(db: AsyncSession, certificate_id: uuid.UUID) -> str | None:
+    """«Asociación o misión» of a certificate from the assistant's batch (POST
+    /certificates/prototype-batch): there is no enrollment to read the club from, so the batch
+    keeps what the page printed in its `issued` event (`association_name`, typed or taken from
+    the registered club). `certificates` has no column for it and the hash never covers it."""
+    stmt = select(CertificateEvent.metadata_json).where(
+        CertificateEvent.certificate_id == certificate_id, CertificateEvent.event_type == "issued"
+    )
+    metadata = (await db.execute(stmt.limit(1))).scalar_one_or_none() or {}
+    value = metadata.get("association_name")
+    if not isinstance(value, str):
+        return None
+    return value.strip() or None
+
+
 # Every data key `render_data` answers for. With a folio these come from the record or not at
 # all: a key the record leaves empty is not taken from the caller either (POST /render).
 RECORD_FIELDS = ("recipient_name", "honor_name", "issued_date", "director_name", "instructor_name",
@@ -254,7 +269,8 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
       association, else the issuing organisation's name;
     - `association_name` («Especialidad dorada»): ONLY the association the member's club hangs
       from (`organizations.path`, nearest ancestor of type association). No club or no
-      association above it: absent, and the template leaves the line out — never a stand-in;
+      association above it: absent, and the template leaves the line out — never a stand-in.
+      A batch certificate (no enrollment) prints the association its batch recorded, if any;
     - `church_name` is not here: it is a translated string of the template.
     Only reads; never touches the hash."""
     from app.services.portfolio import honor_name_in   # portfolio imports this module
@@ -277,6 +293,7 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
         enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
         club_org = enrollment.club_id if enrollment else None
     association_name = await _association_name(db, club_org)
+    batch_association = None if certificate.enrollment_id else await _batch_association(db, certificate.id)
     organization_name = (
         association_name
         or await _association_name(db, certificate.organization_id)
@@ -290,7 +307,7 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
         "instructor_name": certificate.instructor_name or "",
         "certificate_no": certificate.certificate_no,
         "organization_name": organization_name or "",
-        "association_name": association_name or "",
+        "association_name": association_name or batch_association or "",
     }
     return {k: v for k, v in data.items() if v}, image_url
 

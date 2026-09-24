@@ -34,6 +34,8 @@ from app.routers import club_classes as club_classes_router
 # La ficha de especialidad en PDF, generada desde los datos propios (reemplaza los PDF de terceros).
 from app.routers import honor_sheets as honor_sheets_router
 from app.routers import notifications as notifications_router
+# El campo «Club» del asistente: clubes registrados (lookup público) y el club propio.
+from app.routers import club_lookup as club_lookup_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
@@ -50,6 +52,7 @@ app.include_router(secretaria_router.router)
 app.include_router(club_classes_router.router)
 app.include_router(honor_sheets_router.router)
 app.include_router(notifications_router.router)
+app.include_router(club_lookup_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
@@ -58,6 +61,12 @@ class PrototypeBatchCreate(BaseModel):
     honor_id:uuid.UUID|None=None
     honor_name:str=Field(min_length=2,max_length=180)
     club_name:str=Field(min_length=2,max_length=180)
+    # A registered club picked in the assistant (GET /org-nodes/clubs/lookup). The certificate
+    # prints ITS name (club_name is then ignored); 404 `club_not_found` if it is not active.
+    club_id:uuid.UUID|None=None
+    # «Asociación o misión» of the templates that print it (`association_name`). Kept with the
+    # `issued` event, outside the hash, so a folio'd render prints it (services/certificates.py).
+    association_name:str|None=Field(default=None,max_length=180)
     issued_date:date
     place:str|None=None
     instructor_name:str|None=None
@@ -138,7 +147,17 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     if not ministry:raise HTTPException(404,"Ministerio no encontrado.")
     approw=(await db.execute(select(Application).where(Application.slug==payload.application))).scalar_one_or_none()
     org=await resolve_issuer_organization(db)
-    club=await get_or_create_club(db,org.id,ministry.id,payload.club_name.strip())
+    registered=None
+    if payload.club_id:
+        registered=await db.get(Organization,payload.club_id)
+        if not club_lookup_router.is_active_club(registered):
+            raise HTTPException(404,{"code":"club_not_found","detail":"Ese club no está registrado o ya no está activo."})
+    # `certificates.club_id` points at the legacy `clubs` table (under the issuing organisation),
+    # not at `organizations`: a registered club gets the legacy row with its exact name, as the
+    # portfolio does, and the organisation itself travels in the `issued` event.
+    club=await get_or_create_club(db,org.id,ministry.id,registered.name if registered else payload.club_name.strip())
+    association=(payload.association_name or "").strip() or None
+    extra={**({"signed_by":str(viewer.id)} if signatures else {}),**({"club_organization_id":str(registered.id)} if registered else {}),**({"association_name":association} if association else {})}
     honor=await db.get(Honor,payload.honor_id) if payload.honor_id else None
     if not honor:
         # Honor versions share a name: take the newest live one instead of failing on duplicates.
@@ -153,7 +172,7 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata={"signed_by":str(viewer.id)} if signatures else None))
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None))
     # One immutable copy per signature for the whole batch (the folder of its first certificate).
     await certificate_signatures.attach(created,signatures)
     await db.commit()
