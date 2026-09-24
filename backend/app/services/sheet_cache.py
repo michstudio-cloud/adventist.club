@@ -7,7 +7,8 @@ only (dry-run by default) and is not wired to any startup job or cron.
 
 Key: `sheets/{honor_id}/{mode}-{locale}-{paper}-{etag12}.pdf`, where etag12 is the first 12 hex
 of the content ETag (`SheetData.fingerprint`), so any change of name, requirements, resources,
-version, renderer or mode produces a new key and the stored objects are immutable.
+version, renderer, mode or the SHOW_SOURCES switch (credit line under the requirements) produces a
+new key and the stored objects are immutable.
 
 Lean storage: after a successful upload the other versions of THE SAME variant (same mode,
 locale and paper, older etag12) under `sheets/{honor_id}/` are deleted, best-effort. Other

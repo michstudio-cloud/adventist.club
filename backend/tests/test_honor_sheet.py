@@ -9,6 +9,7 @@ from PIL import Image
 from pypdf import PdfReader
 from sqlalchemy import text
 
+from app.config import Settings, settings
 from app.db import SessionLocal
 from app.services import honor_sheet
 from app.services.honor_sheet import (
@@ -17,6 +18,7 @@ from app.services.honor_sheet import (
     SheetResource,
     answer_line_count,
     category_accent,
+    credit_line,
     parse_requirement,
     render_sheet_pdf,
     sub_item_answer,
@@ -342,6 +344,91 @@ def test_no_references_are_shown_in_either_mode(mode):
     _, content = pdf_text(render_sheet_pdf(imported, mode=mode, fetch_image=False))
     assert no_references(content)
     assert ("Manual" in content) == (mode == "ficha")               # the other resource is listed (ficha)
+
+
+WIKI_URL = "https://wiki.pathfindersonline.org/w/AY_Honors/Pottery"
+WIKI_CREDIT = "Texto de los requisitos: Pathfinder Wiki (NAD) · CC BY-SA 3.0 · wiki.pathfindersonline.org"
+
+
+@pytest.mark.parametrize("mode", ["hoja", "ficha"])
+def test_show_sources_prints_one_credit_line_under_the_requirements(mode):
+    wiki = _data(requirements=_sourced("pathfinder-wiki", WIKI_URL, "CC BY-SA 3.0"), resources=[],
+                 show_sources=True)
+    _, content = pdf_text(render_sheet_pdf(wiki, mode=mode, fetch_image=False))
+    assert content.count(WIKI_CREDIT) == 1
+    assert content.index("Requisito 3.") < content.index(WIKI_CREDIT)             # after the requirements
+    assert "guiasmayores" not in content.lower() and "Fuente" not in content
+
+    mixed = _data(requirements=_sourced("pathfinder-wiki", WIKI_URL, "CC BY-SA 3.0")
+                  + [SheetRequirement(4, "Requisito 4.", True, None, "guiasmayores.com",
+                                      "https://www.guiasmayores.com/alfareria.html", None)],
+                  resources=[SheetResource("Requisitos", "https://guiasmayores.com/a.pdf", "pdf")],
+                  show_sources=True)
+    _, content = pdf_text(render_sheet_pdf(mixed, mode=mode, fetch_image=False))
+    assert WIKI_CREDIT + "; Guías Mayores" in content
+    assert "guiasmayores" not in content.lower().replace(" ", "")                # named, never linked/listed
+
+
+def test_credit_line_groups_sources_and_never_links_a_blocked_site():
+    assert credit_line(_data(requirements=_sourced("pathfinder-wiki", WIKI_URL, "CC BY-SA 3.0"))) is None
+    assert credit_line(_data(requirements=_sourced(None), show_sources=True)) is None      # nothing to credit
+    wiki = credit_line(_data(requirements=_sourced("pathfinder-wiki", WIKI_URL, "CC BY-SA 3.0"), show_sources=True))
+    assert wiki == (WIKI_CREDIT, WIKI_URL)
+    only_gm = credit_line(_data(requirements=_sourced("guiasmayores.com", "https://www.guiasmayores.com/a.html",
+                                                      "CC BY-SA 3.0"), show_sources=True))
+    assert only_gm == ("Texto de los requisitos: Guías Mayores", None)
+    english = credit_line(_data(language="en", show_sources=True,
+                                requirements=_sourced("pathfinder-wiki", None, "CC BY-SA 3.0")))
+    assert english == ("Requirements text: Pathfinder Wiki (NAD) · CC BY-SA 3.0 · wiki.pathfindersonline.org",
+                       "https://wiki.pathfindersonline.org")
+
+
+def test_show_sources_is_part_of_the_fingerprint_only_when_on():
+    off, on = _data(), _data(show_sources=True)
+    assert off.fingerprint() != on.fingerprint() and off.fingerprint("a4", "ficha") != on.fingerprint("a4", "ficha")
+    # off keeps the ETags (and R2 keys) the sheets had before the switch existed
+    import hashlib
+    import json
+    from dataclasses import asdict
+
+    legacy = asdict(off)
+    del legacy["show_sources"]
+    payload = json.dumps({"v": honor_sheet.RENDERER_VERSION, "paper": "a4", "mode": "hoja", **legacy},
+                         sort_keys=True, default=str, ensure_ascii=False)
+    assert off.fingerprint() == hashlib.sha256(payload.encode()).hexdigest()
+
+
+def test_show_sources_setting_is_off_by_default_and_lenient(monkeypatch):
+    monkeypatch.delenv("SHOW_SOURCES", raising=False)
+    assert Settings(DATABASE_URL="postgresql://x", _env_file=None).SHOW_SOURCES is False
+    for raw, expected in (("true", True), ("1", True), ("off", False), ("", False), ("quizás", False)):
+        monkeypatch.setenv("SHOW_SOURCES", raw)
+        assert Settings(DATABASE_URL="postgresql://x", _env_file=None).SHOW_SOURCES is expected, raw
+
+
+@requires_db
+async def test_show_sources_switch_adds_the_credit_and_changes_the_etag(client, factory, monkeypatch):
+    honor = await _honor(factory, "creditos", requirements=ALFARERIA_REQUIREMENTS, resources=ALFARERIA_RESOURCES,
+                         source="pathfinder-wiki")
+    async with SessionLocal() as db:
+        await db.execute(text("UPDATE honor_requirements SET source_url = :url, license = 'CC BY-SA 3.0'"
+                              " WHERE honor_id = :id"), {"url": WIKI_URL, "id": uuid.UUID(honor["id"])})
+        await db.commit()
+    url = f"{HONORS}/{honor['id']}/sheet.pdf"
+    monkeypatch.setattr(settings, "SHOW_SOURCES", False)
+    off = {mode: await client.get(url, params={"modo": mode}) for mode in ("hoja", "ficha")}
+    monkeypatch.setattr(settings, "SHOW_SOURCES", True)
+    on = {mode: await client.get(url, params={"modo": mode}) for mode in ("hoja", "ficha")}
+    for mode in ("hoja", "ficha"):
+        assert off[mode].status_code == on[mode].status_code == 200
+        assert no_references(pdf_text(off[mode].content)[1])
+        content = pdf_text(on[mode].content)[1]
+        assert WIKI_CREDIT in content and "Requisitos en guiasmayores" not in content
+        assert on[mode].headers["etag"] != off[mode].headers["etag"]
+        assert (await client.get(url, params={"modo": mode},
+                                 headers={"If-None-Match": off[mode].headers["etag"]})).status_code == 200
+    monkeypatch.setattr(settings, "SHOW_SOURCES", False)
+    assert (await client.get(url)).headers["etag"] == off["hoja"].headers["etag"]
 
 
 def _colours(body: bytes) -> set[tuple[str, str, str]]:

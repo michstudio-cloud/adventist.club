@@ -42,6 +42,11 @@ class Settings(BaseSettings):
     LEADER_VERIFICATION_ENFORCED_FROM: date | None = None
     # Bloque G: accounts created before this day wear the «fundador» badge. Unset = nobody.
     PUBLIC_LAUNCH_DATE: date | None = None
+    # Attribution of third-party texts (honor requirements from the Pathfinder Wiki, CC BY-SA 3.0).
+    # Off by default («por ahora no mostremos referencias»). When on, the honor PDFs print one grey
+    # credit line under the requirements; it is part of the sheets' ETag / R2 key, so toggling it
+    # regenerates them. Pair it with NEXT_PUBLIC_SHOW_SOURCES in the web app.
+    SHOW_SOURCES: bool = False
 
     # --- Cloudflare R2 (optional: without it media upload answers 503) ---
     R2_ACCOUNT_ID: str | None = None
@@ -133,7 +138,7 @@ class Settings(BaseSettings):
         return value
 
     @field_validator(
-        "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", mode="before"
+        "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", "SHOW_SOURCES", mode="before"
     )
     @classmethod
     def _lenient_bool(cls, value: Any, info) -> Any:

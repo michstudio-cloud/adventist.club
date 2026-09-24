@@ -9,10 +9,13 @@
   * «ficha» — the compact catalogue sheet (hero card, requirement cards, resources) in the
     coloured design described below.
 
-Neither mode shows references for now (owner's decision): no «Fuente», no attribution of the
-requirement text, no `source_url`; resources hosted on guiasmayores.com are never listed
-(BLOCKED_HOSTS). The rows' `source`/`source_url`/`license` stay in `SheetRequirement` so the
-attribution can come back without touching the loader.
+Neither mode shows references by default (owner's decision, «por ahora no mostremos
+referencias»): no «Fuente», no attribution of the requirement text, no `source_url`. With
+`settings.SHOW_SOURCES` on, both modes print ONE small grey line under the requirements
+(`credit_line`: «Texto de los requisitos: Pathfinder Wiki (NAD) · CC BY-SA 3.0 ·
+wiki.pathfindersonline.org», and «Guías Mayores» for rows imported from there); the flag travels
+in `SheetData.show_sources`, so it is part of the ETag and of the R2 key. Resources hosted on
+guiasmayores.com are never listed either way (BLOCKED_HOSTS).
 
 The «ficha» uses the visual language of conquistadores.app, in its LIGHT theme (it is printed):
 
@@ -85,6 +88,12 @@ Mode = Literal["hoja", "ficha"]
 PAGE_SIZES = {"a4": A4, "letter": LETTER}
 # Never shown nor linked on a sheet (owner's decision): the platform replaces that site.
 BLOCKED_HOSTS = ("guiasmayores.com",)
+# How a requirement row's `source` is credited when SHOW_SOURCES is on: (label, host shown and
+# linked). A blocked site is named, never linked.
+SOURCE_CREDITS = {
+    "pathfinder-wiki": ("Pathfinder Wiki (NAD)", "wiki.pathfindersonline.org"),
+    "guiasmayores.com": ("Guías Mayores", None),
+}
 
 
 def is_blocked(url_or_host: str | None) -> bool:
@@ -256,6 +265,7 @@ LABELS = {
         "notes": "Notas",
         "generated": "Generado en ",
         "version_short": "Versión {n} · {date}",
+        "credit": "Texto de los requisitos: ",
     },
     "en": {
         "eyebrow": "Honor",
@@ -298,6 +308,7 @@ LABELS = {
         "notes": "Notes",
         "generated": "Generated at ",
         "version_short": "Version {n} · {date}",
+        "credit": "Requirements text: ",
     },
 }
 
@@ -350,14 +361,19 @@ class SheetData:
     requirements_locale: str | None
     requirements: list[SheetRequirement] = field(default_factory=list)
     resources: list[SheetResource] = field(default_factory=list)
+    show_sources: bool = False       # settings.SHOW_SOURCES when loaded: print `credit_line`
 
     @property
     def page_url(self) -> str:
         return HONOR_PAGE_BASE + self.slug
 
     def fingerprint(self, paper: Paper = "a4", mode: Mode = "hoja") -> str:
-        """Everything the PDF depends on. Used as the ETag: any edit changes it."""
-        payload = json.dumps({"v": RENDERER_VERSION, "paper": paper, "mode": mode, **asdict(self)},
+        """Everything the PDF depends on. Used as the ETag: any edit changes it. `show_sources`
+        only enters when on, so the ETags (and R2 keys) of the default sheets stay as they were."""
+        fields = asdict(self)
+        if not fields["show_sources"]:
+            del fields["show_sources"]
+        payload = json.dumps({"v": RENDERER_VERSION, "paper": paper, "mode": mode, **fields},
                              sort_keys=True, default=str, ensure_ascii=False)
         return hashlib.sha256(payload.encode()).hexdigest()
 
@@ -429,7 +445,42 @@ async def load_sheet_data(db: AsyncSession, honor: Honor, locale: str | None = S
         requirements=[SheetRequirement(r.position, r.description, bool(r.is_theoretical), r.instructions,
                                        r.source, r.source_url, r.license) for r in requirements],
         resources=[SheetResource(r.name, r.url, r.type) for r in resources if not is_blocked(r.url)],
+        show_sources=bool(settings.SHOW_SOURCES),
     )
+
+
+def credit_line(data: SheetData) -> tuple[str, str | None] | None:
+    """The attribution printed under the requirements when `data.show_sources`, and the URL it
+    links to. None when off or when no row carries a source. One group per source, in order of
+    first appearance: «label · licence(s) · host», groups joined by «; ». A blocked site
+    (guiasmayores.com) is named by its label only: no host, no link."""
+    if not data.show_sources:
+        return None
+    groups: dict[str, tuple[str, list[str], str | None]] = {}
+    link: str | None = None
+    for requirement in data.requirements:
+        source = (requirement.source or "").strip()
+        if not source:
+            continue
+        key = source.lower()
+        if key in SOURCE_CREDITS:
+            label, host = SOURCE_CREDITS[key]
+        elif is_blocked(source) or is_blocked(requirement.source_url):
+            label, host = source, None
+        else:
+            label, host = source, host_of(requirement.source_url)
+        blocked = is_blocked(source) or is_blocked(requirement.source_url)
+        _, licences, _ = groups.setdefault(key, (label, [], None if blocked else host))
+        licence = (requirement.license or "").strip()
+        if licence and not blocked and licence not in licences:
+            licences.append(licence)
+        if link is None and not blocked and host:
+            url = (requirement.source_url or "").strip()
+            link = url if url.startswith(("https://", "http://")) else f"https://{host}"
+    if not groups:
+        return None
+    parts = [" · ".join([label, *licences] + ([host] if host else [])) for label, licences, host in groups.values()]
+    return LABELS[data.language]["credit"] + "; ".join(parts), link
 
 
 async def render_honor_sheet(db: AsyncSession, honor: Honor, locale: str = SOURCE_LOCALE, *,
@@ -965,6 +1016,23 @@ class _SheetRenderer:
                 self.y -= leading
         self.y -= gap_after
 
+    def draw_credit(self, color: Color, gap_before: float) -> None:
+        """`credit_line` in small grey type under the requirements (only with SHOW_SOURCES)."""
+        credit = credit_line(self.data)
+        if credit is None:
+            return
+        value, link = credit
+        size, leading = 7.5, 10.5
+        lines = wrap(value, self.regular, size, self.content_w)
+        self.ensure(gap_before + leading * len(lines))
+        self.y -= gap_before
+        for line in lines:
+            self.ensure(leading)
+            width = self.text(MARGIN_X, self.y - leading / 2 - size * 0.36, line, self.regular, size, color)
+            if link:
+                self.c.linkURL(link, (MARGIN_X, self.y - leading, MARGIN_X + width, self.y), relative=0)
+            self.y -= leading
+
     def section_title(self, title: str, meta: str | None = None, keep_with: float = 60.0) -> None:
         self.ensure(34 + keep_with)
         self.y -= 6
@@ -1084,6 +1152,7 @@ class _SheetRenderer:
             rows = self.card_rows(requirement, first_width, width)
             self.draw_card(rows, badge=str(index), practical=not requirement.is_theoretical,
                            text_offset=text_offset)
+        self.draw_credit(MUTED, gap_before=2)
 
 
     def draw_pending(self) -> None:
@@ -1574,6 +1643,7 @@ class _WorksheetRenderer(_SheetRenderer):
         if flows:
             flows[0].gap_before = 4
         self.flow(flows)
+        self.draw_credit(WS_LABEL, gap_before=8)
 
     def ws_pending(self) -> None:
         """«Requisitos en preparación»: a thin grey outline, no fill."""

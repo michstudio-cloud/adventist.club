@@ -198,6 +198,21 @@ async def test_content_change_uploads_a_new_key_and_purges_the_stale_one(client,
 
 
 @requires_db
+async def test_show_sources_switch_stores_a_new_key(client, factory, r2, monkeypatch):
+    honor = await _honor(factory, "fuentes", requirements=REQUIREMENTS, source="pathfinder-wiki")
+    url = f"{HONORS}/{honor['id']}/sheet.pdf"
+    monkeypatch.setattr(settings, "SHOW_SOURCES", False)
+    await client.get(url)
+    old = next(k for k in r2.objects if k.startswith(f"sheets/{honor['id']}/hoja-"))
+
+    monkeypatch.setattr(settings, "SHOW_SOURCES", True)
+    toggled = await client.get(url)
+    assert toggled.status_code == 200 and toggled.content.startswith(b"%PDF")    # rendered again, not redirected
+    new = f"sheets/{honor['id']}/hoja-es-a4-{toggled.headers['etag'].strip(chr(34))[:12]}.pdf"
+    assert new != old and new in r2.objects and old not in r2.objects
+
+
+@requires_db
 async def test_storage_failures_never_break_the_response(client, factory, r2, renders):
     honor = await _honor(factory, "r2-caido", requirements=REQUIREMENTS)
     url = f"{HONORS}/{honor['id']}/sheet.pdf"
