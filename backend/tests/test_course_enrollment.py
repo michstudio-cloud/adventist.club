@@ -891,3 +891,68 @@ async def test_a_certified_course_enrollment_is_frozen(client, world, factory, i
     assert issued.status_code == 201, issued.text
     left = await client.post(f"{COURSES}/{course['id']}/leave", headers=world["member2"]["headers"])
     assert left.status_code == 409
+
+
+# ----------------------------------------------------------------------------
+# «Avisos»: a requirement sent in a course reaches its instructor (rbac.can_review)
+# ----------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_a_submission_in_a_course_reaches_its_instructor(client, world, factory, monkeypatch):
+    from app.services import email as email_service
+
+    sent = []
+
+    def capture(kind):
+        async def send(to, *args, **kwargs):
+            sent.append({"kind": kind, "to": to, "args": args})
+            return True
+
+        return send
+
+    monkeypatch.setattr(email_service, "send_course_pending_reviews_email", capture("COURSE"))
+    monkeypatch.setattr(email_service, "send_pending_reviews_email", capture("CLUB"))
+    honor = await _honor(factory, "avisos", (True, True))
+    course = await _published_course(client, world, honor)
+
+    async def course_notices():
+        return await fetch_all(
+            "SELECT kind, count, link, data FROM notifications WHERE user_id = :u AND entity_id = :e",
+            u=uuid.UUID(world["instructor"]["id"]), e=course["id"],
+        )
+
+    member = await _joined(client, world["member2"], course["id"])
+    assert (await _submit_requirement(client, world["member2"], member["id"], 1)).status_code == 200
+
+    rows = await course_notices()
+    assert len(rows) == 1 and rows[0]["kind"] == "PENDING_REVIEWS" and rows[0]["count"] == 1
+    assert rows[0]["link"] == f"/teach/courses/{course['id']}"
+    assert rows[0]["data"]["course"] == course["title"] and rows[0]["data"]["pending"] == 1
+    to_instructor = [m for m in sent if m["kind"] == "COURSE"]
+    # (name, course title, count, link): a count and a link, never whose work it is.
+    assert [m["to"] for m in to_instructor] == [world["instructor"]["email"]]
+    assert to_instructor[0]["args"][1:3] == (course["title"], 1)
+    assert to_instructor[0]["args"][3].endswith(f"/teach/courses/{course['id']}")
+    assert world["member2"]["email"] not in str(to_instructor)
+    # «además»: the reviewers of the member's club keep hearing about it (they may review it too).
+    director_club = await fetch_all(
+        "SELECT count FROM notifications WHERE user_id = :u AND kind = 'PENDING_REVIEWS' AND entity_id = :e",
+        u=uuid.UUID(world["director"]["id"]), e=world["club"]["id"],
+    )
+    assert len(director_club) == 1
+
+    # A member without a club reaches the instructor alone; the same unread notice counts 2 and
+    # the e-mail waits for its 12-hour window (per course).
+    sent.clear()
+    loner = await _joined(client, world["loner"], course["id"])
+    assert (await _submit_requirement(client, world["loner"], loner["id"], 1)).status_code == 200
+    rows = await course_notices()
+    assert len(rows) == 1 and rows[0]["count"] == 2 and rows[0]["data"]["pending"] == 2
+    assert sent == []
+
+    # An instructor whose letter is no longer in force reviews nothing, so hears nothing.
+    await _revoke(world["instructor"]["id"])
+    try:
+        assert (await _submit_requirement(client, world["loner"], loner["id"], 2)).status_code == 200
+        assert (await course_notices())[0]["count"] == 2
+    finally:
+        await _restore(world["instructor"]["id"])

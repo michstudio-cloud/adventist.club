@@ -6,11 +6,12 @@ where a minor was on a Saturday is never public.
 import uuid
 
 from fastapi import APIRouter, BackgroundTasks, Depends, Query, Request, status
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
 from app.deps import get_current_user
-from app.models import User
+from app.models import ActivityLog, User
 from app.schemas.activity import ActivityCreate, ActivityDecision, ActivityListOut, ActivityOut
 from app.schemas.program import ActivityCategory
 from app.security import utcnow
@@ -70,8 +71,14 @@ async def decide(
     """Approving or rejecting moves the sum, so it re-evaluates the member's `HOURS`
     requirements in the same transaction."""
     since = utcnow()
+    previous = await db.scalar(select(ActivityLog.status).where(ActivityLog.id == log_id))
     decided = await activity.decide(db, current_user, log_id, payload, request)
     await _notify_approved(db, background, [decided], since)
+    if decided.status == "REJECTED" and previous != "REJECTED":
+        # «Avisos»: the member hears it, with the reason when there is one (inbox always;
+        # e-mail capped like the approvals). Deciding «rejected» twice says it once.
+        await notifications.queue_hours_rejected(db, background, log_ids=[log_id])
+        await db.commit()
     return decided
 
 

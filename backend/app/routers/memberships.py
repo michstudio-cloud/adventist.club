@@ -35,7 +35,6 @@ from app.schemas.membership import (
     MyMembership,
     TokenIn,
     as_club_ref,
-    as_membership_out,
 )
 from app.security import CLUB_DIRECTOR
 from app.services import invitations as invitation_service
@@ -72,7 +71,7 @@ async def my_membership(
     async def _out(membership):
         club = await db.get(Organization, membership.club_id)
         unit, counselor = await unit_service.membership_context(db, membership)
-        return as_membership_out(membership, club, unit=unit, counselor=counselor)
+        return await membership_service.membership_out(db, membership, club, unit=unit, counselor=counselor)
 
     return MyMembership(
         active=await _out(active) if active is not None else None,
@@ -150,7 +149,7 @@ async def accept_invitation(
         )
     await db.commit()
     unit, counselor = await unit_service.membership_context(db, membership)
-    return as_membership_out(membership, club, unit=unit, counselor=counselor)
+    return await membership_service.membership_out(db, membership, club, unit=unit, counselor=counselor)
 
 
 # ----------------------------------------------------------------------------
@@ -302,7 +301,7 @@ async def decide_consent(
     )
     await db.commit()
     club = await db.get(Organization, membership.club_id)
-    return as_membership_out(membership, club)
+    return await membership_service.membership_out(db, membership, club)
 
 
 @router.post("/{membership_id}/consent/resend", response_model=MembershipOut)
@@ -356,7 +355,7 @@ async def resend_consent(
         kind=notifications.CONSENT_RESEND,
     )
     await db.commit()
-    return as_membership_out(membership, club)
+    return await membership_service.membership_out(db, membership, club)
 
 
 @router.post("/{membership_id}/consent/revoke", response_model=MembershipEnded)

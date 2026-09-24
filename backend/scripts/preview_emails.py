@@ -158,6 +158,20 @@ PREVIEWS = [
         mail.progress_email_html("Ana Martínez", "PROGRESS_CERTIFIED", "Nudos y amarres", None, f"{APP}/portfolio/enrollments/2f9c"),
     ),
     (
+        "hours_rejected",
+        "Horas no aprobadas",
+        "Horas no aprobadas - Adventist.Club",
+        mail.hours_rejected_email_html(
+            "Ana Martínez", 2.5, 0, "Falta la constancia firmada por la iglesia.", f"{APP}/portfolio/horas"
+        ),
+    ),
+    (
+        "course_pending_reviews",
+        "Requisitos por revisar · curso (staff)",
+        "Requisitos por revisar en Primeros auxilios - Adventist.Club",
+        mail.course_pending_reviews_email_html("Jorge Treviño", "Primeros auxilios", 3, f"{APP}/teach/courses/7c1e"),
+    ),
+    (
         "certificate_revoked",
         "Certificado anulado",
         "Tu certificado fue anulado - Adventist.Club",

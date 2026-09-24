@@ -786,6 +786,33 @@ def pending_reviews_email_html(reviewer_name: str, club_name: str, pending: int,
     )
 
 
+def course_pending_reviews_email_html(instructor_name: str, course_title: str, pending: int, link: str) -> str:
+    """«Avisos», modo COURSE: to the instructor of a course, at most once per course every
+    12 hours. A count and a link, never a name (some students may be minors)."""
+    count = int(pending)
+    what = "un requisito enviado" if count == 1 else f"{count} requisitos enviados"
+    course = escape(course_title)
+    body = (
+        _hello(instructor_name)
+        + _p(f"En tu curso {_strong(course)} hay {what} esperando tu revisión.")
+        + _p("Revisa las evidencias y deja tu dictamen: cada requisito aprobado acerca al estudiante a su certificado.")
+        + _button("Abrir el curso", _safe_url(link))
+    )
+    return _render(
+        title="Requisitos por revisar - Adventist.Club",
+        preheader=f"{course} tiene {what} esperando revisión.",
+        eyebrow="Revisión",
+        heading="Hay requisitos por revisar",
+        tone="blue",
+        body=body,
+        reason=(
+            f"Recibes este correo porque impartes {course}. Como mucho te llega uno cada "
+            "12 horas por curso; el detalle está siempre en el curso."
+        ),
+        audience="staff",
+    )
+
+
 def membership_decision_email_html(
     name: str, club_name: str, approved: bool, reason: str | None
 ) -> str:
@@ -1054,6 +1081,42 @@ def hours_approved_email_html(name: str, service: float, attendance: float, link
     )
 
 
+def _hours_parts(service: float, attendance: float) -> list[str]:
+    parts = []
+    if float(service or 0):
+        parts.append(f"{_strong(_number(service))} h de servicio")
+    if float(attendance or 0):
+        meetings = int(float(attendance))
+        parts.append(_strong("1 asistencia" if meetings == 1 else f"{meetings} asistencias"))
+    return parts
+
+
+def hours_rejected_email_html(
+    name: str, service: float, attendance: float, note: str | None, link: str
+) -> str:
+    """Hours the club did not approve. The amount and, when the director wrote one, the
+    reason: it is addressed to the member, like the observation of a requirement (E9).
+    What the member did and where is not copied (it says where a minor was)."""
+    what = " y ".join(_hours_parts(service, attendance)) or "unas horas"
+    body = (
+        _hello(name)
+        + _p(f"La dirección de tu club no aprobó {what} que registraste.")
+        + (_notice("warning", "Motivo", escape(note)) if note else "")
+        + _p("Puedes revisar el registro y, si hace falta, enviarlo de nuevo con lo que falte.")
+        + _button("Ver mis horas", _safe_url(link))
+    )
+    return _render(
+        title="Horas no aprobadas - Adventist.Club",
+        preheader="La dirección de tu club revisó tus horas.",
+        eyebrow="Tus horas",
+        heading="Unas horas no se aprobaron",
+        tone="warm",
+        body=body,
+        reason=f"Recibes este correo porque registras horas de servicio en {MEMBER_PRODUCT}.",
+        footnote=PROGRESS_FOOTNOTE,
+    )
+
+
 XP_CATEGORY_LABELS = {
     "conducta": "conducta",
     "puntualidad": "puntualidad",
@@ -1265,6 +1328,26 @@ async def send_hours_approved_email(
 ) -> bool:
     return await send_email(
         to, "¡Horas aprobadas! - Adventist.Club", hours_approved_email_html(name, service, attendance, link)
+    )
+
+
+async def send_hours_rejected_email(
+    to: str, name: str, service: float, attendance: float, note: str | None, link: str
+) -> bool:
+    return await send_email(
+        to,
+        "Horas no aprobadas - Adventist.Club",
+        hours_rejected_email_html(name, service, attendance, note, link),
+    )
+
+
+async def send_course_pending_reviews_email(
+    to: str, instructor_name: str, course_title: str, pending: int, link: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Requisitos por revisar en {course_title} - Adventist.Club",
+        course_pending_reviews_email_html(instructor_name, course_title, pending, link),
     )
 
 

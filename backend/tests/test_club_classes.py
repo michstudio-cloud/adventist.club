@@ -764,3 +764,50 @@ async def test_block_sign_and_investiture_reach_the_members_inbox(
     assert [row["enrollment_id"] for row in invested.json()["invested"]] == [card]
     assert (await inbox())[0]["kind"] == "PROGRESS_CERTIFIED"
     assert [(m["kind"], m["to"]) for m in sent][-1] == ("PROGRESS_CERTIFIED", world["s3"]["email"])
+
+
+async def test_a_single_class_signature_is_inbox_only_and_the_mail_waits_for_ready(
+    client, world, factory, monkeypatch
+):
+    """Owner's decision («correo al quedar listo»): a class requirement signed one by one —
+    the member sends it, a reviewer signs it through the portfolio — leaves only the in-app
+    notice; the e-mail goes out when the card becomes READY, and only that one."""
+    from app.services import email as email_service
+
+    sent = []
+
+    async def progress(to, name, kind, honor_name, note, link, **kwargs):
+        sent.append({"to": to, "kind": kind, **kwargs})
+        return True
+
+    monkeypatch.setattr(email_service, "send_progress_email", progress)
+    program = await _program(factory, "suelta", sections=(("a", 2),))
+    enrolled = (await _enroll(client, world, program)).json()["enrolled"]
+    card = {row["membership_id"]: row["enrollment_id"] for row in enrolled}[world["s4"]["membership_id"]]
+    base = f"/api/v1/portfolio/enrollments/{card}/requirements"
+
+    async def submit_and_sign(position):
+        sent_in = await client.put(f"{base}/{position}", json={"status": "SUBMITTED", "member_note": "Hecho"},
+                                   headers=world["s4"]["headers"])
+        assert sent_in.status_code == 200, sent_in.text
+        signed = await client.post(f"{base}/{position}/review", json={"verdict": "COMPLETE"},
+                                   headers=world["director"]["headers"])
+        assert signed.status_code == 200, signed.text
+
+    async def inbox():
+        return await fetch_all(
+            "SELECT kind, count FROM notifications WHERE entity_id = :e ORDER BY created_at DESC", e=card)
+
+    async def logged():
+        rows = await fetch_all("SELECT kind FROM notification_log WHERE entity_id = :e", e=card)
+        return [row["kind"] for row in rows]
+
+    await submit_and_sign(1)
+    assert [(row["kind"], row["count"]) for row in await inbox()] == [("REQUIREMENT_APPROVED", 1)]
+    assert sent == [] and await logged() == []
+
+    await submit_and_sign(2)
+    assert [row["kind"] for row in await inbox()] == ["PROGRESS_READY", "REQUIREMENT_APPROVED"]
+    assert [(m["kind"], m["to"], m.get("award_type")) for m in sent] == [
+        ("PROGRESS_READY", world["s4"]["email"], "program")]
+    assert await logged() == ["PROGRESS_READY"]

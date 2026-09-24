@@ -25,7 +25,7 @@ Recipients follow the rules that were already here, and nothing new:
 """
 import logging
 import uuid
-from datetime import timedelta
+from datetime import date, timedelta
 
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -64,6 +64,8 @@ PENDING_REVIEWS = "PENDING_REVIEWS"
 REQUIREMENT_APPROVED = "REQUIREMENT_APPROVED"
 # Service hours or attendance approved (or recorded already approved by the director).
 HOURS_APPROVED = "HOURS_APPROVED"
+# ...or not approved: the amount and, when the director wrote one, the reason.
+HOURS_REJECTED = "HOURS_REJECTED"
 # Points the club's staff gave the member (Bloque G §4.1).
 XP_AWARDED = "XP_AWARDED"
 
@@ -74,6 +76,8 @@ CHURCH_LETTER = "CHURCH_LETTER"
 ENROLLMENT = "ENROLLMENT"
 CERTIFICATE = "CERTIFICATE"
 USER = "USER"
+ACTIVITY = "ACTIVITY"
+COURSE = "COURSE"
 
 # A minor's club must never become a way to send somebody mail.
 CONSENT_RESENDS_PER_DAY = 3
@@ -159,6 +163,16 @@ def _hours(value) -> str:
     return f"{number:g}".replace(".", ",")
 
 
+def _day(value) -> str | None:
+    """`2026-10-31` -> `31/10/2026` (the app paints its own date; this is the fallback)."""
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10]).strftime("%d/%m/%Y")
+    except ValueError:
+        return str(value)
+
+
 def _award_label(data: dict) -> str:
     return data.get("award") or ("tu clase" if data.get("type") == "program" else "tu especialidad")
 
@@ -172,6 +186,8 @@ def inbox_text(kind: str, data: dict, count: int) -> tuple[str, str | None]:
     if kind == PENDING_REVIEWS:
         n = int(data.get("pending") or count)
         what = _plural(n, "un requisito enviado", f"{n} requisitos enviados")
+        if data.get("course"):
+            return "Requisitos por revisar", f"Tu curso {data['course']} tiene {what} esperando revisión."
         return "Requisitos por revisar", f"{data.get('club') or 'Tu club'} tiene {what} esperando revisión."
     if kind == PENDING_REQUESTS:
         n = int(data.get("pending") or count)
@@ -203,6 +219,16 @@ def inbox_text(kind: str, data: dict, count: int) -> tuple[str, str | None]:
             meetings = int(float(data["attendance"]))
             parts.append(_plural(meetings, "1 asistencia", f"{meetings} asistencias"))
         return "Horas aprobadas", "Te aprobaron " + (" y ".join(parts) or "horas") + "."
+    if kind == HOURS_REJECTED:
+        parts = []
+        if float(data.get("service") or 0):
+            parts.append(f"{_hours(data['service'])} h de servicio")
+        if float(data.get("attendance") or 0):
+            meetings = int(float(data["attendance"]))
+            parts.append(_plural(meetings, "1 asistencia", f"{meetings} asistencias"))
+        note = data.get("note")
+        body = "No se aprobaron " + (" y ".join(parts) or "unas horas") + "."
+        return "Horas no aprobadas", body + (f" «{note}»" if note else "")
     if kind == XP_AWARDED:
         points = int(data.get("points") or 0)
         club = data.get("club") or "tu club"
@@ -224,6 +250,12 @@ def inbox_text(kind: str, data: dict, count: int) -> tuple[str, str | None]:
         if status_ == "REVOKED":
             return "Se retiró tu validación", "La administración revocó la validación de tu carta de la iglesia."
         return "Tu carta no fue validada", "La administración revisó tu carta de la iglesia y por ahora no la aceptó."
+    if kind == LEADER_LETTER_EXPIRING:
+        until = _day(data.get("valid_until"))
+        return "Tu carta de la iglesia vence pronto", (
+            f"Vence el {until}. Renuévala para seguir sirviendo con menores." if until
+            else "Renuévala para seguir sirviendo con menores."
+        )
     if kind == CERTIFICATE_REVOKED:
         folio = data.get("certificate_no") or ""
         return "Certificado anulado", f"El certificado {folio} de {award} ya no es válido.".replace("  ", " ")
@@ -958,11 +990,17 @@ async def club_reviewers(db: AsyncSession, club, enrollment) -> list:
 
 
 async def queue_pending_reviews(db: AsyncSession, background, *, enrollment_id) -> bool:
-    """A member sent a requirement to review. Its club's reviewers get:
+    """A member sent a requirement to review. Whoever may give the verdict hears it — the
+    very rule `rbac.can_review` applies, so the notice follows it:
 
-    * in the inbox, ONE unread notice per club whose count is the queue right now;
-    * by e-mail, at most one message per club every 12 hours (`notification_log`, kind
-      PENDING_REVIEWS, entity = the club), with the count and the link to the queue.
+    * the reviewers of the member's club (directors and verified instructors with
+      jurisdiction): ONE unread notice per club whose count is the club's queue, and by
+      e-mail at most one message per club every 12 hours (kind PENDING_REVIEWS, entity =
+      the club), with the count and the link to the queue;
+    * when the enrollment belongs to a course (mode COURSE), ALSO the instructor of that
+      course — who may review it with no club at all: one unread notice per course whose
+      count is the course's queue, linking to `/teach/courses/{id}`, and by e-mail at most
+      one per course every 12 hours (entity = the course).
 
     Like the join requests of E4 it carries a count and never a name: some of the people
     in that queue are minors. Returns whether an e-mail was queued.
@@ -974,9 +1012,16 @@ async def queue_pending_reviews(db: AsyncSession, background, *, enrollment_id) 
     if enrollment is None:
         return False
     member = await db.get(User, enrollment.user_id)
+    queued = False
     club = await member_club(db, member)
-    if club is None:
-        return False
+    if club is not None:
+        queued = await _queue_club_pending_reviews(db, background, club=club, enrollment=enrollment)
+    if enrollment.course_id is not None:
+        queued = await _queue_course_pending_reviews(db, background, enrollment=enrollment) or queued
+    return queued
+
+
+async def _queue_club_pending_reviews(db: AsyncSession, background, *, club, enrollment) -> bool:
     reviewers = await club_reviewers(db, club, enrollment)
     if not reviewers:
         return False
@@ -1015,6 +1060,76 @@ async def queue_pending_reviews(db: AsyncSession, background, *, enrollment_id) 
             pending,
             review_queue_url(),
         )
+    return True
+
+
+def course_path(course_id) -> str:
+    return f"/teach/courses/{course_id}"
+
+
+async def course_pending_reviews(db: AsyncSession, course_id) -> int:
+    """The course's queue right now: requirements SENT in its open enrollments."""
+    from app.models import HonorEnrollment, RequirementProgress
+
+    stmt = (
+        select(func.count())
+        .select_from(RequirementProgress)
+        .join(HonorEnrollment, HonorEnrollment.id == RequirementProgress.enrollment_id)
+        .where(
+            RequirementProgress.status == "SUBMITTED",
+            HonorEnrollment.status == "IN_PROGRESS",
+            HonorEnrollment.course_id == course_id,
+        )
+    )
+    return int((await db.execute(stmt)).scalar_one() or 0)
+
+
+async def _queue_course_pending_reviews(db: AsyncSession, background, *, enrollment) -> bool:
+    """The instructor of the enrollment's course, passed through `rbac.is_course_instructor`
+    (the clause `can_review` adds for COURSE): a suspended instructor, an archived course
+    or a letter no longer in force hears nothing, and nobody hears about their own work."""
+    from app.models import Course, User
+    from app.rbac import is_course_instructor
+
+    course = await db.get(Course, enrollment.course_id)
+    if course is None:
+        return False
+    instructor = await db.get(User, course.instructor_id)
+    if instructor is None or not await is_course_instructor(db, instructor, enrollment):
+        return False
+    pending = await course_pending_reviews(db, course.id)
+    if pending == 0:
+        return False
+    await stage_inbox(
+        db,
+        user_id=instructor.id,
+        kind=PENDING_REVIEWS,
+        data={"course": course.title, "course_id": str(course.id), "pending": pending},
+        count=pending,
+        link=course_path(course.id),
+        entity_type=COURSE,
+        entity_id=course.id,
+    )
+    if background is None or not await _email_allowed(db, kind=PENDING_REVIEWS, entity_id=course.id):
+        return False
+    log = stage_log(
+        db,
+        kind=PENDING_REVIEWS,
+        email=instructor.email,
+        entity_type=COURSE,
+        entity_id=course.id,
+        user_id=instructor.id,
+    )
+    background.add_task(
+        send_and_record,
+        email_service.send_course_pending_reviews_email,
+        log.id,
+        instructor.email,
+        instructor.name,
+        course.title,
+        pending,
+        f"{settings.frontend_url}{course_path(course.id)}",
+    )
     return True
 
 
@@ -1084,6 +1199,59 @@ async def queue_hours_approved(db: AsyncSession, background, *, log_ids) -> None
             db, background, kind=HOURS_APPROVED, member=member,
             send=email_service.send_hours_approved_email,
             args=(round(service, 1), round(attendance, 1), hours_url()),
+        )
+
+
+async def queue_hours_rejected(db: AsyncSession, background, *, log_ids) -> None:
+    """Hours the director did not approve. Per log, a notice in the member's inbox with the
+    amount and the reason when there is one (each rejection keeps its own reason); per
+    member, an e-mail with the same cap and switch as HOURS_APPROVED (one every 12 hours,
+    `notify_progress`). Only the member: day-to-day progress never goes to the guardians.
+    What the hours were and where is not in the notice, as for an approval."""
+    from app.models import ActivityLog, User
+
+    ids = list(dict.fromkeys(log_ids))
+    if not ids:
+        return
+    logs = (
+        await db.execute(
+            select(ActivityLog)
+            .where(ActivityLog.id.in_(ids), ActivityLog.status == "REJECTED")
+            .order_by(ActivityLog.decided_at)
+        )
+    ).scalars().all()
+    by_member: dict = {}
+    for log in logs:
+        by_member.setdefault(log.user_id, []).append(log)
+    for user_id, rows in by_member.items():
+        member = await db.get(User, user_id)
+        if member is None:
+            continue
+        service = attendance = 0.0
+        note = None
+        for log in rows:
+            amount = float(log.quantity)
+            is_service = log.category == "SERVICE"
+            service += amount if is_service else 0.0
+            attendance += 0.0 if is_service else amount
+            note = (log.decision_note or "").strip() or note
+            await stage_inbox(
+                db,
+                user_id=member.id,
+                kind=HOURS_REJECTED,
+                data={
+                    "service": round(amount, 1) if is_service else 0.0,
+                    "attendance": 0.0 if is_service else round(amount, 1),
+                    "note": (log.decision_note or "").strip() or None,
+                },
+                link="/portfolio/horas",
+                entity_type=ACTIVITY,
+                entity_id=log.id,
+            )
+        await _queue_member_email(
+            db, background, kind=HOURS_REJECTED, member=member,
+            send=email_service.send_hours_rejected_email,
+            args=(round(service, 1), round(attendance, 1), note, hours_url()),
         )
 
 
