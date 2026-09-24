@@ -25,6 +25,9 @@ ALLOWED_FOLDERS = {
 # profile), raster images only; a minor never uploads a cover (spec §1, rule 4).
 PROFILE_FOLDERS = {"avatars", "covers"}
 SVG_FOLDERS = {"patches", "logos"}
+# Written only by the API itself, never through `POST /media/upload` (not in ALLOWED_FOLDERS):
+# `signatures/` holds the handwritten signatures saved to an account (020_signatures.sql).
+INTERNAL_FOLDERS = {"signatures"}
 DEFAULT_FOLDER = "general"
 
 MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024
@@ -99,7 +102,17 @@ def content_matches_type(data: bytes, content_type: str) -> bool:
 
 
 def build_key(folder: str, content_type: str) -> str:
-    return f"{resolve_folder(folder)}/{uuid.uuid4().hex}{EXTENSIONS.get(content_type, '')}"
+    target = folder if folder in INTERNAL_FOLDERS else resolve_folder(folder)
+    return f"{target}/{uuid.uuid4().hex}{EXTENSIONS.get(content_type, '')}"
+
+
+def key_from_public_url(url: str | None) -> str | None:
+    """`https://media…/signatures/<id>.png` -> `signatures/<id>.png`; None for any other host."""
+    prefix = f"{settings.R2_PUBLIC_URL.rstrip('/')}/"
+    if not url or not settings.R2_PUBLIC_URL or not url.startswith(prefix):
+        return None
+    key = url[len(prefix):]
+    return key if key and ".." not in key else None
 
 
 def public_url(key: str) -> str:
@@ -130,6 +143,18 @@ def _put_object(key: str, data: bytes, content_type: str) -> None:
     get_client().put_object(
         Bucket=settings.R2_BUCKET_NAME, Key=key, Body=data, ContentType=content_type
     )
+
+
+def _delete_object(key: str) -> None:
+    get_client().delete_object(Bucket=settings.R2_BUCKET_NAME, Key=key)
+
+
+async def delete_quietly(key: str) -> None:
+    """Best effort: a leftover object is harmless (unguessable key, nothing points to it)."""
+    try:
+        await anyio.to_thread.run_sync(_delete_object, key)
+    except Exception:
+        logger.warning("R2 delete failed for key %s", key, exc_info=True)
 
 
 async def upload_bytes(data: bytes, content_type: str, folder: str) -> tuple[str, str]:

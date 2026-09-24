@@ -39,7 +39,9 @@ ET.register_namespace("xlink", XLINK_NS)
 TEMPLATES_DIR = Path(__file__).resolve().parents[3] / "templates" / "certificates"
 FONTS_DIR = Path(__file__).resolve().parents[3] / "fonts"
 EMBLEMS_DIR = Path(__file__).resolve().parents[3] / "templates" / "assets" / "emblems"
-IMAGE_FIELDS = ("emblem", "honor_patch", "qr", "issuer_logo", "background")
+# signature_*: a handwritten signature over each signature line (app/certificates/signatures.py);
+# without one the slot draws nothing and the printed name stays exactly where it was.
+IMAGE_FIELDS = ("emblem", "honor_patch", "qr", "issuer_logo", "background", "signature_director", "signature_instructor")
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,60}$")
 LOCALE_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
 POINTS_PER_INCH = 72.0

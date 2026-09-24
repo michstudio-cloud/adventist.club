@@ -14,6 +14,8 @@ What comes out (templates/certificates/<slug>/ with --install, else --out DIR):
   template.svg            viewBox in points (792 x 612); the design keeps its own units inside a
                           <g transform="scale(0.72)">. Shapes stay vector; every text is a live
                           field with the package's fitting contract (data-fit="shrink-wrap").
+                          A signature slot (<image id="signature_director|signature_instructor">) is
+                          derived over the line of each signer's name (docs «Firmas»).
   strings.<locale>.json   one per locale of the package (+ church_name from the sample data)
   meta.json               kinds ["honor"], ministries, title, source package
   README.md               where it came from and how to rebuild it
@@ -26,6 +28,7 @@ import argparse
 import base64
 import hashlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -43,10 +46,63 @@ REQUIRED = {"recipient_name", "honor_name", "issued_date"}
 # data texts whose default comes from the template's strings when the caller sends nothing
 STRING_DEFAULTS = {"church_name"}
 SHAPES = {"rect", "path", "circle", "ellipse", "line", "polyline", "polygon"}
+# Signature slots (docs/CERTIFICADOS_V4.md «Firmas»): an <image> over the line of each signer,
+# as wide as the line and SIGNATURE_BODIES times the name's font size tall. The printed name
+# does not move: the box ends at the name's cap height (name above the line) or on the line
+# (name under it). Derived for any package that has these data texts, so a new design gets them.
+SIGNATURE_SLOT = {"director_name": "signature_director", "instructor_name": "signature_instructor"}
+SIGNATURE_BODIES = 2.2
+CAP_HEIGHT = 0.75            # Noto Sans capitals are ~0.71 em: the box stops just above them
+HLINE_RE = re.compile(r"^\s*M\s*(-?[\d.]+)[\s,]+(-?[\d.]+)\s*h\s*(-?[\d.]+)\s*$")
 
 
 class CompileError(ValueError):
     pass
+
+
+def _horizontal_lines(elements: list[dict]) -> list[tuple[float, float, float]]:
+    """(x, y, width) of every straight horizontal rule of the design: `M x y h w` paths and
+    <line> with y1 == y2. Signature lines are drawn like that in every v4 package."""
+    found = []
+    for e in elements:
+        if e["type"] != "shape":
+            continue
+        a = e.get("attributes") or {}
+        if e["shape"] == "path":
+            m = HLINE_RE.match(str(a.get("d", "")))
+            if m:
+                x, y, w = (float(v) for v in m.groups())
+                found.append((min(x, x + w), y, abs(w)))
+        elif e["shape"] == "line" and a.get("y1") is not None and float(a["y1"]) == float(a.get("y2", a["y1"])):
+            x1, x2 = float(a.get("x1", 0)), float(a.get("x2", 0))
+            found.append((min(x1, x2), float(a["y1"]), abs(x2 - x1)))
+    return found
+
+
+def signature_align(e: dict) -> str:
+    """preserveAspectRatio of the slot: contain (`meet`), lined up with the printed name —
+    a left-aligned name gets its signature from the same left edge (xMin), a centred one centred —
+    and resting on the bottom of the box (YMax), right over the name or the line."""
+    anchor = e.get("anchor") or e.get("align") or "start"
+    anchor = {"left": "start", "center": "middle", "right": "end"}.get(anchor, anchor)
+    return {"start": "xMinYMax", "middle": "xMidYMax", "end": "xMaxYMax"}.get(anchor, "xMidYMax") + " meet"
+
+
+def signature_box(e: dict, lines: list[tuple[float, float, float]]) -> dict[str, float]:
+    """Box of the signature slot of a signer's name `e` (a data text) in design units."""
+    size, base, x = float(e["font_size"]), float(e["baseline_y"]), float(e["x"])
+    width = float(e["max_width"])
+    anchor = e.get("anchor") or e.get("align") or "start"
+    anchor = {"left": "start", "center": "middle", "right": "end"}.get(anchor, anchor)
+    left = x - width / 2 if anchor == "middle" else x - width if anchor == "end" else x
+    near = [(abs(y - base), lx, y, lw) for lx, y, lw in lines
+            if abs(y - base) <= 3 * size and lx < left + width and lx + lw > left]
+    line_y = None
+    if near:
+        _, left, line_y, width = min(near)
+    height = SIGNATURE_BODIES * size
+    bottom = line_y if line_y is not None and line_y < base else base - CAP_HEIGHT * size
+    return {"x": left, "y": bottom - height, "width": width, "height": height}
 
 
 def _num(value) -> str:
@@ -95,6 +151,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
         ids.add(field_id)
         return field_id
 
+    lines = _horizontal_lines(spec["elements"])
     for e in spec["elements"]:
         kind = e["type"]
         if kind == "shape":
@@ -142,6 +199,10 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                     attrs["data-required"] = "true"
             else:
                 raise CompileError(f"Fuente de texto desconocida: {source['kind']}")
+            if source["kind"] == "data" and field_id in SIGNATURE_SLOT:
+                # drawn before the name: a signature that reaches down never covers the printed name
+                box = {k: _num(round(v, 3)) for k, v in signature_box(e, lines).items()}
+                body.append(f"<image {_attrs({'id': claim(SIGNATURE_SLOT[field_id]), **box, 'preserveAspectRatio': signature_align(e)})} href=\"\"/>")
             anchor = e.get("anchor") or e.get("align") or "start"
             anchor = {"left": "start", "center": "middle", "right": "end"}.get(anchor, anchor)
             visible = e.get("visible_if")

@@ -130,6 +130,54 @@ Tests: `backend/tests/test_certificates_v4.py` (carga y `meta`, cada cadena trad
 plantilla e idioma, nunca «QR» con QR real, fechas, encoger/envolver/error, alias, negrita sintética,
 PNG/PDF/SVG, reproducibilidad del compilador, `GET /templates`, `POST /render` y datos desde la emisión).
 
+## Firmas manuscritas (24 sep 2026)
+
+Pedido del responsable: «nos falta agregar una imagen como firma. Para guardar el archivo pidamos que se
+registren… sin cuenta haremos solo uno por uno».
+
+**Ranuras.** Toda plantilla puede tener `<image id="signature_director">` y `<image id="signature_instructor">`
+(`IMAGE_FIELDS` del motor). Sin imagen no se dibuja nada (`opacity="0"`, como el parche) y el nombre impreso
+queda exactamente donde estaba.
+
+- Compiladas (v4 y cualquier paquete nuevo, p. ej. `especialidad-dorada`): el compilador las **deriva** de
+  cada texto de datos `director_name` / `instructor_name` y de su línea de firma (la regla horizontal
+  `M x y h w` o `<line>` más cercana, a ≤ 3 cuerpos del nombre y solapada con su caja). Caja: el ancho de la
+  línea; alto `2.2 × font_size` del nombre; termina a la altura de las mayúsculas del nombre
+  (`baseline − 0.75 × cuerpo`) si el nombre va sobre la línea, o sobre la línea si el nombre va debajo. Sin
+  línea, la caja del propio nombre (`max_width`). Se emite **antes** del nombre (el texto queda encima).
+  `preserveAspectRatio="<x>YMax meet"`: contenida, nunca recortada, apoyada abajo y alineada como el nombre
+  (`xMin` si el nombre es `start`, `xMid` si va centrado): en v4 los nombres van a la izquierda y una firma
+  centrada sobre un nombre alineado a la izquierda se veía desplazada. En v4: `x = x del nombre`, `y = 667.7`,
+  `235 × 30.8`. Recompilar con el mismo comando de arriba; el test de reproducibilidad sigue exigiendo archivos
+  idénticos.
+- `investidura-clase` (SVG hecho a mano): dos `<image>` añadidas a mano sobre sus líneas (`87.2 × 12.1`,
+  apoyadas en la línea, `xMidYMax`: sus nombres van centrados debajo).
+
+**`POST /certificates/render`.** `images.signature_director|signature_instructor` = data URL o URL https del
+bucket de medios (lo mismo que las demás imágenes). Además, `app/certificates/signatures.py`:
+sólo PNG / JPEG / WebP (**SVG rechazado**: es marcado y una firma no lo necesita), ≤ **400 KB**, ≤ 4000 px por
+lado y ≤ 8 MP (un archivo pequeño que se descomprime en un lienzo enorme se rechaza), el contenido debe
+coincidir con el tipo declarado. Lo que llega a resvg se recodifica a PNG (transparencia intacta) de 1600 px
+como mucho en el lado largo: la ranura mide ~2.35 in, así que ni a 600 dpi se pierde nada y el tiempo de render
+no depende de lo que se subió. Medido: editorial-rojo a 300 dpi 1.7–2.6 s con o sin dos firmas (sin diferencia
+apreciable); `investidura-clase` 0.3 s; normalizar una firma, ~20 ms. Error → 422 con el motivo.
+
+**Firma guardada en la cuenta** (`020_signatures.sql`: `users.signature_url`):
+`POST /api/v1/users/me/signature` (multipart `file`) valida con las mismas reglas, sube el PNG normalizado por el
+mismo camino de R2 que `POST /media/upload` (`storage.upload_bytes`) pero a su carpeta propia `signatures/`
+(interna: `media/upload` no escribe ahí), guarda la URL, borra la anterior y registra `SIGNATURE_SAVED`.
+`DELETE` la olvida (idempotente, borra el objeto, `SIGNATURE_DELETED`). Un menor no guarda firma (403).
+`signature_url` sólo sale en `GET /auth/me` y `GET /users/me` (`UserResponse.from_model(..., own=True)`); los
+listados y el registro de otra persona la llevan en `null`.
+
+**Decisión: bucket público con clave impredecible, no el privado.** La firma existe para imprimirse: cada
+certificado que la lleva es público por diseño (PNG/PDF compartido, verificación por QR), así que el archivo
+privado no protegería algo que el propio certificado ya muestra. El bucket privado exigiría URL firmadas que
+caducan (el asistente las perdería a mitad de un lote) y un camino especial en `/render`, que hoy sólo descarga
+del host de medios. Protección real: clave `uuid4` de 128 bits sin listado, la URL sólo la ve su dueño, el
+reemplazo y el borrado eliminan el objeto, y el render la vuelve a validar. Si el responsable prefiere privada, el
+cambio es local: guardar la clave, subir con `private_storage` y que `/render` acepte `signature_*: "me"` con sesión.
+
 ## Pendiente (fuera del backend)
 
 - El asistente (`conquistadores-app/lib/certificate-templates.ts`) no tiene etiqueta para los slugs

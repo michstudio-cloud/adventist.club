@@ -270,6 +270,9 @@ class User(Base):
     # 018_onboarding.sql: the first-use guide (/bienvenida) was finished or skipped. NULL = not yet.
     # Written only by `PATCH /users/me/onboarding`.
     onboarding_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # 020_signatures.sql: the saved handwritten signature (public media bucket, `signatures/`).
+    # Written only by `POST|DELETE /users/me/signature`; only its owner ever reads it.
+    signature_url: Mapped[str | None] = mapped_column(Text)
 
 
 class Guardianship(Base):

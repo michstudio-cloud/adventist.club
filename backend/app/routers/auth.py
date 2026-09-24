@@ -311,7 +311,7 @@ async def refresh(payload: RefreshRequest, db: AsyncSession = Depends(get_db)):
 async def me(current_user: User = Depends(get_authenticated_user)):
     """Readable even by an account that still owes its second factor: the
     enrolment screen needs to know who is signed in."""
-    return UserResponse.from_model(current_user)
+    return UserResponse.from_model(current_user, own=True)
 
 
 # ----------------------------------------------------------------------------
