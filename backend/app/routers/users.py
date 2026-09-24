@@ -1,11 +1,14 @@
 """User management and guardianships."""
 import uuid
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
+import anyio
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, Request, UploadFile, status
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.certificates import signatures as signature_rules
+from app.config import settings
 from app.db import get_db, violated_constraint
 from app.deps import get_authenticated_user, get_current_user
 from app.models import Guardianship, Organization, User
@@ -43,6 +46,7 @@ from app.services import email as email_service
 from app.services import memberships as membership_service
 from app.services import mfa as mfa_service
 from app.services import profiles as profile_service
+from app.services import storage
 from app.services.audit import record_audit
 
 router = APIRouter(prefix="/api/v1/users", tags=["users"])
@@ -74,7 +78,7 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
 @router.get("/me", response_model=UserResponse)
 async def get_my_profile(current_user: User = Depends(get_authenticated_user)):
     """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
-    return UserResponse.from_model(current_user)
+    return UserResponse.from_model(current_user, own=True)
 
 
 @router.patch("/me/profile", response_model=MyProfile)
@@ -113,7 +117,75 @@ async def complete_my_onboarding(
         )
         await db.commit()
         await db.refresh(current_user)
-    return UserResponse.from_model(current_user)
+    return UserResponse.from_model(current_user, own=True)
+
+
+@router.post("/me/signature", response_model=UserResponse)
+async def save_my_signature(
+    request: Request,
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """020: save (or replace) one's handwritten signature for the certificate assistant.
+
+    Same R2 path as `POST /media/upload` (`storage.upload_bytes`), but its own folder
+    (`signatures/`, not open to the generic upload) and its own rules: PNG, JPEG or WebP up to
+    400 KB, re-encoded to a PNG (transparency kept) by `app/certificates/signatures.py`.
+    Public bucket with an unguessable key, returned only to its owner (docs/CERTIFICADOS_V4.md
+    «Firmas» explains why not the private bucket). A minor never saves a signature."""
+    guardians = await profile_service.guardianships_of(db, current_user.id)
+    if profile_is_minor(current_user, has_guardian=bool(guardians)):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "minor_cannot_save_signature")
+    if not settings.storage_configured:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Almacenamiento no configurado")
+    content_type = (file.content_type or "").split(";")[0].strip().lower()
+    if content_type not in signature_rules.MIME_TYPES:
+        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "signature_images_only")
+    limit = signature_rules.MAX_SIGNATURE_BYTES
+    if file.size is not None and file.size > limit:
+        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "signature_too_large")
+    data = await file.read(limit + 1)
+    if len(data) > limit:
+        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "signature_too_large")
+    try:
+        png = await anyio.to_thread.run_sync(signature_rules.normalize_signature_bytes, data, content_type)
+    except signature_rules.SignatureError as exc:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
+    try:
+        url, _key = await storage.upload_bytes(png, "image/png", "signatures")
+    except storage.StorageNotConfigured:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Almacenamiento no configurado")
+    except storage.StorageError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc))
+    previous = storage.key_from_public_url(current_user.signature_url)
+    current_user.signature_url = url
+    record_audit(db, action="SIGNATURE_SAVED", entity_type="USER", entity_id=current_user.id,
+                 actor=current_user, request=request)
+    await db.commit()
+    await db.refresh(current_user)
+    if previous and previous.startswith("signatures/"):
+        await storage.delete_quietly(previous)     # a replaced signature does not linger
+    return UserResponse.from_model(current_user, own=True)
+
+
+@router.delete("/me/signature", response_model=UserResponse)
+async def delete_my_signature(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Forget the saved signature (idempotent). The object is deleted from the bucket too."""
+    previous = storage.key_from_public_url(current_user.signature_url)
+    if current_user.signature_url is not None:
+        current_user.signature_url = None
+        record_audit(db, action="SIGNATURE_DELETED", entity_type="USER", entity_id=current_user.id,
+                     actor=current_user, request=request)
+        await db.commit()
+        await db.refresh(current_user)
+    if previous and previous.startswith("signatures/") and settings.storage_configured:
+        await storage.delete_quietly(previous)
+    return UserResponse.from_model(current_user, own=True)
 
 
 @router.post("/{user_id}/mfa-reset", response_model=UserResponse)

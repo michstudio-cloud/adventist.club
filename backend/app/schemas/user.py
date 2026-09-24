@@ -44,9 +44,12 @@ class UserResponse(BaseModel):
     guardian_allows_avatar: bool = False
     # 018: when the first-use guide was finished or skipped; `null` = the app should offer it.
     onboarding_completed_at: datetime | None = None
+    # 020: the saved signature. Only in the person's own answers (`/auth/me`, `/users/me`):
+    # a list of users or somebody else's record never carries it (`own=False`).
+    signature_url: str | None = None
 
     @classmethod
-    def from_model(cls, user: User) -> "UserResponse":
+    def from_model(cls, user: User, *, own: bool = False) -> "UserResponse":
         organization_id = str(user.organization_id) if user.organization_id else None
         return cls(
             id=str(user.id),
@@ -72,6 +75,7 @@ class UserResponse(BaseModel):
             handle=user.handle,
             guardian_allows_avatar=user.guardian_allows_avatar,
             onboarding_completed_at=user.onboarding_completed_at,
+            signature_url=user.signature_url if own else None,
         )
 
 

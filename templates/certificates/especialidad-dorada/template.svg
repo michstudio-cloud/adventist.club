@@ -19,7 +19,9 @@
 <text id="issued_date" x="475" y="1048" font-family="Poppins" font-weight="300" font-size="24" fill="#b58a32" data-fit="shrink-wrap" data-max-width="225" data-min-size="20" data-max-lines="1" data-line-height="1.2" data-format="date-numeric" data-required="true"></text>
 <text id="t_director" x="862" y="1059" font-family="Poppins" font-weight="300" font-size="20" fill="#242221" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="director">DIRECTOR</text>
 <text id="t_instructor" x="1107" y="1059" font-family="Poppins" font-weight="300" font-size="20" fill="#242221" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="instructor">INSTRUCTOR</text>
+<image id="signature_director" x="759" y="947" width="206" height="44" preserveAspectRatio="xMidYMax meet" href=""/>
 <text id="director_name" x="862" y="1006" font-family="Poppins" font-weight="300" font-size="20" fill="#242221" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
+<image id="signature_instructor" x="1006" y="947" width="202" height="44" preserveAspectRatio="xMidYMax meet" href=""/>
 <text id="instructor_name" x="1107" y="1006" font-family="Poppins" font-weight="300" font-size="20" fill="#242221" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
 <text id="certificate_no" x="228" y="1134" font-family="Poppins" font-weight="300" font-size="14" fill="#242221" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
 </g>

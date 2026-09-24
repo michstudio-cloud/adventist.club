@@ -27,6 +27,9 @@
 
   <line x1="75.2" y1="269.3" x2="162.4" y2="269.3" stroke="#9ca3af" stroke-width="0.45"/>
   <line x1="233.6" y1="269.3" x2="320.8" y2="269.3" stroke="#9ca3af" stroke-width="0.45"/>
+  <!-- Firmas manuscritas (opcionales) sobre cada línea: ancho de la línea, alto 2.2 × el cuerpo del nombre. -->
+  <image id="signature_director" x="75.2" y="257.2" width="87.2" height="12.1" preserveAspectRatio="xMidYMax meet" xlink:href=""/>
+  <image id="signature_instructor" x="233.6" y="257.2" width="87.2" height="12.1" preserveAspectRatio="xMidYMax meet" xlink:href=""/>
   <text id="director_name" x="118.8" y="281.5" text-anchor="middle" font-family="Noto Sans" font-size="5.5" fill="#6b7280">Director(a) del club</text>
   <text id="instructor_name" x="277.2" y="281.5" text-anchor="middle" font-family="Noto Sans" font-size="5.5" fill="#6b7280">Consejero(a)</text>
 

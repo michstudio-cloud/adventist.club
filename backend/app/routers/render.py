@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from app.certificates.render import (
     TemplateError, fonts_installed, list_templates, load_template, qr_data_url, render_certificate,
 )
+from app.certificates.signatures import SIGNATURE_FIELDS, SignatureError, normalize_signature
 from app.config import settings
 from app.db import SessionLocal
 from app.rate_limit import limiter
@@ -102,6 +103,14 @@ async def render(request: Request, payload: RenderRequest):
                 images[key] = await asyncio.to_thread(_fetch_media_image, value)
             except Exception as exc:  # unreachable / wrong type / too big: render without it
                 raise HTTPException(422, f"No se pudo cargar la imagen '{key}': {exc}") from exc
+    for key in SIGNATURE_FIELDS:
+        # A handwritten signature: raster only (never SVG), <= 400 KB, re-encoded small enough
+        # that it never slows the render down (app/certificates/signatures.py).
+        if images.get(key):
+            try:
+                images[key] = await asyncio.to_thread(normalize_signature, images[key])
+            except SignatureError as exc:
+                raise HTTPException(422, f"{exc} ({key})") from exc
     if payload.locale is None:
         stored = None
         if payload.certificate_no:
