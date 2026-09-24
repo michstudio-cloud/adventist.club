@@ -415,6 +415,13 @@ async def update_user(
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "You do not have permission to modify this user"
         )
+    new_avatar = changes.get("avatar_url")
+    if new_avatar is not None and new_avatar != target.avatar_url:
+        # SEC-08: the same rule as `PATCH /users/me/profile` — a file of the platform's public
+        # bucket, never a third-party URL that every roster and profile viewer would load.
+        changes["avatar_url"] = profile_service._check_media_url(
+            new_avatar, profile_service.AVATARS_FOLDER, "invalid_avatar_url"
+        )
     if changes.get("avatar_url") is not None and profile_is_minor(
         target, has_guardian=bool(guardianships)
     ) and not changes.get("guardian_allows_avatar", target.guardian_allows_avatar):

@@ -5,6 +5,7 @@ import uuid
 import pytest_asyncio
 from sqlalchemy import text
 
+from app.config import settings
 from app.db import SessionLocal
 
 from tests.conftest import fetch_all, fetch_one, module_factory, requires_db
@@ -13,6 +14,8 @@ pytestmark = requires_db
 factory = module_factory("users")
 
 USERS = "/api/v1/users"
+# SEC-08: an avatar is a file of the platform's public bucket, `avatars/` folder.
+AVATAR = f"{settings.R2_PUBLIC_URL.rstrip('/')}/avatars/a.png"
 
 
 @pytest_asyncio.fixture(scope="module")
@@ -181,17 +184,17 @@ async def test_self_update_and_clear_avatar(client, tree, factory):
     url = f"{USERS}/{student['id']}"
     updated = await client.patch(
         url,
-        json={"name": factory.name("student-a"), "avatar_url": "https://media.example/a.png"},
+        json={"name": factory.name("student-a"), "avatar_url": AVATAR},
         headers=student["headers"],
     )
     assert updated.status_code == 200, updated.text
-    assert updated.json()["avatar_url"] == "https://media.example/a.png"
+    assert updated.json()["avatar_url"] == AVATAR
 
     # Omitting avatar_url leaves it alone ...
     untouched = await client.patch(
         url, json={"name": factory.name("student-a")}, headers=student["headers"]
     )
-    assert untouched.json()["avatar_url"] == "https://media.example/a.png"
+    assert untouched.json()["avatar_url"] == AVATAR
     # ... an explicit null clears it.
     cleared = await client.patch(url, json={"avatar_url": None}, headers=student["headers"])
     assert cleared.status_code == 200, cleared.text

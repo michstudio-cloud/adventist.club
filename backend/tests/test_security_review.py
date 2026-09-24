@@ -140,3 +140,33 @@ async def test_sec03_the_open_endpoints_are_bounded(client, factory):
     pdf = {"images": ["data:image/png;base64,AAAA"] * 501, "page_width_in": 11,
            "page_height_in": 8.5, "item_width_in": 1, "item_height_in": 1}
     assert (await client.post("/api/v1/printing/pdf", json=pdf)).status_code == 422
+
+
+# ----------------------------------------------------------------------------
+# SEC-08: PATCH /users/{id} no acepta un avatar de cualquier sitio.
+# ----------------------------------------------------------------------------
+async def test_sec08_the_avatar_is_a_file_of_the_platform(client, factory):
+    from app.config import settings
+
+    adult = await factory.user("sec08-adult")
+    url = f"{USERS}/{adult['id']}"
+    tracker = await client.patch(
+        url, json={"avatar_url": "https://evil.example/pixel.gif"}, headers=adult["headers"]
+    )
+    assert tracker.status_code == 422
+    assert tracker.json()["detail"] == "invalid_avatar_url"
+    own = f"{settings.R2_PUBLIC_URL.rstrip('/')}/avatars/{uuid.uuid4()}.png"
+    saved = await client.patch(url, json={"avatar_url": own}, headers=adult["headers"])
+    assert saved.status_code == 200, saved.text
+    # Re-sending the value already stored (the profile form sends it back) stays accepted.
+    async with SessionLocal() as db:
+        await db.execute(
+            text("UPDATE users SET avatar_url = 'https://legacy.example/a.png' WHERE id = :id"),
+            {"id": uuid.UUID(adult["id"])},
+        )
+        await db.commit()
+    same = await client.patch(
+        url, json={"name": "Sec08", "avatar_url": "https://legacy.example/a.png"},
+        headers=adult["headers"],
+    )
+    assert same.status_code == 200, same.text
