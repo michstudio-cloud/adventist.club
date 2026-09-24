@@ -101,6 +101,7 @@ def mails(monkeypatch):
     monkeypatch.setattr(email_service, "send_pending_reviews_email", capture("PENDING_REVIEWS"))
     monkeypatch.setattr(email_service, "send_progress_email", capture("PROGRESS"))
     monkeypatch.setattr(email_service, "send_hours_approved_email", capture("HOURS_APPROVED"))
+    monkeypatch.setattr(email_service, "send_hours_rejected_email", capture("HOURS_REJECTED"))
     monkeypatch.setattr(email_service, "send_xp_awarded_email", capture("XP_AWARDED"))
     return sent
 
@@ -257,14 +258,87 @@ async def test_approved_hours_reach_the_member_capped_by_email_summed_in_the_inb
     # Where and what the member did never travels in a notice.
     assert "parque" not in str(inbox[0]) and "parque" not in str(hours_mails[0])
 
-    # A rejection is not an approval.
+    # A rejection is not an approval: the approved notice keeps its count (the rejection
+    # has its own notice, see the next test).
     rejected_log = await client.post(LOGS, json={
         "category": "SERVICE", "performed_on": today, "quantity": 1, "description": "Otra"},
         headers=fresh["headers"])
     await client.post(f"{LOGS}/{rejected_log.json()[0]['id']}/decision",
                       json={"status": "REJECTED", "note": "Sin constancia"},
                       headers=world["director"]["headers"])
-    assert (await _inbox(client, fresh))[0]["count"] == 2
+    approved = [row for row in await _inbox(client, fresh) if row["kind"] == "HOURS_APPROVED"]
+    assert len(approved) == 1 and approved[0]["count"] == 2 and approved[0]["data"]["service"] == 3.5
+
+
+async def test_rejected_hours_tell_the_member_with_the_reason_capped_by_email(
+    client, world, fresh, mails
+):
+    today = date.today().isoformat()
+
+    async def send(category, quantity, description):
+        created = await client.post(LOGS, json={
+            "category": category, "performed_on": today, "quantity": quantity,
+            "description": description}, headers=fresh["headers"])
+        assert created.status_code == 201, created.text
+        return created.json()[0]["id"]
+
+    async def decide(log_id, status_, note=None):
+        body = {"status": status_} if note is None else {"status": status_, "note": note}
+        decided = await client.post(f"{LOGS}/{log_id}/decision", json=body,
+                                    headers=world["director"]["headers"])
+        assert decided.status_code == 200, decided.text
+
+    first = await send("SERVICE", 2.5, "Visita al asilo del barrio")
+    await decide(first, "REJECTED", "Falta la constancia de la iglesia")
+    inbox = await _inbox(client, fresh)
+    assert [row["kind"] for row in inbox] == ["HOURS_REJECTED"]
+    notice = inbox[0]
+    assert notice["data"] == {"service": 2.5, "attendance": 0.0, "note": "Falta la constancia de la iglesia"}
+    assert notice["link"] == "/portfolio/horas" and notice["title"] == "Horas no aprobadas"
+    assert notice["body"] == "No se aprobaron 2,5 h de servicio. «Falta la constancia de la iglesia»"
+    rejected = [m for m in mails if m["kind"] == "HOURS_REJECTED"]
+    # (name, service, attendance, note, link) — to the member only, never where it was.
+    assert len(rejected) == 1 and rejected[0]["to"] == fresh["email"]
+    assert rejected[0]["args"][1:4] == (2.5, 0.0, "Falta la constancia de la iglesia")
+    assert rejected[0]["args"][4].endswith("/portfolio/horas")
+    assert "asilo" not in str(notice) and "asilo" not in str(rejected[0])
+
+    # Deciding «rejected» again on the same log says nothing new.
+    await decide(first, "REJECTED", "Falta la constancia de la iglesia")
+    assert len(await _inbox(client, fresh)) == 1
+
+    # A second rejection inside the window: its own notice with its own reason, and no
+    # second e-mail — the cap of HOURS_APPROVED, per member.
+    second = await send("ATTENDANCE", 1, "Reunión del sábado")
+    await decide(second, "REJECTED", "No estabas en la lista")
+    inbox = await _inbox(client, fresh)
+    assert [row["kind"] for row in inbox] == ["HOURS_REJECTED", "HOURS_REJECTED"]
+    assert inbox[0]["data"] == {"service": 0.0, "attendance": 1.0, "note": "No estabas en la lista"}
+    assert inbox[0]["body"] == "No se aprobaron 1 asistencia. «No estabas en la lista»"
+    assert inbox[1]["data"]["note"] == "Falta la constancia de la iglesia"
+    assert len([m for m in mails if m["kind"] == "HOURS_REJECTED"]) == 1
+
+    # Thirteen hours later the e-mail may go again.
+    await _age_log("HOURS_REJECTED", fresh["id"], 13)
+    third = await send("SERVICE", 1, "Otra")
+    await decide(third, "REJECTED", "Duplicado")
+    again = [m for m in mails if m["kind"] == "HOURS_REJECTED"]
+    assert len(again) == 2 and again[1]["args"][3] == "Duplicado"
+
+
+async def test_rejected_hours_respect_the_email_preference(client, world, factory, mails):
+    quiet = await factory.user(f"quiet-h-{uuid.uuid4().hex[:6]}", "STUDENT", world["club"]["id"])
+    await _exec("UPDATE users SET notify_progress = false WHERE id = :id", id=uuid.UUID(quiet["id"]))
+    created = await client.post(LOGS, json={
+        "category": "SERVICE", "performed_on": date.today().isoformat(), "quantity": 1,
+        "description": "Algo"}, headers=quiet["headers"])
+    log_id = created.json()[0]["id"]
+    decided = await client.post(f"{LOGS}/{log_id}/decision",
+                                json={"status": "REJECTED", "note": "Sin constancia"},
+                                headers=world["director"]["headers"])
+    assert decided.status_code == 200, decided.text
+    assert [m for m in mails if m["kind"] == "HOURS_REJECTED"] == []
+    assert [row["kind"] for row in await _inbox(client, quiet)] == ["HOURS_REJECTED"]
 
 
 async def test_an_outing_recorded_by_the_director_notifies_each_member(client, world, factory, mails):
@@ -400,3 +474,79 @@ async def test_the_notification_rows_go_with_the_account(factory):
     await _exec("DELETE FROM users WHERE id = :id", id=uuid.UUID(person["id"]))
     assert await fetch_one("SELECT id FROM notifications WHERE user_id = :id",
                            id=uuid.UUID(person["id"])) is None
+
+
+# ----------------------------------------------------------------------------
+# The church letter about to expire (migrations/notify_expiring_letters.py)
+# ----------------------------------------------------------------------------
+def _expiring_script():
+    import importlib.util
+    import pathlib
+    import sys
+
+    path = pathlib.Path(__file__).resolve().parents[1] / "migrations" / "notify_expiring_letters.py"
+    sys.path.insert(0, str(path.parent))
+    spec = importlib.util.spec_from_file_location("notify_expiring_letters", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+async def test_an_expiring_letter_leaves_the_notice_in_the_inbox_with_the_cap_of_its_email(
+    client, world, factory
+):
+    from datetime import timedelta
+
+    from tests.conftest import TEST_DATABASE_URL
+
+    script = _expiring_script()
+    leader = await factory.user(f"leader-{uuid.uuid4().hex[:6]}", "INSTRUCTOR", world["club"]["id"])
+    letter_id = uuid.uuid4()
+    until = date.today() + timedelta(days=12)
+    await _exec(
+        "INSERT INTO church_letters (id, user_id, organization_id, church_name, storage_key,"
+        " content_type, size_bytes, status, valid_until) VALUES (:id, :u, :o, 'Iglesia', :k,"
+        " 'application/pdf', 1024, 'AUTHORIZED', :until)",
+        id=letter_id, u=uuid.UUID(leader["id"]), o=uuid.UUID(world["club"]["id"]),
+        k=f"letters/{leader['id']}/{letter_id}.pdf", until=until,
+    )
+    await _exec("UPDATE users SET leader_verified_until = :until WHERE id = :id",
+                until=until, id=uuid.UUID(leader["id"]))
+    sent = []
+
+    def send(email, name, valid_until, days_left):
+        sent.append((email, valid_until, days_left))
+        return True
+
+    # A dry run writes nothing: no e-mail, no log, no notice.
+    dry = script.run(TEST_DATABASE_URL, days=30, commit=False, send=send)
+    assert leader["email"] in [person["email"] for person in dry["people"]]
+    assert sent == [] and await _inbox(client, leader) == []
+
+    script.run(TEST_DATABASE_URL, days=30, commit=True, send=send)
+    assert [row for row in sent if row[0] == leader["email"]] == [(leader["email"], until, 12)]
+    inbox = await _inbox(client, leader)
+    assert [row["kind"] for row in inbox] == ["LEADER_LETTER_EXPIRING"]
+    assert inbox[0]["data"] == {"valid_until": until.isoformat(), "days": 12}
+    assert inbox[0]["link"] == "/panel"
+    assert inbox[0]["title"] == "Tu carta de la iglesia vence pronto"
+    assert until.strftime("%d/%m/%Y") in inbox[0]["body"]
+    row = await fetch_one(
+        "SELECT entity_type, entity_id FROM notifications WHERE user_id = :u", u=uuid.UUID(leader["id"]))
+    assert row == {"entity_type": "CHURCH_LETTER", "entity_id": str(letter_id)}
+
+    # The same cap as its e-mail: running it again inside the window adds nothing.
+    sent.clear()
+    script.run(TEST_DATABASE_URL, days=30, commit=True, send=send)
+    assert [row for row in sent if row[0] == leader["email"]] == []
+    assert len(await _inbox(client, leader)) == 1
+
+    # Once the window is over the warning comes back — and, while still unread, it updates
+    # the same notice instead of piling up another.
+    await _exec(
+        "UPDATE notification_log SET sent_at = now() - interval '31 days'"
+        " WHERE kind = 'LEADER_LETTER_EXPIRING' AND entity_id = :id", id=str(letter_id))
+    script.run(TEST_DATABASE_URL, days=30, commit=True, send=send)
+    inbox = await _inbox(client, leader)
+    assert len(inbox) == 1 and inbox[0]["count"] == 2
+

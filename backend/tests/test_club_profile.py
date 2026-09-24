@@ -523,3 +523,40 @@ async def test_the_logo_is_small_square_and_an_image(client, logo_club, r2):
 async def test_the_logo_needs_storage(client, logo_club):
     missing = await _upload(client, logo_club["id"], logo_club["director"], _image(64))
     assert missing.status_code == 503
+
+
+# ----------------------------------------------------------------------------
+# La membresía trae los ministerios de su club (el selector del armazón de escritorio)
+# ----------------------------------------------------------------------------
+async def test_my_membership_names_the_ministries_of_its_club(client, factory, world):
+    created = await _create(client, world, name=factory.name("membresia"),
+                            ministries=["adventurers", "pathfinders"])
+    assert created.status_code == 201, created.text
+    club_id = created.json()["id"]
+    member = await factory.user("miembro-min", "STUDENT")
+    await _exec(
+        "INSERT INTO club_memberships (id, user_id, club_id, role, status, source, started_at)"
+        " VALUES (gen_random_uuid(), :u, :c, 'STUDENT', 'ACTIVE', 'ADMIN', now())",
+        u=uuid.UUID(member["id"]), c=uuid.UUID(club_id),
+    )
+    await _exec("UPDATE users SET organization_id = :c WHERE id = :u",
+                c=uuid.UUID(club_id), u=uuid.UUID(member["id"]))
+
+    mine = await client.get("/api/v1/memberships/me", headers=member["headers"])
+    assert mine.status_code == 200, mine.text
+    club = mine.json()["active"]["club"]
+    assert club["id"] == club_id
+    assert club["ministry"]["slug"] == "adventurers"                   # the principal
+    assert [row["slug"] for row in club["ministries"]] == ["adventurers", "pathfinders"]
+    assert set(club["ministry"]) == {"id", "slug", "name"}
+
+    # A club that declared none says so: no ministry, an empty list (nothing is guessed).
+    bare = await factory.org("sin-ministerio", "club", world["association"])
+    other = await factory.user("miembro-sin", "STUDENT")
+    await _exec(
+        "INSERT INTO club_memberships (id, user_id, club_id, role, status, source, started_at)"
+        " VALUES (gen_random_uuid(), :u, :c, 'STUDENT', 'ACTIVE', 'ADMIN', now())",
+        u=uuid.UUID(other["id"]), c=uuid.UUID(bare["id"]),
+    )
+    club = (await client.get("/api/v1/memberships/me", headers=other["headers"])).json()["active"]["club"]
+    assert club["ministry"] is None and club["ministries"] == []

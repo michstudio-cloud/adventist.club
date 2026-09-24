@@ -14,6 +14,8 @@ from app.models import Application, Certificate, Honor, Ministry, Organization, 
 from app.deps import get_optional_user
 from app.schemas.portfolio import SIGNATURE_MAX_LENGTH
 from app.services import certificate_signatures
+from app.certificates.render import TemplateError, load_template
+from app.services.portfolio import DEFAULT_CERTIFICATE_TEMPLATE
 from app.monitoring import init_sentry
 from app.rate_limit import account_or_ip, limiter, rate_limit_exceeded_handler
 from app.routers import auth as auth_router, clubs as clubs_router, honors as honors_router, media as media_router, memberships as memberships_router, org as org_router, portfolio as portfolio_router, render as render_router, users as users_router
@@ -82,6 +84,14 @@ class PrototypeBatchCreate(BaseModel):
     # A data URL or the person's own saved signature (services/certificate_signatures.py).
     signature_director:str|None=Field(default=None,max_length=SIGNATURE_MAX_LENGTH)
     signature_instructor:str|None=Field(default=None,max_length=SIGNATURE_MAX_LENGTH)
+    # Slug of the server template the assistant rendered (GET /certificates/templates), kept in
+    # `certificate_templates.name` with `supports_svg` exactly as the portfolio does, so
+    # /verify/{no} offers PNG/PDF for these folios too. None = DEFAULT_CERTIFICATE_TEMPLATE;
+    # one the engine does not know is 422 `template_not_found`.
+    template:str|None=Field(default=None,pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
+    # 016: the language the assistant printed it in, so a later download by folio (/verify)
+    # comes out the same. One the template does not speak is 422 `locale_not_supported`.
+    locale:str=Field(default="es",pattern=r"^[a-z]{2}$")
 
 class PrintPdfRequest(BaseModel):
     """Legacy shape (margin_in / gap_in) plus the full imposition options.
@@ -169,13 +179,19 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
         base=slugify(payload.honor_name);slug=base;i=2
         while (await db.execute(select(Honor).where(Honor.ministry_id==ministry.id,Honor.slug==slug))).scalar_one_or_none():slug=f"{base}-{i}";i+=1
         honor=Honor(id=uuid.uuid4(),ministry_id=ministry.id,name=payload.honor_name.strip(),slug=slug,source_url="https://www.guiasmayores.com/especialidades-ja.html",active=True,status="DRAFT");db.add(honor);await db.flush()
-    tname=f"Prototipo {payload.width_in:g}x{payload.height_in:g}in"
-    template=await get_or_create_template(db,ministry.id,tname,payload.width_in,payload.height_in)
+    slug=payload.template or DEFAULT_CERTIFICATE_TEMPLATE
+    try:svg_template=load_template(slug)
+    except TemplateError:raise HTTPException(422,{"code":"template_not_found","detail":"Esa plantilla no existe."})
+    if payload.locale not in svg_template.locales:raise HTTPException(422,{"code":"locale_not_supported","detail":"La plantilla no está en ese idioma."})
+    # The record keeps the engine's slug and ITS size (the print sheet is the assistant's
+    # business: width_in/height_in still only size the imposition on the client).
+    w,h=round(svg_template.width_pt/72,4),round(svg_template.height_pt/72,4)
+    template=await get_or_create_template(db,ministry.id,slug,w,h,orientation="landscape" if w>=h else "portrait",supports_svg=True)
     created=[]
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None))
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None,locale=payload.locale))
     # One immutable copy per signature for the whole batch (the folder of its first certificate).
     await certificate_signatures.attach(created,signatures)
     await db.commit()

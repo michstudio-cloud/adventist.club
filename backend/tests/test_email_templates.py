@@ -63,6 +63,9 @@ CASES = [
     ("pending_reviews_many", lambda: mail.pending_reviews_email_html(HOSTILE, HOSTILE, 12, LINK), LINK, None),
     ("progress_hours", lambda: mail.hours_approved_email_html(HOSTILE, 2.5, 1, LINK), LINK, None),
     ("progress_hours_service_only", lambda: mail.hours_approved_email_html(HOSTILE, 3, 0, LINK), LINK, None),
+    ("progress_hours_rejected", lambda: mail.hours_rejected_email_html(HOSTILE, 2.5, 0, HOSTILE, LINK), LINK, None),
+    ("progress_hours_rejected_no_note", lambda: mail.hours_rejected_email_html("Ana", 0, 1, None, LINK), LINK, None),
+    ("course_pending_reviews", lambda: mail.course_pending_reviews_email_html(HOSTILE, HOSTILE, 3, LINK), LINK, None),
     ("progress_xp", lambda: mail.xp_awarded_email_html(HOSTILE, 10, HOSTILE, HOSTILE, LINK), LINK, None),
     ("certificate_revoked", lambda: mail.certificate_revoked_email_html(HOSTILE, HOSTILE, HOSTILE), None, None),
     ("certificate_revoked_no_honor", lambda: mail.certificate_revoked_email_html("Ana", "F-1", None), None, None),
@@ -77,7 +80,7 @@ def _hrefs(html: str) -> list[str]:
     return re.findall(r'href="([^"]*)"', html)
 
 
-NO_HOSTILE_INPUT = {"club_rejected_no_reason", "letter_authorized_no_date", "certificate_revoked_no_honor"}
+NO_HOSTILE_INPUT = {"progress_hours_rejected_no_note", "club_rejected_no_reason", "letter_authorized_no_date", "certificate_revoked_no_honor"}
 
 
 @pytest.mark.parametrize("case_id,factory,cta,code", CASES, ids=[c[0] for c in CASES])

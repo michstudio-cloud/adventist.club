@@ -31,11 +31,19 @@ class ClubRef(BaseModel):
     church: str | None = None
 
 
+class MembershipClub(ClubRef):
+    """The club of a membership, with its ministries (019/022): `ministry` is the principal,
+    `ministries` all of them, principal first. `None` / `[]`: the club declared none."""
+
+    ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = Field(default_factory=list)
+
+
 class MembershipOut(BaseModel):
     """One membership as its own holder sees it."""
 
     membership_id: str
-    club: ClubRef
+    club: MembershipClub
     role: str
     status: str
     source: str
@@ -398,10 +406,15 @@ def as_invitation_out(invitation, *, state: str, requires_approval: bool) -> Inv
     )
 
 
-def as_membership_out(membership, club, *, unit=None, counselor=None) -> MembershipOut:
+def as_membership_out(
+    membership, club, *, unit=None, counselor=None, ministries: list[MinistryRef] | None = None
+) -> MembershipOut:
+    """`ministries`: the club's, principal first (`services.ministries.list_of`); the async
+    `services.memberships.membership_out` fills them."""
+    listed = list(ministries or [])
     return MembershipOut(
         membership_id=str(membership.id),
-        club=as_club_ref(club),
+        club=as_club_ref(club, MembershipClub, ministry=listed[0] if listed else None, ministries=listed),
         role=membership.role,
         status=membership.status,
         source=membership.source,
@@ -442,6 +455,7 @@ __all__ = [
     "MemberRoleUpdate",
     "MemberRow",
     "MembershipEnded",
+    "MembershipClub",
     "MembershipOut",
     "MembershipStatus",
     "MyMembership",

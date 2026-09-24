@@ -174,4 +174,60 @@ async def test_rows_from_before_the_migration_are_spanish(client, factory, world
         await db.commit()
     verified = (await client.get(f"/api/v1/certificates/verify/{folio}")).json()
     assert verified["valid"] is True and verified["locale"] == "es"
-    assert verified["template_slug"] is None                           # prototype templates have no slug
+    # The «Prototipo WxHin» templates the assistant wrote before it sent its slug have none.
+    from app.services.certificates import get_or_create_template, template_slug
+
+    async with SessionLocal() as db:
+        ministry = (await db.execute(text("SELECT id FROM ministries WHERE slug = 'pathfinders'"))).scalar_one()
+        legacy = await get_or_create_template(db, ministry, "Prototipo 11x8.5in", 11, 8.5)
+        await db.commit()
+        assert await template_slug(db, legacy.id) is None
+
+
+async def _prototype(client, factory, **extra):
+    return await client.post("/api/v1/certificates/prototype-batch", json={
+        "recipient_names": [factory.name("Ana")], "honor_name": factory.name("Asistente"),
+        "club_name": factory.name("club-asistente"), "issued_date": "2026-09-24",
+        "width_in": 11, "height_in": 8.5, **extra})
+
+
+async def test_the_assistant_batch_keeps_the_template_it_rendered(client, factory, world, issuer):
+    """`template` (a slug of the engine) is kept like the portfolio keeps it, so /verify offers
+    PNG/PDF for these folios; without it, the default template; an unknown one is a 422."""
+    from app.services.portfolio import DEFAULT_CERTIFICATE_TEMPLATE
+
+    chosen = await _prototype(client, factory, template="especialidad-modular-azul")
+    assert chosen.status_code == 201, chosen.text
+    folio = chosen.json()[0]["certificate_no"]
+    verified = (await client.get(f"/api/v1/certificates/verify/{folio}")).json()
+    assert verified["valid"] is True and verified["template_slug"] == "especialidad-modular-azul"
+    stored = await fetch_one(
+        "SELECT t.name, t.supports_svg, t.width, t.height FROM certificates c"
+        " JOIN certificate_templates t ON t.id = c.template_id WHERE c.certificate_no = :no", no=folio)
+    template = load_template("especialidad-modular-azul")
+    assert stored["name"] == "especialidad-modular-azul" and stored["supports_svg"] is True
+    assert stored["width"] == round(template.width_pt / 72, 4) and stored["height"] == round(template.height_pt / 72, 4)
+    # ...and the folio renders again on its template (what /verify's download does).
+    again = await client.post(RENDER, json={"template": verified["template_slug"], "format": "svg",
+                                            "certificate_no": folio})
+    assert again.status_code == 200, again.text
+
+    default = await _prototype(client, factory)
+    assert default.status_code == 201, default.text
+    verified = (await client.get(f"/api/v1/certificates/verify/{default.json()[0]['certificate_no']}")).json()
+    assert verified["template_slug"] == DEFAULT_CERTIFICATE_TEMPLATE
+
+    # The language it was printed in travels too, so the download by folio matches.
+    english = await _prototype(client, factory, template="especialidad-modular-azul", locale="en")
+    assert english.status_code == 201, english.text
+    verified = (await client.get(f"/api/v1/certificates/verify/{english.json()[0]['certificate_no']}")).json()
+    assert verified["locale"] == "en" and verified["template_slug"] == "especialidad-modular-azul"
+    unsupported = await _prototype(client, factory, template="especialidad-modular-azul", locale="de")
+    assert unsupported.status_code == 422 and unsupported.json()["detail"]["code"] == "locale_not_supported"
+
+    before = await fetch_one("SELECT count(*) AS n FROM certificates")
+    unknown = await _prototype(client, factory, template="no-existe-esta")
+    assert unknown.status_code == 422, unknown.text
+    assert unknown.json()["detail"]["code"] == "template_not_found"
+    assert (await fetch_one("SELECT count(*) AS n FROM certificates"))["n"] == before["n"]
+    assert (await _prototype(client, factory, template="../etc")).status_code == 422

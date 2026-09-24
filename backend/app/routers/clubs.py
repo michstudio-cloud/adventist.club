@@ -50,7 +50,6 @@ from app.schemas.membership import (
     RequestDecision,
     RequestRow,
     as_invitation_out,
-    as_membership_out,
 )
 from app.schemas.secretaria import Completeness
 from app.schemas.unit import (
@@ -558,7 +557,7 @@ async def approve_request(
         reason=None,
         request=request,
     )
-    return as_membership_out(membership, club)
+    return await membership_service.membership_out(db, membership, club)
 
 
 @router.post("/{club_id}/requests/{membership_id}/reject", response_model=MembershipOut)
@@ -583,7 +582,7 @@ async def reject_request(
         reason=payload.reason,
         request=request,
     )
-    return as_membership_out(membership, club)
+    return await membership_service.membership_out(db, membership, club)
 
 
 @router.post("/{club_id}/requests/approve-all", response_model=BulkApproval)

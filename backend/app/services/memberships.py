@@ -37,6 +37,7 @@ from app.security import (
     sha256_hex,
     utcnow,
 )
+from app.services import ministries as ministry_service
 from app.services import units
 from app.services.audit import record_audit
 
@@ -1035,3 +1036,12 @@ async def apply_admin_change(
         db, membership, actor=actor, member=target, request=request, audit_action="MEMBERSHIP_APPROVE"
     )
     return True
+
+
+async def membership_out(db: AsyncSession, membership, club, *, unit=None, counselor=None):
+    """`MembershipOut` with the club's ministries (019/022), principal first: what the
+    selector of the desk shell and every «my club» screen show instead of assuming one."""
+    from app.schemas.membership import as_membership_out
+
+    ministries = await ministry_service.list_of(db, club) if club is not None else []
+    return as_membership_out(membership, club, unit=unit, counselor=counselor, ministries=ministries)
