@@ -1,0 +1,5248 @@
+{
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "note": "Traducción NO OFICIAL al español de los requisitos (y de las introducciones) del Adventurer Award Book 2020 (© GC Youth Ministries), hecha con IA (Claude) a partir del texto extraído del libro y revisada solo por muestreo: debe revisarla una persona antes de publicarla. Los nombres en español de los awards sin ficha de mundoja también son traducción propia. Los 31 Espirituales cuya ficha de mundoja coincide con el libro no están aquí: se cargan de adventurer_awards_mundoja_es.json.",
+ "awards": {
+  "community-helpers": {
+   "name_es": "Ayudantes de la comunidad",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar una historia sobre los ayudantes de la comunidad",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer de cuenta que son ayudantes de la comunidad.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción usando las habilidades de los ayudantes de la comunidad.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Completar un proyecto de arte sobre los ayudantes de la comunidad",
+     "sub": []
+    }
+   ]
+  },
+  "cooperation": {
+   "name_es": "Cooperación",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y comentar Hechos 4:32-37 y Éxodo 35:20-29; 36:2-7.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué es la cooperación?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Por qué es importante la cooperación en tu familia, en la escuela y en la iglesia?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Representar una historia bíblica sobre la cooperación.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Cantar un canto sobre la cooperación.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Jugar un juego cooperativo.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer una manualidad cooperativa con tu grupo.",
+     "sub": []
+    }
+   ]
+  },
+  "country-fun": {
+   "name_es": "Diversión con países",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escoger un país que quieras estudiar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "En un mapa del mundo, encontrar la ubicación del país e identificar en qué continente se encuentra.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Encontrar, dibujar o calcar un mapa y la bandera de tu país.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender seis datos sobre el país, como los que se sugieren a continuación:",
+     "sub": [
+      "  a. Dibujar o encontrar una imagen del traje típico.",
+      "  b. Aprender un canto de sábado o un canto secular.",
+      "  c. Escuchar el himno nacional.",
+      "  d. Aprender a jugar un juego de sábado o un juego secular.",
+      "  e. Nombrar la religión principal.",
+      "  f. Coleccionar un sello postal, una tarjeta postal o una moneda.",
+      "  g. Leer o escuchar una leyenda, un mito o una historia."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una manualidad o una comida sencilla del país.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Leer en la Biblia cómo se originaron los idiomas en la torre de Babel (Génesis 11:1-9).",
+     "sub": []
+    }
+   ]
+  },
+  "fire-safety": {
+   "name_es": "Seguridad contra incendios",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué debes hacer si tu ropa se prende fuego?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué debes hacer si hay humo en tu casa y te cuesta respirar?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Memorizar tu número de teléfono y la dirección de tu casa.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿A qué número de teléfono llamas si hay un incendio? ¿Qué le dices a la persona que contesta el teléfono?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Visitar una estación de bomberos.",
+     "sub": []
+    }
+   ]
+  },
+  "hands-of-service": {
+   "name_es": "Manos de servicio",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer en voz alta los siguientes versículos bíblicos sobre el servicio. Encontrar al menos UNA manera en que cada texto habla del servicio o de la misión:",
+     "sub": [
+      "  a. Hechos 20:35",
+      "  b. 1 Pedro 4:10, 11",
+      "  c. Gálatas 5:13, 14",
+      "  d. Mateo 20:28",
+      "  e. Marcos 10:44, 45",
+      "  f. Filipenses 2:1-11"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Comentar la parábola que se encuentra en Mateo 25:31-46. Usar las siguientes preguntas en su conversación.",
+     "sub": [
+      "  a. ¿Qué crees que representan las “ovejas” y los “cabritos”?",
+      "  b. ¿Qué acciones son diferentes entre las “ovejas” y los “cabritos” en esta parábola?",
+      "  c. ¿Qué acciones de “servicio” dice el rey que son “benditas”? ¿Por qué crees que estas acciones son benditas?",
+      "  d. ¿Qué acciones realizan tu grupo, tu club, tu Escuela Sabática y tu iglesia que se parezcan a las que se mencionan en esta parábola?",
+      "  e. ¿Parece que las ovejas tienen el “hábito” de servir? ¿Cómo podemos adquirir el “hábito” de servir?",
+      "  f. ¿Cómo se siente servir a los demás?"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una lista de al menos 10 cosas que los Manos Ayudadoras podrían hacer para servir a otras personas. Incluir cosas que ayudarían a:",
+     "sub": [
+      "  a. Tu familia",
+      "  b. Tu comunidad de la iglesia",
+      "  c. Tu comunidad escolar",
+      "  d. Tu vecindario / el vecindario cercano a tu iglesia",
+      "  e. Personas necesitadas"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Con tus líderes, planificar y llevar a cabo uno de los proyectos de servicio que propusieron para “d. o e.” en la lista anterior. Informar a tu director, o en un culto del club, lo que hiciste y la diferencia que sientes que hizo para los demás y para ti mismo.",
+     "sub": []
+    }
+   ]
+  },
+  "my-community-friends": {
+   "name_es": "Mis amigos de la comunidad",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar cinco (5) amigos diferentes que viven en tu comunidad.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un álbum de recortes o un collage de tus amigos del vecindario, incluyendo al menos cinco (5) personas diferentes.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decir tres (3) cosas que tú y tus amigos pueden hacer para que tu vecindario sea un lugar mejor.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Decirle a uno de tus amigos que Jesús lo ama.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer algo amable por un amigo de la comunidad.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer un nuevo amigo en tu vecindario.",
+     "sub": []
+    }
+   ]
+  },
+  "road-safety": {
+   "name_es": "Seguridad vial",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Identificar y explicar 10 señales de tránsito importantes.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir cuándo y dónde cruzar la calle de forma segura.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Dar reglas de seguridad vial para:",
+     "sub": [
+      "  a. Caminar solo por la calle",
+      "  b. Andar en tu bicicleta",
+      "  c. Montar a caballo",
+      "  d. Caminar con un grupo"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Explicar por qué debes usar el cinturón de seguridad cuando viajas en un automóvil.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Escuchar a un oficial de la policía de caminos u otro oficial de seguridad hablar sobre la seguridad de los niños.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Jugar un juego sobre seguridad.",
+     "sub": []
+    }
+   ]
+  },
+  "artist": {
+   "name_es": "Artista",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir lo que hace un artista.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar los colores primarios.",
+     "sub": [
+      "  a. Mezclar estos colores para obtener tres colores nuevos.",
+      "  b. Usar estos seis colores para hacer un dibujo."
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Demostrar cómo sacar punta a los lápices y limpiar los pinceles.",
+     "sub": [
+      "  a. Sacar punta a dos lápices.",
+      "  b. Usando agua, limpiar tu pincel."
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer diseños separados usando al menos dos de los siguientes materiales:",
+     "sub": [
+      "  a. Pinturas para dedos",
+      "  b. Lápices de colores, crayones o tiza",
+      "  c. Marcadores de fieltro",
+      "  d. Bolígrafo, lápiz o carboncillo"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Aprender una técnica artística y demostrar dos de las siguientes:",
+     "sub": [
+      "  a. Estampado con papa sobre batik",
+      "  b. Esténcil",
+      "  c. Papel maché",
+      "  d. Arte con masa de pan o modelo de arcilla",
+      "  e. Mapa en relieve o modelo a escala"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer dos de los siguientes:",
+     "sub": [
+      "  a. Una invitación",
+      "  b. Un separador de libros",
+      "  c. Una tarjeta de felicitación",
+      "  d. Un cartel"
+     ]
+    }
+   ]
+  },
+  "basket-maker": {
+   "name_es": "Cestero",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar qué es una cesta.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir varias cestas que se encuentren en tu casa y decir cómo se usan.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar y describir las herramientas de un cestero.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Decir cómo se preparan los materiales para tejer cestas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una cesta sencilla de pastos naturales, juncos u otro material local, O decorar una cesta para usarla de manera práctica en tu casa, como las que se usan para la costura, la basura, las bayas o las flores.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Decorar una cesta para darla como regalo.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer una cesta con asa.",
+     "sub": []
+    }
+   ]
+  },
+  "bead-craft": {
+   "name_es": "Artesanía con cuentas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué es una cuenta?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿De dónde proviene la palabra “cuenta”?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar algunos de los materiales que se usan para hacer cuentas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Decir al menos dos datos interesantes sobre la historia de las cuentas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar al menos tres cosas que puedes hacer con cuentas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer cuatro o más objetos diferentes con cuentas.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Regalar uno de tus proyectos con cuentas a alguien, como a una persona anciana. Contarle lo que has aprendido sobre las cuentas y explicarle qué tiene de especial el regalo que hiciste para él o ella.",
+     "sub": []
+    }
+   ]
+  },
+  "build-and-fly": {
+   "name_es": "Construir y volar",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer un avión de papel y hacerlo volar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un planeador sencillo y hacerlo volar.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una cometa (papalote) sencilla, hacerla volar y explicar las reglas de seguridad.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Observar cuatro animales diferentes que vuelan y decir cómo vuelan.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un dibujo de tu animal volador favorito.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Saber dónde habla la Biblia de un ángel que vuela.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Saber quiénes fueron los primeros pilotos exitosos de un avión motorizado.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Resolver un crucigrama sobre tipos de vuelo.",
+     "sub": []
+    }
+   ]
+  },
+  "building-blocks": {
+   "name_es": "Bloques de construcción",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y repasar tres o más de las historias bíblicas que se mencionan a continuación:",
+     "sub": [
+      "  a. Noé (Gén 6-7)",
+      "  b. La torre de Babel (Gén 11:1-9)",
+      "  c. La tienda de Abram (Gén 12:1-8)",
+      "  d. El tabernáculo del desierto (Éx 25-27)",
+      "  e. El templo de Salomón (1 Crónicas 28:1-10, 2 Crónicas 3-5)",
+      "  f. El pesebre (Lucas 2:1-20)",
+      "  g. El hombre sabio y el hombre insensato (Lucas 6:47-49)",
+      "  h. La Nueva Jerusalén (Apoc 21-22)"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Invitar a un constructor o carpintero a hablar sobre:",
+     "sub": [
+      "  a. Las herramientas que usa (mostrarlas y demostrar su uso)",
+      "  b. Los tipos de cosas que construye",
+      "  c. Las reglas de seguridad que sigue",
+      "  d. Valores como ser honesto, medir con cuidado, seguir instrucciones/planos, poner un cimiento firme"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Compartir dos decisiones que puedes tomar esta semana que edificarán y no destruirán tu carácter. El cimiento de un edificio es la parte más importante del edificio. Nuestro cimiento es nuestro carácter. Jesús, el maestro constructor, nos ayudará a tomar buenas decisiones que edificarán un carácter firme.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Leer Apocalipsis 21-22 y aprender sobre el hogar celestial que Dios está preparando para todos los que eligen Su don de la vida eterna. ¿Qué materiales de construcción está usando?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Construir uno o más edificios de cualquier tamaño o tipo. Pueden trabajar individualmente o en equipos.",
+     "sub": []
+    }
+   ]
+  },
+  "buttons": {
+   "name_es": "Botones",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Crear y decorar un recipiente para botones de ropa.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Comenzar una colección de botones de ropa. La variedad es más importante que la cantidad, aunque cada niño debería tener aproximadamente cincuenta botones.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decorar con botones y/o completar una manualidad con botones.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Jugar el juego “Botón, botón, ¿quién tiene el botón?”.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Realizar una “Noche de intercambio de botones”.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Leer y comentar Hebreos 13:16.",
+     "sub": []
+    }
+   ]
+  },
+  "carpenter": {
+   "name_es": "Carpintero",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar el trabajo de un carpintero.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar tres cosas que construye un carpintero.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Leer los siguientes textos y decir qué construyó cada carpintero:",
+     "sub": [
+      "  a. Génesis 6:14-16",
+      "  b. Éxodo 30:1-3",
+      "  c. 2 Samuel 5:11"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Identificar las herramientas básicas necesarias para trabajos sencillos en madera y explicar cómo cuidarlas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Visitar uno de los lugares que se mencionan a continuación:",
+     "sub": [
+      "  a. Maderería",
+      "  b. Ferretería",
+      "  c. Taller de carpintería",
+      "  d. Aserradero"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Usar herramientas de carpintero para hacer uno de los siguientes objetos:",
+     "sub": [
+      "  a. Casita o comedero para pájaros",
+      "  b. Portallaves",
+      "  c. Servilletero",
+      "  d. Otro objeto útil de madera"
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Conversar sobre Jesús el Carpintero y las cosas que pudo haber hecho.",
+     "sub": []
+    }
+   ]
+  },
+  "colors": {
+   "name_es": "Colores",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre los colores",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre los colores",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre los colores",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad sobre los colores",
+     "sub": []
+    }
+   ]
+  },
+  "crayons-and-markers": {
+   "name_es": "Crayones y marcadores",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Cómo se fabrican los crayones? ¿Cuáles son los ocho colores principales de los crayones y los marcadores?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿De qué están hechos los crayones.?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Qué pasa si un crayón se calienta?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar a un muchacho que tenía una túnica de muchos colores.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Dibujar o colorear un dibujo de José y su túnica.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Dibujar o colorear un dibujo con marcadores.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "¿Por qué los marcadores necesitan una tapa?",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "¿Dónde se deben usar los marcadores? ¿Dónde no se deben usar los marcadores?",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Hacer una carpeta para tus dibujos y decorar la portada con marcadores o crayones.",
+     "sub": []
+    },
+    {
+     "position": 10,
+     "text_es": "Dibujar o colorear dos de los siguientes con marcadores o crayones:",
+     "sub": [
+      "  a. un animal o aves",
+      "  b. Jesús y los niños",
+      "  c. un arcoíris",
+      "  d. tu mano",
+      "  e. tu casa"
+     ]
+    },
+    {
+     "position": 11,
+     "text_es": "Conocer nueve colores.",
+     "sub": []
+    }
+   ]
+  },
+  "finger-play": {
+   "name_es": "Juegos con los dedos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar una historia sobre las manos",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre las manos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decir un poema y usar tu mano para representarlo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad que use tus manos como parte del proyecto. (p. ej., pintar con los dedos, calcar las manos).",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Completar una actividad usando tus dedos. (p. ej., construir algo con bloques, amasar pan)",
+     "sub": []
+    }
+   ]
+  },
+  "gadgets-and-sand": {
+   "name_es": "Utensilios y arena",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Usando tazas y cucharas medidoras de plástico, medir, verter y recoger diferentes cantidades de arena y ponerlas en un balde o en un recipiente aparte. Conversar sobre las diferentes medidas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un cuadro de arte con arena, usando pegamento para mantener la arena en su lugar.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Usando embudos y palas, llenar botellas (galones de leche de plástico, botellas de jarabe, etc.) con arena. Usar embudos de dos tamaños diferentes.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Poner frijoles secos en un balde con arena. Mezclarlos. Usando un colador, separar los frijoles de la arena y ponerlos en un recipiente diferente.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un dibujo de frijoles en un balde de arena, o hacer un cuadro con frijoles.",
+     "sub": []
+    }
+   ]
+  },
+  "glue-right": {
+   "name_es": "Pegar bien",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Practicar cómo controlar el pegamento en papel borrador.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender a controlar el pegamento practicando diferentes métodos para aplicarlo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "El niño puede pegar una estrella, una lentejuela u otros objetos en la línea en la que cree que más aprendió sobre cómo controlar el pegamento y decir por qué.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Leer y comentar Proverbios 18:24.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una manualidad o un dibujo usando el pegamento de la manera correcta.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Poner pegamento de manera uniforme en un pequeño círculo en el dorso de tu mano. Esperar a que se seque. ¿Puedes quitarte el pegamento de la mano en una sola pieza?",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Cuando termines de usar el pegamento, siempre limpiar la boquilla del envase de pegamento y volver a ponerle la tapa.",
+     "sub": []
+    }
+   ]
+  },
+  "hand-shadows": {
+   "name_es": "Sombras con las manos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Enseñar a cada niño a hacer varias figuras de sombras con las manos.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Una vez que hayan aprendido a hacer las sombras con las manos, hacer las siguientes preguntas:",
+     "sub": [
+      "  a. ¿Qué sombra con las manos disfrutas más?",
+      "  b. ¿Cuál fue la más difícil de aprender?",
+      "  c. ¿Por qué fue más difícil?",
+      "  d. ¿Hubo algunas sombras que no pudiste hacer?"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Dejar que los niños conversen sobre cómo enseñarían esta habilidad a otros niños.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Con la ayuda de tu líder, practicar cómo enseñar a otros a hacer sombras con las manos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Enseñar a alguien a hacer dos o más sombras con las manos.",
+     "sub": []
+    }
+   ]
+  },
+  "handicraft": {
+   "name_es": "Artesanía",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer seis de los siguientes:",
+     "sub": [
+      "  a. Una tarjeta de pronta recuperación",
+      "  b. Un arreglo de flores secas o de seda",
+      "  c. Una figura de masa de pan o de arcilla",
+      "  d. Un cuadro con conchas",
+      "  e. Una escultura de hilo",
+      "  f. Un móvil",
+      "  g. Un objeto de papel maché",
+      "  h. Un cuadro usando cáscaras de huevo, semillas o conchas marinas",
+      "  i. Una cubierta para un álbum de autógrafos o de fotos",
+      "  j. Un collage usando seis materiales diferentes",
+      "  k. Un cartel que invite a las personas a un evento",
+      "  l. Un artículo de tu elección, hecho con esmero"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Regalar al menos dos de los objetos anteriores a:",
+     "sub": [
+      "  a. Un familiar o un amigo",
+      "  b. Una persona anciana de tu iglesia o comunidad"
+     ]
+    }
+   ]
+  },
+  "jigsaw-puzzles": {
+   "name_es": "Rompecabezas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Encontrar y recortar una imagen grande de una revista, pegar la imagen sobre cartulina y cortarla en tres piezas. (Cortar en diversas formas.)",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Jugar un juego con el rompecabezas.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Comprar un rompecabezas grande y armarlo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Dibujar y colorear un dibujo, pegarlo sobre cartulina y cortarlo en piezas grandes.",
+     "sub": []
+    }
+   ]
+  },
+  "magnet-fun-i": {
+   "name_es": "Diversión con imanes I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿De qué está hecho un imán?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Leer la historia/leyenda griega de cómo se encontró el primer imán y cómo recibió su nombre.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Describir los tres tipos principales de imanes:",
+     "sub": [
+      "  a. Imanes permanentes",
+      "  b. Imanes temporales",
+      "  c. Electroimanes"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "¿Para qué se usan los imanes?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Completar tres experimentos con imanes, como los que se mencionan a continuación:",
+     "sub": [
+      "  a. Búsqueda del tesoro con imanes: Colocar por la sala objetos que se magnetizarán y que no se magnetizarán. Ver cuántos objetos diferentes pueden levantar con su imán. Sugerencias: tuercas, pernos, papel de aluminio, alfileres de gancho, etc.",
+      "  b. Rocas minerales con hierro: Colocar varias rocas minerales sobre una mesa y ver si los niños pueden seleccionar las que tienen hierro y luego intentar levantarlas con su imán. (Ver el recurso n.º 2)",
+      "  c. Mover un objeto con un imán: Pedir a un amigo que sostenga una hoja de papel entre sus dos manos, colocar un clip encima del papel y un imán debajo. Mover el clip de un extremo al otro y de regreso con tu mano. Repetir este experimento pidiendo a tu amigo que sostenga una regla de plástico, un espejo, un cartón, etc., en lugar del papel. ¿Funcionó?",
+      "  d. Crear un imán: Frotar un clavo de acero contra el imán 25-30 veces. Frotarlo en una sola dirección.",
+      "    i. ¿Cuántos clips puedes levantar a la vez?",
+      "    ii. ¿Es el clavo tan fuerte como tu imán?"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Leer y memorizar Hebreos 7:19 y Santiago 4:8.",
+     "sub": []
+    }
+   ]
+  },
+  "magnet-fun-ii": {
+   "name_es": "Diversión con imanes II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Obtener la especialidad Diversión con imanes I.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Jugar con dos imanes haciendo que se atraigan entre sí. Jugar con dos imanes haciendo que se repelan entre sí. Todos los imanes tienen un polo ________________ y un polo _______________. Los polos opuestos se atraen entre sí, los polos iguales se repelen entre sí.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer un electroimán.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Usar una brújula para encontrar las ocho direcciones. Dibujarlas en una rosa de los vientos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una brújula usando un imán, un recipiente con agua, una aguja de coser larga, una rodaja de corcho (o papel encerado), cera de vela y una brújula.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Qué pasa cuando se deja caer un imán?",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Aprender Proverbios 18:24.",
+     "sub": []
+    }
+   ]
+  },
+  "media-critic": {
+   "name_es": "Crítico de medios",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar qué significa el término medios de comunicación. Dar cuatro ejemplos. Explicar qué significa el término crítico.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Conversar sobre tres principios que nos ayudan a formar buenos hábitos de lectura, de lo que vemos y de lo que escuchamos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Llevar un registro del tiempo que pasas cada día con los diferentes tipos de medios de comunicación. Anotar si el medio está centrado en Cristo o es secular. Hacer esto durante dos semanas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una de las siguientes actividades con un adulto:",
+     "sub": [
+      "  a. Ver televisión",
+      "  b. Leer una historia",
+      "  c. Escuchar una grabación"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Convertirse en un “Crítico de medios” y conversar juntos sobre los puntos buenos y malos de cada uno.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Con un adulto, usar una guía de televisión, una lista de un club de libros, etc., para escoger lo que podrías ver o leer.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Escuchar el comienzo de una historia corta y agregarle tu propio final.",
+     "sub": []
+    }
+   ]
+  },
+  "music-i": {
+   "name_es": "Música I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre músicos o instrumentos musicales.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer una manualidad musical.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de palmadas (ritmo).",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Jugar un juego de acción con música. (p. ej., hacer rebotar una pelota al ritmo de un canto).",
+     "sub": []
+    }
+   ]
+  },
+  "music-ii": {
+   "name_es": "Música II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Conversar sobre pautas que los cristianos deben seguir al escoger la música.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar e identificar seis instrumentos musicales diferentes.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer un álbum de recortes, un cartel o un collage que muestre instrumentos musicales.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar tres instrumentos musicales mencionados en la Biblia.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar cómo se toca un instrumento musical.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Aprender dos cantos y tocarlos o cantarlos O participar en una banda rítmica o participar haciendo música con familiares o amigos.",
+     "sub": []
+    }
+   ]
+  },
+  "my-picture-book": {
+   "name_es": "Mi libro de imágenes",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer un libro de imágenes de por lo menos seis páginas.",
+     "sub": [
+      "  a. Todas las páginas deben tener algún tipo de decoración.",
+      "  b. Describir cada imagen del libro."
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Memorizar Joel 1:3 y conversar sobre su significado.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Compartir tu libro de imágenes con otras personas y explicar por qué escogiste esas imágenes. ¿Te ayudó compartir tu libro a entender Joel 1:3?",
+     "sub": []
+    }
+   ]
+  },
+  "postcards": {
+   "name_es": "Tarjetas postales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué es una tarjeta postal? ¿En qué se diferencia de una carta? Contar acerca del Pony Express. Memorizar la primera parte de Ester 3:13, KJV.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender y recitar tres o cuatro datos sobre las tarjetas postales.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Cuánto costaba enviar por correo una tarjeta postal cuando se emitió por primera vez? ¿Cuánto cuesta enviar una tarjeta postal hoy?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Escribir y enviar cuatro tarjetas postales a personas que conozcas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer, decorar y enviar una tarjeta a una escuela o iglesia misionera. En el tablero de anuncios de tu iglesia, mostrar a qué país fue enviada y cuánto costó enviarla?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer por lo menos dos de las siguientes actividades:",
+     "sub": [
+      "  a. Visitar una oficina de correos",
+      "  b. Invitar a un empleado de correos a venir y dar una presentación",
+      "  c. Hacer tu propia oficina de correos usando cajas de zapatos u otros separadores de buzón",
+      "  d. Conversar sobre lo que sucede en una oficina de correos",
+      "  e. Coleccionar tres tarjetas postales antiguas",
+      "  f. Una actividad a tu elección"
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Aprender las historias de las visitas de José Bates y Jaime White a la oficina de correos. Leer y conversar sobre cómo comenzar un saludo en 1 Timoteo 1:2 y Filemón 1:1 y Filipenses 1:2.",
+     "sub": []
+    }
+   ]
+  },
+  "reporter": {
+   "name_es": "Reportero",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Dar un informe a tus padres sobre una actividad de los Aventureros.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un álbum de recortes de reportero que incluya por lo menos tres salidas de los Aventureros.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Ver o escuchar las noticias durante una semana y preparar un breve informe sobre las noticias principales.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Escuchar los anuncios en la iglesia y leer el boletín de la iglesia.",
+     "sub": [
+      "  a. Poner los anuncios del boletín en tu álbum de recortes.",
+      "  b. Encerrar en un círculo los eventos que más te interesaron."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Hablar con tu pastor o maestro de Escuela Sabática. En tu álbum de recortes incluir:",
+     "sub": [
+      "  a. Un dibujo de la persona (incluir su nombre y decir dónde trabaja)",
+      "  b. Describir lo que más le gusta de su trabajo."
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Conservar tu álbum de recortes de reportero durante por lo menos dos meses.",
+     "sub": []
+    }
+   ]
+  },
+  "shapes-and-sizes": {
+   "name_es": "Formas y tamaños",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer un álbum de recortes para pegar los trabajos. Dibujar formas de diferentes tamaños en la portada.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Conocer y recortar seis formas diferentes. Pegarlas en el álbum de recortes. (Rectángulo, cuadrado, círculo, óvalo, rombo y triángulo.)",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer un dibujo usando diferentes formas (se pueden recortar las formas de cartulina de colores.) Ponerlo en el álbum de recortes.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Dar un paseo y buscar diferentes formas. ¿Hay alguna forma que veas más a menudo que otras?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Tamaños: distinguir entre pequeño, mediano y grande.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Usando bloques u otros objetos, jugar un juego usando diferentes tamaños. Hacer preguntas como: ¿Cuál es grande, más grande, el más grande, pequeño, más pequeño, el más pequeño?, etc.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Dibujar, colorear o pintar un cuadro de objetos de diferentes tamaños y decir cuál es pequeño, mediano y grande.",
+     "sub": []
+    }
+   ]
+  },
+  "sign-language": {
+   "name_es": "Lenguaje de señas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender el alfabeto manual usado por los sordos y las reglas relacionadas con él.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender a enviar y recibir palabras usando el alfabeto manual.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Aprender por lo menos cincuenta palabras.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender y presentar por lo menos un canto cristiano sencillo.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Donde sea posible, hacer que los Aventureros conozcan a una persona sorda y se comuniquen con ella por señas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Decir en señas un versículo bíblico sencillo.",
+     "sub": []
+    }
+   ]
+  },
+  "sponge-art": {
+   "name_es": "Arte con esponjas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer un rompecabezas con esponjas de diferentes formas. (Usar esponjas de poliéster, no de celulosa). Hacer una tarjeta con el contorno del rompecabezas usando cartulina gruesa y plastificarla.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Se sostienen las formas sobre sus bordes? ¿Se pueden apilar? Clasificarlas por color y forma.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer un animal u objeto con esponjas. (Usar pegamento para manualidades, no pegamento blanco de uso doméstico.)",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Usando pintura, hacer un cuadro con esponjas a tu elección.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Usando pintura y esponjas, hacer una de las siguientes cosas:",
+     "sub": [
+      "  • Tu nombre, decorado alrededor",
+      "  • Un animal",
+      "  • Tu juguete favorito"
+     ]
+    }
+   ]
+  },
+  "stamping-fun-i": {
+   "name_es": "Diversión con sellos I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Usar una fruta o una verdura para estampar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Experimentar con texturas usando materiales como atados de tela, papel crepé o plástico de burbujas para estampar.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Usar sellos para hacer formas como cuadrados, círculos y triángulos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Usar objetos encontrados, como conchas, ramitas u hojas, para estampar.",
+     "sub": []
+    }
+   ]
+  },
+  "stamping-fun-ii": {
+   "name_es": "Diversión con sellos II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué carta nos envió Dios?",
+     "sub": [
+      "  a. Memorizar: Éxodo 32:16 KJV",
+      "  b. Leer Éxodo 34:4 y Ester 3:10",
+      "  c. ¿Había algo sellado o escrito en los dos textos anteriores?"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Encontrar en la Biblia tres o más personas que escribieron una carta a amigos personales o a iglesias.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar algunos proyectos que puedes hacer usando sellos de goma.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Qué materiales necesitas para hacer un proyecto con sellos de goma?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Aprender y demostrar de tres a cinco técnicas de estampado, como las que se sugieren a continuación:",
+     "sub": [
+      "  a. Estampado en dos pasos",
+      "  b. Decorar con tiza",
+      "  c. Decorar con marcadores",
+      "  d. Usar lápices de acuarela",
+      "  e. Enmascarar la imagen"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Explicar cómo cuidar los sellos de goma.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer tres proyectos diferentes para regalar a un amigo o a familiares.",
+     "sub": []
+    }
+   ]
+  },
+  "tin-can-fun": {
+   "name_es": "Diversión con latas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Cuál es el uso más antiguo conocido del estaño y cómo se usa hoy?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Jugar el juego “Diversión con la lata misteriosa”.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Llevar un registro de cuántas latas usa tu familia en una semana.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Cómo se conservaban las cosas en los días de Jesús?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cómo se usaba el estaño en los tiempos bíblicos?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer un teléfono o unos zancos con latas.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Traer tres latas de alimentos para donar.",
+     "sub": []
+    }
+   ]
+  },
+  "alphabet-i": {
+   "name_es": "Alfabeto I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre el alfabeto",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre el alfabeto",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre el alfabeto",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad sobre el alfabeto.",
+     "sub": []
+    }
+   ]
+  },
+  "alphabet-ii": {
+   "name_es": "Alfabeto II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Conocer todas las letras del alfabeto.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Saber deletrear tu primer nombre.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Dar un paseo por el salón o al aire libre y encontrar tantos objetos como puedas que comiencen con una letra diferente del alfabeto.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Poder escribir de memoria diez letras del alfabeto.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Dibujar cinco letras, recortar y pegar objetos o imágenes que correspondan a cada una de las letras dibujadas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Cuáles son otras formas de escritura? (jeroglíficos, etc.)",
+     "sub": []
+    }
+   ]
+  },
+  "baking": {
+   "name_es": "Hornear",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Cuál es la definición de hornear?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir maneras de mantenerse seguro en la cocina mientras se hornea.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Definir los siguientes términos de repostería: masa líquida (batido), batir, engrasar el molde, acremar, masa, envolver (mezclar con movimientos envolventes), precalentar y revolver.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar por lo menos 8 utensilios que se usan en muchos proyectos de repostería.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Leer cuatro historias de la Biblia en las que se menciona el horneado.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Quién dice Jesús que es en Juan 6:35? Conversar sobre por qué esto es importante para ti.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hornear dos productos a tu elección.",
+     "sub": []
+    }
+   ]
+  },
+  "collector": {
+   "name_es": "Coleccionista",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir lo que hace un coleccionista.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar cinco cosas populares que la gente colecciona.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer dos colecciones personales diferentes con por lo menos 20 artículos cada una.",
+     "sub": [
+      "  a. Objetos como estampillas, tarjetas postales, monedas, etc.",
+      "  b. Objetos de la naturaleza como hojas, rocas, plumas, conchas, etc. O",
+      "  c. Hacer una colección personal de objetos; y",
+      "  d. En grupo o como clase, coleccionar elementos de la naturaleza."
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una exposición de coleccionistas y exhibir tus colecciones personales bien organizadas, con todos los objetos bien identificados.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Mostrar y explicar algo que hayas aprendido en una de tus colecciones.",
+     "sub": []
+    }
+   ]
+  },
+  "cooking-fun": {
+   "name_es": "Diversión en la cocina",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar los cuatro grupos básicos de alimentos.",
+     "sub": [
+      "  a. Coleccionar imágenes de alimentos de cada uno de estos grupos.",
+      "  b. Usar tus imágenes para hacer un collage o un cartel para exhibirlo en el club, la escuela o la iglesia."
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Elaborar un menú completo para una cena.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Ayudar a preparar, servir y limpiar después de una cena completa.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una tanda de galletas a tu elección.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar cómo hacer un fuego al aire libre y usarlo para preparar una bebida caliente, O hacer dos tipos diferentes de sándwiches, O preparar dos ensaladas diferentes.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Ayudar a preparar un almuerzo de picnic y empacarlo con cuidado. Compartir este picnic con la familia o con amigos.",
+     "sub": []
+    }
+   ]
+  },
+  "courtesy": {
+   "name_es": "Cortesía",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar lo que significa la cortesía.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Explicar la Regla de Oro.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Aprender y demostrar buenos modales en la mesa.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Demostrar cómo contestar el teléfono correctamente. Demostrar buenos modales telefónicos:",
+     "sub": [
+      "  a. Haciendo una llamada telefónica a un adulto",
+      "  b. Haciendo una llamada telefónica a un amigo de tu elección O",
+      "  c. Presentar a un adulto a un amigo.",
+      "  d. Presentar a tu maestro a uno de tus padres."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Compartir una experiencia sobre una ocasión:",
+     "sub": [
+      "  a. En que un adulto fue cortés contigo",
+      "  b. En que tú fuiste cortés con otra persona"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Mostrar actos de cortesía al",
+     "sub": [
+      "  a. Pedir algo de beber",
+      "  b. Dar las gracias",
+      "  c. Pedir disculpas",
+      "  d. Saludar a un amigo",
+      "  e. Compartir y esperar tu turno"
+     ]
+    }
+   ]
+  },
+  "family-helper": {
+   "name_es": "Ayudante de la familia",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y conversar sobre los siguientes versículos bíblicos:",
+     "sub": [
+      "  a. Filipenses 2:14",
+      "  b. Juan 15:12",
+      "  c. Salmos 118:7",
+      "  d. Gálatas 6:9"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "¿Quién es un ayudante de la familia?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Conversar sobre las cosas que puedo hacer para ser un ayudante.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Llevar un registro durante 3 semanas anotando cómo has sido un ayudante.",
+     "sub": [
+      "  a. Cada semana, conversar con tu mentor sobre el progreso que has logrado esa semana.",
+      "  b. Conversar sobre las maneras en que has ayudado y cuál fue tu favorita.",
+      "  c. Conversar sobre qué otras maneras podrías haber ayudado de forma diferente."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una tarjeta o nota de agradecimiento para tu padre, madre o tutor, agradeciéndole por todo lo que hace por ti.",
+     "sub": []
+    }
+   ]
+  },
+  "gardener": {
+   "name_es": "Jardinero",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir lo que hace un jardinero.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar tres tipos diferentes de huertos o jardines y decir qué crece en cada uno.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Encontrar por lo menos dos lugares en la Biblia donde se mencione un huerto o jardín.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una lista de por lo menos tres herramientas que necesitas para la jardinería.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar cómo usar correctamente las herramientas de jardinería y cómo cuidarlas después de usarlas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Cuidar una pequeña parcela de tierra: sembrar, trasplantar, plantar y cultivar flores u hortalizas.",
+      "  b. Plantar y cuidar tres plantas diferentes usando una jardinera de ventana, una maceta, un envase de leche o una lata.",
+      "  c. Hacer un terrario y cuidarlo."
+     ]
+    }
+   ]
+  },
+  "health-specialist": {
+   "name_es": "Especialista en salud",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Memorizar y repetir 1 Corintios 6:19, 20.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Recortar imágenes y hacer un cartel que muestre los cuatro grupos básicos de alimentos. Ordenar las imágenes para mostrar tres comidas saludables que podrías comer.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Explicar por qué tu cuerpo necesita ejercicio.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Durante una semana, anotar las horas que duermes. Decir por qué necesitas descanso.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Explicar por qué necesitas aire fresco y luz solar.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Explicar por qué el agua es importante para tu cuerpo. Decir cuántos vasos de agua deberías beber cada día.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Describir y practicar una buena higiene dental.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Nombrar tres cosas que podrían destruir tu salud.",
+     "sub": []
+    }
+   ]
+  },
+  "healthy-foods": {
+   "name_es": "Alimentos saludables",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre alimentos saludables.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre los alimentos saludables. (p. ej., las frutas tienen vitaminas)",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre alimentos saludables.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una tabla de alimentos saludables.",
+     "sub": []
+    }
+   ]
+  },
+  "healthy-me": {
+   "name_es": "Soy saludable",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar una historia sobre estar saludable",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre estar saludable.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción sobre estar saludable.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Completar un proyecto de arte sobre estar saludable.",
+     "sub": []
+    }
+   ]
+  },
+  "home-craft": {
+   "name_es": "Artesanía del hogar",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Usar cualquier material disponible en tu casa para hacer una de las siguientes cosas:",
+     "sub": [
+      "  a. Diseñar y construir una escultura.",
+      "  b. Hacer un cuadro con artículos del hogar o alimentos."
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer o elaborar tres de las siguientes cosas:",
+     "sub": [
+      "  a. Una pieza tejida con agujas",
+      "  b. Una pieza tejida a crochet (paño de cocina, tapete, etc.)",
+      "  c. Una pieza de malla (bolsa de hilo, bolsa para pelotas, etc.)",
+      "  d. Una pieza de rafia, paja o plástico (posavasos, servilletero, etc.)",
+      "  e. Una pieza de costura (ropa de muñeca, delantal, etc.)",
+      "  f. Enhebrar una aguja y coser botones."
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Forrar una botella para usarla como florero, O diseñar y hacer un imán para el “refrigerador”.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer dos artículos con cosas que normalmente se tiran a la basura.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Comenzar una colección de artículos del hogar “desechables” que se puedan usar para proyectos de manualidades.",
+     "sub": []
+    }
+   ]
+  },
+  "home-helper-i": {
+   "name_es": "Ayudante en el hogar I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué partes del cuerpo usas para ayudar en casa?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar tres maneras en que puedes ayudar en casa.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Del #2, escoger una de las maneras de ayudar en casa y ayudar durante una semana. (Tareas como “Tender la cama”, “Ayudar a barrer”, “Sacudir el polvo”, “Ayudar a limpiar tu cuarto” y “Separar materiales reciclables” podrían estar en la lista. ¡Hacer que esta lista corresponda a la familia del niño!)",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender un canto sobre los ayudantes.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar un personaje bíblico que fue un ayudante.",
+     "sub": []
+    }
+   ]
+  },
+  "home-helper-ii": {
+   "name_es": "Ayudante en el hogar II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Ayudar con dos de las siguientes tareas:",
+     "sub": [
+      "  a. Lavar la ropa",
+      "  b. Preparar y servir una comida",
+      "  c. Lavar el auto",
+      "  d. Hacer las compras del supermercado"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Poner la mesa y ayudar a lavar los platos cuatro veces en una semana.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Tender tu cama y ayudar a limpiar tu cuarto durante tres semanas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Demostrar tu habilidad para hacer cuatro de las siguientes cosas:",
+     "sub": [
+      "  a. Pasar la aspiradora a la alfombra o sacudir un tapete",
+      "  b. Sacudir el polvo de los muebles",
+      "  c. Barrer o trapear",
+      "  d. Decir la hora",
+      "  e. Coser un botón",
+      "  f. Recoger tus propias cosas y guardarlas"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Ser responsable de vaciar los cestos de basura o el contenedor de basura durante una semana. Separar todos los materiales reciclables.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Conversar sobre lo siguiente y aprender a hacer cada una de estas tareas:",
+     "sub": [
+      "  a. Sacudir el polvo de los alféizares de las ventanas",
+      "  b. Quitar las telarañas",
+      "  c. Lavar las ventanas",
+      "  d. Limpiar la carpintería de madera",
+      "  e. Pasar la aspiradora o barrer el piso"
+     ]
+    }
+   ]
+  },
+  "hygiene": {
+   "name_es": "Higiene",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Encontrar, leer y conversar sobre Salmos 119:11, Proverbios 25:11 y Salmos 19:14.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender sobre la limpieza personal.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decir tres momentos importantes en que debemos lavarnos las manos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Practicar la manera correcta de cepillarte los dientes.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Conversar sobre el baño regular y cómo mantener tu cabello limpio.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Decir cuántos vasos de agua deberías beber diariamente.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Decir por qué es importante mantener limpia tu ropa.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Ayudar a mantener limpia tu casa durante una semana.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Ayudar a lavar la ropa en casa durante una semana.",
+     "sub": []
+    }
+   ]
+  },
+  "know-your-body": {
+   "name_es": "Conoce tu cuerpo",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender 1 Corintios 6:19.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar las doce partes de tu cuerpo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Dibujar tu cuerpo y rotular las doce partes.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Para qué sirven las rodillas?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Qué hace tu cara por ti y por los demás?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Nombrar algunas cosas útiles que puedes hacer con tus manos.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "¿Cómo puedes usar tu boca para Jesús?",
+     "sub": []
+    }
+   ]
+  },
+  "manners-fun": {
+   "name_es": "Buenos modales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender la Regla de Oro (Mateo 7:12)",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Cuáles son las cinco palabras (o frases) mágicas?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Dibujar o recortar y pegar imágenes para ilustrar una de las palabras mágicas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Jugar un juego usando las cinco palabras (o frases) mágicas.",
+     "sub": []
+    }
+   ]
+  },
+  "my-family": {
+   "name_es": "Mi familia",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Cantar un canto sobre las familias.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Escuchar una historia sobre las familias.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decir 3 cosas que has aprendido sobre las familias.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad sobre las familias.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Completar una actividad sobre las familias.",
+     "sub": []
+    }
+   ]
+  },
+  "numbers": {
+   "name_es": "Números",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre los números del 1 al 20.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre los números del 1 al 20.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre los números del 1 al 20.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de los números del 1 al 20.",
+     "sub": []
+    }
+   ]
+  },
+  "reading-i": {
+   "name_es": "Lectura I",
+   "intro_es": "Se otorga a los Aventureros que lean, o escuchen mientras otra persona lee:",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Una historia bíblica o un libro sobre Jesús.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Un libro sobre salud o seguridad.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Un libro sobre la familia, los amigos o los sentimientos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Un libro sobre historia o misiones.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Un libro sobre la naturaleza.",
+     "sub": []
+    }
+   ]
+  },
+  "reading-ii": {
+   "name_es": "Lectura II",
+   "intro_es": "Se otorga a los Aventureros que lean, o escuchen mientras otra persona lee:",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Dos capítulos del libro de Marcos de una traducción moderna y sencilla de la Biblia.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Una historia bíblica o un libro sobre Jesús.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Un libro sobre salud o seguridad.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Un libro sobre la familia, los amigos o los sentimientos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Un libro sobre historia o misiones.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Un libro sobre la naturaleza.",
+     "sub": []
+    }
+   ]
+  },
+  "reading-iii": {
+   "name_es": "Lectura III",
+   "intro_es": "Se otorga a los Aventureros que lean, o escuchen mientras otra persona lee:",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Tres capítulos del libro de Hechos de una traducción moderna de la Biblia.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Una historia bíblica o un libro sobre Jesús.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Un libro sobre salud o seguridad.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Un libro sobre la familia, los amigos o los sentimientos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Un libro sobre historia o misiones.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Un libro sobre la naturaleza.",
+     "sub": []
+    }
+   ]
+  },
+  "reading-iv": {
+   "name_es": "Lectura IV",
+   "intro_es": "Se otorga a los Aventureros que lean, o escuchen mientras otra persona lee:",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "1 Samuel 1-3 de una traducción moderna de la Biblia.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Una historia bíblica o un libro sobre Jesús.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Un libro sobre salud o seguridad.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Un libro sobre la familia, los amigos o los sentimientos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Un libro sobre historia o misiones.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Un libro sobre la naturaleza.",
+     "sub": []
+    }
+   ]
+  },
+  "safety-specialist": {
+   "name_es": "Especialista en seguridad",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Con tus padres, conversar sobre el plan de seguridad contra incendios de tu hogar. Elegir dos de las siguientes áreas y dar cuatro reglas de seguridad para cada una:",
+     "sub": [
+      "  a. Seguridad en el hogar",
+      "  b. Seguridad al aire libre (en la ciudad o en el campo)",
+      "  c. Seguridad ante el clima",
+      "  d. Seguridad con las personas"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Practicar un simulacro de incendio en al menos uno de los siguientes lugares:",
+     "sub": [
+      "  a. El hogar",
+      "  b. La escuela",
+      "  c. La iglesia (si es posible)"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Según corresponda a tu región, practicar los siguientes simulacros de seguridad O conversar sobre lo que harías en las siguientes emergencias:",
+     "sub": [
+      "  a. Huracán",
+      "  b. Tornado",
+      "  c. Terremoto",
+      "  d. Inundación",
+      "  e. Volcán",
+      "  f. Rayos y truenos"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Ser un detective de la seguridad. Revisar las personas y los lugares sobre los que estás aprendiendo y hacer una lista de los peligros.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un mural o un cartel de seguridad que muestre situaciones peligrosas y lo que puedes hacer ante ellas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Con tu club, jugar el “Juego de la seguridad”. Plantearse unos a otros situaciones de seguridad para responder con “Sí”, “No” o “Le preguntaré a mi mamá”.",
+     "sub": []
+    }
+   ]
+  },
+  "sewing-fun": {
+   "name_es": "Diversión con la costura",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Decir de qué estaban hechas probablemente las primeras agujas de coser.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir qué se usó probablemente por primera vez como hilo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decir cuándo aparecieron por primera vez las máquinas de coser.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Demostrar cómo enhebrar una aguja y hacer un nudo en el extremo del hilo.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Coser un botón en un pedazo de tela.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Coser dos broches de presión y abrocharlos correctamente.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Coser un corchete (gancho y ojal) y abrocharlos correctamente.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Demostrar la habilidad de coser tres tipos diferentes de puntadas, como las siguientes:",
+     "sub": [
+      "  a. Hilván o punto corrido",
+      "  b. Punto de dobladillo",
+      "  c. Pespunte"
+     ]
+    },
+    {
+     "position": 9,
+     "text_es": "Hacer un artículo útil usando al menos dos puntadas diferentes.",
+     "sub": []
+    }
+   ]
+  },
+  "sharing": {
+   "name_es": "Compartir",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre compartir",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre compartir.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre compartir.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad y compartirla con alguien.",
+     "sub": []
+    }
+   ]
+  },
+  "special-helper": {
+   "name_es": "Ayudante especial",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre ser servicial.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre ser servicial.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre ser servicial.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad sobre ser servicial.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Ayudar a un miembro de la familia con una tarea especial durante una semana. (por ejemplo, alimentar a una mascota)",
+     "sub": []
+    }
+   ]
+  },
+  "story-listening-i": {
+   "name_es": "Escuchar historias I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar dos libros apropiados para tu edad, que no hayas leído antes, de las siguientes categorías:",
+     "sub": [
+      "  a) Biblia",
+      "  b) Misiones",
+      "  c) Amigos o familia",
+      "  d) Naturaleza"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Decirle a la persona que te leyó lo que más te gustó de cada historia",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decirle “gracias” a la persona que te leyó O hacer una manualidad que les diga que estás agradecido.",
+     "sub": []
+    }
+   ]
+  },
+  "story-listening-ii": {
+   "name_es": "Escuchar historias II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar dos libros apropiados para tu edad, que no hayas leído antes, de las siguientes categorías:",
+     "sub": [
+      "  a) Biblia",
+      "  b) Misiones",
+      "  c) Amigos o familia",
+      "  d) Naturaleza"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Decirle a la persona que te leyó lo que más te gustó de cada historia. Asegurarte de contarle algo sobre el “personaje” principal de cada historia.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Decirle “gracias” a la persona que te leyó O hacer una manualidad que les regales y que les diga que estás agradecido.",
+     "sub": []
+    }
+   ]
+  },
+  "technology": {
+   "name_es": "Tecnología",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar la función de cada elemento:",
+     "sub": [
+      "  a. Sistema de computación",
+      "  b. Monitor",
+      "  c. Ratón",
+      "  d. Teclado",
+      "  e. Unidad central de procesamiento",
+      "  f. Disco duro",
+      "  g. Escáner",
+      "  h. CD ROM",
+      "  i. Módem",
+      "  j. Impresora",
+      "  k. Red",
+      "  l. Disquete"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "¿Para qué sirven las computadoras?",
+     "sub": [
+      "  a. Documentos y libros",
+      "  b. Bases de datos",
+      "  c. Cálculos",
+      "  d. Comunicaciones",
+      "  e. Investigación",
+      "  f. Diversión"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Escribir e imprimir una nota de agradecimiento.",
+      "  b. Jugar un juego educativo."
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Visitar una oficina y ver cómo una computadora ayuda a esa persona en su trabajo.",
+      "  b. Visitar a un vendedor de computadoras y pedirle que haga una demostración de la tecnología más reciente."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Conocer la fila guía del teclado.",
+     "sub": [
+      "  a. Mostrar la posición correcta de las manos sobre el teclado.",
+      "  b. Explicar por qué es importante la posición correcta de las manos.",
+      "  c. Escribir en un programa elemental de mecanografía como Sticky Bear o Mavis Beacon."
+     ]
+    }
+   ]
+  },
+  "troubadour": {
+   "name_es": "Trovador",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Tocar un canto en un instrumento sencillo o marcar el ritmo de una melodía con una pandereta, un triángulo, etc.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Representar a un personaje o animal con disfraz o gestos para que el grupo pueda reconocerlo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Representar, con un grupo, una historia.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar a tres personajes de la Biblia que eran músicos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Inventar un poema sobre la naturaleza.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Cantar dos cantos tradicionales de tu país.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Con algunos amigos, organizar 15 minutos de entretenimiento para un grupo. O contar una historia a un grupo.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Buscar, leer y explicar el significado de Salmos 66:1-2.",
+     "sub": []
+    }
+   ]
+  },
+  "animals": {
+   "name_es": "Animales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar cinco animales que veas en el zoológico.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Dibujar y colorear a dos de ellos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Recortar tres animales del zoológico de revistas y pegarlos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Con plastilina, formar uno de tus animales favoritos del zoológico.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar tres nombres de animales de la Biblia",
+     "sub": []
+    }
+   ]
+  },
+  "animal-homes": {
+   "name_es": "Hogares de animales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué es un hogar?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hablar sobre tu hogar. Hacer un dibujo de tu casa y colorearlo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Los animales también tienen hogares. Nombrar cinco animales diferentes y decir dónde viven.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Cómo saben los animales lo que deben hacer para construir un hogar?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Elegir un animal y hacer lo siguiente:",
+     "sub": [
+      "  • Observar al animal (puede ser en un zoológico o en un video).",
+      "  • Dibujar o colorear un dibujo del animal.",
+      "  • Hacer una maqueta de su hogar.",
+      "  • Mostrar tu dibujo y tu maqueta en la noche familiar de tu club.",
+      "  • Contar a las personas lo que aprendiste sobre tu animal y su hogar."
+     ]
+    }
+   ]
+  },
+  "astronomer": {
+   "name_es": "Astrónomo",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar a varios observadores de las estrellas de la Biblia.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Identificar un planeta, dos estrellas y tres constelaciones en el cielo nocturno y dar sus nombres correctos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una caja de constelaciones para mirar por un orificio.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Explicar la diferencia entre un planeta y una estrella.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Observar planetas y estrellas en el cielo nocturno.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Observar dos de los siguientes y hacer un dibujo con la técnica de crayón resistente:",
+     "sub": [
+      "  a. la salida de la luna",
+      "  b. el amanecer",
+      "  c. la puesta del sol"
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Encontrar tres textos en la Biblia que se refieran a los cielos.",
+     "sub": []
+    }
+   ]
+  },
+  "birds": {
+   "name_es": "Aves",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar cinco aves que veas alrededor de tu hogar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar el ave de tu estado.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar tres tipos de alimento para aves (semillas de girasol negro oleaginoso, cardo, maíz, semillas mixtas, semillas de girasol rayado).",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer un dibujo de un ave y luego usar una mezcla de semillas para aves para rellenarlo.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un comedero para aves con una piña de pino y colgarlo en tu patio. Decir cuántas aves vienen a comer en él.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Nombrar dos aves mencionadas en la Biblia (águila, paloma, gorrión, cuervo).",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Conocer dos sonidos de aves e imitar que eres esa ave.",
+     "sub": []
+    }
+   ]
+  },
+  "bodies-of-water": {
+   "name_es": "Cuerpos de agua",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre lagos, arroyos, ríos y océanos.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre lagos, arroyos, ríos y océanos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre lagos, arroyos, ríos y océanos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de lagos, arroyos, ríos y océanos.",
+     "sub": []
+    }
+   ]
+  },
+  "butterflies": {
+   "name_es": "Mariposas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender cómo viven y se alimentan las mariposas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Coleccionar dibujos, calcomanías o fotos de mariposas que viven en tu estado.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Conversar sobre el ciclo de vida de la mariposa y dibujarlo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Memorizar Juan 3:7 y conversar sobre la historia de Nicodemo en Juan",
+     "sub": [
+      "  a. Hacer una de las siguientes manualidades:",
+      "  b. Una mariposa en la acera con tiza.",
+      "  c. Un dibujo de una mariposa con papel de construcción rasgado.",
+      "  d. Una mariposa en la arena o en la nieve.",
+      "  e. Un móvil de mariposas.",
+      "  f. Un imán de mariposa.",
+      "  g. Una mariposa hecha con cuentas.",
+      "  h. Una mariposa hecha de papel de seda de colores sujetado con una pinza para ropa."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Aprender un canto sobre las mariposas.",
+     "sub": []
+    }
+   ]
+  },
+  "dogs": {
+   "name_es": "Perros",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y conversar sobre el significado de Mateo 15:26 y Lucas 16:21.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué significa “El perro es el mejor amigo del hombre”?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Escuchar una historia de cómo un perro ayudó a alguien.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Conversar sobre cómo cuidar a un perro?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cómo pueden los perros ayudar a las personas?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Qué tipo de sonidos hacen los perros para comunicarse y qué significa cada sonido? Turnarse para hacer estos sonidos de perro.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer una manualidad con el tema de los perros.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Jugar un juego con el tema de los perros, como “Perrito, perrito, ¿dónde está tu hueso?”. También podrías inventar un juego de memoria, como “Ponle la cola al perrito”.",
+     "sub": []
+    }
+   ]
+  },
+  "environmentalist": {
+   "name_es": "Ambientalista",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Recitar Génesis 1:26. Explicar nuestro papel en la protección de la vida silvestre.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer una lista de tres animales que estén en peligro de extinción y explicar por qué.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una lista de tres aves que estén en peligro de extinción y explicar cómo puedes ayudar a proteger a las aves.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Estudiar los árboles en peligro de extinción de tu región. Plantar o adoptar un árbol.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "En tu región:",
+     "sub": [
+      "  a. ¿Qué causa la contaminación? Hacer una lista de maneras en que puedes prevenir la contaminación.",
+      "  b. Investigar cómo y por qué se causó la contaminación.",
+      "  c. Explicar cómo puedes evitar contaminar el agua.",
+      "  d. ¿Qué peligros amenazan la calidad del aire?"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Participar en una de las siguientes actividades comunitarias para ayudar a limpiar el medio ambiente:",
+     "sub": [
+      "  a. Participar en actividades del Día de la Tierra.",
+      "  b. Ayudar a limpiar la basura de la orilla de un camino o de un arroyo con tu grupo.",
+      "  c. Ayudar a recolectar papel, latas u otros materiales para reciclar."
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Crear un mural de la tierra hecha nueva.",
+     "sub": []
+    }
+   ]
+  },
+  "feathered-friends": {
+   "name_es": "Amigos emplumados",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Contar cómo cuida Dios a las aves.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un comedero para aves sencillo o un comedero con una piña de pino.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Ser capaz de reconocer diez aves diferentes.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Jugar un juego sobre aves.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Dibujar y/o colorear dibujos de lo siguiente:",
+     "sub": [
+      "  a. dos aves acuáticas",
+      "  b. dos aves que comen semillas",
+      "  c. un ave depredadora"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Ser capaz de imitar cinco sonidos de aves.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer un árbol de Navidad o una canasta de Pascua para las aves.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Observar algunas aves vivas, imitar sus movimientos y recolectar plumas cuando sea posible. Tener en cuenta que guardar plumas de aves migratorias es ilegal en algunos, si no en todos, los estados de EE. UU.",
+     "sub": []
+    }
+   ]
+  },
+  "fish": {
+   "name_es": "Peces",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Encontrar tres de las “historias de peces” de la Biblia:",
+     "sub": [
+      "  a. Los panes y los peces (Marcos 6:34-44 y Mateo 14:13-21)",
+      "  b. El Padre sabe lo que es mejor (Lucas 11:11-13)",
+      "  c. Jonás (Jonás 1-2)",
+      "  d. Desayuno con Jesús (Juan 21:8-113)",
+      "  e. Pescadores de hombres (Mateo 4:18-22)"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender cómo los peces tuvieron un papel importante en la provisión de alimento para los peregrinos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Aprender a cuidar un pez como mascota.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender sobre dos peces que viven en el lago u océano más cercano a ti y cómo protegerlos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Jugar un juego sobre peces o completar una manualidad de peces.",
+     "sub": []
+    }
+   ]
+  },
+  "flowers": {
+   "name_es": "Flores",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Recolectar y prensar, fotografiar o dibujar diez flores de diferentes colores y guardarlas en un libro. Nombrar los diferentes tipos y decir dónde las encontraste.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir qué atrae a las abejas y a los insectos a las flores, y qué es lo que las abejas toman de las flores.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Describir tres maneras en que se esparcen las semillas de las flores.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Decir cómo puedes ayudar a proteger nuestras flores silvestres.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un marcador de libros usando pétalos de flores secas.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Identificar diez flores que se cultivan en tu región.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Llevar un ramo de flores a alguien.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Mostrar cómo hacer un arreglo de flores y mantener fresco un ramo el mayor tiempo posible.",
+     "sub": []
+    }
+   ]
+  },
+  "friend-of-animals": {
+   "name_es": "Amigo de los animales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Cuidar un animal o un ave durante cuatro semanas.",
+      "    i. Alimentarlo y asegurarte de que tenga agua fresca.",
+      "    ii. Mantener limpia su jaula o lugar de descanso.",
+      "  b. Poner restos de comida o semillas para los animales o las aves de tu vecindario. Observar con atención durante cuatro semanas.",
+      "    i. Hacer una lista e identificar a las criaturas que comen allí.",
+      "    ii. Dibujarlas o colorear dibujos de ellas."
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Identificar tres aves diferentes. Observarlas y estudiar sus hábitos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Identificar y describir las características de tres razas de perros y dos razas de gatos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Visitar uno de los siguientes lugares y escribir un informe de lo que haces y ves:",
+     "sub": [
+      "  a. un zoológico",
+      "  b. un museo de historia natural",
+      "  c. un aviario",
+      "  d. un criadero de perros",
+      "  e. una granja",
+      "  f. una tienda de mascotas"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Instalar un comedero para aves o animales.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Jugar un juego sobre animales.",
+     "sub": []
+    }
+   ]
+  },
+  "friend-of-nature": {
+   "name_es": "Amigo de la naturaleza",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar:",
+     "sub": [
+      "  a. Cómo llegar a ser un amigo de la naturaleza",
+      "  b. Cómo cortar una flor y cuándo está permitido",
+      "  c. Cómo proteger los árboles, los nidos, etc."
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer una lista de los nombres de tres árboles diferentes y hacer un calco de la corteza de cada uno.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Recolectar cuatro tipos diferentes de hojas y compararlas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Explorar (u observar con una lupa) todas las cosas que puedes ver en un área de diez pies cuadrados.",
+      "  b. Explorar un patio o un parque y hablar sobre lo que ves."
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Hacer una caminata por la naturaleza y recolectar objetos de interés.",
+      "    i. Mostrar o hablar sobre los objetos que encontraste.",
+      "    ii. Hacer con ellos un collage o un cartel.",
+      "  b. Visitar uno de los siguientes lugares y contar lo que viste:",
+      "    iii. Zoológico",
+      "    iv. Parque",
+      "    v. Área de vida silvestre"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Cultivar una planta o un bulbo y hacer dibujos de ella en tres etapas diferentes de su crecimiento.",
+     "sub": []
+    }
+   ]
+  },
+  "geologist": {
+   "name_es": "Geólogo",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Decir lo que hace un geólogo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Recitar un texto de la Biblia que hable de rocas o minerales. Contar una historia bíblica sobre una ocasión en que se usaron rocas o piedras.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Experimentar con tierra, arena, grava, rocas y agua, O hacer un jardín de cristales.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Con un adulto, ir de excursión y recolectar diferentes tipos de rocas o minerales. Ver cuántos tipos, formas, colores y texturas diferentes puedes encontrar. Hacer una colección de cinco rocas diferentes y etiquetarlas indicando dónde las encontraste.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Con un grupo, leer Apocalipsis 21.",
+     "sub": [
+      "  a. Usar una enciclopedia u otro libro de consulta para averiguar sobre las piedras preciosas mencionadas en el texto.",
+      "  b. Hacer un dibujo a color de la ciudad celestial."
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Usar piedras o rocas para hacer un objeto de arte o una piedra pintada.",
+     "sub": []
+    }
+   ]
+  },
+  "habitats": {
+   "name_es": "Hábitats",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Definir qué es un hábitat y escoger uno para estudiarlo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender sobre tu hábitat. Anotar el día y la hora en que lo observaste y lo que viste.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar, fotografiar o hacer un dibujo de los animales, insectos, etc. que veas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar, fotografiar o hacer un dibujo de las plantas que veas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Describir tu hábitat y contar las cosas interesantes que aprendiste.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Encontrar versículos en la Biblia que hablen sobre tu hábitat.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "¿En qué día creó Dios tu hábitat?",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Describir cómo crees que será el hábitat del cielo.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Crear un hábitat.",
+     "sub": []
+    }
+   ]
+  },
+  "honey": {
+   "name_es": "Miel",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿De dónde viene la miel?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Cómo hace la abeja la miel? Comprender los términos: alza, extractor, néctar, polen.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Cuál es la función del apicultor?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer dos manualidades de la siguiente lista:",
+     "sub": [
+      "  a. Colmena",
+      "  b. Panal",
+      "  c. Abeja",
+      "  d. Flor",
+      "  e. A tu elección"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Probar tres sabores (tipos) de miel. Descubrir cuál te gusta más. ¿Por qué?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Memorizar dos de los siguientes versículos bíblicos:",
+     "sub": [
+      "  a. Éxodo 3:8",
+      "  b. Salmos 19:7-10",
+      "  c. Salmos 34:8",
+      "  d. Proverbios 24:13",
+      "  e. Proverbios 25:16 y 27",
+      "  f. Mateo 3:4",
+      "  g. A tu elección"
+     ]
+    }
+   ]
+  },
+  "honeybees": {
+   "name_es": "Abejas melíferas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Encontrar varios versículos en la Biblia que hablen sobre las abejas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Dibujar la abeja melífera y explicar en qué se diferencia de otras abejas y de otros insectos. Colorear tu dibujo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar los tres tipos de abejas que hay dentro de una colonia y cuáles son sus responsabilidades.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Explicar y dibujar el ciclo de vida de la abeja melífera.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cuál es el propósito de la danza de la abeja exploradora?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer dos manualidades de abejas.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Observar abejas, si es posible.",
+     "sub": []
+    }
+   ]
+  },
+  "insects": {
+   "name_es": "Insectos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre insectos.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre los insectos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción sobre los insectos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de un insecto.",
+     "sub": []
+    }
+   ]
+  },
+  "ladybugs": {
+   "name_es": "Mariquitas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender sobre la mariquita. ¿Cuáles son las características de la mariquita?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir el ciclo de vida de la mariquita. Hacer un cartel.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Todas las mariquitas son rojas? Explicar",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer dos piedras mascota con forma de mariquita. Regalar una.",
+     "sub": []
+    }
+   ]
+  },
+  "lizards": {
+   "name_es": "Lagartijas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué es un “Herper”? ¿Cómo puedes llegar a ser uno?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender sobre las lagartijas de tu zona.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Aprender a cuidar una lagartija.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Atrapar una lagartija o verlas en una tienda de mascotas, en un video, en un centro de naturaleza, en un zoológico o en libros. Invitar a un herpetólogo o a un invitado conocedor del tema para que hable a los Aventureros.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Pintar una lagartija sobre una piedra.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Leer Levítico 11:29-30.",
+     "sub": []
+    }
+   ]
+  },
+  "outdoor-explorer": {
+   "name_es": "Explorador al aire libre",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Dar una caminata por la naturaleza y recolectar:",
+     "sub": [
+      "  a. Una hoja y decir de qué árbol o planta proviene",
+      "  b. Una pluma y descubrir de qué ave es",
+      "  c. Una piedra y aprender de qué tipo es",
+      "  d. Una semilla e identificar la planta de la que proviene"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender y recitar las siguientes reglas de oro para las caminatas:",
+     "sub": [
+      "  a. Nunca cortar árboles.",
+      "  b. Nunca arrancar plantas vivas.",
+      "  c. No quitar ningún tipo de señalización.",
+      "  d. No entrar en propiedades con letreros de “Prohibido el paso”.",
+      "  e. Pedir permiso antes de caminar por una propiedad privada.",
+      "  f. No tirar basura."
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Decir por qué lado del camino se debe caminar y explicar por qué.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Caminar media milla (1 km) hasta un área de pícnic, llevar tu propio almuerzo y comerlo en esa área.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Dar dos caminatas de al menos una milla cada una. Una puede ser con el club y otra con tu familia. Hacer lo siguiente mientras caminan juntos:",
+     "sub": [
+      "  a. Encontrar elementos de la naturaleza para cada letra del abecedario, por ejemplo: A = Abeja; B = Bellota; C = Caracol, etc.",
+      "  b. Conversar sobre lo que ven y decir en qué día fue creado cada uno."
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Aprender y recitar las siguientes cinco reglas de seguridad para caminar:",
+     "sub": [
+      "  a. Caminar siempre con al menos un compañero.",
+      "  b. Llevar agua cuando salgas a caminar.",
+      "  c. Usar zapatos cómodos para caminar.",
+      "  d. Usar ropa adecuada.",
+      "  e. Fijarte por dónde caminas para no perderte."
+     ]
+    }
+   ]
+  },
+  "pets": {
+   "name_es": "Mascotas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Dibujar y colorear, o recortar de una revista, imágenes de tus mascotas favoritas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué come tu(s) mascota(s) favorita(s)?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Dónde duerme(n) tu(s) mascota(s)?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Ayudar a alimentar a tu(s) mascota(s) durante una semana.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Cuidar a tu(s) mascota(s) durante una semana.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Contar una historia sobre tu mascota.",
+     "sub": []
+    }
+   ]
+  },
+  "potatoes": {
+   "name_es": "Papas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y comentar Génesis 1:11-12, 29-30 y Eclesiastés 3:2.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Cuáles son los beneficios nutricionales de las papas?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿De qué estados es la papa el alimento o la hortaliza oficial?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Cómo crecen las papas? ¿Cuáles son las mejores condiciones para su cultivo?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cuáles son las diferentes variedades de papas? ¿Qué variedades hay disponibles en tu zona?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Cuándo y cómo se cosechan las papas?",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer una de las siguientes actividades y compartir tu experiencia:",
+     "sub": [
+      "  a. Sembrar una papa y observar cómo crece",
+      "  b. Ayudar a alguien a cosechar papas."
+     ]
+    }
+   ]
+  },
+  "safe-water": {
+   "name_es": "Agua segura",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué historias de la Biblia hacen referencia al agua para beber?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿En qué lugares obtenemos agua potable segura?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una lista de algunas formas de purificar el agua y demostrar una de ellas.",
+     "sub": [
+      "  a. Colar y hervir",
+      "  b. Tabletas purificadoras",
+      "  c. Bomba purificadora de agua (como luz ultravioleta o una bomba mecánica)",
+      "  d. Otra"
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "¿Por qué es tan importante el agua?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hablar sobre la escasez de agua en algunas zonas. Hacer lo siguiente:",
+     "sub": [
+      "  a. Ver un video sobre las necesidades de agua en otro país.",
+      "  b. Hacer una actividad para ayudar a los niños a valorar lo importante que es el agua.",
+      "  c. Preparar una dramatización sobre ir a buscar agua para ilustrar cómo muchas personas en el mundo tienen que conseguir su agua cada día.",
+      "  d. Demostrar cómo lavarse bien las manos con menos de 1 cuarto de galón de agua."
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Realizar un proyecto de servicio comunitario para ayudar a que las personas puedan tener agua potable segura.",
+     "sub": []
+    }
+   ]
+  },
+  "sand-art": {
+   "name_es": "Arte con arena",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y comentar la historia del hombre prudente y el hombre insensato en Mateo 7:24-27.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Encontrar y leer al menos 3 versículos más que hablen sobre la arena.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Dramatizar la historia del hombre prudente y el hombre insensato.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Cantar un canto bíblico sobre la arena.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar al menos 5 usos cotidianos de la arena.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer tu propia arena de colores.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Crear al menos 2 proyectos de arte con arena.",
+     "sub": [
+      "  a. Botellas de arte con arena",
+      "  b. Marcos para fotos",
+      "  c. Dibujos con pegamento ya aplicado",
+      "  d. Hacer un castillo de arena",
+      "  e. Mariposa con pinza de ropa"
+     ]
+    }
+   ]
+  },
+  "saving-animals": {
+   "name_es": "Salvemos a los animales",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Por qué hay animales en peligro de extinción?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué les pasó a los animales extintos? ¿Por qué?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Identificar y nombrar al menos 5 animales extintos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender sobre 5 animales en peligro de extinción.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cuántos animales hay actualmente en la lista de especies en peligro de extinción? Reunir imágenes de al menos 5 animales en peligro de extinción y nombrarlos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer un cartel o folleto que anime a las personas a salvar a los animales en peligro de extinción. Mostrárselo a alguien.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Memorizar Proverbios 12:10 NKJV. Propósito: Aprender a interesarse por el reino animal y a respetarlo, del cual Dios ha puesto al hombre como mayordomo, para que los animales no se extingan.",
+     "sub": []
+    }
+   ]
+  },
+  "scavenger-hunt": {
+   "name_es": "Búsqueda del tesoro",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Participar en una búsqueda del tesoro con uno de tus padres, un maestro u otro adulto.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Encontrar dos objetos de la naturaleza (bellotas, piñas, nueces, hojas, etc.).",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Encontrar algo relacionado con una historia bíblica (canasta pequeña = Moisés, algodón, lana de cordero, piedras = altar, tela de varios colores túnica de José, etc.). Conversar sobre la historia.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Encontrar algo que sea rojo (una flor, un trozo de tela, un crayón de color, etc.).",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Encontrar un huevo de plástico (u otro tipo de recipiente), abrirlo y compartir con otra Ave Madrugadora. (Se pueden poner uvas, pasas, dulces o lo que quieras.)",
+     "sub": []
+    }
+   ]
+  },
+  "seasons": {
+   "name_es": "Estaciones del año",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y comentar Eclesiastés 3:1-8.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Ilustrar Eclesiastés 3:11.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Identificar la época del año de cada estación en tu zona.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Cómo te preparas para cada estación: ropa, jardinería, cosecha, actividades, escuela, etc.?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Jugar un juego relacionado con las estaciones.",
+     "sub": []
+    }
+   ]
+  },
+  "seeds": {
+   "name_es": "Semillas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar la parábola que se encuentra en Mateo 13:3-9. Leer otros dos versículos sobre semillas:",
+     "sub": [
+      "  a. Génesis 1:11",
+      "  b. Marcos 4:31",
+      "  c. Mateo 17:20"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué necesita una semilla para crecer?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Observar y comentar lo que sucede cuando una semilla germina.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar algunas formas en que las semillas se dispersan naturalmente.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar las semillas más grandes y más pequeñas que hayas visto.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Probar una variedad de semillas comestibles. ¡Diviértete explorando cosas nuevas!",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Recolectar e identificar al menos 2 semillas diferentes de cada categoría:",
+     "sub": [
+      "  • Semillas de árboles",
+      "  • Semillas de frutas",
+      "  • Semillas de hortalizas",
+      "  • Semillas de granos/pastos",
+      "  • Semillas de nueces"
+     ]
+    },
+    {
+     "position": 8,
+     "text_es": "Hacer un collage de semillas u otra manualidad con semillas.",
+     "sub": []
+    }
+   ]
+  },
+  "stars": {
+   "name_es": "Estrellas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre las estrellas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre las estrellas.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción sobre las estrellas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de una estrella.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Cantar un canto sobre las estrellas.",
+     "sub": []
+    }
+   ]
+  },
+  "trees": {
+   "name_es": "Árboles",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer varios versículos bíblicos sobre las hojas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Recolectar hojas de diez árboles diferentes.",
+     "sub": [
+      "  a. Prensarlas y secarlas.",
+      "  b. Identificar cada hoja."
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Explicar cómo dispersan los árboles sus semillas. Recolectar o dibujar al menos cinco semillas diferentes.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer dos calcos diferentes de hojas O hacer dos hojas de papel de carta usando un diseño de hojas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Descubrir los árboles y las hojas de tu vecindario. Aprender algo especial sobre cada uno. Ser capaz de reconocer e identificar cinco de ellos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Poner tus hojas secas en un álbum de recortes.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Escribir una historia o contar cómo nos ayudan hoy los árboles.",
+     "sub": []
+    }
+   ]
+  },
+  "universe": {
+   "name_es": "Universo",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer versículos bíblicos acerca de cómo Dios creó el universo y el cielo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Conversar sobre cómo será el cielo y hacer un dibujo que muestre cómo te imaginas el cielo.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Encontrar versículos bíblicos sobre el universo, las estrellas, la luna, los planetas y/o el sol.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de nuestro sistema solar y nombrar los 8 planetas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Qué es el universo?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Qué es la Vía Láctea?",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Jugar un juego sobre el espacio.",
+     "sub": []
+    }
+   ]
+  },
+  "weather-i": {
+   "name_es": "El clima I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre el clima.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre el clima.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción sobre el clima.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad sobre el clima.",
+     "sub": []
+    }
+   ]
+  },
+  "weather-ii": {
+   "name_es": "El clima II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Observar el clima real durante un día. Registrarlo en una tabla y compararlo con el pronóstico del tiempo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir lo siguiente: viento, nubes, niebla, lluvia, sol y atmósfera.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Identificar tres instrumentos que se usan para predecir el clima.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender cómo funciona el ciclo del agua y por qué es tan importante para nosotros.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Describir cómo se mide la temperatura.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Encontrar y leer sobre el día en que Dios creó el aire (firmamento).",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Leer Marcos 4:38-39 y contar lo que hizo Jesús.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Hacer un molinete de viento.",
+     "sub": []
+    }
+   ]
+  },
+  "whales": {
+   "name_es": "Ballenas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escoger una ballena para estudiarla.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Es la ballena un mamífero o un pez?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Qué tamaño tiene la ballena cuando es adulta?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Dibujar ballena en tamaño real en un estacionamiento con tiza para acera.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Aprender cinco datos sobre tu ballena, como los que se sugieren a continuación:",
+     "sub": [
+      "  a. Qué come",
+      "  b. Dónde vive o hacia dónde migra",
+      "  c. Cómo interactúa con otras ballenas",
+      "  d. Cuánto tiempo vive",
+      "  e. Cuántas crías tiene y cómo nacen",
+      "  f. Escuchar sonidos de ballenas"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Esculpir tu ballena en arena húmeda o arcilla.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Leer o escuchar la historia de Jonás y dramatizarla.",
+     "sub": []
+    }
+   ]
+  },
+  "wooly-lamb": {
+   "name_es": "Corderito lanudo",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre corderos.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre los corderos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre corderos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de un cordero.",
+     "sub": []
+    }
+   ]
+  },
+  "zoo-animals": {
+   "name_es": "Animales del zoológico",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer un viaje al zoológico, si es posible, o ver un video o una película sobre un zoológico",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué animales viste?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Qué tipo de alimento comía la mayoría de ellos?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿Viste algún ave? Si es así, ¿cuáles eran? Nombrarlas",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Dibujar o colorear dos cosas que viste en el zoológico",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Quién hizo todo lo que viste en el zoológico? ¿Puedes encontrar la respuesta en la Biblia? Si es así, ¿dónde se encuentra?",
+     "sub": []
+    }
+   ]
+  },
+  "archer": {
+   "name_es": "Arquero",
+   "intro_es": "Esta especialidad requiere un instructor.",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar las reglas de seguridad relacionadas con el tiro con arco.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Numerar las diferentes partes de una flecha.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar las diferentes partes de un arco.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Aprender a manejar el arco, la cuerda y la flecha.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar dominio del tiro con arco con lanzamientos precisos a una diana de 120 cm. de diámetro",
+     "sub": [
+      "  a. 5 metros (20 flechas)",
+      "  b. 10 metros (30 flechas)",
+      "  c. 20 metros (30 flechas)"
+     ]
+    }
+   ]
+  },
+  "basic-knots": {
+   "name_es": "Nudos básicos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Conocer y explicar los diferentes tipos de amarres que existen.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Aprender a hacer los siguientes nudos y explicar su uso:",
+     "sub": [
+      "  a. Doble lazo",
+      "  b. Corredizo",
+      "  c. Pescador",
+      "  d. Lazo",
+      "  e. Cabeza de alondra",
+      "  f. Llano",
+      "  g. Vuelta de escota",
+      "  h. As de guía",
+      "  i. Perla",
+      "  j. Cirujano",
+      "  k. Ballestrinque",
+      "  l. Ocho"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Preparar un modelo sobre una tabla o cartón que incluya doce nudos que hayas aprendido a hacer.",
+     "sub": []
+    }
+   ]
+  },
+  "camper": {
+   "name_es": "Campista",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Conocer y explicar las reglas de seguridad para acampar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Acampar al menos una noche con tu club o tu familia.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Ayudar a armar una tienda de campaña. O Hacer un refugio sencillo con materiales del lugar.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Ayudar a instalar tu estufa de campamento o ayudar a hacer una fogata para cocinar.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Ayudar a preparar al menos una comida durante el campamento.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Después de tu campamento, ayudar a guardar los materiales de campamento.",
+     "sub": []
+    }
+   ]
+  },
+  "canoer": {
+   "name_es": "Canoísta",
+   "intro_es": "Nota: El Aventurero debe estar acompañado por un instructor en todo momento.",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Obtener la especialidad Nadador I.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Remar una distancia de 50 metros; girar a la derecha y a la izquierda, manteniendo siempre los remos del mismo lado de la canoa.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Saltar de la canoa al agua de manera que la embarcación permanezca seca; regresar a la canoa, asegurándote de que no entre agua en ella.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Saber qué es la proa y qué es la popa de la canoa y aprender a mantener la estabilidad en una canoa que está siendo sacudida por el agua.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Saber cómo prepararse para remar en canoa:",
+     "sub": [
+      "  a. Saber cómo vestirse de manera adecuada.",
+      "  b. Saber qué precauciones tomar en diferentes condiciones climáticas."
+     ]
+    }
+   ]
+  },
+  "caring-friend": {
+   "name_es": "Amigo bondadoso",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Explicar qué significa ser un Amigo bondadoso. Buscar, leer y memorizar 1 Pedro 5:7.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Hablar con una persona y preguntarle lo siguiente:",
+     "sub": [
+      "  a. El día y el mes en que nació",
+      "  b. Sus animales favoritos",
+      "  c. Dos de sus colores favoritos",
+      "  d. Tres comidas favoritas",
+      "  e. Cuatro cosas que son importantes para ella",
+      "  f. Pedir a tu nuevo amigo que te cuente algo interesante que le haya sucedido en su vida."
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Visitar a una persona que no puede salir de casa o a una persona mayor y llevarle algo. Usar las preguntas mencionadas arriba mientras conversan.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Contar a una de las personas que visites cómo Jesús te ama y que también la ama a ella.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar cómo puedes ser una persona bondadosa con tus padres:",
+     "sub": [
+      "  a. Ayudando a mantener limpio tu cuarto",
+      "  b. Ayudando a preparar la comida o a limpiar después de una comida",
+      "  c. Haciendo tareas adicionales sin que te lo pidan"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Contar algo especial que hayas hecho por un amigo.",
+     "sub": []
+    }
+   ]
+  },
+  "cyclist-i": {
+   "name_es": "Ciclista I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Saber andar en bicicleta sin rueditas de apoyo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Ser capaz de recorrer tres cuadras en bicicleta en tu vecindario.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Conocer tres reglas de seguridad para andar en bicicleta.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Colorear un dibujo de una bicicleta y ser capaz de identificar lo siguiente:",
+     "sub": [
+      "  a. manubrio",
+      "  b. cadena y cubrecadena",
+      "  c. rayos",
+      "  d. asiento",
+      "  e. cuadro"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "¿Cómo se inflan las llantas?",
+     "sub": []
+    }
+   ]
+  },
+  "cyclist-ii": {
+   "name_es": "Ciclista II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Obtener la especialidad Seguridad vial.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Demostrar:",
+     "sub": [
+      "  a. Cómo mantener limpia la bicicleta",
+      "  b. Cómo andar en bicicleta de forma segura",
+      "  c. Usar las señales de giro mientras andas en bicicleta",
+      "  d. Cómo cuidar la bicicleta"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Participar en una actividad en bicicleta.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer un recorrido en bicicleta de cinco millas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer un mapa de los lugares por donde fuiste.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Con tu familia, usar tu mapa para volver a recorrer tu ruta.",
+     "sub": []
+    }
+   ]
+  },
+  "first-aid-helper": {
+   "name_es": "Ayudante de primeros auxilios",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Demostrar cómo tratar un raspón o una cortada y describir los peligros de un vendaje sucio.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Describir cómo atender una hemorragia nasal.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Identificar diferentes tipos de vendajes y hacer una exhibición con ellos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer un botiquín de primeros auxilios sencillo y aprender los usos de los artículos que contiene.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Esterilizar uno de los siguientes objetos y decir por qué cada uno es un artículo importante en tu botiquín de primeros auxilios.",
+     "sub": [
+      "  a. pinzas",
+      "  b. termómetro",
+      "  c. aguja"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Visitar un centro de atención de emergencias para aprender sobre algunas de las emergencias que atienden.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Jugar al “hospital” y practicar tus habilidades con las emergencias mencionadas arriba.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Describir y dibujar el símbolo de primeros auxilios.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Mencionar una ocasión en que Jesús dio primeros auxilios a alguien que sangraba mucho.",
+     "sub": []
+    }
+   ]
+  },
+  "fitness-fun": {
+   "name_es": "Diversión con la actividad física",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Hacer una lista de al menos cuatro cosas que contribuyen a la buena condición física.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Correr o trotar 800 metros (aproximadamente media milla), O correr cincuenta metros en diez segundos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer un salto de altura. (Registrar el más alto de cuatro saltos.)",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Saltar la cuerda durante tres minutos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer tres estiramientos diferentes. Mantener cada uno durante un mínimo de diez segundos.",
+     "sub": [
+      "  a. Piernas",
+      "  b. Espalda",
+      "  c. Brazos/hombros"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Participar en una carrera de obstáculos.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Demostrar tu capacidad para hacer lo siguiente:",
+     "sub": [
+      "  a. Diez abdominales",
+      "  b. Trepar un poste, una cuerda o un árbol",
+      "  c. Colgarte de una barra con las manos y las rodillas"
+     ]
+    },
+    {
+     "position": 8,
+     "text_es": "Con tu grupo, participar en un juego organizado que requiera buena condición física, por ejemplo, un juego de pelota, una carrera de relevos, saltar al burro, etc.",
+     "sub": []
+    }
+   ]
+  },
+  "guide": {
+   "name_es": "Guía",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir el trabajo de un Guía.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir dónde se encuentran cuatro de los siguientes lugares y ser capaz de dar indicaciones para llegar a ellos desde tu casa:",
+     "sub": [
+      "  a. oficina de correos",
+      "  b. farmacia",
+      "  c. teléfono público",
+      "  d. estación de policía",
+      "  e. iglesia",
+      "  f. estación de bomberos",
+      "  g. supermercado",
+      "  h. escuela"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Decir cómo pedir indicaciones y a quién debes pedírselas.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Organizar una salida con algunos amigos para visitar uno de los siguientes lugares de tu zona:",
+     "sub": [
+      "  a. museo",
+      "  b. monumento",
+      "  c. lugar de interés",
+      "  d. estación de bomberos",
+      "  e. estación de policía",
+      "  f. hospital",
+      "  g. fábrica"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Dibujar un mapa sencillo de tu vecindario, incluyendo tu casa, o dar a un amigo indicaciones para llegar a tu casa.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Has sido guía a diferentes lugares, pero ¿quién dice la Biblia que es nuestro verdadero Guía? (Ver Salmos 48:14.)",
+     "sub": []
+    }
+   ]
+  },
+  "gymnast": {
+   "name_es": "Gimnasta",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Tener la especialidad Diversión con la actividad física.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Realizar al menos cinco ejercicios de calentamiento diferentes. Ser capaz de dirigir los ejercicios de calentamiento y estiramiento al comienzo de una clase.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Practicar el salto de altura. Registrar el mejor de cuatro.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Practicar el salto de longitud. Registrar el mejor de cuatro.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Correr 50 metros en diez segundos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer lo siguiente:",
+     "sub": [
+      "  a. Rodada hacia atrás",
+      "  b. Rueda de carro",
+      "  c. Puente hacia atrás",
+      "  d. Rodada hacia atrás con piernas abiertas",
+      "  e. Rodada con salto",
+      "  f. Parada de cabeza",
+      "  g. Rodada hacia adelante con piernas abiertas",
+      "  h. Caminata sobre la barra de equilibrio",
+      "  i. Parada de manos"
+     ]
+    }
+   ]
+  },
+  "horsemanship": {
+   "name_es": "Equitación",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Nombrar al menos cinco partes de un caballo en un dibujo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar y describir las diferentes razas de caballos y los diferentes usos de cada una.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Explicar y demostrar la forma correcta de montar un caballo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Explicar y demostrar la forma correcta de trotar.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Explicar la forma correcta de galopar.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Explicar cómo manejar un caballo en las siguientes circunstancias:",
+     "sub": [
+      "  a. Si el caballo se asusta",
+      "  b. Si el caballo se niega a obedecer",
+      "  c. Si se desboca"
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Explicar en detalle cómo controlar un caballo con las riendas. Este es uno de los puntos clave de la equitación.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Explicar cuatro reglas preventivas que se deben seguir, en orden de ejecución, para evitar que el caballo se sobrecaliente después de un ejercicio prolongado.",
+     "sub": []
+    }
+   ]
+  },
+  "left-and-right": {
+   "name_es": "Izquierda y derecha",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Jugar “Simón dice” usando izquierda/derecha.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "¿Con qué mano dibujas? Escribir tu nombre en letra de molde.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Poner calcomanías de puntos azules en los dedos de tu mano izquierda. Poner calcomanías de puntos rojos en tu mano derecha.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "¿De qué lado de una llave de agua sale el agua caliente? ¿De qué lado sale la fría?",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Ponerte los zapatos en el pie correcto.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Practicar marchar mientras repites: “Izquierda, derecha, izquierda”.",
+     "sub": []
+    }
+   ]
+  },
+  "olympics": {
+   "name_es": "Olimpiadas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender un poco sobre los Juegos Olímpicos:",
+     "sub": [
+      "  a. ¿Dónde se realizaron por primera vez?",
+      "  b. ¿Cuándo?",
+      "  c. ¿Dónde se realizarán los próximos Juegos?"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Hacer un estandarte olímpico.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una antorcha olímpica.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Jugar un juego olímpico.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Hacer una cadena con los colores olímpicos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Memorizar 2 Timoteo 4:7.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "¿Quién en el Nuevo Testamento habla de correr una carrera?",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Conversar con tu padre, tu madre o tu maestro sobre el significado de 1 Corintios 9:24-26.",
+     "sub": []
+    }
+   ]
+  },
+  "photo-fun": {
+   "name_es": "Diversión con fotos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Conocer algunas de las partes básicas de una cámara.",
+     "sub": [
+      "  a. Lente",
+      "  b. Obturador",
+      "  c. Zoom",
+      "  d. Pantalla/visor",
+      "  e. Batería",
+      "  f. Botón de encendido"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Hablar sobre los diferentes aparatos que la gente usa para tomar fotos, o mostrarlos. ¿Con cuáles te gustaría tomar fotos?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Cómo puedes manejar y cuidar los aparatos con cuidado?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Tomar algunas fotos y compartirlas con amigos y familiares.",
+     "sub": [
+      "  a. Fotos de la familia",
+      "  b. Fotos de amigos",
+      "  c. Fotos de paisajes (como flores, árboles, ríos)",
+      "  d. Fotos de animales",
+      "  e. Fotos de tus lugares favoritos (parque de juegos, museo, casa)",
+      "  f. Fotos de un lugar que visitas con regularidad (parque, escuela, museo o iglesia)",
+      "  g. Fotos de un lugar que no sueles visitar"
+     ]
+    },
+    {
+     "position": 5,
+     "text_es": "Jugar un juego divertido con fotos que enseñe más sobre las fotos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Qué significa haber sido “creados a la imagen de Dios”? Leer y conversar sobre Génesis 1:26-27.",
+     "sub": []
+    }
+   ]
+  },
+  "playing-with-friends": {
+   "name_es": "Jugando con amigos",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Qué es un amigo?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Nombrar tres maneras en que puedes hacer amigos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Nombrar cuatro cosas de las que puedes hablar para ser amistoso con alguien.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Nombrar cuatro cosas en las que necesitas pensar al elegir un amigo.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Nombrar tres maneras en que puedes saber que una persona es un buen amigo para ti.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Tenía amigos Jesús? Pedir a un adulto que te ayude a encontrar en la Biblia una historia sobre algunos de sus amigos.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hacer una manualidad para regalarla a tu amigo.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Hacer una de las siguientes actividades, a tu elección:",
+     "sub": [
+      "  a. Aprender un canto sobre los amigos.",
+      "  b. Hacer un álbum de recortes sobre un nuevo amigo.",
+      "  c. Escribir una historia sobre un amigo.",
+      "  d. Escribir un poema sobre un amigo.",
+      "  e. Contar una historia sobre un amigo"
+     ]
+    }
+   ]
+  },
+  "skater": {
+   "name_es": "Patinador",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir dónde y cuándo es seguro patinar.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Demostrar cómo cuidar un par de patines.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Demostrar la capacidad de patinar hacia adelante, hacia atrás, hacia la derecha, hacia la izquierda, y saber cómo cambiar de dirección.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Patinar en una curva, deslizarse sin impulsarse y luego detenerse por completo.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Patinar en un recorrido de slalom con al menos seis obstáculos.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Describir un juego que se juegue con patines o participar en él.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Decir qué equipo de protección se debe usar al patinar.",
+     "sub": []
+    }
+   ]
+  },
+  "skier": {
+   "name_es": "Esquiador",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir cómo cuidar los esquís y las botas.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Demostrar lo siguiente:",
+     "sub": [
+      "  a. Cómo cargar tus esquís",
+      "  b. Cómo ponértelos",
+      "  c. Cómo sujetarlos"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Demostrar cómo subir en escalera, en tijera y cómo hacer una vuelta maría.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Demostrar cómo derrapar lateralmente y pasar sobre montículos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Demostrar cómo girar a la derecha, a la izquierda y frenar.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Describir los diferentes tipos de nieve.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Demostrar lo siguiente:",
+     "sub": [
+      "  a. Cómo recorrer un slalom corto de seis puertas O",
+      "  b. Subir de forma segura en un remonte para principiantes y esquiar la pista para principiantes con control y buena técnica."
+     ]
+    }
+   ]
+  },
+  "snowshoeing": {
+   "name_es": "Raquetas de nieve",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar una breve historia de las raquetas de nieve.",
+     "sub": [
+      "  a. ¿Dónde se usaban las raquetas de nieve?",
+      "  b. ¿Por qué se necesitaban las raquetas de nieve?",
+      "  c. ¿Qué animales inspiraron el diseño de la raqueta de nieve?",
+      "  d. ¿Qué tipo de raqueta de nieve se usaba/se usa en tu zona?"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "¿Qué materiales se usaron para hacer las primeras raquetas de nieve? ¿Cómo se hacían?",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Describir lugares seguros para caminar con raquetas de nieve.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Describir lugares peligrosos para caminar con raquetas de nieve.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Describir qué debes vestir para una caminata con raquetas de nieve.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Demostrar cómo hacer lo siguiente:",
+     "sub": [
+      "  a. Cargar tus raquetas de nieve de forma segura.",
+      "  b. Ponerte tus raquetas de nieve.",
+      "  c. Sujetar tus raquetas de nieve"
+     ]
+    },
+    {
+     "position": 7,
+     "text_es": "Conversar sobre cómo se relacionan 1 Cor 6:19-20 e Isaías 40:29-31 con la buena condición física.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Jugar un juego con raquetas de nieve. Por ejemplo: búsqueda del tesoro, deletreo con raquetas de nieve, rastreo de animales, boliche en la nieve.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Hacer una caminata con raquetas de nieve de al menos 1 milla con tu familia o tu club.",
+     "sub": []
+    }
+   ]
+  },
+  "spotter": {
+   "name_es": "Observador",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Observar e identificar lo siguiente:",
+     "sub": [
+      "  a. Cuatro animales diferentes",
+      "  b. Cuatro tipos diferentes de vehículos motorizados",
+      "  c. Dos tipos diferentes de aviones o barcos",
+      "  d. Cuatro objetos diferentes de la naturaleza, como árboles, flores, etc.",
+      "  e. Cuatro aves diferentes"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Observar y describir a tres personas uniformadas. Decir qué hacen y por qué lo hacen.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Buscar, leer y conversar sobre lo que nos dice el texto de Mateo 28:20.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Observar tu iglesia. Escribir o dibujar algo que muestre lo que puedes hacer para ayudar a mantenerla limpia.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Mirar tu cuarto y hacer un dibujo de él. Si tienes un álbum de recortes, poner tu dibujo en él. Limpiar tu cuarto. Hacer un segundo dibujo y decir en qué se ve diferente tu cuarto.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Recordar diez de quince objetos después de mirarlos durante dos minutos.",
+     "sub": []
+    }
+   ]
+  },
+  "swimmer-i": {
+   "name_es": "Nadador I",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Saber nadar estilo perrito.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Saber nadar con la cabeza bajo el agua.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Ser capaz de saltar al agua y nadar hasta los escalones, la escalera o la pared.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Conocer dos reglas de seguridad en el agua. (Siempre tener un adulto contigo, nunca correr alrededor de la piscina, nunca saltar encima de alguien, etc.)",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "¿Qué harías si alguien estuviera en peligro en la piscina? ¿Intentarías salvarlo? ¿Por qué sería mejor llamar a tu padre, a tu madre o a un adulto para que venga a ayudar?",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "¿Cuál es el número de emergencia de una ambulancia?",
+     "sub": []
+    }
+   ]
+  },
+  "swimmer-ii": {
+   "name_es": "Nadador II",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Aprender y recitar siete reglas de seguridad para nadadores.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Contener la respiración y sumergir la cabeza bajo el agua durante cinco segundos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Demostrar cómo saltar correctamente en agua donde tocas fondo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Con tus amigos, jugar un juego acuático en aguas poco profundas.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Sujetarte del borde de la piscina y demostrar cómo patear correctamente. Demostrar tu capacidad para:",
+     "sub": [
+      "  a. Flotar de espaldas",
+      "  b. Nadar bajo el agua"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Saber dónde y cuándo es posible nadar sin peligro.",
+     "sub": []
+    }
+   ]
+  },
+  "swimmer-iii": {
+   "name_es": "Nadador III",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Completar y recibir la especialidad Nadador I.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Repasar y conversar sobre las reglas de seguridad que se deben observar al nadar o jugar en el agua.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Flotar de espaldas durante 30 segundos.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Flotar boca abajo durante 30 segundos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Saltar en agua donde no tocas fondo y recoger dos piedras.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Nadar 10 yardas (10 m) estilo libre.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Nadar de espaldas 10 yardas (10 m).",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Nadar algunas yardas usando solo los pies y luego usando solo las manos.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Decir tres cosas que podrías hacer para ayudar a salvar a alguien que se está ahogando.",
+     "sub": []
+    }
+   ]
+  },
+  "toys": {
+   "name_es": "Juguetes",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "¿Cuáles son tus juguetes favoritos?",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Dibujar o colorear un dibujo de tus juguetes favoritos.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "¿Por qué es mejor sacar uno o dos juguetes a la vez y luego guardarlos?",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Recoger tus juguetes durante una semana.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Compartir un juguete con:",
+     "sub": [
+      "  a. Un amigo",
+      "  b. Tu hermano o hermana, con alegría"
+     ]
+    },
+    {
+     "position": 6,
+     "text_es": "Cantar un canto sobre compartir y practicarlo mientras cantas.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Regalar un juguete a alguien que no tiene juguetes O reunir un juguete y donarlo a una obra de beneficencia.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Decir a tu maestro, a tu padre o a tu madre lo que escribirías en una nota de “Gracias” a alguien que te ha regalado un juguete.",
+     "sub": []
+    },
+    {
+     "position": 9,
+     "text_es": "Hacer una lista de deseos dibujando, o recortando y pegando imágenes, de cuatro juguetes diferentes que te gustaría recibir en Navidad o en tu cumpleaños.",
+     "sub": []
+    }
+   ]
+  },
+  "trains-and-trucks": {
+   "name_es": "Trenes y camiones",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre trenes o camiones.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Decir tres cosas que aprendiste sobre los trenes o los camiones.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego de acción sobre trenes o camiones.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer como que manejas o viajas en trenes o camiones.",
+     "sub": []
+    }
+   ]
+  },
+  "trikes-and-bikes": {
+   "name_es": "Triciclos y bicicletas",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Escuchar un libro sobre andar en triciclo y en bicicleta.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Cantar un canto sobre andar en triciclo y en bicicleta.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Jugar un juego sobre andar en triciclo y en bicicleta.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer una manualidad de triciclos y bicicletas.",
+     "sub": []
+    }
+   ]
+  },
+  "bible-iv": {
+   "intro_es": "Se otorga a los Aventureros que lean, o escuchen mientras otra persona lee:"
+  },
+  "early-adventist-pioneers": {
+   "intro_es": "Esta especialidad está diseñada para crear en los niños una conciencia creciente de su herencia adventista, ayudándoles a sentirse bien por ser adventistas y animándoles a valorar la contribución de los pioneros."
+  },
+  "friend-of-jesus": {
+   "name_es": "Amigo de Jesús",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Contar a un amigo acerca de Jesús y de lo bueno que es contigo.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Invitar a un amigo a una reunión en tu iglesia.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Con tu consejero u otro adulto que te ayude, preparar una meditación o una oración para presentarla en la Escuela Sabática, en una reunión del club o en la escuela.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Participar en una actividad misionera (de alcance o testificación).",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Asistir a un bautismo y conversar sobre su significado.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Explicar qué significa ser amigo de Jesús y nombrar a cinco amigos de Jesús mencionados en tu Biblia.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Hablar con amabilidad a tu familia y a tus amigos. Conversar sobre cómo ser amable y cortés también es ser amigo de Jesús.",
+     "sub": []
+    },
+    {
+     "position": 8,
+     "text_es": "Ser capaz de orar a la hora de comer y a la hora de dormir.",
+     "sub": []
+    }
+   ]
+  },
+  "pearly-gates": {
+   "intro_es": "Esta especialidad tiene el propósito de que los niños conozcan y esperen con anhelo la segunda venida y el cielo."
+  },
+  "temperance": {
+   "name_es": "Temperancia",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Leer y conversar sobre:",
+     "sub": [
+      "  a. 1 Cor. 6:19, 20",
+      "  b. 1 Cor. 3:17"
+     ]
+    },
+    {
+     "position": 2,
+     "text_es": "Decir qué se entiende por:",
+     "sub": [
+      "  a. Abuso de drogas",
+      "  b. Temperancia"
+     ]
+    },
+    {
+     "position": 3,
+     "text_es": "Hacer una de las siguientes actividades:",
+     "sub": [
+      "  a. Hablar con un médico o enfermero, o conversar con otro adulto, sobre el daño de usar:",
+      "    i. Tabaco",
+      "    ii. Alcohol",
+      "    iii. Otras drogas",
+      "  b. Ver una película o un video sobre los peligros de usar cualquiera de los anteriores y conversar sobre él."
+     ]
+    },
+    {
+     "position": 4,
+     "text_es": "Decir por qué algunas personas eligen fumar, tomar alcohol o usar drogas. Decir cómo podemos elegir no usarlos nosotros mismos.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Planear una dramatización que anime a otros a decir “NO” y presentarla con tu grupo.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Hacer un diseño contra el tabaco, las drogas o el alcohol y pintarlo en una camiseta, O crear un cartel que muestre los peligros del abuso de drogas.",
+     "sub": []
+    },
+    {
+     "position": 7,
+     "text_es": "Identificar a dos personas famosas que no usen tabaco, drogas ni alcohol y que estén entre los mejores en su campo. O entrevistar a dos personas que conozcas que vivan felices y saludables sin usar tabaco, drogas ni alcohol, y conversar con ellas sobre sus razones para no usar esas cosas.",
+     "sub": []
+    }
+   ]
+  },
+  "wise-steward": {
+   "name_es": "Mayordomo sabio",
+   "requirements": [
+    {
+     "position": 1,
+     "text_es": "Describir a un mayordomo sabio.",
+     "sub": []
+    },
+    {
+     "position": 2,
+     "text_es": "Con un adulto, buscar en la Biblia un texto que diga quién es el dueño de todo lo que hay en la tierra.",
+     "sub": []
+    },
+    {
+     "position": 3,
+     "text_es": "Explicar Malaquías 3:8-10. Ser capaz de llenar tu propio sobre de diezmo.",
+     "sub": []
+    },
+    {
+     "position": 4,
+     "text_es": "Hacer un cartel que muestre algunas de las cosas en que se usan tus ofrendas de la Escuela Sabática.",
+     "sub": []
+    },
+    {
+     "position": 5,
+     "text_es": "Escuchar la historia bíblica de una viuda y su pequeña ofrenda.",
+     "sub": []
+    },
+    {
+     "position": 6,
+     "text_es": "Decir cómo y por qué un mayordomo sabio cuida sus pertenencias.",
+     "sub": []
+    }
+   ]
+  }
+ }
+}
