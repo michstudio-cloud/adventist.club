@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 792 612" width="11in" height="8.5in" data-template="especialidad-color" data-source="replica-especialidad-color" data-version="1.0">
+<!-- Compilada con tools/compile_element_template.py desde el paquete por elementos «Especialidad · Marco multicolor». No editar a mano: regenerar. Unidades del diseño (1600 x 1237) dentro del grupo escalado. -->
+<image id="background" x="0" y="0" width="792" height="612" preserveAspectRatio="none" href="background.webp"/>
+<g transform="translate(0.2037 0) scale(0.494745)">
+<image id="honor_patch" x="725" y="976" width="150" height="132" preserveAspectRatio="xMidYMid meet" href=""/>
+<image id="qr" x="128" y="918" width="200" height="198" preserveAspectRatio="xMidYMid meet" data-placeholder-href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MCA3MCI+PHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZTZlOGU1Ii8+PC9zdmc+" href=""/>
+<line id="line_0" x1="527" x2="1075" y1="919" y2="919" stroke="#d5dfe4" stroke-width="3"/>
+<line id="line_1" x1="434" x2="620" y1="1021" y2="1021" stroke="#d5dfe4" stroke-width="3"/>
+<line id="line_2" x1="911" x2="1096" y1="1021" y2="1021" stroke="#d5dfe4" stroke-width="3"/>
+<text id="church_name" x="800" y="258" font-family="Advent Sans" font-weight="400" font-size="36" fill="#0068ff" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="21.6" data-max-lines="1" data-line-height="1.2" data-fallback-string="church_name"></text>
+<text id="association_name" x="800" y="295" font-family="Advent Sans" font-weight="400" font-size="23" fill="#0068ff" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="13.8" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_title-1" x="800" y="438" font-family="Poppins" font-weight="900" font-size="105" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="63" data-max-lines="1" data-line-height="1.2" data-string="title_0">CERTIFICADO DE</text>
+<text id="t_title-2" x="800" y="549" font-family="Poppins" font-weight="900" font-size="105" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="63" data-max-lines="1" data-line-height="1.2" data-string="title_1">ESPECIALIDAD</text>
+<text id="t_awarded" x="800" y="629" font-family="Poppins" font-weight="300" font-size="24" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="14.4" data-max-lines="1" data-line-height="1.2" data-string="awarded">SE OTORGA EL PRESENTE CERTIFICADO A:</text>
+<text id="recipient_name" x="800" y="746" font-family="Poppins" font-weight="700" font-size="88" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1050" data-min-size="63" data-max-lines="1" data-line-height="1.2" data-required="true"></text>
+<text id="t_completion" x="800" y="836" font-family="Poppins" font-weight="300" font-size="24" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1180" data-min-size="14.4" data-max-lines="1" data-line-height="1.2" data-string="completion">por haber cumplido satisfactoriamente los requisitos de la Especialidad:</text>
+<text id="honor_name" x="800" y="902" font-family="Poppins" font-weight="700" font-size="43" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="670" data-min-size="25" data-max-lines="1" data-line-height="1.2" data-required="true"></text>
+<text id="t_date-label" x="145" y="893" font-family="Lato" font-weight="400" font-size="16" fill="#8b949d" data-fit="shrink-wrap" data-max-width="65" data-min-size="14" data-max-lines="1" data-line-height="1.2" data-string="date">Fecha:</text>
+<text id="issued_date" x="210" y="893" font-family="Poppins" font-weight="300" font-size="16" fill="#8b949d" data-fit="shrink-wrap" data-max-width="170" data-min-size="14" data-max-lines="1" data-line-height="1.2" data-format="date-numeric" data-required="true"></text>
+<text id="t_director" x="527" y="1059" font-family="Poppins" font-weight="300" font-size="20" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="director">DIRECTOR</text>
+<text id="t_instructor" x="1003" y="1059" font-family="Poppins" font-weight="300" font-size="20" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="1300" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="instructor">INSTRUCTOR</text>
+<image id="signature_director" x="434" y="947" width="186" height="44" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="director_name" x="527" y="1006" font-family="Poppins" font-weight="300" font-size="20" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
+<image id="signature_instructor" x="911" y="947" width="185" height="44" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="instructor_name" x="1003" y="1006" font-family="Poppins" font-weight="300" font-size="20" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
+<text id="certificate_no" x="228" y="1134" font-family="Poppins" font-weight="300" font-size="14" fill="#1c1a66" text-anchor="middle" data-fit="shrink-wrap" data-max-width="200" data-min-size="13" data-max-lines="1" data-line-height="1.2"></text>
+</g>
+</svg>

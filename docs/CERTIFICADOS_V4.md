@@ -286,3 +286,12 @@ cambio es local: guardar la clave, subir con `private_storage` y que `/render` a
   se recompila.
 - En `01-editorial-rojo` un nombre de especialidad a dos líneas deja la segunda a ~30 unidades de la
   fecha: es la geometría del diseño (el renderizador de referencia hace lo mismo).
+
+## Especialidad · Marco multicolor (`replica-especialidad-color`)
+
+Hermana de la dorada: mismo contrato, mismas fuentes y mismo compilador (`tools/compile_element_template.py
+~/Documents/DEEL/certificados-diseno/replica-especialidad-color --slug especialidad-color --install`).
+Marco de color plano y emblema de esquina aplanados en `background.webp` (~70 KB). Decisión del
+propietario (2026-09-24): es la **primera del selector y la plantilla por defecto**
+(`DEFAULT_CERTIFICATE_TEMPLATE`); la muestra de la portada de conquistadores.app sale de ella.
+Test: `tests/test_certificate_color.py`.

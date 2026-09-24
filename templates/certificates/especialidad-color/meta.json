@@ -1,0 +1,17 @@
+{
+  "title": "Especialidad · Marco multicolor",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "replica-especialidad-color",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}

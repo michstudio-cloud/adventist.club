@@ -98,7 +98,7 @@ PUBLISHED = "PUBLISHED"
 
 EVIDENCE_MAX_PER_REQUIREMENT = 6
 # Owner, 2026-09-24: the v4 designs are the only honor templates offered; the first one is the default.
-DEFAULT_CERTIFICATE_TEMPLATE = "especialidad-editorial-rojo"
+DEFAULT_CERTIFICATE_TEMPLATE = "especialidad-color"
 ACTIVE_ENROLLMENT_CONSTRAINT = "honor_enrollments_user_honor_active_key"
 # Bloque F: the same rule for a program, on its own partial unique index.
 ACTIVE_ENROLLMENT_CONSTRAINTS = (
