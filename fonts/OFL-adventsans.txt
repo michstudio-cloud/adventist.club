@@ -1,3 +1,7 @@
+Origen (confirmado por el propietario, 2026-09-24): Advent Sans, tipografía global de la Iglesia
+Adventista, https://www.adventist.design/global-elements/advent-sans/ — publicada bajo la
+SIL Open Font License 1.1 que sigue abajo. Archivo: AdventSans-Beta.otf.
+
 Advent Sans Beta (AdventSans-Beta.otf, version 1.902), provided by the owner from his local fonts
 on 2026-09-24 for the «Especialidad dorada» certificate. No license file came with it; what follows
 is what the font itself declares in its name table:
