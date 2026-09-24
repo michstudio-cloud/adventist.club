@@ -835,3 +835,74 @@ async def can_view_club_score(db: AsyncSession, actor: User, club: Organization)
     if await can_view_roster(db, actor, club):
         return True
     return club.type == "club" and club.status == "active" and _attached_to(actor, club)
+
+
+# ----------------------------------------------------------------------------
+# Bloque F · F3: the club follows a class as a group — enrol, sign in bulk, invest.
+# The rules are the ones already written above; this only says who may use them in bulk.
+# ----------------------------------------------------------------------------
+async def led_unit_ids(db: AsyncSession, actor: User, club: Organization) -> list[uuid.UUID]:
+    """The units of `club` that `actor` leads today (`club_units.counselor_id`), while
+    attached to that club in an active account. Empty for everybody else."""
+    from app.services.units import COUNSELOR_ROLES, counselor_unit_ids
+
+    if club.type != "club" or club.status != "active":
+        return []
+    if actor.role not in COUNSELOR_ROLES or not _attached_to(actor, club) or director_blocked(actor):
+        return []
+    return await counselor_unit_ids(db, club.id, actor.id)
+
+
+async def can_enroll_member(
+    db: AsyncSession, actor: User, club: Organization, unit_id: uuid.UUID | None = None
+) -> bool:
+    """Enrol members of `club` in a class (F3): whoever manages the roster — the director,
+    the secretary and the hierarchy in scope — for the whole club; the counselor of a unit,
+    for that unit (`unit_id`). Enrolling changes no verdict: it only opens the card."""
+    if await can_manage_members(db, actor, club):
+        return True
+    return unit_id is not None and unit_id in await led_unit_ids(db, actor, club)
+
+
+def may_sign_in_club(actor: User, club: Organization, led_units: list[uuid.UUID]) -> bool:
+    """Coarse gate of the «firma en bloque»: does `actor` hold ANY signing power in `club`?
+    The decision is always `can_bulk_sign`, per member."""
+    if is_master(actor):
+        return True
+    if club.type != "club" or club.status != "active":
+        return False
+    staff = club_staff_in_good_standing(actor) and actor.organization_id == club.id
+    return staff or bool(led_units)
+
+
+async def can_bulk_sign(
+    db: AsyncSession,
+    actor: User,
+    enrollment: HonorEnrollment,
+    member: User,
+    member_unit_id: uuid.UUID | None,
+    led_units: list[uuid.UUID],
+) -> bool:
+    """Sign a requirement of `enrollment` straight to COMPLETE (F3, §1.8).
+
+    Whoever may give a verdict on it (`can_review`: the director and the instructors of the
+    member's club, MASTER_GC) and, besides, the counselor of the member's unit
+    (`led_units`, from `led_unit_ids`) — never on their own card, and (E7) never on a minor
+    without a church letter in force."""
+    if actor.id == enrollment.user_id:
+        return False
+    if await can_review(db, actor, enrollment):
+        return True
+    if member_unit_id is None or member_unit_id not in led_units:
+        return False
+    return not is_minor_user(member) or may_handle_minors(actor)
+
+
+def can_invest_in_club(actor: User, club: Organization) -> bool:
+    """The investiture of a class is the director's act (spec A, D3): the director of THIS
+    club in good standing, or MASTER_GC. `can_issue` still decides every enrollment."""
+    if is_master(actor):
+        return True
+    if club.type != "club" or club.status != "active":
+        return False
+    return club_staff_in_good_standing(actor, (CLUB_DIRECTOR,)) and actor.organization_id == club.id
