@@ -21,6 +21,7 @@ from app.security import (
     utcnow,
 )
 from app.services import memberships as membership_service
+from app.services import ministries as ministry_service
 from app.services import placement
 from app.services.audit import record_audit
 
@@ -68,6 +69,8 @@ async def stage_pending_club(
     # place; otherwise it is born under the association, as before, and the
     # declaration waits in `metadata_json.placement` for the association.
     church = await _declared_church(db, association, payload.church_id, payload.church_name)
+    # Optional on a request (the registration screens do not ask yet); never guessed.
+    ministry = await ministry_service.resolve(db, payload.ministry, payload.ministry_id)
     parent = association
     if church is not None and (await placement.ancestors_of(db, church)).get(placement.ZONE):
         parent = church
@@ -81,6 +84,7 @@ async def stage_pending_club(
         name=payload.name,
         status=STATUS_PENDING,
         path=f"{parent.path}.{club_id.hex}",
+        ministry_id=ministry.id if ministry is not None else None,
         city=payload.city,
         country=association.country,
         latitude=payload.latitude,
@@ -218,6 +222,8 @@ async def stage_admin_club(
             raise HTTPException(status.HTTP_409_CONFLICT, CLUB_CODE_TAKEN)
 
     director = await _eligible_director(db, actor, payload.director_email)
+    # Rule 3 of ESTADO.md: a club the administration opens always says its ministry.
+    ministry = await ministry_service.require(db, payload.ministry, payload.ministry_id)
 
     club_id = uuid.uuid4()
     now = utcnow()
@@ -229,6 +235,7 @@ async def stage_admin_club(
         code=payload.code,
         status=STATUS_ACTIVE,
         path=f"{association.path}.{club_id.hex}",
+        ministry_id=ministry.id,
         city=payload.city,
         state=payload.state,
         country=payload.country or association.country,
@@ -262,6 +269,7 @@ async def stage_admin_club(
             "association_id": str(association.id),
             "parent_id": str(association.id),
             "director_id": str(director.id) if director is not None else None,
+            "ministry": ministry.slug,
         },
         request=request,
     )

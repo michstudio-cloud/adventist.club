@@ -42,6 +42,7 @@ from app.security import utcnow
 from app.services import attendance as attendance_service
 from app.services import club_score
 from app.services import memberships as membership_service
+from app.services import ministries as ministry_service
 from app.services import officers as officer_service
 from app.services import placement
 from app.services import service_hours
@@ -336,6 +337,7 @@ async def public_profile(
         ],
         active_members=active_members,
         accepts_requests=membership_service.accepts_requests(club),
+        ministry=await ministry_service.ref_of(db, club),
     )
 
 

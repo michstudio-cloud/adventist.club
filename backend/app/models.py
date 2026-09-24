@@ -65,6 +65,9 @@ class Organization(Base):
     longitude: Mapped[float|None]=mapped_column(Float)
     metadata_json: Mapped[dict|None]=mapped_column(JSONB)
     legacy_mongo_id: Mapped[str|None]=mapped_column(String(24))
+    # 019_club_ministry.sql: the ministry of a CLUB (NULL for every other node, and for a
+    # club that never declared one). Rule 3 of ESTADO.md: nothing guesses it.
+    ministry_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("ministries.id"))
 
 class Club(Base):
     __tablename__="clubs"

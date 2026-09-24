@@ -68,7 +68,8 @@ async def _node(node_id: str) -> dict:
 
 
 async def _create(client, world, actor: str = "assoc_admin", **body):
-    payload = {"association_id": world["association"]["id"], **body}
+    # Every club the administration opens names its ministry (019_club_ministry.sql).
+    payload = {"association_id": world["association"]["id"], "ministry": "pathfinders", **body}
     return await client.post(ADMIN_CLUBS, json=payload, headers=world[actor]["headers"])
 
 
@@ -264,14 +265,22 @@ async def test_club_staff_cannot_list_either(client, world):
 async def test_bad_input_is_refused(client, factory, world):
     not_association = await client.post(
         ADMIN_CLUBS,
-        json={"name": factory.name("club-x"), "association_id": world["zone_a"]["id"]},
+        json={
+            "name": factory.name("club-x"),
+            "association_id": world["zone_a"]["id"],
+            "ministry": "pathfinders",
+        },
         headers=world["master"]["headers"],
     )
     assert not_association.status_code == 400, not_association.text
     assert not_association.json()["detail"] == "association_not_found"
     missing = await client.post(
         ADMIN_CLUBS,
-        json={"name": factory.name("club-x"), "association_id": str(uuid.uuid4())},
+        json={
+            "name": factory.name("club-x"),
+            "association_id": str(uuid.uuid4()),
+            "ministry": "pathfinders",
+        },
         headers=world["master"]["headers"],
     )
     assert missing.status_code == 400, missing.text

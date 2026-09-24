@@ -66,6 +66,7 @@ from app.services import attendance as attendance_service
 from app.services import email as email_service
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
+from app.services import ministries as ministry_service
 from app.services import notifications
 from app.services import officers as officer_service
 from app.services import units as unit_service
@@ -798,7 +799,12 @@ async def update_club_profile(
         request=request,
     )
     await db.commit()
-    return ClubProfileOut(club_id=str(club.id), name=club.name, profile=profile)
+    return ClubProfileOut(
+        club_id=str(club.id),
+        name=club.name,
+        profile=profile,
+        ministry=await ministry_service.ref_of(db, club),
+    )
 
 
 # ----------------------------------------------------------------------------

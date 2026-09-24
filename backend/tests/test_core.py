@@ -29,7 +29,8 @@ async def test_ministries_shape(client):
     assert response.status_code == 200
     rows = response.json()
     assert {"pathfinders", "adventurers"} <= {row["slug"] for row in rows}
-    assert all(set(row) == {"id", "slug", "name"} for row in rows)
+    assert all(set(row) == {"id", "slug", "name", "status"} for row in rows)
+    assert all(row["status"] == "ACTIVE" for row in rows)
     expected = await fetch_all("SELECT name FROM ministries WHERE status = 'active' ORDER BY name")
     assert [row["name"] for row in rows] == [row["name"] for row in expected]
 

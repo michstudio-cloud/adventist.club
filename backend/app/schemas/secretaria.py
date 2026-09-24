@@ -9,6 +9,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from app.schemas.ministry import MinistryRef
 from app.schemas.org import OrgRef
 from app.schemas.unit import UnitRef
 
@@ -233,6 +234,8 @@ class ClubPublicProfile(BaseModel):
     officers: list[PublicOfficer]
     active_members: int
     accepts_requests: bool
+    # Conquistadores, Aventureros or Guías Mayores; None while the club declares none.
+    ministry: MinistryRef | None = None
 
 
 # ----------------------------------------------------------------------------
