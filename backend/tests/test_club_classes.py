@@ -389,6 +389,43 @@ async def test_a_club_that_declares_its_ministry_is_offered_only_its_classes(cli
         world["outsider"]["membership_id"]]
 
 
+async def test_the_ministry_column_wins_over_the_metadata(client, world, factory):
+    """019_club_ministry.sql: `organizations.ministry_id` is the truth; the metadata slug is
+    only the fallback while the column is NULL. The answer names the club's ministry."""
+    await _exec(
+        "UPDATE organizations SET metadata_json = :meta,"
+        " ministry_id = (SELECT id FROM ministries WHERE slug = 'pathfinders') WHERE id = :id",
+        meta='{"ministry": "adventurers"}', id=uuid.UUID(world["other_club"]["id"]))
+    try:
+        pathfinders = await _program(factory, "col-conquis")
+        adventurers = await _program(factory, "col-aventureros", ministry="adventurers")
+        url = f"{CLUBS}/{world['other_club']['id']}/classes"
+        body = (await client.get(url, headers=world["director_b"]["headers"])).json()
+        assert body["ministry"]["slug"] == "pathfinders"
+        assert set(body["ministry"]) == {"id", "slug", "name"}
+        offered = {item["id"]: item["ministry"] for item in body["available"]}
+        assert pathfinders["id"] in offered and adventurers["id"] not in offered
+        assert set(offered.values()) == {"pathfinders"}
+        refused = await client.post(f"{url}/{adventurers['id']}/enroll", json={},
+                                    headers=world["director_b"]["headers"])
+        assert refused.status_code == 409
+        assert refused.json()["detail"] == "program_not_in_club_ministry"
+    finally:
+        await _exec("UPDATE organizations SET ministry_id = NULL WHERE id = :id",
+                    id=uuid.UUID(world["other_club"]["id"]))
+
+
+async def test_a_club_without_a_ministry_is_offered_every_ministry(client, world, factory):
+    """Nothing guesses a ministry: without one the club sees every published class, and the
+    answer says `ministry: null` so the screen can warn about it."""
+    adventurers = await _program(factory, "sin-min-aventureros", ministry="adventurers")
+    pathfinders = await _program(factory, "sin-min-conquis")
+    body = (await client.get(_url(world), headers=world["director"]["headers"])).json()
+    assert body["ministry"] is None
+    offered = {item["id"] for item in body["available"]}
+    assert {adventurers["id"], pathfinders["id"]} <= offered
+
+
 async def test_who_may_read_the_club_classes(client, world):
     for actor in ("director", "secretary", "instructor", "counselor", "admin", "master"):
         assert (await client.get(_url(world), headers=world[actor]["headers"])).status_code == 200, actor

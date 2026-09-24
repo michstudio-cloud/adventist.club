@@ -11,6 +11,7 @@ from typing import Literal
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 from app.config import settings
+from app.schemas.ministry import MinistryRef
 from app.schemas.secretaria import Completeness
 from app.schemas.unit import PersonRef, UnitRef
 
@@ -165,6 +166,8 @@ class ClubProfileOut(BaseModel):
     club_id: str
     name: str
     profile: dict
+    # Read-only here: the director never changes the ministry of their club.
+    ministry: MinistryRef | None = None
 
 
 # ----------------------------------------------------------------------------

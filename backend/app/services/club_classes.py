@@ -12,9 +12,10 @@ Who may do what is decided in app/rbac.py (`can_enroll_member`, `can_bulk_sign`,
 (`attendance.reading_scope`: a counselor reads their units, staff without a church letter
 do not see minors).
 
-Where the club's ministry comes from (rule 3 of ESTADO.md: never a hidden default): an
-organization carries no ministry column, so it is `organizations.metadata_json.ministry`
-when the club declares one; otherwise every ministry with published classes is offered.
+Where the club's ministry comes from (rule 3 of ESTADO.md: never a hidden default): the
+column `organizations.ministry_id` (019_club_ministry.sql) and, while it is still NULL, the
+slug the club declared in `metadata_json.ministry` (`app.services.ministries.of_club`). A club
+that declares none is offered the classes of every ministry, and the screen warns about it.
 """
 import uuid
 from datetime import date
@@ -81,6 +82,7 @@ from app.schemas.program import ProgramRef
 from app.schemas.unit import UnitRef
 from app.security import STUDENT, utcnow
 from app.services import attendance, curriculum, portfolio, portfolio_links, programs
+from app.services import ministries as ministry_service
 from app.services import units as unit_service
 from app.services.audit import record_audit
 
@@ -121,12 +123,10 @@ async def _program(db: AsyncSession, program_id: uuid.UUID) -> Program:
     return program
 
 
-async def _club_ministry(db: AsyncSession, club: Organization) -> tuple[bool, uuid.UUID | None]:
-    """-> (the club declares a ministry, its id). An unknown slug matches no program."""
-    slug = (club.metadata_json or {}).get("ministry")
-    if not slug:
-        return False, None
-    return True, await db.scalar(select(Ministry.id).where(Ministry.slug == slug))
+async def _club_ministry(db: AsyncSession, club: Organization) -> tuple[bool, Ministry | None]:
+    """-> (the club declares a ministry, the row). The column first, then the declared
+    slug; an unknown slug is declared but matches no program."""
+    return await ministry_service.of_club(db, club)
 
 
 def _live_in_club(club: Organization):
@@ -161,10 +161,10 @@ async def list_classes(db: AsyncSession, actor: User, club: Organization) -> Clu
             by_status = counts.setdefault(program_id, {})
             by_status[enrollment_status] = by_status.get(enrollment_status, 0) + 1
 
-    declared, ministry_id = await _club_ministry(db, club)
+    declared, ministry = await _club_ministry(db, club)
     offered = and_(Program.status == PUBLISHED, Program.kind.in_(CLASS_KINDS))
     if declared:
-        offered = and_(offered, Program.ministry_id == ministry_id)
+        offered = and_(offered, Program.ministry_id == (ministry.id if ministry else None))
     if counts:
         # A class the club follows stays listed even once archived: its members are mid-way.
         offered = offered | Program.id.in_(list(counts))
@@ -203,7 +203,9 @@ async def list_classes(db: AsyncSession, actor: User, club: Organization) -> Clu
                     image_url=program.image_url, ministry=slugs.get(program.ministry_id),
                 )
             )
-    return ClubClasses(classes=classes, available=available)
+    return ClubClasses(
+        classes=classes, available=available, ministry=ministry_service.as_ref(ministry)
+    )
 
 
 # ----------------------------------------------------------------------------
@@ -233,8 +235,8 @@ async def enroll(
             raise HTTPException(status.HTTP_403_FORBIDDEN, UNIT_FORBIDDEN)
     if program.status != PUBLISHED:
         raise HTTPException(status.HTTP_409_CONFLICT, PROGRAM_NOT_PUBLISHED)
-    declared, ministry_id = await _club_ministry(db, club)
-    if declared and program.ministry_id != ministry_id:
+    declared, ministry = await _club_ministry(db, club)
+    if declared and (ministry is None or program.ministry_id != ministry.id):
         raise HTTPException(status.HTTP_409_CONFLICT, PROGRAM_OTHER_MINISTRY)
     # Resolved ONCE: every member gets the same requirement list, in the program's source
     # language (a leader enrols the club; nobody chose a language for each child).

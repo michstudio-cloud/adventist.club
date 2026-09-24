@@ -105,7 +105,8 @@ async def health(db:AsyncSession=Depends(get_db)):
 @app.get("/api/v1/ministries")
 async def ministries(db:AsyncSession=Depends(get_db)):
     rows=(await db.execute(select(Ministry).where(Ministry.status=="active").order_by(Ministry.name))).scalars().all()
-    return [{"id":str(x.id),"slug":x.slug,"name":x.name} for x in rows]
+    # Public: the ministry pickers (new club, club search) read it. Active ones only.
+    return [{"id":str(x.id),"slug":x.slug,"name":x.name,"status":x.status.upper()} for x in rows]
 
 @app.get("/api/v1/applications")
 async def applications(db:AsyncSession=Depends(get_db)):

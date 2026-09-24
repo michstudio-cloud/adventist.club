@@ -6,6 +6,10 @@ from typing import Any, Literal
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 from app.models import Organization
+from app.schemas.ministry import MINISTRY_SLUG_PATTERN, MinistryRef
+
+# 422 detail of a new CLUB that names no ministry (rule 3 of ESTADO.md: nothing guesses it).
+CLUB_MINISTRY_REQUIRED = "club_ministry_required"
 
 # Top to bottom. A node's parent must be exactly one level above it.
 ORG_HIERARCHY = ("division", "union", "association", "zone", "church", "club", "unit")
@@ -38,7 +42,19 @@ class _OrgWritable(BaseModel):
         return self
 
 
-class OrgNodeCreate(_OrgWritable):
+class _MinistryChoice(BaseModel):
+    """The ministry of a club, by slug (`ministry`) or by id (`ministry_id`). Both at once
+    must name the same row: the service checks it against the database."""
+
+    ministry: str | None = Field(default=None, pattern=MINISTRY_SLUG_PATTERN)
+    ministry_id: uuid.UUID | None = None
+
+    @property
+    def names_a_ministry(self) -> bool:
+        return bool(self.ministry) or self.ministry_id is not None
+
+
+class OrgNodeCreate(_OrgWritable, _MinistryChoice):
     name: str = Field(min_length=1, max_length=180)
     type: str
     parent_id: uuid.UUID | None = None
@@ -51,8 +67,19 @@ class OrgNodeCreate(_OrgWritable):
             raise ValueError(f"type must be one of {[t.upper() for t in ORG_HIERARCHY]}")
         return value
 
+    @model_validator(mode="after")
+    def _club_names_its_ministry(self):
+        if self.type == "club" and not self.names_a_ministry:
+            raise ValueError(CLUB_MINISTRY_REQUIRED)
+        if self.type != "club" and self.names_a_ministry:
+            raise ValueError("Sólo un club tiene ministerio")
+        return self
 
-class OrgNodeUpdate(_OrgWritable):
+
+class OrgNodeUpdate(_OrgWritable, _MinistryChoice):
+    """`ministry` / `ministry_id` change the ministry of a CLUB: only the administration of
+    its association or above (never its director), and never back to «none»."""
+
     name: str | None = Field(default=None, min_length=1, max_length=180)
     status: str | None = None
 
@@ -69,7 +96,7 @@ class OrgNodeUpdate(_OrgWritable):
         return value
 
 
-class ClubSignup(BaseModel):
+class ClubSignup(_MinistryChoice):
     """A director's request to open a club under an association. Used both by
     `POST /auth/register` (field `club`) and `POST /org-nodes/clubs`.
 
@@ -79,6 +106,8 @@ class ClubSignup(BaseModel):
     when it accepts the request.
     """
 
+    # `ministry` / `ministry_id` (inherited): optional here for one more cycle, so the
+    # registration screens keep working; the association assigns it when it is missing.
     name: str = Field(min_length=2, max_length=180)
     association_id: uuid.UUID
     church_id: uuid.UUID | None = None
@@ -221,7 +250,7 @@ class ClubApproval(BaseModel):
 CLUB_LIST_STATUSES = ("active", "pending", "rejected", "inactive", "all")
 
 
-class AdminClubCreate(BaseModel):
+class AdminClubCreate(_MinistryChoice):
     """`POST /org-nodes/clubs/admin`: the administration opens a club itself,
     already ACTIVE and connected to its association.
 
@@ -231,6 +260,8 @@ class AdminClubCreate(BaseModel):
     off an association); a church alone that already has a zone places the
     club under it, and otherwise it stays declared for later, as a director's
     request would.
+
+    The ministry (`ministry` slug or `ministry_id`) is REQUIRED: 422 without it.
     """
 
     name: str = Field(min_length=2, max_length=180)
@@ -270,6 +301,8 @@ class AdminClubCreate(BaseModel):
             raise ValueError("Indica `zone_id` o `zone_name`, no los dos")
         if self.church_id and self.church_name:
             raise ValueError("Indica `church_id` o `church_name`, no los dos")
+        if not self.names_a_ministry:
+            raise ValueError(CLUB_MINISTRY_REQUIRED)
         return self
 
 
@@ -312,9 +345,12 @@ class OrgNodeResponse(BaseModel):
     status: str
     created_at: datetime
     updated_at: datetime
+    # Only a CLUB has one (019_club_ministry.sql); None for every other node and for a
+    # club that never declared one. Filled by `app.services.ministries.refs_for`.
+    ministry: MinistryRef | None = None
 
     @classmethod
-    def from_model(cls, node: Organization) -> "OrgNodeResponse":
+    def from_model(cls, node: Organization, ministry: MinistryRef | None = None) -> "OrgNodeResponse":
         location = None
         if node.latitude is not None and node.longitude is not None:
             location = GeoPoint(coordinates=[node.longitude, node.latitude])
@@ -337,6 +373,7 @@ class OrgNodeResponse(BaseModel):
             status=node.status.upper(),
             created_at=node.created_at,
             updated_at=node.updated_at,
+            ministry=ministry,
         )
 
 
@@ -381,8 +418,9 @@ class PendingClubResponse(OrgNodeResponse):
         church: Organization | None = None,
         declared: dict | None = None,
         director=None,
+        ministry: MinistryRef | None = None,
     ) -> "PendingClubResponse":
-        base = OrgNodeResponse.from_model(node).model_dump()
+        base = OrgNodeResponse.from_model(node, ministry).model_dump()
         return cls(
             **base,
             association=_ref(association),
@@ -416,6 +454,7 @@ class AdminClubRow(BaseModel):
     church: OrgRef | None = None
     director: ClubRequester | None = None
     members_count: int = 0
+    ministry: MinistryRef | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -465,6 +504,7 @@ class NearbyClub(BaseModel):
     # shows «Solicitar unirme» or «No recibe solicitudes» from this.
     accepts_requests: bool = True
     association: OrgRef | None = None
+    ministry: MinistryRef | None = None
 
 
 class UnplacedClub(BaseModel):

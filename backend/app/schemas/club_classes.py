@@ -10,6 +10,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.schemas.ministry import MinistryRef
 from app.schemas.program import ProgramKind, ProgramRef
 from app.schemas.unit import UnitRef
 
@@ -55,6 +56,9 @@ class AvailableClass(BaseModel):
 class ClubClasses(BaseModel):
     classes: list[ClubClass]
     available: list[AvailableClass]
+    # The club's ministry (019_club_ministry.sql). None: the club declares none, so
+    # `available` carries the classes of every ministry and the screen says so.
+    ministry: MinistryRef | None = None
 
 
 # ----------------------------------------------------------------------------

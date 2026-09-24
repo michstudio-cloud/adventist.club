@@ -103,10 +103,21 @@ async def test_wrong_type_order_is_400(client, factory):
     # The whole chain, in order, works.
     parent = union
     for org_type in ("association", "zone", "church", "club", "unit"):
+        # A club always names its ministry (019_club_ministry.sql, rule 3 of ESTADO.md).
+        extra = {"ministry": "pathfinders"} if org_type == "club" else {}
+        if org_type == "club":
+            nameless = await _create(
+                client, master["headers"], factory, "club-sin", "club", parent["id"]
+            )
+            assert nameless.status_code == 422, nameless.text
         created = await _create(
-            client, master["headers"], factory, org_type, org_type, parent["id"]
+            client, master["headers"], factory, org_type, org_type, parent["id"], **extra
         )
         assert created.status_code == 201, created.text
+        if org_type == "club":
+            assert created.json()["ministry"]["slug"] == "pathfinders"
+        else:
+            assert created.json()["ministry"] is None
         parent = created.json()
     leaf = await fetch_one(
         "SELECT nlevel(path) AS depth FROM organizations WHERE id = :id", id=uuid.UUID(parent["id"])
@@ -207,7 +218,9 @@ async def test_free_form_rows_are_left_alone(client, factory):
     assert patched.status_code == 400
     deleted = await client.delete(f"{ORG}/{network['id']}", headers=master["headers"])
     assert deleted.status_code == 400
-    child = await _create(client, master["headers"], factory, "free-child", "club", network["id"])
+    child = await _create(
+        client, master["headers"], factory, "free-child", "club", network["id"], ministry="pathfinders"
+    )
     assert child.status_code == 400
     row = await fetch_one(
         "SELECT name, status FROM organizations WHERE id = :id", id=uuid.UUID(network["id"])
