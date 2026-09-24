@@ -89,6 +89,9 @@ class PrototypeBatchCreate(BaseModel):
     # /verify/{no} offers PNG/PDF for these folios too. None = DEFAULT_CERTIFICATE_TEMPLATE;
     # one the engine does not know is 422 `template_not_found`.
     template:str|None=Field(default=None,pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
+    # 016: the language the assistant printed it in, so a later download by folio (/verify)
+    # comes out the same. One the template does not speak is 422 `locale_not_supported`.
+    locale:str=Field(default="es",pattern=r"^[a-z]{2}$")
 
 class PrintPdfRequest(BaseModel):
     """Legacy shape (margin_in / gap_in) plus the full imposition options.
@@ -179,6 +182,7 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     slug=payload.template or DEFAULT_CERTIFICATE_TEMPLATE
     try:svg_template=load_template(slug)
     except TemplateError:raise HTTPException(422,{"code":"template_not_found","detail":"Esa plantilla no existe."})
+    if payload.locale not in svg_template.locales:raise HTTPException(422,{"code":"locale_not_supported","detail":"La plantilla no está en ese idioma."})
     # The record keeps the engine's slug and ITS size (the print sheet is the assistant's
     # business: width_in/height_in still only size the imposition on the client).
     w,h=round(svg_template.width_pt/72,4),round(svg_template.height_pt/72,4)
@@ -187,7 +191,7 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None))
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None,locale=payload.locale))
     # One immutable copy per signature for the whole batch (the folder of its first certificate).
     await certificate_signatures.attach(created,signatures)
     await db.commit()

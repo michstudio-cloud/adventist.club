@@ -217,6 +217,14 @@ async def test_the_assistant_batch_keeps_the_template_it_rendered(client, factor
     verified = (await client.get(f"/api/v1/certificates/verify/{default.json()[0]['certificate_no']}")).json()
     assert verified["template_slug"] == DEFAULT_CERTIFICATE_TEMPLATE
 
+    # The language it was printed in travels too, so the download by folio matches.
+    english = await _prototype(client, factory, template="especialidad-modular-azul", locale="en")
+    assert english.status_code == 201, english.text
+    verified = (await client.get(f"/api/v1/certificates/verify/{english.json()[0]['certificate_no']}")).json()
+    assert verified["locale"] == "en" and verified["template_slug"] == "especialidad-modular-azul"
+    unsupported = await _prototype(client, factory, template="especialidad-modular-azul", locale="de")
+    assert unsupported.status_code == 422 and unsupported.json()["detail"]["code"] == "locale_not_supported"
+
     before = await fetch_one("SELECT count(*) AS n FROM certificates")
     unknown = await _prototype(client, factory, template="no-existe-esta")
     assert unknown.status_code == 422, unknown.text
