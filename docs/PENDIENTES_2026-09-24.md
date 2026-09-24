@@ -24,7 +24,9 @@ Tres agentes de la **fase 2 de escritorio** quedaron trabajando al cierre. Sus r
 2. `feat/desktop-honor` — `/honors/[id]` a dos columnas, parche sin caja, barra de acciones fija, migas.
 3. `feat/desktop-catalog` — `/categories` con riel de filtros, retícula densa sin cajas, hovercard, búsqueda solo desde ⌘K.
 
-Estado al cierre: `feat/desktop-catalog` **terminada** (commit `043df76`: gates, 25 tests, e2e 10 en verde; capturas 375/768 idénticas a main; búsqueda vía paleta ⌘K «Filtrar el catálogo por …»; tandas de 96 con carga automática; pendiente comprobar en producción el nº de requisitos de la vista previa). `feat/desktop-member` y `feat/desktop-honor` seguían en marcha.
+Estado al cierre: `feat/desktop-catalog` **terminada** (commit `043df76`: gates, 25 tests, e2e 10 en verde; capturas 375/768 idénticas a main; búsqueda vía paleta ⌘K «Filtrar el catálogo por …»; tandas de 96 con carga automática; pendiente comprobar en producción el nº de requisitos de la vista previa). `feat/desktop-honor` **terminada** (commit `19f0279`: gates, 20 tests, e2e 04/10; móvil idéntico; migas vía `DeskCrumbsProvider`; nota: el gris de las opciones no marcadas de `cq-segmented` queda en 4,18:1 en claro en toda la app — corregir en `primitives.css`). `feat/desktop-member` seguía en marcha.
+
+Corrección publicada tras el cierre: `/verify/<folio>` muestra el certificado real renderizado desde el registro (diseño, firmas, QR) en vez de la maqueta CSS; los folios antiguos sin diseño guardado usan el diseño por defecto (frontend `8c3607b`).
 
 Si alguno no terminó, su worktree está en el scratchpad de la sesión (`wt-desk-member|honor|catalog`); la rama conserva los commits.
 
