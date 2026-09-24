@@ -235,7 +235,14 @@ class ClubPublicProfile(BaseModel):
     active_members: int
     accepts_requests: bool
     # Conquistadores, Aventureros or Guías Mayores; None while the club declares none.
+    # Since 022 it is the principal one; `ministries` lists them all, principal first.
     ministry: MinistryRef | None = None
+    ministries: list[MinistryRef] = []
+    # 022: where the club meets (public, like the pin of `/clubs`) as Google Places named it.
+    address: str | None = None
+    maps_url: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
 
 
 # ----------------------------------------------------------------------------

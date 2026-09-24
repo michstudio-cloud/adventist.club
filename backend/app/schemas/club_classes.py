@@ -56,9 +56,11 @@ class AvailableClass(BaseModel):
 class ClubClasses(BaseModel):
     classes: list[ClubClass]
     available: list[AvailableClass]
-    # The club's ministry (019_club_ministry.sql). None: the club declares none, so
+    # The club's principal ministry (019_club_ministry.sql). None: the club declares none, so
     # `available` carries the classes of every ministry and the screen says so.
     ministry: MinistryRef | None = None
+    # 022: every ministry of the club, principal first; `available` carries the classes of all.
+    ministries: list[MinistryRef] = []
 
 
 # ----------------------------------------------------------------------------

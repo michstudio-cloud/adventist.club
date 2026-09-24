@@ -8,7 +8,7 @@ no duplica nada y deja los valores como aquí se describen. Sólo escribe en una
 a correr contra cualquier otra (la misma regla que `tests/conftest.py`).
 
 Siembra lo que el API no deja crear desde fuera:
-  * ministerios (pathfinders, adventurers, master-guides);
+  * ministerios (pathfinders, adventurers, master-guides, youth);
   * el árbol división → unión → asociación → zona → iglesia (más una segunda asociación, ajena);
   * una categoría y tres especialidades PUBLICADAS con requisitos en español (una con un requisito
     práctico);
@@ -39,7 +39,13 @@ def sid(key: str) -> uuid.UUID:
     return uuid.uuid5(NAMESPACE, key)
 
 
-MINISTRIES = [("pathfinders", "Pathfinders"), ("adventurers", "Adventurers"), ("master-guides", "Master Guides")]
+# Los cuatro de producción (2026-09-24: `GET /ministries` también trae «youth», Jóvenes).
+MINISTRIES = [
+    ("pathfinders", "Pathfinders"),
+    ("adventurers", "Adventurers"),
+    ("master-guides", "Master Guides"),
+    ("youth", "Jóvenes"),
+]
 
 # (clave, tipo, nombre, código, clave del padre)
 ORGS = [

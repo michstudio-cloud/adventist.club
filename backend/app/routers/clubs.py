@@ -63,6 +63,7 @@ from app.schemas.unit import (
 )
 from app.security import COUNSELOR, STUDENT, utcnow
 from app.services import attendance as attendance_service
+from app.services import club_logo
 from app.services import email as email_service
 from app.services import invitations as invitation_service
 from app.services import memberships as membership_service
@@ -782,9 +783,15 @@ async def update_club_profile(
     changes = payload.model_dump(exclude_unset=True)
     if not changes:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "No hay nada que actualizar")
+    if "logo_url" in changes:
+        # 022: the logo is a column, and only the director or the association (or above)
+        # changes it — the secretary edits the rest of the profile, never the logo.
+        await club_logo.require_logo_rights(db, current_user, club)
+        club.logo_url = changes["logo_url"]
 
     metadata = dict(club.metadata_json or {})
     profile = {**metadata.get("profile", {}), **changes}
+    profile.pop("logo_url", None)
     # Reassign a new dict: in-place JSONB mutations are not tracked.
     club.metadata_json = {**metadata, "profile": profile}
     club.updated_at = utcnow()
@@ -799,11 +806,14 @@ async def update_club_profile(
         request=request,
     )
     await db.commit()
+    ministries = await ministry_service.list_of(db, club)
     return ClubProfileOut(
         club_id=str(club.id),
         name=club.name,
-        profile=profile,
-        ministry=await ministry_service.ref_of(db, club),
+        profile={**profile, "logo_url": club.logo_url},
+        ministry=ministries[0] if ministries else None,
+        ministries=ministries,
+        logo_url=club.logo_url,
     )
 
 

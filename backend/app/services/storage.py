@@ -27,7 +27,9 @@ PROFILE_FOLDERS = {"avatars", "covers"}
 SVG_FOLDERS = {"patches", "logos"}
 # Written only by the API itself, never through `POST /media/upload` (not in ALLOWED_FOLDERS):
 # `signatures/` holds the handwritten signatures saved to an account (020_signatures.sql).
-INTERNAL_FOLDERS = {"signatures"}
+# `clubs/<id>/logo-<hash>.webp` holds each club's logo (022_club_ministries.sql), written by
+# `POST /media/clubs/{id}/logo` with a key the API builds.
+INTERNAL_FOLDERS = {"signatures", "clubs"}
 DEFAULT_FOLDER = "general"
 
 MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024
@@ -159,9 +161,14 @@ async def delete_quietly(key: str) -> None:
 
 async def upload_bytes(data: bytes, content_type: str, folder: str) -> tuple[str, str]:
     """Upload and return (public_url, key). The blocking SDK call runs in a thread."""
+    return await upload_bytes_at(build_key(folder, content_type), data, content_type)
+
+
+async def upload_bytes_at(key: str, data: bytes, content_type: str) -> tuple[str, str]:
+    """Upload under a key the API chose itself (never a client-supplied path) and return
+    (public_url, key). Used by `clubs/<id>/logo-<hash>` (022)."""
     if not settings.storage_configured:
         raise StorageNotConfigured("R2 credentials are not configured")
-    key = build_key(folder, content_type)
     try:
         await anyio.to_thread.run_sync(_put_object, key, data, content_type)
     except StorageNotConfigured:

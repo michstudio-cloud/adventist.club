@@ -68,6 +68,20 @@ class Organization(Base):
     # 019_club_ministry.sql: the ministry of a CLUB (NULL for every other node, and for a
     # club that never declared one). Rule 3 of ESTADO.md: nothing guesses it.
     ministry_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("ministries.id"))
+    # 022_club_ministries.sql: since then `ministry_id` is the PRINCIPAL ministry, derived from
+    # `organization_ministries` (the first one chosen). The list is the truth.
+    # Where the club meets, as Google Places (or a pasted link) names it; and its logo.
+    address: Mapped[str|None]=mapped_column(Text)
+    place_id: Mapped[str|None]=mapped_column(String(255))
+    maps_url: Mapped[str|None]=mapped_column(Text)
+    logo_url: Mapped[str|None]=mapped_column(Text)
+
+class OrganizationMinistry(Base):
+    """022_club_ministries.sql: every ministry a club works with (one row each)."""
+    __tablename__="organization_ministries"
+    organization_id: Mapped[uuid.UUID]=mapped_column(UUID(as_uuid=True),ForeignKey("organizations.id",ondelete="CASCADE"),primary_key=True)
+    ministry_id: Mapped[uuid.UUID]=mapped_column(UUID(as_uuid=True),ForeignKey("ministries.id"),primary_key=True)
+    created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),server_default=func.now())
 
 class Club(Base):
     __tablename__="clubs"

@@ -69,9 +69,9 @@ async def stage_pending_club(
     # place; otherwise it is born under the association, as before, and the
     # declaration waits in `metadata_json.placement` for the association.
     church = await _declared_church(db, association, payload.church_id, payload.church_name)
-    # Rule 3 of ESTADO.md: a request names its ministry like any new club (422
-    # `club_ministry_required` without one); nothing ever guesses it.
-    ministry = await ministry_service.require(db, payload.ministry, payload.ministry_id)
+    # Rule 3 of ESTADO.md: a request names its ministries like any new club (422
+    # `club_ministry_required` without one); nothing ever guesses them.
+    ministries = await ministry_service.require_choice(db, payload)
     parent = association
     if church is not None and (await placement.ancestors_of(db, church)).get(placement.ZONE):
         parent = church
@@ -85,11 +85,14 @@ async def stage_pending_club(
         name=payload.name,
         status=STATUS_PENDING,
         path=f"{parent.path}.{club_id.hex}",
-        ministry_id=ministry.id,
         city=payload.city,
-        country=association.country,
+        state=payload.state,
+        country=payload.country or association.country,
         latitude=payload.latitude,
         longitude=payload.longitude,
+        address=payload.address,
+        place_id=payload.place_id,
+        maps_url=payload.maps_url,
         metadata_json={
             "requested_by": str(director.id),
             "requested_at": now.isoformat(),
@@ -107,6 +110,7 @@ async def stage_pending_club(
         updated_at=now,
     )
     db.add(club)
+    await ministry_service.set_club_ministries(db, club, ministries)
     # The ORM has no relationship() metadata: the club must exist before the
     # user row points at it.
     await db.flush()
@@ -141,7 +145,8 @@ async def stage_pending_club(
         metadata={
             "association_id": str(association.id),
             "association_code": association.code,
-            "ministry": ministry.slug,
+            "ministry": ministries[0].slug,
+            "ministries": [row.slug for row in ministries],
         },
         request=request,
     )
@@ -227,8 +232,8 @@ async def stage_admin_club(
             raise HTTPException(status.HTTP_409_CONFLICT, CLUB_CODE_TAKEN)
 
     director = await _eligible_director(db, actor, payload.director_email)
-    # Rule 3 of ESTADO.md: a club the administration opens always says its ministry.
-    ministry = await ministry_service.require(db, payload.ministry, payload.ministry_id)
+    # Rule 3 of ESTADO.md: a club the administration opens always says its ministries.
+    ministries = await ministry_service.require_choice(db, payload)
 
     club_id = uuid.uuid4()
     now = utcnow()
@@ -240,12 +245,14 @@ async def stage_admin_club(
         code=payload.code,
         status=STATUS_ACTIVE,
         path=f"{association.path}.{club_id.hex}",
-        ministry_id=ministry.id,
         city=payload.city,
         state=payload.state,
         country=payload.country or association.country,
         latitude=payload.latitude,
         longitude=payload.longitude,
+        address=payload.address,
+        place_id=payload.place_id,
+        maps_url=payload.maps_url,
         metadata_json={
             "created_via": VIA_ADMIN,
             "created_by": str(actor.id),
@@ -261,6 +268,7 @@ async def stage_admin_club(
         updated_at=now,
     )
     db.add(club)
+    await ministry_service.set_club_ministries(db, club, ministries)
     await db.flush()
     record_audit(
         db,
@@ -274,7 +282,8 @@ async def stage_admin_club(
             "association_id": str(association.id),
             "parent_id": str(association.id),
             "director_id": str(director.id) if director is not None else None,
-            "ministry": ministry.slug,
+            "ministry": ministries[0].slug,
+            "ministries": [row.slug for row in ministries],
         },
         request=request,
     )
