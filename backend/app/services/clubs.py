@@ -69,8 +69,9 @@ async def stage_pending_club(
     # place; otherwise it is born under the association, as before, and the
     # declaration waits in `metadata_json.placement` for the association.
     church = await _declared_church(db, association, payload.church_id, payload.church_name)
-    # Optional on a request (the registration screens do not ask yet); never guessed.
-    ministry = await ministry_service.resolve(db, payload.ministry, payload.ministry_id)
+    # Rule 3 of ESTADO.md: a request names its ministry like any new club (422
+    # `club_ministry_required` without one); nothing ever guesses it.
+    ministry = await ministry_service.require(db, payload.ministry, payload.ministry_id)
     parent = association
     if church is not None and (await placement.ancestors_of(db, church)).get(placement.ZONE):
         parent = church
@@ -84,7 +85,7 @@ async def stage_pending_club(
         name=payload.name,
         status=STATUS_PENDING,
         path=f"{parent.path}.{club_id.hex}",
-        ministry_id=ministry.id if ministry is not None else None,
+        ministry_id=ministry.id,
         city=payload.city,
         country=association.country,
         latitude=payload.latitude,
@@ -137,7 +138,11 @@ async def stage_pending_club(
         entity_id=club.id,
         actor=director,
         details=f"Requested CLUB {club.name} under {association.name}",
-        metadata={"association_id": str(association.id), "association_code": association.code},
+        metadata={
+            "association_id": str(association.id),
+            "association_code": association.code,
+            "ministry": ministry.slug,
+        },
         request=request,
     )
     return club

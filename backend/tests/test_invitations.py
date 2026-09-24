@@ -688,7 +688,7 @@ async def test_an_invitation_and_a_club_are_mutually_exclusive(client, world, fa
             "invitation_token": created["token"],
             "club": {
                 "name": factory.name("x-club"),
-                "association_id": world["association"]["id"],
+                "association_id": world["association"]["id"], "ministry": "pathfinders",
                 "church_name": factory.name("x-iglesia"),
             },
         },

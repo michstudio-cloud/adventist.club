@@ -54,7 +54,7 @@ async def _ntam_node(ntam: dict) -> dict:
 
 
 async def _register_director(client, factory, label, ntam, **club_extra) -> dict:
-    club = {"name": factory.name(f"club-{label}"), "association_id": ntam["id"], **club_extra}
+    club = {"name": factory.name(f"club-{label}"), "association_id": ntam["id"], "ministry": "pathfinders", **club_extra}
     # E6 / decision D3: the director always declares a church (and never a zone).
     if "church" not in club and "church_id" not in club:
         club.setdefault("church_name", factory.name(f"iglesia-{label}"))
@@ -103,7 +103,7 @@ async def test_search_finds_ntam_by_name_and_code(client):
 
 async def test_minor_cannot_pick_club_director(client, factory):
     ntam = await _find_ntam(client)
-    club = {"name": factory.name("club-minor"), "association_id": ntam["id"],
+    club = {"name": factory.name("club-minor"), "association_id": ntam["id"], "ministry": "pathfinders",
             "church_name": factory.name("iglesia-minor")}
     declared = await client.post(
         f"{AUTH}/register",
@@ -127,7 +127,7 @@ async def test_minor_cannot_pick_club_director(client, factory):
 
 async def test_club_payload_rules(client, factory):
     ntam = await _find_ntam(client)
-    club = {"name": factory.name("club-rules"), "association_id": ntam["id"],
+    club = {"name": factory.name("club-rules"), "association_id": ntam["id"], "ministry": "pathfinders",
             "church_name": factory.name("iglesia-rules")}
 
     # Only directors open clubs.
@@ -225,7 +225,7 @@ async def test_director_signup_creates_pending_club_hidden_from_public(client, f
         f"{ORG}/clubs",
         json={
             "name": factory.name("club-second"),
-            "association_id": ntam["id"],
+            "association_id": ntam["id"], "ministry": "pathfinders",
             "church_name": factory.name("iglesia-second"),
         },
         headers=director["headers"],
@@ -239,7 +239,7 @@ async def test_director_signup_creates_pending_club_hidden_from_public(client, f
             role="CLUB_DIRECTOR",
             club={
                 "name": director["club_name"].upper(),
-                "association_id": ntam["id"],
+                "association_id": ntam["id"], "ministry": "pathfinders",
                 "church_name": factory.name("iglesia-clash"),
             },
         ),
@@ -456,7 +456,7 @@ async def test_zone_coordinator_rejects_with_reason_and_director_can_retry(
         f"{ORG}/clubs",
         json={
             "name": factory.name("club-retry"),
-            "association_id": ntam["id"],
+            "association_id": ntam["id"], "ministry": "pathfinders",
             "church_name": factory.name("iglesia-retry"),
             "city": "Reynosa",
         },
@@ -481,7 +481,7 @@ async def test_director_without_club_creates_it_from_the_panel(client, factory):
 
     club = {
         "name": factory.name("club-later"),
-        "association_id": ntam["id"],
+        "association_id": ntam["id"], "ministry": "pathfinders",
         "church_name": factory.name("iglesia-later"),
     }
     assert (await client.post(f"{ORG}/clubs", json=club)).status_code == 401

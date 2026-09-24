@@ -61,6 +61,7 @@ from app.security import (
 from app.services import email as email_service
 from app.services import clubs as club_service
 from app.services import invitations as invitation_service
+from app.services import ministries as ministry_service
 from app.services import notifications
 from app.services import mfa as mfa_service
 from app.services import verification
@@ -130,6 +131,11 @@ async def register(
         if payload.organization_id:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, "Send either organization_id or club, not both"
+            )
+        if not payload.club.names_a_ministry:
+            # Before any row is staged: a club request always names its ministry.
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY, ministry_service.MINISTRY_REQUIRED
             )
     if payload.invitation_token and payload.club is not None:
         raise HTTPException(
