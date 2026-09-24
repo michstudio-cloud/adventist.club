@@ -101,3 +101,42 @@ async def test_sec02_a_guardianship_stops_opening_the_portfolio_of_an_adult(clie
         )
         await db.commit()
     assert (await client.get(url, headers=guardian["headers"])).status_code in (403, 404)
+
+
+# ----------------------------------------------------------------------------
+# SEC-03: el lote «prototipo» (sin sesión) no se verifica como un certificado oficial.
+# ----------------------------------------------------------------------------
+async def test_sec03_an_anonymous_prototype_certificate_is_not_official(client, factory):
+    payload = {"recipient_names": [factory.name("Falso")], "honor_name": factory.name("Honor"),
+               "club_name": factory.name("club"), "issued_date": "2026-09-22",
+               "width_in": 11, "height_in": 8.5}
+    created = await client.post("/api/v1/certificates/prototype-batch", json=payload)
+    assert created.status_code == 201, created.text
+    number = created.json()[0]["certificate_no"]
+
+    verified = (await client.get(f"/api/v1/certificates/verify/{number}")).json()
+    assert verified["official"] is False
+
+    # El mismo registro, emitido por una persona del club (la vía del portafolio), sí lo es.
+    issuer = await factory.user("sec03-issuer", role="CLUB_DIRECTOR")
+    async with SessionLocal() as db:
+        await db.execute(
+            text("UPDATE certificates SET issued_by_id = :u WHERE certificate_no = :no"),
+            {"u": uuid.UUID(issuer["id"]), "no": number},
+        )
+        await db.commit()
+    verified = (await client.get(f"/api/v1/certificates/verify/{number}")).json()
+    assert verified["official"] is True
+
+
+async def test_sec03_the_open_endpoints_are_bounded(client, factory):
+    too_many = {"recipient_names": ["Ana"] * 201, "honor_name": "Honor", "club_name": "Club",
+                "issued_date": "2026-09-22", "width_in": 11, "height_in": 8.5}
+    assert (await client.post("/api/v1/certificates/prototype-batch", json=too_many)).status_code == 422
+    huge = {"recipient_names": ["Ana"], "honor_name": "Honor", "club_name": "Club",
+            "issued_date": "2026-09-22", "width_in": 400, "height_in": 8.5}
+    assert (await client.post("/api/v1/certificates/prototype-batch", json=huge)).status_code == 422
+
+    pdf = {"images": ["data:image/png;base64,AAAA"] * 501, "page_width_in": 11,
+           "page_height_in": 8.5, "item_width_in": 1, "item_height_in": 1}
+    assert (await client.post("/api/v1/printing/pdf", json=pdf)).status_code == 422

@@ -1,7 +1,7 @@
 import re, unicodedata, uuid
 from typing import Literal
 from datetime import date
-from fastapi import Depends, FastAPI, HTTPException, Response
+from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from sqlalchemy import select
@@ -57,8 +57,9 @@ class PrototypeBatchCreate(BaseModel):
     place:str|None=None
     instructor_name:str|None=None
     director_name:str|None=None
-    width_in:float=Field(gt=0)
-    height_in:float=Field(gt=0)
+    # SEC-03: open endpoint — bounded so it cannot mint templates of absurd sizes.
+    width_in:float=Field(gt=0,le=48)
+    height_in:float=Field(gt=0,le=48)
 
 class PrintPdfRequest(BaseModel):
     """Legacy shape (margin_in / gap_in) plus the full imposition options.
@@ -66,7 +67,7 @@ class PrintPdfRequest(BaseModel):
     Per-side margins, gap_x/gap_y, bleed and orientation are optional; when
     absent they fall back to margin_in / gap_in so existing clients keep working.
     """
-    images:list[str]=Field(min_length=1)
+    images:list[str]=Field(min_length=1,max_length=500)  # SEC-03: open endpoint, bounded
     page_width_in:float=Field(gt=0)
     page_height_in:float=Field(gt=0)
     item_width_in:float=Field(gt=0)
@@ -112,7 +113,8 @@ async def applications(db:AsyncSession=Depends(get_db)):
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
-async def prototype_batch(payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
+@limiter.limit("30/hour")
+async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
     ministry=(await db.execute(select(Ministry).where(Ministry.slug==payload.ministry,Ministry.status=="active"))).scalar_one_or_none()
     if not ministry:raise HTTPException(404,"Ministerio no encontrado.")
     approw=(await db.execute(select(Application).where(Application.slug==payload.application))).scalar_one_or_none()
@@ -148,11 +150,16 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     # for the holder and the audit trail, and no identifier.
     # Bloque F §1.7: `kind` tells each frontend whether to write «especialidad» or «investidura».
     mode,course_title=await course_context(db,c)
+    # SEC-03: the open prototype tool (no session) writes certificates too. They are records,
+    # not credentials: `official` is True only when a person of the platform issued it (the
+    # portfolio or the automatic course certificate always set `issued_by_id`, `user_id` and
+    # `enrollment_id`; any one of them survives a deleted account, ON DELETE SET NULL).
+    official=any(x is not None for x in (c.issued_by_id,c.user_id,c.enrollment_id))
     if c.certificate_hash!=current:state="modificado"
     elif c.status==REVOKED_STATUS:state="revocado"
     elif valid:state="válido"
     else:state=c.status
-    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None}
+    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None,"official":official}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):
@@ -160,7 +167,8 @@ async def printing_layout(payload:LayoutRequest):
     return compute_layout(payload).as_dict()
 
 @app.post("/api/v1/printing/pdf")
-async def printing_pdf(payload:PrintPdfRequest):
+@limiter.limit("60/hour")
+async def printing_pdf(request:Request,payload:PrintPdfRequest):
     layout=compute_layout(payload.layout_request())
     if layout.per_page<1:raise HTTPException(422,"El certificado no cabe físicamente en la hoja.")
     try:pdf_bytes=render_pdf(payload.images,layout,crop_marks=payload.crop_marks)
