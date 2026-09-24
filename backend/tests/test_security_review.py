@@ -70,3 +70,34 @@ async def test_sec01_an_unverified_adult_cannot_declare_a_guardianship(client, f
         f"{USERS}/guardianships", json={"child_id": child["id"]}, headers=unverified["headers"]
     )
     assert refused.status_code == 403
+
+
+# ----------------------------------------------------------------------------
+# SEC-02: la tutoría no sobrevive a los 18 años.
+# ----------------------------------------------------------------------------
+async def test_sec02_a_guardianship_stops_opening_the_portfolio_of_an_adult(client, factory):
+    grown = await factory.user("sec02-grown", is_minor=True)
+    guardian = await _verify(await factory.user("sec02-guardian", role="PARENT_GUARDIAN"))
+    async with SessionLocal() as db:
+        await db.execute(
+            text(
+                "INSERT INTO guardianships (guardian_id, child_id, consent_status)"
+                " VALUES (:g, :c, 'APPROVED')"
+            ),
+            {"g": uuid.UUID(guardian["id"]), "c": uuid.UUID(grown["id"])},
+        )
+        await db.commit()
+    url = f"{PORTFOLIO}/users/{grown['id']}"
+    assert (await client.get(url, headers=guardian["headers"])).status_code == 200
+
+    # Cumple 18: fecha de nacimiento de hace 19 años y la bandera ya no dice menor.
+    async with SessionLocal() as db:
+        await db.execute(
+            text(
+                "UPDATE users SET is_minor = false,"
+                " birth_date = (now() - interval '19 years')::date WHERE id = :id"
+            ),
+            {"id": uuid.UUID(grown["id"])},
+        )
+        await db.commit()
+    assert (await client.get(url, headers=guardian["headers"])).status_code in (403, 404)
