@@ -170,3 +170,45 @@ async def test_sec08_the_avatar_is_a_file_of_the_platform(client, factory):
         headers=adult["headers"],
     )
     assert same.status_code == 200, same.text
+
+
+# ----------------------------------------------------------------------------
+# SEC-09: el segundo factor no se adivina a fuerza de intentos.
+# ----------------------------------------------------------------------------
+async def test_sec09_the_second_factor_locks_after_repeated_wrong_codes(client, factory):
+    import pyotp
+
+    from app.security import code_attempts
+    from tests.conftest import DEFAULT_PASSWORD
+
+    user = await factory.user("sec09-master", role="MASTER_GC")
+    secret = pyotp.random_base32()
+    async with SessionLocal() as db:
+        await db.execute(
+            text("UPDATE users SET mfa_secret = :s, mfa_enabled = true WHERE id = :id"),
+            {"s": secret, "id": uuid.UUID(user["id"])},
+        )
+        await db.commit()
+    login = await client.post(
+        "/api/v1/auth/login", json={"email": user["email"], "password": DEFAULT_PASSWORD}
+    )
+    temp = login.json()["temp_token"]
+    try:
+        for _ in range(5):
+            wrong = await client.post(
+                "/api/v1/auth/mfa/verify", json={"temp_token": temp, "totp_code": "000000"}
+            )
+            assert wrong.status_code == 401
+        # Even the right code is refused now: guesses are bounded per account, not per IP
+        # (the IP of the rate limit is a client-supplied header).
+        locked = await client.post(
+            "/api/v1/auth/mfa/verify",
+            json={"temp_token": temp, "totp_code": pyotp.TOTP(secret).now()},
+        )
+        assert locked.status_code == 429
+    finally:
+        code_attempts.reset(f"mfa:{user['id']}")
+    ok = await client.post(
+        "/api/v1/auth/mfa/verify", json={"temp_token": temp, "totp_code": pyotp.TOTP(secret).now()}
+    )
+    assert ok.status_code == 200, ok.text

@@ -415,6 +415,13 @@ async def mfa_verify(
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not enabled")
 
     attempts_key = f"mfa:{user.id}"
+    if code_attempts.is_locked(attempts_key):
+        # SEC-09: the temp token is reusable for 5 minutes and the per-IP limit keys on a
+        # client-supplied header, so the guesses are bounded per account.
+        raise HTTPException(
+            status.HTTP_429_TOO_MANY_REQUESTS,
+            "Demasiados códigos incorrectos. Vuelve a intentarlo dentro de una hora.",
+        )
     if payload.recovery_code:
         used_recovery = await mfa_service.claim_recovery_code(db, user.id, payload.recovery_code)
         if not used_recovery:
