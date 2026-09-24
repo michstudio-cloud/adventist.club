@@ -23,6 +23,7 @@ from app.rbac import (
     get_org_path,
     is_admin_role,
     is_master,
+    may_handle_minors,
     org_in_user_scope,
     outranks,
 )
@@ -363,6 +364,10 @@ async def list_users(
         stmt = stmt.where(User.role == role)
     stmt = stmt.order_by(User.name, User.id).limit(limit).offset(offset)
     rows = (await db.execute(stmt)).scalars().all()
+    if current_user.role in CLUB_REVIEW_ROLES and not may_handle_minors(current_user):
+        # SEC-11 (E7): the same rule as `can_view_user` — staff without a valid church letter
+        # (or a director out of grace) read no record of a minor, e-mail and birth date included.
+        rows = [row for row in rows if row.id == current_user.id or not is_minor_user(row)]
     return [UserResponse.from_model(row) for row in rows]
 
 

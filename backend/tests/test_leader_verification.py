@@ -679,3 +679,15 @@ async def test_every_decision_leaves_an_audit_row(client, world, r2, factory):
         "LETTER_VALIDATE",
         "LETTER_AUTHORIZE",
     ]
+
+
+async def test_sec11_the_user_directory_hides_minors_from_unverified_staff(
+    client, world, enforced
+):
+    """SEC-11 (revisión 2026-09): `GET /users` returned the same record `GET /users/{id}`
+    refuses — e-mail and birth date of every minor of the club."""
+    listed = await client.get(USERS, headers=world["instructor"]["headers"], params={"limit": 500})
+    assert listed.status_code == 200, listed.text
+    ids = {row["id"] for row in listed.json()}
+    assert world["minor"]["id"] not in ids
+    assert world["adult_member"]["id"] in ids and world["instructor"]["id"] in ids
