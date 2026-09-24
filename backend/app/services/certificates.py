@@ -237,6 +237,12 @@ async def _association_name(db: AsyncSession, organization_id: uuid.UUID | None)
     return (await db.execute(stmt.order_by(func.nlevel(Organization.path).desc()).limit(1))).scalar_one_or_none()
 
 
+# Every data key `render_data` answers for. With a folio these come from the record or not at
+# all: a key the record leaves empty is not taken from the caller either (POST /render).
+RECORD_FIELDS = ("recipient_name", "honor_name", "issued_date", "director_name", "instructor_name",
+                 "certificate_no", "folio", "organization_name", "association_name")
+
+
 async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tuple[dict[str, str], str | None] | None:
     """`(data, honor image URL)` of the issued certificate `certificate_no`, in the words of
     an element template, or None when there is no such issued certificate.
@@ -246,6 +252,9 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
     - `issued_date`: ISO — the template writes it in its language;
     - `organization_name`: the association the member's club hangs from, else the issuer's
       association, else the issuing organisation's name;
+    - `association_name` («Especialidad dorada»): ONLY the association the member's club hangs
+      from (`organizations.path`, nearest ancestor of type association). No club or no
+      association above it: absent, and the template leaves the line out — never a stand-in;
     - `church_name` is not here: it is a translated string of the template.
     Only reads; never touches the hash."""
     from app.services.portfolio import honor_name_in   # portfolio imports this module
@@ -267,8 +276,9 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
     if certificate.enrollment_id:
         enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
         club_org = enrollment.club_id if enrollment else None
+    association_name = await _association_name(db, club_org)
     organization_name = (
-        await _association_name(db, club_org)
+        association_name
         or await _association_name(db, certificate.organization_id)
         or (await db.execute(select(Organization.name).where(Organization.id == certificate.organization_id))).scalar_one_or_none()
     )
@@ -280,6 +290,7 @@ async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tup
         "instructor_name": certificate.instructor_name or "",
         "certificate_no": certificate.certificate_no,
         "organization_name": organization_name or "",
+        "association_name": association_name or "",
     }
     return {k: v for k, v in data.items() if v}, image_url
 

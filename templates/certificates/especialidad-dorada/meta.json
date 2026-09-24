@@ -1,0 +1,17 @@
+{
+  "title": "Especialidad dorada",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "replica-especialidad",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}

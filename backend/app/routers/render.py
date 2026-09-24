@@ -16,7 +16,7 @@ from app.certificates.render import (
 from app.config import settings
 from app.db import SessionLocal
 from app.rate_limit import limiter
-from app.services.certificates import render_data, stored_locale
+from app.services.certificates import RECORD_FIELDS, render_data, stored_locale
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
@@ -117,6 +117,8 @@ async def render(request: Request, payload: RenderRequest):
             issued = await render_data(db, payload.certificate_no, payload.locale)
         if issued:
             fields, patch_url = issued
+            for key in RECORD_FIELDS:      # e.g. no association on record: none from the caller either
+                data.pop(key, None)
             data.update(fields)
             if not (images.get("honor_patch") or images.get("honor_image")) and patch_url and \
                     HTTPS_RE.match(patch_url) and (urlsplit(patch_url).hostname or "") == _allowed_media_host():

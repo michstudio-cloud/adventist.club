@@ -59,6 +59,7 @@ y exige archivos idénticos.
 | `especialidad-modular-azul` | 02 Modular azul | honor | pathfinders | es, en, pt, fr |
 | `especialidad-reticula-verde` | 03 Retícula verde | honor | pathfinders | es, en, pt, fr |
 | `especialidad-academico` | 04 Académico | honor | pathfinders | es, en, pt, fr |
+| `especialidad-dorada` | Especialidad dorada (`replica-especialidad/`, 24 sep 2026) | honor | pathfinders | es, en, pt, fr |
 
 Las plantillas anteriores (`especialidad-basica`, `-media`, `investidura-clase`, `ntam-maestria`)
 no cambian. `GET /api/v1/certificates/templates` añade `title` (de `meta.json`) para que el asistente
@@ -129,6 +130,104 @@ tamaños, cortes de línea y colores. Un render a 300 dpi tarda ~1 s en un port�
 Tests: `backend/tests/test_certificates_v4.py` (carga y `meta`, cada cadena traducida presente por
 plantilla e idioma, nunca «QR» con QR real, fechas, encoger/envolver/error, alias, negrita sintética,
 PNG/PDF/SVG, reproducibilidad del compilador, `GET /templates`, `POST /render` y datos desde la emisión).
+
+## Especialidad dorada (replica-especialidad)
+
+Entregado por el propietario el 24 sep 2026: `~/Documents/DEEL/certificados-diseno/replica-especialidad/`
+(`plantilla.json` schema 1.0, `traducciones.json` es/en/pt/fr, `datos-ejemplo.json`, `recursos/`,
+`vistas/*.svg`, `muestra.png`). Mismo contrato que v4, así que se **compila** con el mismo
+`tools/compile_element_template.py` (extendido, no bifurcado) a `templates/certificates/especialidad-dorada/`.
+`renderizador.js`, `payload.js`, `index.html` y `recursos/qr-referencia.svg` no se usan.
+
+Regenerar (tras un cambio del diseñador; también copia a `fonts/` las caras que falten):
+
+```bash
+python tools/compile_element_template.py ~/Documents/DEEL/certificados-diseno/replica-especialidad \
+  --slug especialidad-dorada --install [--preview /tmp/vistas]
+```
+
+### Qué añade al compilador (los cuatro v4 recompilan byte a byte igual)
+
+| Paquete | Plantilla del motor |
+|---|---|
+| página 1600 × 1237 (no es exactamente 11:8,5: 1,2935 frente a 1,2941) | `<g transform="translate(0.2037 0) scale(0.494745)">`: escala uniforme y centrado, lo mismo que hace el navegador con el `viewBox` del diseño (`meet`). Más de un 1 % de desproporción es un error de compilación |
+| `frame` (`marco.svg`), `church_logo` (`logo.svg`), `seal` (`sello.svg`) + `paper` | **aplanados** en `background.webp` (ver abajo); `<image id="background">` a página completa, fuera del grupo escalado |
+| `honor_image` | ranura `honor_patch`, `preserveAspectRatio="xMidYMid meet"` (parche sin contenedor, proporciones intactas) |
+| `qr` + `qr-marcador.svg` | ranura `qr`; sin QR, la caja gris (`data-placeholder-href`) |
+| `church_name` (dato, objeto por idioma) | `<text id="church_name" data-fallback-string="church_name">`: `strings.<idioma>.json` lo trae de `datos-ejemplo.json`; el cliente puede mandar otro |
+| `association_name` (dato, objeto por idioma) | `<text id="association_name">` **sin** respaldo: viene del árbol de organizaciones (abajo); si no hay, la línea no se dibuja |
+| `folio` | `certificate_no` |
+| `date-value` con `{day: 2-digit, month: 2-digit, year: numeric}` | `data-format="date-numeric"`: es/pt/fr `21/09/2026`, en `09/21/2026` (Intl en-US). Acepta ISO o la fecha larga que manda el asistente («21 de septiembre de 2026», «September 21, 2026»…) y la reescribe |
+| `title_0`/`title_1`, `awarded`, `completion`, `date`, `director`, `instructor` | `data-string`; `title` (lista) y `association` (una asociación de ejemplo) **no** pasan a `strings`: nada puede imprimir la asociación de muestra |
+| `max_width`/`min_font_size`/`max_lines`/`line_height` | lo de siempre: `fit_lines` (encoger → envolver → 422) |
+
+Otras reglas nuevas del compilador: sólo `fit: contain` sin recorte; una imagen fija que es un SVG
+recibe un `clipPath` con su caja (el navegador recorta un `<image>` a su caja y resvg no: sin eso el
+logo y el sello pintaban la página completa del PDF de la que son ventanas).
+
+### Fuentes
+
+`fonts/` recibe `Poppins-Black.ttf` (900), `Poppins-Bold.ttf` (700), `Poppins-Light.ttf` (300),
+`Lato-Regular.ttf` (400), `AdventSans-Beta.otf` («Advent Sans» 400) con `OFL-poppins.txt`,
+`OFL-lato.txt` y `OFL-adventsans.txt`. resvg las encuentra por familia y peso (fontdb, reglas CSS).
+El medidor de `fit_lines` (`_font`) ahora también elige por **peso** (antes sólo normal/negrita, que
+habría medido Poppins 900 con la Bold) y mira `.otf`; con las Noto elige exactamente lo mismo que antes.
+
+**Advent Sans Beta**: el paquete no trae licencia. La tabla `name` de la fuente declara «licensed
+under the SIL Open Font License, Version 1.1», diseño del equipo de Monotype, «Noto is a trademark of
+Google Inc.», sin aviso de copyright. `OFL-adventsans.txt` recoge eso + el texto OFL. **Pendiente del
+propietario**: confirmar el origen (kit de identidad de la IASD) y que la OFL declarada vale para esta
+versión Beta antes de imprimir en masa.
+
+### Raster: de 4 × 1,7 MB a una página WebP de 136 KB
+
+`marco.svg`, `logo.svg`, `sello.svg` y `qr-referencia.svg` eran la **misma** página PNG 3300 × 2550
+(la del PDF original, 1,30 MB, en base64 ×4): el marco la recorta con un `clipPath` con hueco y el logo
+y el sello son ventanas (`viewBox`) sobre ella. Incrustarlos tal cual daba un `template.svg` de
+~6,9 MB y resvg tardaba **~10,5 s sólo en esas capas** por cada render a 300 dpi en un portátil
+(decodifica y remuestrea la página entera cuatro veces); en la instancia de 0,15 CPU, más de un minuto.
+
+El compilador detecta que las capas del fondo (las primeras, fijas: papel, marco, logo, sello; nada
+dinámico debajo de ellas) llevan raster y las dibuja **una vez**, con resvg, a la resolución del
+paquete (`raster_width × raster_height` = 3300 × 2550, 300 dpi: la nativa del PDF, no se inventa
+detalle) sobre papel blanco, y guarda `background.webp` (WebP q90, `method=6`, determinista: el test
+de recompilación lo compara byte a byte). El hueco bajo la tarjeta queda blanco liso, que no pesa.
+`render_png` ya separaba un `<image id="background">` de archivo y lo pegaba con Pillow (caché por
+tamaño), el mismo camino que `ntam-maestria`.
+
+| | antes (incrustado) | después |
+|---|---|---|
+| `template.svg` | ~6,9 MB | 5,4 KB |
+| carpeta de la plantilla | ~6,9 MB | ~144 KB (`background.webp` 136 KB) |
+| capas del fondo por render 300 dpi | ~10,5 s en resvg | decodificar 0,12 s la primera vez por tamaño; luego pegar |
+| `POST /render` PNG 300 dpi (portátil, cargado) | — | ~2,1 s (1,5 s resvg de textos y parche, 0,3 s PNG) — como los v4 (~1,8 s en la misma máquina) |
+| `POST /render` PDF 300 dpi / PNG 96 dpi | — | ~3,9 s / ~0,65 s |
+
+Error de re-codificación frente al PNG sin pérdida: media 0,40/255, máx. 18.
+
+### Datos desde la emisión (`POST /render` con `certificate_no`)
+
+| Campo | Origen |
+|---|---|
+| `association_name` | **sólo** la asociación más cercana por encima del club del miembro (`honor_enrollments.club_id` → `organizations.path`, ancestro de tipo `association`). Sin inscripción, sin club o club fuera de una asociación: vacío, y la línea desaparece. No cae a la asociación de la emisora (eso sigue siendo `organization_name` de los v4) |
+| `instructor_name`, `director_name`, `recipient_name`, `honor_name` (en el idioma), `issued_date`, `certificate_no` | como en los v4 |
+| `church_name` | cadena de la plantilla en el idioma del certificado |
+
+Con folio, **todos** esos campos salen del registro o de ninguna parte: `POST /render` borra los que
+mande el cliente antes de completar (`RECORD_FIELDS`), así que un registro sin asociación no imprime
+la que escriba el cliente (antes, un campo vacío en el registro dejaba pasar el del cliente).
+
+### Verificación (24 sep 2026)
+
+Render del motor a 300 dpi con `datos-ejemplo.json` contra `vistas/<idioma>.svg` capturado en Chrome
+headless a 3300 × 2550 (diferencia por píxel, escala de grises): es 0,71 · en 0,64 · pt 0,70 · fr 0,65
+de media; píxeles > 32: 0,46–0,56 %; > 128: ≤ 0,006 %; todo en bordes de letra (antialiasing resvg
+frente a Skia). Mismas posiciones, tamaños, fuentes y cortes que las vistas. Tests:
+`backend/tests/test_certificate_dorada.py`.
+
+Observación de diseño (se reproduce tal cual, no se corrige): el recorte del sello incluye un borde
+blanco de la tarjeta del PDF original, visible como un pequeño escalón a la derecha de la tarjeta sobre
+el sello; está igual en `muestra.png` y en las vistas.
 
 ## Pendiente (fuera del backend)
 

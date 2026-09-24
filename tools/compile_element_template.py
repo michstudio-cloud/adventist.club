@@ -3,29 +3,41 @@
     python tools/compile_element_template.py <v4-folder> --slug especialidad-editorial-rojo [--install]
                                              [--out DIR] [--ministry pathfinders] [--preview DIR]
 
-The v4 folder (e.g. ~/Documents/DEEL/certificados-diseno/especialidades-v4/01-editorial-rojo/) holds:
-  plantilla.json      page 1100 x 850 (Letter landscape) and `elements[]` back to front:
+The package folder (schema 1.0: e.g. ~/Documents/DEEL/certificados-diseno/especialidades-v4/01-editorial-rojo/
+or ~/Documents/DEEL/certificados-diseno/replica-especialidad/) holds:
+  plantilla.json      page (1100 x 850 in v4, 1600 x 1237 in «Especialidad dorada»; Letter landscape)
+                      and `elements[]` back to front:
                       shape (rect/path + attributes) · image (asset / data) · text (translation / data / date)
   traducciones.json   {locale: {key: text}} for the fixed texts
   datos-ejemplo.json  sample data (church_name per locale becomes the default church line)
-  recursos/           emblem, placeholder QR, fonts (OFL)
+  recursos/           emblem, placeholder QR, fonts (OFL), fixed artwork (SVG, possibly with raster inside)
 
 What comes out (templates/certificates/<slug>/ with --install, else --out DIR):
   template.svg            viewBox in points (792 x 612); the design keeps its own units inside a
-                          <g transform="scale(0.72)">. Shapes stay vector; every text is a live
-                          field with the package's fitting contract (data-fit="shrink-wrap").
+                          <g transform="scale(0.72)"> (or translate+scale when the design's page is
+                          not exactly 11:8.5 — fitted like a browser does, `meet`). Shapes stay vector;
+                          every text is a live field with the package's fitting contract
+                          (data-fit="shrink-wrap").
+  background.webp         only when the first layers (paper, frame, fixed artwork) carry raster: they
+                          are flattened once, here, into one page at the package's raster size
+                          (300 dpi) — the engine pastes it with Pillow instead of resampling
+                          megabytes of embedded PNG in resvg on every render.
   strings.<locale>.json   one per locale of the package (+ church_name from the sample data)
   meta.json               kinds ["honor"], ministries, title, source package
   README.md               where it came from and how to rebuild it
 
-The design folder is only read. Nothing is rasterised. Contract: docs/CERTIFICADOS_V4.md.
+The design folder is only read. Only already-raster artwork is flattened; vectors and texts stay
+live. --install also copies into fonts/ any face of the package the engine does not have yet
+(with the license files next to it). Contract: docs/CERTIFICADOS_V4.md.
 """
 from __future__ import annotations
 
 import argparse
 import base64
 import hashlib
+import io
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -34,6 +46,8 @@ from xml.sax.saxutils import escape, quoteattr
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "backend"))
 from app.certificates import render as engine  # noqa: E402
+from PIL import Image, ImageFont  # noqa: E402
+import resvg_py  # noqa: E402
 
 PT_PER_INCH = 72.0
 # v4 data keys -> engine field ids (the assistant and POST /render already speak these)
@@ -43,6 +57,18 @@ REQUIRED = {"recipient_name", "honor_name", "issued_date"}
 # data texts whose default comes from the template's strings when the caller sends nothing
 STRING_DEFAULTS = {"church_name"}
 SHAPES = {"rect", "path", "circle", "ellipse", "line", "polyline", "polygon"}
+# translation keys that only carry a SAMPLE of a data field: never copied into strings.<locale>.json,
+# so nothing can ever print them in place of the real value (the association comes from the
+# organisation tree of the member's club, docs/CERTIFICADOS_V4.md).
+SAMPLE_ONLY_STRINGS = {"association"}
+# Intl.DateTimeFormat options of a `date` text -> the engine's data-format
+DATE_FORMATS = {("numeric", "long", "numeric"): "date-long", ("2-digit", "2-digit", "numeric"): "date-numeric"}
+# page meet: a design page up to 1 % off 11:8.5 is fitted uniformly and centred, as a browser does
+MAX_PAGE_DISTORTION = 0.01
+BACKGROUND_FILE = "background.webp"
+BACKGROUND_WEBP = {"quality": 90, "method": 6}
+RASTER_IN_SVG = re.compile(rb"data:image/(png|jpeg|jpg|webp)", re.I)
+RASTER_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 
 
 class CompileError(ValueError):
@@ -67,7 +93,89 @@ def _same_file(a: Path, b: Path) -> bool:
     return a.exists() and b.exists() and hashlib.sha256(a.read_bytes()).digest() == hashlib.sha256(b.read_bytes()).digest()
 
 
-def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> dict[str, str]:
+def _page_transform(page: dict, width_pt: float, height_pt: float) -> str:
+    """Design units -> points. Uniform scale; a design page slightly off 11:8.5 (1600 x 1237) is
+    fitted and centred exactly like its own <svg viewBox> in a browser (preserveAspectRatio meet)."""
+    width, height = float(page["width"]), float(page["height"])
+    sx, sy = width_pt / width, height_pt / height
+    if abs(sx - sy) / max(sx, sy) > MAX_PAGE_DISTORTION:
+        raise CompileError("La página del diseño no tiene la proporción de su tamaño en pulgadas.")
+    scale = min(sx, sy)
+    tx, ty = (width_pt - width * scale) / 2, (height_pt - height * scale) / 2
+    if abs(tx) < 1e-6 and abs(ty) < 1e-6:
+        return f"scale({scale:g})"
+    return f"translate({tx:.4g} {ty:.4g}) scale({scale:.6g})"
+
+
+def _source_name(folder: Path, spec: dict) -> str:
+    """Where the package lives under ~/Documents/DEEL/certificados-diseno/ (meta.json `source`)."""
+    for parent in folder.parents:
+        if parent.name == "certificados-diseno":
+            return folder.relative_to(parent).as_posix()
+    return f"{folder.parent.name}/{spec['id']}"
+
+
+def _has_raster(asset: Path) -> bool:
+    return asset.suffix.lower() in RASTER_SUFFIXES or (
+        asset.suffix.lower() == ".svg" and bool(RASTER_IN_SVG.search(asset.read_bytes())))
+
+
+def _leading_fixed_layers(elements: list[dict], folder: Path, emblem: Path) -> list[dict]:
+    """The run of fixed layers at the bottom of the page: shapes and asset images (not the emblem
+    slot). Nothing dynamic is under them, so drawing them once changes nothing on the page."""
+    run = []
+    for e in elements:
+        fixed_image = e["type"] == "image" and e["source"]["kind"] == "asset" and \
+            not _same_file(folder / e["source"]["path"], emblem)
+        if e["type"] != "shape" and not fixed_image:
+            break
+        run.append(e)
+    return run
+
+
+def _flatten(transform: str, layers: list[str], page: dict, width_pt: float, height_pt: float) -> bytes:
+    """Draw the leading layers once with resvg at the package's raster size (300 dpi) on white
+    paper and encode them as WebP. Every raster inside them was already there in the design (e.g.
+    frame, logo and seal cut from the same 3300 x 2550 page of the original PDF): one page instead
+    of four copies, and the hidden part under the card becomes plain white."""
+    width = int(page.get("raster_width") or round(width_pt / PT_PER_INCH * 300))
+    height = int(page.get("raster_height") or round(height_pt / PT_PER_INCH * 300))
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width_pt:g} {height_pt:g}" '
+           f'width="{width_pt:g}" height="{height_pt:g}">\n'
+           f'<rect width="{width_pt:g}" height="{height_pt:g}" fill="#fff"/>\n'
+           f'<g transform="{transform}">\n' + "\n".join(layers) + "\n</g>\n</svg>\n")
+    png = bytes(resvg_py.svg_to_bytes(svg_string=svg, width=width, height=height))
+    with Image.open(io.BytesIO(png)) as layer:
+        page_image = Image.new("RGB", layer.size, "white")
+        page_image.paste(layer.convert("RGB"), mask=layer.convert("RGBA").getchannel("A"))
+    out = io.BytesIO()
+    page_image.save(out, "WEBP", **BACKGROUND_WEBP)
+    return out.getvalue()
+
+
+def _face_weight(path: Path) -> tuple[str, int]:
+    family, style = ImageFont.truetype(str(path), 12).getname()
+    style = (style or "").lower()
+    return family, next((w for name, w in engine._STYLE_WEIGHTS if name in style), 400)
+
+
+def missing_fonts(folder: Path, spec: dict) -> list[Path]:
+    """Font files of the package whose (family, weight) the engine's fonts/ does not have."""
+    have = {_face_weight(p) for p in [*engine.FONTS_DIR.glob("*.ttf"), *engine.FONTS_DIR.glob("*.otf")]}
+    missing = []
+    for font in spec.get("fonts", []):
+        path = folder / font["path"]
+        if (font["family"], int(font["weight"])) in have:
+            continue
+        if not path.exists():
+            raise CompileError(f"Falta la fuente {font['path']} del paquete.")
+        if _face_weight(path) != (font["family"], int(font["weight"])):
+            raise CompileError(f"{font['path']} no es {font['family']} {font['weight']}.")
+        missing.append(path)
+    return missing
+
+
+def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> dict[str, str | bytes]:
     """Return {file name: content} of the engine template. Raises CompileError on any gap."""
     spec = json.loads((folder / "plantilla.json").read_text(encoding="utf-8"))
     translations = json.loads((folder / "traducciones.json").read_text(encoding="utf-8"))
@@ -75,9 +183,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
     page = spec["page"]
     width_pt = float(page["width_inches"]) * PT_PER_INCH
     height_pt = float(page["height_inches"]) * PT_PER_INCH
-    scale = width_pt / float(page["width"])
-    if abs(height_pt / float(page["height"]) - scale) > 1e-6:
-        raise CompileError("La página no conserva la proporción entre unidades y pulgadas.")
+    transform = _page_transform(page, width_pt, height_pt)
     locales = list(spec.get("supported_locales") or translations)
     for locale in locales:
         if locale not in translations:
@@ -85,6 +191,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
 
     supplied = {(f["family"], int(f["weight"])) for f in spec.get("fonts", [])}
     body: list[str] = []
+    flat: list[str] = []          # leading fixed layers flattened into background.webp
     used_keys: set[str] = set()
     ids: set[str] = set()
     emblem = ROOT / "templates" / "assets" / "emblems" / f"{ministry}.svg"
@@ -95,13 +202,18 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
         ids.add(field_id)
         return field_id
 
-    for e in spec["elements"]:
+    leading = _leading_fixed_layers(spec["elements"], folder, emblem)
+    flatten = any(_has_raster(folder / e["source"]["path"]) for e in leading if e["type"] == "image")
+    for index, e in enumerate(spec["elements"]):
         kind = e["type"]
+        target = flat if flatten and index < len(leading) else body
         if kind == "shape":
             if e["shape"] not in SHAPES:
                 raise CompileError(f"Forma no soportada: {e['shape']} ({e['id']})")
-            body.append(f"<{e['shape']} {_attrs({'id': claim(e['id']), **e['attributes']})}/>")
+            target.append(f"<{e['shape']} {_attrs({'id': claim(e['id']), **e['attributes']})}/>")
         elif kind == "image":
+            if e.get("fit", "contain") != "contain" or e.get("crop"):
+                raise CompileError(f"Sólo se admite fit=contain sin recorte ({e['id']}).")
             box = {"x": _num(e["x"]), "y": _num(e["y"]), "width": _num(e["width"]), "height": _num(e["height"]),
                    "preserveAspectRatio": "xMidYMid meet"}          # contain, centred, never cropped
             source = e["source"]
@@ -113,7 +225,15 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                     # the official emblem: the engine's `emblem` slot (default = the ministry emblem)
                     body.append(f"<image {_attrs({'id': claim('emblem'), **box})} href=\"\"/>")
                 else:
-                    body.append(f"<image {_attrs({'id': claim(e['id']), **box})} href={quoteattr(_data_url(asset))}/>")
+                    clip = {}
+                    if asset.suffix.lower() == ".svg":
+                        # an SVG asset may be a window (viewBox) onto a bigger drawing — the three
+                        # artwork files of «Especialidad dorada» are crops of one full page. Browsers
+                        # clip an <image> to its box; resvg does not, so the box is clipped explicitly.
+                        clip_id = f"clip-{e['id']}"
+                        target.append(f'<clipPath id="{escape(clip_id)}"><rect {_attrs({k: box[k] for k in ("x", "y", "width", "height")})}/></clipPath>')
+                        clip = {"clip-path": f"url(#{clip_id})"}
+                    target.append(f"<image {_attrs({'id': claim(e['id']), **box, **clip})} href={quoteattr(_data_url(asset))}/>")
             elif source["kind"] == "data":
                 slot = IMAGE_SLOT.get(source["key"])
                 if not slot:
@@ -135,7 +255,11 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                 field_id = DATA_FIELD.get(source["key"], source["key"])
                 sample_text = ""
                 if source["kind"] == "date":
-                    attrs["data-format"] = "date-long"
+                    fmt = source.get("format") or {}
+                    wanted = (fmt.get("day", "numeric"), fmt.get("month", "long"), fmt.get("year", "numeric"))
+                    if wanted not in DATE_FORMATS:
+                        raise CompileError(f"Formato de fecha no soportado en {e['id']}: {fmt}")
+                    attrs["data-format"] = DATE_FORMATS[wanted]
                 if field_id in STRING_DEFAULTS:
                     attrs["data-fallback-string"] = field_id
                 if field_id in REQUIRED:
@@ -177,7 +301,8 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
     strings: dict[str, dict[str, str]] = {}
     church = sample.get("church_name") if isinstance(sample.get("church_name"), dict) else {}
     for locale in locales:
-        table = dict(translations[locale])
+        table = {k: v for k, v in translations[locale].items()
+                 if isinstance(v, str) and k not in SAMPLE_ONLY_STRINGS}   # e.g. "title": [..] is layout only
         missing = sorted(k for k in used_keys if not str(table.get(k) or "").strip())
         if missing:
             raise CompileError(f"Faltan traducciones en '{locale}': {', '.join(missing)}")
@@ -186,23 +311,37 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
         table["church_name"] = church[locale]
         strings[locale] = table
 
-    svg = (
+    source = _source_name(folder, spec)
+    label = "v4" if source.startswith("especialidades-v4/") else "por elementos"
+    header = (
         f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
         f'viewBox="0 0 {width_pt:g} {height_pt:g}" width="{page["width_inches"]:g}in" height="{page["height_inches"]:g}in" '
         f'data-template="{slug}" data-source="{escape(spec["id"])}" data-version="{escape(str(spec.get("schema_version", "1")))}">\n'
-        f"<!-- Compilada con tools/compile_element_template.py desde el paquete v4 «{escape(spec.get('title', spec['id']))}». "
+    )
+    background = ""
+    files: dict[str, str | bytes] = {}
+    if flat:
+        # one opaque page under every live element: split out and pasted by render_png (Pillow)
+        files[BACKGROUND_FILE] = _flatten(transform, flat, page, width_pt, height_pt)
+        background = (f'<image id="background" x="0" y="0" width="{width_pt:g}" height="{height_pt:g}" '
+                      f'preserveAspectRatio="none" href="{BACKGROUND_FILE}"/>\n')
+    svg = (
+        header +
+        f"<!-- Compilada con tools/compile_element_template.py desde el paquete {label} «{escape(spec.get('title', spec['id']))}». "
         f"No editar a mano: regenerar. Unidades del diseño ({page['width']:g} x {page['height']:g}) dentro del grupo escalado. -->\n"
-        f'<g transform="scale({scale:g})">\n' + "\n".join(body) + "\n</g>\n</svg>\n"
+        + background +
+        f'<g transform="{transform}">\n' + "\n".join(body) + "\n</g>\n</svg>\n"
     )
     meta = {"title": spec.get("title", spec["id"]), "kinds": [engine.HONOR_KIND], "ministries": [ministry],
-            "engine": "elements", "source": f"especialidades-v4/{spec['id']}", "locales": locales}
+            "engine": "elements", "source": source, "locales": locales}
     readme = (
-        f"Plantilla compilada del paquete de diseño v4 `{spec['id']}` («{spec.get('title', spec['id'])}»).\n"
-        f"Fuente: `~/Documents/DEEL/certificados-diseno/especialidades-v4/{spec['id']}/` (plantilla.json + traducciones.json).\n"
+        f"Plantilla compilada del paquete de diseño {label} `{spec['id']}` («{spec.get('title', spec['id'])}»).\n"
+        f"Fuente: `~/Documents/DEEL/certificados-diseno/{source}/` (plantilla.json + traducciones.json).\n"
         f"Regenerar: `python tools/compile_element_template.py <carpeta> --slug {slug} --install`.\n"
-        f"Contrato y datos: `docs/CERTIFICADOS_V4.md`. No editar template.svg a mano.\n"
+        + (f"`{BACKGROUND_FILE}`: papel, marco y arte fijo del paquete aplanados una vez (raster ya presente en el diseño).\n" if flat else "")
+        + f"Contrato y datos: `docs/CERTIFICADOS_V4.md`. No editar template.svg a mano.\n"
     )
-    files = {"template.svg": svg, "meta.json": json.dumps(meta, ensure_ascii=False, indent=2) + "\n", "README.md": readme}
+    files.update({"template.svg": svg, "meta.json": json.dumps(meta, ensure_ascii=False, indent=2) + "\n", "README.md": readme})
     for locale, table in strings.items():
         files[f"strings.{locale}.json"] = json.dumps(table, ensure_ascii=False, indent=2) + "\n"
     return files
@@ -249,8 +388,21 @@ def main() -> None:
         shutil.rmtree(target)
     target.mkdir(parents=True, exist_ok=True)
     for name, content in files.items():
-        (target / name).write_text(content, encoding="utf-8")
+        if isinstance(content, bytes):
+            (target / name).write_bytes(content)
+        else:
+            (target / name).write_text(content, encoding="utf-8")
     print(f"{args.slug}: {len(files)} archivos en {target}")
+    if args.install:
+        spec = json.loads((folder / "plantilla.json").read_text(encoding="utf-8"))
+        for path in missing_fonts(folder, spec):
+            shutil.copyfile(path, engine.FONTS_DIR / path.name)
+            print(f"fuente instalada: {path.name}")
+            for license_file in sorted(path.parent.glob("OFL*.txt")):
+                if not (engine.FONTS_DIR / license_file.name).exists():
+                    shutil.copyfile(license_file, engine.FONTS_DIR / license_file.name)
+                    print(f"licencia: {license_file.name}")
+        engine._font.cache_clear()
     if args.preview:
         args.preview.mkdir(parents=True, exist_ok=True)
         engine._load.cache_clear()
