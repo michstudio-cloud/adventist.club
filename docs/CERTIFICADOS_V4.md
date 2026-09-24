@@ -342,3 +342,40 @@ Marco de color plano y emblema de esquina aplanados en `background.webp` (~70 KB
 propietario (2026-09-24): es la **primera del selector y la plantilla por defecto**
 (`DEFAULT_CERTIFICATE_TEMPLATE`); la muestra de la portada de conquistadores.app sale de ella.
 Test: `tests/test_certificate_color.py`.
+
+## Miniaturas (24 sep 2026)
+
+Problema (propietario: «en /certificates/new no cargan los diseños»): el paso 2 del asistente pedía
+cada miniatura con `POST /certificates/render` (datos de muestra, 3 in a 96 dpi, de dos en dos) y la
+vista previa grande era otro POST. Cada render tarda 0,5–8 s en producción (0,15 CPU; «dorada» y
+«color», con fondo raster, son las lentas en frío) y `POST /render` tiene `30/minute` por cliente:
+tras ir y volver un par de veces el límite se agotaba (429) y las miniaturas quedaban en gris hasta
+recargar. Además cada visitante repetía los mismos renders.
+
+**Endpoint**: `GET /api/v1/certificates/templates/{slug}/thumbnail.png?locale=es&w=576`
+(`app/routers/template_thumbnails.py`, router propio registrado en `main.py`).
+
+- `w` ∈ {288, 576, 1152} px (ancho exacto del PNG; otro valor → 422). `locale` debe ser uno de los
+  idiomas de la plantilla; slug desconocido o idioma que la plantilla no tiene → 404.
+- Datos de muestra fijos del servidor: «María López», especialidad «Campamento I» en el idioma de la
+  plantilla (es «Campamento I», en «Camping Skills I», pt «Acampamento I», fr «Camping I»), «Club
+  Orión», 21-09-2026 (fecha larga del idioma, o día/mes/año si la plantilla los separa), directora
+  «Ana Ruiz», instructor «Luis Gómez». Sin QR ni firmas. Parche: la insignia de Campamento I del paquete
+  `replica-especialidad/recursos/`, copiada en `templates/assets/samples/honor-patch.webp` (por eso el
+  nombre de muestra es Campamento I y no el «Nudos» que usaba el asistente).
+- Caché igual que las hojas PDF (`app/services/sheet_cache.py`): clave
+  `thumbs/{slug}/{locale}-{w}-{etag12}.png` en el bucket público. El ETag es un hash de
+  `template.svg`, `strings.*.json`, `meta.json`, `background.*`, el parche de muestra, los datos de
+  muestra y el motor (`app/certificates/render.py`): cualquier cambio da otra clave, y tras subir la
+  nueva se borran las versiones viejas de la misma variante. Con R2: 302 a la URL pública
+  (`Cache-Control: public, max-age=86400`); sin R2 (local), el PNG directo. `If-None-Match` → 304.
+- Nada se precalienta al arrancar (0,15 CPU): la primera petición renderiza, con un lock por clave
+  (dos primeras peticiones simultáneas renderizan una vez) y como mucho 2 renders de miniatura a la
+  vez; el PNG queda en una LRU en memoria (24 MB) que sirve mientras se sube a R2 o si R2 falla.
+- Sin rate limit propio: es un GET cacheable con un conjunto acotado de variantes
+  (plantillas × idiomas × 3 anchos). Test: `tests/test_template_thumbnails.py`.
+
+**Asistente** (`conquistadores-app`): el selector usa `<img src=…thumbnail.png>` directo
+(`loading="lazy"`, `srcSet` 288w/576w), sin cola ni caché propia; la vista previa grande del paso 2
+usa la de 1152 px hasta que la persona escribe algún dato, y sólo entonces hace el `POST /render`
+real (debounce de 600 ms, la petición anterior se cancela).

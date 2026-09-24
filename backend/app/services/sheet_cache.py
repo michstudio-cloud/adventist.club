@@ -137,18 +137,21 @@ def _get(key: str) -> bytes | None:
     return found["Body"].read()
 
 
-def _put(key: str, body: bytes, filename: str) -> None:
+def _put(key: str, body: bytes, filename: str, content_type: str = PDF_TYPE) -> None:
     storage.get_client().put_object(
-        Bucket=settings.R2_BUCKET_NAME, Key=key, Body=body, ContentType=PDF_TYPE,
+        Bucket=settings.R2_BUCKET_NAME, Key=key, Body=body, ContentType=content_type,
         CacheControl=OBJECT_CACHE_CONTROL, ContentDisposition=f'inline; filename="{filename}"',
     )
 
 
 def _purge(key: str) -> list[str]:
-    """Delete the older versions of the same variant as `key`. Returns the deleted keys."""
+    """Delete the older versions of the same variant as `key` (`{variant}-{etag12}.{ext}`, e.g.
+    `{mode}-{locale}-{paper}-` for a sheet, `{locale}-{w}-` for a template thumbnail). Returns
+    the deleted keys."""
     folder, name = key.rsplit("/", 1)
-    variant = name[: -(ETAG_CHARS + len(".pdf"))]             # "{mode}-{locale}-{paper}-"
-    same_variant = re.compile(re.escape(variant) + rf"[0-9a-f]{{{ETAG_CHARS}}}\.pdf")
+    stem, ext = name.rsplit(".", 1)
+    variant = stem[:-ETAG_CHARS]
+    same_variant = re.compile(re.escape(variant) + rf"[0-9a-f]{{{ETAG_CHARS}}}\.{re.escape(ext)}")
     client = storage.get_client()
     deleted, token = [], None
     while True:
@@ -195,10 +198,11 @@ async def fetch(key: str) -> bytes | None:
     return body
 
 
-async def store(key: str, body: bytes, filename: str) -> bool:
-    """Upload, then purge the older versions of the variant. True when the upload worked."""
+async def store(key: str, body: bytes, filename: str, content_type: str = PDF_TYPE) -> bool:
+    """Upload, then purge the older versions of the variant. True when the upload worked.
+    Also used for the template thumbnails (`app/routers/template_thumbnails.py`, `thumbs/`)."""
     try:
-        await anyio.to_thread.run_sync(_put, key, body, filename)
+        await anyio.to_thread.run_sync(_put, key, body, filename, content_type)
     except Exception:
         logger.warning("R2 upload failed for %s", key, exc_info=True)
         return False
