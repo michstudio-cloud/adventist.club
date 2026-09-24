@@ -164,6 +164,8 @@ async def issue_certificate(
     # Bloque F: an investiture of a program. Exactly one of honor_id / program_id is set on
     # a portfolio certificate, and only `honor_id` enables buying the patch.
     program_id: uuid.UUID | None = None,
+    # 016: the language it is issued in; outside the hash.
+    locale: str = "es",
 ) -> Certificate:
     """Stage one issued certificate with its hash and `issued` event (flushed, not committed)."""
     certificate = Certificate(
@@ -188,6 +190,7 @@ async def issue_certificate(
         issued_by_id=issued_by.id if issued_by else None,
         issued_role=issued_by.role if issued_by else None,
         program_id=program_id,
+        locale=locale,
     )
     certificate.certificate_hash = hash_cert(certificate)
     db.add(certificate)
@@ -206,6 +209,18 @@ async def issue_certificate(
 
     xp.invalidate(user_id)
     return certificate
+
+
+async def stored_locale(db: AsyncSession, certificate_no: str) -> str | None:
+    """The language certificate `certificate_no` was issued in, or None when there is none."""
+    stmt = select(Certificate.locale).where(Certificate.certificate_no == certificate_no)
+    return (await db.execute(stmt)).scalar_one_or_none()
+
+
+async def template_slug(db: AsyncSession, template_id: uuid.UUID) -> str | None:
+    """Slug of the server SVG template a certificate was issued on; None for prototype ones."""
+    template = await db.get(CertificateTemplate, template_id)
+    return template.name if template is not None and template.supports_svg else None
 
 
 # ----------------------------------------------------------------------------

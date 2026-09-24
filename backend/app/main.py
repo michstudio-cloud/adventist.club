@@ -31,7 +31,7 @@ from app.routers import club_classes as club_classes_router
 # La ficha de especialidad en PDF, generada desde los datos propios (reemplaza los PDF de terceros).
 from app.routers import honor_sheets as honor_sheets_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
-from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization
+from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
 init_sentry()  # no-op unless SENTRY_DSN is set
 app=FastAPI(title=settings.APP_NAME,version="0.3.0")
@@ -150,6 +150,8 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     # for the holder and the audit trail, and no identifier.
     # Bloque F §1.7: `kind` tells each frontend whether to write «especialidad» or «investidura».
     mode,course_title=await course_context(db,c)
+    # 016: the language it was issued in and its template, so the page can show both.
+    slug=await template_slug(db,c.template_id)
     # SEC-03: the open prototype tool (no session) writes certificates too. They are records,
     # not credentials: `official` is True only when a person of the platform issued it (the
     # portfolio or the automatic course certificate always set `issued_by_id`, `user_id` and
@@ -159,7 +161,7 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     elif c.status==REVOKED_STATUS:state="revocado"
     elif valid:state="válido"
     else:state=c.status
-    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None,"official":official}
+    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None,"official":official,"locale":c.locale or "es","template_slug":slug}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):

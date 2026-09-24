@@ -337,6 +337,8 @@ async def _certificates_out(db: AsyncSession, certificates: list[Certificate]) -
             status=c.status,
             certificate_hash=c.certificate_hash,
             template=slugs.get(c.template_id),
+            template_slug=slugs.get(c.template_id),
+            locale=c.locale or "es",
             user_id=str(c.user_id) if c.user_id else None,
             enrollment_id=str(c.enrollment_id) if c.enrollment_id else None,
             issued_by_id=str(c.issued_by_id) if c.issued_by_id else None,
@@ -1187,6 +1189,8 @@ async def issue(
             svg_template = load_template(slug)
         except TemplateError as exc:
             raise HTTPException(status.HTTP_404_NOT_FOUND, str(exc))
+    if payload.locale not in svg_template.locales:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "locale_not_supported")
 
     member = await db.get(User, enrollment.user_id)
     organization = await resolve_issuer_organization(db)
@@ -1233,6 +1237,7 @@ async def issue(
         user_id=member.id,
         enrollment_id=enrollment.id,
         issued_by=actor,
+        locale=payload.locale,
     )
     await _touch(db, enrollment)  # last refresh: from here on club_id is frozen
     enrollment.status = CERTIFIED
@@ -1246,6 +1251,7 @@ async def issue(
         actor=actor,
         metadata={"enrollment_id": str(enrollment.id), "user_id": str(member.id),
                   "certificate_no": certificate.certificate_no, "template": slug,
+                  "locale": payload.locale,
                   "mode": enrollment.mode,
                   "program_id": str(award.program_id) if award.program_id else None,
                   "course_id": str(enrollment.course_id) if enrollment.course_id else None,

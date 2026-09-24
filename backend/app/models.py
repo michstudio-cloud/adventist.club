@@ -200,6 +200,9 @@ class Certificate(Base):
     # `honor_id` / `program_id` is set on a portfolio certificate, and ONLY `honor_id`
     # enables buying the patch: a class certificate is never an honor certificate.
     program_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("programs.id",use_alter=True))
+    # 016_certificate_locale.sql — the language it was issued in (one the template speaks).
+    # Outside `canonical()`: the hash never covers it. Rows from before 016 are 'es'.
+    locale: Mapped[str]=mapped_column(String(8),default="es",server_default="es")
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"

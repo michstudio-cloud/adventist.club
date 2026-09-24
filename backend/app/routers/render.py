@@ -16,7 +16,7 @@ from app.certificates.render import (
 from app.config import settings
 from app.db import SessionLocal
 from app.rate_limit import limiter
-from app.services.certificates import render_data
+from app.services.certificates import render_data, stored_locale
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
@@ -47,7 +47,8 @@ def _fetch_media_image(url: str) -> str:
 
 class RenderRequest(BaseModel):
     template: str = Field(pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
-    locale: str = Field(default="es", pattern=r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
+    # None = the language the folio was issued in (016), else Spanish.
+    locale: str | None = Field(default=None, pattern=r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
     format: Literal["png", "pdf", "svg"] = "png"
     ministry: str = Field(default="pathfinders", pattern=r"^[a-z0-9-]{2,40}$")
     dpi: int = Field(default=300, ge=72, le=600)
@@ -101,6 +102,12 @@ async def render(request: Request, payload: RenderRequest):
                 images[key] = await asyncio.to_thread(_fetch_media_image, value)
             except Exception as exc:  # unreachable / wrong type / too big: render without it
                 raise HTTPException(422, f"No se pudo cargar la imagen '{key}': {exc}") from exc
+    if payload.locale is None:
+        stored = None
+        if payload.certificate_no:
+            async with SessionLocal() as db:
+                stored = await stored_locale(db, payload.certificate_no)
+        payload.locale = stored or "es"
     data = dict(payload.data)
     if payload.certificate_no and _is_element_template(payload.template):
         # Element templates (docs/CERTIFICADOS_V4.md) print what the issued record says: its

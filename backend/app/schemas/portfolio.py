@@ -80,6 +80,9 @@ class ReviewIn(BaseModel):
 class CertificateIssue(BaseModel):
     # Slug of a server template (GET /certificates/templates); default in the service.
     template: str | None = Field(default=None, pattern=r"^[a-z0-9][a-z0-9-]{1,60}$")
+    # 016: the language the certificate is printed in; must be one the template speaks
+    # (422 `locale_not_supported` otherwise). Spanish when not sent.
+    locale: str = Field(default="es", pattern=r"^[a-z]{2}$")
     issued_date: date
     place: str | None = Field(default=None, max_length=180)
     instructor_name: str | None = Field(default=None, max_length=180)
@@ -168,6 +171,9 @@ class CertificateOut(BaseModel):
     certificate_hash: str | None
     # Slug to hand to POST /certificates/render; None for certificates without a server template.
     template: str | None
+    # 016: the same slug under the name the verify page uses, and the issued language.
+    template_slug: str | None = None
+    locale: str = "es"
     user_id: str | None
     enrollment_id: str | None
     issued_by_id: str | None
