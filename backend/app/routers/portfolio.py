@@ -91,10 +91,20 @@ async def update_requirement(
     position: int,
     payload: RequirementUpdate,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await portfolio.update_requirement(db, current_user, enrollment_id, position, payload, request)
+    detail = await portfolio.update_requirement(
+        db, current_user, enrollment_id, position, payload, request
+    )
+    if payload.status == "SUBMITTED" and payload.honor_enrollment_id is None:
+        # «Avisos»: the club's reviewers hear that the queue has work — in the inbox always,
+        # by e-mail at most once per club every 12 hours. Staged AFTER the submission's own
+        # commit, so a mail outage can never undo it.
+        await notifications.queue_pending_reviews(db, background, enrollment_id=enrollment_id)
+        await db.commit()
+    return detail
 
 
 # ----------------------------------------------------------------------------
