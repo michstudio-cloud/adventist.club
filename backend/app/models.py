@@ -264,6 +264,9 @@ class User(Base):
     profile_visibility: Mapped[str] = mapped_column(String(10), server_default="private")
     guardian_allows_avatar: Mapped[bool] = mapped_column(Boolean, server_default="false")
     handle_changed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # 018_onboarding.sql: the first-use guide (/bienvenida) was finished or skipped. NULL = not yet.
+    # Written only by `PATCH /users/me/onboarding`.
+    onboarding_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
 class Guardianship(Base):

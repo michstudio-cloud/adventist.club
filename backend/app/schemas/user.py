@@ -42,6 +42,8 @@ class UserResponse(BaseModel):
     # Bloque G: the public @handle and whether a guardian allows the minor's photo.
     handle: str | None = None
     guardian_allows_avatar: bool = False
+    # 018: when the first-use guide was finished or skipped; `null` = the app should offer it.
+    onboarding_completed_at: datetime | None = None
 
     @classmethod
     def from_model(cls, user: User) -> "UserResponse":
@@ -69,7 +71,17 @@ class UserResponse(BaseModel):
             last_login=user.last_login,
             handle=user.handle,
             guardian_allows_avatar=user.guardian_allows_avatar,
+            onboarding_completed_at=user.onboarding_completed_at,
         )
+
+
+class OnboardingUpdate(BaseModel):
+    """`PATCH /users/me/onboarding`. Finishing and skipping both close the guide for good;
+    the outcome only goes to the audit log."""
+
+    outcome: Literal["completed", "skipped"] = "completed"
+    # The last step the person saw (1-based), for the audit log only.
+    step: int | None = Field(default=None, ge=1, le=10)
 
 
 class UserUpdate(BaseModel):

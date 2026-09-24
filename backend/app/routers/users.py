@@ -34,6 +34,7 @@ from app.schemas.user import (
     ChildGuardianship,
     GuardianshipCreate,
     GuardianshipResponse,
+    OnboardingUpdate,
     UserResponse,
     UserUpdate,
 )
@@ -86,6 +87,33 @@ async def update_my_profile(
     """Bloque G: name, @handle, bio, photo, cover and visibility of one's own profile.
     A minor can never be `public` nor have a cover (spec §1)."""
     return await profile_service.update_profile(db, current_user, payload, request)
+
+
+@router.patch("/me/onboarding", response_model=UserResponse)
+async def complete_my_onboarding(
+    request: Request,
+    payload: OnboardingUpdate | None = None,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """«Primer uso guiado» (018): the person finished or skipped `/bienvenida`, so the app
+    stops offering it. Idempotent: the first moment is kept, a second call changes nothing and
+    writes no second audit row. Any role may call it; which roles SEE the guide is the app's call."""
+    payload = payload or OnboardingUpdate()
+    if current_user.onboarding_completed_at is None:
+        current_user.onboarding_completed_at = utcnow()
+        record_audit(
+            db,
+            action="ONBOARDING_COMPLETED" if payload.outcome == "completed" else "ONBOARDING_SKIPPED",
+            entity_type="USER",
+            entity_id=current_user.id,
+            actor=current_user,
+            metadata={"step": payload.step} if payload.step is not None else None,
+            request=request,
+        )
+        await db.commit()
+        await db.refresh(current_user)
+    return UserResponse.from_model(current_user)
 
 
 @router.post("/{user_id}/mfa-reset", response_model=UserResponse)
