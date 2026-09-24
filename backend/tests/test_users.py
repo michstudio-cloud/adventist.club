@@ -290,6 +290,13 @@ async def test_guardianship_rules(client, tree, factory):
     child = await factory.user("child", organization_id=org, is_minor=True)
     adult = await factory.user("adult", organization_id=org)
     url = f"{USERS}/guardianships"
+    # SEC-01: only an adult whose e-mail is verified may declare a guardianship.
+    async with SessionLocal() as db:
+        await db.execute(
+            text("UPDATE users SET verification_status = 'VERIFIED' WHERE id = ANY(:ids)"),
+            {"ids": [uuid.UUID(u["id"]) for u in (guardian, other_guardian, tree["student_a"])]},
+        )
+        await db.commit()
 
     # D9 (bloque E): any ADULT may be a guardian, not only PARENT_GUARDIAN —
     # the director whose own child is a member needs no second account. A minor
@@ -338,10 +345,10 @@ async def test_guardianship_rules(client, tree, factory):
     for outsider in (other_guardian, child, tree["master"]):
         refused = await client.post(f"{url}/{link['id']}/approve", headers=outsider["headers"])
         assert refused.status_code == 403
+    # SEC-01: not even they approve it — that was self-consent. The approval comes from
+    # the consent link e-mailed to the guardian (memberships.decide_consent).
     approved = await client.post(f"{url}/{link['id']}/approve", headers=guardian["headers"])
-    assert approved.status_code == 200
-    assert approved.json()["consent_status"] == "APPROVED"
-    assert approved.json()["consent_granted_at"] is not None
+    assert approved.status_code == 403
     rejected = await client.post(f"{url}/{link['id']}/reject", headers=guardian["headers"])
     assert rejected.status_code == 200
     assert rejected.json()["consent_status"] == "REJECTED"

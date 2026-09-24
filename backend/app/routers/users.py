@@ -151,6 +151,12 @@ async def create_guardianship(
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "Sólo una persona adulta puede ser tutora de un menor."
         )
+    if current_user.verification_status != "VERIFIED":
+        # The same bar as `memberships.decide_consent`: whoever vouches for a
+        # minor proves first that the e-mail address is theirs.
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Verifica tu correo antes de vincularte a un menor."
+        )
     child = await _get_user_or_404(db, payload.child_id)
     if child.id == current_user.id or not child.is_minor:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Child must be marked as minor")
@@ -234,7 +240,7 @@ async def my_children(
 async def my_guardians(
     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
-    if not current_user.is_minor:
+    if not is_minor_user(current_user):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Only minors can view guardians")
     stmt = (
         select(Guardianship)
@@ -258,6 +264,16 @@ async def _decide_guardianship(
     if row.guardian_id != current_user.id:
         verb = "approve" if approve else "reject"
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Only the guardian can {verb} consent")
+    if approve and row.consent_status != "APPROVED":
+        # SEC-01: the link was declared by this very person, so "approving" it was
+        # self-consent — any adult became the approved guardian of any minor and read
+        # their portfolio and photos. An approved guardianship only comes from the
+        # single-use consent link e-mailed to the address the minor or the club gave
+        # (`memberships.decide_consent`). Withdrawing (reject) stays self-service.
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "La tutoría se confirma con el enlace de consentimiento que recibe el tutor por correo.",
+        )
 
     row.consent_status = "APPROVED" if approve else "REJECTED"
     row.consent_granted_at = utcnow() if approve else None
