@@ -151,19 +151,49 @@ def resolve_strings(template: Template, locale: str) -> dict[str, str]:
     return {}
 
 
+# Style names of the bundled files -> CSS weight (anything else, e.g. «Beta», is a regular face).
+_STYLE_WEIGHTS = (("extralight", 200), ("ultralight", 200), ("semibold", 600), ("demibold", 600),
+                  ("extrabold", 800), ("ultrabold", 800), ("thin", 100), ("light", 300), ("medium", 500),
+                  ("bold", 700), ("black", 900), ("heavy", 900))
+
+
+def _file_weight(path: Path) -> int:
+    style = path.stem.split("-", 1)[1].lower() if "-" in path.stem else ""
+    return next((weight for name, weight in _STYLE_WEIGHTS if name in style), 400)
+
+
+def _css_weight(weight: str) -> int:
+    value = {"normal": "400", "bold": "700"}.get(str(weight).strip().lower(), str(weight).strip())
+    return int(value) if value.isdigit() else 400
+
+
 @lru_cache(maxsize=64)
 def _font(family: str, weight: str, size_pt: float):
-    """Font used only to MEASURE text for data-fit; resvg does the real drawing."""
+    """Font used only to MEASURE text for data-fit; resvg does the real drawing.
+
+    The face is chosen like CSS (and resvg's fontdb) do: the exact weight of the family, else the
+    nearest one on the side CSS prefers (heavier above 500, lighter at or below). TrueType and
+    OpenType-CFF (.otf, e.g. Advent Sans) files are both looked at."""
     if FONTS_DIR.exists():
-        bold = weight in ("700", "bold", "800", "900")
         wanted = family.replace(" ", "").lower()
-        fonts = sorted(FONTS_DIR.glob("*.ttf"))
+        fonts = sorted([*FONTS_DIR.glob("*.ttf"), *FONTS_DIR.glob("*.otf")])
         # exact family first ("Noto Sans" is NotoSans-*.ttf, never NotoSansMono-*.ttf)
         candidates = [p for p in fonts if p.stem.split("-")[0].lower() == wanted] or \
             [p for p in fonts if wanted in p.name.replace(" ", "").lower()]
-        candidates.sort(key=lambda p: (("Bold" in p.name) != bold, p.name))
+        candidates = [p for p in candidates if "italic" not in p.stem.lower()] or candidates
         if candidates:
-            return ImageFont.truetype(str(candidates[0]), max(1, round(size_pt * 4)))  # 4x for precision
+            target = _css_weight(weight)
+
+            def rank(path: Path) -> tuple:
+                have = _file_weight(path)
+                if have == target:
+                    return (0, 0, path.name)
+                prefer_heavier = target > 500
+                on_preferred_side = (have > target) == prefer_heavier
+                return (1 if on_preferred_side else 2, abs(have - target), path.name)
+
+            best = min(candidates, key=rank)
+            return ImageFont.truetype(str(best), max(1, round(size_pt * 4)))  # 4x for precision
     return ImageFont.load_default(size=max(1, round(size_pt * 4)))
 
 
@@ -232,6 +262,48 @@ def format_long_date(value: str, locale: str) -> str:
     if language == "fr":
         return f"{day} {name} {year}"
     return f"{day} de {name} de {year}"
+
+
+# Numeric dates as Intl.DateTimeFormat writes {day: "2-digit", month: "2-digit", year: "numeric"}:
+# en-US puts the month first; es, pt and fr the day. Other languages are not guessed.
+NUMERIC_DATE_ORDER = {"es": "dmy", "pt": "dmy", "fr": "dmy", "en": "mdy"}
+
+
+def _parse_long_date(value: str, language: str) -> tuple[int, int, int] | None:
+    """The long date of `format_long_date` (what the assistant sends, from Intl `dateStyle: long`)
+    back to (year, month, day); None when it is not one."""
+    names = MONTHS.get(language)
+    if not names:
+        return None
+    text = " ".join(value.strip().split())
+    month_re = "|".join(re.escape(name) for name in names)
+    patterns = (rf"^(?P<m>{month_re}) (?P<d>\d{{1,2}}), (?P<y>\d{{4}})$",) if language == "en" else (
+        rf"^(?P<d>\d{{1,2}})(?:er)? (?:de )?(?P<m>{month_re}) (?:de )?(?P<y>\d{{4}})$",)
+    for pattern in patterns:
+        found = re.match(pattern, text, re.I)
+        if found:
+            month = [name.lower() for name in names].index(found.group("m").lower()) + 1
+            return int(found.group("y")), month, int(found.group("d"))
+    return None
+
+
+def format_numeric_date(value: str, locale: str) -> str:
+    """ISO "2026-09-21" (or the long date the assistant sends) -> «21/09/2026» (es, pt, fr) or
+    «09/21/2026» (en), the design's {day: 2-digit, month: 2-digit, year: numeric} in UTC.
+    Anything else is kept as the caller wrote it."""
+    language = locale.split("-")[0].lower()
+    if language not in NUMERIC_DATE_ORDER:
+        raise TemplateError(f"No hay formato de fecha para el idioma '{locale}'.")
+    match = ISO_DATE_RE.match(value.strip())
+    parts = tuple(int(g) for g in match.groups()) if match else _parse_long_date(value, language)
+    if not parts:
+        return value
+    year, month, day = parts
+    if not 1 <= month <= 12 or not 1 <= day <= 31:
+        raise TemplateError(f"Fecha no válida: {value}.")
+    if NUMERIC_DATE_ORDER[language] == "mdy":
+        return f"{month:02d}/{day:02d}/{year}"
+    return f"{day:02d}/{month:02d}/{year}"
 
 
 def fit_lines(text: str, *, family: str, weight: str, size: float, min_size: float, max_width: float,
@@ -349,6 +421,8 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
                     value = strings[fallback]
                 if value and el.get("data-format") == "date-long":
                     value = format_long_date(value, locale)
+                elif value and el.get("data-format") == "date-numeric":
+                    value = format_numeric_date(value, locale)
             if not value:
                 if el.get("data-required") == "true":
                     raise TemplateError(f"Falta el dato '{el_id}' para la plantilla {template.slug}.")
