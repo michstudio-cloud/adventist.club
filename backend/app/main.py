@@ -15,7 +15,7 @@ from app.deps import get_optional_user
 from app.schemas.portfolio import SIGNATURE_MAX_LENGTH
 from app.services import certificate_signatures
 from app.monitoring import init_sentry
-from app.rate_limit import limiter, rate_limit_exceeded_handler
+from app.rate_limit import account_or_ip, limiter, rate_limit_exceeded_handler
 from app.routers import auth as auth_router, clubs as clubs_router, honors as honors_router, media as media_router, memberships as memberships_router, org as org_router, portfolio as portfolio_router, render as render_router, users as users_router
 # Bloque B: la carta de la iglesia (verificación del instructor virtual) y los cursos.
 from app.routers import church_letters as church_letters_router, courses as courses_router
@@ -124,7 +124,8 @@ async def applications(db:AsyncSession=Depends(get_db)):
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
-@limiter.limit("30/hour")
+# 021: with a session it arrives through the web app's proxy (one address for everybody).
+@limiter.limit("30/hour",key_func=account_or_ip)
 async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db),viewer:User|None=Depends(get_optional_user)):
     # 021: validated before anything is written. Anonymous: nothing is kept (the certificate
     # re-downloads unsigned, the signature travels only in each POST /render).

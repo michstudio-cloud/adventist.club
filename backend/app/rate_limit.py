@@ -29,6 +29,20 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
+def account_or_ip(request: Request) -> str:
+    """For an open endpoint that a signed-in person also reaches through the web app's proxy
+    (021: the certificate assistant with a session). Behind the proxy every account would share
+    the proxy's address, so a valid access token counts per account; anything else per address."""
+    header = request.headers.get("authorization") or ""
+    if header.lower().startswith("bearer ") and settings.auth_configured:
+        from app.security import TOKEN_ACCESS, decode_claims
+
+        claims = decode_claims(header[7:].strip(), TOKEN_ACCESS)
+        if claims and claims.get("sub"):
+            return f"account:{claims['sub']}"
+    return client_ip(request)
+
+
 # No default limits: only explicitly decorated endpoints are limited, so the
 # existing public endpoints behave exactly as before.
 limiter = Limiter(

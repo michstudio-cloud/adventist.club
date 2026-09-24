@@ -311,3 +311,23 @@ async def test_the_client_upload_cannot_write_into_internal_folders(client, fact
                                      files={"file": ("x.png", _png(), "image/png")}, headers=world["master"]["headers"])
         assert response.status_code == 201, response.text
         assert response.json()["key"].startswith("general/")
+
+
+def test_behind_the_web_proxy_the_batch_limit_counts_per_account():
+    """The assistant with a session reaches prototype-batch through the proxy (one address for
+    everybody): a valid access token is its own bucket, anything else counts per address."""
+    from starlette.requests import Request
+
+    from app.rate_limit import account_or_ip
+    from tests.conftest import auth_headers
+
+    def request(headers: dict) -> Request:
+        raw = [(k.lower().encode(), v.encode()) for k, v in headers.items()]
+        return Request({"type": "http", "headers": raw, "client": ("10.0.0.1", 1)})
+
+    proxy = {"X-Forwarded-For": "203.0.113.9"}
+    one, two = uuid.uuid4(), uuid.uuid4()
+    assert account_or_ip(request({**proxy, **auth_headers(one)})) == f"account:{one}"
+    assert account_or_ip(request({**proxy, **auth_headers(two)})) == f"account:{two}"
+    assert account_or_ip(request({**proxy, "Authorization": "Bearer nope"})) == "203.0.113.9"
+    assert account_or_ip(request(proxy)) == "203.0.113.9"
