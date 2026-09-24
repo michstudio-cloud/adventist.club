@@ -128,7 +128,7 @@ async def upload_media(
         )
 
     try:
-        url, key = await storage.upload_bytes(data, content_type, folder)
+        url, key = await storage.upload_bytes(data, content_type, target_folder)
     except storage.StorageNotConfigured:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, STORAGE_NOT_CONFIGURED_DETAIL)
     except storage.StorageError as exc:

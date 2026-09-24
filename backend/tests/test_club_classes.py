@@ -21,6 +21,7 @@ from sqlalchemy import event, text
 from app.config import settings
 from app.db import SessionLocal, engine
 from tests.conftest import DB_AVAILABLE, fetch_all, fetch_one, module_factory, requires_db
+from tests.test_certificate_signatures import r2  # noqa: F401 - the public media bucket, faked
 
 CLUBS = "/api/v1/clubs"
 ENROLLMENTS = "/api/v1/portfolio/enrollments"
@@ -680,6 +681,41 @@ async def test_the_default_issued_date_is_today(client, world, factory, issuer):
     certificate = await fetch_one("SELECT issued_date FROM certificates WHERE certificate_no = :n",
                                   n=body["invested"][0]["certificate_no"])
     assert certificate["issued_date"] == date.today()
+
+
+async def test_the_investiture_keeps_the_directors_saved_signature(client, world, factory, issuer, r2):
+    """021: the club screen sends the director's saved signature; it is read once and every
+    certificate of the investiture keeps its own copy. Nobody else's saved signature is taken."""
+    from tests.test_certificate_signatures import MEDIA, _png
+
+    program = await _program(factory, "investidura-firmada", sections=(("a", 1),))
+    enrolled = (await _enroll(client, world, program, membership_ids=[
+        world["s3"]["membership_id"], world["s4"]["membership_id"]])).json()["enrolled"]
+    ids = [row["enrollment_id"] for row in enrolled]
+    await _sign(client, world, program, [{"enrollment_id": e, "requirement_id": program["requirements"][0]} for e in ids])
+
+    other = await client.post("/api/v1/users/me/signature", files={"file": ("f.png", _png(), "image/png")},
+                              headers=world["instructor"]["headers"])
+    refused = await client.post(_url(world, program, "/invest"),
+                                json={"enrollment_ids": ids, "signature_director": other.json()["signature_url"]},
+                                headers=world["director"]["headers"])
+    assert refused.status_code == 422                      # not the director's own: nothing invested
+    assert await fetch_one("SELECT 1 AS x FROM honor_enrollments WHERE id = :e AND status = 'CERTIFIED'",
+                           e=uuid.UUID(ids[0])) is None
+
+    saved = await client.post("/api/v1/users/me/signature", files={"file": ("f.png", _png(500, 120), "image/png")},
+                              headers=world["director"]["headers"])
+    body = (await client.post(_url(world, program, "/invest"),
+                              json={"enrollment_ids": ids, "signature_director": saved.json()["signature_url"]},
+                              headers=world["director"]["headers"])).json()
+    assert len(body["invested"]) == 2, body
+    rows = await fetch_all(
+        "SELECT id::text AS id, signature_director_url AS url, signature_instructor_url AS other FROM certificates"
+        " WHERE certificate_no = ANY(:n)", n=[row["certificate_no"] for row in body["invested"]])
+    assert len(rows) == 2 and all(row["other"] is None for row in rows)
+    for row in rows:
+        assert row["url"].startswith(f"{MEDIA}/certificates/signatures/{row['id']}/")
+        assert r2.body(row["url"]) == r2.body(saved.json()["signature_url"])
 
 
 # ----------------------------------------------------------------------------

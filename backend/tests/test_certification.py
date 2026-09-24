@@ -17,6 +17,7 @@ from sqlalchemy import text
 
 from app.db import SessionLocal
 from tests.conftest import DB_AVAILABLE, fetch_all, fetch_one, module_factory, requires_db
+from tests.test_certificate_signatures import r2  # noqa: F401 - the public media bucket, faked
 
 COURSES = "/api/v1/courses"
 EXAMS = "/api/v1/exams"
@@ -322,6 +323,38 @@ async def test_passing_a_course_without_practical_work_issues_the_certificate(
     assert events[0]["metadata_json"]["auto"] is True
     assert events[0]["metadata_json"]["attempt_id"] == result["id"]
     assert "CERTIFICATE_AUTO_ISSUE" in await _audit_actions(certificate["id"])
+
+
+@pytest.mark.asyncio
+async def test_the_automatic_certificate_keeps_the_instructors_saved_signature(client, world, factory, r2):
+    """021: nobody clicked, nothing new is asked: the instructor's saved signature, if any, is
+    copied onto their line. A bucket that fails issues the certificate unsigned, never blocks it."""
+    from tests.test_certificate_signatures import MEDIA, _png
+
+    instructor = world["instructor"]
+    saved = await client.post("/api/v1/users/me/signature", files={"file": ("f.png", _png(), "image/png")},
+                              headers=instructor["headers"])
+    assert saved.status_code == 200, saved.text
+    try:
+        course = await _course(client, world, factory, "auto-firma")
+        enrollment = await _join(client, world["member5"], course["id"])
+        assert (await _sit_and_pass(client, world["member5"], enrollment["id"]))["status"] == "PASSED"
+        certificate = await _certificate_of(enrollment["id"])
+        assert certificate["signature_director_url"] is None
+        assert certificate["signature_instructor_url"].startswith(f"{MEDIA}/certificates/signatures/{certificate['id']}/")
+        assert r2.body(certificate["signature_instructor_url"]) == r2.body(saved.json()["signature_url"])
+
+        def unreachable(**_kwargs):
+            raise ConnectionError("R2 caído")
+
+        r2.get_object = unreachable
+        course = await _course(client, world, factory, "auto-sin-bucket")
+        enrollment = await _join(client, world["member5"], course["id"])
+        assert (await _sit_and_pass(client, world["member5"], enrollment["id"]))["status"] == "PASSED"
+        certificate = await _certificate_of(enrollment["id"])
+        assert certificate["status"] == "issued" and certificate["signature_instructor_url"] is None
+    finally:
+        await client.delete("/api/v1/users/me/signature", headers=instructor["headers"])
 
 
 @pytest.mark.asyncio

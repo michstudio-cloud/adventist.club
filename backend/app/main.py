@@ -10,9 +10,12 @@ from app.config import settings
 from app.db import get_db
 from app.printing import LayoutRequest, compute_layout, render_pdf
 from slowapi.errors import RateLimitExceeded
-from app.models import Application, Certificate, Honor, Ministry, Organization
+from app.models import Application, Certificate, Honor, Ministry, Organization, User
+from app.deps import get_optional_user
+from app.schemas.portfolio import SIGNATURE_MAX_LENGTH
+from app.services import certificate_signatures
 from app.monitoring import init_sentry
-from app.rate_limit import limiter, rate_limit_exceeded_handler
+from app.rate_limit import account_or_ip, limiter, rate_limit_exceeded_handler
 from app.routers import auth as auth_router, clubs as clubs_router, honors as honors_router, media as media_router, memberships as memberships_router, org as org_router, portfolio as portfolio_router, render as render_router, users as users_router
 # Bloque B: la carta de la iglesia (verificación del instructor virtual) y los cursos.
 from app.routers import church_letters as church_letters_router, courses as courses_router
@@ -62,6 +65,11 @@ class PrototypeBatchCreate(BaseModel):
     # SEC-03: open endpoint — bounded so it cannot mint templates of absurd sizes.
     width_in:float=Field(gt=0,le=48)
     height_in:float=Field(gt=0,le=48)
+    # 021: kept with the certificates ONLY with a session («para guardar el archivo pidamos que
+    # se registren»); without one they are ignored and the signature lives in /render alone.
+    # A data URL or the person's own saved signature (services/certificate_signatures.py).
+    signature_director:str|None=Field(default=None,max_length=SIGNATURE_MAX_LENGTH)
+    signature_instructor:str|None=Field(default=None,max_length=SIGNATURE_MAX_LENGTH)
 
 class PrintPdfRequest(BaseModel):
     """Legacy shape (margin_in / gap_in) plus the full imposition options.
@@ -116,8 +124,12 @@ async def applications(db:AsyncSession=Depends(get_db)):
     return [{"id":str(x.id),"slug":x.slug,"name":x.name,"domain":x.domain,"ministry_id":str(x.ministry_id) if x.ministry_id else None} for x in rows]
 
 @app.post("/api/v1/certificates/prototype-batch",status_code=201)
-@limiter.limit("30/hour")
-async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db)):
+# 021: with a session it arrives through the web app's proxy (one address for everybody).
+@limiter.limit("30/hour",key_func=account_or_ip)
+async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncSession=Depends(get_db),viewer:User|None=Depends(get_optional_user)):
+    # 021: validated before anything is written. Anonymous: nothing is kept (the certificate
+    # re-downloads unsigned, the signature travels only in each POST /render).
+    signatures=await certificate_signatures.prepare({"signature_director":payload.signature_director,"signature_instructor":payload.signature_instructor},viewer) if viewer else {}
     ministry=(await db.execute(select(Ministry).where(Ministry.slug==payload.ministry,Ministry.status=="active"))).scalar_one_or_none()
     if not ministry:raise HTTPException(404,"Ministerio no encontrado.")
     approw=(await db.execute(select(Application).where(Application.slug==payload.application))).scalar_one_or_none()
@@ -137,7 +149,9 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name))
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata={"signed_by":str(viewer.id)} if signatures else None))
+    # One immutable copy per signature for the whole batch (the folder of its first certificate).
+    await certificate_signatures.attach(created,signatures)
     await db.commit()
     return [{"id":str(c.id),"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name_snapshot":c.honor_name_snapshot,"club_name_snapshot":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"status":c.status,"certificate_hash":c.certificate_hash} for c in created]
 

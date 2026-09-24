@@ -277,6 +277,53 @@ del host de medios. Protección real: clave `uuid4` de 128 bits sin listado, la 
 reemplazo y el borrado eliminan el objeto, y el render la vuelve a validar. Si el responsable prefiere privada, el
 cambio es local: guardar la clave, subir con `private_storage` y que `/render` acepte `signature_*: "me"` con sesión.
 
+**La firma queda en el certificado emitido** (`021_certificate_signatures.sql`, `app/services/certificate_signatures.py`).
+Antes de 021 la firma se imprimía al generar y se perdía: volver a descargar desde el portafolio, `/verify/<folio>`
+o `POST /render` con `certificate_no` salía sin firma. Ahora `certificates.signature_director_url` y
+`certificates.signature_instructor_url` (text NULL, fuera del hash: `canonical()` sigue congelado) guardan la URL de
+una **copia inmutable** en el bucket de medios, `certificates/signatures/<id del certificado>/<uuid>.png` (PNG ya
+normalizado, subido por `storage.upload_bytes`; carpeta interna: `POST /media/upload` no puede escribir ahí ni en
+`signatures/` — ahora resuelve la carpeta antes de construir la clave).
+
+- **Sólo con cuenta** («para guardar el archivo pidamos que se registren»). Rutas que emiten:
+  - portafolio `POST /portfolio/enrollments/{id}/certificate` (`CertificateIssue.signature_director|signature_instructor`);
+  - investidura en bloque `POST /clubs/{club}/classes/{program}/invest` (`InvestIn`, mismos campos; la firma se
+    valida y se lee **una vez** y cada certificado recibe su copia);
+  - curso automático (`auto_certificate`): nadie hace clic, así que no se pide nada: si el instructor del curso
+    tiene firma guardada (`users.signature_url`) se copia a su línea. Mejor esfuerzo: si el bucket falla, el
+    certificado sale sin firma (se registra en el log), nunca se bloquea la emisión;
+  - asistente `POST /certificates/prototype-batch` **con sesión** (el Bearer por el proxy): mismos campos; una sola
+    copia por firma para todo el lote (en la carpeta del primer certificado; como nunca se borran, compartirla es
+    lo mismo que copiarla), y el evento `issued` lleva `signed_by` (quién puso la firma; el lote sigue sin
+    `issued_by_id`, así que sigue siendo «no oficial» en `/verify`). **Sin sesión los campos se ignoran**: el
+    certificado anónimo no guarda firma y al volver a descargarlo sale sin ella salvo que quien lo pida la mande.
+- **Qué se acepta** en cada campo: una data URL (dibujada o subida en ese momento; mismas reglas de
+  `signatures.py`: PNG/JPEG/WebP, ≤ 400 KB, recodificada) o **la propia firma guardada de quien emite** (su
+  `users.signature_url`; es la única que un cliente llega a ver). Cualquier otra URL —otro host, la firma guardada
+  de otra persona, otro objeto del bucket— es 422 y no se emite nada. Así nadie puede poner la firma guardada de
+  otro; lo dibujado tiene autor identificable (`issued_by_id`, y la fila de auditoría lleva `signed: [...]`).
+- **Sin bucket** (almacenamiento sin configurar o caído) una emisión que pide firma responde 503/502 y no se emite
+  nada (la inscripción sigue READY): la firma que se pidió o queda guardada o no hay certificado. Sin firma, igual
+  que antes.
+- **`POST /certificates/render` con `certificate_no`** (cualquier plantilla con ranura):
+  - folio con firmas guardadas, o folio «oficial» (con `issued_by_id`, `user_id` o `enrollment_id`): **manda el
+    registro**. Se imprimen sus copias y nada de lo que mande el cliente las reemplaza ni rellena una línea que el
+    registro dejó sin firma (lo enviado ni se lee);
+  - folio anónimo sin firmas guardadas (el asistente sin cuenta) o folio inexistente: la firma del cliente, como
+    antes de 021;
+  - certificado **anulado**: conserva sus firmas (documento histórico) pero no se imprime ninguna;
+  - una copia que no se puede leer del bucket: 502 (nunca un certificado firmado que sale sin firma en silencio).
+  Así la descarga del portafolio (`downloadPortfolioCertificate`) y la de `/verify/<folio>` salen firmadas sin
+  que el cliente mande nada. `CertificateOut.signed` dice qué líneas están firmadas.
+- **Nunca se borran**: anular el certificado no las toca; borrar (u olvidar) la firma guardada de la cuenta borra
+  sólo `signatures/<uuid>.png`, nunca `certificates/signatures/…`; la baja de una cuenta (INACTIVE) tampoco. La copia
+  es del certificado.
+- **Límite del lote**: con sesión el lote llega por el proxy de la web (una sola dirección para todos), así que
+  `30/hour` cuenta por cuenta cuando trae un access token válido (`rate_limit.account_or_ip`), por dirección si no.
+- **Pendiente**: el lote del asistente no registra la plantilla del servidor (crea «Prototipo WxHin»), así que
+  `/verify/<folio>` no ofrece descarga para esos folios (`template_slug = null`); `POST /render` con el folio sí
+  imprime su firma guardada. Guardar la plantilla en el lote es un cambio aparte.
+
 ## Pendiente (fuera del backend)
 
 - El asistente (`conquistadores-app/lib/certificate-templates.ts`) no tiene etiqueta para los slugs

@@ -56,11 +56,14 @@ def too_large_message() -> str:
     return f"La firma supera el tamaño máximo de {MAX_SIGNATURE_BYTES // 1024} KB."
 
 
-def normalize_signature_bytes(data: bytes, declared_mime: str | None = None) -> bytes:
-    """Validate a signature picture and return it as a PNG the engine can draw quickly."""
+def normalize_signature_bytes(data: bytes, declared_mime: str | None = None, *, max_bytes: int = MAX_SIGNATURE_BYTES) -> bytes:
+    """Validate a signature picture and return it as a PNG the engine can draw quickly.
+
+    `max_bytes` is the 400 KB of what a person sends; a signature the API itself already
+    normalized and stored (a PNG re-encoded from a small JPEG can be larger) passes a wider cap."""
     if not data:
         raise SignatureError("La firma está vacía.")
-    if len(data) > MAX_SIGNATURE_BYTES:
+    if len(data) > max_bytes:
         raise SignatureError(too_large_message())
     if declared_mime is not None and declared_mime not in MIME_TYPES:
         raise SignatureError("La firma debe ser una imagen PNG, JPEG o WebP (SVG no se acepta).")
@@ -88,8 +91,16 @@ def normalize_signature_bytes(data: bytes, declared_mime: str | None = None) -> 
     return out.getvalue()
 
 
+def signature_png_from_data_url(value: str) -> bytes:
+    """Data URL in, normalized PNG bytes out (what an issued certificate keeps, 021)."""
+    mime, data = decode_data_url(value)
+    return normalize_signature_bytes(data, mime)
+
+
+def png_data_url(png: bytes) -> str:
+    return f"data:image/png;base64,{base64.b64encode(png).decode()}"
+
+
 def normalize_signature(value: str) -> str:
     """Data URL in, data URL (PNG) out. Raises SignatureError with a message for the person."""
-    mime, data = decode_data_url(value)
-    png = normalize_signature_bytes(data, mime)
-    return f"data:image/png;base64,{base64.b64encode(png).decode()}"
+    return png_data_url(signature_png_from_data_url(value))

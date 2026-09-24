@@ -18,6 +18,9 @@ EnrollmentStatus = Literal["IN_PROGRESS", "READY", "CERTIFIED", "WITHDRAWN"]
 QueueStatus = Literal["SUBMITTED", "READY"]
 EvidenceContentType = Literal["image/jpeg", "image/png", "image/webp", "application/pdf"]
 NOTE_MAX_LENGTH = 2000
+# 021: a signature travels as a data URL of <= 400 KB (base64: ~547 000 characters) or as the
+# issuer's saved-signature URL. The real checks are in services/certificate_signatures.py.
+SIGNATURE_MAX_LENGTH = 560_000
 
 
 def _blank_to_none(value):
@@ -86,8 +89,13 @@ class CertificateIssue(BaseModel):
     issued_date: date
     place: str | None = Field(default=None, max_length=180)
     instructor_name: str | None = Field(default=None, max_length=180)
+    # 021: the handwritten signatures kept with the certificate. A data URL (drawn or uploaded
+    # now) or the issuer's own saved signature (`users.signature_url`); anything else is 422.
+    signature_director: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
+    signature_instructor: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
 
-    _clean = field_validator("place", "instructor_name", mode="before")(_blank_to_none)
+    _clean = field_validator("place", "instructor_name", "signature_director", "signature_instructor",
+                             mode="before")(_blank_to_none)
 
 
 # ----------------------------------------------------------------------------
@@ -182,6 +190,9 @@ class CertificateOut(BaseModel):
     # in the portfolio — with its date and the reason its holder is entitled to read.
     revoked_at: datetime | None = None
     revocation_reason: str | None = None
+    # 021: which signature lines carry a handwritten signature kept with the certificate
+    # (`signature_director`, `signature_instructor`). The render fills them from the folio.
+    signed: list[str] = Field(default_factory=list)
 
 
 class RequirementOut(BaseModel):

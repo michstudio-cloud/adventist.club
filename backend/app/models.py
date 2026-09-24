@@ -206,6 +206,12 @@ class Certificate(Base):
     # 016_certificate_locale.sql — the language it was issued in (one the template speaks).
     # Outside `canonical()`: the hash never covers it. Rows from before 016 are 'es'.
     locale: Mapped[str]=mapped_column(String(8),default="es",server_default="es")
+    # 021_certificate_signatures.sql — the handwritten signatures printed when it was issued:
+    # an immutable copy in the media bucket (`certificates/signatures/<id>/`), written only at
+    # issuance by someone with an account (services/certificate_signatures.py). Never the
+    # account's own `users.signature_url`, never deleted, outside `canonical()`.
+    signature_director_url: Mapped[str|None]=mapped_column(Text)
+    signature_instructor_url: Mapped[str|None]=mapped_column(Text)
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"

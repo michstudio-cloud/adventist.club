@@ -81,7 +81,7 @@ from app.schemas.portfolio import CertificateIssue
 from app.schemas.program import ProgramRef
 from app.schemas.unit import UnitRef
 from app.security import STUDENT, utcnow
-from app.services import attendance, curriculum, portfolio, portfolio_links, programs
+from app.services import attendance, certificate_signatures, curriculum, portfolio, portfolio_links, programs
 from app.services import ministries as ministry_service
 from app.services import units as unit_service
 from app.services.audit import record_audit
@@ -620,6 +620,11 @@ async def invest(
         # No template of kind `program` for the ministry: 409 before a single certificate.
         await programs.program_template(db, payload.template, await curriculum.award_for(db, ready[0]))
     allowed = {row.id: await can_issue(db, actor, row) for row in ready}
+    # 021: checked (and the saved signature read) once, before a single certificate is issued.
+    signatures = await certificate_signatures.prepare(
+        {"signature_director": payload.signature_director, "signature_instructor": payload.signature_instructor},
+        actor,
+    ) if ready else {}
 
     certificate = CertificateIssue(
         template=payload.template,
@@ -647,6 +652,7 @@ async def invest(
         issued = await portfolio.issue(
             db, actor, enrollment_id, certificate, request,
             audit_extra={"via": VIA_CLUB, "club_id": str(club.id), "bulk_id": bulk_id},
+            signatures=signatures,
         )
         invested.append(
             InvestedEnrollment(enrollment_id=str(enrollment_id), certificate_no=issued.certificate_no)
