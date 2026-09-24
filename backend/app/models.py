@@ -704,6 +704,33 @@ class NotificationLog(Base):
     ok: Mapped[bool] = mapped_column(Boolean, server_default="true")
 
 
+class Notification(Base):
+    """017_notifications.sql — «Avisos», the in-app inbox (the bell).
+
+    One row per notice and person. `notification_log` records the e-mails and carries the
+    12-hour cap; this is what the person reads in the app. While a row is unread, a new
+    notice of the same kind about the same entity updates it (`count` goes up) instead of
+    piling up rows. `link` is always a relative path of the app.
+    """
+
+    __tablename__ = "notifications"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    kind: Mapped[str] = mapped_column(String(40))
+    title: Mapped[str] = mapped_column(String(200))
+    body: Mapped[str | None] = mapped_column(Text)
+    link: Mapped[str | None] = mapped_column(String(500))
+    entity_type: Mapped[str | None] = mapped_column(String(40))
+    entity_id: Mapped[str | None] = mapped_column(Text)
+    count: Mapped[int] = mapped_column(Integer, server_default="1")
+    data: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    read_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
 # ---------------------------------------------------------------------------
 # 008_mfa_recovery.sql: the way back in when the authenticator is lost.
 # ---------------------------------------------------------------------------
