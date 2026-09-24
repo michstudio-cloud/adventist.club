@@ -97,3 +97,10 @@ nombrar los campos y genera `vista-previa.png` + `comparacion.png` con el motor 
 
 Rendimiento: un fondo raster (`<image id="background">`) **no** pasa por resvg; se pega con Pillow
 (`split_raster_background`). En la instancia de 0.15 CPU resvg tardaba 31 s por certificado a 300 dpi.
+
+## Plantillas por elementos (v4, 23 sep 2026)
+
+Los diseños que llegan como composición por elementos (`plantilla.json` + `traducciones.json`, sin fondo
+con texto) se compilan a este mismo formato con `tools/compile_element_template.py`: formas vectoriales,
+cada texto como campo con su caja, tamaño mínimo y máximo de líneas (`data-fit="shrink-wrap"`), claves
+traducidas con `data-string`. Contrato, decisiones y verificación: `docs/CERTIFICADOS_V4.md`.

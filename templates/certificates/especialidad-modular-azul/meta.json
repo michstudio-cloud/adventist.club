@@ -1,0 +1,17 @@
+{
+  "title": "Modular azul",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "especialidades-v4/02-modular-azul",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}

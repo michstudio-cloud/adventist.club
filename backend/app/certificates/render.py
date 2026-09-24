@@ -8,7 +8,9 @@ A template lives in `templates/certificates/<slug>/`:
 
 Rendering never invents content: unknown fields keep the template's sample text, missing
 images are removed, and a missing translation falls back to the Spanish in the SVG.
-Contract: docs/I18N_Y_PLANTILLAS.md.
+Contract: docs/I18N_Y_PLANTILLAS.md. Element templates compiled from v4 design packages
+(data-fit="shrink-wrap", data-string) are stricter — no Spanish fallback, overflow is an error:
+docs/CERTIFICADOS_V4.md.
 """
 from __future__ import annotations
 
@@ -145,8 +147,12 @@ def _font(family: str, weight: str, size_pt: float):
     """Font used only to MEASURE text for data-fit; resvg does the real drawing."""
     if FONTS_DIR.exists():
         bold = weight in ("700", "bold", "800", "900")
-        candidates = [p for p in FONTS_DIR.glob("*.ttf") if family.replace(" ", "").lower() in p.name.replace(" ", "").lower()]
-        candidates.sort(key=lambda p: ("Bold" in p.name) != bold)
+        wanted = family.replace(" ", "").lower()
+        fonts = sorted(FONTS_DIR.glob("*.ttf"))
+        # exact family first ("Noto Sans" is NotoSans-*.ttf, never NotoSansMono-*.ttf)
+        candidates = [p for p in fonts if p.stem.split("-")[0].lower() == wanted] or \
+            [p for p in fonts if wanted in p.name.replace(" ", "").lower()]
+        candidates.sort(key=lambda p: (("Bold" in p.name) != bold, p.name))
         if candidates:
             return ImageFont.truetype(str(candidates[0]), max(1, round(size_pt * 4)))  # 4x for precision
     return ImageFont.load_default(size=max(1, round(size_pt * 4)))
@@ -169,6 +175,106 @@ def fit_text(el: ET.Element, text: str) -> None:
     while size > min_size and measure_pt(text, family, weight, size) > max_width:
         size = round(size - 0.5, 2)
     el.set("font-size", f"{max(size, min_size):g}")
+
+
+# --- Element templates (docs/CERTIFICADOS_V4.md) ----------------------------------------------
+# Compiled by tools/compile_element_template.py from a composition-by-elements design package.
+# Their <text> fields carry the fitting contract of the package: data-fit="shrink-wrap",
+# data-max-width, data-min-size, data-max-lines, data-line-height. Fixed texts carry
+# data-string="<key>" (strings.<locale>.json) and a missing translation is an error, never
+# Spanish in disguise. Everything below only acts on those attributes: the older templates
+# (data-fit="shrink", t_* ids) render exactly as before.
+
+# v4 data keys -> the engine's own names, so both vocabularies work in POST /render
+DATA_ALIASES = {"folio": "certificate_no"}
+IMAGE_ALIASES = {"honor_image": "honor_patch", "qr_image": "qr"}
+
+MONTHS = {
+    "es": ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+           "octubre", "noviembre", "diciembre"),
+    "en": ("January", "February", "March", "April", "May", "June", "July", "August", "September",
+           "October", "November", "December"),
+    "pt": ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro",
+           "outubro", "novembro", "dezembro"),
+    "fr": ("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre",
+           "octobre", "novembre", "décembre"),
+}
+ISO_DATE_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})$")
+
+
+def format_long_date(value: str, locale: str) -> str:
+    """ISO "2026-09-21" -> the long date of the certificate's language, as Intl.DateTimeFormat
+    writes it with {day: numeric, month: long, year: numeric} (the design's reference renderer):
+    es «21 de septiembre de 2026», en «September 21, 2026», pt «21 de setembro de 2026»,
+    fr «21 septembre 2026». Anything that is not an ISO date was already formatted by the caller
+    (the assistant sends it in the certificate's language) and is kept as it is."""
+    match = ISO_DATE_RE.match(value.strip())
+    if not match:
+        return value
+    year, month, day = (int(g) for g in match.groups())
+    if not 1 <= month <= 12 or not 1 <= day <= 31:
+        raise TemplateError(f"Fecha no válida: {value}.")
+    language = locale.split("-")[0].lower()
+    if language not in MONTHS:
+        raise TemplateError(f"No hay formato de fecha para el idioma '{locale}'.")
+    name = MONTHS[language][month - 1]
+    if language == "en":
+        return f"{name} {day}, {year}"
+    if language == "fr":
+        return f"{day} {name} {year}"
+    return f"{day} de {name} de {year}"
+
+
+def fit_lines(text: str, *, family: str, weight: str, size: float, min_size: float, max_width: float,
+              max_lines: int, field: str, step: float = 1.0) -> tuple[float, list[str]]:
+    """«Shrink, then wrap up to max_lines, then error» — the algorithm of the design's reference
+    renderer: at each size from `size` down to `min_size` try one line, then greedy word wrapping
+    into at most `max_lines` lines that all fit. Nothing is ever truncated: if no size fits, the
+    certificate is not produced and the error names the field."""
+    measure = lambda s, at: measure_pt(s, family, weight, at)  # noqa: E731
+    current = size
+    while current >= min_size - 1e-9:
+        if measure(text, current) <= max_width:
+            return current, [text]
+        if max_lines > 1:
+            lines: list[str] = []
+            for word in text.split():
+                candidate = f"{lines[-1]} {word}" if lines else word
+                if lines and measure(candidate, current) <= max_width:
+                    lines[-1] = candidate
+                else:
+                    lines.append(word)
+            if len(lines) <= max_lines and all(measure(line, current) <= max_width for line in lines):
+                return current, lines
+        current = round(current - step, 4)
+    raise TemplateError(f"El texto del campo '{field}' no cabe en su espacio ni al tamaño mínimo "
+                        f"({min_size:g}) en {max_lines} línea(s).")
+
+
+def _apply_fit_wrap(el: ET.Element, text: str, field: str) -> None:
+    family = (el.get("font-family") or "sans-serif").split(",")[0].strip().strip("'\"")
+    size, lines = fit_lines(
+        text, family=family, weight=el.get("font-weight") or "400",
+        size=float(el.get("font-size") or 12), min_size=float(el.get("data-min-size") or el.get("font-size") or 12),
+        max_width=float(el.get("data-max-width") or 0) or float("inf"),
+        max_lines=int(el.get("data-max-lines") or 1), field=field)
+    el.set("font-size", f"{size:g}")
+    for child in list(el):
+        el.remove(child)
+    el.text = None
+    if el.get("data-synthetic-bold") == "true":
+        # Chrome/Skia's fake bold: outline widened by size/24 at 9 px .. size/32 from 36 px on,
+        # advances untouched. Used when the design package ships no bold of that family.
+        ratio = 1 / 24 + (1 / 32 - 1 / 24) * min(1.0, max(0.0, (size - 9) / 27))
+        el.set("stroke", el.get("fill") or "#000")
+        el.set("stroke-width", f"{size * ratio:.4g}")
+        el.set("stroke-linejoin", "miter")
+    line_height = float(el.get("data-line-height") or 1.25)
+    for i, line in enumerate(lines):
+        tspan = ET.SubElement(el, f"{{{SVG_NS}}}tspan")
+        tspan.set("x", el.get("x") or "0")
+        tspan.set("dy", "0" if i == 0 else f"{size * line_height:g}")
+        tspan.text = line
 
 
 def _data_url(data: bytes, mime: str) -> str:
@@ -194,6 +300,13 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
              ministry: str = "pathfinders") -> str:
     """Return the SVG with fields, translations and images applied."""
     images = dict(images)
+    data = dict(data)
+    for alias, key in IMAGE_ALIASES.items():
+        if images.get(alias) and not images.get(key):
+            images[key] = images[alias]
+    for alias, key in DATA_ALIASES.items():
+        if str(data.get(alias) or "").strip() and not str(data.get(key) or "").strip():
+            data[key] = data[alias]
     if not images.get("emblem"):
         emblem = default_emblem(ministry)
         if emblem:
@@ -201,9 +314,38 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
     root = safe_fromstring(template.svg)
     strings = resolve_strings(template, locale)
     rtl = locale.split("-")[0] in ("ar", "he", "fa", "ur")
+    parents = {child: parent for parent in root.iter() for child in parent}
+    drop: list[ET.Element] = []
     for el in root.iter():
         el_id = el.get("id")
         if not el_id:
+            continue
+        hide_if = el.get("data-hide-if-image")
+        if hide_if and images.get(hide_if):
+            drop.append(el)                   # e.g. the «QR» label of the placeholder box
+            continue
+        if el.tag == f"{{{SVG_NS}}}text" and el.get("data-fit") == "shrink-wrap":
+            # element template: strict contract (see fit_lines)
+            key = el.get("data-string")
+            if key:
+                if key not in strings:
+                    raise TemplateError(f"Falta la traducción '{key}' en '{locale}' (plantilla {template.slug}).")
+                value = strings[key]
+            else:
+                value = str(data.get(el_id) or "").strip()
+                fallback = el.get("data-fallback-string")
+                if not value and fallback:
+                    if fallback not in strings:
+                        raise TemplateError(f"Falta la traducción '{fallback}' en '{locale}' (plantilla {template.slug}).")
+                    value = strings[fallback]
+                if value and el.get("data-format") == "date-long":
+                    value = format_long_date(value, locale)
+            if not value:
+                if el.get("data-required") == "true":
+                    raise TemplateError(f"Falta el dato '{el_id}' para la plantilla {template.slug}.")
+                drop.append(el)               # optional and absent: nothing is invented
+                continue
+            _apply_fit_wrap(el, value, el_id)
             continue
         if el.tag == f"{{{SVG_NS}}}text":
             pattern = el.get("data-template-text")
@@ -232,13 +374,17 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
                 el.set("direction", "rtl")
                 el.set("unicode-bidi", "bidi-override")
         elif el.tag == f"{{{SVG_NS}}}image" and el_id in IMAGE_FIELDS and el_id != "background":
-            href = images.get(el_id)
+            href = images.get(el_id) or el.get("data-placeholder-href")   # e.g. the empty QR box of a preview
             if href:
                 el.set(f"{{{XLINK_NS}}}href", href)
                 el.set("href", href)
             else:
                 el.set("opacity", "0")   # keep geometry, show nothing
                 el.set(f"{{{XLINK_NS}}}href", "")
+            if "data-placeholder-href" in el.attrib:
+                del el.attrib["data-placeholder-href"]
+    for el in drop:
+        parents[el].remove(el)
     if rtl:
         root.set("direction", "rtl")
     # Design tools export width/height with units ("5.5in"), which resvg rejects: the

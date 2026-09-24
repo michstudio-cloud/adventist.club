@@ -1,0 +1,17 @@
+{
+  "title": "Retícula verde",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "especialidades-v4/03-reticula-verde",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}

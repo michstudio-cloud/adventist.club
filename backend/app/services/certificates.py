@@ -11,7 +11,7 @@ import uuid
 from datetime import date
 
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
@@ -21,7 +21,9 @@ from app.models import (
     CertificateTemplate,
     Club,
     Course,
+    Honor,
     HonorEnrollment,
+    HonorTranslation,
     Organization,
     User,
 )
@@ -204,6 +206,67 @@ async def issue_certificate(
 
     xp.invalidate(user_id)
     return certificate
+
+
+# ----------------------------------------------------------------------------
+# What an issued certificate prints on an element template (docs/CERTIFICADOS_V4.md).
+# ----------------------------------------------------------------------------
+async def _association_name(db: AsyncSession, organization_id: uuid.UUID | None) -> str | None:
+    """Name of the association that `organization_id` is (or hangs from)."""
+    if organization_id is None:
+        return None
+    path = (await db.execute(select(Organization.path).where(Organization.id == organization_id))).scalar_one_or_none()
+    if not path:
+        return None
+    stmt = select(Organization.name).where(Organization.type == "association", Organization.path.op("@>")(path))
+    return (await db.execute(stmt.order_by(func.nlevel(Organization.path).desc()).limit(1))).scalar_one_or_none()
+
+
+async def render_data(db: AsyncSession, certificate_no: str, locale: str) -> tuple[dict[str, str], str | None] | None:
+    """`(data, honor image URL)` of the issued certificate `certificate_no`, in the words of
+    an element template, or None when there is no such issued certificate.
+
+    - `honor_name`: the honor's name in `locale` from `honor_translations`, Spanish otherwise
+      (the snapshot when the honor no longer exists);
+    - `issued_date`: ISO — the template writes it in its language;
+    - `organization_name`: the association the member's club hangs from, else the issuer's
+      association, else the issuing organisation's name;
+    - `church_name` is not here: it is a translated string of the template.
+    Only reads; never touches the hash."""
+    from app.services.portfolio import honor_name_in   # portfolio imports this module
+
+    certificate = (
+        await db.execute(select(Certificate).where(Certificate.certificate_no == certificate_no))
+    ).scalar_one_or_none()
+    if certificate is None or certificate.status != "issued":
+        return None
+    honor_name, image_url = certificate.honor_name_snapshot, None
+    honor = await db.get(Honor, certificate.honor_id) if certificate.honor_id else None
+    if honor is not None:
+        names = {
+            row.locale: row.name
+            for row in (await db.execute(select(HonorTranslation).where(HonorTranslation.honor_id == honor.id))).scalars()
+        }
+        honor_name, image_url = honor_name_in(honor.name, names, locale), honor.image_url
+    club_org = None
+    if certificate.enrollment_id:
+        enrollment = await db.get(HonorEnrollment, certificate.enrollment_id)
+        club_org = enrollment.club_id if enrollment else None
+    organization_name = (
+        await _association_name(db, club_org)
+        or await _association_name(db, certificate.organization_id)
+        or (await db.execute(select(Organization.name).where(Organization.id == certificate.organization_id))).scalar_one_or_none()
+    )
+    data = {
+        "recipient_name": certificate.recipient_name,
+        "honor_name": honor_name,
+        "issued_date": certificate.issued_date.isoformat(),
+        "director_name": certificate.director_name or "",
+        "instructor_name": certificate.instructor_name or "",
+        "certificate_no": certificate.certificate_no,
+        "organization_name": organization_name or "",
+    }
+    return {k: v for k, v in data.items() if v}, image_url
 
 
 # ----------------------------------------------------------------------------

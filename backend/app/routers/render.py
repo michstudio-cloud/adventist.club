@@ -10,9 +10,13 @@ from urllib.parse import urlsplit
 from fastapi import APIRouter, HTTPException, Query, Request, Response
 from pydantic import BaseModel, Field
 
-from app.certificates.render import TemplateError, fonts_installed, list_templates, qr_data_url, render_certificate
+from app.certificates.render import (
+    TemplateError, fonts_installed, list_templates, load_template, qr_data_url, render_certificate,
+)
 from app.config import settings
+from app.db import SessionLocal
 from app.rate_limit import limiter
+from app.services.certificates import render_data
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
@@ -54,6 +58,13 @@ class RenderRequest(BaseModel):
     certificate_no: str | None = Field(default=None, max_length=80)
 
 
+def _is_element_template(slug: str) -> bool:
+    try:
+        return load_template(slug).meta.get("engine") == "elements"
+    except TemplateError:
+        return False     # the render itself answers 404
+
+
 @router.get("/templates")
 async def templates(
     ministry: str | None = Query(None, pattern=r"^[a-z0-9-]{2,40}$"),
@@ -61,7 +72,7 @@ async def templates(
 ):
     """Bloque F §1.7: `ministry` and `kind` filter by the template's optional meta.json.
     Without filters the answer is exactly what it was before F (every template)."""
-    return [{"slug": t.slug, "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
+    return [{"slug": t.slug, "title": t.meta.get("title"), "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
              "locales": t.locales, "fields": t.fields, "kinds": t.kinds, "ministries": t.ministries}
             for t in list_templates() if t.serves(ministry, kind)]
 
@@ -91,6 +102,21 @@ async def render(request: Request, payload: RenderRequest):
             except Exception as exc:  # unreachable / wrong type / too big: render without it
                 raise HTTPException(422, f"No se pudo cargar la imagen '{key}': {exc}") from exc
     data = dict(payload.data)
+    if payload.certificate_no and _is_element_template(payload.template):
+        # Element templates (docs/CERTIFICADOS_V4.md) print what the issued record says: its
+        # names, date and folio, the honor in the certificate's language and the association.
+        # The record wins over whatever the caller typed, so a folio'd page is never altered.
+        async with SessionLocal() as db:
+            issued = await render_data(db, payload.certificate_no, payload.locale)
+        if issued:
+            fields, patch_url = issued
+            data.update(fields)
+            if not (images.get("honor_patch") or images.get("honor_image")) and patch_url and \
+                    HTTPS_RE.match(patch_url) and (urlsplit(patch_url).hostname or "") == _allowed_media_host():
+                try:
+                    images["honor_patch"] = await asyncio.to_thread(_fetch_media_image, patch_url)
+                except Exception:  # the patch is decoration: the certificate renders without it
+                    pass
     if payload.certificate_no:
         data.setdefault("certificate_no", payload.certificate_no)
         images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))

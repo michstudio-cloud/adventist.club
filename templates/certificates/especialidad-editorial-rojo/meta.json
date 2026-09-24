@@ -1,0 +1,17 @@
+{
+  "title": "Editorial rojo",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "especialidades-v4/01-editorial-rojo",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}

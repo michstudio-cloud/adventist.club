@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 792 612" width="11in" height="8.5in" data-template="especialidad-academico" data-source="04-academico" data-version="1.0">
+<!-- Compilada con tools/compile_element_template.py desde el paquete v4 «Académico marfil». No editar a mano: regenerar. Unidades del diseño (1100 x 850) dentro del grupo escalado. -->
+<g transform="scale(0.72)">
+<rect id="forma_01" width="1100" height="850" fill="#fffdf6"/>
+<path id="forma_02" d="M1040 55V800" stroke="#bcaa89"/>
+<path id="forma_03" d="M76 429h920" stroke="#81394a"/>
+<path id="forma_04" d="M76 726h235" stroke="#81394a"/>
+<path id="forma_05" d="M366 726h235" stroke="#81394a"/>
+<image id="emblem" x="76" y="54" width="44" height="48" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="t_brand" x="136" y="76" font-family="Noto Sans" font-weight="700" font-size="13" fill="#273640" data-fit="shrink-wrap" data-max-width="855" data-min-size="11" data-max-lines="1" data-line-height="1.25" data-string="conquistadores">CONQUISTADORES</text>
+<text id="organization_name" x="136" y="99" font-family="Noto Sans" font-weight="400" font-size="12" fill="#273640" data-fit="shrink-wrap" data-max-width="855" data-min-size="10" data-max-lines="1" data-line-height="1.25"></text>
+<text id="t_certificate" x="76" y="228" font-family="Noto Sans" font-weight="700" font-size="17" fill="#81394a" data-fit="shrink-wrap" data-max-width="650" data-min-size="15" data-max-lines="1" data-line-height="1.25" data-string="certificate">CERTIFICADO DE</text>
+<text id="t_specialty" x="76" y="292" font-family="Noto Serif" font-weight="400" font-size="59" fill="#81394a" data-fit="shrink-wrap" data-max-width="680" data-min-size="38" data-max-lines="1" data-line-height="1.25" data-string="specialty" data-synthetic-bold="true">Especialidad</text>
+<text id="t_awarded" x="76" y="344" font-family="Noto Sans" font-weight="400" font-size="15" fill="#273640" data-fit="shrink-wrap" data-max-width="920" data-min-size="13" data-max-lines="1" data-line-height="1.25" data-string="awarded">Se otorga el presente certificado a</text>
+<text id="recipient_name" x="76" y="399" font-family="Noto Sans" font-weight="700" font-size="39" fill="#273640" data-fit="shrink-wrap" data-max-width="920" data-min-size="22" data-max-lines="1" data-line-height="1.25" data-required="true"></text>
+<image id="honor_patch" x="853" y="171" width="160" height="160" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="t_completion" x="76" y="481" font-family="Noto Sans" font-weight="400" font-size="15" fill="#273640" data-fit="shrink-wrap" data-max-width="920" data-min-size="12" data-max-lines="2" data-line-height="1.25" data-string="completion">Por haber cumplido satisfactoriamente los requisitos de</text>
+<text id="honor_name" x="76" y="550" font-family="Noto Sans" font-weight="700" font-size="36" fill="#81394a" data-fit="shrink-wrap" data-max-width="920" data-min-size="20" data-max-lines="2" data-line-height="1.25" data-required="true"></text>
+<text id="issued_date" x="76" y="619" font-family="Noto Sans" font-weight="400" font-size="14" fill="#273640" data-fit="shrink-wrap" data-max-width="710" data-min-size="12" data-max-lines="1" data-line-height="1.25" data-format="date-long" data-required="true"></text>
+<text id="director_name" x="76" y="709" font-family="Noto Sans" font-weight="400" font-size="14" fill="#273640" data-fit="shrink-wrap" data-max-width="235" data-min-size="11" data-max-lines="1" data-line-height="1.25"></text>
+<text id="instructor_name" x="366" y="709" font-family="Noto Sans" font-weight="400" font-size="14" fill="#273640" data-fit="shrink-wrap" data-max-width="235" data-min-size="11" data-max-lines="1" data-line-height="1.25"></text>
+<text id="t_director_label" x="76" y="751" font-family="Noto Sans" font-weight="400" font-size="11" fill="#273640" data-fit="shrink-wrap" data-max-width="235" data-min-size="9" data-max-lines="2" data-line-height="1.25" data-string="director">DIRECTOR/A</text>
+<text id="t_instructor_label" x="366" y="751" font-family="Noto Sans" font-weight="400" font-size="11" fill="#273640" data-fit="shrink-wrap" data-max-width="235" data-min-size="9" data-max-lines="2" data-line-height="1.25" data-string="instructor">INSTRUCTOR/A</text>
+<text id="church_name" x="76" y="800" font-family="Noto Sans" font-weight="400" font-size="10" fill="#273640" data-fit="shrink-wrap" data-max-width="790" data-min-size="9" data-max-lines="1" data-line-height="1.25" data-fallback-string="church_name"></text>
+<image id="qr" x="920" y="692" width="76" height="76" preserveAspectRatio="xMidYMid meet" data-placeholder-href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MCA3MCI+PHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZTZlOGU1Ii8+PC9zdmc+" href=""/>
+<text id="certificate_no" x="908" y="790" font-family="Noto Sans" font-weight="400" font-size="8" fill="#273640" data-fit="shrink-wrap" data-max-width="105" data-min-size="7" data-max-lines="1" data-line-height="1.25"></text>
+<text id="t_qr_placeholder_label" x="947" y="736" font-family="Noto Sans" font-weight="400" font-size="12" fill="#65706b" data-fit="shrink-wrap" data-max-width="40" data-min-size="12" data-max-lines="1" data-line-height="1.25" data-string="qr" data-hide-if-image="qr">QR</text>
+</g>
+</svg>

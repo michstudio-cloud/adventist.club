@@ -1,0 +1,17 @@
+{
+  "title": "Académico marfil",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "pathfinders"
+  ],
+  "engine": "elements",
+  "source": "especialidades-v4/04-academico",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ]
+}
