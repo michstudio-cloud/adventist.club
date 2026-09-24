@@ -34,6 +34,8 @@ from app.routers import club_classes as club_classes_router
 # La ficha de especialidad en PDF, generada desde los datos propios (reemplaza los PDF de terceros).
 from app.routers import honor_sheets as honor_sheets_router
 from app.routers import notifications as notifications_router
+# Miniaturas de plantilla del asistente (GET cacheable en R2; antes, un POST /render por miniatura).
+from app.routers import template_thumbnails as template_thumbnails_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
@@ -50,6 +52,7 @@ app.include_router(secretaria_router.router)
 app.include_router(club_classes_router.router)
 app.include_router(honor_sheets_router.router)
 app.include_router(notifications_router.router)
+app.include_router(template_thumbnails_router.router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
