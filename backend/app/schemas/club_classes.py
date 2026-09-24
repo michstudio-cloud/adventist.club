@@ -109,6 +109,13 @@ class MatrixUser(BaseModel):
     avatar_url: str | None = None
 
 
+class MatrixQuantity(BaseModel):
+    """A `HOURS` requirement of one member: approved since the class started, and the goal."""
+
+    approved: float
+    target: float
+
+
 class MatrixMember(BaseModel):
     membership_id: str
     enrollment_id: str
@@ -117,6 +124,8 @@ class MatrixMember(BaseModel):
     status: str
     progress_pct: int
     cells: dict[str, ProgressStatus]
+    # Only the `HOURS` requirements, by requirement id: «3 / 5 h» in the cell.
+    hours: dict[str, MatrixQuantity] = Field(default_factory=dict)
 
 
 class ClassMatrix(BaseModel):

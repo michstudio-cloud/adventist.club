@@ -36,6 +36,7 @@ from app.schemas.secretaria import (
     OfficerOut,
     OfficerUpdate,
     PublicOfficer,
+    ServiceHoursSummary,
 )
 from app.security import utcnow
 from app.services import attendance as attendance_service
@@ -43,6 +44,7 @@ from app.services import club_score
 from app.services import memberships as membership_service
 from app.services import officers as officer_service
 from app.services import placement
+from app.services import service_hours
 
 router = APIRouter(prefix="/api/v1/clubs", tags=["secretaria"])
 
@@ -250,6 +252,19 @@ async def attendance_summary(
     last 90 days."""
     club = await _club_for_reader(db, current_user, club_id)
     return await attendance_service.summary(db, current_user, club, starts_on, ends_on)
+
+
+@router.get("/{club_id}/service-hours", response_model=ServiceHoursSummary)
+async def service_hours_summary(
+    club_id: uuid.UUID,
+    month: str | None = Query(None, pattern=r"^\d{4}-\d{2}$"),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """«Horas» of the club panel: approved service of the month (default: this one) and of the
+    year so far, per member and per unit. Totals only; the same readers as the roster."""
+    club = await _club_for_reader(db, current_user, club_id)
+    return await service_hours.summary(db, current_user, club, month)
 
 
 # ----------------------------------------------------------------------------

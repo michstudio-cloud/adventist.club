@@ -171,6 +171,36 @@ class AttendanceSummary(BaseModel):
     units: list[AttendanceSummaryUnit]
 
 
+class ServiceHoursMember(BaseModel):
+    """Totals only: never the description or the place (where a minor was, and when)."""
+
+    membership_id: str
+    user_id: str
+    name: str
+    unit_id: str | None = None
+    service_month: float
+    service_year: float
+    attendance_month: float
+    # Service logs of this member still waiting for a decision (any date).
+    pending: int
+
+
+class ServiceHoursUnit(BaseModel):
+    unit_id: str
+    name: str
+    members: int
+    service_month: float
+
+
+class ServiceHoursSummary(BaseModel):
+    month: str
+    starts_on: date
+    ends_on: date
+    service_month: float
+    members: list[ServiceHoursMember]
+    units: list[ServiceHoursUnit]
+
+
 # ----------------------------------------------------------------------------
 # 3. Nómina
 # ----------------------------------------------------------------------------

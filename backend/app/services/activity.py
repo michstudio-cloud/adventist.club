@@ -214,9 +214,14 @@ async def list_logs(
     return ActivityListOut(logs=await _out(db, list(rows), actor), totals=by_category)
 
 
-async def queue(db: AsyncSession, actor: User, limit: int, offset: int) -> list[ActivityOut]:
-    """«Horas por aprobar»: what is waiting for `actor`, never their own."""
+async def queue(
+    db: AsyncSession, actor: User, limit: int, offset: int, club_id: uuid.UUID | None = None
+) -> list[ActivityOut]:
+    """«Horas por aprobar»: what is waiting for `actor`, never their own. `club_id` narrows it
+    to one club (the club panel of someone who decides for many, as an Association)."""
     conditions = [ActivityLog.status == SUBMITTED, ActivityLog.user_id != actor.id]
+    if club_id is not None:
+        conditions.append(ActivityLog.club_id == club_id)
     if not is_master(actor):
         reach = []
         club = await member_club(db, actor)

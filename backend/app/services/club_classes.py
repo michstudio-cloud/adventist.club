@@ -17,14 +17,17 @@ organization carries no ministry column, so it is `organizations.metadata_json.m
 when the club declares one; otherwise every ministry with published classes is offered.
 """
 import uuid
+from datetime import date
 
 from fastapi import HTTPException, Request, status
-from sqlalchemy import and_, exists, select
+from sqlalchemy import and_, cast, exists, func, select
+from sqlalchemy.types import Date
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import violated_constraint
 from app.models import (
+    ActivityLog,
     ClubMembership,
     ClubUnit,
     Guardianship,
@@ -65,6 +68,7 @@ from app.schemas.club_classes import (
     InvestOut,
     MatrixMember,
     MatrixProgram,
+    MatrixQuantity,
     MatrixRequirement,
     MatrixSection,
     MatrixUser,
@@ -393,6 +397,8 @@ async def matrix(
             if key is not None:
                 cells[enrollment_id][key] = progress_status
 
+    hours = await _approved_hours(db, [row[2].id for row in members], requirement_rows)
+
     out = []
     for membership, member, enrollment, unit_name, has_guardian in members:
         row = cells[enrollment.id]
@@ -411,6 +417,7 @@ async def matrix(
                 status=enrollment.status,
                 progress_pct=round(complete * 100 / len(row)) if row else 0,
                 cells=row,
+                hours=hours.get(enrollment.id, {}),
             )
         )
     return ClassMatrix(
@@ -418,6 +425,43 @@ async def matrix(
         sections=list(sections.values()),
         members=out,
     )
+
+
+async def _approved_hours(
+    db: AsyncSession, enrollment_ids: list[uuid.UUID], requirement_rows
+) -> dict[uuid.UUID, dict[str, MatrixQuantity]]:
+    """«3 / 5 h» for every `HOURS` requirement of every enrollment, in ONE query and with the
+    rule of the member's own card (`activity.approved_totals`): only APPROVED rows, and only
+    from the day the enrollment started. Nothing is asked when the class has no `HOURS`."""
+    goals = [
+        (str(requirement.id), requirement.activity_category, float(requirement.target_quantity))
+        for requirement, _ in requirement_rows
+        if requirement.kind == curriculum.HOURS and requirement.target_quantity
+    ]
+    if not goals or not enrollment_ids:
+        return {}
+    stmt = (
+        select(HonorEnrollment.id, ActivityLog.category, func.sum(ActivityLog.quantity))
+        .join(ActivityLog, ActivityLog.user_id == HonorEnrollment.user_id)
+        .where(
+            HonorEnrollment.id.in_(enrollment_ids),
+            ActivityLog.status == "APPROVED",
+            ActivityLog.performed_on >= func.coalesce(cast(HonorEnrollment.started_at, Date), date.min),
+        )
+        .group_by(HonorEnrollment.id, ActivityLog.category)
+    )
+    totals: dict[uuid.UUID, dict[str, float]] = {}
+    for enrollment_id, category, total in (await db.execute(stmt)).all():
+        totals.setdefault(enrollment_id, {})[category] = float(total)
+    return {
+        enrollment_id: {
+            requirement_id: MatrixQuantity(
+                approved=totals.get(enrollment_id, {}).get(category or "", 0.0), target=target
+            )
+            for requirement_id, category, target in goals
+        }
+        for enrollment_id in enrollment_ids
+    }
 
 
 # ----------------------------------------------------------------------------

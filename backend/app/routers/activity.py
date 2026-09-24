@@ -45,11 +45,12 @@ async def list_logs(
 async def queue(
     limit: int = Query(100, ge=1, le=500),
     offset: int = Query(0, ge=0),
+    club_id: uuid.UUID | None = None,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """«Horas por aprobar» of the club: what this person may decide right now."""
-    return await activity.queue(db, current_user, limit, offset)
+    return await activity.queue(db, current_user, limit, offset, club_id)
 
 
 @router.post("/logs/{log_id}/decision", response_model=ActivityOut)
