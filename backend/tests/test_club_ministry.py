@@ -253,7 +253,7 @@ async def test_club_reads_expose_the_ministry_and_filter_by_it(client, factory, 
     assert world["club"]["id"] in [row["id"] for row in none.json()]
     assert all(row["ministry"] is None for row in none.json())
 
-    public = await client.get(f"/api/v1/clubs/{guides.json()['id']}/profile")
+    public = await client.get(f"/api/v1/clubs/{guides.json()['id']}/profile", headers=world["assoc_admin"]["headers"])
     assert public.status_code == 200, public.text
     assert public.json()["ministry"]["slug"] == "master-guides"
 
@@ -263,13 +263,15 @@ async def test_club_reads_expose_the_ministry_and_filter_by_it(client, factory, 
     assert {row["ministry"]["slug"] for row in listing.json()} == {"master-guides", "adventurers"}
 
     nearby = await client.get(
-        f"{ORG}/clubs/nearby", params={"lat": near["latitude"], "lon": near["longitude"], "radius_km": 1}
+        f"{ORG}/clubs/nearby", params={"lat": near["latitude"], "lon": near["longitude"], "radius_km": 1},
+        headers=world["assoc_admin"]["headers"],
     )
     found = {row["id"]: row["ministry"] for row in nearby.json()}
     assert found[guides.json()["id"]]["slug"] == "master-guides"
     filtered = await client.get(
         f"{ORG}/clubs/nearby",
         params={"lat": near["latitude"], "lon": near["longitude"], "radius_km": 1, "ministry": "adventurers"},
+        headers=world["assoc_admin"]["headers"],
     )
     ids = [row["id"] for row in filtered.json()]
     assert scouts.json()["id"] in ids and guides.json()["id"] not in ids

@@ -469,7 +469,8 @@ async def test_nearby_returns_the_right_association_before_and_after_moving(
 
     async def _row():
         response = await client.get(
-            f"{ORG}/clubs/nearby", params={"lat": 19.4326, "lon": -99.1332, "radius_km": 5}
+            f"{ORG}/clubs/nearby", params={"lat": 19.4326, "lon": -99.1332, "radius_km": 5},
+            headers=world["assoc_admin"]["headers"],
         )
         assert response.status_code == 200, response.text
         return next(item for item in response.json() if item["id"] == club["id"])

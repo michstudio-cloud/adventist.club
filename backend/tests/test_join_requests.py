@@ -489,7 +489,7 @@ async def test_nearby_clubs_say_whether_they_take_requests(client, world, factor
         await db.commit()
 
     nearby = await client.get(
-        "/api/v1/org-nodes/clubs/nearby", params={"lat": 25.9, "lon": -97.5, "radius_km": 5}
+        "/api/v1/org-nodes/clubs/nearby", params={"lat": 25.9, "lon": -97.5, "radius_km": 5}, headers=director["headers"]
     )
     assert nearby.status_code == 200, nearby.text
     row = {node["id"]: node for node in nearby.json()}[club["id"]]
@@ -501,7 +501,7 @@ async def test_nearby_clubs_say_whether_they_take_requests(client, world, factor
         headers=director["headers"],
     )
     nearby = await client.get(
-        "/api/v1/org-nodes/clubs/nearby", params={"lat": 25.9, "lon": -97.5, "radius_km": 5}
+        "/api/v1/org-nodes/clubs/nearby", params={"lat": 25.9, "lon": -97.5, "radius_km": 5}, headers=director["headers"]
     )
     row = {node["id"]: node for node in nearby.json()}[club["id"]]
     assert row["accepts_requests"] is False
