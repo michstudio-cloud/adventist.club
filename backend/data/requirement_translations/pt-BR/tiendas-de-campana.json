@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tiendas-de-campana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tents/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Classificar três tipos de barracas e explicar como montá-las. Fazer uma lista de suas vantagens e desvantagens.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os materiais usados na fabricação de barracas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar as categorias de barracas de acordo com a finalidade e os fabricantes de barracas mais conhecidos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher um modelo específico de barraca que você gostaria de comprar e justificar sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como preparar uma barraca para chuva e vento. Fazer uma lista das regras para escolher um local para a barraca. (Arte de acampar nº 2, nº 3)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Montar e depois desmontar uma barraca nas seguintes situações:\n  a. Vento forte\n  b. À noite",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar as regras de segurança para morar numa barraca.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como consertar uma barraca nas seguintes situações:\n  a. Rasgo ou furo queimado na parede da barraca\n  b. Vareta ou arco quebrado\n  c. Zíper ou ilhós rasgado\n  d. Costura descosturada",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber guardar e cuidar corretamente das barracas.",
+   "instructions": null
+  }
+ ]
+}

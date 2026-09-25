@@ -1,0 +1,63 @@
+{
+ "honor_slug": "tenido-anudado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tie-Dye/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber quais são os melhores tipos de tecido para tingir e como prepará-los para o tingimento.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber qual é a finalidade da barrilha (carbonato de sódio) e por quanto tempo o tecido deve ficar de molho.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber a finalidade da ureia que é misturada ao corante.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que equipamento de segurança deve ser usado ao preparar o corante para o tie-dye? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Determinar quais são as três cores primárias.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever oralmente que cores primárias de corante serão necessárias para obter as seguintes cores secundárias: laranja, verde e roxo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever oralmente qual será o resultado se duas cores secundárias forem misturadas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usar um lenço de papel e canetinhas coloridas para demonstrar dois tipos diferentes de dobras que se poderiam fazer numa camiseta.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Depois de ver o resultado das diferentes dobras que você fez no lenço de papel, dobrar e tingir um item para você: bandana, camiseta, fronha etc. Lembrar sempre que nenhum item será igual a outro nem perfeito. Cada item será tão único quanto a pessoa que o fez.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Usar ou levar esse item à próxima reunião para que os membros de seu clube o vejam.",
+   "instructions": null
+  }
+ ]
+}
