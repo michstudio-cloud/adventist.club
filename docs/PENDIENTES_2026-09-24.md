@@ -30,6 +30,10 @@ Corrección publicada tras el cierre: `/verify/<folio>` muestra el certificado r
 
 Si alguno no terminó, su worktree está en el scratchpad de la sesión (`wt-desk-member|honor|catalog`); la rama conserva los commits.
 
+**Fusionada y publicada (2026-09-24, noche):** las tres ramas se unieron en `feat/desktop-fase2` y llegaron a `main` del frontend en `81b942e` (gates verdes, 33 tests, e2e 01/04/08/10). Verificado en producción a 1440: `/categories` con riel de filtros (ministerio, categoría, nivel), `/honors/<id>` a dos columnas con parche sin caja y migas; 375/768 idénticos. Worktrees de escritorio eliminados. Pendiente de la fase 2: contraste de `cq-segmented` (4,18:1) en `primitives.css`.
+
+**En curso (agente `feat/ministry-switcher`, ambos repos):** selector de ministerio en el armazón (Conquistadores / Aventureros / Guías Mayores, solo con sesión) con cambio de club; Aventureros carga los 164 awards y 6 clases (borradores visibles solo a MASTER/admin hasta publicar); Guías Mayores usa las especialidades de Conquistadores más un catálogo nuevo de medallones, maestrías y certificaciones de entrenamiento del Ministerio de Clubes (migración **024**, importador del EMC en borrador). Sin sesión nada cambia.
+
 ## 3. Siguiente plan (fases 3–5 de escritorio)
 
 - Fase 3: panel del director (`04`) y asistente de certificados a dos columnas (`05`).
