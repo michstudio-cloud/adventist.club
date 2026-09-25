@@ -1,0 +1,68 @@
+{
+ "honor_slug": "criptografia-union-de-asia-del-sureste",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cryptography_(SEAU)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Criptografia (SEAU)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa a palavra criptografia? Qual é a diferença entre esteganografia e criptografia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Criptografar (cifrar)\n  b. Descriptografar (decifrar)\n  c. Texto simples\n  d. Texto cifrado\n  e. Criptoanálise",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o significado original da palavra \"cifra\"?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é uma cítala? Fazer uma cítala para enviar uma mensagem secreta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é a máquina \"Enigma\" e como as mensagens codificadas com a Enigma foram finalmente decifradas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que significa o termo \"code talkers\" (codificadores) e quando se usou pela primeira vez esse tipo de comunicação em código?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que a língua navajo foi especialmente útil como código durante a Segunda Guerra Mundial?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é a Pedra de Roseta e por que a descoberta dessa pedra é tão importante?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar alguns dos símbolos, quase como códigos, que aparecem nas profecias bíblicas e ser capaz de explicar seu significado.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber o que é uma cifra de transposição e como codificar e decodificar uma mensagem com ela.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Saber o que é uma cifra de substituição e como codificar e decodificar uma mensagem com ela.",
+   "instructions": null
+  }
+ ]
+}
