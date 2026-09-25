@@ -1,0 +1,53 @@
+{
+ "honor_slug": "la-iglesia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/12_-_The_Church/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A igreja",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber quem estabeleceu a igreja cristã e qual é seu único fundamento. (Mateus 16:18; 1 Coríntios 3:11; Efésios 2:19-20)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Reconhecer a Quem a igreja pertence. (Atos 20:28)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entender por que é importante que a igreja preserve e ensine as verdades sobre Deus. (1 Timóteo 3:15; Mateus 28:19-20; João 17:17; 2 Timóteo 4:2-4)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar por que a igreja é apresentada na Bíblia como o corpo de Cristo. (1 Coríntios 12:12, 27; Romanos 12:4-5; Colossenses 1:18)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o significado das palavras de Jesus sobre a importância da unidade entre os membros da igreja. (Mateus 18:19-20; João 17:20-21)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Hebreus 10:25.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo por que é importante frequentar os cultos e se envolver nos ministérios da igreja. (Hebreus 10:24-25)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar o pastor ou ancião de sua igreja e entregar por escrito ao seu instrutor as seguintes respostas:\n  Como são nomeados os líderes da igreja local?\n  Que ministérios sua igreja tem?\n  O que é a comissão da igreja?\n  Como funciona a comissão da igreja?",
+   "instructions": null
+  }
+ ]
+}

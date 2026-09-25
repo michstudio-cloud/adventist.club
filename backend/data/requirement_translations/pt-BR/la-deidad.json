@@ -1,0 +1,58 @@
+{
+ "honor_slug": "la-deidad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/02_-_The_Trinity/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A Trindade",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar as palavras no plural encontradas em Gênesis 1:26; 3:22; e 11:7, em que vemos claramente que a Bíblia apresenta um Deus triúno, isto é, que a Divindade é formada por três pessoas distintas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir quem é o único Deus, conforme apresentado por Jesus em João 10:30 e 1 Timóteo 1:17, identificando cada uma das três Pessoas da Divindade encontradas em Mateus 28:19 e Lucas 3:21-22.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entender quais são os atributos incomunicáveis de Deus, isto é, o que só Ele é e é capaz de fazer. (João 5:26; Efésios 1:5; 1 João 3:20; Salmo 139:7-12; Salmo 90:2)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os atributos comunicáveis de Deus, isto é, as características ou virtudes que Ele possui e compartilha com os seres humanos. (Romanos 3:24; 5:8; Salmo 145:9; 2 Pedro 3:15; Salmo 99:9; João 17:25; Salmo 31:5)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber como Deus escolheu revelar-Se aos seres humanos. (1 João 5:20)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 2 Coríntios 13:13 (13:14 na New International Version e na New Living Translation, em inglês).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como é possível conhecer a Deus. (Salmo 19:1; Hebreus 11:6)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar um episódio ou versículo da Bíblia em que se possa identificar a presença das três pessoas da Trindade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um desenho ou pintura que represente a Trindade com base no que você aprendeu nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}

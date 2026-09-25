@@ -1,0 +1,38 @@
+{
+ "honor_slug": "jardineria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gardening/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Preparar o solo, adubar e plantar uma horta de pelo menos 100 pés quadrados (30,5 metros quadrados). Cultivar até a colheita pelo menos seis hortaliças diferentes, três a partir de sementes e três a partir de mudas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de maneiras de controlar insetos e/ou doenças em sua horta. Saber quando e como aplicar inseticidas e fungicidas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é cobertura morta (mulch)? Como e por que ela é usada na horta?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é rusticidade (resistência ao frio)? Que hortaliças são consideradas rústicas em sua região?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades:\n  a. Fazer um teste de germinação com 100 sementes do mesmo tipo.\n  b. Fazer e usar uma estufa quente ou uma estufa fria (canteiro protegido).\n  c. Preparar três variedades de hortaliças para venda.\n  d. Fazer e usar um depósito ou uma cova para armazenar suas hortaliças.",
+   "instructions": null
+  }
+ ]
+}

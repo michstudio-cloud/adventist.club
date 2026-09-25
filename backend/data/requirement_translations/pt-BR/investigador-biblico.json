@@ -1,0 +1,43 @@
+{
+ "honor_slug": "investigador-biblico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biblical_Researcher/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pesquisador bíblico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler a Bíblia inteira pelo menos uma vez.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer em voz alta, de memória, o nome dos livros do Antigo e do Novo Testamento.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Pesquisar, individualmente ou em unidade, a história de pelo menos 20 personagens bíblicos, apresentando um trabalho escrito com suas palavras sobre cada um.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma apresentação oral para sua unidade ou para membros da diretoria sobre a história de três personagens de sua escolha, usando apenas a Bíblia (sem anotações), incluindo as lições aprendidas com cada personagem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber dizer em que livros da Bíblia se encontram as histórias de Adão, Noé, Moisés, Davi, Elias, Pedro e Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler pelo menos um livro sobre histórias de personagens bíblicos (sugestões: As Belas Histórias da Bíblia, Vida de Jesus, Patriarcas e Profetas, Profetas e Reis).",
+   "instructions": null
+  }
+ ]
+}

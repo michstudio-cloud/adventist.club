@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-conducta-cristiana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/22_-_Christian_Behavior/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Conduta cristã",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estudar como é possível viver no mundo sem ser contaminado por práticas e valores que contradizem os ensinos bíblicos. (Romanos 12:2; João 17:15-16; 1 João 2:15-17)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar os alimentos dados originalmente por Deus à humanidade na criação. (Gênesis 1:29)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Distinguir entre os animais limpos e imundos mencionados na Bíblia, explicando por que alguns são impróprios para o consumo. (Levítico 11; Deuteronômio 14)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os princípios bíblicos sobre o vestuário cristão. (1 Pedro 3:3-4)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Entender os princípios bíblicos sobre a pureza sexual e escrever um voto pessoal de manter-se puro. (1 Coríntios 6:18-20; Mateus 5:27-28)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Filipenses 4:8.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo os benefícios de viver de acordo com os princípios bíblicos e de adotar práticas saudáveis.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "kayak",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Kayaking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar ao examinador que você conhece os diferentes tipos de caiaque (slalom, rio, travessia, oceânico), o uso de cada um e o equipamento necessário para praticar caiaque com segurança (capacete, colete salva-vidas, saia de vedação, alças de proa e popa, flutuação no caiaque).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar habilidade para entrar e sair de um caiaque.\n  a. A partir de uma praia\n  b. A partir de um píer ou atracadouro\n  c. Em águas profundas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar habilidade para executar as seguintes remadas\n  a. Remada reta para a frente e para trás\n  b. Curva à esquerda e à direita remando para a frente e para trás\n  c. Remada de puxada (varredura)\n  d. Remada de apoio\n  e. Remada atravessando a correnteza",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as etapas do rolamento esquimó e demonstrar a maneira correta de executá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como consertar um furo em fibra de vidro.\n  a. De forma permanente, em uma oficina (laminação com fibra de vidro)\n  b. Conserto de emergência na margem do rio (fita adesiva silver tape)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Depois de participar de no mínimo 2 sessões de treinamento, fazer uma das seguintes atividades:\n  a. Uma viagem de caiaque com pernoite\n  b. Dois passeios de um dia (um deles incluindo águas brancas)",
+   "instructions": null
+  }
+ ]
+}
