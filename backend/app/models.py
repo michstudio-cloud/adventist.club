@@ -297,6 +297,15 @@ class User(Base):
     # 020_signatures.sql: the saved handwritten signature (public media bucket, `signatures/`).
     # Written only by `POST|DELETE /users/me/signature`; only its owner ever reads it.
     signature_url: Mapped[str | None] = mapped_column(Text)
+    # 024_master_guide_catalog.sql: the ministry and club chosen in the shell's selector.
+    # Preferences, never permissions: written only by `PATCH /users/me/preferences`, which
+    # accepts only what `app/services/ministry_context.py` offers. NULL = the default.
+    active_ministry_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("ministries.id", ondelete="SET NULL")
+    )
+    active_club_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL")
+    )
 
 
 class Guardianship(Base):

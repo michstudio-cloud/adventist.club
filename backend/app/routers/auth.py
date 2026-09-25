@@ -33,7 +33,7 @@ from app.schemas.auth import (
     VerifyEmailCodeRequest,
     VerifyEmailTokenRequest,
 )
-from app.schemas.user import UserResponse
+from app.schemas.user import MeResponse, UserResponse
 from app.security import (
     CLUB_DIRECTOR,
     INSTRUCTOR,
@@ -62,6 +62,7 @@ from app.services import email as email_service
 from app.services import clubs as club_service
 from app.services import invitations as invitation_service
 from app.services import ministries as ministry_service
+from app.services import ministry_context
 from app.services import notifications
 from app.services import mfa as mfa_service
 from app.services import verification
@@ -313,11 +314,15 @@ async def refresh(payload: RefreshRequest, db: AsyncSession = Depends(get_db)):
     return RefreshResponse(access_token=create_access_token(user.id, mfa=born_of_mfa(claims)))
 
 
-@router.get("/me", response_model=UserResponse)
-async def me(current_user: User = Depends(get_authenticated_user)):
+@router.get("/me", response_model=MeResponse)
+async def me(
+    current_user: User = Depends(get_authenticated_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Readable even by an account that still owes its second factor: the
-    enrolment screen needs to know who is signed in."""
-    return UserResponse.from_model(current_user, own=True)
+    enrolment screen needs to know who is signed in. With the ministry context of the
+    shell's selector (024: `ministries_available`, `active_ministry`, `clubs_available`)."""
+    return await ministry_context.me_response(db, current_user)
 
 
 # ----------------------------------------------------------------------------

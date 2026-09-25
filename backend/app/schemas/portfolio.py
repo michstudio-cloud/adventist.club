@@ -119,6 +119,9 @@ class HonorRef(BaseModel):
     name: str
     slug: str
     image_url: str | None
+    # 024: the honor's ministry slug (`pathfinders`, `adventurers`…), so the portfolio can follow
+    # the ministry chosen in the shell's selector. None only for an honor without a ministry.
+    ministry: str | None = None
 
 
 class CourseRef(BaseModel):

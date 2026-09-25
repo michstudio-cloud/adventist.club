@@ -53,8 +53,10 @@ def _field(svg: str, field_id: str) -> tuple[float, list[str]] | None:
 def test_installed_as_pathfinder_honor_templates_in_four_languages(slug):
     template = load_template(slug)
     assert (template.width_pt, template.height_pt) == (792.0, 612.0)          # Letter landscape, in points
-    assert template.kinds == ["honor"] and template.ministries == ["pathfinders"]
-    assert template.serves("pathfinders", "honor") and not template.serves("adventurers", "honor")
+    # 024: the element designs serve Aventureros too (emblem and brand words follow the ministry).
+    assert template.kinds == ["honor"] and template.ministries == ["pathfinders", "adventurers"]
+    assert template.serves("pathfinders", "honor") and template.serves("adventurers", "honor")
+    assert not template.serves("master-guides", "honor")
     assert set(LOCALES) <= set(template.locales)
     assert {"recipient_name", "honor_name", "issued_date", "certificate_no", "honor_patch", "qr", "emblem"} <= set(template.fields)
     assert template.meta["engine"] == "elements" and template.meta["title"]

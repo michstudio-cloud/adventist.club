@@ -36,6 +36,7 @@ from app.models import (
     HonorEnrollment,
     HonorRequirement,
     HonorTranslation,
+    Ministry,
     Organization,
     RequirementProgress,
     User,
@@ -294,6 +295,12 @@ async def _honor_refs(
     stmt = select(HonorTranslation).where(HonorTranslation.honor_id.in_(honor_ids))
     for row in (await db.execute(stmt)).scalars():
         translations.setdefault(row.honor_id, {})[row.locale] = row.name
+    ministry_ids = {h.ministry_id for h in honors.values() if h.ministry_id is not None}
+    ministry_slugs = (
+        dict((await db.execute(select(Ministry.id, Ministry.slug).where(Ministry.id.in_(ministry_ids)))).all())
+        if ministry_ids
+        else {}
+    )
     refs = {}
     for enrollment in enrollments:
         if enrollment.honor_id is None:
@@ -304,6 +311,7 @@ async def _honor_refs(
             name=honor_name_in(honor.name, translations.get(honor.id, {}), enrollment.locale),
             slug=honor.slug,
             image_url=honor.image_url,
+            ministry=ministry_slugs.get(honor.ministry_id),
         )
     return refs
 

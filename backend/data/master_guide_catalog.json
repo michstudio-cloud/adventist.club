@@ -1,0 +1,1086 @@
+{
+ "author": "Mundo J.A (voluntarios)",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "retrieved": "2026-09-24",
+ "programs": [
+  {
+   "kind": "TRAINING",
+   "ministry": "master-guides",
+   "slug": "emc-capacitacion-personal-conquistadores",
+   "code": "EMC-1",
+   "names": {
+    "es": "Capacitación del personal de Conquistadores"
+   },
+   "description": {
+    "es": "Certificación del Entrenamiento para el Ministerio de Clubes (EMC). No es una investidura: se obtiene sirviendo en el cargo, asistiendo a los talleres, trabajando con un mentor, haciendo trabajo de campo y preparando un portafolio con las evidencias. Pensada para completarse en un año (salvo el entrenamiento básico). Reemplaza a Guía Mayor Avanzado y Guía Mayor Instructor."
+   },
+   "sort_order": 1,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "family": "emc",
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores/emc"
+   },
+   "sections": [
+    {
+     "slug": "servicio",
+     "names": {
+      "es": "Servicio en el cargo"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Servir en el liderazgo de clubes de la iglesia local o de la Asociación/Misión como cualquier cargo de la directiva del club (entrenamiento básico) mientras dura la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "talleres",
+     "names": {
+      "es": "Talleres"
+     },
+     "requirements": [
+      {
+       "position": 2,
+       "label": "PFAD 001",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Ministerio del Club: Propósito e Historia» (PFAD 001)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "PFAD 002",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Organización de clubes» (PFAD 002)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 4,
+       "label": "PFAD 003",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Programación y Planificación» (PFAD 003)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 5,
+       "label": "PFAD 004",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Alcance del club» (PFAD 004)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 6,
+       "label": "PFAD 005",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Ceremonias y Simulacro» (PFAD 005)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 7,
+       "label": "PYSO 104",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Crecimiento del desarrollo» (PYSO 104)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 8,
+       "label": "EDUC 001",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a la Enseñanza» (EDUC 001)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 9,
+       "label": "MEDI 100",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Cuestiones médicas, de gestión de riesgos y de seguridad infantil» (MEDI 100)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "mentoria-y-campo",
+     "names": {
+      "es": "Mentoría y trabajo de campo"
+     },
+     "requirements": [
+      {
+       "position": 10,
+       "label": "M1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Trabajar con un mentor durante la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 11,
+       "label": "M2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Hacer el trabajo de campo que piden los talleres."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "portafolio",
+     "names": {
+      "es": "Portafolio"
+     },
+     "requirements": [
+      {
+       "position": 12,
+       "label": "P1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Preparar un portafolio con los documentos y evidencias del cumplimiento de cada requisito."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "TRAINING",
+   "ministry": "master-guides",
+   "slug": "emc-consejero-conquistadores",
+   "code": "EMC-2",
+   "names": {
+    "es": "Consejero de Conquistadores"
+   },
+   "description": {
+    "es": "Certificación del Entrenamiento para el Ministerio de Clubes (EMC). No es una investidura: se obtiene sirviendo en el cargo, asistiendo a los talleres, trabajando con un mentor, haciendo trabajo de campo y preparando un portafolio con las evidencias. Pensada para completarse en un año (salvo el entrenamiento básico). Reemplaza a Guía Mayor Avanzado y Guía Mayor Instructor."
+   },
+   "sort_order": 2,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "family": "emc",
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores/emc"
+   },
+   "sections": [
+    {
+     "slug": "servicio",
+     "names": {
+      "es": "Servicio en el cargo"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Servir en el liderazgo de clubes de la iglesia local o de la Asociación/Misión como consejero de unidad mientras dura la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "talleres",
+     "names": {
+      "es": "Talleres"
+     },
+     "requirements": [
+      {
+       "position": 2,
+       "label": "PFAD 004",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Alcance del Club de Conquistadores» (PFAD 004)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "PFAD 100",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «La Organización del Club de Conquistadores: El equipo de apoyo del consejero» (PFAD 100)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 4,
+       "label": "PFAD 101",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Las Responsabilidades del Consejero» (PFAD 101)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 5,
+       "label": "PYSO 104",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Crecimiento del desarrollo» (PYSO 104)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 6,
+       "label": "PYSO 121",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Discipulado y Disciplina» (PYSO 121)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 7,
+       "label": "PYSO 124",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «La relación del consejero con el Conquistador» (PYSO 124)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 8,
+       "label": "RCSF 120",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Seguridad y el Consejero» (RCSF 120)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 9,
+       "label": "NAOS 120",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Aplicaciones Espirituales en la Naturaleza» (NAOS 120)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "mentoria-y-campo",
+     "names": {
+      "es": "Mentoría y trabajo de campo"
+     },
+     "requirements": [
+      {
+       "position": 10,
+       "label": "M1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Trabajar con un mentor durante la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 11,
+       "label": "M2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Hacer el trabajo de campo que piden los talleres."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "portafolio",
+     "names": {
+      "es": "Portafolio"
+     },
+     "requirements": [
+      {
+       "position": 12,
+       "label": "P1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Preparar un portafolio con los documentos y evidencias del cumplimiento de cada requisito."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "TRAINING",
+   "ministry": "master-guides",
+   "slug": "emc-instructor-conquistadores",
+   "code": "EMC-3",
+   "names": {
+    "es": "Instructor del Club de Conquistadores"
+   },
+   "description": {
+    "es": "Certificación del Entrenamiento para el Ministerio de Clubes (EMC). No es una investidura: se obtiene sirviendo en el cargo, asistiendo a los talleres, trabajando con un mentor, haciendo trabajo de campo y preparando un portafolio con las evidencias. Pensada para completarse en un año (salvo el entrenamiento básico). Reemplaza a Guía Mayor Avanzado y Guía Mayor Instructor."
+   },
+   "sort_order": 3,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "family": "emc",
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores/emc"
+   },
+   "sections": [
+    {
+     "slug": "servicio",
+     "names": {
+      "es": "Servicio en el cargo"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Servir en el liderazgo de clubes de la iglesia local o de la Asociación/Misión como instructor del club mientras dura la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "talleres",
+     "names": {
+      "es": "Talleres"
+     },
+     "requirements": [
+      {
+       "position": 2,
+       "label": "EDUC 002",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Estilos» (EDUC 002)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "EDUC 003",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Comprender el aprendizaje, Estilos» (EDUC 003)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 4,
+       "label": "EDUC 006",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Trabajando con Niños con Necesidades Especiales» (EDUC 006)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 5,
+       "label": "EDUC 150",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Enseñanza cristiana, Valores» (EDUC 150)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 6,
+       "label": "EDUC 200",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Logro de Investidura Docente: Intención y Organización» (EDUC 200)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 7,
+       "label": "EDUC 210",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Aplicaciones prácticas para la realización de la investidura docente» (EDUC 210)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 8,
+       "label": "EDUC 230",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Enseñanza de honores» (EDUC 230)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 9,
+       "label": "PYSO 120",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a la Disciplina» (PYSO 120)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "mentoria-y-campo",
+     "names": {
+      "es": "Mentoría y trabajo de campo"
+     },
+     "requirements": [
+      {
+       "position": 10,
+       "label": "M1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Trabajar con un mentor durante la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 11,
+       "label": "M2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Hacer el trabajo de campo que piden los talleres."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "portafolio",
+     "names": {
+      "es": "Portafolio"
+     },
+     "requirements": [
+      {
+       "position": 12,
+       "label": "P1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Preparar un portafolio con los documentos y evidencias del cumplimiento de cada requisito."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "TRAINING",
+   "ministry": "master-guides",
+   "slug": "emc-secretario-tesorero-conquistadores",
+   "code": "EMC-4",
+   "names": {
+    "es": "Secretario / Tesorero del Club de Conquistadores"
+   },
+   "description": {
+    "es": "Certificación del Entrenamiento para el Ministerio de Clubes (EMC). No es una investidura: se obtiene sirviendo en el cargo, asistiendo a los talleres, trabajando con un mentor, haciendo trabajo de campo y preparando un portafolio con las evidencias. Pensada para completarse en un año (salvo el entrenamiento básico). Reemplaza a Guía Mayor Avanzado y Guía Mayor Instructor."
+   },
+   "sort_order": 4,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "family": "emc",
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores/emc"
+   },
+   "sections": [
+    {
+     "slug": "servicio",
+     "names": {
+      "es": "Servicio en el cargo"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Servir en el liderazgo de clubes de la iglesia local o de la Asociación/Misión como secretario o tesorero del club mientras dura la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "talleres",
+     "names": {
+      "es": "Talleres"
+     },
+     "requirements": [
+      {
+       "position": 2,
+       "label": "PFAD 140",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Informes, Registros y Sistemas de Mérito» (PFAD 140)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "PFAD 141",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Desarrollo del Calendario Anual» (PFAD 141)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 4,
+       "label": "PFAD 142",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Formularios: Salud y Médico, Permiso, Voluntario y Conductor de Vehículo» (PFAD 142)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 5,
+       "label": "FINA 101",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a la elaboración de presupuestos» (FINA 101)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 6,
+       "label": "FINA 100",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Finanzas del club» (FINA 100)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 7,
+       "label": "FINA 110",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a la recaudación de fondos» (FINA 110)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 8,
+       "label": "CMME 104",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Comunicación Práctica» (CMME 104)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "mentoria-y-campo",
+     "names": {
+      "es": "Mentoría y trabajo de campo"
+     },
+     "requirements": [
+      {
+       "position": 9,
+       "label": "M1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Trabajar con un mentor durante la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 10,
+       "label": "M2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Hacer el trabajo de campo que piden los talleres."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "portafolio",
+     "names": {
+      "es": "Portafolio"
+     },
+     "requirements": [
+      {
+       "position": 11,
+       "label": "P1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Preparar un portafolio con los documentos y evidencias del cumplimiento de cada requisito."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "TRAINING",
+   "ministry": "master-guides",
+   "slug": "emc-director-conquistadores",
+   "code": "EMC-5",
+   "names": {
+    "es": "Director del Club de Conquistadores"
+   },
+   "description": {
+    "es": "Certificación del Entrenamiento para el Ministerio de Clubes (EMC). No es una investidura: se obtiene sirviendo en el cargo, asistiendo a los talleres, trabajando con un mentor, haciendo trabajo de campo y preparando un portafolio con las evidencias. Pensada para completarse en un año (salvo el entrenamiento básico). Reemplaza a Guía Mayor Avanzado y Guía Mayor Instructor."
+   },
+   "sort_order": 5,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "family": "emc",
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores/emc"
+   },
+   "sections": [
+    {
+     "slug": "servicio",
+     "names": {
+      "es": "Servicio en el cargo"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Servir en el liderazgo de clubes de la iglesia local o de la Asociación/Misión como director o subdirector del club mientras dura la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "talleres",
+     "names": {
+      "es": "Talleres"
+     },
+     "requirements": [
+      {
+       "position": 2,
+       "label": "LEAD 001",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a las Habilidades de Liderazgo» (LEAD 001)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "LEAD 002",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «La Asociación y la Junta de Iglesia local» (LEAD 002)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 4,
+       "label": "LEAD 150",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción al personal de reclutamiento, selección y capacitación» (LEAD 150)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 5,
+       "label": "WILD 101",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Encuesta de Camping y Planificación del campamento» (WILD 101)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 6,
+       "label": "EDUC 200",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Investidura Docente, Logro» (EDUC 200)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 7,
+       "label": "FINA 100",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Finanzas del club» (FINA 100)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 8,
+       "label": "PYSO 120",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Introducción a la Disciplina» (PYSO 120)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 9,
+       "label": "PYSO 207",
+       "kind": "TEXT",
+       "text": {
+        "es": "Asistir al taller «Trabajar y comunicarse con los padres» (PYSO 207)."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "mentoria-y-campo",
+     "names": {
+      "es": "Mentoría y trabajo de campo"
+     },
+     "requirements": [
+      {
+       "position": 10,
+       "label": "M1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Trabajar con un mentor durante la certificación."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 11,
+       "label": "M2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Hacer el trabajo de campo que piden los talleres."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    },
+    {
+     "slug": "portafolio",
+     "names": {
+      "es": "Portafolio"
+     },
+     "requirements": [
+      {
+       "position": 12,
+       "label": "P1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Preparar un portafolio con los documentos y evidencias del cumplimiento de cada requisito."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores/emc"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "MASTERY",
+   "ministry": "master-guides",
+   "slug": "ejemplo-maestria-naturaleza",
+   "code": "EJ-MAESTRIA",
+   "names": {
+    "es": "Maestría en Naturaleza (ejemplo, sustituir)"
+   },
+   "description": {
+    "es": "Ejemplo, sustituir. Muestra cómo se vería el certificado de una maestría como programa. mundoja lista 17 maestrías como especialidades de Conquistadores (categoría «Maestrías»): decidir si el certificado es esa especialidad o un programa de Guías Mayores."
+   },
+   "sort_order": 100,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "example": true,
+   "source_url": {
+    "es": "https://mundoja.org/component/content/article/1041-maestria-en-naturaleza"
+   },
+   "sections": [
+    {
+     "slug": "especialidades",
+     "names": {
+      "es": "Especialidades"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Desarrollar por lo menos 4 especialidades del grupo «flora»."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/component/content/article/1041-maestria-en-naturaleza"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 2,
+       "label": "2",
+       "kind": "TEXT",
+       "text": {
+        "es": "Desarrollar por lo menos 2 especialidades del grupo «fauna»."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/component/content/article/1041-maestria-en-naturaleza"
+       },
+       "evidence_required": true
+      },
+      {
+       "position": 3,
+       "label": "3",
+       "kind": "TEXT",
+       "text": {
+        "es": "Desarrollar por lo menos 1 especialidad del grupo «fauna doméstica»."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/component/content/article/1041-maestria-en-naturaleza"
+       },
+       "evidence_required": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "MEDALLION",
+   "ministry": "master-guides",
+   "slug": "ejemplo-medallon",
+   "code": "EJ-MEDALLON",
+   "names": {
+    "es": "Medallón (ejemplo, sustituir)"
+   },
+   "description": {
+    "es": "Ejemplo, sustituir. No hay todavía una fuente con la lista de medallones ni sus requisitos: esta ficha sólo reserva la estructura."
+   },
+   "sort_order": 200,
+   "authority": "IAD",
+   "issuer_level": "ASSOCIATION",
+   "example": true,
+   "source_url": {
+    "es": "https://mundoja.org/clubes/guias-mayores"
+   },
+   "sections": [
+    {
+     "slug": "requisitos",
+     "names": {
+      "es": "Requisitos"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "1",
+       "kind": "TEXT",
+       "text": {
+        "es": "Ejemplo, sustituir por los requisitos oficiales del medallón."
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/guias-mayores"
+       },
+       "evidence_required": false
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

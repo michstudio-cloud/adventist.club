@@ -4,7 +4,8 @@
     "honor"
   ],
   "ministries": [
-    "pathfinders"
+    "pathfinders",
+    "adventurers"
   ],
   "engine": "elements",
   "source": "especialidades-v4/04-academico",
@@ -17,5 +18,21 @@
   "editable_strings": [
     "awarded",
     "completion"
-  ]
+  ],
+  "ministry_strings": {
+    "adventurers": {
+      "es": {
+        "conquistadores": "AVENTUREROS"
+      },
+      "en": {
+        "conquistadores": "ADVENTURERS"
+      },
+      "pt": {
+        "conquistadores": "AVENTUREIROS"
+      },
+      "fr": {
+        "conquistadores": "AVENTURIERS"
+      }
+    }
+  }
 }
