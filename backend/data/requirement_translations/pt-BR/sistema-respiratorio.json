@@ -1,0 +1,88 @@
+{
+ "honor_slug": "sistema-respiratorio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Respiratory_System/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Sistema respiratório",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as estruturas que compõem o sistema respiratório? Ilustrar e descrever as principais funções de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Os pulmões direito e esquerdo são iguais? Qual é a diferença anatômica entre eles?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os dois principais gases do corpo? O que são as trocas gasosas? Descrever as vias aéreas de condução até o ponto onde ocorrem as trocas gasosas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é um alvéolo e qual é sua função? Ilustrar um alvéolo por meio de desenhos ou figuras, mostrando o momento da troca gasosa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a principal função dos cílios, incluindo os cílios móveis?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a relação entre a respiração celular e a respiração pulmonar?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar como os sistemas circulatório e respiratório estão intimamente ligados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a importância da hemoglobina e do ferro para a oxigenação do corpo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever em detalhes os movimentos de inspiração e expiração. Qual é a importância do músculo diafragma para esses movimentos?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que órgão do sistema nervoso central controla a respiração? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é a frequência respiratória normal de:\n  a. Recém-nascidos\n  b. Crianças\n  c. Adultos",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Definir os seguintes termos relacionados às alterações respiratórias:\n  a. Eupneia\n  b. Taquipneia\n  c. Bradipneia\n  d. Dispneia\n  e. Ortopneia\n  f. Apneia",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Estudar as seguintes doenças respiratórias e descrever, para cada uma, como ocorre/é adquirida, a transmissão (se for o caso), o tratamento e a prevenção:\n  a. Asma\n  b. Tuberculose\n  c. Pneumonia\n  d. Gripe / infecções das vias aéreas superiores\n  e. Enfisema pulmonar\n  f. Tromboembolismo pulmonar\n  g. Pneumoconiose\n  h. Fibrose cística",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Pesquisar os efeitos do tabagismo no sistema respiratório. Apresentar seus resultados de uma das seguintes formas:\n  a. Relatório escrito, com pelo menos 500 palavras\n  b. Apresentação oral, com pelo menos 5 minutos\n  c. Exposição com cartazes e placas\n  d. Poema ou música",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer um levantamento em sua região ou estado comparando os índices de qualidade do ar. Como esses índices podem ser melhorados? O que você pode fazer para melhorá-los?",
+   "instructions": null
+  }
+ ]
+}

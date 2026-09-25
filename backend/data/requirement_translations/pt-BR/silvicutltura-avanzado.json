@@ -1,0 +1,58 @@
+{
+ "honor_slug": "silvicutltura-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Forestry_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pré-requisitos: especialidade de Árvores; especialidade de Silvicultura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Área basal\n  b. Fuste\n  c. DAP (diâmetro)\n  d. Corte com árvores porta-sementes\n  e. Corte seletivo\n  f. Corte sob abrigo (corte de proteção)\n  g. Silvicultura\n  h. Dossel\n  i. Copa\n  j. Madeira para celulose\n  k. Sucessão\n  l. Desbaste\n  m. Rotação\n  n. Madeira para serraria\n  o. Floresta clímax\n  p. Hábitat",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Estudar cinco espécies de árvores importantes para a silvicultura em sua região e fornecer as seguintes informações sobre cada uma:\n  a. nome popular e científico\n  b. área de distribuição da árvore\n  c. altura e diâmetro da árvore adulta\n  d. importância econômica da árvore\n  e. pragas importantes (insetos, doenças etc.) da árvore\n  f. hábitat da árvore, zona florestal e altitude\n  g. idade usual de rotação (colheita) para diversos usos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que métodos são usados para garantir o reflorestamento de uma área de colheita?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Num mapa de seu país, desenhar as áreas florestais e indicar os tipos de floresta de cada área.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever um breve relatório (250 palavras ou mais) sobre a importância das florestas em seu país. Incluir temas como a importância da madeira para construção, papel (celulose) e lenha; hábitat da fauna; pastagem para o gado; boa qualidade da água; e lazer para as pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Visitar um dos seguintes locais ou escrever um relatório com diagramas sobre seu funcionamento.\n  a. Serraria\n  b. Fábrica de celulose\n  c. Fábrica de móveis",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer um inventário florestal numa floresta típica de sua região. Usando um prisma, marcar todas as árvores grandes o suficiente para serem contadas como “dentro” e registrar os seguintes dados de cada árvore “dentro”, além da área basal por espécie de toda a parcela:\n  a. Nome popular e científico\n  b. DAP\n  c. Altura\n  d. Idade (determinada com trado de incremento)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de um projeto de reflorestamento",
+   "instructions": null
+  }
+ ]
+}

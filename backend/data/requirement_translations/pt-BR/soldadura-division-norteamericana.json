@@ -1,0 +1,68 @@
+{
+ "honor_slug": "soldadura-division-norteamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Welding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar com êxito no mínimo três horas de instrução em sala de aula.*",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar o seguinte:\n  a. Máscara de solda\n  b. Arame de solda GMAW (MIG/MAG)\n  c. Fonte de energia SMAW (eletrodo revestido)\n  d. Regulador de gás de solda\n  e. Tocha de solda GMAW\n  f. Tomada elétrica de 220 volts\n  g. Tocha PAC (corte a plasma)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os seguintes termos:\n  a. Soldagem por fusão\n  b. Eletrodo\n  c. Oxidação\n  d. Escória\n  e. Liga",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher e descrever um processo de soldagem por fusão.\n  a. Como o calor é gerado?\n  b. Por que se acrescenta metal de adição?\n  c. Descrever como o metal fundido é protegido da oxidação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar pelo menos um processo de corte térmico e um de corte mecânico.\n  a. Descrever como cada um funciona.\n  b. Discutir as vantagens e limitações relativas de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar conhecimento dos riscos e perigos associados à soldagem e ao corte e das medidas para preveni-los ou reduzi-los.\n  a. Corrente elétrica\n  b. Altas temperaturas\n  c. Radiação ultravioleta\n  d. Fumos tóxicos\n  e. Máquinas/lâminas em movimento\n  f. Gases de alta pressão",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever o equipamento de segurança exigido para diversos processos de soldagem por fusão e de corte.\n  a. Proteção da cabeça/dos olhos\n  b. Vestuário\n  c. Luvas\n  d. Audição\n  e. Filtragem/ventilação",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Para o processo de soldagem GMAW ou SMAW, demonstrar a capacidade de usar orientações de soldagem, como tabelas de manuais, para escolher os parâmetros adequados do processo, incluindo a amperagem correta e o tipo/tamanho de eletrodo para diversos tipos e espessuras de um metal escolhido.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar e demonstrar a montagem correta do equipamento e a escolha dos consumíveis para pelo menos um processo de soldagem.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever todos os componentes do equipamento a ser usado e sua função.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Usando os processos indicados, fazer o seguinte:\n  a. PAC: Fazer um corte reto de pelo menos três polegadas (7,6 cm) de comprimento em aço doce ou alumínio.\n  b. SMAW: Completar i e ii, ou completar iii.\n    i. Fazer dois cordões sobre chapa com pelo menos duas polegadas (5 cm) de comprimento total\n    ii. Fazer uma solda de chanfro reto na posição plana\n    iii. Fazer uma solda de canto na posição plana\n  c. GMAW: Completar i e ii, ou completar iii.\n    i. Fazer dois cordões sobre chapa com pelo menos duas polegadas (5 cm) de comprimento total\n    ii. Fazer uma solda de chanfro reto na posição plana\n    iii. Fazer uma solda sobreposta na posição plana\n  Observação: * É preciso ser aprovado num exame de conhecimentos ao concluir.\n  ^ Estes são requisitos mínimos; incentiva-se a prática adicional de soldagem",
+   "instructions": null
+  }
+ ]
+}

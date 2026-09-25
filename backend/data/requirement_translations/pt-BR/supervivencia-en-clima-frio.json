@@ -1,0 +1,83 @@
+{
+ "honor_slug": "supervivencia-en-clima-frio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cold_Weather_Survival/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os três itens de sobrevivência mais importantes que você pode levar no bolso.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar e discutir o seguinte sobre roupas para clima frio.\n  a. Vantagens e desvantagens das roupas de lã, polipropileno, algodão, náilon ou combinações deles. Como cada tipo afeta o corpo quando está molhado? Que outros materiais de roupa, mais novos, são recomendados para a sobrevivência no frio? Por quê?\n  b. Vantagens de vestir-se em camadas. Que materiais de roupa funcionam junto à pele? Nas camadas externas? Nas intermediárias? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher alguns itens da lista abaixo e montar seu próprio kit de sobrevivência que possa ser levado numa mochila de hidratação ou numa pochete. Explicar como cada item seria útil.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir os perigos da hipotermia, condição em que a temperatura central do corpo cai abaixo da necessária para o metabolismo e as funções normais do corpo. A temperatura corporal normalmente se mantém num nível quase constante de 98–100 °F (36,7–37,8 °C).\n  a. Sintomas LEVES\n  b. Sintomas MODERADOS\n  c. Sintomas GRAVES",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir com seu grupo cada frase da seguinte declaração.\n  “Uma das situações de sobrevivência mais difíceis é o frio. O frio é uma ameaça à sobrevivência muito maior do que parece. Ele diminui a capacidade de pensar. Enfraquece a vontade de fazer qualquer coisa além de se aquecer. Entorpece a mente e o corpo. Abate a vontade de sobreviver.”",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir o seguinte:\n  a. Por que você precisa de calorias\n  b. O sistema de duplas (buddy system) e por que ele é importante",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar os “Umbles” da hipotermia e em que estágio ocorrem: (Mumble – murmurar, Grumble – resmungar, Fumble – atrapalhar-se, Stumble – tropeçar, Tumble – cair).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Assistir a um vídeo/documentário de qualidade sobre sobrevivência e hipotermia.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrar em contato com a equipe local de busca e salvamento e pedir que façam uma palestra para seu clube.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Revisar e demonstrar as seguintes instruções de sobrevivência e resgate.\n  a. Avaliar para determinar se você está perdido.\n  b. Soprar seu apito. Lembrar que qualquer sinal repetido três vezes é reconhecido universalmente como pedido de socorro.\n  c. (Se você estiver com frio, molhado ou com fome, pular este passo, acender uma fogueira e passar a noite.) Marcar sua localização com algo inconfundível. Afastar-se e circular ao redor de sua marca enquanto sopra o apito e ora. Mudar a marca de lugar quando reconhecer algo ou se perder a marca de vista.\n  d. Acender uma fogueira e construir um abrigo se for à tarde (o horário depende de seu equipamento e do ambiente). Parar de tentar encontrar o caminho de volta e planejar passar a noite. Lembrar que possivelmente ninguém está procurando você ainda. Sua capacidade de acender uma fogueira e de estar preparado para a noite pode fazer a diferença entre a vida e a morte. O fogo pode proporcionar calor, companhia, conforto e segurança. A fumaça e as chamas podem servir de sinal para um socorrista.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Praticar as seguintes habilidades de sobrevivência numa saída do clube.\n  a. Encontrar a direção sem bússola.\n  b. Acender uma fogueira usando: pederneira e magnésio, palha de aço e bateria.\n  c. Manter uma fogueira acesa usando gravetos desfiados, lascas de madeira, musgo e sua isca. Praticar em condições de umidade.\n  d. Demonstrar como fazer uma fogueira de resgate (com muita fumaça).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Completar a seguinte atividade em grupo, ou equivalente, num contexto de sobrevivência no frio.\n  a. Construir 3 abrigos, como: uma caverna de neve, um abrigo com galhos de árvores, um abrigo com lona ou capa de chuva. Incluir a posição correta da fogueira em cada situação.\n  b. Fazer seu próprio acendedor de fogo usando itens como caixa de ovos de papelão, serragem e cera, ou outros materiais de sua escolha que durem pelo menos 10 minutos.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Usar os seguintes temas para meditações:\n  a. Hipotermia espiritual\n  b. Espiritualmente perdido\n  c. Preparo espiritual",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Memorizar pelo menos dois textos bíblicos que você acha que poderiam lhe trazer conforto numa situação de sobrevivência no frio, como Salmo 34:7 e Mateus 28:20.",
+   "instructions": null
+  }
+ ]
+}
