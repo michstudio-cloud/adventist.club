@@ -100,7 +100,7 @@ def test_long_names_shrink_then_wrap_and_never_truncate():
     assert 22 <= size < 39 and lines == [long_name]                          # max_lines 1: shrinks
     size, lines = _field(svg, "honor_name")
     assert 20 <= size <= 36 and len(lines) == 2 and " ".join(lines) == two_lines
-    assert re.search(r'<tspan x="210" dy="0">', svg) and re.search(rf'dy="{size * 1.25:g}"', svg)
+    assert re.search(r'<tspan x="196" dy="0">', svg) and re.search(rf'dy="{size * 1.25:g}"', svg)
 
     with pytest.raises(TemplateError, match="recipient_name"):
         fill_svg(template, _data("es", recipient_name="Wolfeschlegelsteinhausenbergerdorff " * 4), {}, "es")
