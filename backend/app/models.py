@@ -1211,3 +1211,214 @@ class RoleAssignment(Base):
     )
     ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     end_reason: Mapped[str | None] = mapped_column(String(40))
+
+
+# ---------------------------------------------------------------------------
+# 025_events.sql — eventos y puntajes (spec 2026-09-24-eventos §3). The rules live in
+# app/services/event_access.py (who), event_scoring.py (how much) and event_scores.py (totals).
+# ---------------------------------------------------------------------------
+from decimal import Decimal  # noqa: E402  (kept with its block to spare merge conflicts)
+
+
+class Event(Base):
+    __tablename__ = "events"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    ministry_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("ministries.id"))
+    name: Mapped[str] = mapped_column(String(200))
+    slug: Mapped[str] = mapped_column(String(120))
+    venue: Mapped[str | None] = mapped_column(String(200))
+    city: Mapped[str | None] = mapped_column(String(120))
+    starts_on: Mapped[date] = mapped_column(Date)
+    ends_on: Mapped[date] = mapped_column(Date)
+    status: Mapped[str] = mapped_column(String(12), server_default="DRAFT")
+    registration_closes_on: Mapped[date | None] = mapped_column(Date)
+    rules_version: Mapped[int] = mapped_column(Integer, server_default="1")
+    honor_bands: Mapped[list] = mapped_column(JSONB, server_default="[]")
+    source_note: Mapped[str | None] = mapped_column(Text)
+    template_of_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="SET NULL")
+    )
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class EventActivity(Base):
+    __tablename__ = "event_activities"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE")
+    )
+    parent_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_activities.id", ondelete="CASCADE")
+    )
+    position: Mapped[int] = mapped_column(Integer, server_default="0")
+    name: Mapped[str] = mapped_column(String(200))
+    description: Mapped[str | None] = mapped_column(Text)
+    kind: Mapped[str] = mapped_column(String(20))
+    max_points: Mapped[Decimal | None] = mapped_column(Numeric(8, 2))
+    config: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    status: Mapped[str] = mapped_column(String(10), server_default="READY")
+    counts_to_total: Mapped[bool] = mapped_column(Boolean, server_default="true")
+    schedule_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class EventAdjustmentType(Base):
+    __tablename__ = "event_adjustment_types"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE")
+    )
+    kind: Mapped[str] = mapped_column(String(8))
+    label: Mapped[str] = mapped_column(String(200))
+    points: Mapped[Decimal | None] = mapped_column(Numeric(8, 2))
+    max_per_event: Mapped[int | None] = mapped_column(Integer)
+    max_per_club: Mapped[int | None] = mapped_column(Integer)
+    position: Mapped[int] = mapped_column(Integer, server_default="0")
+    active: Mapped[bool] = mapped_column(Boolean, server_default="true")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class EventStaff(Base):
+    """COORDINATOR / JUDGE of ONE event. Contextual: never touches `users.role`."""
+
+    __tablename__ = "event_staff"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE")
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    role: Mapped[str] = mapped_column(String(12))
+    activity_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_activities.id", ondelete="CASCADE")
+    )
+    active: Mapped[bool] = mapped_column(Boolean, server_default="true")
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    ended_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+
+
+class EventRegistration(Base):
+    __tablename__ = "event_registrations"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE")
+    )
+    club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
+    status: Mapped[str] = mapped_column(String(10), server_default="REGISTERED")
+    pass_token_hash: Mapped[str | None] = mapped_column(String(64), unique=True)
+    finalist_flags: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    registered_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class Evaluation(Base):
+    __tablename__ = "evaluations"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    registration_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_registrations.id", ondelete="CASCADE")
+    )
+    activity_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_activities.id", ondelete="CASCADE")
+    )
+    inputs: Mapped[dict] = mapped_column(JSONB)
+    points: Mapped[Decimal] = mapped_column(Numeric(8, 2))
+    breakdown: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    rules_version: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(10), server_default="CONFIRMED")
+    judge_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    idempotency_key: Mapped[str] = mapped_column(String(100), unique=True)
+    revision: Mapped[int] = mapped_column(Integer, server_default="1")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class EvaluationRevision(Base):
+    """Immutable (a trigger refuses UPDATE): the values an evaluation had BEFORE a change."""
+
+    __tablename__ = "evaluation_revisions"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    evaluation_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("evaluations.id", ondelete="CASCADE")
+    )
+    revision: Mapped[int] = mapped_column(Integer)
+    inputs: Mapped[dict] = mapped_column(JSONB)
+    points: Mapped[Decimal] = mapped_column(Numeric(8, 2))
+    status: Mapped[str] = mapped_column(String(10))
+    rules_version: Mapped[int] = mapped_column(Integer)
+    judge_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    action: Mapped[str] = mapped_column(String(12))
+    reason: Mapped[str] = mapped_column(Text)
+    changed_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    idempotency_key: Mapped[str | None] = mapped_column(String(100), unique=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class EventAdjustment(Base):
+    __tablename__ = "event_adjustments"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    registration_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_registrations.id", ondelete="CASCADE")
+    )
+    activity_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_activities.id", ondelete="SET NULL")
+    )
+    kind: Mapped[str] = mapped_column(String(8))
+    adjustment_type_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_adjustment_types.id", ondelete="SET NULL")
+    )
+    points: Mapped[Decimal] = mapped_column(Numeric(8, 2))
+    reason: Mapped[str] = mapped_column(Text)
+    created_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    approved_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    voided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    voided_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    void_reason: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
