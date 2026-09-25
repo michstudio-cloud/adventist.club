@@ -1,0 +1,58 @@
+{
+ "honor_slug": "combustibles-alternativos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Alternative_Fuels_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Combustíveis alternativos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o processo de fraturamento hidráulico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever o processo de perfuração em alto-mar (offshore).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são algumas das preocupações de segurança da perfuração em alto-mar?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar um diagrama que explique como o gás natural é extraído e processado para o uso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como o gás natural pode ser usado para:\n  a. Produzir hidrogênio\n  b. Gerar energia elétrica\n  c. Transporte\n  d. Fonte de energia",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipos de produtos são feitos com gás natural? Explicar o processo de pelo menos duas de suas respostas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como se produz o etanol?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir com um grupo alguns dos efeitos ambientais do uso de combustíveis alternativos.",
+   "instructions": null
+  }
+ ]
+}

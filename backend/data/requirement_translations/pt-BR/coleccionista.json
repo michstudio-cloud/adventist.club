@@ -1,0 +1,53 @@
+{
+ "honor_slug": "coleccionista",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Collector/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Colecionador",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que faz um colecionador e por que essa atividade é cada vez mais recomendada para as pessoas que vivem nas grandes cidades.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Visitar uma exposição de arte ou uma feira de artesanato e fazer uma lista dos vários objetos colecionáveis encontrados ali.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de pelo menos dez itens que as pessoas colecionam hoje.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Juntamente com seu instrutor, cumprir um dos seguintes requisitos:\n  a. Iniciar uma coleção para seu clube. Ajudar a escolher um tipo de coleção e desenvolver uma exposição criativa, escrever um parágrafo sobre o motivo da escolha, fazer uma lista do que deve constar na descrição dos itens e contribuir com pelo menos cinco peças diferentes.\n  b. Em uma coleção já existente do clube, ajudar na organização e na conservação. Contribuir também com pelo menos cinco itens. Escrever um parágrafo sobre a coleção existente, avaliar o estado atual da coleção e sugerir o que poderia ser melhorado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em seu clube ou em uma instituição especializada, assistir a uma palestra de um colecionador experiente sobre as particularidades da atividade. Escrever um relatório de pelo menos 500 palavras sobre o cuidado com as coleções, como obter novos objetos e outras coisas interessantes que aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que acontece quando um item da coleção (ou uma coleção inteira) tem um preço muito alto? Esse valor é sempre o mais importante para o colecionador?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Iniciar três coleções diferentes (de preferência, uma delas deve ser semelhante ao tema da palestra do requisito 5), com no mínimo 15 itens cada uma. Demonstrar a capacidade de ordenar, classificar e identificar os itens e especificar (quando possível): data, época, local de origem, valor estimado, local onde foi encontrado e outros detalhes específicos relacionados às coleções escolhidas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de uma exposição de coleções em seu clube, escola ou igreja, com pelo menos duas coleções pessoais, organizando os objetos devidamente identificados e com os esclarecimentos necessários para os visitantes.",
+   "instructions": null
+  }
+ ]
+}
