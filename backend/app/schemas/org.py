@@ -473,6 +473,18 @@ class ClubRequester(BaseModel):
     email: str
 
 
+class DirectorInvitation(BaseModel):
+    """Bloque I §1.2: the pending CLUB_DIRECTOR invitation `POST /org-nodes/clubs/admin`
+    sent to a `director_email` without an account. `url` and `whatsapp_url` carry the
+    token and are shown ONLY in that response."""
+
+    id: str
+    email: str
+    expires_at: datetime
+    url: str | None = None
+    whatsapp_url: str | None = None
+
+
 class PendingClubResponse(OrgNodeResponse):
     """A club request as coordinators see it.
 
@@ -490,6 +502,7 @@ class PendingClubResponse(OrgNodeResponse):
     # Whoever the administration appointed when it created the club itself
     # (`POST /org-nodes/clubs/admin`). A request carries `requested_by` instead.
     director: ClubRequester | None = None
+    director_invitation: DirectorInvitation | None = None
 
     @classmethod
     def build(

@@ -21,6 +21,7 @@ from app.models import (
     HonorEnrollment,
     Organization,
     Program,
+    RoleAssignment,
     User,
 )
 from app.people import is_minor_user
@@ -910,3 +911,85 @@ def can_invest_in_club(actor: User, club: Organization) -> bool:
     if club.type != "club" or club.status != "active":
         return False
     return club_staff_in_good_standing(actor, (CLUB_DIRECTOR,)) and actor.organization_id == club.id
+
+
+# ----------------------------------------------------------------------------
+# Bloque I §1: several scoped roles per person (026_role_assignments.sql).
+# New modules (events, «Equipo») ask ONLY these; the checks above keep reading
+# `users.role`, which is the principal role, and are migrated one by one later.
+# ----------------------------------------------------------------------------
+class ScopedRole:
+    """One role a person holds and the node it covers (its whole subtree)."""
+
+    __slots__ = ("role", "organization_id", "path", "assignment_id")
+
+    def __init__(self, role, organization_id, path, assignment_id=None):
+        self.role = role
+        self.organization_id = organization_id
+        self.path = path
+        self.assignment_id = assignment_id
+
+    def covers(self, target_path: str | None) -> bool:
+        """Does this role reach the node at `target_path`? Downwards only: a role on an
+        association covers its zones, churches and clubs, never the union above it."""
+        if self.role == MASTER_GC:
+            return True
+        if not self.path or not target_path:
+            return False
+        return target_path == self.path or target_path.startswith(self.path + ".")
+
+
+async def effective_roles(db: AsyncSession, user: User) -> list[ScopedRole]:
+    """Every role `user` holds right now: the principal one, read from `users.role` +
+    `users.organization_id` (so a legacy write counts at once), plus every other ACTIVE
+    assignment. The `is_primary` row is only a mirror of those two columns and is never
+    read here: when legacy code has moved the columns, the mirror is stale."""
+    roles = [
+        ScopedRole(user.role, user.organization_id, await get_org_path(db, user.organization_id))
+    ]
+    stmt = (
+        select(RoleAssignment, Organization.path)
+        .outerjoin(Organization, Organization.id == RoleAssignment.organization_id)
+        .where(
+            RoleAssignment.user_id == user.id,
+            RoleAssignment.status == "ACTIVE",
+            RoleAssignment.is_primary.is_(False),
+        )
+    )
+    for row, path in (await db.execute(stmt)).all():
+        if (row.role, row.organization_id) == (user.role, user.organization_id):
+            continue
+        roles.append(ScopedRole(row.role, row.organization_id, path, row.id))
+    return roles
+
+
+async def _target_path(db: AsyncSession, org) -> str | None:
+    if isinstance(org, Organization):
+        return org.path
+    return await get_org_path(db, org)
+
+
+async def has_role(db: AsyncSession, user: User, role, org=None) -> bool:
+    """Does `user` hold `role` (a name, or a tuple of names) — on `org` or on an ancestor
+    of it (ltree `path`)? Without `org`: anywhere. MASTER_GC is global but is still its
+    own role: `has_role(master, ADMIN_ASSOCIATION, x)` is False; ask `outranks_in`."""
+    wanted = (role,) if isinstance(role, str) else tuple(role)
+    held = [scoped for scoped in await effective_roles(db, user) if scoped.role in wanted]
+    if org is None:
+        return bool(held)
+    target = await _target_path(db, org)
+    return any(scoped.covers(target) for scoped in held)
+
+
+async def roles_in(db: AsyncSession, user: User, org) -> list[str]:
+    """The roles `user` holds whose scope reaches `org`, highest rank first."""
+    target = await _target_path(db, org)
+    found = {scoped.role for scoped in await effective_roles(db, user) if scoped.covers(target)}
+    return sorted(found, key=lambda name: ROLE_RANK.get(name, 0), reverse=True)
+
+
+async def outranks_in(db: AsyncSession, user: User, role: str, org) -> bool:
+    """Bloque I §1.2: `user` holds, on `org` or above it, a role of STRICTLY higher rank
+    than `role`. MASTER_GC everywhere. Never an equal or a superior."""
+    floor = ROLE_RANK.get(role, 0)
+    return any(ROLE_RANK.get(name, 0) > floor for name in await roles_in(db, user, org))
