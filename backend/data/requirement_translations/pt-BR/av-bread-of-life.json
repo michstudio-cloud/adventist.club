@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-bread-of-life",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=351",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Pão da vida",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar, ler e escrever Mateus 4:4. Conversar com um adulto sobre sua importância. Escrever o que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar com um adulto sobre a importância de ler a Palavra de Deus todos os dias. Escrever suas conclusões.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar e ler 2 Timóteo 2:15, Salmo 119:11 e Salmo 119:105 (NVI). Por que estudamos a Bíblia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conversar sobre como se preparar para ler a Palavra de Deus. Escrever quatro hábitos de estudo da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ler uma das seguintes histórias bíblicas.\n  a. Ana ora pedindo um filho - 1 Samuel 1:1-28\n  b. A arca de Noé - Gênesis 6:5-Gênesis 8\n  c. O bebê Moisés - Êxodo 1-2:10\n  d. Naamã, o leproso - 2 Reis 5:1-16",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um marcador de páginas para usar enquanto estuda a Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dedicar tempo regularmente à leitura da Bíblia.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

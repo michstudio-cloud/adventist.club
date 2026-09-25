@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-caring-friend",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=277",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigo atencioso",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que significa ser um amigo atencioso. Encontrar, ler e memorizar 1 Pedro 5:7.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar com uma pessoa e perguntar o seguinte:\n  a. O dia e o mês em que ela nasceu\n  b. Seus animais preferidos\n  c. Duas de suas cores preferidas\n  d. Três comidas preferidas\n  e. Quatro coisas que são importantes para ela\n  f. Pedir a seu novo amigo que conte algo interessante que aconteceu na vida dele ou dela.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Visitar uma pessoa que não pode sair de casa ou uma pessoa idosa e levar algo para ela. Usar as perguntas acima durante a conversa.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dizer a uma das pessoas que você visitar que Jesus ama você e que Ele também a ama.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como você pode ser atencioso com seus pais:\n  a. Ajudando a manter seu quarto limpo\n  b. Ajudando a preparar a comida ou a limpar tudo depois de uma refeição\n  c. Fazendo tarefas extras sem que peçam",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Contar algo especial que você fez por um amigo.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}
