@@ -1,0 +1,68 @@
+{
+ "honor_slug": "conciencia-sobre-el-cancer",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cancer_Awareness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Conscientização sobre o câncer",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é a divisão celular?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como as células cancerosas se dividem?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a diferença entre câncer, células tumorais, carcinoma e sarcoma.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o ramo da ciência que estuda o câncer.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como se diagnostica o câncer?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenhar um diagrama dos tipos de câncer mais comuns em crianças, homens e mulheres. Pode ser um gráfico de barras, um diagrama de Venn, um gráfico de pizza ou qualquer forma que escolher para comparar suas descobertas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar e descrever pelo menos duas formas de tratamento do câncer.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar três maneiras como o meio ambiente pode afetar ou desencadear o câncer em uma pessoa.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar três coisas que você pode fazer para diminuir suas chances de ter câncer.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Graças a uma melhor compreensão da doença e a tratamentos aperfeiçoados, um diagnóstico de câncer não significa automaticamente a morte. Usar sua criatividade para ilustrar uma das seguintes passagens bíblicas. Memorizar outra passagem.\n  a. Isaías 41:10\n  b. Provérbios 4:20-22\n  c. Tiago 5:16\n  d. Salmo 46:1 e 2\n  e. Isaías 40:29-31\n  f. Salmo 27:14",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar seu apoio a alguém com câncer fazendo o seguinte:\n  a. Montar uma cesta de cuidados para alguém com câncer ou para deixar em um centro de tratamento de câncer ou hospital.\n  b. Promover a conscientização sobre o câncer em sua igreja, escola ou comunidade:\n    i. participando de uma caminhada beneficente\n    ii. afixando folhetos pela comunidade\n    iii. preparando um programa JA ou uma meditação\n    iv. qualquer outra forma criativa de conscientização\n  c. Oferecer ajuda com uma tarefa ou afazer para a pessoa ou a família. Por exemplo: levar almoço todos os dias (verificar se há restrições alimentares), ajudar com uma tarefa doméstica específica, recolher a correspondência, passear com o(s) animal(is) de estimação etc.\n  d. Tornar-se uma pessoa de referência eficaz.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "construccion-con-lego",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/LEGO%C2%AE_Design/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Construção com LEGO®",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os seguintes termos:\n  a. Elemento (peça)\n  b. Pino (stud)\n  c. Tijolo (brick)\n  d. Placa (plate)\n  e. Placa de base (base plate)\n  f. Ladrilho (tile)\n  g. Rampa (slope)\n  h. Rampa invertida\n  i. Dobradiça\n  j. Tijolo Technic\n  k. Power Functions\n  l. Minifigura",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Construir e/ou encontrar exemplos dos seguintes tipos de modelos em escala:\n  a. Microescala (1 quarteirão equivale a 32 pinos)\n  b. Escala de minifigura (6 pés ou 2 metros equivalem a aproximadamente 6 pinos)\n  c. Escala Ultimate Collector (maior que a escala de minifigura e menor que a escala 1:1)\n  d. Escala 1 para 1 (tamanho real)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher uma das seguintes atividades:\n  a. Construir um modelo em escala 1 para 1 de algo da natureza, de sua casa, igreja ou escola. Depois, compartilhar o modelo com seu grupo ou clube.\n  b. Construir um modelo em escala de seu quarto, casa, apartamento ou outro edifício de sua comunidade. Incluir os móveis grandes, como cama, fogão, geladeira, sofá, cômoda etc. Depois, compartilhar o modelo com seu grupo ou clube.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher uma das seguintes atividades:\n  a. Usar LEGO® como recurso visual em uma história infantil para crianças de 2-9 anos na igreja, na Escola Sabatina ou em um grupo equivalente.\n  b. Usar LEGO® como parte de um trabalho escolar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Construir uma cena ou um objeto da Bíblia usando LEGO® em uma das escalas do requisito nº 2.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com sua imaginação, criar seu próprio projeto em 2 das 5 categorias abaixo e compartilhar os dois projetos com seu grupo ou clube.\n  a. Carro, caminhão ou outro veículo terrestre.\n  b. Avião, helicóptero ou outra aeronave.\n  C. Navio, submarino ou outra embarcação.\n  d. Animal ou planta construído com peças, baseado em uma espécie real, usando pelo menos 10 peças.\n  e. Máquina, aparelho ou robô (sem Power Functions)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever um parágrafo de 250 palavras, ou fazer uma apresentação de 3-5 minutos para seu grupo ou clube, contando como você pode usar LEGO® para testemunhar a quem não conhece a Deus.\n  Notas.",
+   "instructions": null
+  }
+ ]
+}

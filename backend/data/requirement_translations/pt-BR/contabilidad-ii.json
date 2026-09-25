@@ -1,0 +1,63 @@
+{
+ "honor_slug": "contabilidad-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Accounting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é contabilidade?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são algumas funções de um contador?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos contábeis:\n  a. Patrimônio líquido\n  b. Depreciação\n  c. Balanço patrimonial\n  d. Fluxo de caixa\n  e. Capital\n  f. Contas a pagar\n  g. Contas a receber\n  h. Livro-razão\n  i. Lucro líquido\n  j. Planejamento de aposentadoria",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são algumas vantagens da contabilidade informatizada?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que tipo de formação e de habilidades são necessárias para ser contador?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que certificações existem para contadores? Em que diferem de um diploma universitário em contabilidade?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar e definir pelo menos dez áreas profissionais da contabilidade.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Individualmente ou em grupo, discutir os princípios bíblicos de cada um dos seguintes textos, fazendo comparações com a área da contabilidade:\n  a. Controles internos – 2 Crônicas 24:11\n  b. Prestação de contas – Eclesiastes 4:1-2\n  c. Equilíbrio – Levítico 19:35-36, Deuteronômio 25:13-16\n  d. Integridade e valores – 2 Coríntios 8:16-20\n  e. Monitoramento – 2 Reis 12:16, Lucas 16",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever brevemente a diferença entre uma pessoa \"milionária\" e uma pessoa com patrimônio líquido de um milhão de dólares. Incluir uma discussão sobre ativos líquidos e não líquidos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer três das seguintes atividades:\n  a. Conciliar o saldo bancário com o saldo contábil em contas-correntes, incluindo depósitos em trânsito, tarifas bancárias, cheques devolvidos por falta de fundos, juros da conta e cheques em trânsito.\n  b. Mostrar os lançamentos necessários para a aquisição ou o depósito de ativos e para a contração e a quitação de passivos. Mostrar os lançamentos necessários para encerrar as contas de receitas e despesas no fim do ano.\n  c. Ser capaz de elaborar uma demonstração de resultados a partir de um balancete de verificação.\n  d. Ser capaz de classificar corretamente os itens do balanço patrimonial em ativo de curto prazo, ativo de longo prazo, conta redutora do ativo, passivo de curto prazo, passivo de longo prazo e patrimônio líquido.",
+   "instructions": null
+  }
+ ]
+}

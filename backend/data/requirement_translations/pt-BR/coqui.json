@@ -1,0 +1,88 @@
+{
+ "honor_slug": "coqui",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coqu%C3%AD/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Coquí",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "A que classe pertence o coquí?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Essa classe se divide em três ordens: Apoda, Caudata e Anura. O coquí pertence à ordem Anura. Que outros membros pertencem a essa ordem?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que membro dessa classe é mencionado na Bíblia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar as características gerais dessa classe.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que características distinguem o coquí dos demais anfíbios?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por que ele é chamado de coquí?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que outro som, canto ou chamado, além de \"coquí\", o coquí faz?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a finalidade do canto do coquí?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é o gênero das espécies de coquí de Porto Rico? Citar o nome de cinco espécies e mostrar slides ou fotos delas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em que outros países, fora de Porto Rico, o coquí é encontrado?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual coquí:\n  a. é o maior?\n  b. é o menor?\n  c. canta \"coquí\"?\n  d. tem um canto semelhante ao som de uma gota d'água?\n  e. tem um canto semelhante ao som de dar corda em um relógio ou de passar as unhas pelos dentes de um pente?\n  f. tem uma cor considerada preta ou mármore escuro?\n  g. tem a maior frequência de vocalização?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Em que parte do mundo o coquí é considerado uma praga e como chegou lá?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Qual é o nome de um coquí extinto?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Por que o coquí de Porto Rico deve ser protegido?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "O que se pode fazer para conservar o coquí?",
+   "instructions": null
+  }
+ ]
+}

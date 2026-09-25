@@ -1,0 +1,73 @@
+{
+ "honor_slug": "construcciones-rusticas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rustic_Construction_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Construções rústicas - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter pelo menos 14 anos de idade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter as seguintes especialidades:\n  a. Construções rústicas\n  b. Nós e amarras - Avançado",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma pesquisa bíblica e identificar quando o povo de Israel teve de fazer uma construção, o que ela representava e do que deviam se lembrar ao fazê-la.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a importância de manter afiadas as ferramentas de trabalho?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar seu conhecimento das regras de segurança no uso de ferramentas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os melhores nós para iniciar e terminar uma amarra? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a importância de fazer entalhes nos troncos antes de amarrá-los?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar capacidade de fazer as seguintes amarras, começando cada uma com a volta do fiel e terminando com a volta do fiel ou com o nó direito.\n  a. Quadrada\n  b. Diagonal\n  c. Redonda\n  d. Contínua dupla",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a importância de fazer plantas (desenhos com medidas) para as construções rústicas?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma planta (desenho com medidas) de cada estrutura pedida na especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Usar barbantes e varetas para fazer maquetes em miniatura de quatro das plantas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Construir o seguinte:\n  a. Um portal com pelo menos oito bases e 20 amarras\n  b. Um portal sem cavar o chão\n  c. Uma mesa de acampamento com pelo menos quatro bases e oito amarras\n  d. Uma ponte com pelo menos quatro bases e 3 m de comprimento\n  e. Uma torre de pelo menos 4 m de altura e com dez amarras\n  f. Um abrigo suspenso, a pelo menos 1 m do chão\n  g. Um móvel de acampamento (mesa multiuso, lava-louças, mesa de lanche)\n  Observação: não se devem usar pregos, parafusos nem arames. Os clubes devem evitar o hábito de usá-los nas construções rústicas. Precisamos ensinar aos Desbravadores as técnicas corretas e ajudá-los a adquirir prática e experiência.",
+   "instructions": null
+  }
+ ]
+}

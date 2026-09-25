@@ -1,0 +1,18 @@
+{
+ "honor_slug": "comunicaciones-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Communications_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma das seguintes atividades:\n  a. Enviar e receber mensagens pelo código Morse internacional a uma velocidade de oito palavras por minuto, usando lanterna, apito, espelho, cigarra ou manipulador. (Palavras de cinco letras, no mínimo 20 palavras.)\n  b. Enviar e receber mensagens pelo código semáforo a uma velocidade de 12 palavras por minuto, usando bandeiras de semáforo. (Palavras de cinco letras, no mínimo 20 palavras.)\n  c. Enviar e receber mensagens pelo código Morse internacional a uma velocidade de oito palavras por minuto, usando bandeiras wigwag. (Palavras de cinco letras, no mínimo 20 palavras.)",
+   "instructions": null
+  }
+ ]
+}

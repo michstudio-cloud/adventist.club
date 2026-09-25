@@ -1,0 +1,48 @@
+{
+ "honor_slug": "conservacion-de-alimentos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Food_-_Canning/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir ou explicar os seguintes termos relacionados às conservas caseiras:\n  a. Termos de segurança e de ciência dos alimentos\n    i. Botulismo\n    ii. pH\n    iii. Deterioração\n  b. Métodos e técnicas de processamento\n    i. Enlatamento sob pressão (panela de pressão)\n    ii. Banho-maria em água fervente\n    iii. Enlatamento a vapor\n    iv. Envase a frio (alimento cru)\n    v. Envase a quente\n    vi. Espaço livre (headspace)\n    vii. Retirada de bolhas de ar\n    viii. Esterilização\n    ix. Vedação\n    x. Método da panela aberta (NÃO É SEGURO)\n  c. Ingredientes e aditivos\n    i. Pectina\n    ii. Ácido cítrico\n    iii. Sal para conservas\n  d. Tipos de alimentos em conserva\n    i. Geleia com pedaços (jam)\n    ii. Geleia (jelly)\n    iii. Geleia de frutas cítricas (marmalade)\n    iv. Doce em calda com frutas inteiras (preserves)\n    v. Picles",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista do equipamento usado nos seguintes métodos de conserva:\n  a. Enlatamento sob pressão (para alimentos pouco ácidos)\n  b. Banho-maria em água fervente (para alimentos muito ácidos)\n  c. Enlatamento a vapor",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar e explicar:\n  a. Como limpar e preparar corretamente os potes e as tampas\n  b. Como esterilizar os potes (se for exigido pelo tempo de processamento)\n  c. Como envasar os alimentos nos potes a quente ou a frio com segurança\n  d. Como ajustar o espaço livre e retirar as bolhas de ar\n  e. Como vedar os potes usando tampas de duas peças\n  f. Como processar os potes usando o método e o tempo corretos\n  g. Como verificar a vedação depois do resfriamento\n  h. Como armazenar os potes e identificar vedações inseguras ou deterioração",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar que tipos de alimentos precisam ser processados sob pressão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar várias frutas e verduras mais adequadas para conserva do que para congelamento ou desidratação.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar suas habilidades fazendo com segurança conservas de quatro das cinco categorias abaixo:\n  a. Um suco de fruta, usando o método de banho-maria em água fervente ou o de enlatamento a vapor. (NÃO usar o método da panela aberta)\n    b. Dois tipos de fruta, usando o método de banho-maria em água fervente ou o de vapor.\n    Um usando o envase a quente\n    Um usando o envase a frio (alimento cru)\n    c. Dois tipos de verdura, usando o método de enlatamento sob pressão.\n    Um usando o envase a quente\n    Um usando o envase a frio (alimento cru)\n  d. Fazer uma geleia (jelly, jam ou marmalade) usando pectina comercial ou natural.\n  e. Fazer um picles usando uma receita testada de conserva acidificada e processá-lo em banho-maria em água fervente ou em enlatador a vapor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar Salmo 138:7. Apresentar uma meditação sobre esse versículo, ou outro semelhante, a respeito dos aspectos espirituais da preservação, usando como ilustração o que aprendeu nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}
