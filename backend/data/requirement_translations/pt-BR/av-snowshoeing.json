@@ -1,0 +1,58 @@
+{
+ "honor_slug": "av-snowshoeing",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=309",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Caminhada com raquetes de neve",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir um breve histórico das raquetes de neve.\n  a. Onde as raquetes de neve eram usadas?\n  b. Por que as raquetes de neve eram necessárias?\n  c. Que animais inspiraram o formato da raquete de neve?\n  d. Que tipo de raquete de neve era/é usado em sua região?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que materiais eram usados para fazer as primeiras raquetes de neve? Como elas eram feitas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever lugares seguros para caminhar com raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever lugares perigosos para caminhar com raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o que você deve vestir em uma caminhada com raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar como fazer o seguinte:\n  a. Carregar suas raquetes de neve com segurança.\n  b. Calçar suas raquetes de neve.\n  c. Prender suas raquetes de neve",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar sobre como 1 Co 6:19-20 e Isaías 40:29-31 se relacionam com a boa forma física.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de um jogo com raquetes de neve, como: caça ao tesouro, soletrar com raquetes de neve, rastreamento de animais, boliche na neve.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma caminhada com raquetes de neve de pelo menos 1 milha (1,6 km) com sua família ou seu clube.",
+   "instructions": null
+  }
+ ]
+}

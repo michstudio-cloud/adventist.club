@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-stamping-fun-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=97",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com carimbos II",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que carta Deus nos enviou?\n  a. Memorizar: Êxodo 32:16 (ARA)\n  b. Ler Êxodo 34:4 e Ester 3:10\n  c. Havia algo carimbado ou escrito nos dois textos acima?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Encontrar na Bíblia três ou mais pessoas que escreveram uma carta a amigos pessoais ou a igrejas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar alguns projetos que você pode fazer usando carimbos de borracha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "De que material você precisa para fazer um projeto com carimbos de borracha?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender e demonstrar de três a cinco técnicas de carimbo, como as sugeridas abaixo:\n  a. Carimbo em duas etapas\n  b. Decoração com giz\n  c. Decoração com canetinhas\n  d. Uso de lápis aquareláveis\n  e. Máscara de imagem",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como cuidar dos carimbos de borracha.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer três projetos diferentes para dar a um amigo ou a familiares.",
+   "instructions": null
+  }
+ ]
+}

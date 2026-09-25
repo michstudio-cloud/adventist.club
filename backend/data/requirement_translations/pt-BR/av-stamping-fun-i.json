@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-stamping-fun-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=95",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com carimbos I",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Usar uma fruta ou um legume para carimbar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Experimentar texturas usando materiais como trouxinhas de tecido, papel crepom ou plástico-bolha para carimbar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usar carimbos para fazer formas como quadrados, círculos e triângulos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usar objetos encontrados, como conchas, gravetos ou folhas, para carimbar.",
+   "instructions": null
+  }
+ ]
+}

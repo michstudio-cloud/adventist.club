@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-stars",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=247",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Estrelas",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre as estrelas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer três coisas que você aprendeu sobre as estrelas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um jogo de movimento sobre as estrelas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual sobre uma estrela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Cantar uma música sobre as estrelas.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

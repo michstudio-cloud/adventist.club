@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-spotter",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=311",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Observador",
+ "description": "Classe sugerida: Abelhinhas Laboriosas.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Localizar e identificar o seguinte:\n  a. Quatro animais diferentes\n  b. Quatro tipos diferentes de veículos motorizados\n  c. Dois tipos diferentes de aviões ou barcos\n  d. Quatro elementos diferentes da natureza, como árvores, flores etc.\n  e. Quatro aves diferentes",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Observar e descrever três pessoas de uniforme. Contar o que elas fazem e por que fazem isso.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar e ler o texto de Mateus 28:20 e conversar sobre o que ele nos diz.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Observar sua igreja. Escrever ou desenhar o que você pode fazer para ajudar a mantê-la limpa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Observar seu quarto e fazer um desenho dele. Se você tiver um álbum, colocar o desenho nele. Limpar seu quarto. Fazer um segundo desenho e contar em que seu quarto ficou diferente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Lembrar dez de quinze objetos depois de observá-los durante dois minutos.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}
