@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-seasons",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=243",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Estações do ano",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Eclesiastes 3:1-8 e conversar sobre esse texto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ilustrar Eclesiastes 3:11.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar a época do ano de cada estação em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como você se prepara para cada estação: roupas, jardinagem, colheita, atividades, escola etc.?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de um jogo relacionado com as estações do ano.",
+   "instructions": null
+  }
+ ]
+}

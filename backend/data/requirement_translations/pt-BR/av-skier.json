@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-skier",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=307",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Esquiador",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever como cuidar dos esquis e das botas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar o seguinte:\n  a. Como carregar os esquis\n  b. Como calçá-los\n  c. Como prendê-los",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como subir em degraus, em tesoura e como fazer uma conversão (kick turn).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como fazer uma derrapagem lateral e como passar por lombadas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como virar à direita, à esquerda e como frear.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever os diferentes tipos de neve.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar o seguinte:\n  a. Como fazer um slalom curto com seis portas OU\n  b. Andar com segurança em um teleférico para iniciantes e descer a pista para iniciantes com controle e boa técnica.",
+   "instructions": null
+  }
+ ]
+}
