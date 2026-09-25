@@ -1,0 +1,43 @@
+{
+ "honor_slug": "waveboarding",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Casterboarding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Waveboard",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre o skate e o waveboard (casterboard)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar por que o waveboard é considerado a união de três esportes radicais. Quais são esses esportes?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os seguintes equipamentos de segurança:\n  a. Capacete\n  b. Joelheiras\n  c. Caneleiras\n  d. Munhequeiras",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desmontar e montar corretamente seu waveboard, identificando e nomeando cada peça.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista dos tipos de rodas que existem, explicando a diferença entre eles e onde seu uso é mais adequado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos 15 das seguintes manobras (cinco delas devem ser feitas numa rampa):\n  a. Ollie\n  b. Wheelie por 10 metros\n  c. Nose wheelie\n  d. C-turn\n  e. 180°\n  f. Body varial 180°\n  g. Giro de 360°\n  h. Grab rail\n  i. Leap board\n  j. Curva em descida (downhill turn)\n  k. Kickflip\n  l. Double impossible\n  m. No comply kickflip\n  n. Kickflip fakie\n  o. Kickflip switch\n  p. Fakie bigspin\n  q. Nollie kickflip\n  r. Nollie heelflip\n  s. Nollie frontside 180° bigspin\n  t. Varial kickflip\n  u. Heelflip varial\n  v. Backside kickflip 180°\n  w. Frontside heelflip 180°\n  x. Frontside kickflip 180°\n  y. 360° e kickflip\n  z. Double frontside",
+   "instructions": null
+  }
+ ]
+}

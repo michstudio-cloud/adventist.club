@@ -1,0 +1,103 @@
+{
+ "honor_slug": "vista",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sight/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Visão",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar o seguinte:\n  a. Fazer esta atividade.\n  Ficar com os olhos vendados. Pedir que alguém coloque um objeto a uma distância de 15 metros a 20 metros de você. Agora procurar o objeto. Anotar o tempo que levou para encontrá-lo. Depois, ficar novamente com os olhos vendados. Pedir que alguém coloque o objeto em outro lugar, mas à mesma distância de antes. Tirar a venda. Procurar o objeto. Anotar o tempo que levou para encontrá-lo.\n  b. Assistir ao vídeo: https://youtu.be/syaQgmxb5i0. Depois responder às seguintes perguntas:\n  Para que serve o sentido da visão?\n  Qual é sua importância?\n  c. Qual é o tamanho do olho humano?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Anatomia do olho. Identificar as partes.\n  Exercício de arrastar sobre as funções do olho (Eye Function Drag)\n  Clicar no link indicado acima e fazer o exercício sobre as funções das partes do olho. Ao terminar, conferir sua resposta. O sistema vai corrigir seu trabalho. Imprimir e colar seu trabalho.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como funciona uma lente? Completar a frase abaixo usando as palavras do quadro.\n  Temos uma lente em cada um de nossos _______________. Essa é uma lente ______________. A função dessa lente é ______________ os ________________ para que possamos _____________________. O ponto em que os raios se cruzam é chamado de foco ou ____________________. A luz é ________________________ ao entrar no e ao sair dele.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Assistir ao vídeo:\n  a. Abaixo estão as etapas de como os seres humanos enxergam. Colocá-las em ordem cronológica escrevendo números (1, 2, 3, 4, 5, 6) na coluna “posição” para indicar a ordem correta.\n  b. Preencher a lacuna: O médico especializado em examinar, diagnosticar e tratar os olhos e as doenças oculares é chamado de ____________________.\n  c. O teste de acuidade visual, o teste de campo visual e a tonometria são exames que o oftalmologista faz nos olhos. Associar o nome de cada termo ao seu significado:\n  d. Qual é a função:\n    i. Dos bastonetes\n    ii. Dos cones",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como a visão humana se compara à de outras criaturas? Comparar com três dos seguintes animais: águias, corujas, tamarutaca (mantis shrimp), cervo, cabra, cavalo, alce, ovelha, cabra.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Completar o seguinte:\n  a. Comparar as principais características do olho e de uma câmera completando a tabela.\n  b. Escrever abaixo um parágrafo comparando como funcionam o olho e a câmera. Abordar os seguintes fatores na resposta:\n    i. Semelhanças: Que características eles têm em comum? Em que cada um converte a energia luminosa ao processá-la? Em que posição a imagem se forma em ambos?\n    ii. Diferenças: Como a lente muda em cada um para produzir uma imagem? Como se comparam os tipos de imagem produzidos por cada um? Como as imagens são captadas e armazenadas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Com base na tabela de acuidade visual, explicar:\n  a. Visão 20/20\n  b. Visão 20/70",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é deficiência visual?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir os seguintes problemas oculares e indicar suas “curas”.\n  a. Glaucoma\n  b. Catarata\n  c. Estrabismo\n  d. “Olhos irritados”/conjuntivite\n  e. Daltonismo",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Preencher as lacunas: (Assistir ao vídeo - https://youtu.be/ypF037wlYZg)\n  a. ________________ é o desvio da luz quando ela atravessa um meio transparente como o vidro, uma lente ou a água.\n  b. Os erros de refração são _______________, ___________________, ____________ e _______________.\n  c. _________________ também é conhecida como vista curta. As pessoas que a têm possuem olhos um pouco mais longos do que o normal, medindo-se da frente até o fundo do globo ocular. Por isso, a luz se focaliza na frente da retina, e não sobre ela.\n  d. ___________________ também é conhecida como vista cansada para perto. As pessoas que a têm têm dificuldade de focalizar objetos próximos porque seus olhos são “curtos” demais da frente para trás. Por isso, a luz se focaliza atrás da retina, e não sobre ela, causando visão embaçada.\n  e. _____________________ é uma condição em que o olho não é completamente redondo. Por isso, a luz se desvia mais numa direção do que em outra. Isso significa que apenas parte de um objeto fica em foco, de modo que as coisas a distância podem parecer embaçadas e onduladas.\n  f. _________________ é a perda normal da capacidade de focalizar de perto que ocorre com a idade. A maioria das pessoas começa a perceber os efeitos da presbiopia depois dos 40 anos, quando passa a ter dificuldade para ler letras pequenas com nitidez.\n  g. Ler Gênesis 48:10. Qual dos erros de refração Israel tinha?\n  h. Dizer se a afirmação abaixo é verdadeira ou falsa: “Todos os erros de refração podem ser corrigidos com o uso de óculos ou lentes de contato adequados.”",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cuidados com os olhos:\n  a. Como devo limpar meus olhos?\n  b. Escrever uma frase sobre como podemos forçar a vista.\n  c. Como devemos descansar os olhos?\n  d. Mateus usou o computador sem parar por 4 horas! Agora ele se queixa de vista cansada. Dar a Mateus três conselhos para ajudá-lo a relaxar os olhos.\n  e. Explicar a regra 20-20-20 de relaxamento dos olhos.\n  f. O que devo fazer se não conseguir enxergar muito bem?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Dar dois significados para a expressão “Os olhos são a janela da alma”.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quais são os efeitos de nos expormos a assistir a:\n  a. Violência/pornografia (citar três)\n  b. Videogames: citar três vantagens e desvantagens\n  c. Redes sociais: citar três vantagens e desvantagens",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Explicar 1 Samuel 16:7.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Explicar a expressão “olhando firmemente para [...] Jesus” (Hebreus 12:2).",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Citar quatro maneiras de tornar a vida mais fácil para as pessoas com deficiência visual.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Ilusão de óptica:\n  a. Preencher as lacunas usando o banco de palavras do quadro abaixo do texto.\n  As ilusões _____________ podem usar cores, ______________ e padrões para criar ___________ que podem enganar ou confundir o nosso _____________. As informações captadas pelo olho são processadas pelo cérebro, criando uma percepção que, na realidade, não corresponde à imagem verdadeira. A percepção é a interpretação do que captamos por meio dos nossos _____________. As ilusões de óptica ocorrem porque nosso cérebro tenta _______________ o que vemos e dar sentido ao mundo à nossa volta. As ilusões de óptica simplesmente enganam o cérebro, fazendo-o ver coisas que podem ou não ser _____________.\n  b. Dar as respostas das ilusões de óptica abaixo.\n  Ilusão da grade de Hermann\n    Quantos pontos pretos há nesta imagem?\n  Ilusão das cobras giratórias\n    Os círculos estão se movendo na imagem?\n  Ilusão da parede do café\n    As linhas horizontais são inclinadas ou retas?\n  Ilusão de Müller-Lyer\n    Olhar bem de perto os 2 segmentos de reta. Você acha que uma linha é mais comprida do que a outra?\n  Ilusão da lâmpada\n    Olhar fixamente para esta lâmpada durante 25 segundos. Depois olhar imediatamente para uma parede branca ou uma folha de papel. O que você vê?\n  Ilusão do elefante de Shepard\n    Quantas pernas eu tenho?\n  Pernas de elefante\n  Teach or Learn (Ensinar ou aprender)\n    Nesta ilusão você pode ver a palavra Teach e seu reflexo. Você consegue ler o reflexo também? O que ele diz?\n  Ilusão dos animais\n    Quantos animais você vê na imagem?",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Assistir ao vídeo sobre como fazer um olho de origami. Fazer um olho de origami.",
+   "instructions": null
+  }
+ ]
+}
