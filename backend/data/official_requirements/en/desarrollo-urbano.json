@@ -1,0 +1,47 @@
+{
+ "honor_slug": "desarrollo-urbano",
+ "ministry": "pathfinders",
+ "locale": "en",
+ "source": "wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Urban_Development",
+ "license": "CC BY-SA 4.0",
+ "retrieved": "2026-09-25",
+ "notes": "Urban Development, ADRA honour (General Conference, skill level 3, 2005), discontinued in 2009 (merged into Community Development). Not on the Pathfinder Wiki; text from the Adventist Youth Honors Answer Book on Wikibooks (CC BY-SA 4.0), requirement headings copied verbatim.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explain the process of urbanization and list some of the human needs that it creates, especially for the poor.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Read the chapters in Ministry of Healing by Ellen White entitled \"Help for the Unemployed and Homeless\" and \"The Helpless Poor,\" and write a one-page summary of the key points.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Interview the pastor or Adventist Community Services leader or Inner City Program coordinator in an inner-city Seventh-day Adventist Church and ask how the church is meeting the needs of the poor in the community. Take notes during the interview.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Present a 15-minute report on how a youth group might help in the urban development problems the church is sponsoring. The report may be presented one-on-one to your instructor or youth-group adult sponsor, or it may be presented in a group setting.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Spend at least four hours in one of the following field trips as a participant observer:\n  a. Go out with a street ministry team that provides food and/or blankets or coats to the homeless in an urban neighborhood\n  b. Go out with a health screening van that operates in an urban neighborhood.\n  c. Go out with a Christian work team that is repairing or building urban housing for the poor.\n  d. Work in a soup kitchen or homeless shelter in an urban neighborhood.\n  e. Volunteer in an Adventist Community Services center located in an urban neighborhood.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Attend a worship service in a church in an urban neighborhood made up of a different ethnic group than your own. List for your instructor the things you observed that were different than what you have grown up to be used to in your own culture. Then list the things that were similar to what you are used to.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Write a proposal of at least four pages for an urban development project that could be conducted largely by teen and/or young adult volunteers. Include objectives, action plan, personnel needed, schedule and budget. This proposal may be written by an individual or as a team project in a work team of no more than four persons.",
+   "instructions": null
+  }
+ ]
+}

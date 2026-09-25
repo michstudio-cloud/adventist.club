@@ -1,0 +1,117 @@
+{
+ "honor_slug": "ensamblaje-y-mantenimiento-de-computadoras",
+ "ministry": "pathfinders",
+ "locale": "es",
+ "source": "guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/ensamblaje_y_mantenimiento_de_computadoras.pdf",
+ "license": null,
+ "retrieved": "2026-09-25",
+ "notes": "Ensamblaje y mantenimiento de computadoras (Computer Assembly and Repair), División Sudamericana. Hoja de requisitos de guiasmayores.com (transcripción del manual de la DSA). La Pathfinder Wiki no publica los requisitos (AY Honors/Computer Assembly and Repair/Requirements: 404, 25-09-2026).",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener las siguientes especialidades:\n  a. Internet\n  b. Computación IV - Avanzado",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Qué herramientas son necesarias para el ensamblaje y mantenimiento de computadoras?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Qué es la placa de prueba o de diagnóstico?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Qué cuidados son necesarios al manipular los componentes internos de las computadoras?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Qué es la energía estática? ¿Qué riesgos ofrece? ¿Cómo evitar que dañe los componentes de la computadora?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir qué es y qué procesos realiza:\n  BIOS\n  Post\n  Boot",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Por qué la placa madre es considerada el corazón de la computadora y el procesador, el cerebro?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Con una placa madre al vivo o por fotografía, identificar e indicar la función de:\n  Enchufe de procesador\n  Enchufe de memoria e informar el tipo\n  Conector de la fuente\n  Slots presentes e informar el tipo de bus\n  Chipsets\n  Interfaz IDE y/o SATA\n  Conectores del gabinete para el panel frontal, audio, USB",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Indicar qué modelos de placa de memoria (DDR2, DDR3, etc.) se usan actualmente y cuáles poseen mayor capacidad potencial.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar la relación del uso de memorias con gran capacidad en computadoras de bajo rendimiento.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "En el HD, ¿qué son las pistas, sectores, cilindros, clúster y bad blocks?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "¿Qué son los sistemas (de almacenamiento) de archivos? Mencionar por lo menos 3 y decir cuáles son las principales diferencias existentes entre ellos.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "¿Cuáles son las principales diferencias entre los gabinetes AT y ATX?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "¿Qué es el CPU?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "¿Qué es el clock del procesador?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "¿Qué son y cómo son calculados los Hertz?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Mencionar por lo menos 5 factores que definen la capacidad del procesador.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "¿Cuáles son las ventajas adquiridas en los cambios de los componentes del conector paralelo (PATA) para el conector serial (SATA)?",
+   "instructions": null
+  },
+  {
+   "position": 19,
+   "description": "Explicar lo que es la configuración del Setup, cómo acceder a él y cuáles son las principales funciones dentro del área del ensamblaje y mantenimiento.",
+   "instructions": null
+  },
+  {
+   "position": 20,
+   "description": "Explicar y realizar las siguientes actividades:\n  a. Demostrar la habilidad para armar y desarmar una computadora, identificando cada componente interno, informando su función y manipulándolo de manera adecuada.\n  b. Explicar para qué sirve la pasta térmica y hacer una aplicación correcta.\n  c. Conectar una placa off-board y ejecutar el funcionamiento mostrando la mejora de desempeño en aquella área.\n  d. Formatear el HD de una computadora, con un programa a elección.\n  e. Particionar el HD formateado en 3 particiones.\n  f. Instalar en el HD formateado un nuevo sistema operativo a elección, configurarlo y adecuarlo para su uso inmediato.\n  g. Combinar (fundir) 2 de las 3 particiones.\n  h. Mencionar la importancia de cada uno y luego instalar todos los programas básicos necesarios para la utilización doméstica de una computadora.",
+   "instructions": null
+  },
+  {
+   "position": 21,
+   "description": "Explicar cómo prevenir, diagnosticar o corregir los siguientes problemas:\n  a. Placa de memoria sucia\n  b. Calentamiento del procesador\n  c. Computadora sin audio\n  d. No pasa de la «pantalla negra»\n  e. Reinicia repetidamente\n  f. Virus",
+   "instructions": null
+  }
+ ]
+}

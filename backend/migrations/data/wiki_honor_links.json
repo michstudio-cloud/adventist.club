@@ -7018,6 +7018,83 @@
     "en": "Snowshoeing - Advanced",
     "pt-BR": "Excursionismo pedestre na neve - Avançado"
    }
+  },
+  {
+   "authority": "SAD",
+   "category_es": "Actividades recreacionales",
+   "wiki_title": "Bushcraft Food",
+   "name_es_wiki": "Comida para supervivencia",
+   "skill_level": 1,
+   "year_introduced": 2025,
+   "names": {
+    "en": "Bushcraft Food",
+    "pt-BR": "Comida mateira"
+   }
+  },
+  {
+   "authority": "OTHER",
+   "category_es": "Regional",
+   "wiki_title": "ADRA Annual Appeal Collector",
+   "name_es_wiki": "Recaudación de fondos para ADRA",
+   "skill_level": null,
+   "year_introduced": 2020,
+   "names": {}
+  },
+  {
+   "authority": "OTHER",
+   "category_es": "Regional",
+   "wiki_title": "Scrapbooking (FL) - Advanced",
+   "name_es_wiki": "Álbum de recortes - Avanzado",
+   "skill_level": 3,
+   "year_introduced": null,
+   "names": {}
+  },
+  {
+   "authority": "SAD",
+   "category_es": "Doctrinales",
+   "wiki_title": "14 - Unity in the Body of Christ",
+   "name_es_wiki": "La unidad en el cuerpo de Cristo",
+   "skill_level": 1,
+   "year_introduced": 2025,
+   "names": {
+    "en": "Unity in the Body of Christ",
+    "pt-BR": "Unidade no Corpo de Cristo"
+   }
+  },
+  {
+   "authority": "SAD",
+   "category_es": "Actividades vocacionales",
+   "wiki_title": "Computer Assembly and Repair",
+   "name_es_wiki": "Ensamblaje y mantenimiento de computadoras",
+   "skill_level": 2,
+   "year_introduced": 2012,
+   "names": {
+    "en": "Computer Assembly and Repair",
+    "pt-BR": "Montagem e manutenção de computadores"
+   }
+  },
+  {
+   "authority": "SAD",
+   "category_es": "Actividades recreacionales",
+   "wiki_title": "Knot Tying - Advanced",
+   "name_es_wiki": null,
+   "skill_level": 3,
+   "year_introduced": 2012,
+   "names": {
+    "en": "Knot Tying - Advanced"
+   }
+  },
+  {
+   "authority": "OTHER",
+   "category_es": "Regional",
+   "wiki_title": "Noken",
+   "name_es_wiki": "Noken",
+   "skill_level": null,
+   "year_introduced": 2016,
+   "names": {
+    "en": "Noken",
+    "pt-BR": "Noken"
+   }
   }
  ],
  "ours_without_wiki": [
@@ -7084,11 +7161,6 @@
   {
    "slug": "coleccionista",
    "name": "Coleccionista",
-   "category": "Recreación"
-  },
-  {
-   "slug": "comida-cruda",
-   "name": "Comida cruda",
    "category": "Recreación"
   },
   {
@@ -7164,11 +7236,6 @@
   {
    "slug": "navegacion-a-vela",
    "name": "Navegación a vela",
-   "category": "Recreación"
-  },
-  {
-   "slug": "nudos-avanzado",
-   "name": "Nudos, avanzado",
    "category": "Recreación"
   },
   {
@@ -7337,11 +7404,6 @@
    "category": "Vocacional"
   },
   {
-   "slug": "ensamblaje-y-mantenimiento-de-computadoras",
-   "name": "Ensamblaje y mantenimiento de computadoras",
-   "category": "Vocacional"
-  },
-  {
    "slug": "informacion-programable",
    "name": "Información programable",
    "category": "Vocacional"
@@ -7469,21 +7531,6 @@
   {
    "slug": "servicio-comunitario",
    "name": "Servicio comunitario",
-   "category": "ADRA"
-  },
-  {
-   "slug": "recaudacion-de-fondos-para-adra-oro",
-   "name": "Recaudación de fondos para ADRA (Oro)",
-   "category": "ADRA"
-  },
-  {
-   "slug": "recaudacion-de-fondos-para-adra-plata",
-   "name": "Recaudación de fondos para ADRA (Plata)",
-   "category": "ADRA"
-  },
-  {
-   "slug": "recaudacion-de-fondos-para-adra-bronce",
-   "name": "Recaudación de fondos para ADRA (Bronce)",
    "category": "ADRA"
   },
   {
@@ -7624,11 +7671,6 @@
   {
    "slug": "modelo-de-papel",
    "name": "Modelo de papel",
-   "category": "Artes y Habilidades Manuales"
-  },
-  {
-   "slug": "noken",
-   "name": "Noken",
    "category": "Artes y Habilidades Manuales"
   },
   {
@@ -8177,11 +8219,6 @@
    "category": "Especialidades de la Asociación de Florida"
   },
   {
-   "slug": "album-de-recortes-avanzado-florida-conference",
-   "name": "Álbum de recortes, avanzado",
-   "category": "Especialidades de la Asociación de Florida"
-  },
-  {
    "slug": "conciencia-de-los-discapacitados",
    "name": "Conciencia de los discapacitados",
    "category": "Especialidades de la Asociación de Florida"
@@ -8459,11 +8496,6 @@
   {
    "slug": "el-remanente-y-su-mision",
    "name": "El remanente y su misión",
-   "category": "Doctrinales"
-  },
-  {
-   "slug": "la-unidad-en-el-cuerpo-de-cristo",
-   "name": "La unidad en el cuerpo de Cristo",
    "category": "Doctrinales"
   },
   {

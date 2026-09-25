@@ -4,9 +4,115 @@
  "source_locale": "es",
  "target_locale": "en",
  "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---actividades-vocacionales.html",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/ensamblaje_y_mantenimiento_de_computadoras.pdf",
  "license": null,
- "name": "Computer Assembly and Maintenance",
+ "name": null,
  "description": null,
- "requirements": []
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Have the following honors:\n  a. Internet\n  b. Computing IV - Advanced",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "What tools are needed to assemble and maintain computers?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "What is a test or diagnostic card?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "What care is needed when handling the internal components of computers?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "What is static electricity? What risks does it pose? How can you keep it from damaging the computer's components?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Define what each of the following is and what processes it performs:\n  BIOS\n  Post\n  Boot",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Why is the motherboard considered the heart of the computer, and the processor its brain?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Using a real motherboard or a photograph, identify and state the function of:\n  Processor socket\n  Memory socket, and state its type\n  Power supply connector\n  Slots present, and state the bus type\n  Chipsets\n  IDE and/or SATA interface\n  Case connectors for the front panel, audio, USB",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "State which memory module types (DDR2, DDR3, etc.) are currently used and which have the greatest potential capacity.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explain the relationship between using high-capacity memory and low-performance computers.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "On a hard drive, what are tracks, sectors, cylinders, clusters and bad blocks?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "What are file (storage) systems? Name at least 3 and state the main differences between them.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "What are the main differences between AT and ATX cases?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "What is the CPU?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "What is the processor clock?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "What are hertz and how are they calculated?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Name at least 5 factors that determine the capacity of a processor.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "What advantages were gained by changing components from the parallel connector (PATA) to the serial connector (SATA)?",
+   "instructions": null
+  },
+  {
+   "position": 19,
+   "description": "Explain what the Setup configuration is, how to access it, and its main functions in computer assembly and maintenance.",
+   "instructions": null
+  },
+  {
+   "position": 20,
+   "description": "Explain and carry out the following activities:\n  a. Demonstrate the ability to assemble and disassemble a computer, identifying each internal component, stating its function and handling it properly.\n  b. Explain what thermal paste is for and apply it correctly.\n  c. Connect an off-board card and get it running, showing the performance improvement in that area.\n  d. Format a computer's hard drive with a program of your choice.\n  e. Partition the formatted hard drive into 3 partitions.\n  f. Install a new operating system of your choice on the formatted hard drive, configure it and set it up for immediate use.\n  g. Merge 2 of the 3 partitions.\n  h. State the importance of each one and then install all the basic programs needed for home use of a computer.",
+   "instructions": null
+  },
+  {
+   "position": 21,
+   "description": "Explain how to prevent, diagnose or fix the following problems:\n  a. Dirty memory module\n  b. Processor overheating\n  c. Computer with no audio\n  d. Does not get past the \"black screen\"\n  e. Restarts repeatedly\n  f. Viruses",
+   "instructions": null
+  }
+ ]
 }

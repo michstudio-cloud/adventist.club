@@ -4,9 +4,115 @@
  "source_locale": "es",
  "target_locale": "pt-BR",
  "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---actividades-vocacionales.html",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/ensamblaje_y_mantenimiento_de_computadoras.pdf",
  "license": null,
- "name": "Montagem e manutenção de computadores",
+ "name": null,
  "description": null,
- "requirements": []
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as seguintes especialidades:\n  a. Internet\n  b. Computação IV - Avançado",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais ferramentas são necessárias para a montagem e manutenção de computadores?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é a placa de teste ou de diagnóstico?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais cuidados são necessários ao manusear os componentes internos dos computadores?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é energia estática? Que riscos ela oferece? Como evitar que ela danifique os componentes do computador?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir o que é e que processos realiza:\n  BIOS\n  Post\n  Boot",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que a placa-mãe é considerada o coração do computador e o processador, o cérebro?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com uma placa-mãe ao vivo ou por fotografia, identificar e indicar a função de:\n  Soquete do processador\n  Soquete de memória e informar o tipo\n  Conector da fonte\n  Slots presentes e informar o tipo de barramento\n  Chipsets\n  Interface IDE e/ou SATA\n  Conectores do gabinete para o painel frontal, áudio, USB",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Indicar quais modelos de placa de memória (DDR2, DDR3 etc.) são usados atualmente e quais possuem maior capacidade potencial.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar a relação do uso de memórias de grande capacidade em computadores de baixo desempenho.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "No HD, o que são trilhas, setores, cilindros, cluster e bad blocks?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que são sistemas (de armazenamento) de arquivos? Citar pelo menos 3 e dizer quais são as principais diferenças existentes entre eles.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quais são as principais diferenças entre os gabinetes AT e ATX?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "O que é a CPU?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "O que é o clock do processador?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "O que são e como são calculados os Hertz?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Citar pelo menos 5 fatores que definem a capacidade do processador.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Quais são as vantagens obtidas com a mudança dos componentes do barramento paralelo (PATA) para o barramento serial (SATA)?",
+   "instructions": null
+  },
+  {
+   "position": 19,
+   "description": "Explicar o que é a configuração do Setup, como acessá-la e quais são as principais funções dentro da área de montagem e manutenção.",
+   "instructions": null
+  },
+  {
+   "position": 20,
+   "description": "Explicar e realizar as seguintes atividades:\n  a. Demonstrar habilidade para montar e desmontar um computador, identificando cada componente interno, informando sua função e manuseando-o de forma adequada.\n  b. Explicar para que serve a pasta térmica e fazer uma aplicação correta.\n  c. Conectar uma placa off-board e colocá-la em funcionamento, mostrando a melhora de desempenho naquela área.\n  d. Formatar o HD de um computador com um programa à sua escolha.\n  e. Particionar o HD formatado em 3 partições.\n  f. Instalar no HD formatado um novo sistema operacional à sua escolha, configurá-lo e deixá-lo pronto para uso imediato.\n  g. Mesclar (unir) 2 das 3 partições.\n  h. Citar a importância de cada um e, em seguida, instalar todos os programas básicos necessários para o uso doméstico de um computador.",
+   "instructions": null
+  },
+  {
+   "position": 21,
+   "description": "Explicar como prevenir, diagnosticar ou corrigir os seguintes problemas:\n  a. Placa de memória suja\n  b. Superaquecimento do processador\n  c. Computador sem áudio\n  d. Não passa da «tela preta»\n  e. Reinicia repetidamente\n  f. Vírus",
+   "instructions": null
+  }
+ ]
 }

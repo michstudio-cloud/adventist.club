@@ -331,7 +331,7 @@ async def test_the_importer_loads_drafts_and_a_rerun_changes_nothing(factory):
         names = conn.execute(
             "SELECT t.locale, t.name FROM honor_category_translations t JOIN honor_categories c ON c.id = t.category_id"
             " WHERE c.slug = %s ORDER BY t.locale", (f"{factory.prefix}-av-recreacion",)).fetchall()
-        assert names == [("en", "Recreation"), ("pt", "Recreação")]
+        assert names == [("en", "Recreation"), ("pt-BR", "Atividades Recreativas")]
         description = conn.execute(
             "SELECT r.description FROM honor_requirements r JOIN honors h ON h.id = r.honor_id"
             " WHERE h.slug = %s AND r.locale = 'es' AND r.position = 3", (f"{factory.prefix}-av-temperance",)).fetchone()[0]
