@@ -1,0 +1,43 @@
+{
+ "honor_slug": "derbi-de-automodelos-de-pino",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pinecar_Derby/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar os quatro componentes básicos de um carrinho de madeira de corrida (Pinecar Derby).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Os carros devem cumprir os seguintes requisitos básicos:\n  a. Devem ser feitos durante o ano civil em curso ou o ano do Clube de Desbravadores.\n  b. A largura do carro não pode ultrapassar 2 3/4\" ou 70 mm\n  c. O comprimento do carro não pode ultrapassar 7\" ou 178 mm\n  d. O peso do carro não pode ultrapassar 5 oz. (142 gramas)\n  e. A distância entre as rodas deve ser de 1 3/4\" ou 44 mm\n  f. A altura da parte de baixo do carro até a base dos pneus deve ser de no mínimo 3/8\" ou 10 mm\n  g. Usar somente os eixos, as rodas e a madeira fornecidos no kit que comprar.\n  h. São proibidos rolamentos, arruelas e buchas nas rodas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber usar com segurança as seguintes ferramentas ao construir seu projeto:\n  a. Serrote\n  b. Grosa para madeira\n  c. Lixa grossa\n  d. Lixa fina\n  e. Plaina\n  f. Martelo\n  g. Taco de lixar (para modelar)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os passos básicos do projeto de um carro:\n  a. Desenho\n  b. Transferência do desenho\n  c. Construção do carro\n  d. Eixos e rodas\n  e. Acréscimo de peso\n  f. Lubrificação",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Projetar e construir completamente um carrinho a partir de um kit básico, usando as instruções do kit ou, se não houver instruções, seguindo as orientações do nº 2.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de uma corrida de carrinhos de madeira promovida por alguma entidade, usando o carro que construiu no nº 5.",
+   "instructions": null
+  }
+ ]
+}

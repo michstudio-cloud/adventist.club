@@ -1,0 +1,68 @@
+{
+ "honor_slug": "decoracion-de-pasteles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cake_Decorating/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista do equipamento necessário para a decoração de bolos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender de memória as duas coberturas de bolo — creme de manteiga e glacê real — e seus usos adequados. Citar uma outra cobertura usada para confeitar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender e demonstrar a montagem correta do cone de confeitar usando papel-manteiga, papel encerado ou saco descartável. Mostrar o método correto de colocar o bico, pincelar com corante, encher com cobertura e dobrar a parte de cima. Qual é o nome da dobra de cima?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três passos essenciais para uma boa decoração de bolos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar o controle da pressão com os bicos. Aprender a técnica e citar o bico adequado usado para fazer o seguinte:\n  a. Estrela, preenchimento e borda\n  b. Roseta\n  c. Borda de conchas\n  d. Desenho em \"S\"\n  e. Fita\n  f. Borda em ziguezague\n  g. Folhas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar quatro técnicas de cor. Demonstrar duas, incluindo a cobertura de duas cores.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Aprender a fazer as seguintes flores:\n  a. Ervilha-de-cheiro\n  b. Botão de rosa\n  c. Rosa American Beauty completa\n  d. Flor de bico (drop flower)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar a técnica de escrita usando dois bicos e métodos diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Decorar um bolo de boneca ou um bolo feito em fôrma especial, usando o método de preenchimento com estrelas. Usar pelo menos duas cores para fazer o desenho ou padrão.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um bolo para uma ocasião especial de sua escolha, usando duas ou mais bordas de tipos diferentes e um arranjo floral.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um bolo em forma de coração usando bordas, florzinhas, trabalho com fios de glacê e escrita.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "decoupage",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/D%C3%A9coupage/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dar o significado e a história da decoupage.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista dos materiais e equipamentos necessários para a decoupage.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como preparar um objeto de madeira ou metal para a decoupage.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever três maneiras como uma gravura pode ser usada na decoupage.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Seguir os passos básicos para concluir dois dos seguintes objetos:\n  a. Gravura com Mod Podge\n  b. Chaveiro\n  c. Suportes para livros\n  d. Garrafa\n  e. Caixa de lenços de papel\n  f. Escolha razoável",
+   "instructions": null
+  }
+ ]
+}

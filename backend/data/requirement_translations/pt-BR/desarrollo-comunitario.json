@@ -1,0 +1,48 @@
+{
+ "honor_slug": "desarrollo-comunitario",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Community_Development/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Desenvolvimento comunitário",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir desenvolvimento comunitário.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar ao instrutor por que alguns países são considerados \"em desenvolvimento\" enquanto outros são chamados de \"desenvolvidos\".",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar 5 países em desenvolvimento e fazer uma lista de três coisas que a ADRA está fazendo nesses países que seriam consideradas \"desenvolvimento\" e duas que se enquadrariam em \"ajuda humanitária\".",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ler sobre o motivo de haver pobres entre nós no livro O Desejado de Todas as Nações, escrito por Ellen G. White (capítulo 70, \"Um destes Meus pequeninos irmãos\"). Descrever ao instrutor o que aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever pelo menos uma necessidade de sua comunidade que exija atenção.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever um breve plano de desenvolvimento comunitário que seu grupo de Desbravadores possa executar (plantar árvores, limpar praças ou quintais, repintar muros públicos etc.). O plano deve descrever a atividade, o tamanho do grupo, a logística de transporte e os materiais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Passar pelo menos quatro horas em uma das seguintes saídas de campo, como observador participante:\n  a. Participar com um grupo que presta assistência às pessoas em situação de rua em sua comunidade.\n  b. Participar com uma equipe de trabalho que está consertando ou construindo moradias para pessoas pobres.\n  c. Trabalhar em um centro de distribuição de alimentos, sopão ou abrigo para pessoas em situação de rua em sua comunidade.",
+   "instructions": null
+  }
+ ]
+}
