@@ -376,12 +376,8 @@ async def test_the_director_is_appointed_exactly_like_an_approval(client, factor
 
 
 async def test_director_problems_are_refused(client, factory, world):
-    unknown = await _create(
-        client, world, name=factory.name("club-sin-persona"), director_email=factory.email("nadie")
-    )
-    assert unknown.status_code == 404, unknown.text
-    assert unknown.json()["detail"] == "director_not_found"
-
+    # Bloque I §1.2: an address without an account is no longer refused (it is invited:
+    # see tests/test_role_assignments.py); everything else still is.
     busy = await _create(
         client,
         world,
@@ -410,7 +406,7 @@ async def test_director_problems_are_refused(client, factory, world):
     assert moved.status_code == 403, moved.text
     assert moved.json()["detail"] == "director_out_of_scope"
 
-    for label in ("club-sin-persona", "club-ocupado", "club-admin-director", "club-robado"):
+    for label in ("club-ocupado", "club-admin-director", "club-robado"):
         assert await fetch_one(
             "SELECT id FROM organizations WHERE name = :name", name=factory.name(label)
         ) is None

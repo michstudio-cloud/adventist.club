@@ -311,7 +311,7 @@ async def mirror_club_membership(
 # ----------------------------------------------------------------------------
 # Reads
 # ----------------------------------------------------------------------------
-async def roles_out(db: AsyncSession, user: User) -> list[dict]:
+async def roles_out(db: AsyncSession, user: User) -> list:
     """`roles` of `GET /auth/me`: every role in force, the principal first."""
     from app.rbac import effective_roles
 
@@ -334,7 +334,9 @@ async def roles_out(db: AsyncSession, user: User) -> list[dict]:
         })
     head, rest = out[:1], out[1:]
     rest.sort(key=lambda item: -ROLE_RANK.get(item["role"], 0))
-    return head + rest
+    from app.schemas.org_invitation import ScopedRoleOut
+
+    return [ScopedRoleOut(**item) for item in head + rest]
 
 
 async def active_on(db: AsyncSession, organization: Organization) -> list[tuple[RoleAssignment, User]]:

@@ -313,6 +313,17 @@ class Factory:
                     ),
                     params,
                 )
+            # Bloque I: invitations point at organizations without cascade; role
+            # assignments cascade from both the user and the organization.
+            if await db.scalar(text("SELECT to_regclass('public.org_invitations')")):
+                await db.execute(
+                    text(
+                        "DELETE FROM org_invitations WHERE email LIKE :like"
+                        f" OR created_by_id IN ({users})"
+                        " OR organization_id IN (SELECT id FROM organizations WHERE name LIKE :like)"
+                    ),
+                    params,
+                )
             await db.execute(text("DELETE FROM users WHERE email LIKE :like"), params)
             await db.execute(text("DELETE FROM organizations WHERE name LIKE :like"), params)
             await db.commit()

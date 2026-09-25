@@ -30,7 +30,6 @@ from app.schemas.org_invitation import (
     OrgRefOut,
     OrgTokenIn,
     RoleAssignmentOut,
-    ScopedRoleOut,
 )
 from app.security import ROLE_RANK
 from app.services import org_invitations as service
@@ -284,5 +283,5 @@ async def accept_org_invitation(
         role=invitation.role,
         organization=_org_ref(node),
         principal_role=current_user.role,
-        roles=[ScopedRoleOut(**item) for item in await role_assignments.roles_out(db, current_user)],
+        roles=await role_assignments.roles_out(db, current_user),
     )
