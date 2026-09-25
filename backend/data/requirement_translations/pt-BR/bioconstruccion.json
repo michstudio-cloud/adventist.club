@@ -1,0 +1,43 @@
+{
+ "honor_slug": "bioconstruccion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Green_Building/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bioconstrução",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que é bioconstrução.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Trazer um catálogo dos diferentes materiais usados e explicar seu uso e sua importância para o meio ambiente e para as pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Elaborar as plantas de sua casa, ou da casa que você gostaria de ter no futuro, e explicar a escolha dos materiais a serem usados na bioconstrução.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em que localização geográfica você construiria sua casa e com que orientação em relação aos pontos cardeais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que você usaria para o aquecimento e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são as espécies de árvores ou arbustos que podem ser plantadas no jardim e que são importantes para prevenir ou afastar ataques de insetos xilófagos (que se alimentam de madeira)?",
+   "instructions": null
+  }
+ ]
+}

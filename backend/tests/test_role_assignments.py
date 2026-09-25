@@ -246,7 +246,10 @@ async def test_accepting_makes_the_role_principal_and_is_single_use(client, fact
             "type": "ASSOCIATION",
         },
     }
-    assert (await client.get("/api/v1/users/me", headers=person["headers"])).json()["roles"]
+    # 024's selector context and 026's roles travel together in /me (merge of main).
+    assert "ministries_available" in me.json() and "active_ministry" in me.json()
+    mine = (await client.get("/api/v1/users/me", headers=person["headers"])).json()
+    assert mine["roles"] and "clubs_available" in mine
 
     rows = await fetch_all(
         "SELECT role, source, is_primary, status, invitation_id::text AS inv FROM role_assignments"

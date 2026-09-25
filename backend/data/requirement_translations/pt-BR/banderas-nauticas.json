@@ -1,0 +1,43 @@
+{
+ "honor_slug": "banderas-nauticas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Nautical_Flags/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bandeiras náuticas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que existe o Código Internacional de Sinais (CIS), para que serve e onde é usado?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o significado de galhardete.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por meio de desenhos ou fotografias, fazer uma tabela com as bandeiras náuticas e seus significados, sinais, letras e números, bem como a mensagem que cada bandeira transmite quando exibida isoladamente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar dez exemplos de combinações de bandeiras náuticas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar as quatro cornetas substitutas e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Manter um diálogo entre dois grupos, usando bandeiras náuticas e indicando seus significados isolados e combinados, a uma distância mínima de 300 metros entre os dois grupos.",
+   "instructions": null
+  }
+ ]
+}

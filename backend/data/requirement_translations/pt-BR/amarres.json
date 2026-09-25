@@ -1,0 +1,68 @@
+{
+ "honor_slug": "amarres",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lashing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir amarração e explicar seus propósitos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como a amarração pode ser usada em um acampamento ou em atividades ao ar livre? Dar três exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que materiais são usados na amarração?\n  a. Fazer uma lista dos tipos de corda preferidos para amarração.\n  b. Citar as vantagens dos materiais naturais em relação à madeira serrada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar os seguintes nós de início e de arremate:\n  a. Volta da ribeira\n  b. Volta do fiel\n  c. Nó direito",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que nós de início e de arremate são usados nos cinco tipos de amarração a seguir:\n  a. Quadrada\n  b. Paralela\n  c. De tripé\n  d. Diagonal\n  e. Contínua",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como calcular o comprimento e a espessura das cordas necessárias para um projeto. Demonstrar como preservar as pontas de uma corda cortada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar as diferenças entre as voltas de aperto e as voltas de enrolamento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como fazer as cinco amarrações a seguir:\n  a. Quadrada\n  b. Paralela\n  c. De tripé\n  d. Diagonal\n  e. Contínua",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir que tipos de carga cada diâmetro de corda pode suportar, dependendo da natureza do material.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar formas de guardar cordas e madeira para uso posterior.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Construir pelo menos três dos seguintes itens:\n  a. Cadeira (deve ter assento e encosto)\n  b. Mesa (deve suportar 16 libras [7,3 kg] ou 2 galões [7,6 litros] de água)\n  c. Tripé para cozinhar no fogo\n  d. Mastro de bandeira (deve ter pelo menos quatro varas)\n  e. Escada (deve ter seis degraus)",
+   "instructions": null
+  }
+ ]
+}

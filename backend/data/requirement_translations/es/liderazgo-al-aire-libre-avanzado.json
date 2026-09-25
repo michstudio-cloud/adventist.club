@@ -1,0 +1,78 @@
+{
+ "honor_slug": "liderazgo-al-aire-libre-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Outdoor_Leadership_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Liderazgo al aire libre.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Obtener tres especialidades, no obtenidas anteriormente, de la Maestría en Vida primitiva.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Tener las especialidades de Primeros auxilios I y de Reanimación cardiopulmonar (RCP), y un certificado vigente de ambas. Además de estas especialidades, conocer la prevención, los síntomas y el tratamiento de primeros auxilios de lo siguiente:\n  a. Hipotermia\n  b. Mordedura de serpiente venenosa\n  c. Golpe de calor e insolación\n  d. Agotamiento por calor\n  e. Reacción a la hiedra venenosa y al roble venenoso\n  f. Infección de una herida abierta\n  g. Mal de altura\n  h. Deshidratación",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar bosquejos y presentar siete cultos diferentes para compartir durante una experiencia de campamento. Utilizar textos y principios bíblicos, e ilustrarlos con ejemplos disponibles durante la experiencia de campamento.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer el bosquejo de un testimonio personal que pueda usarse para iniciar una amistad entre una persona y Cristo. El testimonio podría incluir cómo Jesús llegó a ser su Salvador personal, un milagro que haya ocurrido en su vida, etc. Presentar este testimonio a un grupo de jóvenes en un entorno al aire libre.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber cómo controlar el pánico de una persona que está perdida.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Elaborar un plan de búsqueda y rescate para un lugar específico de su zona, de 50 acres (20 hectáreas) o más. Este plan debe utilizar por lo menos diez personas, y usted debe coordinar la actividad y la zona de búsqueda de cada una. Hacer una lista del equipo específico que podría necesitarse para la comunicación, los primeros auxilios y el transporte de la víctima, adecuado para el lugar elegido.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer un bosquejo de su filosofía sobre las normas de conducta en la naturaleza. Participar durante una a tres horas en un proyecto de conservación de áreas silvestres.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Enseñar por lo menos una especialidad del grupo de la Maestría en Vida primitiva.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conocer por lo menos cuatro objetivos del liderazgo al aire libre en cada una de las siguientes categorías:\n  a. Física\n  b. Social\n  c. Personal\n  d. Espiritual",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conocer la diferencia entre los preadolescentes (de 10 a 12 años) y los adolescentes (de 13 a 15 años) en las siguientes áreas:\n  a. Física\n  b. Emocional\n  c. Mental\n  d. Espiritual",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Tener siete de las siguientes especialidades. Cualquier especialidad obtenida hace más de dos años debe volver a estudiarse, de modo que pueda responder cualquiera de las preguntas de conocimiento que incluye.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Planificar, organizar y llevar a cabo durante un fin de semana, con un grupo de no menos de cinco personas, una de las siguientes actividades:\n  a. Retiro espiritual al aire libre\n  b. Excursión en canoa\n  c. Excursión en bicicleta\n  d. Excursión a caballo\n  e. Excursión con mochila",
+   "instructions": null
+  }
+ ]
+}

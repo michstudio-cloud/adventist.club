@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pesca-de-trucha-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trout_Fishing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Pesca de trucha.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Historia de la pesca con mosca: Investigar y presentar una breve historia de la pesca con mosca. Incluir información sobre sus orígenes y el desarrollo de las técnicas de atado de moscas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Tipos de moscas: Identificar y describir por lo menos tres tipos principales de moscas que se usan en la pesca de trucha. Incluir información sobre las moscas secas, las moscas húmedas y las ninfas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Atado de moscas\n  a. Atado de moscas: Investigar y encontrar instrucciones para atar por lo menos tres tipos diferentes de moscas. Incluir instrucciones paso a paso para atar una mosca seca, una mosca húmeda y una ninfa.\n  b. Taller de atado de moscas: Participar en un taller de atado de moscas. Pasar por lo menos dos horas atando moscas y aprendiendo sobre distintos materiales y técnicas de atado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Los peces en la Biblia: Usando una concordancia, buscar versículos de toda la Biblia que hagan referencia a los peces. Analizarlos y buscar temas comunes; redactar de 3 a 4 párrafos sobre lo que encontró y comentarlo en grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Práctica de lanzado: Practicar el lanzado con una caña de mosca. Colocar blancos y trabajar en la precisión y la técnica. Pasar por lo menos dos horas practicando el lanzado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Trabajo de campo: Participar en una salida de pesca de trucha usando solo moscas. Pasar por lo menos de 3 a 4 horas pescando en un río, lago o arroyo de la zona. Anotar en su cuaderno de trabajo su experiencia y los tipos de trucha que pescó.",
+   "instructions": null
+  }
+ ]
+}

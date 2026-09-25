@@ -1,0 +1,68 @@
+{
+ "honor_slug": "bacterias",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bacteria/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bactérias",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as principais características das bactérias que as distinguem dos outros seres vivos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por meio de desenhos ou imagens, identificar as principais estruturas da célula bacteriana.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar as quatro formas principais das bactérias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que são bactérias gram-negativas e gram-positivas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar as diferentes formas de reprodução das bactérias. Quais são as principais condições ambientais necessárias para que as bactérias se reproduzam?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De que as bactérias se alimentam e como respiram?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar três bactérias nocivas. Explicar por quê.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar três bactérias benéficas. Explicar por quê.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar uma história da Bíblia em que uma doença foi causada por bactérias.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar cinco doenças causadas por bactérias e algumas precauções para evitá-las.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que não se deve praticar a automedicação nem usar antibióticos sem receita médica?",
+   "instructions": null
+  }
+ ]
+}

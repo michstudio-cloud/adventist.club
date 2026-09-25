@@ -1,0 +1,78 @@
+{
+ "honor_slug": "aves-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Birds_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Aves.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer as leis que protegem as aves no seu estado, província ou país.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever uma ave com precisão, usando os nomes padronizados de cada parte do seu corpo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encontrar as respostas do item a. OU do item b.\n  a. De que maneiras os pés, as pernas e o bico das aves se modificaram de diversas formas para adaptá-las ao seu ambiente?\n  b. Sobre os beija-flores:\n    i. O que os beija-flores comem na natureza e com que frequência?\n    ii. Por que os beija-flores não têm medo de mamíferos ou aves de grande porte?\n    iii. Em que o movimento de suas asas difere do das outras aves?\n    iv. A que velocidade eles voam?\n    v. Com que rapidez batem as asas e o coração?\n    vi. Qual é o formato da língua?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar na asa de uma ave as rêmiges primárias, as rêmiges secundárias, as coberteiras, as axilares e a álula.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever as funções e os objetivos do anilhamento de aves, explicando em particular como o anilhamento contribui para o conhecimento dos deslocamentos das aves.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar as principais rotas de migração usadas pelas aves no seu continente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Indicar as rotas de migração e os destinos finais de dez espécies diferentes de aves migratórias.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever pelo menos três maneiras diferentes pelas quais as aves conseguem se orientar em seus deslocamentos pelo planeta.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de 60 espécies de aves silvestres, incluindo aves de pelo menos dez famílias diferentes, que você tenha observado pessoalmente e identificado com segurança pela visão, ao ar livre. Para cada espécie da lista, anotar o seguinte:\n  a. Nome\n  b. Data da observação\n  c. Local da observação\n  d. Habitat (por exemplo: campo, mata, rio, lago etc.)\n  e. Situação no local da observação (residente permanente, residente de inverno, residente de verão, migratória, vagante)",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Apresentar listas de aves, mostrando o maior número de espécies vistas ao ar livre em:\n  a. Um dia (com pelo menos seis horas em campo)\n  b. Uma semana\n  c. Sua vida (todas as aves que você observou desde que começou a observar aves até hoje)",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma lista de dez espécies de aves silvestres que você tenha identificado pessoalmente e com segurança pelo som, ao ar livre, e descrever ou imitar esses sons da melhor forma possível.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Guiar um grupo numa caminhada de observação de aves ou contar duas histórias bíblicas em que uma ave teve papel importante.",
+   "instructions": null
+  }
+ ]
+}

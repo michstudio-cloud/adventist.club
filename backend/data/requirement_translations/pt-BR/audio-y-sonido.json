@@ -1,0 +1,78 @@
+{
+ "honor_slug": "audio-y-sonido",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Audio_and_Sound/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Áudio e som",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é áudio e o que é som.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as qualidades necessárias a uma pessoa responsável pelo áudio e som da igreja?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e citar a utilidade dos seguintes equipamentos:\n  a. Mesa de som\n  b. Microfone\n  c. Fones de ouvido\n  d. Multicabo\n  e. Equalizador\n  f. Retorno\n  g. Compressor\n  h. Caixas de som",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a função de uma mesa de som? Usando a mesa de som da igreja, citar suas principais entradas e saídas e dizer para que serve cada botão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os tipos de cabo mais usados? Definir os usos de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais tipos de microfone são os mais usados?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que pode prejudicar o bom funcionamento de um microfone sem fio?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é equalização?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a função de um compressor?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que ocorre a reverberação e como ela pode ser evitada?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é a importância de ter em mãos o programa do culto divino para operar o som e o áudio?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Operar a mesa de som durante pelo menos dois programas, sob a orientação do responsável pelo áudio e som da igreja.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Auxiliar a equipe de áudio e som de sua igreja durante pelo menos três meses.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "honor_slug": "aves-de-rapina-dsa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Birds_of_Prey/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Aves de rapina",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as características das aves de rapina? Quais são as vantagens do formato do bico das aves de rapina?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é o hábito saprófago? Qual espécie de urubu não tem esse hábito?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as vantagens da visão ultravioleta para as aves que têm essa capacidade? Citar uma espécie de ave de rapina que tenha visão ultravioleta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que as aves de rapina noturnas são predadoras tão eficientes?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dar um exemplo de espécie para cada uma das famílias abaixo, indicando o nome popular e o nome científico:\n  a. Accipitridae\n  b. Cathartidae\n  c. Falconidae\n  d. Pandionidae\n  e. Strigidae",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever as técnicas de caça das ordens abaixo:\n  a. Accipitriformes\n  b. Falconiformes\n  c. Strigiformes",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as diferenças morfológicas entre águias, gaviões e falcões? Ilustrar.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar, por meio de imagens, fotos ou pessoalmente, pelo menos 10 espécies de aves de rapina.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar espécies de aves de rapina ameaçadas de extinção. Quais são as principais causas de morte das aves de rapina de médio e grande porte?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar como a presença de aves de rapina é um indicador da biodiversidade de uma região.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual ave de rapina tem o voo mais rápido do mundo?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Explicar Isaías 40:31.",
+   "instructions": null
+  }
+ ]
+}

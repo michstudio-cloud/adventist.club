@@ -1,0 +1,48 @@
+{
+ "honor_slug": "arte-en-masa-de-pan",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bread_Dough/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista dos materiais e utensílios necessários para trabalhos artísticos com massa de pão.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que é importante ter as mãos limpas e usar creme hidratante para as mãos ao trabalhar com massa de pão?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar as diferentes técnicas para tingir e pintar a massa.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que tipo de acabamento se usa para proteger a peça e lhe dar uma aparência brilhante?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer pelo menos duas flores diferentes, com folhas, e arranjá-las em um recipiente de sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um dos seguintes itens usando massa tingida:\n  a. Arranjo em forma de escultura\n  b. Pequena placa de parede",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um dos seguintes itens:\n  a. Ímã de geladeira\n  b. Broche\n  c. Algo que você gostaria de fazer, à sua escolha",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "honor_slug": "moluscos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Shells_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Moluscos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir el término «mollusca» o «molusco».",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender los términos de la clasificación de los moluscos, conocer las características distintivas de cada clase y familiarizarse con varias especies de cada una.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Distinguir entre moluscos univalvos y bivalvos teniendo en cuenta los siguientes aspectos:\n  a. Concha\n  b. Cuerpo del molusco\n  c. Reproducción\n  d. Movimientos\n  e. Obtención del alimento\n  f. Autoprotección",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar a partir de conchas o dibujos y conocer el significado de los siguientes términos conquiliológicos:\n  a. Valva\n  b. Ápice\n  c. Abertura\n  d. Biso\n  e. Pie\n  f. Manto\n  g. Opérculo\n  h. Nácar\n  i. Epidermis\n  j. Costillas\n  k. Dientes\n  l. Líneas concéntricas\n  m. Canal\n  n. Espinas\n  o. Vueltas de espira\n  p. Labios",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar el desarrollo de una concha. ¿Cuánto tiempo viven los moluscos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dar algunos datos sobre la vida del Strombus pugilis (caracol luchador) y explicar por qué esta concha lleva ese nombre.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar las actividades de la broma o teredo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "¿A qué se debe la distribución de los moluscos?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Nombrar dos moluscos que no tienen concha.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar respuestas a las siguientes preguntas interesantes:\n  a. ¿Cómo están unidos a sus conchas los animales bivalvos y univalvos?\n  b. ¿Cómo se controla el color de la concha?\n  c. ¿Qué molusco tiene cuatro branquias?\n  d. ¿De qué animal marino se hacía antiguamente la tinta china?\n  e. ¿Qué molusco produce un hilo sedoso?\n  f. ¿Qué conchas usaban como dinero las tribus antiguas?\n  g. ¿Qué concha consideran sagrada los tibetanos?\n  h. ¿De la secreción de qué molusco provenía el tinte púrpura de la antigüedad?\n  i. ¿Cuál es el origen de las perlas? ¿Cómo se forman?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Nombrar seis usos comerciales de las conchas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Hacer uno de los siguientes:\n  a. Encontrar y recolectar personalmente 40 especies de conchas. Hacer una lista de cada concha con el lugar y la fecha en que la encontró, su nombre común, su nombre científico y su clase.\n  b. Hacer una colección de 50 especies de conchas que haya encontrado, recibido o comprado.\n  Hacer una lista de cada concha de la colección de la siguiente manera: si la encontró personalmente, dar la información que se pide en la letra «a» anterior; si la recibió o la compró, dar el nombre de la persona de quien la recibió, el hábitat de la concha, la fecha en que la adquirió, su nombre común, su nombre científico y su clase.",
+   "instructions": null
+  }
+ ]
+}

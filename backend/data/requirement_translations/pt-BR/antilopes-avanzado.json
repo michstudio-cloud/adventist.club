@@ -1,0 +1,68 @@
+{
+ "honor_slug": "antilopes-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Antelopes_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Antílopes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar a ordem e o nome científico da família à qual os antílopes pertencem.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar as características distintivas das diferentes subfamílias, com exemplos de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual antílope de grande porte difere da maioria dos outros na aparência? Quais são alguns de seus hábitos peculiares?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a função das glândulas de almíscar nos antílopes? Onde essas glândulas estão localizadas nas espécies gregárias? E nas solitárias?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais espécies você esperaria encontrar em:\n  a. Mata ou juncais, perto da água?\n  b. Regiões áridas?\n  c. Planícies abertas?\n  d. Áreas de vegetação arbustiva e de floresta?\n  e. Proximidades de morros rochosos (kopjes) ou encostas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever os chifres, em ambos os sexos de cada espécie, de 15 antílopes diferentes. Qual é a estrutura desses chifres? Existem cervos na África do Sul? Qual é a estrutura de seus chifres?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar pelo menos 20 espécies de antílopes que você tenha observado e saiba identificar ao ar livre, das quais no máximo 5 em cativeiro.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é uma gazela? Onde se encontra esse animal?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar algumas doenças associadas aos bovídeos selvagens. Como são transmitidas? Qual é a importância econômica delas para o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer as leis de caça de sua província.",
+   "instructions": null
+  }
+ ]
+}

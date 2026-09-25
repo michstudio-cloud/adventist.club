@@ -1,0 +1,53 @@
+{
+ "honor_slug": "animales-nocturnos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Nocturnal_Animals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Animais noturnos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são animais noturnos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os animais noturnos são influenciados pelo clima do lugar onde vivem?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher e apresentar as seguintes características de dois animais noturnos:\n  a. Habitat\n  b. Tipo de reprodução sexuada\n  c. Hábitos alimentares\n  d. Hábitos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar pelo menos três animais noturnos das seguintes classes:\n  a. Mamíferos\n  b. Insetos\n  c. Anfíbios\n  d. Aves\n  e. Répteis",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever por que os sentidos dos animais noturnos são fundamentais para que possam viver no escuro.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos uma das seguintes atividades:\n  a. Observar um animal noturno durante pelo menos dois dias e apresentar um relatório sobre seu comportamento.\n  b. Fazer uma visita noturna a um aquário ou zoológico e apresentar um relatório sobre seu contato com os animais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são quirópteros? Quais são seus benefícios e perigos para o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descobrir três animais noturnos na Bíblia.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "agricultura-de-subsistencia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Subsistence_Farming/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Agricultura de subsistência",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Participar da preparação de uma horta de nove metros quadrados. Abordar os seguintes pontos.\n  a. Escolha do local\n  b. Roçada do mato\n  c. Limpeza da área\n  d. Preparo do solo para o plantio",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar, por meio de uma demonstração prática, como você vai fazer e usar composto em sua horta.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista das culturas das seguintes famílias de plantas que você vai plantar em sua horta e da época do ano em que pode fazer isso.\n  a. Raízes e tubérculos: por exemplo, mandioca, batata-doce, cenoura\n  b. Gramíneas: por exemplo, milho, cana-de-açúcar\n  c. Leguminosas: por exemplo, feijão, amendoim\n  d. Hortaliças folhosas: por exemplo, variedades de repolho, aibika\n  e. Frutos: por exemplo, banana, mamão, tomate, berinjela, abóbora, pepino",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar, por meio de uma demonstração prática e de um diagrama, como você vai dividir sua horta para plantar suas culturas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que culturas crescem melhor onde há tocos e troncos queimados?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar e demonstrar como você vai manter sua horta livre de ervas daninhas e pragas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar como você vai plantar suas culturas para ter uma produção contínua.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Mostrar como colher as culturas para o consumo da família e para a venda.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Mostrar como você vai fazer a rotação de culturas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever em linhas gerais o que você faria com a área da horta depois de várias safras.",
+   "instructions": null
+  }
+ ]
+}

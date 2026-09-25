@@ -1,0 +1,73 @@
+{
+ "honor_slug": "huellas-de-animales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Animal_Tracking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conocer diez tipos de huellas, incluidos dos tipos de huellas de aves. Hacer moldes de yeso de cinco de ellas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mencionar por lo menos tres cosas que nos dicen las huellas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Seguir el rastro de algún animal, identificarlo si es posible y decir si iba corriendo o caminando. Medir la distancia entre las huellas de un mismo animal cuando corre y cuando camina.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mantener una estación de rastreo durante por lo menos tres días, haciendo lo siguiente:\n  a. Elegir un espacio abierto y plano en algún lugar tranquilo cerca de su campamento o de su casa.\n  b. Alisar el suelo, el barro, la arena, etc.\n  c. Colocar alimento para la fauna silvestre.\n  d. Revisar cada día si hay huellas y reponer el alimento cuando sea necesario.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nombrar dos animales de cada uno de los siguientes grupos según sus huellas.\n  a. Plantígrados (apoyan toda la planta del pie)\n  b. Digitígrados (caminan sobre los dedos)\n  c. Ungulígrados (caminan sobre las uñas o pezuñas)\n  d. Saltadores o de patas traseras largas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nombrar cuatro señales de la presencia de mamíferos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Distinguir entre las huellas de conejo y las de ardilla, y entre las huellas de la familia de los perros y las de la familia de los gatos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nombrar dos grupos de animales (mamíferos, aves, insectos, etc.) que dejan huellas o rastros de olor que otros de su especie pueden seguir.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Nombrar dos aves para cada uno de los siguientes tipos de huellas:\n  a. De aves que saltan\n  b. De aves que caminan",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Además de las huellas, mencionar otras dos señales de la presencia de aves.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Nombrar dos aves que se identifiquen por su forma de volar.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "En su región, observar las huellas o el rastro de uno o más de los siguientes:\n  a. Sapo o rana\n  b. Serpiente\n  c. Tortuga\n  d. Molusco\n  e. Lombriz de tierra\n  f. Topo",
+   "instructions": null
+  }
+ ]
+}

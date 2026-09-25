@@ -1,0 +1,68 @@
+{
+ "honor_slug": "tradicion-aborigen",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aboriginal_Lore/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Quiénes son los aborígenes y de dónde vinieron? ¿Cuántas tribus había cuando comenzó la colonización europea?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Comentar acerca del sistema tribal. ¿Qué son los tótems?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Comentar acerca de la alimentación de los aborígenes:\n  a. Tipos\n  b. Cómo la obtienen\n  c. Cómo la preparan",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Comentar acerca de sus viviendas. ¿De qué están hechas y por qué no son permanentes? ¿Dónde duermen los jóvenes y los muchachos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Cómo se comunican con otras tribus que quizás no entienden su idioma? ¿Cómo envían señales dentro de la tribu? ¿Cuál es el propósito de la Tjuringa (o Churinga)?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "¿Cuáles son algunos de los artículos de comercio e intercambio? ¿Qué utensilios domésticos usan?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Describir algunas de las armas que se usan en la caza y en la guerra.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "¿Qué es un corroboree? Explicar su propósito. ¿Qué son los palos de percusión y el didyeridú?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "¿A qué juegan los niños? ¿Cómo se entrena a los jóvenes? ¿Cómo se los inicia? ¿Qué es el terreno bora? ¿Qué es una bramadera?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Comentar acerca de los dos tipos principales de arte aborigen.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Relatar brevemente la historia de los aborígenes desde que el hombre blanco llegó a Australia, mencionando las políticas del gobierno a lo largo de los años y la obra de las misiones.",
+   "instructions": null
+  }
+ ]
+}

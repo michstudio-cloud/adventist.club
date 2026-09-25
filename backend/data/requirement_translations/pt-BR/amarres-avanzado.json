@@ -1,0 +1,68 @@
+{
+ "honor_slug": "amarres-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lashing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Amarração.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar cada uma das seguintes amarrações:\n  a. Quadrada japonesa\n  b. Quadrada norueguesa\n  c. Diagonal filipina\n  d. Redonda West Country",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como arrematar a ponta de uma corda com falcaça.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma amarração decorativa com cordas de pelo menos duas cores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pesquisar em sua região o seguinte para seu projeto de amarração:\n  a. Onde encontrar legalmente varas na natureza\n  b. Como cortar corretamente os materiais naturais e prepará-los para o uso",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir como as ancoragens são usadas em projetos de amarração maiores.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber a que distância da estrutura as ancoragens devem ser colocadas nas seguintes condições:\n  a. Solo não revolvido\n  b. Vento forte\n  c. Solo revolvido\n  d. Areia solta e neve",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como fazer três das seguintes ancoragens:\n  a. Ancoragem com estacas 1-1-1\n  b. Ancoragem com estacas 3-2-1\n  c. Ancoragem com tronco e estacas\n  d. Ancoragem de corpo morto\n  e. Ancoragem fixa",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar como determinar qual deve ser o diâmetro de uma vara para o peso de um projeto de amarração.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Construir pelo menos dois dos seguintes itens, usando apenas amarrações:\n  a. Torre\n  b. Ponte de corda (ponte de macaco)\n  c. Portal de entrada\n  d. Portão\n  e. Ponte de madeira\n  f. Jangada",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Construir um dos seguintes projetos com partes móveis, usando apenas amarrações:\n  a. Catapulta\n  b. Ponte levadiça\n  c. Guincho",
+   "instructions": null
+  }
+ ]
+}

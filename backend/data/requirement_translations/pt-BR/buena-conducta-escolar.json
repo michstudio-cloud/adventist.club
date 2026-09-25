@@ -1,0 +1,43 @@
+{
+ "honor_slug": "buena-conducta-escolar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Good_School_Behavior/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bom comportamento escolar",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser estudante.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório explicando, com suas próprias palavras, o que é ter um bom comportamento escolar, com no mínimo 200 e no máximo 500 palavras.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar os três últimos boletins escolares do ano em curso, que mostrem 60% das notas, no geral, acima de oito ou de 80 pontos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar uma declaração do coordenador ou do professor afirmando que você tem sido um aluno exemplar, assíduo e participativo nas atividades escolares.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar alguma atividade desenvolvida na escola que mostre sua participação direta como líder ou como auxiliar do líder de um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Responder a um questionário de conhecimentos gerais que inclua todas as disciplinas e obter média acima de 80 ou de oito pontos.",
+   "instructions": null
+  }
+ ]
+}

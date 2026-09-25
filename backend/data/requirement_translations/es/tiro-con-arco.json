@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tiro-con-arco",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Archery/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar las partes de un arco.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar las partes de una flecha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nombrar y explicar las reglas de seguridad del tiro con arco.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encordar un arco de forma correcta y segura.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describir y mostrar cómo se usan los siguientes elementos:\n  a. Protector de brazo (brazal)\n  b. Dactilera o guante\n  c. Carcaj (aljaba)\n  d. Dragonera\n  e. Besador de cuerda (kisser)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demostrar las siguientes técnicas de tiro:\n  a. La postura\n  b. Encocar la flecha\n  c. La apertura\n  d. El anclaje\n  e. La sujeción y la puntería\n  f. La suelta\n  g. El acompañamiento",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Por qué es necesario que el punto de encoque de la flecha esté colocado correctamente en la cuerda del arco?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando un arco estándar (arco olímpico), obtener una de las siguientes puntuaciones:\n  a. En sala: con 30 flechas (5 series) a 18 metros, sumar 50 puntos en una diana de 60 cm.\n  b. Al aire libre: con 30 flechas (5 series) a 25 metros, sumar 170 puntos en una diana de 122 cm.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conocer y practicar las reglas de seguridad del tiro con arco.",
+   "instructions": null
+  }
+ ]
+}

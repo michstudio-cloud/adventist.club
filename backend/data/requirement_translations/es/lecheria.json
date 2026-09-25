@@ -1,0 +1,73 @@
+{
+ "honor_slug": "lecheria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dairying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conocer 25 partes de una vaca lechera.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Qué aspectos se deben tener en cuenta al seleccionar un ternero?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conocer el cuidado, el manejo y la alimentación de las vacas lecheras en las siguientes etapas:\n  a. Terneros\n  b. Del destete a los seis meses\n  c. De los seis a los quince meses\n  d. De los quince meses hasta que la vaquilla está próxima al parto\n  e. La vaca seca",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conocer las técnicas adecuadas de alimentación de una vaca en lactancia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber cómo se produce la leche en la vaca.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conocer los pasos para ordeñar una vaca, ya sea a mano o a máquina.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conocer ocho partes de una máquina ordeñadora.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "¿Qué es la mastitis? ¿Qué medidas se pueden tomar para prevenirla?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conocer cinco problemas de salud del hato, sus síntomas y cómo prevenirlos o tratarlos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conocer el significado de los siguientes términos:\n  a. Concentrados\n  b. Proteína cruda\n  c. Descarte (animal de desecho)\n  d. Período seco\n  e. En lactancia\n  f. Ciclo o período de lactancia\n  g. Oxitocina",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar la pasteurización de la leche y el cuidado adecuado de los utensilios y equipos lecheros.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Ayudar en el cuidado y el ordeño de un hato de vacas lecheras durante por lo menos tres meses.",
+   "instructions": null
+  }
+ ]
+}

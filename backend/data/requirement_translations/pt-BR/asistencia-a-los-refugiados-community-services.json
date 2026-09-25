@@ -1,0 +1,43 @@
+{
+ "honor_slug": "asistencia-a-los-refugiados-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Refugee_Assistance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Êxodo 16:1-17:6. Discutir com seu Clube de Desbravadores, unidade ou classe os desafios que os filhos de Israel enfrentaram depois de deixar seus lares no Egito.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o que significa a palavra refugiado e as circunstâncias que obrigam as pessoas a deixar seus lares.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista das necessidades imediatas de um refugiado ao chegar ao seu país. Descrever os sentimentos que o refugiado pode ter diante de um novo idioma, uma nova cultura e um novo ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Informar-se sobre as organizações de sua comunidade que ajudam refugiados e imigrantes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ouvir ou assistir a uma apresentação sobre um imigrante que inclua informações comparando a cultura de sua nova comunidade com a de sua comunidade anterior. Fazer anotações.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever um relatório de uma página contando o que você descobriu ao cumprir os requisitos desta especialidade. Dar recomendações de maneiras pelas quais os refugiados poderiam ser ajudados.",
+   "instructions": null
+  }
+ ]
+}

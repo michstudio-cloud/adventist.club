@@ -1,0 +1,78 @@
+{
+ "honor_slug": "arte-culinario-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cooking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arte culinária.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quantas xícaras há em um quarto de galão (quart)? (Quantos mililitros há em um litro?) Quantas colheres de sopa há em uma xícara? Quantas colheres de chá há em uma colher de sopa?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar dois pratos principais ao forno à base de macarrão, talharim, feijão ou arroz.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar dois pratos diferentes de legumes ao forno.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar dois tipos de salada. Como manter as saladas crocantes?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer a diferença de valor nutritivo entre leite integral, leite semidesnatado e leite vegetal.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar um café da manhã balanceado usando o guia da pirâmide alimentar.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Preparar um prato principal vegetariano.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Planejar cardápios para uma semana, escolhendo pelo menos três pratos nos quais possam ser aproveitadas sobras.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Preparar uma refeição balanceada com um prato principal vegetariano, um prato de legumes ao forno e uma salada.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer várias razões pelas quais o vinagre não é saudável.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que a cafeína faz no organismo? Fazer uma lista de cinco alimentos que contêm cafeína.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Ter 25 receitas de pratos preparados por você mesmo, das quais no máximo cinco sejam doces ou sobremesas.",
+   "instructions": null
+  }
+ ]
+}

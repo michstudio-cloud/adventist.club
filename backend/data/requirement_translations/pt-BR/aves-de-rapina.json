@@ -1,0 +1,58 @@
+{
+ "honor_slug": "aves-de-rapina",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Raptors/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Raptores",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa a palavra “raptor”?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Classificação:\n  a. Identificar os 2 grandes grupos de raptores.\n  b. Citar os nomes científicos das ordens e famílias chamadas coletivamente de \"raptores\" ou \"aves de rapina\".\n  c. Identificar as características que distinguem os raptores.\n  d. Dar um exemplo de raptor que ilustre cada uma das famílias representadas nesses dois grandes grupos (7 famílias).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A partir de um diagrama, identificar ou indicar as seguintes partes de um raptor:\n  a. Olhos\n  b. Pés e garras\n  c. Peito\n  d. Corpo\n  e. Bico\n  f. Ouvidos\n  g. Asas\n  h. Penas",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descobrir as seguintes informações sobre os raptores. Usar essas informações para comparar e contrastar os raptores com outra família de aves, como os patos e gansos (anatidae) ou os papagaios (psitaciformes).\n  a. o menor raptor diurno e o menor noturno\n  b. o maior raptor diurno e o maior noturno\n  c. os tipos de ninho que os raptores constroem\n  d. a expectativa média de vida de raptores grandes e pequenos\n  e. o alimento mais comum dos raptores\n  f. Como os raptores comem seu alimento?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades:\n  a. Assistir a uma demonstração com raptores vivos\n  b. Ler um livro sobre raptores\n  c. Assistir a um documentário sobre raptores",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer duas das seguintes atividades:\n  a. Criar um teatro de fantoches sobre raptores.\n  b. Dissecar uma egagrópila de coruja, de preferência on-line, e anotar o que encontrar.\n  c. Fazer um quadro com a envergadura e o formato das asas de raptores.\n  d. Montar um arquivo com pelo menos 10 ideias de trabalhos manuais sobre raptores e fazer 5 deles.\n  e. Fazer um caderno, uma exposição artística, uma apresentação multimídia ou uma colagem com imagens e informações sobre raptores.\n  f. Criar um jogo de tabuleiro sobre raptores.\n  g. Fotografar pelo menos 5 raptores vivos na natureza ou em cativeiro. Colocar legendas nas fotografias.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer os raptores de perto de uma das seguintes maneiras:\n  a. Visitar um zoológico ou viveiro de aves. Pedir a um monitor que fale sobre os raptores de que eles cuidam.\n  b. Convidar um especialista para visitar o grupo e contar o que ele/ela faz com raptores.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Observar raptores na natureza, nidificando ou em migração. Se possível, trabalhar com um centro de educação ambiental, parque ou área de manejo de vida silvestre da região.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar duas passagens bíblicas sobre raptores e resumir uma lição moral de cada uma.",
+   "instructions": null
+  }
+ ]
+}

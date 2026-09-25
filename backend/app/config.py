@@ -57,6 +57,10 @@ class Settings(BaseSettings):
     # Second bucket, no public domain: portfolio evidence (photos of minors). Same credentials.
     # Without it the evidence endpoints answer 503 and everything else works.
     R2_PRIVATE_BUCKET_NAME: str | None = None
+    # After boot, render into R2 the certificate-template thumbnails that are missing (a deploy that
+    # touches the engine invalidates all of them), one at a time; needs R2. Off = only on demand.
+    THUMBNAIL_WARMUP: bool = True
+    THUMBNAIL_WARMUP_DELAY: float = 20.0    # seconds after boot (health check and first requests first)
 
     # --- Apple Maps (MapKit JS) (optional: without it /maps/apple-token answers 503) ---
     # Team ID (10 chars), the MapKit JS key ID and the .p8 private key (PEM; a single-line

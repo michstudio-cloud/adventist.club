@@ -1,0 +1,15 @@
+{
+ "honor_slug": "nociones-de-economia",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Economics",
+ "license": "CC BY-SA 3.0",
+ "name": "Basic Economics",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Economics",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": []
+}

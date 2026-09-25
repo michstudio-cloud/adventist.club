@@ -1,0 +1,48 @@
+{
+ "honor_slug": "gimnasia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tumbling_%26_Balancing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Gimnasia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Realizar las siguientes acrobacias con compostura y buena forma:\n  a. Serie de ruedas laterales\n  b. Rueda lateral\n  c. Paloma (resorte) adelante\n  d. Flic-flac atrás\n  e. Rondada",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Hacer estiramientos de:\n  a. Piernas, tobillos, pantorrillas\n  b. Brazos, muñecas\n  c. Espalda, cuello",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Realizar cuatro de las siguientes con compostura y buena forma.\n  a. Salto mortal adelante\n  b. Tinsica\n  c. Barani\n  d. Pasada adelante (front walkover)\n  e. Pasada atrás (back walkover)\n  f. Posición de escorpión",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Realizar tres de los siguientes equilibrios con buena forma y compostura:\n  a. Parada de manos en fuerza desde parada de cabeza\n  b. Parada de manos con una mano – alternativa para chicas: pasada atrás a parada de cabeza\n  c. Pirueta\n  d. Plancha con brazos extendidos – alternativa para chicas: bajada controlada con piernas abiertas desde parada de manos\n  e. Doble parada de manos en posición de ciervo\n  f. Parada de manos en fuerza (press)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Realizar cuatro con un compañero de acrobacia.\n  a. Impulso desde las manos (toe pitch)\n  b. Equilibrio alto brazo a brazo\n  c. Equilibrio alto mano a mano\n  d. Estrella\n  e. Ángel alto sobre la espalda\n  f. Equilibrio alto mano a pie",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Elegir una de las siguientes y hacerla con compostura y buena forma:\n  a. Rondada y flic-flac atrás\n  b. Rondada y dos flic-flacs atrás\n  c. Tinsica y salto mortal adelante\n  d. Salto mortal atrás, flic-flac atrás",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "honor_slug": "ciclismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cycling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Ciclismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Describir cómo seleccionar el tamaño correcto del cuadro, el manubrio, el armado y la altura del sillín para adaptar la bicicleta a la talla de una persona.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Describir brevemente todas las características deseables de una bicicleta para cicloturismo de larga distancia.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desarmar, limpiar y volver a armar los rodamientos de las ruedas delantera y trasera, del juego de dirección y de la caja del pedalier.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Centrar una rueda trasera, asegurándose de que el aro quede correctamente centrado respecto al eje (dish).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Seleccionar la combinación de plato delantero y piñón trasero que daría los mejores resultados en las siguientes condiciones:\n  a. Andar en terreno montañoso\n  b. Hacer cicloturismo con equipaje en la bicicleta\n  c. Andar en terreno plano",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar cómo influyen en el comportamiento de una bicicleta:\n  a. La geometría del cuadro de la bicicleta, incluyendo:\n  b. El tipo de ruedas que se usan, incluyendo:",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer una lista del equipo deseable para llevar en un viaje en bicicleta de varios días, incluyendo refugio y equipo para cocinar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conocer las precauciones de seguridad que se deben observar al andar en bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "¿Cuáles son las ventajas de ir a rueda (aprovechar el rebufo de otro ciclista)? Saber cómo ir a rueda de forma segura y correcta.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conocer las diferentes prendas de vestir y el equipo de seguridad que se usan en el ciclismo y las ventajas de cada uno.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Tener el siguiente registro de recorridos mientras trabaja en esta especialidad.\n  a. Hacer tres recorridos de 20 millas (35 kilómetros) en diferentes lugares.\n  b. Recorrer 100 millas (160 kilómetros) consecutivas en menos de 15 horas.\n  c. Hacer una gira de tres días de por lo menos 125 millas (200 km) y escribir un informe de 500 palabras acerca de la gira.",
+   "instructions": null
+  }
+ ]
+}

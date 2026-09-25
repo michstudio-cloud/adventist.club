@@ -1,0 +1,63 @@
+{
+ "honor_slug": "escalada",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rock_Climbing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conocer y practicar las medidas de seguridad que deben seguirse al escalar en roca.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conocer y demostrar el uso del siguiente equipo: mosquetones, clavijas (pitones) de varios tipos, empotradores (fisureros) de varios tipos, cintas (anillos de cinta) y cuerda de escalada de nailon.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar cómo cuidar y adujar la cuerda de escalada. Saber hacer y usar los siguientes nudos: as de guía con vueltas de cuerda a la cintura, as de guía por seno, ocho, nudo de cinta, doble pescador y Prusik.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber cuándo encordarse en cordada y qué tipo de progresión de cordada usar en escaladas de clase tres, cuatro y cinco.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describir las seis clases de escalada y los métodos para calificar la dificultad de las escaladas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar cómo hacer un aseguramiento estático asegurando a dos escaladores que suben en una escalada real. Demostrar conocimiento de las posiciones correctas del cuerpo, las superficies de frenado, el apoyo y el anclaje, y la recogida de la cuerda al usar el aseguramiento estático.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conocer y usar las siguientes señales de escalada: «seguro listo», «escalando», «sube», «recoge cuerda», «dame cuerda», «tensión», «¡caigo!», «¡piedra!», «fuera seguro», «seguro retirado», «asegura hasta el punto».",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando nudos Prusik y cintas, ascender 25 pies (7,62 metros) de cuerda vertical. Mostrar cómo usar dispositivos mecánicos de ascenso, como jumars, bloqueadores Gibbs, etc.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escalar correctamente en libre hasta una dificultad de 5.3 (F3) en dos largos diferentes, con una distancia de por lo menos 50 pies (15,24 metros), con aseguramiento desde arriba. Comprender y practicar los siguientes conceptos de escalada libre: ritmo, mirar hacia adelante, peso sobre los pies, escalada de equilibrio, escalada de oposición y empotramiento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Mostrar cómo instalar un rápel. Hacer rápel usando ochos u otros métodos mecánicos de frenado. Hacer por lo menos dos rápeles de 50 pies (15,24 metros).",
+   "instructions": null
+  }
+ ]
+}

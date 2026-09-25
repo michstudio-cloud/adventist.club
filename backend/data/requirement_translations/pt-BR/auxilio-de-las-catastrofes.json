@@ -1,0 +1,43 @@
+{
+ "honor_slug": "auxilio-de-las-catastrofes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disaster_Response/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Resposta a desastres",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o tipo de dano que mais provavelmente ocorre a casas, pessoas e comunidades em cada um dos seguintes grandes tipos de desastre e indicar, para cada um, em que partes do mundo ele ocorre com mais frequência:\n  a. Furacão/Tufão/Ciclone\n  b. Tornado\n  c. Inundações\n  d. Terremoto\n  e. Tsunami\n  f. Incêndios\n  g. Guerra/Conflito civil",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever brevemente os tipos de serviço prestados aos sobreviventes de desastres em seu país pela ADRA ou pelos serviços locais de emergência.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler uma notícia de jornal ou da ADRA (acesse www.adra.org) sobre um desastre recente e discutir alguns aspectos importantes a ter em mente ao responder a um desastre ou emergência.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o que significam as letras da sigla ADRA e qual delas descreve o papel da ADRA na resposta a desastres.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever pelo menos uma destas organizações de resposta a desastres e como ela pode trabalhar com a ADRA durante uma emergência.\n  a. Cruz Vermelha\n  b. Serviços Comunitários Adventistas (ACS), nos Estados Unidos\n  c. Alto Comissariado das Nações Unidas para Refugiados (ACNUR)\n  d. Programa Mundial de Alimentos (PMA)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar o papel do governo quando ocorre um desastre e identificar o principal órgão governamental de seu país responsável pela resposta a emergências.",
+   "instructions": null
+  }
+ ]
+}

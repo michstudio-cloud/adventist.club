@@ -1,0 +1,58 @@
+{
+ "honor_slug": "cuidado-de-ninos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Child_Care/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser capaz de cuidar a un bebé durante varias horas en ausencia de su madre.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer una lista de todas las precauciones que se deben tomar al preparar el biberón del bebé; prepararlo y dárselo al bebé.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar, bañar, cambiar y vestir al bebé.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar la cama del bebé y acostarlo para dormir durante la noche.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber cómo pesar a un bebé y llenar la tabla de control de peso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por qué la lactancia materna es superior a la alimentación con biberón.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Qué es el destete?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "¿Qué es la fontanela (mollera)? ¿Aproximadamente a qué edad desaparece?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrevistar al personal de una guardería local acerca de su organización y de la ayuda que ofrecen a las madres.",
+   "instructions": null
+  }
+ ]
+}

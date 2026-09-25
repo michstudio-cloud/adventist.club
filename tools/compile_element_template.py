@@ -268,6 +268,22 @@ def missing_fonts(folder: Path, spec: dict) -> list[Path]:
     return missing
 
 
+# 024 · Selector de ministerio: the designs that ALSO serve Aventureros, by slug. Only those whose
+# ministry art is swappable: the engine puts the ministry's emblem in the `emblem` slot and swaps
+# these brand words (meta.json `ministry_strings`), or the design names no ministry at all
+# (editorial-rojo: only the church logo). «Marco multicolor», «Especialidad dorada» and «Modular
+# azul» have the Pathfinder shield / seal baked into background.webp: Conquistadores only until
+# the owner provides an Adventurer version of that art.
+EXTRA_MINISTRIES = {
+    "especialidad-academico": ["adventurers"],
+    "especialidad-reticula-verde": ["adventurers"],
+    "especialidad-editorial-rojo": ["adventurers"],
+}
+MINISTRY_BRAND = {
+    "adventurers": {"conquistadores": {"es": "AVENTUREROS", "en": "ADVENTURERS", "pt": "AVENTUREIROS", "fr": "AVENTURIERS"}},
+}
+
+
 def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> dict[str, str | bytes]:
     """Return {file name: content} of the engine template. Raises CompileError on any gap."""
     spec = json.loads((folder / "plantilla.json").read_text(encoding="utf-8"))
@@ -445,13 +461,27 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
         + background +
         f'<g transform="{transform}">\n' + "\n".join(body) + "\n</g>\n</svg>\n"
     )
-    meta = {"title": spec.get("title", spec["id"]), "kinds": [engine.HONOR_KIND], "ministries": [ministry],
+    served = [ministry, *(EXTRA_MINISTRIES.get(slug, []) if ministry == "pathfinders" else [])]
+    meta = {"title": spec.get("title", spec["id"]), "kinds": [engine.HONOR_KIND], "ministries": served,
             "engine": "elements", "source": source, "locales": locales}
     # «Frases editables» (docs/CERTIFICADOS_V4.md): the award phrases a person with an account may
     # reword, when the package names them with the usual keys.
     editable = [key for key in engine.EDITABLE_ROLES if any(key in table for table in strings.values())]
     if editable:
         meta["editable_strings"] = editable
+    # 024: the brand words the design prints («CONQUISTADORES») for the other ministries it serves.
+    swapped = {
+        other: {
+            locale: {key: words[locale] for key, words in MINISTRY_BRAND[other].items()
+                     if key in strings.get(locale, {}) and locale in words}
+            for locale in locales
+        }
+        for other in served[1:] if other in MINISTRY_BRAND
+    }
+    swapped = {other: {loc: table for loc, table in tables.items() if table} for other, tables in swapped.items()}
+    swapped = {other: tables for other, tables in swapped.items() if tables}
+    if swapped:
+        meta["ministry_strings"] = swapped
     readme = (
         f"Plantilla compilada del paquete de diseño {label} `{spec['id']}` («{spec.get('title', spec['id'])}»).\n"
         f"Fuente: `~/Documents/DEEL/certificados-diseno/{source}/` (plantilla.json + traducciones.json).\n"

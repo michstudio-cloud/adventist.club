@@ -1,0 +1,63 @@
+{
+ "honor_slug": "pesca-de-trucha",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trout_Fishing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Información histórica: Investigar y presentar una breve historia de la pesca de trucha. Incluir información sobre los orígenes de la pesca con mosca y su evolución a lo largo del tiempo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Repoblación: Explicar por qué se elige la trucha para repoblar los cuerpos de agua. Comentar los beneficios y las dificultades de repoblar con truchas distintos cuerpos de agua.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Introducción en Australia: Aprender sobre la introducción de especies de trucha en Australia. Describir el proceso y el impacto que ha tenido en los ecosistemas locales.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Métodos para pescar truchas: Identificar y describir por lo menos tres métodos que se usan para pescar truchas. Incluir información sobre la pesca con mosca, la pesca con carnada y la pesca con señuelo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Licencia y requisitos de seguridad: Investigar los requisitos de licencia y de seguridad para la pesca de trucha en su zona. Explicar por qué son importantes estas normas y cómo cumplirlas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer una lista de los artículos que se usan en la pesca de trucha. Describir cada artículo y su función. Incluir la caña y el carrete, el hilo de pescar, los anzuelos, las plomadas, los flotadores, los señuelos, las carnadas, la caja de aparejos, la red de mano y los lentes de sol polarizados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Especies de trucha: Aprender a identificar por lo menos tres especies diferentes de trucha comunes en su zona. Describir sus características y cómo distinguirlas de otros peces.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Impacto ambiental: Comentar el impacto ambiental de la pesca y la repoblación de truchas. Explicar la importancia de las prácticas de pesca sostenibles y cómo reducir al mínimo su impacto en el medio ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "La pesca en la Biblia: Buscar y comentar por lo menos dos versículos bíblicos que mencionen peces o la pesca. Reflexionar sobre su significado y lo que nos pueden enseñar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Trabajo de campo: Participar en una salida de pesca de trucha. Pasar por lo menos 2 horas pescando en un río, lago o arroyo de la zona. Anotar en su cuaderno su experiencia y los tipos de trucha que pescó.",
+   "instructions": null
+  }
+ ]
+}

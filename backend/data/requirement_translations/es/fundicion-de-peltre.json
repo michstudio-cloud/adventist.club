@@ -1,0 +1,53 @@
+{
+ "honor_slug": "fundicion-de-peltre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pewter_Casting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Leer y analizar con su instructor o grupo cómo se podrían aplicar a nuestra vida los siguientes versículos:\n  a. Malaquías 3:2-3\n  b. 1 Crónicas 28:18",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escribir un párrafo, explicar o dar una presentación a su instructor o grupo acerca de la historia del peltre.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir lo siguiente en el contexto de la fundición de peltre:\n  a. Troquel\n  b. Molde\n  c. Fusión\n  d. Colada\n  e. Desmolde",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Hacer una lista de por lo menos ocho medidas de seguridad que se deben tomar al fundir peltre o cualquier otro metal.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer una lista de algunos tipos de peltre y los porcentajes de todos los componentes de cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer una lista de dos formas de hacer un troquel. Hacer un troquel usando una de estas técnicas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Hacer una lista de tres materiales con los que se pueden hacer moldes. Usar uno de estos materiales para hacer un molde.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer lo siguiente:\n  a. Hacer una lista de los pasos para colar metal fundido.\n  b. Demostrar estos pasos fundiendo un objeto de peltre.",
+   "instructions": null
+  }
+ ]
+}

@@ -152,3 +152,51 @@ async def test_r2_down_still_answers(client, renders, r2):
     assert answer.status_code == 200 and answer.content.startswith(b"\x89PNG")
     again = await client.get(URL.format(slug="especialidad-color"), params={"w": 288})
     assert again.status_code == 200 and len(renders) == 1             # the in-process copy
+
+
+@pytest.mark.asyncio
+async def test_current_version_makes_the_answer_immutable(client, renders, r2):
+    version = thumbs.thumbnail_version("especialidad-color")
+    first = await client.get(URL.format(slug="especialidad-color"), params={"w": 288, "v": version})
+    assert first.status_code == 200
+    assert first.headers["cache-control"] == "public, max-age=31536000, immutable"
+
+    redirect = await client.get(URL.format(slug="especialidad-color"), params={"w": 288, "v": version}, follow_redirects=False)
+    assert redirect.status_code == 302
+    assert redirect.headers["cache-control"] == "public, max-age=31536000, immutable"
+
+    # Any other (older, forged) version: the short cache of always, so a stale link heals in minutes.
+    stale = await client.get(URL.format(slug="especialidad-color"), params={"w": 288, "v": "0" * 12}, follow_redirects=False)
+    assert stale.status_code == 302
+    assert stale.headers["cache-control"] == "public, max-age=300"
+    assert len(renders) == 1
+
+
+@pytest.mark.asyncio
+async def test_warm_up_renders_only_the_missing_variants(client, renders, r2):
+    variants = thumbs.warm_variants(["especialidad-color"], (288,))
+    locales = {locale for _, locale, _ in variants}
+    assert {"es", "en"} <= locales and all(slug == "especialidad-color" for slug, _, _ in variants)
+
+    counts = await thumbs.warm_all(["especialidad-color"], (288,))
+    assert counts == {"cached": 0, "uploaded": len(variants), "failed": 0}
+    assert len(renders) == len(variants)
+    assert all(key.startswith("thumbs/especialidad-color/") for key in r2.objects)
+
+    # Second pass: everything is there, nothing is rendered; the endpoint redirects without rendering.
+    again = await thumbs.warm_all(["especialidad-color"], (288,))
+    assert again == {"cached": len(variants), "uploaded": 0, "failed": 0}
+    assert len(renders) == len(variants)
+    answer = await client.get(URL.format(slug="especialidad-color"), params={"w": 288}, follow_redirects=False)
+    assert answer.status_code == 302
+
+
+@pytest.mark.asyncio
+async def test_warm_up_is_a_no_op_without_r2(renders):
+    assert await thumbs.warm_all(["especialidad-color"], (288,)) == {"cached": 0, "uploaded": 0, "failed": 0}
+    assert renders == []
+
+
+def test_startup_hook_needs_r2_and_the_flag(monkeypatch):
+    monkeypatch.setattr(settings, "THUMBNAIL_WARMUP", True)
+    assert thumbs.schedule_warm_up() is None        # no R2 in tests: nothing scheduled, nothing crashes

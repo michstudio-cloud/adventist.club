@@ -1,0 +1,43 @@
+{
+ "honor_slug": "reasentamiento-de-refugiados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Refugee_Resettlement/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Describir algunas de las causas generales por las que los refugiados se trasladan a otros países. Además, definir los términos refugiado, persona desplazada internamente (PDI) e inmigrante, y explicar en qué se parecen o se diferencian estas palabras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer una lista de las necesidades inmediatas que puede tener un refugiado al llegar a su nuevo país. Describir cómo se sentiría usted si de repente se enfrentara a un nuevo idioma, una nueva cultura y un nuevo entorno.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Averiguar qué organizaciones de su comunidad, de su país o del mundo ayudan a los refugiados y a las personas desplazadas internamente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Describir en un párrafo breve cómo ayudaría usted a un refugiado o a una persona desplazada internamente de su comunidad.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preguntar a una persona de otro país que viva en su comunidad cómo se adaptó a su nuevo entorno. Pedirle que describa los desafíos y los contrastes que experimentó durante el proceso de establecerse en su comunidad.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Presentar un informe breve en su club de Conquistadores, iglesia, escuela o grupo cívico sobre lo que aprendió acerca de los refugiados y las personas desplazadas internamente, y de los desafíos que enfrentan. Puede hacerlo por medio de una presentación, una dramatización, un video corto o cualquier otro método que comunique mejor sus conclusiones. Conversar sobre por qué es importante estar al tanto de la situación de los refugiados y tratar de encontrar soluciones a este problema.",
+   "instructions": null
+  }
+ ]
+}

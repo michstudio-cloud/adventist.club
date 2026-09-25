@@ -1,0 +1,53 @@
+{
+ "honor_slug": "avicultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Poultry_Raising/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Aves domésticas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar brevemente as qualidades de postura ou de produção de carne das seguintes aves:\n  a. Plymouth Rock\n  b. Wyandotte\n  c. Rhode Island Red\n  d. Orpington\n  e. Leghorn\n  f. Pato-de-pequim\n  g. Peru Bronze Gigante (Mammoth Bronze)\n  h. Peru Branco Holandês (White Holland)\n  i. Ganso de Toulouse",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a finalidade dos seguintes itens:\n  a. Chocadeiras\n  b. Campânulas (aquecedores para pintinhos)\n  c. Galinheiros higiênicos\n  d. Gaiolas\n  e. Cercados",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer a ovoscopia de uma série de ovos, encontrando pelo menos um ovo estragado. Qual é a finalidade da ovoscopia?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Esboçar o programa de alimentação das aves domésticas, desde o nascimento até a idade adulta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a temperatura, a umidade e o número de dias necessários para chocar os seguintes ovos: a. Pato; b. Galinha; c. Ganso; d. Codorna; e. Peru",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer, comprar ou alugar uma chocadeira e chocar seis ovos de aves domésticas à sua escolha, com 50% de eclosão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Criar essas aves durante pelo menos três meses.",
+   "instructions": null
+  }
+ ]
+}

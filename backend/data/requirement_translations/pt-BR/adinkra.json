@@ -1,0 +1,63 @@
+{
+ "honor_slug": "adinkra",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Adinkra/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Adinkra",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as funções dos símbolos Adinkra.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever a origem dos símbolos Adinkra.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o significado dos símbolos Adinkra?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o significado bíblico dos símbolos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os três principais tipos de Adinkra?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os outros usos dos símbolos Adinkra?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Carimbar cinco símbolos Adinkra e escrever uma descrição de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos 10 símbolos Adinkra dentre os 20 selecionados.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar o símbolo Adinkra do Templo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Carimbar pelo menos três tipos diferentes de símbolos Adinkra de sua escolha (no padrão que preferir) na grade de desenho do tecido Adinkra.",
+   "instructions": null
+  }
+ ]
+}

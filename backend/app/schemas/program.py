@@ -9,7 +9,9 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-ProgramKind = Literal["CLASS", "CURRICULUM"]
+# 024: MEDALLION / MASTERY / TRAINING are the certifications of Guías Mayores (`master-guides`).
+ProgramKind = Literal["CLASS", "CURRICULUM", "MEDALLION", "MASTERY", "TRAINING"]
+CERTIFICATION_KINDS = ("MEDALLION", "MASTERY", "TRAINING")
 ProgramStatus = Literal["DRAFT", "PUBLISHED", "ARCHIVED"]
 # The filter of `/admin/clases` (MASTER_GC only; everybody else sees PUBLISHED).
 ProgramStatusFilter = Literal["ALL", "DRAFT", "PUBLISHED", "ARCHIVED"]

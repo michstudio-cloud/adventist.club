@@ -1,0 +1,53 @@
+{
+ "honor_slug": "buceo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Skin_Diving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação intermediário I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três pré-requisitos para uma pessoa que deseja praticar mergulho livre.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que equipamento é essencial para o mergulho livre?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer o efeito dos seguintes fatores no mergulho livre:\n  a. Tipos de praia\n  b. Ondas e correntes\n  c. Vida marinha",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as regras de espírito esportivo no mergulho livre?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que precauções de segurança devem ser seguidas durante o mergulho livre?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever as técnicas de comunicação, de prevenção da hiperventilação e de esvaziamento da máscara.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar um teste prático em água na altura da cintura e fazer um mergulho de qualificação em águas abertas.",
+   "instructions": null
+  }
+ ]
+}

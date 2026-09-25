@@ -31,13 +31,14 @@ from app.rbac import (
     outranks,
 )
 from app.schemas.auth import MFAResetRequest, RoleName
-from app.services import role_assignments
 from app.schemas.membership import as_club_ref
+from app.schemas.ministry import PreferencesUpdate
 from app.schemas.profile import MyProfile, ProfileUpdate
 from app.schemas.user import (
     ChildGuardianship,
     GuardianshipCreate,
     GuardianshipResponse,
+    MeResponse,
     OnboardingUpdate,
     UserResponse,
     UserUpdate,
@@ -45,6 +46,7 @@ from app.schemas.user import (
 from app.security import INSTRUCTOR, MASTER_GC, PARENT_GUARDIAN, STUDENT, utcnow
 from app.services import email as email_service
 from app.services import memberships as membership_service
+from app.services import ministry_context
 from app.services import mfa as mfa_service
 from app.services import profiles as profile_service
 from app.services import storage
@@ -76,14 +78,27 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
     return user
 
 
-@router.get("/me", response_model=UserResponse)
+@router.get("/me", response_model=MeResponse)
 async def get_my_profile(
-    current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
+    current_user: User = Depends(get_authenticated_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
-    out = UserResponse.from_model(current_user, own=True)
-    out.roles = await role_assignments.roles_out(db, current_user)
-    return out
+    return await ministry_context.me_response(db, current_user)
+
+
+@router.patch("/me/preferences", response_model=MeResponse)
+async def update_my_preferences(
+    payload: PreferencesUpdate,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """024 · The shell's selector: the active ministry (`ministry`: a slug of
+    `ministries_available`) and club (`club_id`: one of `clubs_available`). Only the fields
+    present change; `null` goes back to the default. Anything not offered is 422
+    (`ministry_not_available` / `club_not_available`). A preference, never a permission."""
+    await ministry_context.update_preferences(db, current_user, payload)
+    return await ministry_context.me_response(db, current_user)
 
 
 @router.patch("/me/profile", response_model=MyProfile)

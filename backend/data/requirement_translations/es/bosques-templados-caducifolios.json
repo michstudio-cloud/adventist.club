@@ -1,0 +1,68 @@
+{
+ "honor_slug": "bosques-templados-caducifolios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Temperate_Deciduous_Forests/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Describir o explicar la siguiente información acerca de los bosques templados caducifolios:\n  a. En términos sencillos, describir un bosque templado caducifolio.\n  b. Hacer una lista de varias características de los bosques templados caducifolios.\n  c. Dar otros nombres que se usan para el bosque templado caducifolio.\n  d. En un mapa, mostrar los continentes donde se pueden encontrar bosques templados caducifolios.\n  e. Definir «bioma». ¿Qué se encuentra normalmente al norte del bosque templado caducifolio?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, a partir de imágenes o en la naturaleza, cuatro tipos de árboles que se encuentran comúnmente en los bosques templados caducifolios.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por qué las hojas cambian de color en otoño.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Leer Génesis 1:11-13. Descubrir en qué momento dice Génesis 1 que fueron creados los árboles.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar, a partir de imágenes o en la naturaleza, por lo menos cinco especies de plantas con flores que se encuentran comúnmente en un bosque templado caducifolio. ¿Por qué normalmente solo se encuentran en primavera?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar, a partir de imágenes o en la naturaleza, por lo menos cinco especies de mamíferos que se encuentran comúnmente en los bosques templados caducifolios.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar, a partir de imágenes o en la naturaleza, por lo menos cinco tipos de aves que se encuentran comúnmente en los bosques templados caducifolios.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer una lista de los recursos importantes que los bosques templados caducifolios proporcionan a su región.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Aprender acerca de una especie invasora que afecta a los bosques templados caducifolios.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Preparar una lección objetiva acerca de una planta, un animal o un ave que viva en los bosques templados caducifolios. Compartir esta lección en un entorno de grupo, como el culto del club o de la unidad, la historia infantil en la iglesia, una fogata o un culto vespertino.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Hacer por lo menos tres de las siguientes actividades:\n  a. Visitar una exhibición o un invernadero de especies de árboles caducifolios.\n  b. Hacer una colección de por lo menos cinco tipos de hojas de árboles de los bosques templados caducifolios.\n  c. Visitar un zoológico o un centro de naturaleza donde haya animales típicos del bioma de los bosques templados caducifolios.\n  d. Ver un video acerca de los bosques templados caducifolios o de las plantas o los animales que viven en ellos.\n  e. Dibujar o pintar una imagen de algo que disfrutó aprender mientras estudiaba los bosques templados caducifolios.\n  f. En grupo, hacer un video breve acerca de un proyecto real de conservación de un bosque templado caducifolio. Explicar por qué se debe proteger este hábitat específico.\n  g. Visitar una maderería y aprender a identificar, por la textura de su veta, por lo menos tres especies de árboles caducifolios.",
+   "instructions": null
+  }
+ ]
+}

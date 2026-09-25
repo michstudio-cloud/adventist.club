@@ -1,0 +1,23 @@
+{
+ "honor_slug": "buceo-con-escafandra-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scuba_Diving_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Mergulho autônomo - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mergulho autônomo e registrar no mínimo dez mergulhos a 35 pés (10,7 m) de profundidade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser aprovado em um curso avançado de mergulho autônomo (SCUBA) ministrado por um instrutor de mergulho autônomo credenciado.",
+   "instructions": null
+  }
+ ]
+}

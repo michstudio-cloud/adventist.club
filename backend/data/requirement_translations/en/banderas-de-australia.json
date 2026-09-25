@@ -1,0 +1,15 @@
+{
+ "honor_slug": "banderas-de-australia",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags_of_Australia",
+ "license": "CC BY-SA 3.0",
+ "name": "Flags of Australia",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags_of_Australia",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": []
+}

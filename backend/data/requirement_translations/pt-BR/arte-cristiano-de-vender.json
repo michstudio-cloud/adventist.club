@@ -1,0 +1,58 @@
+{
+ "honor_slug": "arte-cristiano-de-vender",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Sales_Principles/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as responsabilidades de um vendedor cristão quanto à maneira de tratar seus clientes e seu chefe.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista dos pontos que compõem as etapas de uma venda.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar uma declaração sobre como responder a objeções.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "De que maneira os seguintes pontos são valiosos para um vendedor?\n  a. Pesquisar o mercado para saber qual será a aceitação de um produto ou serviço\n  b. Treinamento adequado e conhecimento sobre o produto ou serviço a ser vendido\n  c. Uma visita à fábrica ou à sede da empresa que fabrica o produto ou presta o serviço\n  d. Visitas de acompanhamento a clientes novos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usando formação e experiência reais ou hipotéticas, escrever um currículo que possa ser usado para se candidatar a um emprego.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descobrir qual formação é mais vantajosa para uma carreira em vendas. Que áreas de vendas estão ao alcance de um vendedor cristão?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades:\n  a. Ajudar a arrecadar fundos por meio da venda de serviços, mercadorias ou ingressos para uma atividade dos Desbravadores, da Sociedade JA ou da escola, respondendo por mais do que a sua parte proporcional das vendas.\n  b. Ganhar dinheiro para você mesmo por meio da venda de uma mercadoria ou de um serviço.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma apresentação de vendas, como treino, para seu conselheiro, professor ou para seus pais, sobre o produto do item anterior que você está vendendo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrevistar um vendedor cristão e um comerciante varejista cristão sobre os seguintes pontos:\n  a. Para o vendedor:\n    i. A profissão de vendedor envolve muitas viagens?\n    ii. De que outras maneiras o trabalho de vendedor afeta a vida familiar?\n    iii. Como os vendedores são remunerados?\n    iv. Que oportunidades de crescimento existem na área de vendas?\n    v. O que o futuro reserva para uma carreira em vendas?\n    vi. Como você conquista clientes?\n    vii. Do que você mais gosta no seu trabalho? E do que menos gosta?\n    viii. Ser cristão faz diferença na maneira como você faz seu trabalho?\n  b. Para o varejista:\n    i. Que tipo de formação e treinamento é útil para uma carreira em vendas no varejo?\n    ii. Que oportunidades de crescimento existem nas vendas no varejo?\n    iii. Ao fazer um pedido, em que você mais confia: no atendimento do vendedor, no preço, nas características do mercado ou na qualidade do produto?\n    iv. O que você faz quando um cliente reclama de um erro que ele acha que sua loja cometeu, quando na verdade o culpado é ele?\n    v. Ser cristão faz diferença na maneira como você administra sua loja?\n    vi. Do que você mais gosta no seu trabalho? E do que menos gosta?",
+   "instructions": null
+  }
+ ]
+}

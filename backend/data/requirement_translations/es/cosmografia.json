@@ -1,0 +1,63 @@
+{
+ "honor_slug": "cosmografia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Stars/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Responder las siguientes preguntas:\n  a. ¿Cuál es el vecino celeste más cercano a la Tierra?\n  b. ¿A qué distancia está de la Tierra?\n  c. ¿Qué rige las mareas?\n  d. ¿Qué causa un eclipse?\n  e. ¿Qué es una estrella fugaz?\n  f. ¿A qué velocidad viaja la luz?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer un diagrama que muestre las posiciones y los movimientos relativos de la Tierra, el Sol y la Luna. Mostrar las posiciones y los movimientos que producen los eclipses de Sol y de Luna.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Hacer un diagrama de nuestro sistema solar y ser capaz de nombrar los planetas en orden a partir del Sol.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar en el cielo ocho estrellas fijas. ¿Cuál es la diferencia entre los planetas y las estrellas fijas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Qué es una constelación? Nombrar y señalar seis. Nombrar dos constelaciones visibles durante todo el año.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Para el hemisferio norte: dibujar un mapa de la Osa Mayor, Casiopea y la Estrella Polar. Para el hemisferio sur: dibujar un mapa de la Cruz del Sur, Orión y Escorpio.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Qué es la Vía Láctea? Observar la Vía Láctea en el cielo nocturno.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "¿Qué es el lucero de la mañana y el lucero de la tarde? ¿Por qué lleva ambos nombres?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar qué son el cenit y el nadir.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "¿Qué es la aurora boreal? ¿Qué la causa?",
+   "instructions": null
+  }
+ ]
+}

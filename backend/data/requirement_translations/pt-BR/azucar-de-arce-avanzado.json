@@ -1,0 +1,103 @@
+{
+ "honor_slug": "azucar-de-arce-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Maple_Sugar_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Açúcar de bordo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer pelo menos cinco furos de extração e, por fervura, obter pelo menos dois quartos de galão (1,9 L) de xarope.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Coletar uma folha e um pedaço de casca de dois bordos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar dois usos do bordo-açucareiro além da produção de açúcar de bordo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que se deve observar ao escolher um bordo para extrair a seiva?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a época certa, na primavera, para extrair a seiva de um bordo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar os quatro bordos que produzem seiva doce.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é o tamanho da broca? (2 medidas)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como a seiva pode estragar e em que ela se parece com o leite?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a lenda da produção de açúcar de bordo?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Para fazer um quarto de galão (0,95 L) de xarope, quantos quartos de galão de seiva são necessários?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como saber se o xarope está pronto ou quase pronto durante a fervura sem usar termômetro nem hidrômetro?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Como os primeiros colonos conheceram a produção de açúcar de bordo?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Visitar duas unidades de produção de açúcar de bordo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Usar três receitas e apresentá-las na cerimônia de investidura.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer uma libra (450 g) de doce de açúcar de bordo e explicar como foi feito.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "O que é a “cera de bordo na neve” (maple wax on snow)?",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Quando a seiva está amarelada e/ou há mariposas nos baldes, o que isso geralmente significa?",
+   "instructions": null
+  }
+ ]
+}

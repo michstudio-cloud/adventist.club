@@ -1,0 +1,48 @@
+{
+ "honor_slug": "aves-de-rapina-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Raptors_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Raptores - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Raptores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Reprodução / Filhotes:\n  a. Quais são os hábitos de acasalamento e reprodução dos raptores?\n  b. Quais são alguns fatos sobre o período de incubação dos ovos e o nascimento dos filhotes de raptores?\n  c. Por quais nomes os filhotes de raptores podem ser chamados?\n  d. Os raptores são bons pais?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Falcoaria:\n  a. O que é falcoaria?\n  b. Citar o equipamento básico usado para treinar raptores para a falcoaria e quais raptores são utilizados.\n  c. Aprender sobre a história da falcoaria e alguns falcoeiros famosos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Migração:\n  a. Descobrir alguns fatos sobre a migração dos raptores.\n  b. Escolher dois raptores e fazer um diagrama, desenho ou mapa de suas rotas migratórias. Incluir na sua apresentação onde começam e terminam a jornada, onde param para se alimentar, o que comem pelo caminho, sua rota migratória e os pontos de referência ao longo do trajeto.\n  c. Desenhar ou pintar uma imagem do mundo do ponto de vista de um raptor em migração. Representar com precisão o habitat que a ave pode sobrevoar, a altitude em que está voando e a sensação do ar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Concluir um projeto, ainda não realizado, da lista do requisito nº 6 da especialidade básica de Raptores.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um mapa-múndi com os nomes e imagens de vários raptores (diurnos e noturnos) que vivem em cada região continental do mundo ou perto dela.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Organizar um projeto de serviço em benefício dos raptores, ou participar dele (por exemplo: limpeza, preservação/restauração de habitats ou rotas migratórias, preservação de fontes de alimento, ajudar outras pessoas a conhecer os raptores). Escrever um relatório sobre os seguintes pontos (incluir mapas, fotografias ou desenhos pode ajudar):\n  a. Onde você esteve?\n  b. Quando você esteve lá?\n  c. O que você fez lá?\n  d. Informações novas que você aprendeu, além do que aprendeu na especialidade básica.\n  e. Informações sobre a área específica que você visitou.\n  f. Descrever o projeto de serviço que você realizou (ser específico).\n  g. O que você aprendeu sobre si mesmo durante o projeto de serviço?\n  h. O que você aprendeu sobre a distribuição geográfica, o habitat, a dieta, o acasalamento, a reprodução e o estado de conservação de um raptor durante este projeto de serviço?",
+   "instructions": null
+  }
+ ]
+}

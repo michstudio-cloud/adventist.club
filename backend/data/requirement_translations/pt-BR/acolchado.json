@@ -1,0 +1,48 @@
+{
+ "honor_slug": "acolchado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Quilting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma colcha acolchoada? Para que é usada?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as três principais fibras usadas na manta (camada intermediária) de uma colcha acolchoada?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os dois métodos mais comuns de compor o desenho de uma colcha acolchoada? Definir “crazy quilt” (colcha de retalhos irregulares).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a diferença entre prender as camadas com nós de fio e acolchoar com pespontos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as etapas para fazer uma colcha acolchoada?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Confeccionar uma colcha acolchoada e dar-lhe acabamento, como projeto individual ou em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Montar um arquivo com pelo menos seis moldes de colcha, incluindo dois de patchwork e um com tema patriótico.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "honor_slug": "buceo-con-escafandra",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scuba_Diving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Mergulho autônomo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Requer instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser aprovado em um curso padrão de mergulho autônomo (SCUBA) ministrado por um instrutor de mergulho autônomo credenciado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "OBSERVAÇÃO: Os itens a seguir são pré-requisitos. Ter pelo menos 15 anos de idade. Ter a especialidade de Mergulho livre. Ser capaz de nadar 50 pés (15 m) debaixo d’água. Ser capaz de nadar e flutuar continuamente por 30 minutos, percorrendo no mínimo 330 jardas (300 m) nesse tempo.",
+   "instructions": null
+  }
+ ]
+}

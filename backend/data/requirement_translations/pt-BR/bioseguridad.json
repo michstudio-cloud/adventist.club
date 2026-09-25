@@ -1,0 +1,103 @@
+{
+ "honor_slug": "bioseguridad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biosafety/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Biossegurança\n  b. Risco biológico\n  c. Fator de risco\n  d. Material biológico\n  e. Acidente químico ou biológico\n  f. Incidente químico ou biológico\n  g. Patógeno\n  h. Aerossóis\n  i. EPI",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever quais EPIs são usados pelos profissionais de saúde. Para que servem? Discutir pelo menos cinco outras áreas, fora da saúde, que usam EPIs rotineiramente para se proteger de riscos biológicos, e por que eles são necessários.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Diferenciar surto, epidemia, pandemia e endemia. Fazer um diagrama de Venn ou uma tabela que mostre o que eles têm em comum e o que têm de diferente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Elaborar uma lista de precauções que devem ser tomadas durante uma epidemia/pandemia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar em uma tabela, lista ou ilustração as diferenças entre isolamento e quarentena.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher duas das seguintes doenças históricas e responder: Quando ocorreu? Quantas pessoas foram infectadas? Como se espalhou? Quais eram os sintomas? Quais precauções de biossegurança foram usadas? Como foi controlada?\n  a. Varíola\n  b. Tifo\n  c. Gripe de 1918 (gripe espanhola)\n  d. Poliomielite\n  e. Gripe suína",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher duas das seguintes doenças e responder: Quais são os sintomas? Como se espalha? Existe cura hoje? Onde e quando houve um surto/epidemia/pandemia? Existe prevenção para essa doença? Quais são os métodos de biossegurança usados para combater a propagação dessa doença?\n  a. Cólera\n  b. Tuberculose\n  c. Febre amarela\n  d. Sarampo\n  e. Malária\n  f. Ebola\n  g. AIDS\n  h. COVID-19",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer o seguinte:\n  a. Quais das doenças estudadas anteriormente são ou foram endêmicas em sua região?\n  b. Quais das doenças anteriores são preocupações atuais para quem viaja e em quais lugares o risco de contraí-las é maior?\n  c. Escolher um lugar do mundo para onde você gostaria de viajar e pesquisar os surtos e as doenças que exigem ou recomendam vacina.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como as vacinas funcionam? Por que é importante manter as vacinas em dia?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar uma entidade nacional ou mundial que ajude a desenvolver e aplicar a prevenção e o controle de doenças.\n  a. Onde fica essa organização?\n  b. Que informações ela divulga e por que é importante saber como acessar essas informações?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar por que é tão importante remover as luvas médicas corretamente. Demonstrar a maneira correta de remover luvas médicas sem transferir patógenos das luvas para as mãos, fazendo o seguinte exercício:\n  a. Cobrir as mãos enluvadas com um “patógeno” simulado (como Glo-Germ, óleo de cozinha, ketchup, xarope de milho, tinta guache etc.).\n  b. Remover as luvas com a técnica correta, sem transferir nada do “patógeno” simulado para a pele ou a roupa.\n  c. Descartar as luvas.\n  d. Limpar a sujeira.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Sobre a higiene das mãos:\n  a. Por que se recomenda lavar as mãos, sempre que possível, em vez de usar álcool em gel?\n  b. Que passos devem ser seguidos para garantir que todas as partes das mãos fiquem limpas? Explicar por que é importante seguir cada passo.\n  c. Que música você encontrou que seja longa o suficiente para ser cantada inteira enquanto você esfrega as mãos?\n  d. Por que é preferível usar toalhas de papel em vez de toalhas de pano que serão usadas várias vezes?\n  e. Fazer um vídeo ou outra apresentação para demonstrar ao seu instrutor como lavar e secar as mãos corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Sobre o álcool em gel:\n  a. Por que o álcool isopropílico a 70% é a concentração mais eficaz como principal ingrediente higienizante?\n  b. Qual é a maneira correta de usar o álcool em gel?\n  c. Explicar quando é apropriado usar álcool em gel em vez de água e sabão.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Sobre as máscaras faciais:\n  a. Explicar o motivo de usar uma máscara caseira.\n  b. Aprender a improvisar uma máscara facial com materiais comuns em sua casa.\n  c. Pesquisar e fazer uma máscara facial com o tecido e o modelo ideais, seguindo as instruções.\n  d. Em que condições seria vantajoso passar a usar uma máscara facial comercial certificada?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Sobre a tosse:\n  a. Fazer o seguinte:\n    i. Posicionar-se a 12 polegadas (30 cm) de uma vidraça ou de um espelho limpo e tossir sobre ele. Observar a quantidade e a distribuição das gotículas produzidas pela tosse. Limpar o vidro.\n    ii. Mantendo a mesma distância do vidro usada na tosse sem proteção, repetir tossindo na dobra do braço. Comparar a quantidade e a distribuição das gotículas. Limpar o vidro.\n    iii. Repetir o exercício usando máscara. Comparar a quantidade e a distribuição das gotículas. Limpar o vidro ao terminar.\n  b. Com base em suas observações, identificar as atitudes que devem ser tomadas ao tossir ou espirrar para não contaminar outras pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Estudar o protocolo que o Senhor deu a Moisés a respeito da lepra em Levítico 13:1-46. Como os princípios de distanciamento social e quarentena dessa passagem se comparam às recomendações atuais?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "De acordo com Mateus 24:3-8, o que a Bíblia diz sobre as doenças do tempo do fim?",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "De acordo com 1 Coríntios 15:51-58 e Apocalipse 21:1-5, o que acontecerá com as enfermidades e as doenças quando formos para o Céu?",
+   "instructions": null
+  }
+ ]
+}

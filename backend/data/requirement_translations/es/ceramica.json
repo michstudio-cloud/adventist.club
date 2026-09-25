@@ -1,0 +1,48 @@
+{
+ "honor_slug": "ceramica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ceramics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Relatar brevemente la historia de la cerámica antigua.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber qué significan los siguientes términos:\n  a. Pieza en verde\n  b. Bizcocho\n  c. Calcomanía\n  d. Horno\n  e. Esmalte\n  f. Barbotina\n  g. Pasta reparadora",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar el uso de los conos pirométricos en los hornos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber cómo y cuándo usar la pintura bajo esmalte y el esmalte.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conocer las herramientas que se usan para completar sus proyectos de cerámica.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Completar una pieza usando un esmalte de cristales.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Completar dos de los siguientes, usando pintura bajo esmalte en por lo menos una de las piezas:\n  a. Galletero\n  b. Plato para pastel\n  c. Florero\n  d. Maceta\n  e. Dulcero\n  f. Tarro (taza grande)\n  g. Pieza a su elección",
+   "instructions": null
+  }
+ ]
+}

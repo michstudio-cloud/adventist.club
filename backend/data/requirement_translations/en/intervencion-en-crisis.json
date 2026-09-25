@@ -1,0 +1,53 @@
+{
+ "honor_slug": "intervencion-en-crisis",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/intervencin_en_crisis.pdf",
+ "license": null,
+ "name": "Crisis Intervention",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Be at least in the 10th grade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explain how Christ encouraged people in crisis situations in at least 2 of the following Bible stories. Identify the nature of the crisis or the human needs in each story you explain.\n  a) John 8:1-11\n  b) Luke 15:11-32\n  c) Luke 8:40-56\n  d) Matthew 8:1-22",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Describe to your instructor some of the human needs and crisis situations that teenagers in your community face today. Describe some of the crisis situations that families face. This may be done in a group discussion setting.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discuss your own motives for wanting to help your friends when they face personal or family crises. What about strangers? This may be done in a group discussion session.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describe the types of human needs and give a real-life example of each.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explain the steps in the crisis intervention process and apply each step to a case study supplied by your instructor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrate a basic grasp of listening skills by conducting an interview at least 30 minutes long. The interview must either be observed by someone who can recognize listening skills or be recorded for review by your instructor. It does not have to be with a person who is in crisis, but it must be a real conversation, not pretend or role-play.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explain how to refer a person to a professional counselor or pastor.",
+   "instructions": null
+  }
+ ]
+}

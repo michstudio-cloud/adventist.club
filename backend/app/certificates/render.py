@@ -281,14 +281,27 @@ def load_template(slug: str, base: Path = TEMPLATES_DIR) -> Template:
     return _load(slug, str(base))
 
 
-def resolve_strings(template: Template, locale: str) -> dict[str, str]:
-    """Most specific locale first (pt-BR -> pt), Spanish (the SVG itself) as the final fallback."""
+def _by_locale(table: dict, locale: str) -> dict[str, str]:
+    """Most specific locale first (pt-BR -> pt); nothing when no locale matches."""
     parts = locale.split("-")
     for i in range(len(parts), 0, -1):
         candidate = "-".join(parts[:i])
-        if candidate in template.strings:
-            return template.strings[candidate]
+        if candidate in table:
+            return table[candidate]
     return {}
+
+
+def resolve_strings(template: Template, locale: str) -> dict[str, str]:
+    """Most specific locale first (pt-BR -> pt), Spanish (the SVG itself) as the final fallback."""
+    return _by_locale(template.strings, locale)
+
+
+def ministry_strings(template: Template, ministry: str | None, locale: str) -> dict[str, str]:
+    """024: the brand words a design prints for ANOTHER ministry, from meta.json
+    `ministry_strings: {ministry: {locale: {key: text}}}` — e.g. «CONQUISTADORES» becomes
+    «AVENTUREROS» on an Adventurer certificate. Nothing for a ministry the design does not list."""
+    table = (template.meta.get("ministry_strings") or {}).get(ministry or "") or {}
+    return dict(_by_locale(table, locale)) if isinstance(table, dict) else {}
 
 
 # Style names of the bundled files -> CSS weight (anything else, e.g. «Beta», is a regular face).
@@ -567,7 +580,7 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
         if emblem:
             images["emblem"] = emblem
     root = safe_fromstring(template.svg)
-    strings = resolve_strings(template, locale)
+    strings = {**resolve_strings(template, locale), **ministry_strings(template, ministry, locale)}
     rtl = locale.split("-")[0] in ("ar", "he", "fa", "ur")
     parents = {child: parent for parent in root.iter() for child in parent}
     drop: list[ET.Element] = []

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "boliche",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bowling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Boliche",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um relatório oral ou escrito sobre a história do boliche.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o diâmetro da bola de boliche e qual é o seu peso mínimo e máximo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar a maneira correta de segurar a bola de boliche.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a altura dos pinos de boliche e qual é a distância entre eles?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever a pista de boliche, incluindo o tamanho, o material e por que ela deve ser lubrificada diariamente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um diagrama de uma pista de boliche.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar por que os sapatos de boliche são necessários para este esporte.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar como funciona cada jogada no boliche.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar o sistema de pontuação. Qual é a pontuação máxima?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Definir os seguintes termos:\n  a. Strike\n  b. Spare\n  c. Aproximação (approach)\n  d. Empunhadura (grip)\n  e. Pontuação (score)\n  f. Canaletas (gutters)\n  g. Bedpost/Snake eyes/Fence posts/Goal post/Mule ears/1001\n  h. Big ears/Big four/Double pinochle/Golden gate/2002\n  i. Hook (bola com efeito)\n  j. Baby split\n  k. Blind\n  l. Bola morta (quando isso acontece?)\n  m. Turkey\n  n. Split\n  o. Frame\n  p. Miss\n  q. Five bagger",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Participar de pelo menos 3 partidas de boliche, fazendo pelo menos 150 pontos.",
+   "instructions": null
+  }
+ ]
+}

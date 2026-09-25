@@ -1,0 +1,68 @@
+{
+ "honor_slug": "arte-culinario",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cooking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber usar corretamente o tipo de fogão que você tem em casa. Saber apagar um incêndio de óleo ou gordura no fogão. Saber como evitar esse tipo de incêndio. Conhecer as precauções de segurança ao cozinhar, inclusive em relação às crianças pequenas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber usar corretamente colheres medidoras, xícaras medidoras e, se houver, batedeira elétrica, liquidificador e processador de alimentos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que significa ferver, grelhar, fritar, assar no forno, cozinhar em fogo brando, cozinhar sem água e, se houver, cozinhar no micro-ondas? Quais são as maneiras mais saudáveis de preparar os alimentos comuns? Quais são as menos saudáveis?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar sua habilidade em preparar corretamente dois tipos diferentes de mingau de cereais, uma bebida quente saudável e ovos de duas maneiras diferentes, sem ser fritos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar batatas de maneira saudável por dois métodos diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cozinhar outras três hortaliças da maneira mais saudável.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar uma salada simples. Por que precisamos de saladas frescas em nossa alimentação?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer o guia da pirâmide alimentar. Por que é importante seguir diariamente o guia da pirâmide alimentar em nossa alimentação? Fazer um quadro dos alimentos que você come durante uma semana para verificar se está seguindo o guia da pirâmide alimentar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pôr a mesa corretamente para sua família para o jantar. Servir uma refeição balanceada que você mesmo tenha planejado e preparado, na medida do possível. Incluir um prato principal, hortaliças e salada.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Seguir corretamente uma receita para fazer um prato principal vegetariano ou um prato de legumes ao forno.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Começar seu próprio arquivo de receitas. Colocar nele 10 receitas de pratos que você mesmo tenha preparado, entre pratos principais, hortaliças, saladas e bebidas.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "jardineria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gardening/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Preparar el suelo, abonar y sembrar una parcela de hortalizas de no menos de 100 pies cuadrados (30,5 metros cuadrados). Cultivar hasta la cosecha por lo menos seis hortalizas diferentes, tres a partir de semillas y tres a partir de plántulas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer una lista de formas de controlar los insectos y/o las enfermedades en su huerto. Saber cuándo y cómo aplicar insecticidas y fungicidas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Qué es el mantillo (acolchado)? ¿Cómo y por qué se usa en el huerto?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Qué es la rusticidad (resistencia al frío)? ¿Qué hortalizas se consideran rústicas en su región?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer uno de los siguientes:\n  a. Hacer una prueba de germinación con 100 semillas de la misma clase.\n  b. Hacer y usar una cama caliente o una cajonera fría.\n  c. Preparar tres variedades cualesquiera de hortalizas para el mercado.\n  d. Hacer y usar un cajón o una fosa de almacenamiento para sus hortalizas.",
+   "instructions": null
+  }
+ ]
+}

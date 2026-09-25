@@ -1,0 +1,103 @@
+{
+ "honor_slug": "natacion-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Beginner/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Recoger un objeto del fondo en agua a la altura del pecho, sin apoyo y con los ojos abiertos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer inmersiones rítmicas, sumergiendo la cabeza por completo 15 veces, en agua a la altura del pecho.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Avanzar con inmersiones rítmicas en agua profunda (un poco más alta que su cabeza) hasta una zona segura o el borde de la piscina.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saltar al agua profunda desde el borde de la piscina.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Zambullirse desde el borde de la piscina en posición arrodillada y compacta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Deslizarse boca abajo, impulsándose desde la pared, una distancia de dos veces la longitud de su cuerpo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Deslizarse boca arriba, impulsándose desde la pared, una distancia de dos veces la longitud de su cuerpo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar crol: diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Nadar crol de espalda: diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demostrar la patada de espalda elemental: diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cambiar de dirección mientras nada boca abajo.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Cambiar de dirección mientras nada boca arriba.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Comentar las reglas de seguridad para zambullirse.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Mantenerse a flote en posición vertical (pedaleo en el agua).",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Saltar al agua profunda con chaleco salvavidas.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demostrar la posición H.E.L.P. durante un minuto.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demostrar la posición de agrupamiento (huddle) durante un minuto.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Demostrar la técnica correcta para abrir la vía aérea al dar respiración de rescate.",
+   "instructions": null
+  }
+ ]
+}

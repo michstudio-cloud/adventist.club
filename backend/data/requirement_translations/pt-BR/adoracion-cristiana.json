@@ -1,0 +1,48 @@
+{
+ "honor_slug": "adoracion-cristiana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Worship/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Adoração cristã",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Para ajudar a apreciar o caráter e a majestade do Deus cristão, discutir brevemente o que as Escrituras dizem sobre o seguinte:\n  a. O orgulho de Satanás, o conflito no Céu e a expulsão de Satanás do Céu\n  b. A criação da Terra e de seus habitantes\n  c. Adão e Eva no Jardim do Éden e sua expulsão\n  d. As falhas da raça humana\n  e. A promessa inabalável de Deus à raça humana\n  f. O nascimento do Messias, Jesus Cristo\n  g. O ministério de Jesus Cristo\n  h. A morte de Jesus Cristo na cruz\n  i. A ressurreição de Jesus, Sua ascensão ao Céu e Sua promessa de voltar\n  j. O Espírito Santo é recebido e o evangelho é pregado no mundo inteiro\n  k. Cristo volta para buscar os Seus: os que estão vivos e os que não estão\n  l. O povo de Cristo no Céu e na Nova Terra para todo o sempre",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o significado atual da palavra “adoração” e as palavras das Escrituras originais que foram traduzidas como “adoração”.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher pelo menos seis (6) referências bíblicas que falem da verdadeira adoração a Deus. Descrever brevemente como cada uma pode ser aplicada à sua vida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dramatizar pelo menos duas das seguintes histórias e discutir em que cada uma não estava de acordo com a vontade de Deus:\n  a. O sacrifício de Caim com o “fruto da terra” (Gênesis 4:2-8)\n  b. A adoração do bezerro de ouro pelos israelitas (Êxodo 32)\n  c. O grande erro de Nadabe e Abiú (Levítico 10:1-7)\n  d. As orações do fariseu e do publicano (Lucas 18:9-14)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir como as instruções e os exemplos das Escrituras podem ser aplicados à adoração cristã hoje. Levar em conta o lugar onde você adora.\n  a. Quando e onde adorar\n  b. Como adorar\n  c. Em que temas se concentrar",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Liderança na adoração: descrever em linhas gerais os cuidados e as possíveis armadilhas nos seguintes tópicos:\n  a. Preparação e oração\n  b. O tema da adoração e a música apropriada\n  c. A “equipe” de adoração (músicos, pregadores, diáconos, equipe de som etc.)\n  d. A congregação (idades, idioma, questões pessoais, expectativas, formação cultural etc.)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte: preencher o formulário de avaliação da especialidade de Adoração cristã para pelo menos duas das seguintes atividades:\n  a. Realizar uma série de cultos de adoração cristã particulares (ou seja, só você e Deus)\n  b. Fazer parte da congregação em um culto de adoração cristã\n  c. Participar de uma equipe de adoração\n  d. Dirigir um culto de adoração cristã para um grupo de pelo menos 5 pessoas.",
+   "instructions": null
+  }
+ ]
+}

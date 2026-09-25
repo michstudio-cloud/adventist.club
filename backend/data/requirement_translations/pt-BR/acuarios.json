@@ -1,0 +1,73 @@
+{
+ "honor_slug": "acuarios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fishkeeping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Aquarismo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Peixes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é aquarismo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar a história do aquarismo: os primeiros povos que o praticaram, o desenvolvimento das técnicas, as evidências históricas etc.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o que é, como funciona e qual é a utilidade de cada um dos seguintes itens:\n  a. Termostato\n  b. Cascalho\n  c. Substrato\n  d. Ração de férias\n  e. Placa biológica\n  f. Bioball\n  g. Puçá\n  h. Filtro de leito fluidizado\n  i. Filtro externo\n  j. Filtro UV\n  k. Ozonizadores\n  l. Reator de cálcio\n  m. Skimmer\n  n. Alimentador automático",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar algumas vantagens e desvantagens de um aquário de água salgada em relação a um de água doce.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar, ao vivo ou por fotos, 10 peixes ornamentais de água salgada e 15 peixes ornamentais de água doce comumente usados em aquários.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer 10 plantas aquáticas de água doce comumente usadas em aquários. Identificá-las por fotos ou ao vivo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar, ao vivo ou por fotos, cinco corais usados em aquários marinhos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista e identificar, ao vivo ou por fotos, cinco animais comuns em aquários marinhos (não incluir peixes nem corais na lista).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista e identificar, ao vivo ou por fotos, cinco animais comuns em aquários de água doce (não incluir peixes na lista).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma lista de cinco testes de água diferentes, explicar a importância de usá-los e demonstrar o uso de pelo menos um deles.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer as seguintes atividades:\n  a. Montar um aquário de pelo menos 20 litros, com uma quantidade equilibrada de plantas e peixes, e mantê-lo por pelo menos seis meses.\n  b. Durante a montagem, fazer o seguinte:\n    i. Demonstrar habilidade para montar um sistema de filtragem adequado e explicar seu funcionamento\n    ii. Explicar sua escolha e instalar um sistema de iluminação compatível\n    iii. Escolher o tipo de solo mais adequado para o ambiente desejado\n    iv. Plantas: analisar as espécies que melhor se adaptam ao modelo\n    v. Peixes: falar sobre as espécies escolhidas, a relação entre espaço e tamanho adulto e o número de exemplares; temperatura ideal para o crescimento, temperamento, tipo de ração, reprodução, principais doenças e problemas.\n  c. Durante um período de pelo menos três meses, anotar os efeitos das seguintes condições sobre os peixes e sobre o aquário em geral:\n    i. Luz em excesso\n    ii. Pouca luz\n    iii. Alimento em excesso\n    iv. Mudanças na temperatura da água\n    v. Poucas plantas para muitos peixes",
+   "instructions": null
+  }
+ ]
+}

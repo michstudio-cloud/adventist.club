@@ -1,0 +1,33 @@
+{
+ "honor_slug": "aeromodelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Airplane_Modeling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Construir, a partir de um kit, um avião de madeira balsa e papel de seda, movido a elástico ou a motor a combustível, e fazê-lo voar com sucesso.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Construir um planador de madeira balsa a partir de um kit e observar suas características de voo em relação às diferentes posições das asas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer dois modelos diferentes de aviões de papel e fazê-los voar com sucesso, usando folhas de papel com largura e comprimento entre oito (20,3 cm) e catorze (35,6 cm) polegadas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir, localizar e explicar a função dos seguintes itens básicos:\n  a. Fuselagem\n  b. Asa\n  c. Aileron\n  d. Leme de direção\n  e. Estabilizador horizontal\n  f. Montante\n  g. Cabine de comando\n  h. Motor\n  i. Trem de pouso\n  j. Hélice\n  k. Diedro\n  l. Profundor\n  m. Empuxo\n  n. Estabilizador vertical\n  o. Cauda em V",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "apocalipsis",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Revelation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Apocalipse",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa a palavra Apocalipse? Por que o Apocalipse foi escrito em símbolos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma tabela com pelo menos sete símbolos do Apocalipse e seus significados (levando em conta o princípio de que a chave para entender o Apocalipse está na própria Bíblia).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é o Selo de Deus no Apocalipse? E a Marca da Besta?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quem é digno de abrir os Sete Selos? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um desenho colocando os seguintes acontecimentos em uma linha do tempo: a volta de Jesus, a primeira ressurreição dos mortos, o milênio, a segunda ressurreição e a Nova Terra.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Comparar as sete pragas do Apocalipse com as dez pragas do Egito e indicar duas semelhanças e uma diferença entre elas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as sete igrejas do Apocalipse? Fazer uma lista. Qual delas representa o nosso tempo e que mensagem Deus nos dá por meio dessa igreja?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são as mensagens dos 3 anjos? Por que essa mensagem é tão importante e deve ser proclamada?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar três promessas do Apocalipse relacionadas ao Novo Céu e à Nova Terra.",
+   "instructions": null
+  }
+ ]
+}

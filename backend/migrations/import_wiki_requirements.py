@@ -9,6 +9,8 @@ Rules:
 - honours are found by `honors.wiki_title` (set by import_wiki_names.py);
 - a list written by an instructor (rows of that locale without `source`) is never touched;
 - a translated page is used only when the wiki says it is 100 % translated;
+- an unofficial translation of that language (`traduccion-no-oficial-*`, import_requirement_translations.py)
+  is replaced in place by the official page;
 - idempotent: wiki rows are updated in place by position; surplus rows are removed only when no
   exam question hangs from them. Dry run unless --commit.
 `is_theoretical` is left at its default: whether a requirement needs practical review is a
@@ -68,15 +70,21 @@ def main():
                     stats["kept_instructor_list"] += 1
                     continue
                 source_url = WIKI + quote(title.replace(" ", "_"), safe="()_-.,'!") + "/Requirements" + ("" if lang == "en" else "/" + lang)
-                cur.execute("SELECT id, position FROM honor_requirements WHERE honor_id = %s AND locale = %s AND source = %s",
-                            (honor_id, locale, SOURCE))
-                existing = {position: row_id for row_id, position in cur.fetchall()}
+                # our own rows and an unofficial translation (import_requirement_translations.py) of this
+                # language: the official page replaces the translation in place (ids and progress survive)
+                cur.execute("SELECT id, position FROM honor_requirements WHERE honor_id = %s AND locale = %s"
+                            " AND (source = %s OR source LIKE 'traduccion-no-oficial-%%') ORDER BY source = %s DESC",
+                            (honor_id, locale, SOURCE, SOURCE))
+                existing = {}
+                for row_id, position in cur.fetchall():
+                    existing.setdefault(position, row_id)
                 for row in rows:
                     section = f"Sección: {row['section']}" if row["section"] else None
                     if row["position"] in existing:
-                        cur.execute("UPDATE honor_requirements SET description = %s, instructions = %s, source_url = %s,"
-                                    " license = %s WHERE id = %s",
-                                    (row["description"], section, source_url, LICENSE, existing.pop(row["position"])))
+                        cur.execute("UPDATE honor_requirements SET description = %s, instructions = %s, source = %s,"
+                                    " source_url = %s, license = %s WHERE id = %s",
+                                    (row["description"], section, SOURCE, source_url, LICENSE,
+                                     existing.pop(row["position"])))
                     else:
                         cur.execute("INSERT INTO honor_requirements (id, honor_id, position, description, instructions,"
                                     " locale, source, source_url, license) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",

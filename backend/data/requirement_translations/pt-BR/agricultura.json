@@ -1,0 +1,73 @@
+{
+ "honor_slug": "agricultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Agriculture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar os componentes do solo. Por que o solo é importante para as plantas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre solos argilosos, arenosos e francos. Citar três culturas que se desenvolvem bem em cada um deles.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Testar a germinação de três variedades de sementes, com 100 sementes de cada variedade. Registrar a porcentagem de germinação depois de três, quatro e cinco dias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como as plantas obtêm nutrientes e os convertem em alimento. Explicar as diferenças entre nutrientes primários, secundários e micronutrientes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar e identificar dez ervas daninhas comuns em sua comunidade e explicar a melhor forma de eliminá-las, usando métodos culturais ou químicos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar seis pragas de insetos ou doenças comuns. Dizer quais plantas elas costumam atacar e como eliminá-las ou prevenir seu aparecimento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Localizar duas fontes de informação meteorológica agrícola. Como essa informação é útil para o agricultor?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ajudar no plantio, no cultivo e na colheita de pelo menos quatro culturas diferentes. Manter um registro do trabalho feito e dos problemas enfrentados, da semeadura à colheita.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer a finalidade do seguinte:\n  a. Aração\n  b. Gradagem\n  c. Cultivo\n  d. Irrigação\n  e. Colheita",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar e identificar dez aves comuns em sua região e dizer qual é o valor delas para o agricultor.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O que é erosão? Como pode ser evitada?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Visitar o serviço de extensão rural de sua região e descobrir como essa organização ajuda o agricultor. Escrever um relatório de uma página sobre a visita.",
+   "instructions": null
+  }
+ ]
+}
