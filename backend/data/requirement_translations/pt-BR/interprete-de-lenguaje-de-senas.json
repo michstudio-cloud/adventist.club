@@ -1,0 +1,53 @@
+{
+ "honor_slug": "interprete-de-lenguaje-de-senas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sign_Language_Interpreter/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Intérprete de língua de sinais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Língua de sinais - Avançado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar a história mundial das pessoas surdas, a partir de Pedro Ponce de León, e escrever uma redação de pelo menos 500 palavras ou fazer uma apresentação oral de 5 minutos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é o classificador? Qual é a importância dessa estrutura gramatical na língua de sinais?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar a legislação de seu país que trata dos surdos ou da língua de sinais. Quais são os deveres e os direitos das pessoas surdas contidos nesses documentos legais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Por que a expressão \"surdo-mudo\" não deve ser usada para se referir às pessoas surdas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com relação à profissão de intérprete, pesquisar os seguintes temas:\n  a. O que é preciso para ser intérprete de língua de sinais?\n  b. Quais são as oportunidades de trabalho em seu país para essa profissão?\n  c. Que instituições de seu país oferecem cursos de língua de sinais?\n  d. Existem cursos de graduação ou de pós-graduação em língua de sinais em seu país? Qual é o perfil profissional de quem se formou nesses cursos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como funciona a certificação de proficiência em língua de sinais em seu país? Quais são os critérios para obter essa certificação? Quais são as vantagens de obtê-la?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Cumprir um dos seguintes requisitos:\n  a. Ser intérprete em sua igreja, interpretando pelo menos uma vez por semana por no mínimo seis meses.\n  b. Trabalhar como intérprete em qualquer instituição ou empresa por pelo menos três meses.\n  c. Ser instrutor de um curso de língua de sinais por pelo menos um semestre.\n  d. Se você já cumpriu os requisitos a, b ou c no passado, cumprir um deles novamente por pelo menos um mês.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "intervencion-en-crisis-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Crisis_Intervention/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar cursando pelo menos o 10º ano (1º ano do ensino médio).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como Cristo encorajou pessoas em crise em pelo menos duas das seguintes histórias bíblicas. Identificar a natureza da crise ou das necessidades humanas em cada história que você explicar.\n  a. João 8:1-11 (Maria Madalena)\n  b. Lucas 15:11-32\n  c. Lucas 8:40-56\n  d. Mateus 8:1-22",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever ao seu instrutor algumas das necessidades humanas e situações de crise que os adolescentes de sua comunidade enfrentam hoje. Descrever algumas das situações de crise que as famílias enfrentam. Isso pode ser feito em uma conversa em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conversar sobre seus próprios motivos para querer ajudar seus amigos quando enfrentam uma crise pessoal ou familiar. E quanto aos desconhecidos? Isso pode ser feito em uma conversa em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever os tipos de necessidades humanas e dar um exemplo da vida real de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar as etapas do processo de intervenção em crise e aplicar cada etapa a um estudo de caso fornecido pelo seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar domínio das habilidades básicas de escuta realizando uma entrevista de pelo menos 30 minutos de duração. A entrevista deve ser acompanhada por um observador capaz de reconhecer as habilidades de escuta ou ser gravada para que o instrutor a analise. A entrevista não precisa ser com uma pessoa em crise, mas deve ser uma conversa real, e não um faz de conta ou uma dramatização.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar como encaminhar alguém a um conselheiro profissional ou a um pastor.",
+   "instructions": null
+  }
+ ]
+}
