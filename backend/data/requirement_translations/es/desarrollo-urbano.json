@@ -1,0 +1,48 @@
+{
+ "honor_slug": "desarrollo-urbano",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Urban_Development",
+ "license": "CC BY-SA 4.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar el proceso de urbanización y hacer una lista de algunas de las necesidades humanas que crea, especialmente para los pobres.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Leer los capítulos de El ministerio de curación, de Elena G. de White, titulados «Asistencia a los desvalidos sin trabajo ni hogar» y «El pobre desvalido», y escribir un resumen de una página con los puntos clave.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entrevistar al pastor, al líder de los Servicios Comunitarios Adventistas o al coordinador del programa para el centro de la ciudad de una Iglesia Adventista del Séptimo Día del centro de la ciudad, y preguntar cómo la iglesia está atendiendo las necesidades de los pobres de la comunidad. Tomar notas durante la entrevista.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Presentar un informe de 15 minutos sobre cómo un grupo de jóvenes podría ayudar en los problemas de desarrollo urbano que patrocina la iglesia. El informe puede presentarse de forma individual a su instructor o al adulto responsable del grupo de jóvenes, o en grupo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pasar por lo menos cuatro horas en una de las siguientes salidas de campo como observador participante:\n  a. Salir con un equipo de ministerio callejero que reparte comida y/o frazadas o abrigos a las personas sin hogar de un barrio urbano\n  b. Salir con una unidad móvil de chequeos de salud que trabaja en un barrio urbano.\n  c. Salir con un equipo de trabajo cristiano que repara o construye viviendas urbanas para los pobres.\n  d. Trabajar en un comedor social o en un albergue para personas sin hogar de un barrio urbano.\n  e. Ser voluntario en un centro de los Servicios Comunitarios Adventistas ubicado en un barrio urbano.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Asistir a un culto en una iglesia de un barrio urbano formada por un grupo étnico distinto del suyo. Hacer una lista para su instructor de las cosas que observó que eran diferentes de aquello a lo que está acostumbrado en su propia cultura. Luego, hacer una lista de las cosas que eran similares a lo que está acostumbrado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escribir una propuesta de por lo menos cuatro páginas para un proyecto de desarrollo urbano que pueda ser realizado principalmente por voluntarios adolescentes y/o adultos jóvenes. Incluir objetivos, plan de acción, personal necesario, calendario y presupuesto. Esta propuesta puede ser escrita individualmente o como proyecto de un equipo de trabajo de no más de cuatro personas.",
+   "instructions": null
+  }
+ ]
+}

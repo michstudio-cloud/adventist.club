@@ -1,12 +1,41 @@
 {
  "honor_slug": "procesar-texto-division-del-pacifico-sur",
  "ministry": "pathfinders",
- "source_locale": "es",
+ "source_locale": "en",
  "target_locale": "pt-BR",
- "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---actividades-vocacionales.html",
+ "source": "traduccion-no-oficial-pathfinders-spd",
+ "source_url": "https://pathfinders.adventistchurch.com/wp-content/uploads/sites/15/2021/08/Word_Processing_1_Honour_Requirements___Framework.pdf",
  "license": null,
  "name": "Processamento de texto (Divisão do Pacífico Sul)",
  "description": null,
- "requirements": []
+ "name_source": "traduccion-no-oficial-guiasmayores.com",
+ "name_source_url": "https://www.guiasmayores.com/especialidades-ja---actividades-vocacionales.html",
+ "name_license": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "a. Descrever brevemente o significado do termo «processamento de texto»\nb. Fazer uma lista do hardware necessário para o processamento de texto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar a postura correta ao usar um teclado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar habilidade para, corretamente:\n  a. Ligar o hardware e abrir o software de processamento de texto.\n  b. Fechar todos os documentos e programas e, em seguida, desligar todo o hardware.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar habilidade para: (Observe que isto pode ser feito em conjunto com o requisito 5)\n  a. Navegar pelo sistema de armazenamento de documentos/arquivos do computador (por exemplo, a pasta «Meus Documentos» da Microsoft)\n  b. Localizar/abrir um documento do sistema de armazenamento de documentos/arquivos do computador\n  c. Criar uma nova pasta no sistema de armazenamento de documentos/arquivos do computador\n  d. Criar um novo documento de processamento de texto.\n  e. Dar ao novo documento um nome de arquivo adequado e salvá-lo na pasta apropriada do sistema de armazenamento de documentos/arquivos do computador. Explicar por que é importante garantir que um documento em que se está trabalhando seja salvo continuamente e tenha cópia de segurança.\n  f. Garantir que o documento tenha o nome do arquivo e sua última revisão claramente indicados no documento. Explicar por que é importante fazer isso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar um documento de no mínimo 800 palavras que demonstre habilidade na aplicação de cada um dos itens a seguir. Salvar e imprimir o documento. Fazer uma cópia de segurança.\n  a. Configuração de um documento:\n    i. Salvar o documento na pasta apropriada. Criar uma nova pasta, se for melhor.\n    ii. Definir a orientação da página: retrato ou paisagem.\n    iii. Criar um cabeçalho e um rodapé.\n    iv. Definir as margens.\n    v. Inserir numeração automática de páginas no cabeçalho ou no rodapé.\n    vi. Inserir a data da última revisão e o nome do arquivo do documento no cabeçalho ou no rodapé.\n  b. Formatação de um documento usando o seguinte:\n    i. Fontes: tipo (por exemplo, Arial), tamanho (por exemplo, 12), estilo (por exemplo, negrito), cor e sublinhado.\n    ii. Alinhamento do texto: à esquerda, centralizado, à direita e justificado.\n    iii. Espaçamento entre linhas.\n    iv. Listas e marcadores.\n    v. Numeração de títulos.\n  c. Edição de um documento:\n    i. Copiar texto.\n    ii. Mover texto.\n    iii. Corrigir ortografia e gramática usando a autocorreção.\n    iv. Localizar e substituir palavras ou texto.\n  d. Inserção em um documento:\n    i. Uma tabela com títulos e no mínimo 3 colunas e 5 linhas.\n    ii. Uma imagem ou Clip Art.",
+   "instructions": null
+  }
+ ]
 }

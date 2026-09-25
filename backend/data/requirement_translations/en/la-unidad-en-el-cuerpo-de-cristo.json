@@ -1,12 +1,48 @@
 {
  "honor_slug": "la-unidad-en-el-cuerpo-de-cristo",
  "ministry": "pathfinders",
- "source_locale": "es",
+ "source_locale": "pt-BR",
  "target_locale": "en",
- "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---doctrinales.html",
+ "source": "traduccion-no-oficial-mda.wiki.br",
+ "source_url": "https://mda.wiki.br/Especialidade_de_Unidade_no_Corpo_de_Cristo",
  "license": null,
- "name": "Unity in the Body of Christ",
+ "name": null,
  "description": null,
- "requirements": []
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Know the most important witness the Church must give to the world. (John 17:21-23)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Know what attitudes we should cultivate to maintain the unity of the Church. (Ephesians 4:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Define who is the main bond that unites the members of the Church. (John 15:5)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Understand how Jesus expects the relationship among His followers to be. (John 15:12-13, 17)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explain what attitudes cause division among the members of the Church. (2 Timothy 3:2-5; James 3:16; James 4:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorize and recite Psalm 133:1.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Share with a friend what the main attitude of a Christian should be to promote unity in the Church. (1 Corinthians 1:10)",
+   "instructions": null
+  }
+ ]
 }

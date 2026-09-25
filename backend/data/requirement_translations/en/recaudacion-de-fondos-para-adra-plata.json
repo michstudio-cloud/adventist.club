@@ -6,7 +6,10 @@
  "source": "traduccion-no-oficial-guiasmayores.com",
  "source_url": "https://www.guiasmayores.com/especialidades-ja---adra.html",
  "license": null,
- "name": "ADRA Fundraising (Silver)",
+ "name": "ADRA Annual Appeal Collector (Silver)",
  "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/ADRA_Annual_Appeal_Collector",
+ "name_license": "CC BY-SA 3.0",
  "requirements": []
 }
