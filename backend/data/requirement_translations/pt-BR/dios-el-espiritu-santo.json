@@ -1,0 +1,48 @@
+{
+ "honor_slug": "dios-el-espiritu-santo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/05_-_God_the_Holy_Spirit/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Deus Espírito Santo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Compreender como a Bíblia descreve o Espírito Santo como uma das três pessoas distintas da Trindade. (2 Coríntios 13:14; Mateus 28:19; João 16:14-15)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender se o Espírito Santo participou ou não da criação do mundo. (Gênesis 1:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir como os primeiros cristãos identificavam o Espírito Santo como uma pessoa distinta da Divindade. (Atos 5:3; 13:2; 15:28)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender a promessa feita por Jesus em João 14:16-17.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a missão do Espírito Santo na obra de salvar as pessoas. (João 16:7-11)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Gálatas 5:22-23.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o que uma pessoa deve fazer para receber o Espírito Santo. (Atos 5:32)",
+   "instructions": null
+  }
+ ]
+}

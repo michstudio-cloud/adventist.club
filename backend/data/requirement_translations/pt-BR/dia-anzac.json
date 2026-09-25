@@ -1,0 +1,68 @@
+{
+ "honor_slug": "dia-anzac",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/ANZAC_Day/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Dia ANZAC",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o Dia ANZAC?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa a sigla ANZAC?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que data é o Dia ANZAC e por que é comemorado nessa data?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar 4 coisas que as pessoas fazem para comemorar o Dia ANZAC.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar 5 maneiras de demonstrar respeito e observar o Dia ANZAC.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma pesquisa na internet sobre a vida do soldado John Simpson Kirkpatrick. Citar 3 coisas interessantes que aprendeu sobre ele.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma pesquisa na internet sobre a vida do soldado Billy Sing, DCM. Citar 3 coisas interessantes que aprendeu sobre ele.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com seu clube ou família, assar uma fornada de biscoitos ANZAC.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com seu clube ou família, fazer uma guirlanda artesanal do Dia ANZAC.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Com seu clube ou família, assistir a uma cerimônia do Dia ANZAC. Enquanto isso, pensar por que comemoramos esse dia todos os anos. O que você aprendeu participando que não sabia antes? Como se sentiu ao saber que alguém morreu para que você pudesse ser livre?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Nas cerimônias do ANZAC, os capelães muitas vezes citam João 15:13, e esse versículo está gravado em muitos memoriais. Ele é associado ao serviço militar na Austrália e na Nova Zelândia. Ler João 15:12-14. O que você acha que podemos aprender sobre o amor de Deus por nós ao lembrar aqueles que serviram?",
+   "instructions": null
+  }
+ ]
+}

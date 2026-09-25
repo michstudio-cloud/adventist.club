@@ -1,0 +1,53 @@
+{
+ "honor_slug": "drama-cristiano",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Drama/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Memorizar 1 Coríntios 10:31 e aplicá-lo na realização desta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever cada uma das seguintes categorias de dramatização:\n  a. Vídeos humanos (human videos)\n  b. Esquetes para cultos/cenas dramáticas\n  c. Pantomima\n  d. Leitura dramática/monólogo, dueto ou grupo\n  e. Musical/drama",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como cada uma dessas áreas da dramatização pode ser usada para alcançar pessoas para Deus.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as seguintes regras de atuação:\n  a. Nunca dar as costas para a plateia\n  b. Falar devagar durante a fala e rápido entre as falas (sem espaços vazios entre as falas dos personagens)\n  c. Articular e pronunciar as palavras com clareza (a menos que as rubricas indiquem o contrário)\n  d. Não consumir laticínios nem doces (chocolate, refrigerante) antes de dizer as falas ou cantar\n  e. Manter-se no personagem (não rir nem sorrir, a menos que as rubricas o indiquem)\n  f. Permanecer em seu espaço (a menos que as rubricas indiquem movimentação)\n  g. Não encobrir outros personagens diante da plateia\n  h. Usar as mãos e os olhos\n  i. Não existe atuação exagerada\n  j. Nada obstruindo a boca (chiclete etc., a menos que haja outra orientação)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e compreender por que as seguintes regras da pantomima são importantes. Praticar essas regras em uma história bíblica simples.\n  a. A pantomima usada como ministério evangelístico nunca deve ser um jogo de adivinhação. Deve transmitir claramente o tema.\n  b. É importante lembrar que no trabalho dramático o pensamento vem primeiro. Deixar que os olhos reajam primeiro, depois o resto do rosto e a cabeça e, por fim, o resto do corpo. Isso se chama sequência motivada.\n  c. Os movimentos devem ser sempre simples e bem definidos.\n  d. Todo movimento e expressão devem ser sempre visíveis.\n  e. Deve haver uma razão para cada gesto ou movimento.\n  f. Deve-se fazer apenas um gesto ou movimento de cada vez.\n  g. Ensaiar até criar uma caracterização bem definida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer a seguinte terminologia de atuação:\n  a. Improviso (ad-lib)\n  b. Bastidores\n  c. Cruzar o palco\n  d. Deixa\n  e. Proscênio (frente do palco)\n  f. Saída\n  g. Saber o papel de cor\n  h. Segurar (manter a cena)\n  i. Esquerda e direita\n  j. Centro-esquerda e centro-direita\n  k. Cenário\n  l. Ritmo\n  m. Fundo do palco\n  n. Roubar a cena (upstaging)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Das categorias do nº 2, planejar e apresentar duas (2) categorias de dramatização em um culto, na igreja ou em um grupo de jovens.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Em grupo, criar e apresentar uma dramatização.",
+   "instructions": null
+  }
+ ]
+}
