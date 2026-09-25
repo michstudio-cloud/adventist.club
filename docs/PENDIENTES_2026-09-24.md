@@ -153,3 +153,19 @@ lista del libro 2020 con nombre de mundoja; `--mundoja-always` para la de mundoj
 - Vista previa del asistente: muestra estática solo en el paso 2; desde el paso 3, render real con la especialidad elegida (`c9fa539`).
 - **Frases editables del certificado** («Se otorga el presente certificado a:» y «por haber cumplido…»): solo con cuenta, en el paso 3 del asistente y en la hoja de emisión del portafolio; guardadas en `certificates.text_overrides` (migración 023 aplicada en Neon) y respetadas en `/verify` y re-descargas; sin cuenta el API responde 422 `strings_require_account` (backend `4887e87`, frontend `a19198b`). Fuera: interfaz para cambiarlas en la investidura (el API ya lo acepta).
 - Aventureros: 164 awards en borrador con requisitos (ver §6.3).
+
+### 6.4 Clases de Aventureros y material (2026-09-24, noche)
+
+Cargadas en Neon en **BORRADOR** las 6 clases de Aventureros (`programs` kind CLASS, ministerio `adventurers`, autoridad GC):
+Corderitos, Aves Madrugadoras, Abejas Industriosas, Rayos de Sol, Constructor, Manos Ayudadoras — 5 secciones y 19–23
+requisitos cada una; español íntegro de mundoja.org (121 requisitos, con `source_url` por sección y requisito), inglés
+como traducción no oficial (el manual GC no trae los requisitos: están en los libros de actividades, enlazados en mundoja
+y aún no descargados). Emblemas de clase subidos a R2 (`patches/<uuid>.webp`, via API con la cuenta importer, vuelta a
+INACTIVE). Recomendaciones award→clase salen de los requisitos que apuntan a un award; opcionales solo en el JSON
+(propuesta: tabla `program_suggested_honors`). Corregido «Constructores» → «Constructor» en los 29 awards.
+Docs: `docs/AVENTUREROS_CLASES.md` (diferencias GC/DIA, 2 deducciones por cotejar: Aves I.3 → *Birds*, «Miel» → *Honeybees*),
+`docs/AVENTUREROS_MARCA.md` (paleta corregida: el Brand Book trae erratas; tokens `--av-*`; propone sustituir
+`public/brand/aventureros.svg` por el SVG extraído del libro — decisión del propietario), `docs/GUIAS_MAYORES_CATALOGO.md`
+(EMC: 5 certificaciones, insumo para medallones/maestrías/entrenamiento), `backend/data/adventurer_resources.json`
+(padres, programa anual, ideas, ceremonias: resumen + enlace + autor «Mundo J.A (voluntarios)»; sin sitio en el modelo aún).
+Publicar: `import_adventurer_awards.py --commit --publish` y luego `import_adventurer_classes.py --commit --publish`.
