@@ -239,14 +239,14 @@ async def test_the_filter_includes_a_club_with_that_ministry_among_others(client
                                  headers=headers)).json()
         assert (club_id in {row["id"] for row in rows}) is expected, slug
         nearby = (await client.get(f"{ORG}/clubs/nearby", params={
-            "lat": 19.43, "lon": -99.13, "radius_km": 5, "ministry": slug})).json()
+            "lat": 19.43, "lon": -99.13, "radius_km": 5, "ministry": slug}, headers=headers)).json()
         assert (club_id in {row["id"] for row in nearby}) is expected, slug
     none = (await client.get(ADMIN_CLUBS, params={"ministry": "none", "limit": 200}, headers=headers)).json()
     assert club_id not in {row["id"] for row in none}
     row = next(r for r in (await client.get(ADMIN_CLUBS, params={"q": factory.name("filtro")}, headers=headers)).json()
                if r["id"] == club_id)
     assert _slugs(row) == ["pathfinders", "adventurers"] and row["ministry"]["slug"] == "pathfinders"
-    public = (await client.get(f"/api/v1/clubs/{club_id}/profile")).json()
+    public = (await client.get(f"/api/v1/clubs/{club_id}/profile", headers=headers)).json()
     assert _slugs(public) == ["pathfinders", "adventurers"]
 
 
@@ -368,10 +368,10 @@ async def test_the_address_the_place_and_the_link_are_saved_and_exposed(client, 
     row = next(r for r in (await client.get(ADMIN_CLUBS, params={"q": factory.name("direccion")},
                                             headers=world["assoc_admin"]["headers"])).json() if r["id"] == club_id)
     assert row["place_id"] == "ChIJ_direccion-42" and row["address"] == body["address"]
-    public = (await client.get(f"/api/v1/clubs/{club_id}/profile")).json()
+    public = (await client.get(f"/api/v1/clubs/{club_id}/profile", headers=world["assoc_admin"]["headers"])).json()
     assert public["address"] == body["address"] and public["maps_url"] == body["maps_url"]
     assert (public["latitude"], public["longitude"]) == (26.0508, -98.2979)
-    nearby = (await client.get(f"{ORG}/clubs/nearby", params={"lat": 26.05, "lon": -98.30, "radius_km": 5})).json()
+    nearby = (await client.get(f"{ORG}/clubs/nearby", params={"lat": 26.05, "lon": -98.30, "radius_km": 5}, headers=world["assoc_admin"]["headers"])).json()
     found = next(r for r in nearby if r["id"] == club_id)
     assert found["address"] == body["address"] and found["maps_url"] == body["maps_url"]
 
@@ -484,7 +484,7 @@ async def test_only_the_director_and_the_association_or_above_change_the_logo(cl
     assert re.fullmatch(rf"clubs/{logo_club['id']}/logo-[0-9a-f]{{16}}\.webp", body["key"])
     assert body["logo_url"] == f"{MEDIA}/{body['key']}"
     assert r2.objects[-1]["ContentType"] == "image/webp" and r2.objects[-1]["Key"] == body["key"]
-    public = (await client.get(f"/api/v1/clubs/{logo_club['id']}/profile")).json()
+    public = (await client.get(f"/api/v1/clubs/{logo_club['id']}/profile", headers=logo_club["director"]["headers"])).json()
     assert public["logo_url"] == body["logo_url"]
 
     # The association replaces it (PNG from a browser without WebP): the old object goes.

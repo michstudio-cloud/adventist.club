@@ -484,9 +484,11 @@ async def nearby_clubs(
     ministry: str | None = Query(
         None, pattern=MINISTRY_FILTER_PATTERN, description=MINISTRY_FILTER_HELP
     ),
+    viewer: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Public: active clubs with a pinned location within `radius_km`, nearest first.
+    """Signed-in only (owner, 2026-09-24: club locations are not a public directory): active
+    clubs with a pinned location within `radius_km`, nearest first.
 
     Haversine in SQL (no PostGIS). A bounding box goes first so the
     (latitude, longitude) index prunes the scan; near the poles or the

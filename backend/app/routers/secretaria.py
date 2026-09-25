@@ -279,9 +279,10 @@ _HAS_GUARDIAN = exists().where(Guardianship.child_id == User.id).correlate(User)
 async def public_profile(
     request: Request,
     club_id: uuid.UUID,
+    viewer: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Public, only for an ACTIVE club. Never an e-mail, and never the name of a minor: a
+    """Signed-in only (owner, 2026-09-24: the club directory is not public), for an ACTIVE club. Never an e-mail, and never the name of a minor: a
     minor who holds a cargo is simply not listed here (the club still sees them)."""
     club = await db.get(Organization, club_id)
     if club is None or club.type != "club" or club.status != "active":

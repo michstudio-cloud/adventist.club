@@ -853,7 +853,8 @@ async def test_the_public_profile_of_a_club(client, world, factory):
                        headers=world["director"]["headers"])
     officer = await _officer(client, world, "director", "student", "SECRETARIO")
     assert officer.status_code == 201
-    response = await client.get(_url(world, "/profile"))  # no session at all
+    assert (await client.get(_url(world, "/profile"))).status_code == 401   # no session: not a public directory (2026-09-24)
+    response = await client.get(_url(world, "/profile"), headers=world["student"]["headers"])  # any signed-in member
     assert response.status_code == 200, response.text
     body = response.json()
     assert body["name"] == world_name(world) and body["city"] == "Ciudad Club"
@@ -882,9 +883,10 @@ def world_name(world) -> str:
 async def test_the_public_profile_only_exists_for_active_clubs(client, world, factory):
     pending = await factory.org("club-pending", "club", world["association"])
     await _exec("UPDATE organizations SET status = 'pending' WHERE id = :id", id=uuid.UUID(pending["id"]))
-    assert (await client.get(f"{CLUBS}/{pending['id']}/profile")).status_code == 404
-    assert (await client.get(f"{CLUBS}/{world['association']['id']}/profile")).status_code == 404
-    assert (await client.get(f"{CLUBS}/{uuid.uuid4()}/profile")).status_code == 404
+    headers = world["director"]["headers"]
+    assert (await client.get(f"{CLUBS}/{pending['id']}/profile", headers=headers)).status_code == 404
+    assert (await client.get(f"{CLUBS}/{world['association']['id']}/profile", headers=headers)).status_code == 404
+    assert (await client.get(f"{CLUBS}/{uuid.uuid4()}/profile", headers=headers)).status_code == 404
 
 
 # ----------------------------------------------------------------------------

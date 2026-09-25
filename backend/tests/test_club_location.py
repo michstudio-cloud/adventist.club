@@ -45,18 +45,19 @@ async def test_nearby_clubs_by_distance(client, factory):
     _, unpinned = await _approved_director(client, factory, "nopin", ntam, admin)
 
     here = {"lat": 26.06, "lon": -98.30}                          # a user standing in Reynosa
-    response = await client.get(f"{ORG}/clubs/nearby", params={**here, "radius_km": 150})
+    assert (await client.get(f"{ORG}/clubs/nearby", params={**here, "radius_km": 150})).status_code == 401   # signed-in only (2026-09-24)
+    response = await client.get(f"{ORG}/clubs/nearby", params={**here, "radius_km": 150}, headers=admin["headers"])
     assert response.status_code == 200, response.text
     rows = [r for r in response.json() if r["id"] in {near, mid, far, unpinned, pending_club}]
     assert [r["id"] for r in rows] == [near, mid]                  # ordered by distance; far/pending/unpinned absent
     assert rows[0]["distance_km"] < 3 and 70 < rows[1]["distance_km"] < 95
     assert rows[0]["association"]["code"] == "NTAM" and rows[0]["city"] == "Reynosa"
 
-    tight = await client.get(f"{ORG}/clubs/nearby", params={**here, "radius_km": 10})
+    tight = await client.get(f"{ORG}/clubs/nearby", params={**here, "radius_km": 10}, headers=admin["headers"])
     assert [r["id"] for r in tight.json() if r["id"] in {near, mid}] == [near]
 
     for bad in ({"lat": 91, "lon": 0}, {"lat": 0, "lon": 181}, {"lat": 0, "lon": 0, "radius_km": 0}):
-        assert (await client.get(f"{ORG}/clubs/nearby", params=bad)).status_code == 422
+        assert (await client.get(f"{ORG}/clubs/nearby", params=bad, headers=admin["headers"])).status_code == 422
 
 
 async def test_director_updates_own_club_location_only(client, factory):
