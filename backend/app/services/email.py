@@ -697,6 +697,43 @@ def club_invitation_email_html(club_name: str, role: str, link: str, inviter_nam
     )
 
 
+def org_invitation_email_html(
+    organization_name: str, role: str, link: str, inviter_name: str, expires_on: str
+) -> str:
+    """Bloque I §1.2: a nominal invitation to a role of an association, zone or club."""
+    role_name = escape(ROLE_NAMES.get(role, role))
+    inviter = escape(inviter_name)
+    organization = escape(organization_name)
+    body = (
+        _p(
+            f"{_strong(inviter)} te invita a sumarte al equipo de {_strong(organization)} "
+            f"en Adventist.Club con el rol {_strong(role_name)}."
+        )
+        + _p(
+            "Entra con tu cuenta (o créala con este mismo correo) y acepta la invitación. "
+            f"El enlace vence el {escape(expires_on)} y sólo sirve una vez."
+        )
+        + _button("Aceptar la invitación", _safe_url(link))
+        + '<div style="height:24px;line-height:24px;font-size:0;">&nbsp;</div>'
+        + _notice(
+            "warning",
+            "Este enlace es personal",
+            "Sólo lo puede aceptar la cuenta con este correo. Si no esperabas esta "
+            "invitación, puedes ignorar este mensaje.",
+        )
+    )
+    return _render(
+        title="Invitación a un equipo - Adventist.Club",
+        preheader=f"{inviter} te invita a {organization} como {role_name}.",
+        eyebrow="Invitación",
+        heading="Te invitaron a un equipo",
+        lead=f"{organization} · {role_name}",
+        tone="blue",
+        body=body,
+        reason=f"Recibes este correo porque {inviter} te invitó en Adventist.Club.",
+    )
+
+
 def consent_request_email_html(child_name: str, club_name: str, link: str) -> str:
     """Goes to an adult about a minor in their care, so it does name the minor.
     Nothing else in block E sends a minor's name to a third party."""
@@ -1262,6 +1299,16 @@ async def send_club_invitation_email(
         to,
         f"Te invitaron a {club_name} - Adventist.Club",
         club_invitation_email_html(club_name, role, link, inviter_name),
+    )
+
+
+async def send_org_invitation_email(
+    to: str, organization_name: str, role: str, link: str, inviter_name: str, expires_on: str
+) -> bool:
+    return await send_email(
+        to,
+        f"Te invitaron al equipo de {organization_name} - Adventist.Club",
+        org_invitation_email_html(organization_name, role, link, inviter_name, expires_on),
     )
 
 

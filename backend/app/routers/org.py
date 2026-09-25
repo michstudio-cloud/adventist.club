@@ -39,6 +39,7 @@ from app.schemas.org import (
     ClubLocation,
     ClubPlacement,
     ClubSignup,
+    DirectorInvitation,
     NearbyClub,
     OrgNodeCreate,
     OrgNodeResponse,
@@ -54,6 +55,7 @@ from app.services import clubs as club_service
 from app.services import memberships as membership_service
 from app.services import ministries as ministry_service
 from app.services import email as email_service
+from app.services import org_invitations as org_invitation_service
 from app.services import placement
 from app.services.audit import record_audit
 
@@ -318,16 +320,23 @@ require_structure_role = require_roles(*placement.STRUCTURE_ADMIN_ROLES)
 async def create_admin_club(
     payload: AdminClubCreate,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(require_structure_role),
     db: AsyncSession = Depends(get_db),
 ):
     """Open a club already ACTIVE under an association of the caller's scope,
     optionally placed in its zone and church and with its director appointed
-    — the state a director's request reaches once approved, in one step."""
+    — the state a director's request reaches once approved, in one step.
+    A `director_email` without an account gets a CLUB_DIRECTOR invitation
+    (`director_invitation`) instead of a refusal (Bloque I §1.2)."""
+    log = invitation = token = None
     try:
-        club, refs, director = await club_service.stage_admin_club(
+        club, refs, director, invited = await club_service.stage_admin_club(
             db, current_user, payload, request
         )
+        if invited is not None:
+            invitation, token = invited
+            log = org_invitation_service.stage_email(db, invitation)
         response = PendingClubResponse.build(
             club,
             refs.get(placement.ASSOCIATION),
@@ -337,6 +346,14 @@ async def create_admin_club(
             director=director,
             **await _club_ministries(db, club),
         )
+        if invitation is not None:
+            response.director_invitation = DirectorInvitation(
+                id=str(invitation.id),
+                email=invitation.email,
+                expires_at=invitation.expires_at,
+                url=org_invitation_service.join_url(token),
+                whatsapp_url=org_invitation_service.whatsapp_url(club.name, token),
+            )
         await db.commit()
     except IntegrityError as exc:
         # Two people typing the same code at once: the unique index decides.
@@ -344,6 +361,9 @@ async def create_admin_club(
         if violated_constraint(exc) != "organizations_code_key":
             raise
         raise HTTPException(status.HTTP_409_CONFLICT, club_service.CLUB_CODE_TAKEN)
+    if invitation is not None:
+        # After the commit, and never able to fail the request.
+        org_invitation_service.queue_email(background, log, invitation, token, club, current_user)
     return response
 
 

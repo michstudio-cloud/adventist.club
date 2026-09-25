@@ -135,9 +135,12 @@ async def update_preferences(db: AsyncSession, user: User, payload: PreferencesU
 
 
 async def me_response(db: AsyncSession, user: User):
-    """The person's own record with the selector's context (`MeResponse`)."""
+    """The person's own record with the selector's context (`MeResponse`). `roles` lists every
+    role in force (Bloque I §1.1, `role_assignments`); `role` stays the principal one."""
     from app.schemas.user import MeResponse, UserResponse
+    from app.services import role_assignments
 
     base = UserResponse.from_model(user, own=True)
+    base.roles = await role_assignments.roles_out(db, user)
     context = await context_for(db, user)
     return MeResponse(**base.model_dump(), **context.model_dump())

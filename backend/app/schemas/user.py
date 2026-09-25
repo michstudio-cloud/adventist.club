@@ -8,6 +8,7 @@ from pydantic import AliasChoices, BaseModel, Field
 from app.models import Guardianship, User
 from app.schemas.auth import RoleName
 from app.schemas.membership import ClubRef
+from app.schemas.org_invitation import ScopedRoleOut
 from app.schemas.ministry import MinistryContext
 
 UserStatus = Literal["ACTIVE", "SUSPENDED", "INACTIVE"]
@@ -48,6 +49,9 @@ class UserResponse(BaseModel):
     # 020: the saved signature. Only in the person's own answers (`/auth/me`, `/users/me`):
     # a list of users or somebody else's record never carries it (`own=False`).
     signature_url: str | None = None
+    # Bloque I §1.1: every role in force, the principal (`role`) first. Only in the
+    # person's own answers (`/auth/me`, `/users/me`); `null` everywhere else.
+    roles: list[ScopedRoleOut] | None = None
 
     @classmethod
     def from_model(cls, user: User, *, own: bool = False) -> "UserResponse":

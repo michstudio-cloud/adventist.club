@@ -124,6 +124,21 @@ async def count_active_directors(db: AsyncSession, club_id: uuid.UUID) -> int:
 # ----------------------------------------------------------------------------
 # The two writers
 # ----------------------------------------------------------------------------
+def _attached_elsewhere(member: User, club_id: uuid.UUID) -> bool:
+    """Bloque I: somebody whose principal role (`users.role`) is administrative and on
+    another node also holds this club membership (`role_assignments`). Their two
+    columns belong to that principal, not to the club. Never true for a single-role
+    account: a club account's `organization_id` IS its club (rule 1)."""
+    return member.role not in CLUB_LEVEL_ROLES and member.organization_id != club_id
+
+
+async def _mirror_roles(db: AsyncSession, user_id, club_id, actor: User | None) -> None:
+    # Imported lazily: role_assignments reads memberships, never the other way round at import.
+    from app.services import role_assignments
+
+    await role_assignments.mirror_club_membership(db, user_id, club_id, actor=actor)
+
+
 async def _on_club_changed(db: AsyncSession, user_id: uuid.UUID, club_id: uuid.UUID | None) -> None:
     """
     Move the member's open portfolio enrollments to their new club, so the
@@ -216,6 +231,10 @@ async def activate(
     member.role = membership.role
     await db.flush()
     await _on_club_changed(db, member.id, membership.club_id)
+    # Bloque I: the club rows of `role_assignments` follow the membership.
+    if current is not None and current.club_id != membership.club_id:
+        await _mirror_roles(db, member.id, current.club_id, actor)
+    await _mirror_roles(db, member.id, membership.club_id, actor)
 
     record_audit(
         db,
@@ -257,13 +276,19 @@ async def end(
     # leaving the club leaves the verification behind (integrity rule 7).
     member.leader_verified_until = None
 
-    member.organization_id = None
-    if member.role in CLUB_SCOPED_ROLES:
-        # These two only exist inside a club; INSTRUCTOR and STUDENT are the
-        # person's own and survive the exit.
-        member.role = STUDENT
-    await db.flush()
-    await _on_club_changed(db, member.id, None)
+    if _attached_elsewhere(member, membership.club_id):
+        # Bloque I: the principal role of this person is an administrative one on
+        # another node (`role_assignments`); leaving the club leaves it alone.
+        await db.flush()
+    else:
+        member.organization_id = None
+        if member.role in CLUB_SCOPED_ROLES:
+            # These two only exist inside a club; INSTRUCTOR and STUDENT are the
+            # person's own and survive the exit.
+            member.role = STUDENT
+        await db.flush()
+        await _on_club_changed(db, member.id, None)
+    await _mirror_roles(db, member.id, membership.club_id, actor)
 
     record_audit(
         db,
@@ -399,7 +424,10 @@ async def change_role(
     membership.role = new_role
     membership.updated_at = utcnow()
     if membership.status == ACTIVE:
-        member.role = new_role
+        if not _attached_elsewhere(member, membership.club_id):
+            member.role = new_role
+        await db.flush()
+        await _mirror_roles(db, member.id, membership.club_id, actor)
     record_audit(
         db,
         action="MEMBERSHIP_ROLE_CHANGE",
@@ -1021,6 +1049,8 @@ async def apply_admin_change(
             )
         target.organization_id = club.id
         target.role = new_role
+        await db.flush()
+        await _mirror_roles(db, target.id, club.id, actor)
         return True
 
     membership = stage_membership(

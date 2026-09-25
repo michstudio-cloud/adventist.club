@@ -40,6 +40,10 @@ from app.routers import notifications as notifications_router
 from app.routers import template_thumbnails as template_thumbnails_router
 # El campo «Club» del asistente: clubes registrados (lookup público) y el club propio.
 from app.routers import club_lookup as club_lookup_router
+# Bloque I §1: el equipo de cada organización (roles con ámbito e invitaciones nominales).
+from app.routers import org_invitations as org_invitations_router
+# Eventos y puntajes (spec 2026-09-24-eventos §3).
+from app.routers import events as events_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
@@ -58,6 +62,9 @@ app.include_router(honor_sheets_router.router)
 app.include_router(notifications_router.router)
 app.include_router(template_thumbnails_router.router)
 app.include_router(club_lookup_router.router)
+app.include_router(org_invitations_router.router)
+app.include_router(org_invitations_router.invitations_router)
+app.include_router(events_router.router)
 # Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client
 # never runs startup handlers, and without R2 the hook is a no-op.
 app.add_event_handler("startup", template_thumbnails_router.schedule_warm_up)

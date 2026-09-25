@@ -184,6 +184,7 @@ async def _declared_church(
 ASSOCIATION_NOT_FOUND = "association_not_found"
 CLUB_CODE_TAKEN = "club_code_taken"
 CLUB_NAME_TAKEN = "club_name_taken"
+# Until Bloque I an unknown `director_email` was refused with this; now it is invited.
 DIRECTOR_NOT_FOUND = "director_not_found"
 DIRECTOR_HAS_CLUB = "director_has_club"
 DIRECTOR_NOT_ELIGIBLE = "director_not_eligible"
@@ -194,12 +195,17 @@ VIA_ADMIN = "admin"
 
 async def stage_admin_club(
     db: AsyncSession, actor: User, payload: AdminClubCreate, request: Request | None
-) -> tuple[Organization, dict[str, Organization | None], User | None]:
+) -> tuple[Organization, dict[str, Organization | None], User | None, tuple | None]:
     """Create an ACTIVE club under `payload.association_id`, place it when the
     body says where, and appoint its director — the same end state a request
     reaches once the association approves it, in one transaction.
 
-    Returns the club, its association / zone / church, and the director.
+    Bloque I §1.2: a `director_email` without an account no longer refuses the
+    club: it is created and a pending CLUB_DIRECTOR invitation goes to that
+    address (the director registers and accepts it).
+
+    Returns the club, its association / zone / church, the director, and the
+    invitation with its plain token (shown ONCE) or None.
     Every check runs before the first row is staged.
     """
     placement.require_structure_admin(actor)
@@ -231,7 +237,7 @@ async def stage_admin_club(
         if (await db.execute(same_code.limit(1))).scalar_one_or_none():
             raise HTTPException(status.HTTP_409_CONFLICT, CLUB_CODE_TAKEN)
 
-    director = await _eligible_director(db, actor, payload.director_email)
+    director, invite_email = await _eligible_director(db, actor, payload.director_email)
     # Rule 3 of ESTADO.md: a club the administration opens always says its ministries.
     ministries = await ministry_service.require_choice(db, payload)
 
@@ -282,6 +288,7 @@ async def stage_admin_club(
             "association_id": str(association.id),
             "parent_id": str(association.id),
             "director_id": str(director.id) if director is not None else None,
+            "director_invited": invite_email is not None,
             "ministry": ministries[0].slug,
             "ministries": [row.slug for row in ministries],
         },
@@ -291,30 +298,47 @@ async def stage_admin_club(
     refs = await _place_admin_club(db, actor, club, association, payload, request)
     if director is not None:
         await _appoint_director(db, actor, club, director, request)
-    return club, refs, director
+    invitation = None
+    if invite_email is not None:
+        from app.services import org_invitations
+
+        await db.flush()
+        invitation = await org_invitations.create(
+            db,
+            organization=club,
+            actor=actor,
+            role=CLUB_DIRECTOR,
+            email=invite_email,
+            request=request,
+        )
+    return club, refs, director, invitation
 
 
-async def _eligible_director(db: AsyncSession, actor: User, email: str | None) -> User | None:
-    """The person the administration appoints. They must exist, be an adult
-    club-level account (an administrator is never demoted by this path), lead
-    no other live club, and — unless unattached — belong to the caller's scope."""
+async def _eligible_director(
+    db: AsyncSession, actor: User, email: str | None
+) -> tuple[User | None, str | None]:
+    """The person the administration appoints. They must be an adult club-level
+    account (an administrator is never demoted by this path), lead no other live
+    club, and — unless unattached — belong to the caller's scope. Returns
+    `(person, None)`, or `(None, email)` when nobody has that address yet: the
+    caller invites them (Bloque I §1.2)."""
     if not email:
-        return None
+        return None, None
     person = (await db.execute(select(User).where(User.email == email))).scalar_one_or_none()
     if person is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, DIRECTOR_NOT_FOUND)
+        return None, email.strip().lower()
     if person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE":
         raise HTTPException(status.HTTP_400_BAD_REQUEST, DIRECTOR_NOT_ELIGIBLE)
-    if await _leads_a_club(db, person):
+    if await leads_a_club(db, person):
         raise HTTPException(status.HTTP_409_CONFLICT, DIRECTOR_HAS_CLUB)
     if person.organization_id is not None and not await org_in_user_scope(
         db, actor, person.organization_id
     ):
         raise HTTPException(status.HTTP_403_FORBIDDEN, DIRECTOR_OUT_OF_SCOPE)
-    return person
+    return person, None
 
 
-async def _leads_a_club(db: AsyncSession, person: User) -> bool:
+async def leads_a_club(db: AsyncSession, person: User) -> bool:
     """Director of an active club, or founder of a request still pending."""
     live = (STATUS_ACTIVE, STATUS_PENDING)
     if person.role == CLUB_DIRECTOR and person.organization_id is not None:

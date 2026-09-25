@@ -4,3 +4,6 @@ datos real**: existen sólo para que `tests/test_programs.py` ejercite
 
 El contenido oficial vive fuera del repositorio hasta que una persona lo coteja con el manual
 vigente (decisión D2) y entra por `migrations/data/programs/<ministerio>/<slug>.json`.
+
+`event_roster_sample.csv` es un padrón SINTÉTICO (`{P}` = prefijo de la corrida) para
+`tests/test_event_roster_import.py`, que ejercita `migrations/import_event_roster.py`.
