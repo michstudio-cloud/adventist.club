@@ -60,3 +60,25 @@ el personal de **Aventureros** no aparecen en esta página.
 - **Medallones y maestrías** (Maestría en …, Medallón de Plata / Oro / Plata-Oro): falta fuente;
   mundoja tiene secciones de Guías Mayores que no se revisaron en este encargo.
 - Certificaciones EMC para personal de Aventureros y **CMJA**: sin fuente todavía.
+
+## Cargado (024, 2026-09-24) — borrador
+- `migrations/024_master_guide_catalog.sql`: `programs.kind` admite `MEDALLION`, `MASTERY`, `TRAINING`
+  (ministerio `master-guides`); `users.active_ministry_id` / `users.active_club_id` (selector del armazón).
+- `data/master_guide_catalog.json` (generado por `migrations/catalog_tools/build_master_guide_catalog.py`,
+  sin red) y `migrations/import_master_guide_catalog.py [--commit] [--publish]` (idempotente por hash):
+  - **TRAINING**: las 5 certificaciones EMC de arriba (`EMC-1`…`EMC-5`), 4 secciones cada una (servicio
+    en el cargo · talleres con su código como `label` · mentoría y campo · portafolio), requisitos FREE con
+    evidencia, `issuer_level ASSOCIATION`, `authority IAD`, fuente mundoja `/clubes/guias-mayores/emc`,
+    autoría «Mundo J.A (voluntarios)».
+  - **MASTERY**: 1 ejemplo «Maestría en Naturaleza (ejemplo, sustituir)». Fuente encontrada:
+    <https://mundoja.org/maestrias> y <https://mundoja.org/component/content/article/1390-maestrias-2026>
+    listan **17 maestrías como especialidades de Conquistadores** (categoría «Maestrías», ya en nuestro
+    catálogo `masters`); requisitos por maestría en `…/article/1035…1051-maestria-*` (p. ej. 1041
+    Naturaleza: 4 de flora, 2 de fauna, 1 de fauna doméstica). Decisión del propietario pendiente: ¿el
+    certificado de maestría es esa especialidad o un programa de Guías Mayores?
+  - **MEDALLION**: 1 ejemplo «Medallón (ejemplo, sustituir)»: ninguna página de mundoja
+    `clubes/guias-mayores/*` (índice, guia-mayor, guia-mayor-avanzado, guia-mayor-instructor, emc) ni
+    `emblemas/guias-mayores` lista medallones.
+  - `--publish` publica sólo el EMC; un ejemplo nunca.
+- La app los muestra en `/categories?vista=certificaciones` y `/clases` (ministerio Guías Mayores), ficha en
+  `/certificaciones/[id]`.

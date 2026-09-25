@@ -8,6 +8,7 @@ from pydantic import AliasChoices, BaseModel, Field
 from app.models import Guardianship, User
 from app.schemas.auth import RoleName
 from app.schemas.membership import ClubRef
+from app.schemas.ministry import MinistryContext
 
 UserStatus = Literal["ACTIVE", "SUSPENDED", "INACTIVE"]
 VerificationStatus = Literal["PENDING", "VERIFIED", "REJECTED"]
@@ -78,6 +79,12 @@ class UserResponse(BaseModel):
             signature_url=user.signature_url if own else None,
         )
 
+
+
+class MeResponse(UserResponse, MinistryContext):
+    """The person's own record (`GET /auth/me`, `GET /users/me`, `PATCH /users/me/preferences`):
+    `UserResponse` plus the ministry context of the shell's selector (024). Lists of users and
+    somebody else's record never carry it."""
 
 class OnboardingUpdate(BaseModel):
     """`PATCH /users/me/onboarding`. Finishing and skipping both close the guide for good;

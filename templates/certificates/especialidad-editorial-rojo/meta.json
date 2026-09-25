@@ -4,7 +4,8 @@
     "honor"
   ],
   "ministries": [
-    "pathfinders"
+    "pathfinders",
+    "adventurers"
   ],
   "engine": "elements",
   "source": "replica-especialidad-editorial",
