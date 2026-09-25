@@ -1,0 +1,53 @@
+{
+ "honor_slug": "sastreria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tailoring/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar os seguintes materiais:\n  a. Lã\n  b. Lã penteada\n  c. Algodão\n  d. Linho\n  e. Seda\n  f. Seda artificial\n  g. Raiom\n  h. Poliéster\n  i. Lã sintética",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar três das seguintes tramas:\n  a. Tafetá (simples)\n  b. Panamá (cesto)\n  c. Canelado\n  d. Sarja\n  e. Espinha de peixe\n  f. Felpudo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como se usam os seguintes itens?\n  a. Entretela\n  b. Alinhavo de alfaiate\n  c. Entretela de alfaiataria (crina) ou outra entretela\n  d. Ponto de modelagem (pad stitching)\n  e. Entretela termocolante",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os pontos a considerar para que uma roupa assente bem e tenha acabamento de alfaiataria.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer os seguintes equipamentos de passar:\n  a. Tábua de mangas\n  b. Luva de passar\n  c. Rolo para costuras\n  d. Almofada de alfaiate (presunto)\n  e. Tábua de alfaiate\n  f. Tábua de agulhas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer pelo menos dois métodos para fazer casas de botão debruadas. Fazer uma casa de botão debruada usando um desses métodos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um bolso embutido com pestana ou um bolso debruado.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar suas habilidades de alfaiataria fazendo um terno masculino ou um tailleur feminino que assente bem.",
+   "instructions": null
+  }
+ ]
+}

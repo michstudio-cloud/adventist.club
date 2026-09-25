@@ -1,0 +1,68 @@
+{
+ "honor_slug": "seguridad-en-el-campamento",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camp_Safety/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Segurança no acampamento",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que é importante conhecer as leis locais antes de acender uma fogueira de acampamento? Onde você deve obter essas informações?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar 3 motivos pelos quais uma fogueira de acampamento nunca deve ser deixada sem vigilância.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de 10 regras de segurança contra incêndios a considerar ao acampar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar as temperaturas em que os seguintes alimentos devem ser mantidos e explicar por que isso é importante ao acampar:\n  a. Alimentos quentes\n  b. Alimentos frios",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de 5 coisas que você pode fazer para impedir que animais entrem em seu acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que precauções de segurança você deve considerar ao construir uma latrina?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista dos itens que devem constar num “kit de primeiros socorros”, inspecionar o kit de primeiros socorros de acampamento de seu Clube de Desbravadores e recomendar os itens que estiverem faltando, se for o caso.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista de 5 aspectos a considerar para manter uma boa higiene num acampamento sem água encanada (ou seja, sem chuveiros, vasos sanitários com descarga, pias ou torneiras).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar 3 maneiras de purificar a água ao acampar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Identificar 2 tipos de combustível usados para cozinhar no acampamento e explicar que precauções devem ser tomadas ao usar cada um. Discutir 5 orientações para manusear com segurança os seguintes itens de acampamento:\n  a. Facas\n  b. Machados\n  c. Serrotes\n  d. Machadinhas\n  e. Facões",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ajudar a liderança de seu clube ou de sua Associação numa inspeção de segurança do acampamento usando o formulário de inspeção de segurança de acampamentos de Desbravadores vigente da Adventist Risk Management ou equivalente. Saber explicar brevemente a pontuação/o relatório dado sobre a segurança do acampamento.",
+   "instructions": null
+  }
+ ]
+}

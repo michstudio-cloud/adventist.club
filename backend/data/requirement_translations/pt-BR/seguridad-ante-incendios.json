@@ -1,0 +1,58 @@
+{
+ "honor_slug": "seguridad-ante-incendios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fire_Safety/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Alerta vermelho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Visitar um quartel do Corpo de Bombeiros ou ouvir a palestra de um bombeiro em seu clube ou escola.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Organizar e conduzir um exercício de evacuação de incêndio numa escola, igreja ou outro edifício público. Elaborar uma planta de rotas de fuga para um dos edifícios. Que informações devem constar na planta de rotas de fuga?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Detectores de fumaça e de monóxido de carbono (CO):\n  a. O que é um detector de fumaça e como ele funciona?\n  b. Onde os detectores de fumaça devem ser colocados em casa?\n  c. O que é um detector de monóxido de carbono e como ele funciona?\n  d. Onde os detectores de monóxido de carbono devem ser colocados em casa?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Extintores de incêndio - Completar todos os seguintes:\n  a. Conhecer e compreender as diferentes classes de incêndio e os tipos de extintores necessários para apagá-los.\n  b. Com um instrutor qualificado, saber usar um extintor para apagar um pequeno incêndio.\n  c. Saber quando desistir de tentar apagar um incêndio e evacuar. Discutir por que é importante manter uma saída desobstruída.\n  d. Inspecionar corretamente no mínimo cinco (5) extintores de incêndio em sua escola, igreja ou outro edifício público. Relatar suas conclusões ao instrutor ou ao grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber o que observar numa inspeção de segurança contra incêndios. Fazer uma inspeção de segurança contra incêndios em sua casa e apresentar suas conclusões aos seus pais. Depois, fazer uma inspeção de segurança contra incêndios num dos locais abaixo e apresentar suas conclusões aos líderes da instituição. Estar preparado para dar sugestões e responder às perguntas que surgirem.\n  a. Sua igreja\n  b. Sua escola\n  c. Outro edifício público",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que orientações e precauções você deve seguir antes de acender uma fogueira de acampamento ou queimar lixo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Servir à sua comunidade na área de segurança contra incêndios fazendo um dos seguintes:\n  a. Providenciar a troca das baterias dos detectores de fumaça em seu bairro ou comunidade.\n  b. Ajudar um vizinho idoso a tornar sua casa segura contra incêndios.\n  c. Participar de uma campanha de conscientização sobre segurança contra incêndios em seu bairro ou comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir como os seguintes versículos bíblicos se aplicam à segurança contra incêndios, tanto no sentido material quanto no espiritual.\n  a. Isaías 43:2\n  b. Tiago 3:5, 6",
+   "instructions": null
+  }
+ ]
+}

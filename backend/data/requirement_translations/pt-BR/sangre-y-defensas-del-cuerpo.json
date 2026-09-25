@@ -1,0 +1,98 @@
+{
+ "honor_slug": "sangre-y-defensas-del-cuerpo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Blood_and_the_Body's_Defenses/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Microscopia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar dois componentes principais do sangue. Qual é a porcentagem de cada um no sangue normal?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber desenhar e nomear os 7 tipos de células do sangue e indicar a função de cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Observar ao microscópio um pouco de sangue humano preservado. Contar 100 glóbulos brancos e desenhar um gráfico mostrando a quantidade de cada um dos cinco tipos de glóbulos brancos encontrados. Qual tipo é o mais comum? Qual é o menos comum?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer pelo menos um dos seguintes e relatar o que observou.\n  a. Observar um profissional da saúde colhendo sangue do braço de alguém.\n  b. Com a ajuda de uma pessoa experiente, observar o sangue fluindo por alguns capilares (em vídeo ou num organismo vivo, como a bolsa da bochecha de um hamster, a pele de uma rã ou a cauda de um peixinho-dourado, usando um microscópio).\n  c. Visitar um laboratório de análises clínicas onde são feitos exames de sangue.\n  d. Visitar um banco de sangue.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que dois gases são transportados pelos glóbulos vermelhos? Explicar por que o sangue parece azul/verde nas veias, mas, quando você se corta, o sangue que sai é vermelho vivo. Explicar por que a falta de ferro na alimentação pode deixar seu sangue com uma cor amarelada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar como o sangue coagula quando você se fere. Como os “primeiros socorros” comuns ajudam nesse processo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que significa ser doador de sangue? Se possível, saber seu tipo sanguíneo. Que tipos de sangue podem ser doados para você? Que tipos não podem? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Contar duas histórias da Bíblia que envolvam sangue. A partir do que você sabe sobre o sangue, por que você acha que a Bíblia usa o sangue como símbolo do poder salvador de Deus?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de 10 hábitos de saúde específicos que podem ajudar seu corpo a se manter saudável e a combater infecções. Encontrar uma citação do Espírito de Profecia que apoie cada um deles. Registrar durante três semanas com que frequência você pratica esses 10 hábitos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Definir os seguintes termos relacionados às defesas do corpo:\n  a. Imunologia\n  b. Patógeno\n  c. Inflamação\n  d. Anticorpo\n  e. Células de memória\n  f. Imunidade\n  g. Vacina\n  h. Alergia\n  i. Histamina\n  j. Anti-histamínico",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "A hera venenosa e o carvalho venenoso são encontrados com frequência por Desbravadores ativos. Saber identificar a hera venenosa e o carvalho venenoso, saber como evitar reações alérgicas a eles e explicar o que fazer se tiver uma reação alérgica a qualquer um deles.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer uma lista do maior número possível de doenças infecciosas que você já teve. A quais delas você está imune agora? Explicar por quê.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "A partir de seu histórico médico pessoal, fazer uma lista de todas as vacinas que você já tomou e verificar com seu médico quando deve ser sua próxima vacina.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Escrever ou falar sobre uma doença infecciosa (pelo menos 250 palavras).",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "O que é a AIDS? Como ela se propaga? Existe cura? Por que ela é tão devastadora?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Encontrar três referências bíblicas relacionadas à higiene e ao controle ou à propagação de doenças.",
+   "instructions": null
+  }
+ ]
+}
