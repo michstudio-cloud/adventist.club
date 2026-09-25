@@ -1,0 +1,53 @@
+{
+ "honor_slug": "esqui-de-fondo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Skiing_-_Cross_Country/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar e descrever as principais características, qualidades e tamanhos do seguinte equipamento de esqui cross country:\n  a. Esquis (com e sem cera)\n  b. Fixações\n  c. Botas\n  d. Bastões",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever e demonstrar como esse equipamento deve ser preparado para o uso e conservado, tanto em campo como fora da temporada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que se deve considerar ao escolher a roupa a ser usada no esqui cross country? Que características você procuraria ao escolher uma mochila para travessias de esqui cross country?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar corretamente, sobre os esquis, as seguintes técnicas de deslocamento:\n  a. Passada no plano com bom impulso, aderência e técnica\n  b. Impulso com um bastão, troca de ritmo e impulso duplo com os bastões\n  c. Passo lateral para subir e descer encostas\n  d. Subida de encosta em espinha de peixe\n  e. Travessia com passo lateral encosta acima, com viradas de conversão (kick turns)\n  f. Subida direta da encosta\n  g. Descida direta com controle, em encosta de 20 graus (schuss)\n  h. Curva com passos em movimento ao descer a encosta\n  i. Limpa-neve (cunha) para reduzir a velocidade e parar\n  j. Parada sentando-se para trás",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a finalidade da aplicação de cera. Explicar brevemente a necessidade de ceras diferentes para tipos e temperaturas de neve diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar as precauções básicas de segurança que se devem seguir no esqui cross country.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer e explicar as regras oficiais nacionais de conduta no esqui cross country",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar sua habilidade no esqui fazendo o seguinte:\n  a. Fazer três travessias separadas de três milhas (4,8 km) em trilha com outra pessoa. Se possível, com condições de neve variadas.\n  b. Fazer uma travessia de dez milhas (16 km) em terreno variado.\n  c. Durante todas as travessias, levar o equipamento necessário (com segurança) e usar roupa adequada às condições, demonstrando capacidade de manter a temperatura corporal adequada, a roupa seca e boa condição física.",
+   "instructions": null
+  }
+ ]
+}

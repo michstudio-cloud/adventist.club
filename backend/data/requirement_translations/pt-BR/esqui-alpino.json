@@ -1,0 +1,68 @@
+{
+ "honor_slug": "esqui-alpino",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Skiing_Downhill/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as vantagens e desvantagens dos esquis de metal e de fibra de vidro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como o corte lateral (sidecut) dos esquis ajuda o esquiador a fazer curvas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que regras gerais você usaria para escolher o comprimento adequado dos esquis e dos bastões para você?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os modelos de botas e como suas características podem afetar seu desempenho no esqui.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Por que o ajuste correto das fixações é tão importante? O que determina o ajuste correto?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber o que é uma correia de segurança ou um freio de esqui e explicar sua finalidade.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que você deve fazer se encontrar um esquiador ferido que ainda não recebeu nenhuma ajuda?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Discutir e praticar o espírito esportivo nas estações de esqui.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que cuidados se devem ter com o equipamento de esqui depois do uso? O que se deve fazer com o equipamento de esqui antes de usá-lo em cada temporada?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Esquiar com controle em pistas de nível intermediário e fazer curvas com boa técnica.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Saber como embarcar e desembarcar corretamente de um teleférico de cadeiras, de um teleski em T (T-bar) ou em J (J-bar), e demonstrar na prática, sem colocar em perigo a si mesmo nem aos outros, sua capacidade de usar esses equipamentos.",
+   "instructions": null
+  }
+ ]
+}

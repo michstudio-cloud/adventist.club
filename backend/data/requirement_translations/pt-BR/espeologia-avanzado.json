@@ -1,0 +1,53 @@
+{
+ "honor_slug": "espeologia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Caving_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Exploração de cavernas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Obter mapas de levantamento geológico da região onde você explora cavernas. Marcar neles a localização de todas as cavernas conhecidas que explorou.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser capaz de explicar como essas cavernas se formaram; o que têm em comum; o que se pode esperar encontrar nelas em termos de características físicas, como os tipos e a extensão das formações, os efeitos da ação da água no passado, a presença e a natureza de fósseis, a presença e a natureza de formas de vida, incluindo morcegos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Obter o equipamento de rapel adequado e aprender a usá-lo, estudando um livro sobre técnicas de montanhismo ou procurando uma pessoa ou clube já experiente que esteja disposto a ensinar você. Planejar e realizar uma expedição a uma caverna em que seja necessário descer de rapel pelo menos quarenta pés (12 metros) e subir de volta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um levantamento biológico da entrada de uma caverna, da zona de penumbra, do chão da caverna profunda, da parede da caverna profunda e do teto da caverna profunda. Fotografar exemplares individuais e identificar todas as formas de vida vegetal e animal de cada uma dessas zonas troglóbias. Comparar as fotos com as do museu de história natural mais próximo para ajudar na identificação. As publicações da National Speleological Society sobre a flora e a fauna das cavernas também ajudarão. Lembrar o lema: \"Não leve nada além de fotografias, não deixe nada além de pegadas.\"",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Registrar 100 horas de experiência em cavernas. Manter registros exatos de cada expedição.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dirigir um curso de exploração de cavernas, que culmine com várias saídas de campo, para um grupo de jovens de sua comunidade ou igreja.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer amizade com pelo menos um proprietário de caverna. Descobrir o que ele espera dos espeleólogos que exploram sua caverna e fazer mais do que ele espera ao seguir essas orientações.",
+   "instructions": null
+  }
+ ]
+}
