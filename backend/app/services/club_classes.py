@@ -637,6 +637,7 @@ async def invest(
         issued_date=payload.issued_date or utcnow().date(),
         place=payload.place,
         instructor_name=payload.instructor_name,
+        strings=payload.strings,
     )
     bulk_id = str(uuid.uuid4())
     invested: list[InvestedEnrollment] = []

@@ -12,7 +12,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 
 from app.certificates.render import (
-    TemplateError, fonts_installed, list_templates, load_template, qr_data_url, render_certificate,
+    OverrideError, TemplateError, clean_text_overrides, fonts_installed, list_templates,
+    load_template, qr_data_url, render_certificate,
 )
 from app.certificates.signatures import SIGNATURE_FIELDS, SignatureError, normalize_signature
 from app.config import settings
@@ -20,7 +21,7 @@ from app.db import SessionLocal
 from app.rate_limit import limiter
 from app.models import Certificate
 from app.services import certificate_signatures, storage
-from app.services.certificates import RECORD_FIELDS, render_data, stored_locale
+from app.services.certificates import RECORD_FIELDS, render_data, stored_locale, stored_text_overrides
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
@@ -61,6 +62,18 @@ class RenderRequest(BaseModel):
     data: dict[str, str] = Field(default_factory=dict, max_length=40)
     images: dict[str, str] = Field(default_factory=dict, max_length=12)
     certificate_no: str | None = Field(default=None, max_length=80)
+    # «Frases editables» (023): {phrase key: text} for the template's `editable_strings` only.
+    # With a folio the record decides, as with its data and signatures.
+    strings: dict[str, str] = Field(default_factory=dict, max_length=8)
+
+
+def override_error(exc: OverrideError) -> HTTPException:
+    return HTTPException(422, {"code": exc.code, "detail": str(exc), "key": exc.key})
+
+
+def editable_strings_out(template) -> list[dict]:
+    return [{"key": item.key, "role": item.role, "max_length": item.max_length, "defaults": item.defaults}
+            for item in template.editable_strings]
 
 
 async def _issued_signatures(certificate_no: str, template: str) -> dict[str, str] | None:
@@ -106,8 +119,11 @@ async def templates(
 ):
     """Bloque F §1.7: `ministry` and `kind` filter by the template's optional meta.json.
     Without filters the answer is exactly what it was before F (every template)."""
+    # `editable_strings` (023): the phrases a person with an account may reword — key, role
+    # (awarded | completion: the interface labels it), max_length and the text in each locale.
     return [{"slug": t.slug, "title": t.meta.get("title"), "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
-             "locales": t.locales, "fields": t.fields, "kinds": t.kinds, "ministries": t.ministries}
+             "locales": t.locales, "fields": t.fields, "kinds": t.kinds, "ministries": t.ministries,
+             "editable_strings": editable_strings_out(t)}
             for t in list_templates() if t.serves(ministry, kind)]
 
 
@@ -118,6 +134,17 @@ async def render(request: Request, payload: RenderRequest):
     for key, value in payload.data.items():
         if len(value) > MAX_FIELD_LEN:
             raise HTTPException(422, f"El campo '{key}' es demasiado largo.")
+    # Reworded phrases are checked first: nothing is fetched or normalized for a refused request.
+    overrides: dict[str, str] = {}
+    try:
+        template = load_template(payload.template)
+    except TemplateError:
+        template = None                    # the render itself answers 404
+    if template is not None:
+        try:
+            overrides = clean_text_overrides(template, payload.strings)
+        except OverrideError as exc:
+            raise override_error(exc) from exc
     for key, value in payload.images.items():
         if not (DATA_URL_RE.match(value) or HTTPS_RE.match(value)):
             raise HTTPException(422, f"La imagen '{key}' debe ser una data URL o una URL https.")
@@ -175,6 +202,13 @@ async def render(request: Request, payload: RenderRequest):
                     images["honor_patch"] = await asyncio.to_thread(_fetch_media_image, patch_url)
                 except Exception:  # the patch is decoration: the certificate renders without it
                     pass
+    if template is not None and payload.certificate_no:
+        async with SessionLocal() as db:
+            kept = await stored_text_overrides(db, payload.certificate_no)
+        if kept is not None:
+            # An issued folio prints the phrases it was issued with (none = the template's),
+            # whatever the caller sends; keys this template does not offer are left out.
+            overrides = {key: text for key, text in kept.items() if template.editable(key) is not None}
     if payload.certificate_no:
         data.setdefault("certificate_no", payload.certificate_no)
         images.setdefault("qr", qr_data_url(f"{settings.PUBLIC_WEB_URL.rstrip('/')}/verify/{payload.certificate_no}"))
@@ -182,7 +216,7 @@ async def render(request: Request, payload: RenderRequest):
         # CPU-bound (seconds on a small instance): off the event loop, so the API keeps answering meanwhile
         body, media_type = await asyncio.to_thread(
             render_certificate, payload.template, data, images, locale=payload.locale, fmt=payload.format,
-            dpi=payload.dpi, ministry=payload.ministry, width_in=payload.width_in)
+            dpi=payload.dpi, ministry=payload.ministry, width_in=payload.width_in, overrides=overrides)
     except TemplateError as exc:
         raise HTTPException(404 if "no existe" in str(exc) else 422, str(exc)) from exc
     ext = {"image/png": "png", "application/pdf": "pdf", "image/svg+xml": "svg"}[media_type]

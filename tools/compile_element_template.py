@@ -25,7 +25,7 @@ What comes out (templates/certificates/<slug>/ with --install, else --out DIR):
                           A signature slot (<image id="signature_director|signature_instructor">) is
                           derived over the line of each signer's name (docs «Firmas»).
   strings.<locale>.json   one per locale of the package (+ church_name from the sample data)
-  meta.json               kinds ["honor"], ministries, title, source package
+  meta.json               kinds ["honor"], ministries, title, source package, editable_strings
   README.md               where it came from and how to rebuild it
 
 The design folder is only read. Only already-raster artwork is flattened; vectors and texts stay
@@ -394,6 +394,11 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
     )
     meta = {"title": spec.get("title", spec["id"]), "kinds": [engine.HONOR_KIND], "ministries": [ministry],
             "engine": "elements", "source": source, "locales": locales}
+    # «Frases editables» (docs/CERTIFICADOS_V4.md): the award phrases a person with an account may
+    # reword, when the package names them with the usual keys.
+    editable = [key for key in engine.EDITABLE_ROLES if any(key in table for table in strings.values())]
+    if editable:
+        meta["editable_strings"] = editable
     readme = (
         f"Plantilla compilada del paquete de diseño {label} `{spec['id']}` («{spec.get('title', spec['id'])}»).\n"
         f"Fuente: `~/Documents/DEEL/certificados-diseno/{source}/` (plantilla.json + traducciones.json).\n"

@@ -1,4 +1,8 @@
 {
   "ministries": ["pathfinders", "adventurers"],
-  "kinds": ["program"]
+  "kinds": ["program"],
+  "editable_strings": [
+    {"key": "t_awarded_to", "role": "awarded"},
+    {"key": "t_for_completing", "role": "completion"}
+  ]
 }

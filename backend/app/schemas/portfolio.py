@@ -93,6 +93,9 @@ class CertificateIssue(BaseModel):
     # now) or the issuer's own saved signature (`users.signature_url`); anything else is 422.
     signature_director: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
     signature_instructor: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
+    # 023 «Frases editables»: {phrase key: text} for the template's `editable_strings`
+    # (GET /certificates/templates). Kept with the certificate; 422 {code} when refused.
+    strings: dict[str, str] | None = Field(default=None, max_length=8)
 
     _clean = field_validator("place", "instructor_name", "signature_director", "signature_instructor",
                              mode="before")(_blank_to_none)
@@ -193,6 +196,8 @@ class CertificateOut(BaseModel):
     # 021: which signature lines carry a handwritten signature kept with the certificate
     # (`signature_director`, `signature_instructor`). The render fills them from the folio.
     signed: list[str] = Field(default_factory=list)
+    # 023: the phrases reworded at issuance ({key: text}); None = the template's own.
+    text_overrides: dict[str, str] | None = None
 
 
 class RequirementOut(BaseModel):

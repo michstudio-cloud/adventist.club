@@ -22,7 +22,7 @@ from sqlalchemy import func, or_, select, text, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.certificates.render import TemplateError, load_template
+from app.certificates.render import OverrideError, TemplateError, check_overrides_fit, clean_text_overrides, load_template
 from app.config import settings
 from app.db import violated_constraint
 from app.models import (
@@ -347,6 +347,7 @@ async def _certificates_out(db: AsyncSession, certificates: list[Certificate]) -
             revoked_at=c.revoked_at,
             revocation_reason=c.revocation_reason,
             signed=list(certificate_signatures.stored_urls(c)),
+            text_overrides=c.text_overrides or None,
         )
         for c in certificates
     ]
@@ -1203,6 +1204,13 @@ async def issue(
             raise HTTPException(status.HTTP_404_NOT_FOUND, str(exc))
     if payload.locale not in svg_template.locales:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "locale_not_supported")
+    # 023: reworded phrases, checked (keys, length, fit) before anything is written.
+    try:
+        text_overrides = clean_text_overrides(svg_template, payload.strings, payload.locale)
+        check_overrides_fit(svg_template, text_overrides)
+    except OverrideError as exc:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            {"code": exc.code, "detail": str(exc), "key": exc.key}) from exc
 
     member = await db.get(User, enrollment.user_id)
     organization = await resolve_issuer_organization(db)
@@ -1250,6 +1258,7 @@ async def issue(
         enrollment_id=enrollment.id,
         issued_by=actor,
         locale=payload.locale,
+        text_overrides=text_overrides or None,
     )
     # 021: an immutable copy in the certificate's own folder; no bucket, no certificate.
     signed = await certificate_signatures.attach([certificate], signatures)
@@ -1270,6 +1279,7 @@ async def issue(
                   "program_id": str(award.program_id) if award.program_id else None,
                   "course_id": str(enrollment.course_id) if enrollment.course_id else None,
                   **({"signed": signed} if signed else {}),
+                  **({"text_overrides": sorted(text_overrides)} if text_overrides else {}),
                   **(audit_extra or {})},
         request=request,
     )

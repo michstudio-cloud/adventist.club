@@ -17,9 +17,11 @@ from __future__ import annotations
 import base64
 import io
 import json
+import math
 import re
+import unicodedata
 from dataclasses import dataclass, field
-from functools import lru_cache
+from functools import cached_property, lru_cache
 from pathlib import Path
 
 import qrcode
@@ -54,6 +56,35 @@ HONOR_KIND, PROGRAM_KIND = "honor", "program"
 
 class TemplateError(ValueError):
     pass
+
+
+# --- Editable phrases (docs/CERTIFICADOS_V4.md «Frases editables») ------------------------------
+# Owner, 2026-09-24: «Se otorga el presente certificado a:» and «por haber cumplido
+# satisfactoriamente los requisitos de…» can be reworded, ONLY by someone with an account. A
+# template opts in with `"editable_strings"` in its meta.json: a list of the keys of its
+# strings.<locale>.json that may be replaced («awarded», or {"key": "t_awarded_to", "role":
+# "awarded"} when the key is named otherwise). The role tells the interface which label to show.
+EDITABLE_ROLES = ("awarded", "completion")
+# Hard ceiling of a phrase, whatever its box: the box usually allows less (`max_length`).
+MAX_OVERRIDE_LENGTH = 160
+
+
+class OverrideError(TemplateError):
+    """A replacement phrase that is refused before anything is drawn or written. `code` is what
+    the API answers (422 {"code", "detail", "key"})."""
+
+    def __init__(self, code: str, message: str, key: str | None = None):
+        super().__init__(message)
+        self.code = code
+        self.key = key
+
+
+@dataclass(frozen=True)
+class EditableString:
+    key: str          # key in strings.<locale>.json (the data-string of an element template, the t_* id otherwise)
+    role: str         # «awarded» | «completion»: what the phrase says, for the interface's label
+    max_length: int   # characters the box takes at its minimum size (≤ MAX_OVERRIDE_LENGTH)
+    defaults: dict[str, str]   # locale -> the template's own text
 
 
 def fonts_installed() -> bool:
@@ -108,6 +139,112 @@ class Template:
         root = safe_fromstring(self.svg)
         return sorted(el.get("id") for el in root.iter() if el.get("id") and
                       el.tag in (f"{{{SVG_NS}}}text", f"{{{SVG_NS}}}image"))
+
+    @cached_property
+    def editable_strings(self) -> list[EditableString]:
+        """The fixed phrases this template lets a person with an account reword (meta.json
+        `editable_strings`), each with its box's character budget and its text per locale."""
+        declared = self.meta.get("editable_strings")
+        if not isinstance(declared, list):
+            return []
+        root = safe_fromstring(self.svg)
+        out = []
+        for item in declared:
+            key, role = (item, item) if isinstance(item, str) else (item.get("key"), item.get("role")) \
+                if isinstance(item, dict) else (None, None)
+            if not isinstance(key, str) or role not in EDITABLE_ROLES:
+                raise TemplateError(f"Plantilla '{self.slug}': editable_strings mal declarado ({item!r}).")
+            el = _string_element(root, key)
+            if el is None:
+                raise TemplateError(f"Plantilla '{self.slug}': la frase editable '{key}' no está en el SVG.")
+            defaults = {loc: texts[key] for loc, texts in sorted(self.strings.items()) if isinstance(texts.get(key), str)}
+            if "es" not in defaults:
+                defaults["es"] = "".join(el.itertext()).strip()     # the SVG itself is the Spanish source
+            out.append(EditableString(key, role, _phrase_budget(el, defaults["es"]), defaults))
+        return out
+
+    def editable(self, key: str) -> EditableString | None:
+        return next((item for item in self.editable_strings if item.key == key), None)
+
+
+def _string_element(root: ET.Element, key: str) -> ET.Element | None:
+    """The <text> a phrase key prints in: `data-string="key"` (element templates) or `id="key"`."""
+    for el in root.iter(f"{{{SVG_NS}}}text"):
+        if el.get("data-string") == key or (el.get("id") == key and not el.get("data-string")):
+            return el
+    return None
+
+
+def _phrase_budget(el: ET.Element, sample: str) -> int:
+    """How many characters the box of `el` takes: its width × lines at the minimum size, over
+    the average advance of the template's own phrase in that font. An estimate for the form's
+    counter and the API's limit; whether a given text fits is still decided by `fit_lines`."""
+    width = float(el.get("data-max-width") or 0)
+    if width <= 0 or not sample:
+        return MAX_OVERRIDE_LENGTH
+    lines = max(1, int(el.get("data-max-lines") or 1))
+    size = float(el.get("data-min-size") or el.get("font-size") or 12)
+    family = (el.get("font-family") or "sans-serif").split(",")[0].strip().strip("'\"")
+    advance = measure_pt(sample, family, el.get("font-weight") or "400", size) / len(sample)
+    if advance <= 0:
+        return MAX_OVERRIDE_LENGTH
+    # wrapping at word boundaries wastes part of every line but the last
+    budget = width * lines / advance * (1 if lines == 1 else 0.9)
+    return max(len(sample), min(MAX_OVERRIDE_LENGTH, math.floor(budget)))
+
+
+def clean_text_overrides(template: Template, overrides: dict[str, str] | None,
+                         locale: str | None = None) -> dict[str, str]:
+    """The phrases a caller wants reworded, checked: only the template's editable keys, one line
+    of printable text, within the box's budget. Blank = the template's own text (dropped), and with
+    `locale` a text equal to the template's in that language is dropped too, so only real changes
+    are kept. Raises OverrideError; returns {key: text}."""
+    cleaned: dict[str, str] = {}
+    for key, raw in (overrides or {}).items():
+        item = template.editable(key)
+        if item is None:
+            raise OverrideError("string_not_editable", f"La frase '{key}' no se puede cambiar en esta plantilla.", key)
+        if not isinstance(raw, str):
+            raise OverrideError("string_invalid", f"La frase '{key}' debe ser texto.", key)
+        if any(unicodedata.category(ch)[0] == "C" or unicodedata.category(ch) in ("Zl", "Zp") for ch in raw):
+            raise OverrideError("string_invalid", f"La frase '{key}' va en una sola línea, sin caracteres de control.", key)
+        text = " ".join(raw.split())
+        if not text:
+            continue
+        if len(text) > item.max_length:
+            raise OverrideError("string_too_long",
+                                f"La frase '{key}' admite como máximo {item.max_length} caracteres en esta plantilla.", key)
+        if locale is not None and text == _default_in(item, locale):
+            continue
+        cleaned[key] = text
+    return cleaned
+
+
+def _default_in(item: EditableString, locale: str) -> str | None:
+    parts = locale.split("-")
+    for i in range(len(parts), 0, -1):
+        candidate = "-".join(parts[:i])
+        if candidate in item.defaults:
+            return item.defaults[candidate]
+    return item.defaults.get("es")
+
+
+def check_overrides_fit(template: Template, overrides: dict[str, str]) -> None:
+    """Before issuing: each reworded phrase fits its box (shrink → wrap → error, as the render
+    does), so a certificate is never kept with a text its template cannot print."""
+    if not overrides:
+        return
+    root = safe_fromstring(template.svg)
+    for key, text in overrides.items():
+        el = _string_element(root, key)
+        if el is None:
+            raise OverrideError("string_not_editable", f"La frase '{key}' no se puede cambiar en esta plantilla.", key)
+        try:
+            _apply_fit_wrap(el, text, key)
+        except OverrideError:
+            raise
+        except TemplateError as exc:
+            raise OverrideError("string_does_not_fit", str(exc), key) from exc
 
 
 def list_templates(base: Path = TEMPLATES_DIR) -> list[Template]:
@@ -380,8 +517,12 @@ def default_emblem(ministry: str) -> str | None:
 
 
 def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], locale: str = "es",
-             ministry: str = "pathfinders") -> str:
-    """Return the SVG with fields, translations and images applied."""
+             ministry: str = "pathfinders", overrides: dict[str, str] | None = None) -> str:
+    """Return the SVG with fields, translations and images applied.
+
+    `overrides` ({phrase key: text}, already checked by `clean_text_overrides`) replace the
+    template's own editable phrases; the box's fitting contract applies to them as to any field."""
+    overrides = overrides or {}
     images = dict(images)
     data = dict(data)
     for alias, key in IMAGE_ALIASES.items():
@@ -410,6 +551,9 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
         if el.tag == f"{{{SVG_NS}}}text" and el.get("data-fit") == "shrink-wrap":
             # element template: strict contract (see fit_lines)
             key = el.get("data-string")
+            if key and overrides.get(key):
+                _apply_fit_wrap(el, overrides[key], key)   # a reworded phrase: same box, same rules
+                continue
             if key:
                 if key not in strings:
                     raise TemplateError(f"Falta la traducción '{key}' en '{locale}' (plantilla {template.slug}).")
@@ -431,6 +575,12 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
                 drop.append(el)               # optional and absent: nothing is invented
                 continue
             _apply_fit_wrap(el, value, el_id)
+            continue
+        if el.tag == f"{{{SVG_NS}}}text" and overrides.get(el_id) and not el.get("data-string"):
+            _apply_fit_wrap(el, overrides[el_id], el_id)      # older template: its box is data-max-width
+            if rtl:
+                el.set("direction", "rtl")
+                el.set("unicode-bidi", "bidi-override")
             continue
         if el.tag == f"{{{SVG_NS}}}text":
             pattern = el.get("data-template-text")
@@ -543,11 +693,12 @@ def png_to_pdf(png: bytes, template: Template, width_in: float | None = None) ->
 
 def render_certificate(slug: str, data: dict[str, str], images: dict[str, str], *, locale: str = "es",
                        fmt: str = "png", dpi: int = 300, base: Path = TEMPLATES_DIR,
-                       ministry: str = "pathfinders", width_in: float | None = None) -> tuple[bytes, str]:
+                       ministry: str = "pathfinders", width_in: float | None = None,
+                       overrides: dict[str, str] | None = None) -> tuple[bytes, str]:
     if not LOCALE_RE.match(locale):
         raise TemplateError("Idioma no válido.")
     template = load_template(slug, base)
-    svg = fill_svg(template, data, images, locale, ministry)
+    svg = fill_svg(template, data, images, locale, ministry, overrides)
     if fmt == "svg":
         return svg.encode("utf-8"), "image/svg+xml"
     png = render_png(svg, template, dpi, width_in)

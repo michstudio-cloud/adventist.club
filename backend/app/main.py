@@ -14,7 +14,7 @@ from app.models import Application, Certificate, Honor, Ministry, Organization, 
 from app.deps import get_optional_user
 from app.schemas.portfolio import SIGNATURE_MAX_LENGTH
 from app.services import certificate_signatures
-from app.certificates.render import TemplateError, load_template
+from app.certificates.render import OverrideError, TemplateError, check_overrides_fit, clean_text_overrides, load_template
 from app.services.portfolio import DEFAULT_CERTIFICATE_TEMPLATE
 from app.monitoring import init_sentry
 from app.rate_limit import account_or_ip, limiter, rate_limit_exceeded_handler
@@ -92,6 +92,10 @@ class PrototypeBatchCreate(BaseModel):
     # 016: the language the assistant printed it in, so a later download by folio (/verify)
     # comes out the same. One the template does not speak is 422 `locale_not_supported`.
     locale:str=Field(default="es",pattern=r"^[a-z]{2}$")
+    # 023 «Frases editables»: {phrase key: text} for the template's `editable_strings`, kept with
+    # every certificate of the batch (`certificates.text_overrides`). ONLY with a session: without
+    # one it is 422 `strings_require_account` (owner, 2026-09-24).
+    strings:dict[str,str]|None=Field(default=None,max_length=8)
 
 class PrintPdfRequest(BaseModel):
     """Legacy shape (margin_in / gap_in) plus the full imposition options.
@@ -153,6 +157,9 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     # need a session (the web app enforces it in the form, this makes it true for the API too).
     if viewer is None and len(payload.recipient_names)>1:
         raise HTTPException(422,{"code":"batch_requires_account","detail":"Para emitir varios certificados a la vez, crea tu cuenta."})
+    # 023: the fixed phrases are the template's for everybody without an account.
+    if viewer is None and any((v or "").strip() for v in (payload.strings or {}).values()):
+        raise HTTPException(422,{"code":"strings_require_account","detail":"Para cambiar las frases del certificado, crea tu cuenta."})
     # 021: validated before anything is written. Anonymous: nothing is kept (the certificate
     # re-downloads unsigned, the signature travels only in each POST /render).
     signatures=await certificate_signatures.prepare({"signature_director":payload.signature_director,"signature_instructor":payload.signature_instructor},viewer) if viewer else {}
@@ -183,6 +190,10 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     try:svg_template=load_template(slug)
     except TemplateError:raise HTTPException(422,{"code":"template_not_found","detail":"Esa plantilla no existe."})
     if payload.locale not in svg_template.locales:raise HTTPException(422,{"code":"locale_not_supported","detail":"La plantilla no está en ese idioma."})
+    try:
+        overrides=clean_text_overrides(svg_template,payload.strings,payload.locale) if viewer else {}
+        check_overrides_fit(svg_template,overrides)
+    except OverrideError as exc:raise render_router.override_error(exc) from exc
     # The record keeps the engine's slug and ITS size (the print sheet is the assistant's
     # business: width_in/height_in still only size the imposition on the client).
     w,h=round(svg_template.width_pt/72,4),round(svg_template.height_pt/72,4)
@@ -191,7 +202,7 @@ async def prototype_batch(request:Request,payload:PrototypeBatchCreate,db:AsyncS
     for raw in payload.recipient_names:
         name=raw.strip()
         if len(name)<2:continue
-        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None,locale=payload.locale))
+        created.append(await issue_certificate(db,ministry_id=ministry.id,application_id=approw.id if approw else None,organization=org,club=club,honor_id=honor.id,honor_name=honor.name,template=template,recipient_name=name,issued_date=payload.issued_date,place=payload.place,instructor_name=payload.instructor_name,director_name=payload.director_name,event_metadata=extra or None,locale=payload.locale,text_overrides=overrides or None))
     # One immutable copy per signature for the whole batch (the folder of its first certificate).
     await certificate_signatures.attach(created,signatures)
     await db.commit()
@@ -220,7 +231,7 @@ async def verify(certificate_no:str,db:AsyncSession=Depends(get_db)):
     elif c.status==REVOKED_STATUS:state="revocado"
     elif valid:state="válido"
     else:state=c.status
-    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None,"official":official,"locale":c.locale or "es","template_slug":slug}
+    return {"valid":valid,"status":state,"certificate_no":c.certificate_no,"recipient_name":c.recipient_name,"honor_name":c.honor_name_snapshot,"kind":"program" if c.program_id else "honor","club_name":c.club_name_snapshot,"issued_date":c.issued_date.isoformat(),"issuer_name":org.name if org else None,"hash_short":(c.certificate_hash or "")[:12] or None,"mode":mode,"course_title":course_title,"instructor_name":c.instructor_name,"revoked_at":c.revoked_at.isoformat() if c.revoked_at else None,"official":official,"locale":c.locale or "es","template_slug":slug,"text_overrides":c.text_overrides or None}
 
 @app.post("/api/v1/printing/layout")
 async def printing_layout(payload:LayoutRequest):

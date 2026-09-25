@@ -324,6 +324,64 @@ normalizado, subido por `storage.upload_bytes`; carpeta interna: `POST /media/up
   `/verify/<folio>` no ofrece descarga para esos folios (`template_slug = null`); `POST /render` con el folio sí
   imprime su firma guardada. Guardar la plantilla en el lote es un cambio aparte.
 
+## Frases editables (24 sep 2026)
+
+Pedido del responsable: «nos falta poder cambiar la frase de "Se otorga el presente certificado a:" y "por haber
+cumplido satisfactoriamente los requisitos de la especialidad:", eso vamos a dejarlo igual solo para los usuarios
+registrados». **Sin cuenta las frases son las de la plantilla**; con cuenta se pueden reescribir y quedan guardadas
+con el certificado emitido, así `/verify/<folio>` y cualquier descarga posterior imprimen lo mismo.
+
+**Qué frases.** Cada plantilla las declara en su `meta.json`:
+
+| Plantilla | `editable_strings` |
+|---|---|
+| `especialidad-color`, `-dorada`, `-editorial-rojo`, `-modular-azul`, `-reticula-verde`, `-academico` | `["awarded", "completion"]` (sus `data-string`) |
+| `investidura-clase` (SVG a mano, ids `t_*`) | `[{"key": "t_awarded_to", "role": "awarded"}, {"key": "t_for_completing", "role": "completion"}]` |
+| `especialidad-basica`, `-basica-media`, `ntam-maestria` (retiradas) | ninguna |
+
+Una entrada es la clave de `strings.<locale>.json` (si se llama como su papel) o `{key, role}`; `role` es
+`awarded` | `completion` y sólo sirve para que la interfaz ponga la etiqueta en su idioma. Declarar una clave que no
+está en el SVG, o un papel desconocido, es un `TemplateError` al leer la plantilla. El compilador
+(`tools/compile_element_template.py`) emite `["awarded", "completion"]` cuando el paquete usa esas claves, así que
+recompilar no las pierde. `investidura-clase` ganó `data-max-width="330"` + `data-min-size` + `data-max-lines="1"`
+en esos dos `<text>` (sin `data-fit`: sin frase cambiada se dibuja exactamente como antes).
+
+**`GET /certificates/templates`** añade `editable_strings: [{key, role, max_length, defaults: {es, en, pt, fr}}]`.
+`max_length` sale de la caja: `data-max-width × data-max-lines` al `data-min-size`, entre el avance medio del texto
+español de la propia plantilla en su fuente (×0,9 si envuelve, por lo que se pierde al cortar por palabras), nunca
+menos que el texto de la plantilla y nunca más de **160**. Hoy: 138–160 en las v4, 120/126 en la investidura. Es
+una estimación para el contador; si un texto concreto cabe lo decide `fit_lines`.
+
+**`POST /certificates/render`** acepta `strings: {clave: texto}` (≤ 8 claves):
+- sólo claves de `editable_strings` de esa plantilla; otra → 422 `{"code": "string_not_editable", "key"}`;
+- una sola línea: cualquier carácter de control (salto de línea, tabulador…) o separador de línea/párrafo → 422
+  `string_invalid`; los espacios repetidos se colapsan; vacío = la frase de la plantilla;
+- más de `max_length` → 422 `string_too_long`;
+- el motor pone el texto en lugar de la traducción y aplica el ajuste de siempre (encoger → envolver hasta
+  `data-max-lines` → 422 «El texto del campo 'awarded' no cabe…», con la clave como campo).
+- **Con `certificate_no` manda el registro**, como con los datos y las firmas: si el folio existe se imprimen sus
+  `text_overrides` (o las de la plantilla si no tiene) y lo que mande el cliente se ignora; si no existe, las del
+  cliente. `/render` es abierto (sin sesión), así que un anónimo puede *previsualizar* frases; lo que se guarda y lo
+  que se vuelve a descargar por folio sólo lleva frases cuando las emitió alguien con cuenta.
+
+**Persistencia** (`023_certificate_text_overrides.sql`): `certificates.text_overrides jsonb NULL`, `{clave: texto}`
+sólo con lo que cambió (una frase igual a la de la plantilla en el idioma de emisión no se guarda). **Fuera del
+hash** (`canonical()` congelado). La aceptan:
+- `POST /certificates/prototype-batch` **sólo con sesión**: sin sesión, `strings` con algún texto → 422
+  `strings_require_account` (vacías se ignoran). La respuesta del lote no cambia de forma;
+- `POST /portfolio/enrollments/{id}/certificate` (`CertificateIssue.strings`);
+- `POST /clubs/{club}/classes/{program}/invest` (`InvestIn.strings`, las mismas para todo el bloque; claves de la
+  plantilla de investidura).
+En las tres se valida todo (claves, longitud y **que quepa**, `check_overrides_fit` → 422 `string_does_not_fit`)
+antes de escribir nada. `GET /certificates/verify/{no}` y `CertificateOut` (portafolio) devuelven `text_overrides`.
+**Auditoría**: el evento `issued` lleva `text_overrides: ["awarded", …]` (las claves, nunca el texto) y la fila
+`CERTIFICATE_ISSUE` del portafolio también.
+
+**Frontend** (`conquistadores-app`): asistente, paso 3, bloque plegable «Frases del certificado» con un campo por
+frase (valor = el de la plantilla en el idioma elegido, contador, «Restablecer») sólo con sesión; sin ella, la línea
+«Crea tu cuenta para personalizar las frases». La hoja de emisión del portafolio lleva el mismo bloque. `/verify` y
+las descargas no mandan nada: el servidor rellena desde el registro.
+
 ## Pendiente (fuera del backend)
 
 - El asistente (`conquistadores-app/lib/certificate-templates.ts`) no tiene etiqueta para los slugs
