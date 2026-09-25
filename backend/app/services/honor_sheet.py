@@ -93,6 +93,10 @@ BLOCKED_HOSTS = ("guiasmayores.com",)
 SOURCE_CREDITS = {
     "pathfinder-wiki": ("Pathfinder Wiki (NAD)", "wiki.pathfindersonline.org"),
     "guiasmayores.com": ("Guías Mayores", None),
+    # official lists from outside the wiki (migrations/import_official_requirements.py)
+    "pathfinders-spd": ("División del Pacífico Sur (SPD)", "pathfinders.adventistchurch.com"),
+    "wikibooks": ("Adventist Youth Honors Answer Book (Wikibooks)", "en.wikibooks.org"),
+    "mda.wiki.br": ("MDAWiki", "mda.wiki.br"),
 }
 
 

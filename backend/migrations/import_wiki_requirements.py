@@ -7,7 +7,9 @@
 Source: Pathfinder Wiki, CC BY-SA 3.0 — every row keeps source / source_url / license.
 Rules:
 - honours are found by `honors.wiki_title` (set by import_wiki_names.py);
-- a list written by an instructor (rows of that locale without `source`) is never touched;
+- a list written by an instructor (rows of that locale without `source`) is never touched, nor an
+  official list of that language from another source (`guiasmayores.com`, `mundoja.org`, `spd-pathfinders`…,
+  import_official_requirements.py): the page would be added next to it as a second list;
 - a translated page is used only when the wiki says it is 100 % translated;
 - an unofficial translation of that language (`traduccion-no-oficial-*`, import_requirement_translations.py)
   is replaced in place by the official page;
@@ -44,7 +46,7 @@ def main():
         sys.exit("Set DATABASE_URL")
     base = pathlib.Path(args.folder).expanduser() / "requirements"
     report = {lang: {"honors": 0, "requirements": 0, "not_downloaded": 0, "partial_translation": 0,
-                     "kept_instructor_list": 0, "nothing_parsed": []} for lang in args.langs}
+                     "kept_instructor_list": 0, "kept_official_list": [], "nothing_parsed": []} for lang in args.langs}
 
     with psycopg.connect(url.replace("postgresql+asyncpg://", "postgresql://")) as conn, conn.cursor() as cur:
         cur.execute("SELECT id, wiki_title FROM honors WHERE wiki_title IS NOT NULL")
@@ -68,6 +70,12 @@ def main():
                             (honor_id, locale))
                 if cur.fetchone()[0]:
                     stats["kept_instructor_list"] += 1
+                    continue
+                cur.execute("SELECT count(*) FROM honor_requirements WHERE honor_id = %s AND locale = %s"
+                            " AND source <> %s AND source NOT LIKE 'traduccion-no-oficial-%%'",
+                            (honor_id, locale, SOURCE))
+                if cur.fetchone()[0]:
+                    stats["kept_official_list"].append(title)
                     continue
                 source_url = WIKI + quote(title.replace(" ", "_"), safe="()_-.,'!") + "/Requirements" + ("" if lang == "en" else "/" + lang)
                 # our own rows and an unofficial translation (import_requirement_translations.py) of this

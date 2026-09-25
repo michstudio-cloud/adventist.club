@@ -1,0 +1,47 @@
+{
+ "honor_slug": "la-unidad-en-el-cuerpo-de-cristo",
+ "ministry": "pathfinders",
+ "locale": "pt-BR",
+ "source": "mda.wiki.br",
+ "source_url": "https://mda.wiki.br/Especialidade_de_Unidade_no_Corpo_de_Cristo",
+ "license": null,
+ "retrieved": "2026-09-25",
+ "notes": "Unidade no Corpo de Cristo, AM-EB-014, Divisão Sul-Americana, nível 1, 2025 (série doutrinária). O manual oficial da DSA (adventistas.org) está atrás de um desafio do Cloudflare; texto do MDAWiki (mda.wiki.br), que transcreve o manual com o código oficial. A Pathfinder Wiki tem a página da especialidade mas não os requisitos (404, 25-09-2026).",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber qual é o testemunho mais importante que a Igreja deve dar ao mundo. (João 17:21-23)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer quais atitudes devemos cultivar para manter a unidade da Igreja. (Efésios 4:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir quem é o principal elo que une os membros da Igreja. (João 15:5)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entender como Jesus espera que seja o relacionamento entre os seus seguidores. (João 15:12-13, 17)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar quais atitudes causam divisão entre os membros da Igreja. (2 Timóteo 3:2-5; Tiago 3:16; Tiago 4:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Salmo 133:1.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo qual deve ser a principal atitude de um cristão para promover a união na Igreja. (1 Coríntios 1:10)",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "honor_slug": "desarrollo-rural",
+ "ministry": "pathfinders",
+ "locale": "en",
+ "source": "wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Rural_Development",
+ "license": "CC BY-SA 4.0",
+ "retrieved": "2026-09-25",
+ "notes": "Rural Development, ADRA honour (General Conference, skill level 1, 2005), discontinued in 2009 when it was merged with Urban Development into Community Development. The Pathfinder Wiki only has the NAD honour of the same name (linked to desarrollo-rural-community-services); the ADRA text survives in the Adventist Youth Honors Answer Book on Wikibooks (CC BY-SA 4.0), requirement headings copied verbatim.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explain to your instructor why some nations in our world are called \"developing\" countries and why others are called \"developed\" countries.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Name ten developing countries and list two things that ADRA is doing in these countries that would fall under the description of \"relief\" and three things that would fall under the description of \"development.\"",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Read what Ellen White has written about why we have the poor with us in Desire of Ages, Chapter 70, entitled \"The Least of These My Brethren.\" Summarize what you have learned from this chapter in 50 words or less.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "View an ADRA video reporting on development activities in other countries than your own, and participate in a discussion about what you see for at least 20 minutes following the video.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "For advanced work (Skill Level 2), participate in one of the following field trips or group projects:\n  a. Work as a volunteer in ADRA's Global Village program when it is operating.\n  b. Go on a mission trip to a disadvantaged rural area in another country or within your own nation.\n  c. A project in your community to collect a truck-load of clothing, hand tools, medical supplies, tents or other items that ADRA can use in rural development projects overseas. This includes raising sufficient donations to transport the collected items to the nearest ADRA warehouse.\n  d. A 24-hour group fast and educational \"lock-in\" session with your youth group focused on understanding the needs of the poor in developing nations, and designed to raise funds for rural development.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Write a letter to a person of your same age and gender in a rural, underdeveloped area in another country. Ask questions to learn about how they live their life and express your concern for supporting development in their country without using condescending language.",
+   "instructions": null
+  }
+ ]
+}
