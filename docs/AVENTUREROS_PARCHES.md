@@ -68,7 +68,7 @@ notes`
   Recreation→Recreación, Spiritual→Espiritual.
 - Clases (DIA): Little Lamb→Corderitos, Early Bird→**Aves Madrugadoras** (en guiasmayores.com es
   «Castorcitos»; usamos el nombre DIA), Busy Bee→Abejas Industriosas, Sunbeam→Rayos de Sol,
-  Builder→Constructores, Helping Hand(s)→Manos Ayudadoras, Multi-level→Multinivel.
+  Builder→Constructor (singular, como en mundoja.org; antes «Constructores»), Helping Hand(s)→Manos Ayudadoras, Multi-level→Multinivel.
 - `mundoja_file`: solo Espirituales, desde `adventurer_awards_mundoja_map.csv`. Los 34 PNG de
   mundoja casan por nombre **y** por imagen (ver `mundoja-compare.png`); los de mundoja solo sirven
   para cotejar nombres en español, no como imagen final (158 px con el nombre impreso).
@@ -164,7 +164,7 @@ python backend/migrations/catalog_tools/fetch_mundoja_awards.py [--offline]   # 
   los nombres de 130 awards y los requisitos de 133 (798 requisitos) + las introducciones del libro
   («Awarded to Adventurers who read…»). La hizo una IA (Claude) a partir del texto extraído, fiel al
   libro (mismos requisitos, mismos incisos, en infinitivo, terminología DIA: Corderitos, Aves
-  Madrugadoras, Abejas Industriosas, Rayos de Sol, Constructores, Manos Ayudadoras); se revisó por
+  Madrugadoras, Abejas Industriosas, Rayos de Sol, Constructor, Manos Ayudadoras); se revisó por
   muestreo. **Debe revisarla una persona antes de publicarla.** Decisiones a revisar: *Build & Fly* 3
   («kit» del libro → «cometa»), *Outdoor Explorer* 5a (abecedario con ejemplos en español),
   *Basic Knots* 2 (nombres de nudos), *Baking* 3 (términos de repostería), *Gymnast* 6.

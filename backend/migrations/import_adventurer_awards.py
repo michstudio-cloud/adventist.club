@@ -85,7 +85,7 @@ CLASSES = {
     "Early Bird": ("Aves Madrugadoras", "Early Bird"),
     "Busy Bee": ("Abejas Industriosas", "Busy Bee"),
     "Sunbeam": ("Rayos de Sol", "Sunbeam"),
-    "Builder": ("Constructores", "Builder"),
+    "Builder": ("Constructor", "Builder"),  # mundoja.org (DIA): singular
     "Helping Hand": ("Manos Ayudadoras", "Helping Hands"),
     "Helping Hands": ("Manos Ayudadoras", "Helping Hands"),
     "Multi-level": ("Multinivel", "Multi-level"),

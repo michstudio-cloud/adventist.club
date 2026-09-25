@@ -40,7 +40,7 @@ def test_category_and_class_translations_are_complete():
     assert ap.CLASS_ES["Early Bird"] == "Aves Madrugadoras"
     assert {r["class_es"] for r in LIBRARY} == {
         "Corderitos", "Aves Madrugadoras", "Abejas Industriosas", "Rayos de Sol",
-        "Constructores", "Manos Ayudadoras", "Multinivel"}
+        "Constructor", "Manos Ayudadoras", "Multinivel"}
 
 
 def test_slugs_drop_the_formerly_note_and_stay_ascii():
