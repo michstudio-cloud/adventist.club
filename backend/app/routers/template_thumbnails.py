@@ -28,6 +28,7 @@ import asyncio
 import base64
 import hashlib
 import json
+import logging
 from collections import OrderedDict
 from functools import lru_cache
 from pathlib import Path
@@ -39,8 +40,10 @@ from app.certificates import render as engine
 from app.certificates.render import (
     TemplateError, fonts_installed, format_long_date, load_template, render_certificate,
 )
+from app.config import settings
 from app.services import sheet_cache
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 
 THUMB_WIDTHS = (288, 576, 1152)
@@ -50,6 +53,10 @@ PNG_TYPE = "image/png"
 # the key changes (the etag is in it) and a browser holding a day-old redirect would keep showing the
 # old design (owner report, 2026-09-24). The R2 object under that key is immutable and cached for a year.
 CACHE_CONTROL = "public, max-age=300"
+# …unless the request carries the current `v=<thumbnail_version>` (what `GET /templates` hands the
+# web app): that URL changes with the picture, so browser and CDN may keep the answer for a year and
+# the assistant opens with zero round trips to this server (owner, 2026-09-24: «tardan en cargar»).
+CACHE_CONTROL_VERSIONED = "public, max-age=31536000, immutable"
 SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "honor-patch.webp"
 SAMPLE_DATE = "2026-09-21"
 # The patch above is «Campamento I» (design package replica-especialidad/recursos): the name matches it.
@@ -181,6 +188,50 @@ def forget_all() -> None:
     _slots = None
 
 
+# ------------------------------------------------------------------ warm-up after a deploy
+
+
+def warm_variants(slugs: list[str] | None = None, widths: tuple[int, ...] = THUMB_WIDTHS) -> list[tuple[str, str, int]]:
+    """Every (slug, locale, width) the pickers can ask for: listed templates × their languages × widths."""
+    templates = [t for t in engine.list_templates() if t.listed and (slugs is None or t.slug in slugs)]
+    return [(t.slug, locale, width) for t in templates for locale in t.locales for width in widths]
+
+
+async def warm_all(slugs: list[str] | None = None, widths: tuple[int, ...] = THUMB_WIDTHS, *, delay: float = 0.0) -> dict[str, int]:
+    """Render into R2 every thumbnail that is not there yet, one at a time and under the same render
+    slots as the visitors (they still get the other slot). The etag hashes the engine, so a deploy that
+    touches it invalidates every thumbnail at once: before this, the first person to open the assistant
+    after such a deploy waited for dozens of renders at 0.15 CPU (owner, 2026-09-24). Returns counts."""
+    counts = {"cached": 0, "uploaded": 0, "failed": 0}
+    if not sheet_cache.enabled() or not fonts_installed():
+        return counts
+    if delay:
+        await asyncio.sleep(delay)
+    for slug, locale, width in warm_variants(slugs, widths):
+        key = thumb_key(slug, locale, width, thumb_etag(slug, locale, width))
+        try:
+            if await sheet_cache.exists(key):
+                counts["cached"] += 1
+                continue
+            async with _render_slots():
+                body = await asyncio.to_thread(render_thumbnail, slug, locale, width)
+            _memory.put(key, body)
+            ok = await sheet_cache.store(key, body, f"{slug}-{locale}-{width}.png", PNG_TYPE)
+            counts["uploaded" if ok else "failed"] += 1
+        except Exception:                                   # one bad variant must not stop the rest
+            logger.warning("thumbnail warm-up failed for %s/%s/%s", slug, locale, width, exc_info=True)
+            counts["failed"] += 1
+    logger.info("thumbnail warm-up: %s", counts)
+    return counts
+
+
+def schedule_warm_up() -> asyncio.Task | None:
+    """Startup hook (`app/main.py`): fire and forget, a little after boot so the health check answers first."""
+    if not settings.THUMBNAIL_WARMUP or not sheet_cache.enabled():
+        return None
+    return asyncio.get_running_loop().create_task(warm_all(delay=settings.THUMBNAIL_WARMUP_DELAY))
+
+
 @router.get(
     "/templates/{slug}/thumbnail.png",
     response_class=Response,
@@ -198,6 +249,7 @@ async def template_thumbnail(
     locale: str = Query("es", pattern=r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$", max_length=35),
     # Literal[288, 576, 1152] would reject the query string "288" (a str): checked by hand below.
     w: int = Query(576, description="Ancho en px: 288, 576 o 1152"),
+    v: str | None = Query(None, max_length=64, description="Versión de la miniatura (GET /templates): con la actual, caché de un año"),
 ) -> Response:
     if w not in THUMB_WIDTHS:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El ancho (w) debe ser 288, 576 o 1152.")
@@ -211,7 +263,8 @@ async def template_thumbnail(
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Fuentes tipográficas no instaladas en el servidor.")
 
     etag = thumb_etag(slug, locale, w)
-    headers = {"ETag": etag, "Cache-Control": CACHE_CONTROL}
+    versioned = v is not None and v == thumbnail_version(slug)
+    headers = {"ETag": etag, "Cache-Control": CACHE_CONTROL_VERSIONED if versioned else CACHE_CONTROL}
     candidates = {tag.strip().removeprefix("W/") for tag in request.headers.get("if-none-match", "").split(",")}
     if etag in candidates or "*" in candidates:
         return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers=headers)

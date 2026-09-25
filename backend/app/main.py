@@ -58,6 +58,9 @@ app.include_router(honor_sheets_router.router)
 app.include_router(notifications_router.router)
 app.include_router(template_thumbnails_router.router)
 app.include_router(club_lookup_router.router)
+# Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client
+# never runs startup handlers, and without R2 the hook is a no-op.
+app.add_event_handler("startup", template_thumbnails_router.schedule_warm_up)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
