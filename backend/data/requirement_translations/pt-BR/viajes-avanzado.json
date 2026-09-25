@@ -1,0 +1,43 @@
+{
+ "honor_slug": "viajes-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Travel_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Viagem e turismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Assistir a um programa de viagens ainda não visto sobre um lugar único que você gostaria de visitar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que cuidados de segurança você deve considerar ao viajar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que recomendações ou exigências de saúde o órgão de saúde de seu país recomenda para viagens internacionais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar um plano de viagem internacional de 7 dias para umas “férias em família”:\n  a. Criar um roteiro de 7 dias e incluir:\n    i. A descrição de um lugar histórico a visitar\n    ii. Uma lista e a descrição de dois lugares naturais a visitar\n    iii. A descrição de um lugar de lazer a visitar\n  b. Criar um orçamento de 7 dias para as “férias em família” e incluir valores financeiros estimados para um “grupo familiar” de quatro pessoas:\n    i. Passagens aéreas de ida e volta para esse país\n    ii. Aluguel de automóvel (econômico/compacto)\n    iii. Custos realistas de combustível (lembrar que muitos países informam o preço do combustível por litro)\n    iv. Determinar uma despesa média de hotel por noite\n    v. Determinar uma despesa média de alimentação por dia\n    vi. Custos previstos dos lugares que pretende visitar\n    vii. Gastos realistas com lembranças\n    viii. Incluir 10% para despesas diversas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever uma descrição de 100 palavras ou discutir em grupo como você imagina que eram as viagens nos tempos bíblicos.\n  Alguns temas para a discussão:\n  a. comparar as distâncias percorridas antes e agora\n  b. o que você esperaria ter à disposição na hospedagem (banho, camas, número de pessoas hospedadas juntas etc.)\n  c. a comida consumida durante a viagem (não havia refrigeração nem mercados naquela época)\n  d. por que você viajaria (lazer x necessidade)",
+   "instructions": null
+  }
+ ]
+}

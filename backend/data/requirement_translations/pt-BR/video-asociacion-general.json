@@ -1,0 +1,63 @@
+{
+ "honor_slug": "video-asociacion-general",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Video_(GC)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os tipos de vídeo disponíveis. Saber a diferença entre as fitas VHS-C e Video 8.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar as seguintes partes de uma câmera de vídeo e saber usá-las:\n  a. Visor\n  b. Botão de gravação\n  c. Lente\n  d. Botão de zoom\n  e. Botão liga/desliga\n  f. Alavancas/anéis de foco e de zoom manuais\n  g. Porta do compartimento da fita\n  h. Chave de gravação em intervalos (time lapse)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber o que significam as mensagens do visor.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar e trocar a bateria. Saber carregar a bateria e quando substituí-la/recarregá-la. Saber como obter a maior vida útil da bateria de níquel-cádmio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "De que outra forma a câmera pode ser alimentada?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Filmar um trecho de cinco minutos e depois assisti-lo com seu instrutor. Discutir sua técnica, incluindo os itens abaixo, e aprender a corrigi-la, se necessário:\n  a. Zoom\n  b. Iluminação\n  c. Panorâmica\n  d. Estabilidade da câmera",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar como montar e usar um tripé.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como editar vídeo usando um videocassete, editando o trecho filmado para o requisito 6.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar sua capacidade de usar títulos e criar seus próprios títulos à mão ou no computador.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Completar um dos seguintes e exibi-lo num local público. O vídeo deve ter de 4-7 minutos de duração.\n  a. Lição objetiva\n  b. Videoclipe musical\n  c. História bíblica (dramatizada, com fantoches, encenada etc.)\n  d. Natureza\n  e. Dilema da vida moderna\n  f. Propaganda de um programa, publicação etc. da igreja",
+   "instructions": null
+  }
+ ]
+}

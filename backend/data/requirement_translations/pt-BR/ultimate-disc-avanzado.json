@@ -1,0 +1,68 @@
+{
+ "honor_slug": "ultimate-disc-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ultimate_Disc_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Ultimate - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ultimate.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler e compreender as regras e os regulamentos mais recentes reconhecidos pela USA Ultimate.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar domínio e compreensão das posições de ataque e de defesa no Ultimate.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir e jogar todas as posições numa defesa por zona e entender como quebrar uma zona:\n  a. Cup (copo)\n  b. Mids (meios)\n  c. Deeps (fundos)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar domínio no lançamento do disco:\n  a. Passe quicado (bounce pass)\n  b. Passe de pá (shovel pass)\n  c. Hammer",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir as dimensões de um campo de jogo oficial e das zonas de ponto e demonstrar a capacidade de posicionar marcadores e cones.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir os seguintes termos e situações de jogo:\n  a. Mergulho (laying out)\n  b. Arrancar o disco (strip)\n  c. Brick\n  d. Lançamento inicial (pull)\n  e. Handler (armador)\n  f. Perda de posse (turnover)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Em equipe ou individualmente, elaborar um plano para fazer trabalho missionário enquanto cumpre os requisitos desta especialidade. As opções devem incluir o seguinte:\n  a. Afixar avisos em murais e na internet e publicar classificados em jornais convidando a comunidade a participar\n  b. Fazer uma oração antes e/ou depois de cada jogo\n  c. Demonstrar o “espírito do jogo” dentro e fora do campo\n  d. Incentivar escolhas de estilo de vida saudável dentro e fora do campo e incentivar comportamento e linguagem adequados",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Praticar exercícios de lançamento/recepção e de ataque/defesa e aprender a jogar versões reduzidas do jogo, com menos jogadores, como treino, incluindo o “Hot Box”.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Jogar três partidas informais universitárias ou uma partida de liga reconhecida pela USA Ultimate.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Tornar-se membro da Ultimate Player’s Association, http://www.usaultimate.org, ou competir num torneio reconhecido pela USA Ultimate.",
+   "instructions": null
+  }
+ ]
+}

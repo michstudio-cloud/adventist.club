@@ -1,0 +1,53 @@
+{
+ "honor_slug": "video-division-norteamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Video/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever dois formatos de vídeo atuais e como o aumento da resolução afeta as necessidades de armazenamento.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar o formato de arquivo de vídeo que seu equipamento de vídeo consegue produzir.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como iniciar/pausar/parar uma gravação de vídeo numa câmera.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o que significam os seguintes termos e demonstrá-los:\n  a. Panorâmica horizontal (pan)\n  b. Panorâmica vertical (tilt)\n  c. Zoom",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usando o equipamento disponível, demonstrar como montar um tripé e fixar uma câmera. Usar a bolha de nível embutida, se houver.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Verificar se todo vídeo ou áudio usado em seu clipe está de acordo com a legislação de direitos autorais aplicável.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Criar um clipe curto e simples e exibi-lo num local público, como a igreja ou as redes sociais. Algumas ideias de vídeo:\n  a. Lição objetiva\n  b. Videoclipe musical\n  c. História bíblica (dramatizada, com fantoches, encenada etc.)\n  d. Natureza\n  e. Dilema da vida moderna\n  f. Propaganda de um programa ou publicação da igreja\n  g. Etc.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Discutir como a tecnologia de transmissão de vídeo contribui para a difusão do evangelho de Jesus, conforme Marcos 16:15.",
+   "instructions": null
+  }
+ ]
+}

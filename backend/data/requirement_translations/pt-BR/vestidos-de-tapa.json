@@ -1,0 +1,38 @@
+{
+ "honor_slug": "vestidos-de-tapa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tapa_Cloth/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são os principais usos do tecido de tapa?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer três maneiras diferentes como o tecido de tapa é feito nas ilhas do Pacífico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer as árvores usadas para fazer tecido de tapa em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o seguinte:\n  a. Explicar as etapas da fabricação do tecido de tapa e depois demonstrar seu conhecimento fazendo um tecido de tapa de 1/2 metro quadrado.\n  b. Explicar o processo de tingimento do tecido de tapa com corantes naturais e decorar seu tecido de tapa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma coleção de vários tipos diferentes de desenhos de tecido de tapa e resumir a finalidade para a qual eram usados.",
+   "instructions": null
+  }
+ ]
+}

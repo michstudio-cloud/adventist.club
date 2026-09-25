@@ -1,0 +1,43 @@
+{
+ "honor_slug": "virus",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Viruses/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever ou discutir os seguintes pontos em grupo. Se necessário, pesquisar possíveis respostas para esses temas para poder contribuir de forma significativa com o grupo.\n  a. O que significa a palavra vírus? Explicar a controvérsia sobre se ele é vivo ou não.\n  b. Citar as características distintivas dos vírus e por que não estão incluídos em nenhum reino.\n  c. Citar algumas formas morfológicas dos vírus e dar um exemplo de cada uma.\n  d. Explicar a importância das vacinas no combate aos vírus. Como elas funcionam?\n  e. Descrever como os vírus se reproduzem, como ocorrem as modificações genéticas chamadas mutações e a resistência viral.\n  f. Alguma doença viral já foi erradicada? Por que é difícil tratar pacientes com doenças virais?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por meio de figuras, vídeo ou descrições detalhadas, explicar a diferença entre as seguintes doenças exantemáticas:\n  a. Rubéola\n  b. Sarampo\n  c. Catapora",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher três das seguintes doenças virais e descrever sua forma de infecção, os sintomas e a prevenção. Demonstrar seu aprendizado de forma criativa por meio de uma exposição, apresentação ou discurso preparado:\n  a. COVID-19\n  b. Zika\n  c. Ebola\n  d. Febre do Nilo Ocidental\n  e. Doença mão-pé-boca\n  f. Herpes\n  g. AIDS\n  h. Caxumba\n  i. Poliomielite\n  j. Meningite\n  k. Hepatite\n  l. Dengue",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar a diferença entre resfriado e gripe. Por que o vírus influenza causa epidemias periódicas (como a gripe espanhola, a gripe aviária, a H1N1 etc.)?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre um vírus e um príon? Citar uma doença causada por um príon.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um dos seguintes:\n  a. Apresentar um breve relatório sobre uma pandemia viral e o impacto que ela teve/está tendo no mundo.\n  b. Criar uma dramatização, uma apresentação multimídia ou outra exposição interativa que informe o público sobre o perigo de um ou mais desses vírus e ensine como combater ou controlar o vírus.\n  c. Convidar um trabalhador humanitário para dar uma palestra ou fazer uma apresentação sobre epidemias e controle de vírus no(s) país(es) onde serviu. Arrecadar dinheiro em grupo para apoiar a ajuda humanitária no(s) país(es) de que o trabalhador falar.",
+   "instructions": null
+  }
+ ]
+}

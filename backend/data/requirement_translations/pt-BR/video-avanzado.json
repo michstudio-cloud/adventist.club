@@ -1,0 +1,58 @@
+{
+ "honor_slug": "video-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Video_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Produção de vídeo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os seguintes termos de mesa de corte (switcher) e como são usados:\n  a. Fade\n  b. Fusão (dissolve)\n  c. Cortina (wipe)\n  d. Sobreposição (super)\n  e. Tela dividida",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir o seguinte:\n  a. Balanço de branco\n  b. Tela de luz\n  c. Luz ambiente\n  d. Mesa de corte (switcher)\n  e. Efeitos de iluminação\n  f. Formato\n  g. Quadro\n  h. Seletor de entrada\n  i. Monitor\n  j. Mídia\n  k. Transmissão ao vivo (livestream)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de algumas vantagens e desvantagens de dois formatos diferentes de arquivo de vídeo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever os efeitos da iluminação numa produção audiovisual. Como a iluminação pode ser ajustada para obter os efeitos desejados?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar os seguintes termos de edição:\n  a. Editor não linear\n  b. Mídia\n  c. Importar\n  d. Linha do tempo\n  e. Dividir\n  f. Cortar/excluir\n  g. Desfazer\n  h. Transição\n  i. Inserir faixa de vídeo\n  j. Título\n  k. Créditos finais\n  l. Renderizar\n  m. Resolução",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir terço inferior (lower third).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com base no número de entradas de mídia disponíveis, completar dois dos seguintes projetos:\n  a. Demonstrar como operar uma mesa de corte com no mínimo três fontes de entrada, das quais duas devem ser câmeras.\n  b. Criar um vídeo de 5-7 minutos com vários efeitos. Demonstrar panorâmica, zoom e seleção de fontes. Incluir um título e créditos finais. Exibi-lo num local público, como a igreja, as redes sociais ou um dispositivo portátil.\n  c. Usando um software de edição, demonstrar como editar um vídeo que inclua título, créditos e efeitos de transição.\n  d. Demonstrar como importar ou enviar um vídeo criado para uma plataforma de vídeo on-line, rede social etc. Pedir ajuda ao diretor de comunicação ou ao webmaster.\n  e. Completar duas das seguintes atividades de transmissão ao vivo:\n    i. Demonstrar como obter a chave de transmissão de uma plataforma de rede social. Demonstrar como inserir o código de transmissão no hardware ou software para iniciar uma transmissão num dos principais serviços de streaming. Demonstrar como encerrar a transmissão ao final do tempo desejado.\n    ii. Demonstrar como acrescentar um gráfico e/ou texto no terço inferior de uma transmissão ao vivo.\n    iii. Produzir várias sessões/programas/cultos transmitidos ao vivo. Incluir a seleção correta das fontes, o equilíbrio dos níveis de som e gráficos sobrepostos adequados no terço inferior.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler Daniel 12:4 e Marcos 16:15 e discutir como o vídeo pode ser usado para aumentar o conhecimento e pregar o evangelho a toda criatura.",
+   "instructions": null
+  }
+ ]
+}
