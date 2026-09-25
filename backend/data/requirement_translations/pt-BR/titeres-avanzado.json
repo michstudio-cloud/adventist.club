@@ -1,0 +1,43 @@
+{
+ "honor_slug": "titeres-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Puppetry_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arte em fantoches.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer pelo menos mais dois fantoches.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Criar personagens e vozes para esses fantoches.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever um roteiro de dez minutos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Construir seu próprio palco.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos uma apresentação na igreja ou em público.",
+   "instructions": null
+  }
+ ]
+}

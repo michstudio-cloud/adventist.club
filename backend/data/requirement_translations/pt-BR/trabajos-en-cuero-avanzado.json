@@ -1,0 +1,43 @@
+{
+ "honor_slug": "trabajos-en-cuero-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Leather_Craft_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Trabalhos em couro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar como fazer furos, colocar botões de pressão, fazer costura de seleiro e fazer dois tipos de trançado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma bainha para machadinha, faca ou machado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Completar um cinto com figuras entalhadas, fazendo você mesmo a gravação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com base em seu próprio desenho, cortar em couro, gravar, furar e trançar um projeto como um estojo, uma bolsa, uma sacola ou equivalente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar seis itens de couro feitos por você.",
+   "instructions": null
+  }
+ ]
+}

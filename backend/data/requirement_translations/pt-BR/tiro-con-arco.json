@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tiro-con-arco",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Archery/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar as partes de um arco.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar as partes de uma flecha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar e explicar as regras de segurança do tiro com arco.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encordoar um arco de maneira correta e segura.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever e mostrar como usar o seguinte:\n  a. Protetor de braço\n  b. Dedeira ou luva\n  c. Aljava\n  d. Fiel do arco (bow sling)\n  e. Marcador de boca (string kisser)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar as seguintes técnicas de tiro:\n  a. A postura\n  b. Encaixar a flecha na corda\n  c. A abertura\n  d. A ancoragem\n  e. A sustentação e a mira\n  f. A soltura\n  g. A finalização",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que é necessário ter o “ponto de encaixe” da flecha corretamente posicionado na corda do arco?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando um arco padrão (arco olímpico), fazer uma das seguintes pontuações:\n  a. Em recinto fechado: 30 flechas (5 séries) a 18 metros, fazer 50 pontos num alvo de 60 cm.\n  b. Ao ar livre: 30 flechas (5 séries) a 25 metros, fazer 170 pontos num alvo de 122 cm.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer e praticar as regras de segurança do tiro com arco.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "trabajos-en-madera",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Woodworking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar como os seguintes processos estão relacionados à madeira serrada e como cada processo é feito:\n  a. Cultivo das árvores\n  b. Colheita das árvores\n  c. Serragem\n  d. Cura/secagem\n  e. Classificação\n  f. Dimensionamento",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Colecionar e identificar cinco tipos diferentes de madeira usados em marcenaria. Indicar as vantagens e desvantagens de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista das ferramentas manuais e elétricas básicas necessárias para a marcenaria. Saber usar cada ferramenta com segurança e mantê-la em boas condições de uso, incluindo a afiação, quando for o caso.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as seguintes emendas:\n  a. De topo\n  b. Rebaixo e ranhura (canal)\n  c. Rabo de andorinha\n  d. Com cavilha\n  e. De meia-madeira\n  f. Em meia-esquadria\n  g. Encaixe de caixa e espiga\n  h. Rebaixo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as características dos seguintes materiais e como trabalhar com eles:\n  a. Chapa de fibra (eucatex)\n  b. Aglomerado\n  c. Compensado",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer pelo menos duas maneiras de dar acabamento às bordas do compensado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar a técnica correta de colar e prender a madeira com grampos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher um projeto e completar um móvel doméstico, como uma mesinha, um banquinho para os pés, uma escrivaninha ou uma estante. Fazer uma lista dos materiais necessários para o projeto.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer e seguir os passos corretos para dar acabamento a um projeto de madeira, seja com acabamento natural, seja com tingimento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer dois dos seguintes:\n  a. Fazer um projeto com uma porta ou tampa com dobradiças embutidas.\n  b. Fazer uma maquete em escala de uma casa ou edifício com uma vista em corte mostrando os detalhes internos.\n  c. Ajudar a fazer e/ou consertar brinquedos de madeira para crianças necessitadas.\n  d. Fazer um projeto usando emendas com cavilha, em meia-esquadria ou de caixa e espiga.\n  e. Fazer um projeto usando cortes curvos ou bordas chanfradas ou arredondadas.",
+   "instructions": null
+  }
+ ]
+}

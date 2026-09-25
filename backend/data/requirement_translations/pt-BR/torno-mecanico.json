@@ -1,0 +1,78 @@
+{
+ "honor_slug": "torno-mecanico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lathe/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Torno mecânico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é um torno.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o objetivo e a finalidade de um torno?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o trabalho feito com um torno e seu processo de funcionamento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as principais operações que podem ser realizadas com um torno?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que materiais são usados na fabricação das ferramentas usadas no torno? Dar exemplos de ferramentas feitas com esses materiais.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar e mostrar por meio de desenhos ou fotografias os componentes básicos de um torno.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar alguns acessórios (peças) que compõem o torno e a função de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar dois instrumentos usados para medir as peças trabalhadas no torno. Explicar a função de cada um deles.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever a função de cada um dos seguintes tornos:\n  a. CNC\n  b. Revólver\n  c. Vertical\n  d. Horizontal universal\n  e. Copiador\n  f. Paralelo\n  g. Automático",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar o que é um desenho técnico industrial. Como interpretá-lo de maneira objetiva e fácil de entender?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que cuidados devem ser tomados ao usar um torno? Que equipamentos de proteção individual e de segurança (EPI) devem ser usados?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Qual é a influência da velocidade de corte, do avanço e da profundidade de corte na vida útil de uma ferramenta?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Com a ajuda de um torneiro ou especialista, fazer qualquer peça cilíndrica, levando em conta o que foi aprendido nas operações básicas realizadas com o torno. Fazer um relatório de pelo menos 300 palavras descrevendo como a peça foi desenvolvida.",
+   "instructions": null
+  }
+ ]
+}

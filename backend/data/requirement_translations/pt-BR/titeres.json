@@ -1,0 +1,38 @@
+{
+ "honor_slug": "titeres",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Puppetry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer pelo menos um fantoche e fazer ou comprar outros dois fantoches.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Criar pelo menos três personagens de fantoche, cada um com sua própria voz.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever três roteiros de dois a três minutos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar-se para algum público (que não seja a família nem os amigos mais próximos) pelo menos três vezes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Obter uma avaliação de cada apresentação feita por alguém que não seja parente do titereiro.",
+   "instructions": null
+  }
+ ]
+}

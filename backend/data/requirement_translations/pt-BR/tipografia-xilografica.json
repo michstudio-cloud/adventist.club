@@ -1,0 +1,43 @@
+{
+ "honor_slug": "tipografia-xilografica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Block_Printing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das ferramentas e do equipamento necessários para a xilogravura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever um parágrafo sobre os princípios de design e de letreiramento aplicados à xilogravura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando uma batata, entalhar um desenho que inclua suas iniciais e usá-lo para imprimir suas iniciais no papel.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar e imprimir pelo menos um cartão de felicitações.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar e imprimir um ex-líbris ou uma capa de livro.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Seguindo as etapas de criação, entalhe e impressão, criar outra obra original de sua escolha.",
+   "instructions": null
+  }
+ ]
+}
