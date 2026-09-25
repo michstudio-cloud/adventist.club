@@ -1,0 +1,28 @@
+{
+ "honor_slug": "av-my-picture-book",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=83",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Meu livro de figuras",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um livro de figuras com pelo menos seis páginas.\n  a. Todas as páginas devem ter algum tipo de decoração.\n  b. Descrever cada figura do livro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Memorizar Joel 1:3 e conversar sobre o seu significado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar seu livro de figuras a outras pessoas e explicar por que você escolheu essas figuras. Mostrar seu livro ajudou você a entender Joel 1:3?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "honor_slug": "av-music-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=79",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Música I",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre músicos ou instrumentos musicais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um trabalho manual sobre música.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Brincar de um jogo de bater palmas (ritmo).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um jogo de movimento com música (por exemplo, quicar uma bola no ritmo de uma música).",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros («Música», aquí con el número del libro de 2020)"
+}
