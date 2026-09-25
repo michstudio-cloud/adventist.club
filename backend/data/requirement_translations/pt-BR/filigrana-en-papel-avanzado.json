@@ -1,0 +1,38 @@
+{
+ "honor_slug": "filigrana-en-papel-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Paper_Quilling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Quilling.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e ser capaz de fazer corretamente cada uma das seguintes formas excêntricas.\n  a. Círculo solto excêntrico\n  b. Gota excêntrica\n  c. Olho (marquise) excêntrico\n  d. Leque excêntrico\n  e. Meia-lua excêntrica\n  f. Orelha de coelho excêntrica\n  g. Tulipa excêntrica",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e realizar três das seguintes técnicas de modelagem.\n  a. Flor franjada\n  b. Cacho de uva\n  c. Espiral\n  d. Método de laçadas\n  e. Pinos (pegs)\n  f. Tecelagem de papel\n  g. Laçada torcida\n  h. Husking\n  i. Rosas dobradas\n  j. Flores enroladas",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um quadro ou enfeite usando pelo menos três das formas excêntricas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um objeto tridimensional.",
+   "instructions": null
+  }
+ ]
+}

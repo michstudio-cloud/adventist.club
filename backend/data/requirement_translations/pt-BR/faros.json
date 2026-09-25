@@ -1,0 +1,73 @@
+{
+ "honor_slug": "faros",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lighthouses/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever em detalhes o seguinte sobre os faróis:\n  a. Qual é a função de um farol?\n  b. Quando foram construídos os primeiros faróis de que se tem registro?\n  c. Qual é o nome do farol antigo mais famoso?\n  d. Como se chamam as pessoas que estudam os faróis? Por quê?\n  e. Todos os faróis têm faroleiros? Se não, como funcionam?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar a estrutura e a função das lentes de Fresnel. Explicar o que torna essas lentes tão eficazes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ao longo da história, que combustíveis foram usados nas luzes dos faróis?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Todos os faróis estão localizados no litoral do oceano? Se não, citar outros lugares onde se pode encontrar um farol.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como se chama o serviço de faróis em seu país? Que organização ou órgão do governo é responsável pela manutenção dos faróis em seu país?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quando um farol é um ponto de referência visível do oceano durante o dia, ele pode ser identificado por certas marcas. Como se chamam essas marcas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é uma buzina de nevoeiro? Por que ela seria usada em um farol? Quais são três fatores que afetam a distância a que uma buzina de nevoeiro pode ser ouvida?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como os faróis muitas vezes são chamados de \"luzes\", explorar o conceito de \"luzes\" nas Escrituras fazendo o seguinte:\n  a. Procurar \"luzes\" em uma concordância bíblica e discutir as luzes mencionadas na Bíblia.\n  b. Explicar por que você acha que a Palavra de Deus é como um farol.\n  c. Memorizar João 8:12.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escrever um poema ou uma história sobre a luz de um farol. Incluir pensamentos sobre a \"luz\" de Deus. Ler sua história ou poema para seu grupo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Desenhar ou fotografar cinco formas/tipos de faróis usados hoje.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Citar os nomes e a localização de 5 faróis de seu estado/província.\n  b. Localizar em um mapa 10 faróis de seu país/Divisão.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar as referências que usou para aprender sobre os faróis.",
+   "instructions": null
+  }
+ ]
+}

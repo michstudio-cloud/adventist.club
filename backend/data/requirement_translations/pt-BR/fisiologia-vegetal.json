@@ -1,0 +1,58 @@
+{
+ "honor_slug": "fisiologia-vegetal",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plant_Physiology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Fisiologia vegetal",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as características que classificam um ser vivo como planta?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar os quatro grupos de plantas e suas principais características. Quais são considerados mais simples e quais são mais complexos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar as funções das partes da planta:\n  a. Raiz\n  b. Caule\n  c. Folha\n  d. Fruto\n  e. Flor",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é a fotossíntese e qual é a sua finalidade? Que organismos são capazes de fazer fotossíntese? Qual é a fórmula química da fotossíntese?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que são o xilema e o floema? Qual é a função de cada um?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar cinco hormônios vegetais e suas funções.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como ocorre a transpiração nas plantas? Qual é a sua importância para o desenvolvimento?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Discutir o gineceu e o androceu, citando suas partes e funções.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos uma história bíblica que compare uma planta à vida espiritual. Explicar.",
+   "instructions": null
+  }
+ ]
+}

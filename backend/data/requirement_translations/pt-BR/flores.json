@@ -1,0 +1,43 @@
+{
+ "honor_slug": "flores",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flowers/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Desenhar ou fotografar 35 tipos de flores e identificá-las corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar e identificar corretamente, ou mostrar em uma flor real, as partes de uma flor: pistilo, estame, pétala, sépala.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar seis famílias de flores e suas características distintivas. Citar pelo menos duas flores de cada família.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o ciclo de vida de uma flor específica, incluindo o papel dos insetos ou do vento na polinização.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar pelo menos duas plantas venenosas ao toque e dizer quais delas, se houver, são encontradas em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer três das seguintes atividades:\n  a. Arrumar, desenhar ou fotografar uma série de pelo menos seis flores que mostre, em ordem, as cores do arco-íris: vermelho, laranja, amarelo, verde, azul, violeta.\n  b. Apresentar flores frescas, prensadas ou secas que tenham: cinco pétalas, quatro pétalas, três pétalas, nenhuma pétala.\n  c. De olhos vendados, distinguir e citar pelo cheiro duas de cinco flores silvestres ou cultivadas.\n  d. Fazer uma lista das flores que você observou sendo visitadas em busca de alimento por:\n    i. Aves\n    ii. Abelhas\n    iii. Mamangavas\n    iv. Borboletas\n    v. Mariposas\n  e. Observar uma flor durante pelo menos dez minutos ao sol e pelo menos dez minutos depois do anoitecer e relatar os insetos que a visitaram. Informar o número e o tipo de visitantes e o nome da flor.",
+   "instructions": null
+  }
+ ]
+}
