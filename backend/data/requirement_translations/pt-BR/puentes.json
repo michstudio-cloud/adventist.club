@@ -1,0 +1,58 @@
+{
+ "honor_slug": "puentes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bridges/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Ponte\n  b. Aqueduto\n  c. Cimbramento\n  d. Força de compressão\n  e. Força de tração\n  f. Ponte basculante\n  g. Ponte coberta",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever estes seis principais tipos de projeto de ponte e dar dois exemplos de cada um:\n  a. Ponte em arco\n  b. Ponte em viga\n  c. Ponte estaiada\n  d. Ponte em balanço (cantiléver)\n  e. Ponte pênsil\n  f. Ponte em treliça",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descobrir o vão que cada um dos seguintes tipos de ponte pode vencer:\n  a. Ponte em arco:\n  b. Ponte em viga\n  c. Ponte estaiada\n  d. Ponte em balanço (cantiléver)\n  e. Ponte pênsil\n  f. Ponte em treliça",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o tipo de ponte que pode vencer o maior vão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar ou ilustrar o projeto básico de cada um dos seguintes tipos de ponte.\n  a. Ponte em viga\n  b. Ponte em arco\n  c. Ponte pênsil\n  d. Ponte coberta\n  e. Ponte em treliça\n  f. Ponte estaiada (em leque)\n  g. Ponte em balanço (cantiléver)\n  h. Ponte basculante\n  i. Ponte estaiada (em harpa)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer as seguintes atividades:\n  a. Assistir a um vídeo sobre pontes.\n  b. Fazer uma lista de pelo menos oito pontes famosas OU citar duas pontes que você já atravessou e dizer qual é o tipo de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma apresentação em vídeo/multimídia ou um álbum sobre a(s) ponte(s) que você já viu.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Construir uma ponte usando materiais como palitos de picolé, palitos de dente, lã, linha e cola.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Recitar João 3:16 e depois explicar como esse versículo descreve o papel de Jesus como ponte entre o Céu e a Terra.",
+   "instructions": null
+  }
+ ]
+}

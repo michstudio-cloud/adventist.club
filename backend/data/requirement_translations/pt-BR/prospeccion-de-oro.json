@@ -1,0 +1,48 @@
+{
+ "honor_slug": "prospeccion-de-oro",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gold_Prospecting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Criar uma lista do equipamento usado na bateia de ouro. Descrever cada item e explicar para que é usado. A lista deve incluir pelo menos os seguintes itens.\n  a. Bateia\n  b. Peneira classificadora\n  c. Garrafa de sucção (snuffer bottle)\n  d. Pá\n  e. Picareta\n  f. Balde\n  g. Colher de jardinagem\n  h. Pé de cabra\n  i. Martelo de geólogo\n  j. Ferramenta para fendas\n  k. Água potável\n  l. Outros itens possíveis",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Cascalho aurífero (pay dirt)\n  b. Quartzo\n  c. Pirita\n  d. Areias claras\n  e. Areias negras\n  f. Aluvião (placer)\n  g. Filão\n  h. Pepita\n  i. Palheta\n  j. Pó de ouro\n  k. peso específico\n  l. Bateia úmida e a seco\n  m. Mercúrio (uso histórico) NÃO USAR HOJE\n  n. Libra troy\n  o. Onça troy\n  p. Pennyweight (dwt)\n  q. Grão\n  r. Febre do ouro",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as seguintes características de identificação do ouro?\n  a. Peso específico\n  b. Cor do traço\n  c. Cor",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são alguns bons lugares num rio ou riacho para procurar ouro?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma linha do tempo com pelo menos 15 itens sobre a história da prospecção de ouro de 1600 até hoje, incluindo as seguintes corridas do ouro: da Califórnia, de Klondike/Yukon, de Witwatersrand e de Vitória (Austrália).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Aprender sobre a bateia de ouro fazendo um dos seguintes:\n  a. Batear ouro. (Preferível)\n  b. Praticar a bateia usando chumbo achatado ou esferas de tungstênio misturados com areia (de preferência da margem de um rio).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Procurar os seguintes versículos na Bíblia e discuti-los em relação à prospecção de ouro.\n  a. Mateus 13:44-46\n  b. Mateus 6:19-21",
+   "instructions": null
+  }
+ ]
+}

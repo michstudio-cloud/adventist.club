@@ -1,0 +1,93 @@
+{
+ "honor_slug": "quedarse-en-casa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Staying_Home/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Ficar em casa",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever por que é importante ficar em casa neste momento.",
+   "instructions": "Seção: Ficar em casa"
+  },
+  {
+   "position": 2,
+   "description": "Escrever cinco coisas que você pode fazer com amigos sem se encontrar pessoalmente e fazer duas delas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever cinco coisas úteis que você pode fazer em casa, sozinho ou com sua família, e fazer uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer pelo menos um dos seguintes:\n  Cortar o cabelo de alguém e tirar uma foto/fazer um vídeo.\n  Cozinhar algo que você nunca cozinhou antes e tirar uma foto/fazer um vídeo.\n  Costurar uma máscara de proteção e tirar uma foto/fazer um vídeo.\n  Plantar uma semente, cuidar dela até virar uma planta e tirar uma foto/fazer um vídeo.\n  Ajudar em casa\n  Há muitas oportunidades de ajudar nossos pais em casa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ajudar em casa fazendo duas das seguintes tarefas pelo menos três vezes OU cada tarefa uma vez:\n  Lavar, estender e dobrar a roupa e tirar uma foto/fazer um vídeo.\n  Passar e separar a roupa e tirar uma foto/fazer um vídeo.\n  Preparar uma refeição e pôr a mesa e tirar uma foto/fazer um vídeo.\n  Limpar a casa/o apartamento e tirar uma foto/fazer um vídeo.\n  Lavar a louça OU carregar e descarregar a lava-louças e tirar uma foto/fazer um vídeo.\n  Tirar o mato do jardim, cortar a grama e regar as plantas e tirar uma foto/fazer um vídeo.\n  Saúde e higiene\n  Como Desbravadores, queremos manter a saúde.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Beber pelo menos 1,5 L de água por dia durante no mínimo uma semana.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever o que você sabe sobre higiene pessoal.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever sobre três situações em que é importante lavar as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um vídeo sobre como lavar as mãos corretamente (se quiser, você também pode publicá-lo nas redes sociais).\n  Serviço comunitário\n  Como Desbravadores, queremos cuidar das pessoas ao nosso redor.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que histórias da Bíblia mostram Jesus ajudando outras pessoas? Citar três histórias. Escrever sobre uma delas com suas próprias palavras.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ler a Regra de Ouro em Lucas 6:31 e escrever o que ela significa para você na situação atual.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Escrever pelo que você é grato.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer pelo menos duas das seguintes tarefas:\n  Telefonar para um parente ou amigo.\n  Escrever um cartão-postal ou uma carta para alguém que mora sozinho e tirar uma foto.\n  Fazer um trabalho manual e dá-lo de presente a uma pessoa idosa (por exemplo, avó, avô, um vizinho) e tirar uma foto.\n  Para Desbravadores mais velhos: fazer compras de supermercado para alguém que não pode fazê-las e tirar uma foto/fazer um vídeo.\n  Fazer um ato de bondade para alguém e tirar uma foto/fazer um vídeo.\n  Manter o otimismo\n  Queremos procurar tirar o melhor proveito de cada situação.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Dormir uma noite em seu saco de dormir e isolante térmico (no quintal, na varanda ou dentro de casa).",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Contar uma piada para sua família como incentivo e anotá-la.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer uma das seguintes tarefas:\n  Assar no forno uma banana recheada com chocolate e tirar uma foto/fazer um vídeo usando seu uniforme de Desbravador.\n  Fazer no forno um pão de acampamento (damper) e tirar uma foto/fazer um vídeo usando seu uniforme de Desbravador.\n  Tostar um marshmallow na chama de uma vela e tirar uma foto/fazer um vídeo usando seu uniforme de Desbravador.\n  Preparar algo para comer que lembre os Desbravadores e tirar uma foto/fazer um vídeo.",
+   "instructions": null
+  }
+ ]
+}
