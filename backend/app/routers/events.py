@@ -6,7 +6,7 @@ Thin: who may act is decided in `app/services/event_access.py` (through
 """
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
+from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -34,6 +34,7 @@ from app.schemas.event import (
     EventOut,
     EventStatusChange,
     EventUpdate,
+    HistoryPage,
     RegistrationCreate,
     RegistrationOut,
     RegistrationUpdate,
@@ -41,6 +42,8 @@ from app.schemas.event import (
     StaffCreate,
     StaffOut,
 )
+from app.services import event_brand
+from app.services import event_history as history
 from app.services import event_scores as scores
 from app.services import events as event_service
 
@@ -79,9 +82,12 @@ async def update_event(event_id: uuid.UUID, payload: EventUpdate, request: Reque
                        current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     event = await event_service.get_event(db, event_id, lock=True)
     roles = await event_service.require_coordination(db, current_user, event)
+    previous_logo = event.brand_logo_url
     await event_service.update_event(db, current_user, event, roles, payload, request)
     await db.commit()
     await db.refresh(event)
+    if previous_logo and previous_logo != event.brand_logo_url:
+        await event_brand.drop_unused(db, previous_logo)
     return await event_service.event_out(db, event, await event_service.roles_for(db, current_user, event))
 
 
@@ -115,6 +121,69 @@ async def duplicate_event(event_id: uuid.UUID, payload: EventDuplicate, request:
     await db.commit()
     await db.refresh(copy)
     return await event_service.event_out(db, copy, await event_service.roles_for(db, current_user, copy))
+
+
+@router.post("/{event_id}/brand-logo", response_model=EventOut, status_code=status.HTTP_201_CREATED)
+async def upload_brand_logo(event_id: uuid.UUID, request: Request, file: UploadFile = File(...),
+                            current_user: User = Depends(get_current_user),
+                            db: AsyncSession = Depends(get_db)):
+    """The event's logo, in one step (upload + point the event at it). Coordination only.
+    Same limits as a club logo: the square the browser cropped, WebP/PNG/JPEG, at most
+    512×512 px (422 `event_logo_too_big`) and 300 KB (413 `event_logo_too_large`); anything
+    else 415 `event_logo_images_only`. Stored at `events/<id>/brand-<hash>.<ext>`."""
+    event = await event_service.get_event(db, event_id, lock=True)
+    roles = await event_service.require_coordination(db, current_user, event)
+    event_service.require_editable(event)
+    previous = await event_brand.store_logo(db, current_user, event, file, request)
+    await db.commit()
+    await event_brand.drop_unused(db, previous)
+    await db.refresh(event)
+    return await event_service.event_out(db, event, roles)
+
+
+@router.delete("/{event_id}/brand-logo", response_model=EventOut)
+async def delete_brand_logo(event_id: uuid.UUID, request: Request,
+                            current_user: User = Depends(get_current_user),
+                            db: AsyncSession = Depends(get_db)):
+    """Back to the platform's mark. Same rights as the upload."""
+    event = await event_service.get_event(db, event_id, lock=True)
+    roles = await event_service.require_coordination(db, current_user, event)
+    event_service.require_editable(event)
+    previous = event_brand.clear_logo(db, current_user, event, request)
+    await db.commit()
+    await event_brand.drop_unused(db, previous)
+    await db.refresh(event)
+    return await event_service.event_out(db, event, roles)
+
+
+@router.get("/{event_id}/history", response_model=HistoryPage, response_model_by_alias=True)
+async def event_history(event_id: uuid.UUID, registration_id: uuid.UUID | None = None,
+                        limit: int = Query(default=50, ge=1, le=history.MAX_LIMIT),
+                        before: str | None = Query(default=None, max_length=300),
+                        current_user: User = Depends(get_current_user),
+                        db: AsyncSession = Depends(get_db)):
+    """«Cada punto tiene historia»: captures, corrections, voids and adjustments, newest
+    first. Coordination sees everything; a judge the activities they judge; a director only
+    their own club (another club's registration is 403) and never pending items."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_access(db, current_user, event)
+    if registration_id is not None:
+        registration = await scores.get_registration(db, event, registration_id)
+    if roles.coordination:
+        scope = history.Scope(all=True, include_pending=True)
+    else:
+        scope = history.Scope()
+        if roles.judge_all:
+            scope.all = True
+        elif roles.judge:
+            scope.activity_ids = scores.judged_activity_ids(roles, await event_service.list_activities(db, event))
+        own = {row.id for row, _ in await scores.list_registrations(db, event, club_ids=roles.director_club_ids)} \
+            if roles.director_club_ids else set()
+        if own:
+            scope.registration_ids = own
+        if registration_id is not None and not roles.judge and registration.id not in own:
+            raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
+    return await history.page(db, event, scope, registration_id=registration_id, limit=limit, before=before)
 
 
 @router.get("/{event_id}/my")

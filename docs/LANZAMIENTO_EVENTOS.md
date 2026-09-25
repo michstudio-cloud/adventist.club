@@ -44,7 +44,8 @@ SELECT m, applied FROM (VALUES
  ('023_certificate_text_overrides', EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='certificates' AND column_name='text_overrides')),
  ('024_master_guide_catalog', EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='users' AND column_name='active_ministry_id')),
  ('025_events',            to_regclass('public.events') IS NOT NULL AND EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='event_registrations' AND column_name='tiebreak_rank')),
- ('026_role_assignments',  to_regclass('public.role_assignments') IS NOT NULL AND to_regclass('public.org_invitations') IS NOT NULL)
+ ('026_role_assignments',  to_regclass('public.role_assignments') IS NOT NULL AND to_regclass('public.org_invitations') IS NOT NULL),
+ ('027_event_branding',    EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='events' AND column_name='brand_accent'))
 ) AS t(m, applied) ORDER BY m;
 ```
 
@@ -52,7 +53,8 @@ Esperado hoy: 020–024 `t` (024 viene de `main`, que ya está desplegado: si sa
 `/auth/me` actual ya estaría fallando — aplicar 024 primero) y 025–026 `f`.
 
 Numeración: 024 = catálogo de Guías Mayores (main), 025 = eventos, 026 = roles e invitaciones.
-Sin choques; siguiente libre **027**.
+Sin choques. 027 = marca por evento (`brand_logo_url`, `brand_color`, `brand_accent` en `events`;
+aditiva, idempotente; aplicar antes del código de historial/marca). Siguiente libre **028**.
 
 ### 2.1 Foto previa de roles (sólo lectura, para comparar después)
 

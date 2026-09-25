@@ -61,23 +61,24 @@ async def require_logo_rights(db: AsyncSession, actor: User, club: Organization)
         raise HTTPException(status.HTTP_409_CONFLICT, CLUB_NOT_LIVE)
 
 
-def validate(data: bytes, content_type: str) -> str:
+def validate(data: bytes, content_type: str, *, codes: str = "club_logo") -> str:
     """-> the extension. 415 for anything but a real WebP/PNG/JPEG, 413 over 300 KB, 422 over
-    512 px on a side."""
+    512 px on a side. `codes` prefixes the error details (the event logo reuses these rules
+    with `event_logo_*`)."""
     extension = LOGO_TYPES.get(content_type)
     if extension is None or not data or not storage.content_matches_type(data, content_type):
-        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, LOGO_BAD_TYPE)
+        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, f"{codes}_images_only")
     if len(data) > LOGO_MAX_BYTES:
-        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, LOGO_TOO_LARGE)
+        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, f"{codes}_too_large")
     try:
         from PIL import Image
 
         with Image.open(io.BytesIO(data)) as image:
             width, height = image.size
     except Exception:
-        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, LOGO_UNREADABLE)
+        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, f"{codes}_unreadable")
     if width > LOGO_MAX_PX or height > LOGO_MAX_PX or width < 1 or height < 1:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, LOGO_TOO_BIG)
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, f"{codes}_too_big")
     return extension
 
 

@@ -22,6 +22,8 @@ AmountMode = Literal["FIXED", "FREE"]
 AMOUNT_MODE_RULE = "FIXED usa points (o ninguno: por definir); FREE usa max_points (o ninguno)"
 
 SLUG_PATTERN = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
+HEX_COLOR_PATTERN = r"^#[0-9A-Fa-f]{6}$"
+HEX_COLOR_RULE = "El color debe ser hexadecimal #RRGGBB"
 KEY_PATTERN = r"^[A-Za-z0-9._:-]{8,100}$"
 DATES_RULE = "La fecha de fin no puede ser anterior a la de inicio"
 
@@ -31,6 +33,20 @@ def _squeeze(value: str | None) -> str | None:
         return None
     value = " ".join(value.split())
     return value or None
+
+
+def _hex_color(value: str | None) -> str | None:
+    """`#RRGGBB` (upper-cased), or None. Anything else — `red`, `#fff`, `rgb()` — is 422."""
+    if value is None:
+        return None
+    value = value.strip()
+    if not value:
+        return None
+    import re
+
+    if not re.fullmatch(HEX_COLOR_PATTERN, value):
+        raise ValueError(HEX_COLOR_RULE)
+    return value.upper()
 
 
 def _reason(value: str) -> str:
@@ -89,8 +105,14 @@ class EventUpdate(_Body):
     # NULL = no floor; 0 = never below zero; any number (negative too).
     total_floor: float | None = Field(default=None, ge=-100000, le=100000)
     source_note: str | None = Field(default=None, max_length=4000)
+    # 027 light branding. null clears; the logo is normally set by POST /{id}/brand-logo and
+    # here only accepts null or a URL of our own public bucket (`events/<this id>/` or `logos/`).
+    brand_logo_url: str | None = Field(default=None, max_length=1000)
+    brand_color: str | None = Field(default=None, max_length=7)
+    brand_accent: str | None = Field(default=None, max_length=7)
 
     _clean = field_validator("name", "venue", "city", mode="before")(_squeeze)
+    _colors = field_validator("brand_color", "brand_accent", mode="before")(_hex_color)
 
 
 class EventStatusChange(_Body):
@@ -136,6 +158,10 @@ class EventOut(BaseModel):
     honor_bands: list[dict[str, Any]]
     total_floor: float | None
     source_note: str | None
+    # 027 light branding: null = the platform's own.
+    brand_logo_url: str | None = None
+    brand_color: str | None = None
+    brand_accent: str | None = None
     template_of_id: str | None
     created_at: datetime | None
     updated_at: datetime | None
@@ -429,3 +455,54 @@ class AdjustmentOut(BaseModel):
     voided_at: datetime | None
     void_reason: str | None
     created_at: datetime | None
+
+
+# ----------------------------------------------------------------------------
+# Historia de puntos («cada punto tiene historia»)
+# ----------------------------------------------------------------------------
+HistoryType = Literal["EVALUATION_CREATED", "EVALUATION_CORRECTED", "EVALUATION_VOIDED",
+                      "ADJUSTMENT_APPLIED", "ADJUSTMENT_VOIDED"]
+
+
+class HistoryRegistration(BaseModel):
+    id: str
+    club_name: str
+
+
+class HistoryActivity(BaseModel):
+    id: str
+    name: str
+
+
+class HistoryActor(BaseModel):
+    name: str | None
+    # JUDGE for a judge's capture/correction; COORDINATION for everything coordination did.
+    as_: Literal["JUDGE", "COORDINATION"] = Field(alias="as", serialization_alias="as")
+
+    model_config = {"populate_by_name": True}
+
+
+class HistoryItem(BaseModel):
+    id: str
+    at: datetime
+    type: HistoryType
+    registration: HistoryRegistration
+    activity: HistoryActivity | None
+    # Never signed; `type` (and `kind`) say the direction. CREATED: the points captured.
+    # CORRECTED: the new points (`previous_points` = the old ones). EVALUATION_VOIDED: the
+    # points that stopped counting. ADJUSTMENT_*: the amount of the bonus/penalty.
+    points: float
+    previous_points: float | None
+    # Adjustments only (BONUS adds, PENALTY subtracts); null for evaluations.
+    kind: Literal["BONUS", "PENALTY"] | None = None
+    # Coordination only: an adjustment still awaiting approval (legacy; it does not count).
+    # Judges and directors never receive pending items.
+    pending: bool = False
+    actor: HistoryActor
+    reason: str | None
+
+
+class HistoryPage(BaseModel):
+    items: list[HistoryItem]
+    # Pass as `before` for the next (older) page; null = no more.
+    next_cursor: str | None

@@ -1248,6 +1248,10 @@ class Event(Base):
     # NULL = no floor. The displayed total is max(raw total, total_floor); honours use it.
     total_floor: Mapped[Decimal | None] = mapped_column(Numeric(8, 2))
     source_note: Mapped[str | None] = mapped_column(Text)
+    # 027: light per-event branding (NULL = the platform's own).
+    brand_logo_url: Mapped[str | None] = mapped_column(Text)
+    brand_color: Mapped[str | None] = mapped_column(String(7))
+    brand_accent: Mapped[str | None] = mapped_column(String(7))
     template_of_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("events.id", ondelete="SET NULL")
     )

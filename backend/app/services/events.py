@@ -59,6 +59,8 @@ TRANSITIONS = {
     ARCHIVED: set(),
 }
 READY, TO_DEFINE = "READY", "TO_DEFINE"
+# 027: light branding, edited by the PATCH and copied by duplicate.
+BRAND_FIELDS = ("brand_logo_url", "brand_color", "brand_accent")
 FIXED, FREE = "FIXED", "FREE"
 
 ENTITY_EVENT = "EVENT"
@@ -144,6 +146,9 @@ async def event_out(db: AsyncSession, event: Event, roles: EventRoles | None = N
         honor_bands=event.honor_bands or [],
         total_floor=_num(event.total_floor),
         source_note=event.source_note,
+        brand_logo_url=event.brand_logo_url,
+        brand_color=event.brand_color,
+        brand_accent=event.brand_accent,
         template_of_id=str(event.template_of_id) if event.template_of_id else None,
         created_at=event.created_at,
         updated_at=event.updated_at,
@@ -335,6 +340,11 @@ async def update_event(db: AsyncSession, actor: User, event: Event, roles: Event
         changes["honor_bands"] = _bands(changes["honor_bands"])
     if "total_floor" in changes:
         changes["total_floor"] = _floor(changes["total_floor"])
+    if "brand_logo_url" in changes:
+        from app.services import event_brand
+
+        changes["brand_logo_url"] = event_brand.check_url(changes["brand_logo_url"])
+    brand_before = {key: getattr(event, key) for key in BRAND_FIELDS if key in changes}
     for key, value in changes.items():
         setattr(event, key, value)
     if event.ends_on < event.starts_on:
@@ -343,6 +353,8 @@ async def update_event(db: AsyncSession, actor: User, event: Event, roles: Event
     metadata = {"fields": sorted(payload.model_dump(exclude_unset=True))}
     if "total_floor" in changes:
         metadata["total_floor"] = {"from": _num(previous_floor), "to": _num(event.total_floor)}
+    for key, before in brand_before.items():
+        metadata[key] = {"from": before, "to": getattr(event, key)}
     record_audit(db, action="EVENT_UPDATE", entity_type=ENTITY_EVENT, entity_id=event.id,
                  actor=actor, metadata=metadata, request=request)
     return event
@@ -428,6 +440,8 @@ async def duplicate_event(db: AsyncSession, actor: User, source: Event, payload,
         ends_on=payload.ends_on, status=DRAFT, registration_closes_on=None, rules_version=1,
         honor_bands=list(source.honor_bands or []), total_floor=source.total_floor,
         source_note=source.source_note,
+        brand_logo_url=source.brand_logo_url, brand_color=source.brand_color,
+        brand_accent=source.brand_accent,
         template_of_id=source.id, created_by_id=actor.id,
     )
     db.add(copy)
