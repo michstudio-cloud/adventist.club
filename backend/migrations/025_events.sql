@@ -13,8 +13,9 @@
 --   evaluation_revisions    historial inmutable de correcciones y anulaciones (motivo obligatorio)
 --   event_adjustments       bonificaciones y penalizaciones con aprobación y anulación
 --
--- Total oficial = Σ evaluaciones CONFIRMED (de actividades que cuentan) + Σ BONUS − Σ PENALTY
--- aprobados y no anulados; sin piso ni techo implícitos (lo calcula app/services/event_scores.py).
+-- Total crudo = Σ evaluaciones CONFIRMED (de actividades que cuentan) + Σ BONUS − Σ PENALTY
+-- aprobados y no anulados; sin techo. Total mostrado = max(crudo, events.total_floor) cuando el
+-- evento fija un piso (lo calcula app/services/event_scores.py).
 -- Borrar un evento (sólo en DRAFT, por el API) arrastra todo lo suyo en cascada.
 --
 -- APLICAR ANTES DE DESPLEGAR EL CÓDIGO, después de 023. Idempotente.
@@ -38,6 +39,9 @@ CREATE TABLE IF NOT EXISTS events (
   rules_version integer NOT NULL DEFAULT 1 CHECK (rules_version >= 1),
   -- [{key, label, min, max}]: min inclusivo (null = sin piso), max informativo.
   honor_bands jsonb NOT NULL DEFAULT '[]'::jsonb CHECK (jsonb_typeof(honor_bands) = 'array'),
+  -- Piso del total que se muestra (NULL = sin piso; 0 = nunca bajo cero). El total crudo se
+  -- conserva siempre; los honores usan el total mostrado.
+  total_floor numeric(8,2),
   source_note text,
   template_of_id uuid REFERENCES events(id) ON DELETE SET NULL,
   created_by_id uuid REFERENCES users(id) ON DELETE SET NULL,
@@ -46,6 +50,8 @@ CREATE TABLE IF NOT EXISTS events (
   CONSTRAINT events_dates_ck CHECK (ends_on >= starts_on),
   CONSTRAINT events_org_slug_uq UNIQUE (organization_id, slug)
 );
+-- Bases donde 025 ya se aplicó antes de existir el piso (sólo bases de prueba).
+ALTER TABLE events ADD COLUMN IF NOT EXISTS total_floor numeric(8,2);
 CREATE INDEX IF NOT EXISTS events_org_idx ON events (organization_id, starts_on DESC);
 
 COMMENT ON TABLE events IS

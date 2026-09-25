@@ -148,8 +148,7 @@ async def my_view(event_id: uuid.UUID, current_user: User = Depends(get_current_
         closed = event.status in (event_service.CLOSED, event_service.ARCHIVED)
         clubs = []
         for registration, club in await scores.list_registrations(db, event, club_ids=roles.director_club_ids):
-            item = scores.breakdown(snap, registration, show_honor=closed)
-            item.pop("pending_adjustments", None)
+            item = scores.director_view(scores.breakdown(snap, registration, show_honor=closed))
             item["club"] = {"id": str(club.id), "name": club.name}
             item["has_pass"] = registration.pass_token_hash is not None
             clubs.append(item)

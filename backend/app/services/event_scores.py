@@ -693,13 +693,19 @@ def breakdown(snap: Snapshot, registration: EventRegistration, *, show_honor: bo
                 penalty += row.points
         elif state == "PENDING":
             pending_adjustments.append(item)
-    total = (evaluated_total + bonus - penalty).quantize(scoring.CENT)
+    raw_total = (evaluated_total + bonus - penalty).quantize(scoring.CENT)
+    floor = snap.event.total_floor
+    floored = floor is not None and raw_total < floor
+    total = floor if floored else raw_total
     honor = scoring.honor_for(total, snap.event.honor_bands or []) if show_honor else None
     return {
         "registration_id": str(registration.id),
         "club_id": str(registration.club_id),
         "status": registration.status,
         "total": float(total),
+        "raw_total": float(raw_total),
+        "floored": floored,
+        "total_floor": _num(floor),
         "evaluated_points": float(evaluated_total),
         "bonus": float(bonus),
         "penalty": float(penalty),
@@ -728,8 +734,16 @@ async def registration_breakdown(db: AsyncSession, event: Event, registration: E
     result = breakdown(snap, registration, show_honor=show_honor)
     result["club"] = {"id": str(club.id), "name": club.name}
     if not roles.coordination:
-        result.pop("pending_adjustments", None)
+        director_view(result)
     return result
+
+
+def director_view(item: dict) -> dict:
+    """What a director reads of their own club: the displayed total (and `floored`), never the
+    raw total, the floor itself nor the adjustments still pending approval."""
+    for key in ("pending_adjustments", "raw_total", "total_floor"):
+        item.pop(key, None)
+    return item
 
 
 async def standings(db: AsyncSession, event: Event) -> list[dict]:
@@ -741,10 +755,11 @@ async def standings(db: AsyncSession, event: Event) -> list[dict]:
         item = breakdown(snap, registration, show_honor=True)
         rows.append({"registration_id": item["registration_id"],
                      "club": {"id": str(club.id), "name": club.name, "city": club.city},
-                     "total": item["total"], "bonus": item["bonus"], "penalty": item["penalty"],
+                     "total": item["total"], "raw_total": item["raw_total"],
+                     "floored": item["floored"], "bonus": item["bonus"], "penalty": item["penalty"],
                      "progress": item["progress"], "honor": item["honor"],
                      "pending_adjustments": len(item["pending_adjustments"])})
-    rows.sort(key=lambda row: (-row["total"], row["club"]["name"]))
+    rows.sort(key=lambda row: (-row["total"], -row["raw_total"], row["club"]["name"]))
     for index, row in enumerate(rows, start=1):
         row["position"] = index
     return rows

@@ -661,7 +661,7 @@ async def test_seed_template_universo(w):
     event = await fetch_one("SELECT * FROM events WHERE id = :id", id=event_id)
     assert event["name"] == "Camporee Familiar de Aventureros 2026 — Universo de Dios"
     assert (str(event["starts_on"]), str(event["ends_on"]), event["status"]) == ("2026-11-20", "2026-11-22", "DRAFT")
-    assert event["city"] == "La Morita, N.L."
+    assert event["city"] == "La Morita, N.L." and event["total_floor"] is None
     assert [b["min"] for b in event["honor_bands"]] == [950, 800, None]
     rows = await fetch_all("SELECT a.name, a.kind, a.max_points, a.status, a.config, p.name AS parent"
                            " FROM event_activities a LEFT JOIN event_activities p ON p.id = a.parent_id"
@@ -697,3 +697,99 @@ async def test_seed_template_universo(w):
         admin = await db.get(User, uuid.UUID(w["admin"]["id"]))
         loaded = await db.get(Event, event_id)
         assert await can_manage_events_of(db, admin, loaded.organization_id)
+
+
+# ----------------------------------------------------------------------------
+# Lo que la asociación completa en el editor (spec §3.4) — todo por el API, sobre la plantilla
+# ----------------------------------------------------------------------------
+async def test_the_association_completes_the_seeded_template(client, w):
+    seeded = await fetch_one("SELECT e.id FROM events e JOIN organizations o ON o.id = e.organization_id"
+                             " WHERE o.code = :code AND e.slug LIKE 'camporee-familiar%'", code=w["code"])
+    event_id, h = str(seeded["id"]), w["admin"]["headers"]
+    activities = {a["name"]: a for a in (await client.get(f"{API}/{event_id}/activities", headers=h)).json()}
+    types = {t["label"]: t for t in (await client.get(f"{API}/{event_id}/adjustment-types", headers=h)).json()}
+
+    # 1. Inspection: split of the 50 points, then READY. Incomplete READY is refused.
+    sabado = activities["Inspección sábado"]
+    assert (await client.patch(f"{API}/{event_id}/activities/{sabado['id']}", json={"status": "READY"},
+                               headers=h)).status_code == 422
+    criteria = [{**c, "max": 10} for c in sabado["config"]["criteria"]]
+    done = await client.patch(f"{API}/{event_id}/activities/{sabado['id']}",
+                              json={"status": "READY", "config": {"criteria": criteria}}, headers=h)
+    assert done.status_code == 200, done.text
+    assert done.json()["config_complete"] is True and done.json()["config_max"] == 50
+    wrong = [{**c, "max": 5} for c in activities["Inspección domingo"]["config"]["criteria"]]
+    assert (await client.patch(f"{API}/{event_id}/activities/{activities['Inspección domingo']['id']}",
+                               json={"status": "READY", "config": {"criteria": wrong}},
+                               headers=h)).status_code == 422  # 15 ≠ max_points 50
+    # 2. Previous event: from participation to a rubric of its own.
+    previo = await client.patch(f"{API}/{event_id}/activities/{activities['Evento previo']['id']}", json={
+        "kind": "rubric", "status": "READY", "config": {"criteria": [
+            {"key": "evidencia", "label": "Evidencia", "max": 30},
+            {"key": "participacion", "label": "Participación", "max": 20, "deduction_step": 2}]}}, headers=h)
+    assert previo.status_code == 200 and previo.json()["kind"] == "rubric"
+    # 3. Discipline amounts (FIXED) and the FREE one.
+    queda = types["Disciplina: No respetar el toque de queda"]
+    assert queda["to_define"] is True
+    defined = await client.patch(f"{API}/{event_id}/adjustment-types/{queda['id']}", json={"points": 10}, headers=h)
+    assert defined.status_code == 200 and defined.json()["to_define"] is False
+    otros = types["Disciplina: Otros criterios que determinen los jueces"]
+    bounded = await client.patch(f"{API}/{event_id}/adjustment-types/{otros['id']}", json={"max_points": 30},
+                                 headers=h)
+    assert bounded.status_code == 200 and bounded.json()["amount_mode"] == "FREE"
+    # 4. Honour bands and the total floor.
+    bands = [{"key": "oro", "label": "Oro", "min": 900}, {"key": "resto", "label": "Participación", "min": None}]
+    patched = await client.patch(f"{API}/{event_id}", json={"honor_bands": bands, "total_floor": 0}, headers=h)
+    assert patched.status_code == 200, patched.text
+    assert patched.json()["total_floor"] == 0 and [b["key"] for b in patched.json()["honor_bands"]] == ["oro", "resto"]
+    assert (await client.patch(f"{API}/{event_id}", json={"total_floor": 1.005}, headers=h)).status_code == 422
+    audit = await fetch_one("SELECT metadata_json FROM audit_log WHERE action = 'EVENT_UPDATE' AND entity_id = :id"
+                            " ORDER BY created_at DESC LIMIT 1", id=event_id)
+    assert audit["metadata_json"]["total_floor"] == {"from": None, "to": 0.0}
+    my = (await client.get(f"{API}/{event_id}/my", headers=h)).json()
+    assert my["coordination"]["to_define"]["activities"] == [{"id": activities["Inspección domingo"]["id"],
+                                                              "name": "Inspección domingo"}]
+    # 5. Finalists, a club, penalties below zero: the displayed total stops at the floor.
+    registration = await client.post(f"{API}/{event_id}/registrations", json={"club_id": w["club"]["id"]}, headers=h)
+    assert registration.status_code == 201
+    reg = registration.json()["id"]
+    final = activities["Ronda final"]["id"]
+    flagged = await client.patch(f"{API}/{event_id}/registrations/{reg}", json={"finalist_flags": {final: True}},
+                                 headers=h)
+    assert flagged.status_code == 200 and flagged.json()["finalist_flags"] == {final: True}
+    for step in ("OPEN", "IN_PROGRESS"):
+        assert (await client.post(f"{API}/{event_id}/status", json={"status": step}, headers=h)).status_code == 200
+    for label in ("Disciplina: No respetar el toque de queda", "Área de acampar sucia al retirarse"):
+        applied = await client.post(f"{API}/{event_id}/adjustments", json={
+            "registration_id": reg, "adjustment_type_id": types[label]["id"], "reason": "Prueba de piso"}, headers=h)
+        assert applied.status_code == 201, applied.text
+    breakdown_url = f"{API}/{event_id}/registrations/{reg}/breakdown"
+    b = (await client.get(breakdown_url, headers=h)).json()
+    assert (b["raw_total"], b["total"], b["floored"], b["total_floor"]) == (-60, 0, True, 0)
+    assert b["honor"]["key"] == "resto"
+    standings = (await client.get(f"{API}/{event_id}/standings", headers=h)).json()["rows"]
+    assert (standings[0]["raw_total"], standings[0]["total"], standings[0]["floored"]) == (-60, 0, True)
+    director = (await client.get(breakdown_url, headers=w["director"]["headers"])).json()
+    assert director["total"] == 0 and director["floored"] is True
+    assert "raw_total" not in director and "total_floor" not in director
+    [mine] = (await client.get(f"{API}/{event_id}/my", headers=w["director"]["headers"])).json()["director"]["registrations"]
+    assert mine["total"] == 0 and mine["floored"] is True and "raw_total" not in mine
+    # Any number: a negative floor, then none at all.
+    await client.patch(f"{API}/{event_id}", json={"total_floor": -20}, headers=h)
+    b = (await client.get(breakdown_url, headers=h)).json()
+    assert (b["raw_total"], b["total"], b["floored"]) == (-60, -20, True)
+    await client.patch(f"{API}/{event_id}", json={"total_floor": None}, headers=h)
+    b = (await client.get(breakdown_url, headers=h)).json()
+    assert (b["raw_total"], b["total"], b["floored"], b["total_floor"]) == (-60, -60, False, None)
+    # The completed inspection now takes captures (coordination, no judge).
+    captured = await client.post(f"{API}/{event_id}/evaluations", json={
+        "registration_id": reg, "activity_id": sabado["id"], "idempotency_key": f"{RUN}-insp-1",
+        "inputs": {"criteria": {c["key"]: 10 for c in criteria}}}, headers=h)
+    assert captured.status_code == 201 and captured.json()["points"] == 50
+    # Duplicate copies the floor; a closed event no longer changes it.
+    await client.patch(f"{API}/{event_id}", json={"total_floor": 0}, headers=h)
+    copy = await client.post(f"{API}/{event_id}/duplicate", json={
+        "name": f"{RUN} Copia con piso", "starts_on": "2027-11-19", "ends_on": "2027-11-21"}, headers=h)
+    assert copy.status_code == 201 and copy.json()["total_floor"] == 0
+    assert (await client.post(f"{API}/{event_id}/status", json={"status": "CLOSED"}, headers=h)).status_code == 200
+    assert (await client.patch(f"{API}/{event_id}", json={"total_floor": 5}, headers=h)).status_code == 409

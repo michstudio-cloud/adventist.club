@@ -1236,6 +1236,8 @@ class Event(Base):
     registration_closes_on: Mapped[date | None] = mapped_column(Date)
     rules_version: Mapped[int] = mapped_column(Integer, server_default="1")
     honor_bands: Mapped[list] = mapped_column(JSONB, server_default="[]")
+    # NULL = no floor. The displayed total is max(raw total, total_floor); honours use it.
+    total_floor: Mapped[Decimal | None] = mapped_column(Numeric(8, 2))
     source_note: Mapped[str | None] = mapped_column(Text)
     template_of_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("events.id", ondelete="SET NULL")

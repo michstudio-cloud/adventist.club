@@ -59,6 +59,8 @@ class EventCreate(_Body):
     ends_on: date
     registration_closes_on: date | None = None
     honor_bands: list[dict[str, Any]] | None = None
+    # NULL = no floor; 0 = never below zero; any number (negative too).
+    total_floor: float | None = Field(default=None, ge=-100000, le=100000)
     source_note: str | None = Field(default=None, max_length=4000)
 
     _clean = field_validator("name", "venue", "city", mode="before")(_squeeze)
@@ -84,6 +86,8 @@ class EventUpdate(_Body):
     ends_on: date | None = None
     registration_closes_on: date | None = None
     honor_bands: list[dict[str, Any]] | None = None
+    # NULL = no floor; 0 = never below zero; any number (negative too).
+    total_floor: float | None = Field(default=None, ge=-100000, le=100000)
     source_note: str | None = Field(default=None, max_length=4000)
 
     _clean = field_validator("name", "venue", "city", mode="before")(_squeeze)
@@ -130,6 +134,7 @@ class EventOut(BaseModel):
     registration_closes_on: date | None
     rules_version: int
     honor_bands: list[dict[str, Any]]
+    total_floor: float | None
     source_note: str | None
     template_of_id: str | None
     created_at: datetime | None

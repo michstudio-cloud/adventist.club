@@ -142,6 +142,7 @@ async def event_out(db: AsyncSession, event: Event, roles: EventRoles | None = N
         registration_closes_on=event.registration_closes_on,
         rules_version=event.rules_version,
         honor_bands=event.honor_bands or [],
+        total_floor=_num(event.total_floor),
         source_note=event.source_note,
         template_of_id=str(event.template_of_id) if event.template_of_id else None,
         created_at=event.created_at,
@@ -251,6 +252,16 @@ def _bands(bands) -> list[dict]:
         raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, error.message)
 
 
+def _floor(value) -> Decimal | None:
+    """NULL = no floor; any number with at most two decimals (0 = never below zero)."""
+    if value is None:
+        return None
+    number = Decimal(str(value))
+    if number != number.quantize(scoring.CENT):
+        raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "total_floor admite a lo más dos decimales")
+    return number.quantize(scoring.CENT)
+
+
 async def _free_slug(db: AsyncSession, organization_id: uuid.UUID, wanted: str,
                      *, exclude: uuid.UUID | None = None, strict: bool = False) -> str:
     base = wanted[:110] or "evento"
@@ -276,7 +287,8 @@ async def create_event(db: AsyncSession, actor: User, payload, request: Request 
         id=uuid.uuid4(), organization_id=org.id, ministry_id=ministry.id, name=payload.name,
         slug=slug, venue=payload.venue, city=payload.city, starts_on=payload.starts_on,
         ends_on=payload.ends_on, status=DRAFT, registration_closes_on=payload.registration_closes_on,
-        rules_version=1, honor_bands=_bands(payload.honor_bands), source_note=payload.source_note,
+        rules_version=1, honor_bands=_bands(payload.honor_bands),
+        total_floor=_floor(payload.total_floor), source_note=payload.source_note,
         created_by_id=actor.id,
     )
     db.add(event)
@@ -290,6 +302,7 @@ async def update_event(db: AsyncSession, actor: User, event: Event, roles: Event
                        payload, request: Request | None) -> Event:
     require_editable(event)
     changes = payload.model_dump(exclude_unset=True)
+    previous_floor = event.total_floor
     has_registrations = bool(await registered_club_ids(db, event))
     if "organization_id" in changes and changes["organization_id"] != event.organization_id:
         # Only an administrator moves an event, and only while no club is registered.
@@ -320,14 +333,18 @@ async def update_event(db: AsyncSession, actor: User, event: Event, roles: Event
             raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "Las fechas son obligatorias")
     if "honor_bands" in changes:
         changes["honor_bands"] = _bands(changes["honor_bands"])
+    if "total_floor" in changes:
+        changes["total_floor"] = _floor(changes["total_floor"])
     for key, value in changes.items():
         setattr(event, key, value)
     if event.ends_on < event.starts_on:
         raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "La fecha de fin no puede ser anterior a la de inicio")
     event.updated_at = utcnow()
+    metadata = {"fields": sorted(payload.model_dump(exclude_unset=True))}
+    if "total_floor" in changes:
+        metadata["total_floor"] = {"from": _num(previous_floor), "to": _num(event.total_floor)}
     record_audit(db, action="EVENT_UPDATE", entity_type=ENTITY_EVENT, entity_id=event.id,
-                 actor=actor, metadata={"fields": sorted(payload.model_dump(exclude_unset=True))},
-                 request=request)
+                 actor=actor, metadata=metadata, request=request)
     return event
 
 
@@ -409,7 +426,8 @@ async def duplicate_event(db: AsyncSession, actor: User, source: Event, payload,
         id=uuid.uuid4(), organization_id=org.id, ministry_id=source.ministry_id, name=payload.name,
         slug=slug, venue=source.venue, city=source.city, starts_on=payload.starts_on,
         ends_on=payload.ends_on, status=DRAFT, registration_closes_on=None, rules_version=1,
-        honor_bands=list(source.honor_bands or []), source_note=source.source_note,
+        honor_bands=list(source.honor_bands or []), total_floor=source.total_floor,
+        source_note=source.source_note,
         template_of_id=source.id, created_by_id=actor.id,
     )
     db.add(copy)
