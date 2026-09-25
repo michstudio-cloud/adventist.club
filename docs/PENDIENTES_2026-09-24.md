@@ -66,7 +66,7 @@ Decisiones tomadas hoy (ya aplicadas): firma guardada en bucket público; «uno 
 - Suite backend: `TZ=UTC TEST_DATABASE_URL=postgresql://test@127.0.0.1:55432/etl_hontr python -m pytest -q`.
 - Frontend: `npx tsc --noEmit && npx eslint . --ignore-pattern '.claude/**' && rm -rf .next && npm run build && npm test`.
 - e2e: `scripts/e2e/run.mjs` (ver cabecera del archivo).
-- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **023**).
+- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **024**; la 023 `certificates.text_overrides` ya está aplicada).
 
 ## 6. Especialidades de Aventureros (awards) — pendiente, documentado
 
@@ -145,3 +145,10 @@ contraseña invalidada).
 (130 awards), decidir las 3 fichas de mundoja con versión antigua (Amigo de Jesús, Temperancia, Mayordomo sabio: hoy va la
 lista del libro 2020 con nombre de mundoja; `--mundoja-always` para la de mundoja), sustituto del parche «Building Blocks»
 (86×61 px), permiso de la GC, y crear las clases de Aventureros (`programs`) para colgar las recomendaciones.
+
+### 7. Publicado tras el cierre (2026-09-24, noche)
+
+- `/verify/<folio>` muestra el certificado real (frontend `8c3607b`).
+- Vista previa del asistente: muestra estática solo en el paso 2; desde el paso 3, render real con la especialidad elegida (`c9fa539`).
+- **Frases editables del certificado** («Se otorga el presente certificado a:» y «por haber cumplido…»): solo con cuenta, en el paso 3 del asistente y en la hoja de emisión del portafolio; guardadas en `certificates.text_overrides` (migración 023 aplicada en Neon) y respetadas en `/verify` y re-descargas; sin cuenta el API responde 422 `strings_require_account` (backend `4887e87`, frontend `a19198b`). Fuera: interfaz para cambiarlas en la investidura (el API ya lo acepta).
+- Aventureros: 164 awards en borrador con requisitos (ver §6.3).
