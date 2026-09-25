@@ -1,0 +1,28 @@
+{
+ "honor_slug": "musica-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Music_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Música.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser aprovado no Grau 7 prático da AMEB, do Trinity College ou da Royal Schools of Music, ou no Nível 5 de graduação do método Suzuki.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber tocar ou cantar qualquer hino escolhido ao acaso do hinário da igreja ou dos cancioneiros da Escola Sabatina.",
+   "instructions": null
+  }
+ ]
+}

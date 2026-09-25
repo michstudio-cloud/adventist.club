@@ -1,0 +1,48 @@
+{
+ "honor_slug": "narracion-de-historias-cristianas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Storytelling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar uma fonte onde você encontrou material para histórias de cada uma das seguintes categorias. Contar uma história de cada categoria.\n  a. História sagrada\n  b. História da igreja\n  c. Natureza\n  d. História de formação do caráter\n  e. Lição objetiva com recursos visuais",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com as histórias acima que você contar, fazer o seguinte:\n  a. Contar uma de suas histórias para crianças de até cinco anos, durante pelo menos três minutos.\n  b. Contar uma de suas histórias para crianças de 10 a 12 anos, durante pelo menos cinco minutos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer por escrito o roteiro de uma história que você vai contar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dizer como e em que circunstâncias o material deve ser adaptado para o seguinte:\n  a. Contar a história em primeira, segunda e terceira pessoa\n  b. Diferentes públicos, idades e objetivos\n  c. Tornar a história mais curta\n  d. Tornar a história mais longa",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dizer por que é necessário ter um objetivo definido ao contar uma história.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Contar uma história de missionários no exterior, com pelo menos cinco minutos de duração.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Contar uma história que ensine princípios de saúde.",
+   "instructions": null
+  }
+ ]
+}

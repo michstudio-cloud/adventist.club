@@ -1,0 +1,98 @@
+{
+ "honor_slug": "natacion-iii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar a aproximação e o salto de impulsão no trampolim.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar um salto grupado do trampolim.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nadar crawl de frente: 100 jardas (91 m).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Nadar crawl de costas: 100 jardas (91 m).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nadar peito: 25 jardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar de lado: 25 jardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nadar borboleta: 10 jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar o nado de aproximação (de salvamento): 25 jardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar a virada do nado de peito.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar a virada rápida e a filipina (pull-out) do nado de peito.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar a virada rápida do crawl de frente.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar a virada olímpica (cambalhota) do crawl de frente.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar o mergulho de superfície carpado.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demonstrar o mergulho de superfície grupado.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Flutuar na posição vertical durante três minutos (um minuto sem as mãos).",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demonstrar um salvamento por arremesso.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demonstrar como virar de barriga para cima uma vítima com lesão na coluna.",
+   "instructions": null
+  }
+ ]
+}

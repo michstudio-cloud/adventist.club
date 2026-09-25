@@ -1,0 +1,73 @@
+{
+ "honor_slug": "murcielagos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bats_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Morcegos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como se chamam as cavernas, sótãos, pontes ou túneis onde os morcegos hibernam?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar três (3) exemplos de morcegos que vivem em colônias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dar três (3) exemplos de morcegos que se abrigam sozinhos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que se entende por implantação tardia?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quanto dura o período de gestação dos morcegos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é o guano de morcego e por que foi importante durante a Guerra de 1812 e a Guerra Civil americana?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que doença pode ser contraída a partir de grandes quantidades de guano?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a expectativa de vida de um morcego?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Todos os morcegos têm raiva?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como é a visão dos micromorcegos e dos megamorcegos?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Que morcego norte-americano aparece no emblema da especialidade?",
+   "instructions": null
+  }
+ ]
+}

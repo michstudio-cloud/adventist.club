@@ -1,0 +1,83 @@
+{
+ "honor_slug": "natacion-i-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Beginner_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Imersões ritmadas (bobbing). Praticar imersões com a água na altura do pescoço antes de ir para a parte funda. Demonstrar imersões em águas profundas com um ritmo definido, inspirando quando a boca sai da água e expirando quando a cabeça fica abaixo da água.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Controle da respiração. Em pé, com a água na altura do peito, demonstrar a respiração rítmica à razão de 24 a 26 vezes em dois minutos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nadar no lugar. Manter-se flutuando em uma área restrita (dentro de um círculo de oito pés (2,4 m)) usando uma braçada humana modificada durante um minuto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mudança de posição. Passar da posição de nado de bruços para a posição vertical e depois para a posição de costas. Passar da posição de costas para a vertical e depois para a de bruços.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Costas elementar. Nadar 25 jardas (22,9 metros) em nado de costas elementar.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Crawl. Nadar 25 jardas (22,9 metros) em nado crawl.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nado de sobrevivência. Nadar 25 jardas (22,9 metros) usando o nado de sobrevivência.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Uso do dispositivo de flutuação pessoal. Pular na água a partir de um deque ou cais usando um dispositivo de flutuação pessoal (colete salva-vidas). Mostrar como ficar confortável nas posições de bruços, vertical e de costas. Cada posição deve ser mantida por pelo menos um minuto. Usar uma almofada de assento para sustentar o corpo corretamente na água.*",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Flutuação de sobrevivência. Em águas profundas, acima da altura da cabeça, fazer a flutuação de sobrevivência durante dois minutos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber como aliviar uma câimbra em águas profundas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Técnica de salvamento. Demonstrar um salvamento usando uma vara de alcance e outro usando uma peça de roupa.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Teste combinado. Mergulhar em águas profundas a partir de um deque ou cais, nadar no mínimo três vezes o comprimento do corpo abaixo da superfície, subir à superfície e manter-se flutuando em um espaço restrito de 20 jardas (18,3 metros) usando o nado de costas elementar ou o crawl.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conhecer as causas dos acidentes que podem ocorrer dentro da água ou perto dela e os métodos para preveni-los.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demonstrar a respiração artificial.",
+   "instructions": null
+  }
+ ]
+}
