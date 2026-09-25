@@ -1,0 +1,53 @@
+{
+ "honor_slug": "origami",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Origami/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é origami? De onde surgiu? Como foi usado e desenvolvido?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar os símbolos dos seguintes termos:\n  a. Dobra vale\n  b. Dobra montanha\n  c. Corte\n  d. Vinco existente\n  e. Segurar aqui\n  f. Observar este ponto\n  g. Na frente\n  h. Atrás\n  i. Encaixar, abrir ou pressionar\n  j. Dobrar várias vezes\n  k. Virar o modelo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar as seguintes dobras:\n  a. Dobra invertida\n  b. Dobra esmagada (squash)\n  c. Dobra pétala\n  d. Dobra livro\n  e. Dobra preliminar\n  f. Dobra blintz",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar as seguintes bases:\n  a. Base do pássaro\n  b. Base da bomba-d’água\n  c. Base do sapo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer três dos seguintes modelos:\n  a. Casa\n  b. Flor de lótus\n  c. Cigarra\n  d. Mosca\n  e. Borboleta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher três dos seguintes modelos para dobrar ou escolher modelos semelhantes em livros de origami:\n  a. Sapo saltador\n  b. Pombo-correio\n  c. Veleiro\n  d. Galinha\n  e. Folha\n  f. Cachorro que anda\n  g. Pato",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dobrar de memória um modelo de sua escolha dos requisitos 5 ou 6.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ilustrar uma história bíblica usando vários modelos de origami.",
+   "instructions": null
+  }
+ ]
+}

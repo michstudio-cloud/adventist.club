@@ -1,0 +1,83 @@
+{
+ "honor_slug": "orientacion-con-gps",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Orienteering_with_GPS/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Orientação com GPS",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mapa e bússola.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significam as siglas GPS e DGPS?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer a história do surgimento do GPS e descrevê-la brevemente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os fatores que podem interferir no sinal do GPS?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a margem de erro do GPS?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a finalidade de um receptor GPS? Que tipos de receptores GPS existem atualmente? Descrever a utilidade de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber manusear um GPS adequadamente. Que cuidados devemos ter ao manuseá-lo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são as aplicações de um receptor GPS e quais são suas limitações?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usar um software de transferência de arquivos e conectá-lo corretamente ao GPS.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Instalar mapas no GPS e no software de transferência de mapas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que tipos de mapas podemos usar num GPS? Dar exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar sua capacidade de:\n  a. Ligar um GPS\n  b. Encontrar um ponto no GPS\n  c. Inserir um ponto no GPS\n  d. Calcular uma rota\n  e. Inserir uma trilha marcada\n  f. Percorrer uma trilha e mapeá-la\n  g. Transferir mapas e dados do GPS\n  h. Transferir mapas e dados para o GPS\n  i. Selecionar os mapas a serem usados",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Percorrer uma trilha que você ainda não percorreu, de pelo menos 15 km, e mapear o caminho. Fazer o seguinte:\n  a. Marcar em seu GPS pelo menos dez pontos importantes ou de interesse dessa trilha.\n  b. Fazer um relatório de campo que contenha:\n    i. Uma cópia impressa do mapa\n    ii. O percurso da trilha\n    iii. Anotações e coordenadas dos pontos marcados",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer uma comparação entre o sinal enviado ao aparelho de GPS e a onisciência de Deus agindo sobre uma pessoa. Que lições espirituais você pode tirar disso?",
+   "instructions": null
+  }
+ ]
+}
