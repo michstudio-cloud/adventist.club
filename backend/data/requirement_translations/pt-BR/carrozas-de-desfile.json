@@ -1,0 +1,43 @@
+{
+ "honor_slug": "carrozas-de-desfile",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Parade_Floats/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender e aplicar as seguintes regras de segurança na criação de um carro alegórico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar pelo menos cinco materiais que podem ser usados na construção e decoração de seu carro alegórico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ajudar a construir um carro alegórico:\n  a. Ajudando a projetar um carro alegórico para seu Clube de Desbravadores/grupo de jovens da igreja.\n  b. Ajudando a planejar os materiais necessários e participando da coleta desses itens.\n  c. Decorando um carro alegórico durante pelo menos 4 horas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um desfile com o carro alegórico que ajudou a construir e decorar e, quando for apropriado, distribuir folhetos que expliquem o ministério jovem/de Desbravadores de seu grupo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fotografar seu carro alegórico durante a criação e durante o desfile e compartilhar a experiência de uma das seguintes maneiras:\n  a. Com pelo menos duas pessoas que não podem sair de casa, contando como seu grupo testemunhou na comunidade\n  b. Com um relatório com fotos e histórias para um programa da igreja ou da Escola Sabatina e para um culto do Clube de Desbravadores",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar Marcos 16:15 e discutir com um grupo como o projeto do carro alegórico desta especialidade ajuda a cumprir essa ordem bíblica.",
+   "instructions": null
+  }
+ ]
+}

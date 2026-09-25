@@ -1,0 +1,73 @@
+{
+ "honor_slug": "ceremonias",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ceremonies/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cerimônias",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são cerimônias e qual é o seu objetivo principal?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as seguintes cerimônias do Clube de Desbravadores. Dizer o objetivo, quem é responsável por dirigir o programa e em que ocasiões são realizadas:\n  a. Abertura\n  b. Admissão\n  c. Investidura\n  d. Encerramento\n  e. Dia do Desbravador\n  f. Fogo do conselho",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os critérios para a concessão dos seguintes emblemas?\n  a. Classe (nível)\n  b. Lenço\n  c. Especialidades\n  d. Fita de bom comportamento",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que precauções devem ser tomadas quanto ao fogo dentro do templo (tochas, piras)?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como se prepara corretamente uma tocha? Citar os materiais necessários, incluindo a segurança contra incêndio com materiais inflamáveis.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar uma cerimônia que pode ser realizada ao ar livre. Citar os planos que você faria para essa cerimônia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar 6 pontos fundamentais para ter uma cerimônia de qualidade.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Estudar o serviço cerimonial do santuário descrito em Êxodo e explicar em detalhes como era.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar da organização de uma cerimônia de investidura ou de admissão, incluindo:\n  a. O tema\n  b. Um local adequado\n  c. A decoração\n  d. A revelação\n  e. A preparação antecipada do material\n  f. A escolha das músicas\n  g. Uma música especial\n  h. As premiações (se houver)\n  i. A projeção dos hinos e dos ideais dos Desbravadores (ou sua distribuição em folhetos)\n  j. A inspeção de uniformes",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em um acampamento, dirigir uma cerimônia de fogo do conselho, sendo responsável por toda a organização, desde a preparação da fogueira até a recreação e a meditação.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é a função de um mestre de cerimônias?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Explicar o que significa o lema \"uma cerimônia deve ser simples, breve e digna\".",
+   "instructions": null
+  }
+ ]
+}

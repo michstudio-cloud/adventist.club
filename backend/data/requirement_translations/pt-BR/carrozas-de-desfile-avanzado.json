@@ -1,0 +1,38 @@
+{
+ "honor_slug": "carrozas-de-desfile-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Parade_Floats_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Desfile com carros alegóricos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Revisar com sua equipe os requisitos básicos de segurança referentes ao uso de escadas, ferramentas manuais, facas e outros equipamentos elétricos usados para completar esta especialidade. Demonstrar segurança em todos os aspectos da criação de seu carro alegórico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Construir um carro alegórico (com seu Clube de Desbravadores/grupo de jovens) que não tenha sido usado antes para cumprir requisitos de especialidade, com as seguintes especificações mínimas:\n  a. Base de no mínimo 6 x 10 pés (1,8 x 3 m).\n  b. Partes decorativas do carro que se movam mecanicamente (sem contar eixos, rodas etc. usados para transportar o carro).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de forma central no projeto do carro alegórico. Como parte dessa participação:\n  a. Planejar os materiais necessários e delegar a coleta desses itens.\n  b. Decorar um carro alegórico durante pelo menos 6 horas.\n  c. Participar da direção do desenvolvimento e da criação de pelo menos uma parte do carro alegórico.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Inscrever um carro alegórico, não usado anteriormente, em dois desfiles. Um dos desfiles pode ser uma feira de Desbravadores ou equivalente.",
+   "instructions": null
+  }
+ ]
+}

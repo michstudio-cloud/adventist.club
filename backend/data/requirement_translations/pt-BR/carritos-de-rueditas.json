@@ -1,0 +1,58 @@
+{
+ "honor_slug": "carritos-de-rueditas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soapbox_Racing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Carrinho de rolimã",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer o projeto de um carrinho de rolimã com as seguintes dimensões:\n  a. Comprimento de 80-100 cm\n  b. Largura de 25-35 cm\n  c. Espessura de 2-3 cm\n  d. Rodas (rolamentos) com diâmetros de 6203 a 6307",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber usar ferramentas como martelo, serrote e furadeira, e conhecer e praticar os cuidados que se devem ter com cada uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre um freio manual e um freio de pé? Por que não é conveniente ajustar os freios nas rodas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Concluir seu projeto, com a montagem e o acabamento com pintura.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber o que são atrito, aderência e lubrificação em relação aos rolamentos e como isso afeta o desempenho.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ter conhecimentos básicos de primeiros socorros em caso de escoriações leves, e de direção defensiva para sua segurança nas curvas e em alta velocidade.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber quais são os lugares apropriados para treinar e testar seu carrinho de rolimã.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de um evento em seu clube ou distrito observando as regras de segurança, como local apropriado e equipamento de proteção individual, bem como o espírito esportivo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é o equipamento de segurança que deve ser usado neste esporte? Por que ele deve ser usado sempre que se pratica este esporte?",
+   "instructions": null
+  }
+ ]
+}

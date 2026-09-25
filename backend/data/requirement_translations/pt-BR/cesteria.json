@@ -1,0 +1,68 @@
+{
+ "honor_slug": "cesteria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basketry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber o nome de dois países onde se cultiva o rotim (cana).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como tratar o miolo do rotim (junco) antes de trançar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que ferramentas você usaria para:\n  a. Fazer cestos de rotim?\n  b. Fazer cestos de ráfia ou cestaria indígena?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir:\n  a. Chamuscar as fibras de trançado\n  b. Esmagar",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como:\n  a. Consertar uma vareta (montante) quebrada.\n  b. Emendar uma fibra de trançado (junco).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dois tipos de base usados em cestos e dizer em que tipo de cesto cada uma pode ser usada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever como fazer:\n  a. Uma borda de pé (footridge)\n  b. Uma borda de três fibras",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer o seguinte: trançado simples, trançado com fibras múltiplas (slewing) e trançado com varetas duplas (bispoking), e costurar uma base de ráfia.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma bandeja de sanduíches de rotim com base de madeira.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma cesta para pães quentes com base trançada.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um descanso de panela redondo de seis polegadas (15,2 cm) de diâmetro em ráfia ou cestaria indígena.",
+   "instructions": null
+  }
+ ]
+}
