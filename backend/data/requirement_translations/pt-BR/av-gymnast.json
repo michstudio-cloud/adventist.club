@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-gymnast",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=289",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ginasta",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade Cultura física.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer pelo menos cinco aquecimentos diferentes. Ser capaz de dirigir os aquecimentos e alongamentos no início de uma aula.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Praticar o salto em altura. Registrar o melhor de quatro.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Praticar o salto em distância. Registrar o melhor de quatro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Correr 50 metros em dez segundos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte:\n  a. Rolamento para trás\n  b. Estrela\n  c. Ponte\n  d. Rolamento para trás com pernas afastadas\n  e. Rolamento mergulhado\n  f. Parada de cabeça\n  g. Rolamento para frente com pernas afastadas\n  h. Caminhada na trave\n  i. Parada de mãos",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

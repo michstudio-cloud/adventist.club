@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-health-specialist",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=123",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Especialista em saúde",
+ "description": "Classe sugerida: Abelhinhas Laboriosas.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Memorizar e repetir 1 Coríntios 6:19, 20.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Recortar figuras e fazer um cartaz mostrando os quatro grupos básicos de alimentos. Organizar as figuras para mostrar três refeições saudáveis que você poderia comer.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que seu corpo precisa de exercício.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Durante uma semana, anotar as horas que você dorme. Dizer por que você precisa de descanso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar por que você precisa de ar puro e de luz do sol.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por que a água é importante para seu corpo. Dizer quantos copos de água você deve beber por dia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever e praticar uma boa higiene bucal.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar três coisas que podem destruir sua saúde.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

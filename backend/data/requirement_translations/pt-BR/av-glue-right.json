@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-glue-right",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=65",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Colar direito",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Praticar o controle da cola em papel de rascunho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender a controlar a cola praticando diferentes maneiras de aplicá-la.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A criança pode colar uma estrela, uma lantejoula ou outro item na linha em que acha que mais aprendeu a controlar a cola e dizer por quê.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ler Provérbios 18:24 e conversar sobre esse texto.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um trabalho manual ou um quadro usando a cola da maneira correta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Passar cola de maneira uniforme em um pequeno círculo nas costas da mão. Esperar secar. Você consegue tirar a cola da mão em uma peça só?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quando terminar de usar a cola, sempre limpar o bico do tubo e colocar a tampa de volta.",
+   "instructions": null
+  }
+ ]
+}

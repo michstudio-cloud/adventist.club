@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-gods-world",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=367",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "O mundo de Deus",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quem fez o nosso mundo? (Aprender Gênesis 1:1)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Representar a história da Criação enquanto alguém a lê ou conta.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Cantar uma música sobre o seu mundo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Olhar um globo terrestre e mostrar onde você mora.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar cinco (5) das coisas que Deus criou para você de que você mais gosta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma colagem, colorir uma figura do mundo de Deus ou fazer um passeio ao ar livre e encontrar coisas que Ele fez.",
+   "instructions": null
+  }
+ ]
+}

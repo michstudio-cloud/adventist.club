@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-hands-of-service",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=27",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Mãos que servem",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler em voz alta os seguintes versículos bíblicos sobre o serviço. Encontrar pelo menos UMA maneira como cada texto fala de serviço ou missão:\n  a. Atos 20:35\n  b. 1 Pedro 4:10, 11\n  c. Gálatas 5:13, 14\n  d. Mateus 20:28\n  e. Marcos 10:44, 45\n  f. Filipenses 2:1-11",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar sobre a parábola de Mateus 25:31-46. Usar as seguintes perguntas na conversa.\n  a. O que você acha que as “ovelhas” e os “cabritos” representam?\n  b. Que ações são diferentes entre as “ovelhas” e os “cabritos” nesta parábola?\n  c. Que ações de “serviço” o rei diz que são “benditas”? Por que você acha que essas ações são benditas?\n  d. Que ações seu grupo, clube, Escola Sabatina e igreja realizam que são parecidas com as mencionadas nesta parábola?\n  e. Parece que as ovelhas têm o “hábito” de servir? Como podemos adquirir o “hábito” de servir?\n  f. Como é a sensação de servir os outros?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de pelo menos 10 coisas que os Mãos Ajudadoras poderiam fazer para servir outras pessoas. Incluir coisas que ajudariam:\n  a. Sua família\n  b. A comunidade de sua igreja\n  c. A comunidade de sua escola\n  d. Seu bairro / o bairro perto de sua igreja\n  e. Pessoas necessitadas",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Com seus líderes, planejar e realizar um dos projetos de serviço que vocês pensaram para “d. ou e.” na lista acima. Relatar ao seu diretor, ou em um culto do clube, o que vocês fizeram e a diferença que você sente que isso fez para os outros e para você mesmo.",
+   "instructions": null
+  }
+ ]
+}

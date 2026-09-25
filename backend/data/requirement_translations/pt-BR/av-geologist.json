@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-geologist",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=215",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Geologia",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar o que faz um geólogo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Recitar um texto da Bíblia que fale de rochas ou minerais. Contar uma história bíblica em que foram usadas rochas ou pedras.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer experiências com terra, areia, cascalho, pedras e água, OU fazer um jardim de cristais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Com um adulto, fazer uma excursão e recolher diferentes tipos de rochas ou minerais. Ver quantos tipos, formas, cores e texturas diferentes você consegue encontrar. Fazer uma coleção de cinco rochas diferentes e etiquetá-las indicando onde você as encontrou.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com um grupo, ler Apocalipse 21.\n  a. Usar uma enciclopédia ou outro livro de consulta para pesquisar as pedras preciosas mencionadas no texto.\n  b. Fazer um desenho colorido da cidade celestial.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usar pedras ou rochas para fazer um objeto artístico ou uma pedra pintada.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Geologia», son los de Geologist)"
+}
