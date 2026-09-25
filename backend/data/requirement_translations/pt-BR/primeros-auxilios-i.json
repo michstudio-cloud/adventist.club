@@ -1,0 +1,133 @@
+{
+ "honor_slug": "primeros-auxilios-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/First_Aid,_Basic/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as causas do estado de choque e demonstrar seu tratamento adequado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer os passos corretos da respiração de resgate.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os procedimentos corretos para socorrer uma vítima de engasgo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os procedimentos corretos para socorrer uma vítima de hemorragia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer os pontos de pressão e como aplicar corretamente a pressão nesses pontos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de envenenamento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar o procedimento correto para imobilizar com talas diversas fraturas do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de queimadura de primeiro, segundo e terceiro graus.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de queimadura química.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber que situações podem causar intoxicação por monóxido de carbono e as técnicas de resgate e tratamento dessa intoxicação.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer o procedimento correto para prestar socorro a uma vítima de traumatismo craniano.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Conhecer o procedimento correto para prestar socorro a uma vítima de lesões internas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conhecer a diferença entre ataque cardíaco, acidente vascular cerebral (AVC), epilepsia e desmaio simples, e o tratamento de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Saber como prevenir infecções.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Qual é o tratamento adequado para uma picada de cobra?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Qual é o tratamento adequado para mordidas de animais?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Qual é o tratamento adequado para picadas de insetos e de aranhas?",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Qual é a diferença entre exaustão pelo calor e insolação, e qual é o tratamento de cada uma?",
+   "instructions": null
+  },
+  {
+   "position": 19,
+   "description": "O que você deve fazer se sua roupa pegar fogo?",
+   "instructions": null
+  },
+  {
+   "position": 20,
+   "description": "Quais são os princípios básicos de prevenção de incêndios em casa?",
+   "instructions": null
+  },
+  {
+   "position": 21,
+   "description": "Quais são os princípios básicos de segurança na água?",
+   "instructions": null
+  },
+  {
+   "position": 22,
+   "description": "Quais são as maneiras de salvar uma vítima de afogamento sem nadar?",
+   "instructions": null
+  },
+  {
+   "position": 23,
+   "description": "Quais são os princípios básicos de segurança com eletricidade?",
+   "instructions": null
+  },
+  {
+   "position": 24,
+   "description": "Como você pode prevenir a intoxicação alimentar?",
+   "instructions": null
+  }
+ ]
+}

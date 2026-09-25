@@ -1,0 +1,58 @@
+{
+ "honor_slug": "vida-microscopica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Microscopic_Life/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista de quatro tipos principais de microscópio. Quais são algumas características de cada um? Saber identificar os diferentes tipos de microscópio por meio de figuras ou visitar o laboratório de uma universidade ou indústria que tenha esses microscópios.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber identificar as seguintes partes de um microscópio e explicar ou demonstrar a função de cada uma: ocular, objetiva, tubo, revólver, platina, diafragma, base, botão de foco e braço.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber calcular o aumento de um microscópio composto. Calcular o aumento do microscópio que você usa nesta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos da microscopia: lâmina, lamínula, montagem úmida, fixação, coloração, imersão em óleo, unicelular, multicelular, cílios, flagelos, plâncton.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Coletar amostras de água (de lagoas, riachos, valas, sarjetas, poças etc.) e procurar organismos vivos usando um microscópio com aumento mínimo de 100X. Desenhar cinco desses organismos com a maior precisão possível. Na medida do possível, identificar e legendar seus desenhos (incluir o aumento usado).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenhar e identificar uma célula que inclua as seguintes partes: membrana celular, núcleo e citoplasma.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer os reinos que têm formas de vida microscópicas e conhecer dois membros de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Dar pelo menos um exemplo de como a vida microscópica é importante para: a alimentação humana, a saúde humana, a medicina e outros organismos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos três hábitos de saúde que foram estabelecidos como resultado direto da vida microscópica prejudicial. Colocar esses hábitos em prática.",
+   "instructions": null
+  }
+ ]
+}

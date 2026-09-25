@@ -1,0 +1,18 @@
+{
+ "honor_slug": "socorrismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lifesaving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser aprovado de modo satisfatório num curso de salva-vidas da Cruz Vermelha (Lifeguarding) ou num curso de salvamento da ACM (YMCA), ou equivalente.",
+   "instructions": null
+  }
+ ]
+}

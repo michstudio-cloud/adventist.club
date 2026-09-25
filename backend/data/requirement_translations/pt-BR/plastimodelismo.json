@@ -1,0 +1,43 @@
+{
+ "honor_slug": "plastimodelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plastic_Models/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Plastimodelismo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer, explicar e seguir o esquema de montagem de um kit de modelismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher e montar um kit de modelismo. Exemplo: aviões, barcos, carros etc. Esse kit não pode ser usado em outras especialidades de modelismo (Aeromodelismo, Automodelismo etc.)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber usar as ferramentas que ajudam a montar um kit (lixa, pinça, lupa, pincéis, cola etc.)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pintar seu modelo corretamente, de acordo com o modelo original ou com as cores indicadas pelo fabricante.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aplicar os adesivos corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma pesquisa sobre o modelo original que você montou e responder ao seguinte:\n  a. Ano em que o original foi fabricado.\n  b. País de fabricação.\n  c. Principais usos e história do veículo.\n  d. Curiosidades, se houver.\n  e. Significado das cores e dos símbolos, se houver.",
+   "instructions": null
+  }
+ ]
+}

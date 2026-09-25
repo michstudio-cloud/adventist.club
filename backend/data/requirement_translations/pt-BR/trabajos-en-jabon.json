@@ -1,0 +1,58 @@
+{
+ "honor_slug": "trabajos-en-jabon",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soap_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Trabalhos em sabão",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que ingredientes são usados para fazer sabão?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre sabão e detergente?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que produz a ação de limpeza do sabão?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever ou contar uma história sobre a história e a origem do sabão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar sete formas de sabão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é a espuma de resíduo (scum)?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Entalhar um objeto numa barra de sabão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Decorar uma barra de sabão para dar de presente.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma cena com sabão batido, usando pelo menos três cores.",
+   "instructions": null
+  }
+ ]
+}

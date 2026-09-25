@@ -1,0 +1,53 @@
+{
+ "honor_slug": "telecartofilia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Telecartofilia/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Telecartofilia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as diferenças entre telecartofilia, filatelia e numismática?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar que fatores influenciam para que um cartão telefônico seja raro e que fatores o tornam valioso para um colecionador.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco países que usam cartões telefônicos e que tipos são usados.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e adquirir os objetos necessários para começar uma coleção de cartões telefônicos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber quando e onde surgiu o primeiro cartão telefônico do mundo. Conhecer também a história de quando começou a ser usado em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever um relatório de 25 linhas sobre os parâmetros de uma coleção temática.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um cartaz, uma apresentação ou uma redação narrando a história do cartão telefônico em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ter uma coleção de 100 cartões telefônicos, sem incluir os repetidos.",
+   "instructions": null
+  }
+ ]
+}

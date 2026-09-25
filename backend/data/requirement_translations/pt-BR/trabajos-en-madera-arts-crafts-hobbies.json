@@ -1,0 +1,53 @@
+{
+ "honor_slug": "trabajos-en-madera-arts-crafts-hobbies",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wood_Handicraft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar pelo menos cinco tipos comuns de madeira, como pinho, nogueira, carvalho e cedro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer as características das madeiras identificadas e saber um uso para cada exemplo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre madeira dura e madeira macia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber usar corretamente as seguintes ferramentas em trabalhos manuais com madeira:\n  a. Serra tico-tico manual\n  b. Grosa\n  c. Plaina\n  d. Faca\n  e. Formão\n  f. Taco de lixar",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer pelo menos dois procedimentos de segurança para cada uma das ferramentas acima.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Recortar, montar e dar acabamento a aparadores de livros ou a um peso de porta em forma de animal.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Recortar e dar acabamento a uma estaca de jardim ou marcador de gramado, usando um desenho como uma criança, uma ave, uma flor ou uma árvore.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma placa, bandeja, capa de caderno ou outro objeto útil em que se use pirogravura.",
+   "instructions": null
+  }
+ ]
+}

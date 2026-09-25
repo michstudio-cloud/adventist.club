@@ -1,0 +1,68 @@
+{
+ "honor_slug": "tarjetas-postales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Postcards/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cartões-postais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Relatar brevemente a história do início dos cartões-postais em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como o sistema postal de seu país foi afetado pelo surgimento dos cartões-postais?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as tarifas postais para cartões-postais e cartas em seu país?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que termo é usado em seu país para a coleção de cartões-postais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma breve descrição de cada uma das seguintes eras dos cartões-postais:\n  a. Era pré-cartão-postal\n  b. Era pioneira\n  c. Era do cartão de correio particular\n  d. Era do verso não dividido\n  e. Era do verso dividido\n  f. Início da era moderna (borda branca)\n  g. Era do cartão de textura de linho\n  h. Era do fotocromo",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever brevemente cada tipo de cartão-postal.\n  a. Cartões de paisagens\n  b. Cartões de felicitações\n  c. Cartões históricos\n  d. Cartões de arte\n  e. Cartões fotográficos",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar e identificar uma imagem de um cartão-postal de cada uma das eras acima.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ter algum conhecimento sobre como conservar cartões-postais.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma coleção de pelo menos 50 cartões-postais. (Não pode haver dois iguais.) Sua coleção DEVE incluir o seguinte:\n  a. Começar sua organização com um cartão-postal de caráter religioso.\n  b. Cartões-postais de pelo menos 10 estados/províncias/países.\n  c. Cartões-postais de pelo menos 2 países além do seu",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Organizar a coleção de cartões-postais numa exposição adequada e expô-la num evento de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como eram enviadas as saudações nos tempos bíblicos? 2 Coríntios 13:13, Filipenses 4:21 ou 2 João 13",
+   "instructions": null
+  }
+ ]
+}

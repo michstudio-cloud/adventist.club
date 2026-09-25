@@ -1,0 +1,38 @@
+{
+ "honor_slug": "serigrafia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Silk_Screen_Printing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Serigrafia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das ferramentas e do equipamento necessários para a serigrafia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três tipos de tinta adequados para serigrafia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de pelo menos três usos industriais do processo de serigrafia.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como se imprimem garrafas e superfícies arredondadas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um desenho, transferi-lo para uma tela e imprimir em serigrafia um dos seguintes projetos:\n  a. Pelo menos dez cartões de felicitações\n  b. Pelo menos três cartazes\n  c. Imprimir um desenho em tecido\n  d. Projeto equivalente de sua escolha",
+   "instructions": null
+  }
+ ]
+}

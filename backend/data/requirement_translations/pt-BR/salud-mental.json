@@ -1,0 +1,83 @@
+{
+ "honor_slug": "salud-mental",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mental_Health/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Saúde mental",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Sistema nervoso.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Transtorno\n  b. Etiologia\n  c. Diagnóstico\n  d. Cognitivo\n  e. Terapia\n  f. Histórico clínico\n  g. Fator de proteção\n  h. Fator de risco\n  i. Psicose\n  j. Prevenção\n  k. Promoção\n  l. Intervenção\n  m. Psicopatologia\n  n. Psicologia\n  o. Psiquiatria\n  p. Impulso",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir o que é saúde e o que é doença. Ler Gênesis 3 e o capítulo 3 de Patriarcas e Profetas. Que relação existe entre esses textos quanto à origem da doença?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é saúde mental e por que ela é tão importante? O que você deve fazer para desfrutar de uma saúde mental adequada?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descobrir em que data se celebra o Dia Mundial da Saúde Mental, fazer um relatório mostrando que atividades são realizadas nesse dia e indicar que organizações e profissionais de saúde participam dessas atividades.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é doença mental e que fatores a causam ou desencadeiam?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pesquisar e citar pelo menos dois transtornos de cada uma das seguintes categorias:\n  a. Transtornos da primeira infância, da infância e da adolescência\n  b. Delirium, demência, transtornos amnésicos e outros transtornos cognitivos\n  c. Transtornos relacionados a substâncias\n  d. Esquizofrenia e outros transtornos psicóticos\n  e. Transtornos do humor\n  f. Transtornos de ansiedade\n  g. Transtornos sexuais e da identidade sexual\n  h. Transtornos alimentares\n  i. Transtornos do sono\n  j. Transtornos do controle dos impulsos\n  k. Transtornos da personalidade",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com base no requisito 7, escolher um transtorno e pesquisá-lo a fundo. Preparar uma apresentação audiovisual para mostrar em sua igreja, escola ou comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é ansiedade, como ela se produz, quais são seus sintomas e como deve ser tratada? O que você pode fazer para ajudar alguém que sofre desse mal?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é depressão, como ela se produz, quais são seus sintomas e como deve ser tratada? O que você pode fazer para ajudar alguém que sofre desse mal?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que versículos bíblicos ou citações do Espírito de Profecia você usaria para ajudar alguém com ansiedade ou depressão?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Acompanhado de um adulto responsável, visitar e ajudar uma pessoa com deficiência mental e descrever que cuidados especiais são necessários para sua condição específica.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "O que são psicofármacos? O que são efeitos colaterais ou adversos? Citar alguns sintomas causados por seu uso no tratamento das doenças mentais.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Que relação existe entre o quarto artigo da Lei do Desbravador e a saúde mental? Fazer o compromisso de cuidar de sua mente e mantê-la livre de influências perturbadoras.",
+   "instructions": null
+  }
+ ]
+}

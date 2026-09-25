@@ -1,0 +1,63 @@
+{
+ "honor_slug": "recaudacion-de-fondos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fundraising/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arrecadação de fundos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Introdução à arrecadação de fundos: Explicar o que é arrecadação de fundos e por que ela é importante. Discutir as diferentes finalidades para as quais se podem arrecadar fundos, como apoiar uma instituição de caridade, financiar um projeto comunitário ou ajudar uma escola ou igreja.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Tipos de arrecadação de fundos: Identificar e descrever pelo menos cinco métodos diferentes de arrecadação de fundos. Incluir exemplos como venda de bolos e doces, lava-rápido, eventos patrocinados, financiamento coletivo on-line e campanhas de doação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A arrecadação de fundos na Bíblia: Procurar e discutir pelo menos dois versículos ou passagens bíblicas que falem sobre doar ou apoiar outras pessoas. Refletir sobre seu significado e o que eles podem nos ensinar sobre a importância da generosidade e de ajudar os necessitados.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Estudo de caso: Pesquisar e apresentar um estudo de caso de uma campanha de arrecadação de fundos bem-sucedida. Discutir as estratégias usadas, os desafios enfrentados e os resultados alcançados. Refletir sobre o que tornou a campanha bem-sucedida e que lições podem ser aplicadas a futuras arrecadações.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Planejamento de um evento de arrecadação: Aprender as etapas do planejamento de um evento de arrecadação de fundos bem-sucedido. Criar uma lista de verificação que inclua definir metas, escolher um método de arrecadação, organizar uma equipe, divulgar o evento e administrar as finanças.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Orçamento e gestão financeira: Compreender os fundamentos do orçamento e da gestão financeira de um evento de arrecadação de fundos. Aprender a elaborar um orçamento, acompanhar as despesas e garantir transparência e prestação de contas no manejo dos recursos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Marketing e divulgação: Discutir a importância do marketing e da divulgação na arrecadação de fundos. Aprender diferentes maneiras de divulgar um evento de arrecadação, como redes sociais, folhetos, cartazes e boca a boca. Criar um plano de divulgação para um evento hipotético de arrecadação de fundos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Arrecadação ética: Aprender os princípios da arrecadação de fundos ética. Discutir a importância da honestidade, da transparência e do respeito aos doadores. Compreender as questões legais e éticas envolvidas nas atividades de arrecadação de fundos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Envolvimento da comunidade: Explorar maneiras de envolver sua comunidade nos esforços de arrecadação. Discutir os benefícios de envolver empresas, escolas e grupos comunitários locais. Aprender a criar parcerias e obter apoio para sua causa.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Projeto de arrecadação: Planejar e realizar um pequeno projeto de arrecadação de fundos. Pode ser uma venda de bolos e doces, um lava-rápido ou qualquer outra atividade de arrecadação. Definir uma meta, organizar o evento e acompanhar os fundos arrecadados. Refletir sobre a experiência e o que você aprendeu com ela.",
+   "instructions": null
+  }
+ ]
+}

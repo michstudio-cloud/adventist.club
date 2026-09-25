@@ -1,0 +1,23 @@
+{
+ "honor_slug": "pantanos-y-cienagas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bogs_%26_Fens_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pântanos e lamaçais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Organizar um projeto de serviço, ou participar de um, que beneficie uma turfeira (limpeza, abertura de trilhas, ajudar outras pessoas a conhecer esse hábitat específico). Escrever um relatório sobre os seguintes pontos (incluir mapas, fotografias ou desenhos pode ajudar):\n  a. Que turfeira você visitou?\n  b. Quando você a visitou?\n  c. O que você fez lá?\n  d. Novas informações que você aprendeu sobre esse tipo de hábitat, além do que aprendeu na especialidade básica.\n  e. Informações sobre a turfeira específica que você visitou.\n  f. Descrever o projeto de serviço que você realizou (ser específico).\n  g. O que você aprendeu sobre si mesmo ao realizar o projeto de serviço?\n  h. O que você aprendeu sobre esse hábitat ao realizar esse projeto de serviço?",
+   "instructions": null
+  }
+ ]
+}

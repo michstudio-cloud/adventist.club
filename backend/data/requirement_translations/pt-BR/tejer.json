@@ -1,0 +1,43 @@
+{
+ "honor_slug": "tejer",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Knitting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o seguinte:\n  a. K\n  b. P\n  c. STS\n  d. RND\n  e. TOG\n  f. PSSO\n  g. INC\n  h. DEC\n  i. YO",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar o seguinte:\n  a. Montar os pontos\n  b. Arrematar\n  c. Ponto de trança\n  d. Ponto sanfona (canelado)\n  e. Ponto tricô (liga)\n  f. Ponto meia (jersey)\n  g. Recuperar um ponto que escapou",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber cuidar dos seguintes tipos de fio:\n  a. Lã\n  b. Pelo\n  c. Sintético",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar como emendar um novo novelo de fio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar e conhecer a finalidade das seguintes espessuras de fio:\n  a. Média\n  b. Esportiva (sport)\n  c. Grossa\n  d. Extragrossa",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Tricotar dois dos seguintes itens:\n  a. Pantufas\n  b. Luvas sem dedos (mitenes)\n  c. Sapatinhos de bebê\n  d. Gorro\n  e. Cachecol\n  f. Colete\n  g. Escolha razoável",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "rafting",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rafting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Rafting",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação principiante II.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista dos níveis de dificuldade das corredeiras e explicar como essa classificação é determinada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Com um grupo de pelo menos quatro pessoas, demonstrar a maneira correta de embarcar e desembarcar de um bote num píer, na margem de um rio.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Num bote com pelo menos quatro pessoas, demonstrar as seguintes manobras:\n  a. Remar para frente\n  b. Remar para trás\n  c. Ré pela direita\n  d. Ré pela esquerda",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Num bote com pelo menos quatro pessoas, durante a travessia de uma corredeira, demonstrar os seguintes movimentos de segurança:\n  a. Segurar\n  b. Para dentro (ou no piso)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de pelo menos três equipamentos de segurança necessários para a prática do rafting e descrever a utilidade de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever a posição correta a ser adotada em caso de queda do bote no rio e quando alguém tenta resgatar você na correnteza através das corredeiras.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Num bote com pelo menos quatro pessoas, demonstrar como resgatar uma pessoa em águas profundas da seguinte forma:\n  a. Pessoa a uma distância de 2 m do bote, usando o punho em “T” do remo\n  b. Pessoa a mais de 3 m do bote, usando uma corda de resgate",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Em águas profundas e com um grupo mínimo de quatro pessoas, demonstrar:\n  a. Como desvirar um bote\n  b. Como voltar ao bote sem a ajuda de outra pessoa",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Percorrer no mínimo 10 km num rio com corredeiras de nível III ou superior, demonstrando conhecimento das regras de segurança do rafting.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Pesquisar dois rios próximos de sua região que sejam adequados para o rafting e reunir as seguintes informações:\n  a. Local da nascente e da foz do rio\n  b. Local onde o rafting é apropriado\n  c. Épocas do ano em que se pode praticar rafting\n  d. Nível de dificuldade mínimo e máximo do rio\n  e. Profundidade mínima e máxima do rio\n  f. Altura da maior cachoeira (corredeira)\n  g. Nível de poluição da água",
+   "instructions": null
+  }
+ ]
+}

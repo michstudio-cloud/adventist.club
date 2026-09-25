@@ -1,0 +1,63 @@
+{
+ "honor_slug": "risa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Laughter/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Riso",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer o significado do riso.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o significado de gelotologia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir o que acontece no cérebro quando rimos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir a diferença entre a alegria do mundo e a alegria eterna.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir se há lugar para a comédia cristã.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e discutir o significado de Provérbios 17:22.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Criar uma apresentação para seu clube ou igreja sobre como o riso faz bem à saúde.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Encontrar 3 textos bíblicos encorajadores sobre a alegria eterna e distribuí-los em sua comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um amigo ou familiar rir. (Escrever o que você fez ou registrar o momento.)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Criar uma receita de riso para alguém que está triste.",
+   "instructions": null
+  }
+ ]
+}

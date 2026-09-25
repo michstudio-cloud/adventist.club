@@ -1,0 +1,53 @@
+{
+ "honor_slug": "snowboard",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Snowboarding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Snowboard",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever em poucas palavras o significado do termo “snowboard”.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir e explicar cada nível da classificação de dificuldade das pistas de esqui do lugar onde você vai praticar snowboard, por exemplo, na Austrália, na Nova Zelândia e na América do Norte:\n  a. Círculo verde\n  b. Quadrado azul\n  c. Losango preto\n  d. Losango preto duplo\n  e. Variações\n  f. Parques de obstáculos (terrain parks)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista e explicar o Código de Responsabilidade Alpina da Austrália (ou equivalente) e demonstrar que você o observa ao longo dos requisitos 7 e 8.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos do snowboard:\n  a. Pista\n  b. Fora de pista\n  c. Bases – regular e goofy\n  d. Borda da frente (toeside)\n  e. Borda de trás (heelside)\n  f. Switch (base invertida)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever brevemente os seguintes equipamentos essenciais para o snowboard e como mantê-los em boas condições:\n  a. Prancha de snowboard\n  b. Fixações (bindings)\n  c. Botas de snowboard\n  d. Capacete\n  e. Protetores de pulso\n  f. Proteção para a pele e para os olhos\n  g. Roupas adequadas, incluindo o uso de camadas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar uma passagem bíblica que mencione a palavra “neve”. Comentar em poucas palavras o que a passagem significa para você.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer e demonstrar como embarcar e desembarcar com segurança de um teleférico de cadeiras.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar sua capacidade de praticar snowboard com boa técnica em várias pistas de nível intermediário. Mostrar competência em:\n  a. Atravessar a pista usando tanto a borda de trás quanto a borda da frente.\n  b. Mudar de direção durante a descida.\n  c. Parar com segurança.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "senderismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hiking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar e demonstrar os principais pontos de uma boa prática de caminhada, como ritmo, velocidade, descanso e boas maneiras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a importância e o método do cuidado adequado com os pés quanto à higiene, cuidado com as unhas, meias, escolha do calçado e primeiros socorros para pés doloridos ou com bolhas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista das roupas adequadas para uma caminhada em tempo quente e em tempo frio.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista do equipamento necessário para uma longa caminhada de um dia em área selvagem e para uma curta caminhada no campo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de cinco regras de segurança e de cortesia para caminhadas em trilhas na natureza e em estradas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar a importância de beber água e citar três sinais de água contaminada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar a importância de uma alimentação adequada durante a caminhada.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever as roupas e os calçados adequados para caminhar em tempo frio e úmido e em tempo quente e úmido.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Apresentar por escrito o planejamento de uma caminhada de 10 milhas (16,1 km) que inclua: roteiro no mapa, lista de roupas, lista de equipamentos e água e/ou comida.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Usar um mapa topográfico e/ou um mapa rodoviário para planejar e fazer uma das caminhadas do requisito 11.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ter o seguinte registro de caminhadas:\n  a. Uma caminhada de cinco milhas (8 km) na zona rural ou na cidade\n  b. Uma caminhada de cinco milhas ( 8 km) numa trilha na natureza\n  c. Duas caminhadas de um dia de 10 milhas (16,1 km) em percursos diferentes\n  d. Uma caminhada de 15 milhas (24,2 km) numa trilha na natureza\n  e. No prazo de um mês após cada caminhada, escrever um breve relatório indicando as datas, os percursos feitos, o tempo e as coisas interessantes que você viu.",
+   "instructions": null
+  }
+ ]
+}

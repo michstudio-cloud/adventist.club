@@ -1,0 +1,68 @@
+{
+ "honor_slug": "tradicion-aborigen",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aboriginal_Lore/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quem são os aborígines e de onde vieram? Quantas tribos havia quando começou a colonização europeia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Discutir o sistema tribal. O que são totens?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir a alimentação dos aborígines:\n  a. Tipos\n  b. Como era obtida\n  c. Como era preparada",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir suas moradias. De que são feitas e por que não são permanentes? Onde dormem os rapazes e os meninos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como eles se comunicam com outras tribos que podem não entender sua língua? Como enviam sinais dentro da tribo? Qual é a finalidade do tjuringa (ou churinga)?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são alguns dos artigos de comércio e de troca? Que utensílios domésticos eles usam?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever algumas das armas usadas na caça e na guerra.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é um corroboree? Explicar sua finalidade. O que são as clap sticks (bastões de percussão) e o didgeridoo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que brincadeiras as crianças fazem? Como os rapazes são treinados? Como são iniciados? O que é o terreno bora? O que é um bull roarer (zunidor)?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Discutir os dois principais tipos de arte aborígine.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Relatar brevemente a história dos aborígines desde a chegada do homem branco à Austrália, mencionando as políticas governamentais ao longo dos anos e o trabalho das missões",
+   "instructions": null
+  }
+ ]
+}

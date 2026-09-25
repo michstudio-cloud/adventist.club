@@ -1,0 +1,58 @@
+{
+ "honor_slug": "semillas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Seeds/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a principal finalidade de uma semente?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que alimentos foram dados primeiro ao ser humano no Jardim do Éden?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar numa semente ou num desenho as seguintes partes de uma semente e conhecer a função de cada uma: tegumento, cotilédone, embrião.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar de memória quatro métodos diferentes pelos quais as sementes são dispersadas. Citar três tipos de plantas cujas sementes são dispersadas por cada método.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar de memória dez tipos de sementes que usamos como alimento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar de memória cinco tipos de sementes usadas como fonte de óleo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar de memória cinco tipos de sementes usadas como especiarias.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que condições são necessárias para que uma semente germine?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma coleção de 30 tipos diferentes de sementes, dos quais apenas 10 podem ser tirados de pacotes comerciais de sementes; as outras 20 você mesmo deve coletar. Identificar cada tipo da seguinte forma: nome da semente, data da coleta, local da coleta e nome do coletor.",
+   "instructions": null
+  }
+ ]
+}

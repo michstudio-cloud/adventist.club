@@ -1,0 +1,78 @@
+{
+ "honor_slug": "tenis",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tennis/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender e compartilhar seis marcos históricos sobre as origens e o desenvolvimento do tênis.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que as bolas de tênis eram feitas antigamente e como são feitas hoje?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar dois tipos de quadra usados no tênis.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar e identificar estilos de raquetes por meio de figuras ou do equipamento real. Descrever como mudaram.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender o sistema de pontuação do tênis, incluindo game, set, partida e tie-break.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar os dois tipos básicos de jogo no tênis. Desenhar um diagrama em escala da quadra e marcar as linhas limítrofes para duplas e simples.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Aprender a etiqueta do jogo. Usar pelo menos dois textos bíblicos para mostrar como a etiqueta do jogo se compara a um padrão de vida cristão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar um forehand, um backhand e um saque por cima com um instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Jogar quatro games de duplas ou simples para praticar a contagem de pontos. Praticar os golpes e aprender os limites da quadra.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Assistir a duas apresentações instrutivas sobre saques e golpes de tênis. Compartilhar com um grupo o que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma lista de alguns benefícios que se podem esperar ao adotar o tênis como atividade regular.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma lista de alguns desafios do tênis como rotina diária de exercícios.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Como o tênis pode ser usado para testemunhar como cristão?",
+   "instructions": null
+  }
+ ]
+}

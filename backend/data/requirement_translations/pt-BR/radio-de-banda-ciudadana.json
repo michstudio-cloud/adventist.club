@@ -1,0 +1,48 @@
+{
+ "honor_slug": "radio-de-banda-ciudadana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/CB_Radio/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Rádio da Faixa do Cidadão (PX)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Onde e por que foi criado o rádio da Faixa do Cidadão?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer as condições que regem o licenciamento e a operação de estações no serviço de radiocomunicação da Faixa do Cidadão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer as frequências superior e inferior das faixas do cidadão em HF e UHF. Conhecer as frequências de:\n  a. Canais de emergência (HF e UHF)\n  b. Canais rodoviários\n  c. Canais de chamada (HF, AM, SSB e UHF)\n  d. Chamada de socorro marítimo",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer a função dos seguintes controles:\n  a. Seletor de canais\n  b. Volume\n  c. Ganho de RF\n  d. Silenciador (squelch)\n  e. Chave NB (supressor de ruído)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Instalar corretamente um rádio PX fixo ou móvel, incluindo o ajuste correto da ROE (SWR) da antena.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é o alfabeto fonético internacional e qual é sua importância para os operadores de rádio PX? Recitar de memória 15 dos termos mais usados desse código.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar a capacidade de chamar e responder corretamente usando rádio PX em HF ou UHF.",
+   "instructions": null
+  }
+ ]
+}

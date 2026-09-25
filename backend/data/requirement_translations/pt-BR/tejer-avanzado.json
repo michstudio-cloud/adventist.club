@@ -1,0 +1,33 @@
+{
+ "honor_slug": "tejer-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Knitting_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Tricô.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Tricotar um par de meias, luvas ou outro artigo com padrão losangular (argyle) ou estampado, usando quatro agulhas e bobinas de fio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Tricotar uma manta ou um cobertor de bebê.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Tricotar um suéter de mangas compridas ou um conjunto de bebê com casaquinho, touca e sapatinhos.",
+   "instructions": null
+  }
+ ]
+}

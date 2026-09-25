@@ -1,0 +1,48 @@
+{
+ "honor_slug": "senderismo-con-raquetas-de-nieve-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Snowshoeing_-_Advanced_(GC)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Excursionismo pedestre na neve.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar 10 tipos diferentes de flocos de neve e sua influência na caminhada com raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando uma das opções abaixo, criar uma apresentação que descreva a origem e a história das raquetes de neve, incluindo seu uso entre os povos nativos americanos. Relacionar todas as fontes usadas.\n  a. Apresentação eletrônica\n  b. Mural/painel de apresentação\n  c. Apresentação oral\n  d. Relatório escrito (no mínimo uma página)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Revisar os fundamentos de segurança da caminhada com raquetes de neve apresentados na especialidade de Excursionismo pedestre na neve.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um dos seguintes:\n  a. Fazer um par funcional de “raquetes de neve de sobrevivência” com materiais nativos e de primeiros socorros que provavelmente estariam disponíveis numa situação de sobrevivência.\n  b. Fazer um par tradicional de raquetes de neve funcionais com materiais naturais e/ou sintéticos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Completar com êxito duas caminhadas de três milhas (4,8 km) com raquetes de neve. Fazer um relatório detalhado descrevendo a profundidade e as condições aproximadas da neve, as plantas e os animais e a velocidade aproximada com que você se deslocou.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Depois de uma de suas caminhadas, escrever um parágrafo explorando as dimensões espirituais da neve. Incluir pelo menos três referências bíblicas à neve.",
+   "instructions": null
+  }
+ ]
+}

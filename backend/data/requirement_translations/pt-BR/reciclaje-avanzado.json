@@ -1,0 +1,68 @@
+{
+ "honor_slug": "reciclaje-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Recycling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Reciclagem - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Reciclagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como funciona a coleta seletiva de resíduos sólidos nos seguintes locais:\n  a. Residências\n  b. Empresas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como a reciclagem, de acordo com o contexto social, se torna uma fonte de renda para muitas famílias?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Visitar uma usina de tratamento de resíduos sólidos e descobrir que métodos são usados para reciclar materiais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descobrir qual é a estrutura alternativa de um aterro sanitário. Citar as principais vantagens e desvantagens.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos dois brinquedos com materiais reciclados. Esses brinquedos devem ser doados a crianças necessitadas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Restaurar um objeto que poderia ser jogado fora, transformando-o em algo útil para sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Desenvolver uma técnica para reciclar madeira, corda ou bambu depois de usados num acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Produzir um vídeo ou um roteiro ilustrado (storyboard) mostrando cinco ou mais dicas para melhorar o planeta por meio da reciclagem.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Nos lugares onde há um sistema de coletores para reciclagem, usam-se cores diferentes. Citar que tipo de material corresponde a cada cor:\n  a. Azul\n  b. Vermelho\n  c. Amarelo\n  d. Marrom\n  e. Verde",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como devem ser descartadas as pilhas, as lâmpadas ou as lâmpadas fluorescentes tubulares? Onde fica o ponto de coleta para reciclagem mais próximo de sua casa?",
+   "instructions": null
+  }
+ ]
+}

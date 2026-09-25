@@ -1,0 +1,68 @@
+{
+ "honor_slug": "poriferos-y-cnidarios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Porifera_and_Cnidaria/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Poríferos e cnidários",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que as esponjas são consideradas animais?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que são consideradas filtradoras?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos duas características das esponjas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que significa o nome Cnidaria? Que animais fazem parte desse grupo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que são ctenóforos? O que os diferencia dos cnidários?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que precauções devem ser tomadas ao encontrar uma água-viva?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Em que ambiente vivem as esponjas? E os cnidários?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que se pode fazer em caso de queimadura de água-viva?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar uma água-viva e identificar suas partes principais.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a importância dos recifes de coral?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é o maior recife de coral do mundo?",
+   "instructions": null
+  }
+ ]
+}

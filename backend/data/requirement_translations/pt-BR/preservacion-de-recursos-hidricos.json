@@ -1,0 +1,73 @@
+{
+ "honor_slug": "preservacion-de-recursos-hidricos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Preservation_of_Water_Resources/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Preservação dos recursos hídricos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são recursos hídricos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descobrir pelo menos dez atividades em que o uso da água é essencial.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer como funciona o abastecimento público de água em sua cidade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é energia hidrelétrica?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de pelo menos cinco fatores que desperdiçam água e de como podem ser evitados.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer como os seguintes fatores influenciam diretamente o desperdício de água potável:\n  a. Desmatamento\n  b. Poluição\n  c. Ocupação e uso desordenados do solo\n  d. Falta de saneamento básico",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pesquisar e descobrir o consumo médio de água em seu país nas seguintes atividades:\n  Doméstico\n  a. Banho\n  b. Escovar os dentes\n  c. Dar descarga no vaso sanitário\n  d. Lavar roupa\n  e. Torneira pingando\n  Indústria\n  f. 1 kg de carne bovina\n  g. 1 kg de queijo\n  h. 1 litro de leite\n  i. 1 kg de tomate\n  j. 1 computador",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber o que é hidrologia e descobrir por que seu estudo é fundamental para a preservação dos recursos hídricos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer pelo menos três maneiras de purificar a água.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descobrir pelo menos dez maneiras pelas quais você e sua família podem preservar os recursos hídricos disponíveis e colocá-las em prática.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Desenvolver um projeto criativo de conscientização sobre o mau uso da água em sua escola ou local de trabalho.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Realizar pelo menos uma das seguintes atividades:\n  a. Criar um projeto com sua unidade/clube para preservar alguma fonte de água potável em seu bairro.\n  b. Ter a especialidade de Conservação ambiental ou de Energias renováveis.",
+   "instructions": null
+  }
+ ]
+}

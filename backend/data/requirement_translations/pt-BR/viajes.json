@@ -1,0 +1,58 @@
+{
+ "honor_slug": "viajes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Travel/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista do maior número possível de meios de transporte que as pessoas usam para se deslocar pelo planeta. Reduzir a lista anterior aos cinco meios de transporte mais comuns (“Top Five”). Fazer uma lista dos prós e contras de cada um desses cinco.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de alguns prós e contras dos seguintes tipos de hospedagem:\n  a. Hotel/motel\n  b. Albergue da juventude\n  c. Amigos/família\n  d. Trailer/motorhome/camping\n  e. Resorts",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipos de documentos podem ser necessários para viajar? Explicar a finalidade de cada tipo de documento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Assistir a um programa de viagens que mostre as paisagens e a geografia de um lugar único.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir em grupo que tipo de atitude os viajantes devem ter ao viajar para o exterior.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar um plano simples de viagem de 7 dias para umas “férias em família”. Como parte do plano, criar um roteiro de 7 dias e incluir:\n  a. Detalhes sobre um lugar histórico a visitar\n  b. Detalhes sobre dois lugares naturais a visitar\n  c. Detalhes sobre um lugar de lazer a visitar",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de algumas maneiras diferentes como as pessoas se deslocavam nos tempos bíblicos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Calcular aproximadamente quanto tempo levaria para ir a pé de Jerusalém a Damasco.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Esboçar um mapa de uma viagem mencionada na Bíblia:\n  a. Mostrar o nome da(s) pessoa(s) e o caminho percorrido, incluindo as paradas importantes.\n  b. Mostrar tipos diferentes de linhas para cada meio de transporte usado.\n  c. Mostrar uma legenda para identificar as marcações e os tipos de transporte.",
+   "instructions": null
+  }
+ ]
+}

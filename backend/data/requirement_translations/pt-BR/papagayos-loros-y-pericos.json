@@ -1,0 +1,53 @@
+{
+ "honor_slug": "papagayos-loros-y-pericos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Macaws,_Parrots_and_Parakeets/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Araras, papagaios e periquitos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "A que ordem pertencem as famílias das araras, dos papagaios e dos periquitos? Quais são as principais características que distinguem essa ordem das outras aves?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar o nome de 15 espécies de araras, papagaios e periquitos comuns em seu país e saber identificá-las na natureza, em cativeiro ou por fotos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Onde as araras, os papagaios e os periquitos constroem seus ninhos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que características dessas aves chamam a atenção e fazem delas bons animais de estimação? Quais dessas aves são as mais comuns em seu país?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as maiores ameaças que as araras, os papagaios e os periquitos enfrentam? Citar quatro espécies ameaçadas de extinção.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher uma das espécies ameaçadas de extinção e citar:\n  a. Nome popular e nome científico\n  b. Hábitat e distribuição geográfica\n  c. Alimentação\n  d. Principais ameaças\n  e. Estratégias de conservação",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher uma das espécies que não está ameaçada de extinção e citar:\n  a. Nome popular e nome científico\n  b. Hábitat e distribuição geográfica\n  c. Alimentação",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Onde é possível comprar legalmente uma arara, um papagaio ou um periquito? Por que não é recomendável comprar animais sem origem legal?",
+   "instructions": null
+  }
+ ]
+}

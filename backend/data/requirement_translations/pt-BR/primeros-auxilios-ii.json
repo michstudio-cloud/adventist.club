@@ -1,0 +1,88 @@
+{
+ "honor_slug": "primeros-auxilios-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/First_Aid,_Standard/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os princípios básicos da respiração boca a boca e o tratamento para obstrução das vias aéreas.",
+   "instructions": "Seção: Ou completar os seguintes requisitos:"
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre ataque cardíaco e acidente vascular cerebral (AVC), e qual é o tratamento de cada um?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de hemorragia.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os pontos de pressão e como aplicar corretamente a pressão nesses pontos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer o método correto de aplicar um torniquete e quando aplicá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer as causas do estado de choque e demonstrar seu tratamento adequado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de envenenamento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer o procedimento correto para socorrer uma vítima de queimadura.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber aplicar corretamente as seguintes bandagens:\n  a. Espiral aberta e fechada\n  b. Em oito\n  c. Na ponta do dedo\n  d. Bandagem triangular (gravata) na cabeça",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber aplicar as seguintes talas:\n  a. Tala de braço\n  b. Tala de antebraço\n  c. Tala de tornozelo\n  d. Tala de patela",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer o tratamento adequado para o seguinte:\n  a. Traumatismos cranianos\n  b. Lesões internas\n  c. Ferimentos por arma de fogo\n  d. Lesões nos olhos\n  e. Mordidas de animais e picadas de insetos\n  f. Desmaio e epilepsia\n  g. Efeitos do calor e do frio",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Saber o que fazer numa emergência elétrica.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Saber como escapar de um incêndio.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Saber como obter ajuda numa emergência.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Conhecer os seguintes transportes de resgate:\n  a. Arrasto pelos ombros\n  b. Arrasto com cobertor\n  c. Transporte por duas pessoas\n  d. Transporte pelas extremidades\n  e. Maca improvisada\n  f. Transporte em rede por três pessoas\n  g. Transporte em maca",
+   "instructions": null
+  }
+ ]
+}

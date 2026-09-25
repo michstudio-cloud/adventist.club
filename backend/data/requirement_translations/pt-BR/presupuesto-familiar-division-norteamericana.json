@@ -1,0 +1,103 @@
+{
+ "honor_slug": "presupuesto-familiar-division-norteamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Household_Budgeting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um orçamento familiar e qual é a importância de ter um?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Receita\n  b. Despesas\n  c. Fluxo de caixa\n  d. Empréstimo\n  e. Empréstimo usurário (agiotagem)\n  f. Juros\n  g. Principal\n  h. Crédito\n  i. Pontuação de crédito (score)\n  j. Investimentos\n  k. Dízimo/ofertas\n  l. Impostos\n  m. Inflação",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a diferença entre necessidades e desejos. Fazer uma lista das despesas de sua família e classificá-las como necessidades ou desejos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que você e sua família podem fazer para economizar nas contas de água, luz e gás? Como algumas dessas despesas variam nas diferentes estações do ano em sua casa?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como a inflação pode afetar o orçamento familiar?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais métodos sua família usa para pagar as contas? Que outros métodos poderiam ser usados?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipos de impostos existem em sua região (municipais, estaduais, federais, sobre a renda, sobre a propriedade, sobre vendas, sobre a folha de pagamento etc.)? Para que os impostos costumam ser usados em sua região?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a diferença entre dívida boa e dívida ruim.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que são juros? Como são calculados? Calcular quanto realmente custaria financiar um empréstimo de US$ 5000 com taxa de juros de 7% ao longo de 5 anos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pesquisar qual é a taxa de juros e quais são as responsabilidades financeiras nas seguintes linhas de crédito:\n  a. Cartão de crédito\n  b. Cheque especial\n  c. Crédito estudantil\n  d. Empréstimo usurário (agiotagem)",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que medidas podem ser tomadas quando a família está endividada?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Considerar Provérbios 6:6-8 e discutir o valor de ter uma reserva de emergência. Quantos meses de renda costumam ser recomendados como reserva para emergências?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Ler Mateus 25:14-30 e discutir o valor de investir dinheiro. Identificar pelo menos dois métodos de investimento. Quais são as vantagens e desvantagens de cada um?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Quais são algumas vantagens e desvantagens de usar pagamentos automáticos (débito automático)?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Simular o seguinte (ou equivalentes):\n  a. Identificar um número de conta e o código do banco\n  b. Preencher e endossar um cheque\n  c. Conciliar um extrato bancário",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Entrevistar um profissional de finanças ou equivalente sobre orçamento pessoal.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Elaborar um orçamento familiar (pode ser feito junto com os pais). Manter um orçamento pessoal e registrar as receitas e despesas durante dois meses.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Ler Malaquias 3:8-12 e discutir que papel os dízimos e as ofertas podem ter num orçamento pessoal/familiar.",
+   "instructions": null
+  }
+ ]
+}

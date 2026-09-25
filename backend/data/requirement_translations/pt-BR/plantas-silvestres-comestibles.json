@@ -1,0 +1,58 @@
+{
+ "honor_slug": "plantas-silvestres-comestibles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Edible_Wild_Plants/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Plantas silvestres comestíveis",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fotografar, colecionar figuras ou desenhar quinze plantas silvestres comestíveis. Identificar cada planta na natureza.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar na natureza cinco árvores e cinco arbustos comestíveis.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar, preparar e comer três tipos de bagas ou frutos silvestres, três tipos de bebidas, três plantas para salada, três verduras para cozinhar e dois tubérculos ou raízes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar o preparo de alimentos silvestres de cada uma das seguintes maneiras:\n  a. Cozidos\n  b. Fritos\n  c. Tostados\n  d. Assados no forno",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como preparar como alimento quatro partes da asclépia comum ou do lírio-de-um-dia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como identificar três fungos comestíveis de “formato estranho” e como identificar os cogumelos mortais do gênero Amanita.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que planta de raiz pode ser seca e moída para fazer farinha?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos 8 famílias que incluem plantas venenosas ou duvidosas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a regra fundamental de comestibilidade?",
+   "instructions": null
+  }
+ ]
+}

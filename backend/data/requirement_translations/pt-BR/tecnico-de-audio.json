@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tecnico-de-audio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Audio_Technician/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Técnico de áudio",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Alto-falante\n  b. Mesa de som\n  c. Amplificador\n  d. Microfone\n  e. Impedância\n  f. Ganho\n  g. Microfonia\n  h. Resposta de frequência\n  i. Equalizador\n  j. Entrada/saída balanceada\n  k. Entrada/saída não balanceada\n  l. Monoaural\n  m. Estéreo\n  n. Cardioide\n  o. Hipercardioide\n  p. Unidirecional\n  q. Passagem de som\n  r. Alimentação fantasma (phantom power)\n  s. Decibel",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever quatro tipos diferentes de microfone e indicar seus usos principais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever por que o posicionamento dos microfones é importante:\n  a. Em relação às pessoas que falam/cantam\n  b. Em relação aos alto-falantes",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher um sistema de som no qual você vai aprender e demonstrar as habilidades descritas na próxima seção desta especialidade. Esse sistema pode ser o sistema de som de sua igreja/escola local, um sistema de som usado por sua Associação em eventos de Desbravadores ou um sistema do instrutor. Ele deve ter, no mínimo: vários microfones, uma mesa de som, um amplificador, uma fonte de áudio auxiliar e alto-falantes.\n  a. Saber montar corretamente esse sistema de som, levando em conta os princípios de posicionamento dos microfones e fazendo uma passagem de som.\n  b. Saber desmontar corretamente esse sistema de som.\n  c. Desenhar um diagrama de blocos de como os elementos do sistema de som estão conectados entre si, mostrando os caminhos do sinal.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir e demonstrar as seguintes técnicas fundamentais de mixagem de áudio nesse sistema:\n  a. Volume\n  b. Panorâmica (pan) (se o sistema for estéreo)\n  c. Equalização\n  d. Dinâmica",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever e demonstrar como lidar com as seguintes situações nesse sistema:\n  a. Microfonia\n  b. Um cabo ou microfone mudo\n  c. Uma mesa de som mexida por alguém que não é técnico de áudio",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar seu domínio operando um sistema de som em pelo menos quatro ocasiões diferentes, num culto ou em outro evento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar uma pessoa que atue como técnico de áudio. Discutir as seguintes perguntas:\n  a. Como ela começou nessa área?\n  b. Como ela vê esse trabalho como um ministério?\n  c. De que ela gosta no que faz?\n  d. De que ela não gosta no que faz?\n  e. Que aspectos do trabalho ela considera desafiadores?\n  f. O que ela faz para acompanhar a tecnologia da área?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler Romanos 10:17 e discutir com seu grupo como esse texto pode se relacionar com a função do técnico de áudio.",
+   "instructions": null
+  }
+ ]
+}

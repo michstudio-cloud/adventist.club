@@ -1,0 +1,63 @@
+{
+ "honor_slug": "prevencion-de-crimen",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Crime_Prevention/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Prevenção do crime",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar a capacidade de gritar as seguintes frases de maneira eficaz:\n  “Eu não conheço você.”\n  “Socorro! Polícia!”",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Participar de um programa de vigilância de bairro (Vizinhança Solidária) em sua comunidade ou iniciar um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar do programa Operação Identificação (Operation Identification) com a polícia de sua cidade (se houver). Marcar seus bens com o número da carteira de motorista apropriado ou conforme as instruções. Colar os adesivos da Operação Identificação nas portas da frente e dos fundos, se for permitido.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três maneiras de fazer parecer que há pessoas em sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Recitar de memória:\n  a. O número do telefone de sua casa.\n  b. O número local de emergência geral (911) ou o número da polícia.\n  c. O número do celular ou do telefone do trabalho de seus pais.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três tipos de fechadura de porta e explicar como travam.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar dois tipos de janela e como podem ser protegidas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Completar um projeto de sua escolha que melhore a segurança de sua casa, seja por meio de paisagismo, seja instalando ou melhorando uma fechadura ou janela.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "A quem você deve avisar se sua família for viajar por mais de uma semana?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Recitar de memória: “Meu dever é manter a calma, lembrar de orar, telefonar e pedir ajuda, ficar perto do telefone até a ajuda chegar, não tentar impedir um crime sozinho e ser sempre corajoso.”",
+   "instructions": null
+  }
+ ]
+}

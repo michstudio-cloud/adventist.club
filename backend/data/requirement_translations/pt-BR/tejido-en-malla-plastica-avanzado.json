@@ -1,0 +1,38 @@
+{
+ "honor_slug": "tejido-en-malla-plastica-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plastic_Canvas_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Plástico canvas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar seis (6) pontos (não usados anteriormente na especialidade básica de Plástico canvas) e fazer uma amostra de duas polegadas (5 cm) de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usar quatro (4) desses pontos para criar sua própria cesta redonda de plástico canvas. A cesta deve ter alça e tampa. Ser o mais criativo possível.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um jogo de seis porta-copos com uma caixa combinando para sua cozinha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um item de sua escolha. Usar a imaginação, ser criativo e, acima de tudo, divertir-se!",
+   "instructions": null
+  }
+ ]
+}

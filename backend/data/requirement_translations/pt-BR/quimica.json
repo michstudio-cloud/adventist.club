@@ -1,0 +1,38 @@
+{
+ "honor_slug": "quimica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Chemistry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Elementos\n  b. Compostos\n  c. Símbolos químicos\n  d. Soluções\n  e. Átomos\n  f. Moléculas\n  g. Tabela periódica\n  h. Combustão\n  i. Ácido\n  j. Sal\n  k. Próton\n  l. Nêutron\n  m. Elétron\n  n. Destilação\n  o. Destilação fracionada\n  p. Filtração",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que gases extinguem a vida, e como? Explicar o princípio de funcionamento de um tipo de extintor de incêndio químico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar duas fontes comuns de monóxido de carbono. Por que ele é perigoso?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os estados da matéria?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer cinco dos seguintes experimentos e explicar a ação química que ocorre:\n  a. Tentar acender um cubo de açúcar, primeiro sem e depois com um pouco de cinza aplicada ao cubo, mostrando assim a ação de um catalisador.\n  b. Colocar um cubo de gelo num copo de água, colocar um barbante de quatro polegadas (10,2 cm) sobre o copo e o gelo e, depois, resolver o problema de tirar o cubo de gelo da água sem tocá-lo.\n  c. Usando água, aguarrás e sabão, transferir uma figura de jornal para uma folha de papel em branco.\n  d. Usando uma vela e um pedaço de papelão, demonstrar visualmente as três partes da chama de uma vela.\n  e. Com uma tigela de água, palitos de fósforo de madeira, um torrão de açúcar e um pouco de sabão, demonstrar a ação do açúcar e do sabão sobre os palitos de fósforo que flutuam.\n  f. Colocar um ovo fresco em água doce e depois em água salgada, observando a diferença.\n  g. Demonstrar que a ferrugem consome oxigênio usando palha de aço, um lápis, um elástico, um copo de vidro e um prato com água.\n  h. Demonstrar as cores produzidas quando se queimam as seguintes substâncias: sal, sulfato de cobre e ácido bórico.\n  i. Fazer uma tinta invisível.\n  j. Mostrar que a soda para lavar roupa, ou carbonato de sódio, contém água.",
+   "instructions": null
+  }
+ ]
+}

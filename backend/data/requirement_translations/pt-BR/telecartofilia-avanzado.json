@@ -1,0 +1,43 @@
+{
+ "honor_slug": "telecartofilia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Telecartofilia_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Telecartofilia - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Telecartofilia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o funcionamento do cartão indutivo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Onde os cartões telefônicos são impressos e emitidos em seu país?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Os cartões telefônicos têm um código. O que ele significa e como é interpretado? (Exemplo: <96 07(2N IT 00) 4 CMU FI>).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer a história dos cartões telefônicos de um país diferente do seu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma coleção de pelo menos 300 cartões que se enquadrem numa das três alternativas abaixo. Não incluir na contagem os repetidos.\n  a. Cartão com chip\n  b. Cartão magnético ou óptico\n  c. Cartão pré-pago",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "honor_slug": "poesia-y-composicion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Poetry_and_Songwriting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Poesia e composição musical",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos relacionados à poesia. Dar um exemplo de cada um:\n  a. Aliteração\n  b. Alusão\n  c. Público\n  d. Hipérbole\n  e. Imagem poética\n  f. Verso\n  g. Metáfora\n  h. Atmosfera/tom\n  i. Onomatopeia\n  j. Personificação\n  k. Repetição\n  l. Rima\n  m. Ritmo\n  n. Comparação (símile)\n  o. Eu lírico\n  p. Estrofe",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Os poemas podem ser divididos em centenas de tipos. Fazer uma lista de cinco tipos diferentes e de um poema de cada grupo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre assonância e consonância? Dar um exemplo de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar um tipo de poesia e escrever um breve histórico sobre ele, incluindo nomes de autores e poemas influentes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que a poesia e a composição de canções são iguais? Em que são diferentes?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever o papel de um compositor e como esse papel difere do de um letrista ou de um melodista.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar as diferenças entre poesia de perspectiva, situacional e narrativa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Definir melodia, contramelodia e harmonia e como elas se relacionam com a composição de canções.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever as diferenças entre estrofe, refrão e ponte.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Grandes seções da Bíblia estão escritas em forma de poesia. Com seu instrutor e sua unidade, discutir por que vocês acham que isso acontece.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que a poesia e a composição de canções têm tanto impacto na mente das pessoas? Existem formas boas e más de cada uma? Como um autor pode escrever poemas ou canções para a glória de Deus?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Completar um dos seguintes:\n  a. Individualmente ou com sua unidade, escrever um poema curto de pelo menos três estrofes usando as técnicas estudadas acima. Compartilhá-lo com seu instrutor.\n  b. Individualmente ou com sua unidade, escrever uma canção de pelo menos duas estrofes e um refrão, usando as técnicas estudadas acima. Compartilhá-la com seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Completar um dos seguintes:\n  a. Apresentar seu poema ou canção tendo seu clube como público. A apresentação deve ser criativa e pode envolver outras pessoas além do(s) autor(es).\n  b. Se for o caso, expor seu poema num evento de Desbravadores, como uma feira, um campori ou uma cerimônia de investidura.\n  c. Criar um vídeo de seu poema ou canção.",
+   "instructions": null
+  }
+ ]
+}

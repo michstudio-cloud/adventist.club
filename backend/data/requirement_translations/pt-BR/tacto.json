@@ -1,0 +1,83 @@
+{
+ "honor_slug": "tacto",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Touch/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Tato",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar e explicar as funções das três partes principais da pele: epiderme, derme e tecido subcutâneo (hipoderme).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes receptores do sistema somatossensorial que tornam possível o sentido do tato:\n  a. Mecanorreceptores\n  b. Termorreceptores\n  c. Receptores de dor\n  d. Proprioceptores",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quanto do corpo a pele ocupa?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que o tato é importante para a interação humana e para o desenvolvimento da vida?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como o sentido do tato muda com a idade.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como você protege sua pele, e ela é afetada por diferentes temperaturas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é hipoestesia? Como você acha que seria viver sem o sentido do tato?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Os cosméticos ajudam ou prejudicam sua pele?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir os seguintes distúrbios/condições da pele:\n  a. Eczema\n  b. Ceratose actínica\n  c. Rosácea\n  d. Verrugas\n  e. Celulite (infecciosa)\n  f. Psoríase",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar como a tatuagem pode danificar a pele e discutir o que a Bíblia diz sobre marcar o corpo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar como a Bíblia ilustra o toque a partir de cada uma das seguintes perspectivas:\n  a. Contaminação - Números 19:22 / Levítico 5:2-3\n  b. Fortalecimento e encorajamento - Jeremias 1:8-9 / Daniel 8:18\n  c. Cura e graça – Mateus 8:3 / Marcos 5:18-29 / Lucas 6:19\n  d. Santificação - Isaías 6:5-7",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Definir e conhecer a diferença entre toque seguro e toque inseguro.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Que outras áreas ou partes da pele são mais sensíveis do que as outras?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Explicar algumas maneiras como o sentido do tato pode ser usado para transmitir emoções e em que porcentagem do tempo as pessoas conseguem se comunicar pelo toque.",
+   "instructions": null
+  }
+ ]
+}

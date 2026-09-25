@@ -1,0 +1,48 @@
+{
+ "honor_slug": "trabajos-en-fieltro",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Felt_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "De que fibra é feito o feltro? O que lhe dá sua resistência à tração?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de 15 usos do feltro.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar três motivos pelos quais o feltro é um bom material para trabalhos manuais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista das etapas essenciais na fabricação do feltro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer dois dos seguintes itens, usando pelo menos duas cores diferentes de feltro:\n  a. Flâmula\n  b. Marcador de livro\n  c. Ímã de geladeira\n  d. Porta-agulhas\n  e. Item semelhante",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um dos seguintes itens, usando pelo menos quatro cores diferentes de feltro:\n  a. Pequeno painel de parede\n  b. Enfeite de data comemorativa\n  c. Fantoche de mão\n  d. Enfeite de cozinha",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um dos seguintes itens, usando costura:\n  a. Bicho de pelúcia\n  b. Brinquedo recheado\n  c. Sacola\n  d. Saquinho de feijão (bean bag)",
+   "instructions": null
+  }
+ ]
+}

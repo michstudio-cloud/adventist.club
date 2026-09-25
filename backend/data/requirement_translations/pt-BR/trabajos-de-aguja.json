@@ -1,0 +1,33 @@
+{
+ "honor_slug": "trabajos-de-aguja",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Needle_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer dois dos seguintes:\n  a. Bordar um dos seguintes itens: toalhinha de cômoda, um par de fronhas, toalha de mesa para lanche ou outro artigo equivalente.\n  b. Fazer uma capa de almofada ou um painel de parede, um conjunto de quatro saquinhos perfumados ou três enfeites de árvore de Natal com qualquer um dos seguintes métodos:\n    i. Bordado com agulha mágica (punch)\n    ii. Candlewicking (bordado de nózinhos)\n    iii. Bordado com lã (crewel)\n  c. Fazer uma capa de almofada, um painel de parede, uma capa de cadeira, de banquinho para os pés ou de banco de piano em ponto de tapeçaria (needlepoint) ou em ponto-cruz contado.\n  d. Fazer um artigo usando qualquer um dos seguintes métodos:\n    i. Aplicação (appliqué)\n    ii. Ponto de união (fagoting)\n    iii. Casa de abelha (smocking)\n    iv. Franzido (shirring)\n    v. Bordado sueco em linho ou em toalha de tecido piquê (huck)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar artigos que você fez usando dez dos seguintes pontos:\n  a. Atrás\n  b. Caseado de cobertor\n  c. Trança\n  d. Caseado\n  e. Romano\n  f. Corrente\n  g. Cruz\n  h. Pena\n  i. Espinha de peixe\n  j. Nó francês\n  k. Corrente dupla (grossa)\n  l. Espinha (herringbone)\n  m. Margarida (lazy daisy)\n  n. Matizado (longo e curto)\n  o. Contorno\n  p. Alinhavo\n  q. Cheio (cetim)\n  r. Haste partido\n  s. Enchimento em estrela\n  t. Haste\n  u. Chuleado",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar a maneira correta de franzir uma renda e chuleá-la numa borda com bainha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever um método satisfatório para manter em boas condições seu material de trabalhos manuais.",
+   "instructions": null
+  }
+ ]
+}

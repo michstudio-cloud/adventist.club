@@ -1,0 +1,78 @@
+{
+ "honor_slug": "robotica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Robotics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Robótica",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Robótica\n  b. Automação",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever brevemente três exemplos de como o uso da robótica e da automação causou impacto na sociedade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever brevemente as seguintes ferramentas:\n  a. Sistemas de controle robótico\n  b. Controle de movimento\n  c. Controlador lógico programável (CLP)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir visão computacional. Dar três exemplos práticos de seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever e dar um exemplo de cada um dos seguintes tipos de movimento robótico:\n  a. Rolar\n  b. Nadar\n  c. Andar\n  d. Voar\n  e. Escalar",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever o que é usado como fonte de energia na maioria das aplicações robóticas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever, desenhar ou mostrar fotos de um ballbot (robô equilibrado sobre uma esfera).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista de quatro vantagens e quatro desvantagens da automação. Descrever brevemente cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir e dar dois exemplos práticos dos seguintes tipos de automação:\n  a. Residencial\n  b. Fabricação de automóveis\n  c. Industrial\n  d. Mineração\n  e. Varejo",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer as normas da FAA (ou de órgão equivalente) que regem a operação de robôs (incluindo drones) em sua localidade.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Discutir em grupo o contexto bíblico dos seguintes textos e sua relação com a área da automação e da robótica:\n  a. Gênesis 1:27\n  b. Salmo 139:14\n  c. Provérbios 1:1-7\n  d. 1 Coríntios 2:16",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma lista das três leis da robótica de Isaac Asimov e discutir sua relevância.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Pesquisar ideias de projetos de construção robótica. Com base em sua pesquisa, montar a partir de um kit um robô e operá-lo com sucesso.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tenis-de-mesa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Table_Tennis/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Tênis de mesa",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever um parágrafo de pelo menos dez linhas explicando como o tênis começou em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre pingue-pongue e tênis de mesa?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o equipamento necessário para jogar uma partida de tênis de mesa?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quantos e quais são os tipos de empunhadura?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a organização responsável pelo tênis de mesa no mundo? E em âmbito nacional?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de pelo menos 15 regras oficiais do tênis de mesa em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são os requisitos que as raquetes, mesas, bolas e redes devem cumprir?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ter uma raquete que cumpra os requisitos oficiais e saber mantê-la limpa.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de um campeonato usando as regras adotadas pela instituição oficial responsável pelo tênis de mesa em seu país.",
+   "instructions": null
+  }
+ ]
+}

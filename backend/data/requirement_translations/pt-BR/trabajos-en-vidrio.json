@@ -1,0 +1,38 @@
+{
+ "honor_slug": "trabajos-en-vidrio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Glass_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar dez tipos de vidro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber que tipo de vidro é usado em móveis, isolamento em tecido (lã de vidro), aviões e automóveis.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar pelo menos três cores de vidro para fazer quadros.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as etapas para fazer um quadro com vidro e completar um quadro desses, usando pelo menos três cores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever um relatório de 300 palavras ou fazer uma apresentação oral de três minutos sobre a história do vidro e como ele é feito.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "sol-de-medianoche",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Midnight_Sun/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever as áreas geográficas em que o sol da meia-noite pode ser visto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever por que e em que época do ano o fenômeno pode ser visto.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar um lugar onde você possa observar o sol em sua posição mais baixa durante a noite e fazer o seguinte:\n  a. Calcular o horário exato da posição mais baixa do sol (levando em conta o horário de verão, se for o caso).\n  b. Ficar acordado até o sol atingir sua posição mais baixa e tirar uma foto da paisagem mostrando o sol e um pouco da natureza ao redor. Tomar cuidado para não olhar diretamente para o sol sem a proteção adequada.\n  c. Olhar ao redor e anotar como a natureza reage à luz solar contínua.\n  d. Buscar informações sobre o período em que o fenômeno do sol da meia-noite é visível no seu ponto de observação.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em que período do ano o sol é visível em cada um dos polos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é a “noite polar”?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler Gênesis 1:31-2:3, Levítico 23:32, Êxodo 20:8-11 e Neemias 13:15-22 e discutir em grupo (ou por escrito – pelo menos 500 palavras) quando o sábado começa segundo a Bíblia e como isso pode ser aplicado nas regiões que têm sol da meia-noite e noite polar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar com pelo menos 5 pessoas que moraram ou moram numa região com sol da meia-noite e perguntar como o sol da meia-noite e a noite polar afetam a vida delas.",
+   "instructions": null
+  }
+ ]
+}

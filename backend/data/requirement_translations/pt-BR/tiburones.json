@@ -1,0 +1,73 @@
+{
+ "honor_slug": "tiburones",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sharks/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que dia da semana da Criação os tubarões foram criados?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como se chama o estudo dos tubarões?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar, por meio de figuras ou observação pessoal, 10 espécies de tubarões.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar um tubarão e identificar as seguintes partes:\n  a. 1ª nadadeira dorsal\n  b. 2ª nadadeira dorsal\n  c. Nadadeira peitoral\n  d. Nadadeira pélvica\n  e. Nadadeira anal\n  f. Nadadeira caudal\n  g. Fendas branquiais\n  h. Espinho\n  i. Olho\n  j. Focinho\n  k. Narina\n  l. Boca",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o sistema sensorial do tubarão: olfato, visão, paladar, audição, tato, eletrorrecepção",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar o maior membro da família dos tubarões e seu tamanho máximo quando adulto.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar o membro mais agressivo da família dos tubarões.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar os predadores do tubarão-branco.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar os hábitos reprodutivos dos tubarões.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como os tubarões dão à luz?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Discutir em grupo o seguinte:\n  a. Como ficar em segurança quando você está no ambiente natural dos tubarões\n  b. Ideias equivocadas sobre os tubarões\n  c. Perigos dos tubarões",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer duas das seguintes atividades:\n  a. Visitar um aquário da região e aprender sobre o horário diário de alimentação e os hábitos dos tubarões.\n  b. Assistir a um documentário sobre tubarões e identificar como os tubarões prejudicam e beneficiam o ser humano.\n  c. Visitar um museu de história natural e observar como os tubarões são apresentados em seu ecossistema.\n  d. Criar uma exposição com 10 fotos e informações sobre tubarões, incluindo informações importantes aprendidas nesta especialidade.\n  e. Criar um jogo que ajude outras pessoas a aprender sobre os tubarões. Você pode se basear em jogos de cartas ou de tabuleiro conhecidos.",
+   "instructions": null
+  }
+ ]
+}

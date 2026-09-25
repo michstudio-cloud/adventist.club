@@ -1,0 +1,53 @@
+{
+ "honor_slug": "the-hopeful",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/The_Hopeful/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "The Hopeful",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Você já assistiu a um filme que o deixou inspirado ou esperançoso? O que o tornou marcante?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Assistir ao filme THE HOPEFUL.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher uma atividade para completar:\n  REVEZAMENTO DA MEMÓRIA\n  PEGA-PEGA DO CONTE-ME\n  CADEIRA QUENTE\n  BLOOKET.com TÍTULO: THE HOPEFUL - MOVIE REVIEW (exige wi-fi e um computador, celular ou iPad para os Desbravadores; pode ser jogado em pequeno grupo ou individualmente)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discussões ativas:\n  CAÇA AO TESOURO DA SEQUÊNCIA\n  CÍRCULO DE EMPATIA",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Análise de personagens:\n  a. PERFIL DO PERSONAGEM - Ei, sou parecido\n  b. UM ATO DE CORAGEM - Ellen Harmon White",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Reflexões pessoais:\n  a. TOMAR POSIÇÃO\n  b. O CONHECIMENTO É UMA SEMENTE\n  c. A MENSAGEM\n  d. NOSSO DEVER\n  e. SEGUIR EM FRENTE\n  f. ENCORAJEM-SE UNS AOS OUTROS\n  g. OUVIR A VOZ DE DEUS",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Opções criativas:\n  a. APRENDER A MÚSICA Made For You, de Jonas Myrin\n  b. ATIVIDADE DO CÍRCULO DE SAÚDE\n  c. OFICINA DE CRIAÇÃO DE MENSAGENS\n  d. ENVIAR POR E-MAIL OU GRAVAR UMA RESENHA\n  e. DEBATE SOBRE INSPIRAÇÃO\n  f. MURAL/SALA DE ORAÇÃO",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conexões com a comunidade:\n  a. PROJETO DE SERVIÇO COMUNITÁRIO (OPCIONAL)\n  b. CAMPANHA DE CONSCIENTIZAÇÃO SOBRE SAÚDE (OPCIONAL)\n  c. RESENHA E ENCORAJAMENTO NAS REDES SOCIAIS\n  d. PINTURA DE MURAL",
+   "instructions": null
+  }
+ ]
+}

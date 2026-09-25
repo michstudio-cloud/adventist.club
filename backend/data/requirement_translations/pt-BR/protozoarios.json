@@ -1,0 +1,63 @@
+{
+ "honor_slug": "protozoarios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Protozoa/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Protozoários",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as principais características dos protozoários que os colocam no reino Protista? Quais são as semelhanças e diferenças em relação aos outros protistas (algas)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber identificar, por meio de figuras ou fotos, cinco protozoários comuns, indicando seus nomes científicos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar a classificação dos protozoários, indicando suas características distintivas e pelo menos um exemplo de cada grupo e sua importância.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que são pseudópodes? Qual é sua finalidade?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os protozoários se reproduzem? Como podem alterar suas características genéticas e tornar-se mais resistentes aos agressores?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como os protozoários se alimentam e respiram?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "A disenteria amebiana e a giardíase (febre do castor) são doenças gastrointestinais causadas por protozoários semelhantes. Indicar três diferenças que as distinguem e como prevenir essas doenças.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Falar sobre a leishmaniose e sobre a relação dos cães com a propagação dessa doença causada por protozoários.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "A malária é uma doença que causa muitas mortes na região amazônica e na África. Descrever como ocorre o contágio, quais são seus principais sintomas e como ela pode ser prevenida e tratada.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Desenhar o ciclo da doença de Chagas (tripanossomíase americana) e explicar cada etapa. O que ela causa no ser humano? Como é transmitida? Como pode ser prevenida? Existe tratamento?",
+   "instructions": null
+  }
+ ]
+}

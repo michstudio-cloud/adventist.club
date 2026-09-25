@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pirograbado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pyrography/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pirogravura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir pirogravura. Qual é a origem dessa arte milenar?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que ferramentas são necessárias para a pirogravura?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever, passo a passo, o procedimento correto para trabalhos de pirogravura.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar dois materiais que podem ser usados na pirogravura.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como a temperatura pode influenciar a velocidade do trabalho de pirogravura.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que cuidados e precauções devem ser tomados ao trabalhar com pirogravura?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um desenho de cada um dos seguintes temas, no material de sua escolha:\n  a. Animal\n  b. Flor\n  c. Paisagem",
+   "instructions": null
+  }
+ ]
+}

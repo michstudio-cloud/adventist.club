@@ -1,0 +1,23 @@
+{
+ "honor_slug": "radio-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Radio_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Radioamadorismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser aprovado num exame e receber sua licença de radioamador da classe General.",
+   "instructions": null
+  }
+ ]
+}

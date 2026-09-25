@@ -1,0 +1,43 @@
+{
+ "honor_slug": "prospeccion-de-oro-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gold_Prospecting_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Prospecção de ouro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os seguintes tipos de equipamento de prospecção.\n  a. Calha concentradora (sluice box)\n  b. Caixa oscilante (rocker box)\n  c. High banker\n  d. Draga de caçambas\n  e. Draga de sucção\n  f. Separador a seco (dry washer)\n  g. Trommel (peneira rotativa)\n  h. Caixa de praia (beach box)\n  i. Detector de metais\n  j. Jigue\n  k. Mesa vibratória",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que exigências governamentais existem, se houver, para usar o equipamento relacionado no número 2 acima?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as vantagens ou desvantagens do equipamento relacionado no número 2 acima?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usar pelo menos dois dos tipos de equipamento relacionados no número 2 acima para prospectar ouro.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Os Desbravadores devem tirar apenas fotos e deixar apenas pegadas, mas a prospecção exige mover pedras e cavar grandes buracos. Como conciliar essas duas exigências conflitantes?",
+   "instructions": null
+  }
+ ]
+}

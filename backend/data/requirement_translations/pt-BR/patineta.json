@@ -1,0 +1,33 @@
+{
+ "honor_slug": "patineta",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Skateboarding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Usar o seguinte equipamento de segurança e saber por que ele deve ser usado ao andar de skate: capacete, cotoveleiras, joelheiras, tênis de cano alto e luvas com proteção para os pulsos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar todas as partes de um skate.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desmontar e montar completamente um skate, relubrificando os rolamentos e ajustando as porcas das rodas e a porca de articulação do truck na tensão correta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar oito manobras de skate, incluindo algumas das seguintes, e executá-las de maneira satisfatória para o instrutor em local autorizado. Cinco delas devem ser demonstradas em uma rampa de skate.\n  a. Tic-tac — partindo do repouso, por no mínimo 10 metros em terreno plano\n  b. Ollie — no mínimo 10 centímetros\n  c. Rail slide — no mínimo 1 metro\n  d. Drop in — de uma rampa de 2-3 metros de altura\n  e. Gurreo slide\n  f. 4-Wheel Look Up\n  g. Remada (pump) numa rampa até o coping\n  h. Acid drop\n  i. Kickflip\n  j. Ollie para subir uma sarjeta\n  k. Grind frontside e backside\n  l. Carve\n  m. Pump",
+   "instructions": null
+  }
+ ]
+}

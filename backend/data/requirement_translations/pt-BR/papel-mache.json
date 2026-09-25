@@ -1,0 +1,43 @@
+{
+ "honor_slug": "papel-mache",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Paper_Mach%C3%A9/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos três tipos de base sobre as quais os modelos de papel podem ser moldados.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Há dois tipos principais de papel machê:\n  a. Saber preparar uma polpa adequada\n  b. Saber preparar a cola",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer todos os ingredientes e saber por que são usados.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer, pintar e envernizar pelo menos dois objetos de polpa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer, pintar e envernizar pelo menos dois objetos de cola e tiras de papel.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar os objetos ao examinador e ter o acabamento aprovado.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "honor_slug": "seguridad-en-el-campamento-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camp_Safety_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Segurança no acampamento - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Obter as seguintes especialidades, se ainda não as tiver:\n  a) Acampamento I-IV\n  b) Segurança no acampamento",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa “os Desbravadores são um encargo sagrado” e como a segurança no acampamento apoia esse aspecto do ministério na igreja?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ensinar a especialidade de Segurança no acampamento a uma unidade de Desbravadores ou equivalente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer 5 inspeções de locais de acampamento (em pelo menos duas experiências de acampamento) usando o formulário de inspeção de segurança de acampamentos de Desbravadores vigente da Adventist Risk Management ou equivalente.",
+   "instructions": null
+  }
+ ]
+}

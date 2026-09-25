@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pintura-exterior-de-casas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/House_Painting,_Exterior/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e explicar a diferença de composição entre tintas para exteriores e tintas para interiores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como preparar o exterior de uma casa para pintura, incluindo itens como preparação de superfícies novas e antigas, remoção de tinta, aplicação de fundo, massa, acabamento etc.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de dez combinações de cores adequadas para a pintura de casas (se possível, usar catálogos de cores de uma loja de tintas para montar a apresentação).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como preparar e pintar metal corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar pelo menos três diluentes de tinta e indicar seus usos específicos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar habilidade no uso correto de pincel, rolo e equipamento de pintura a pistola em trabalhos externos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pintar o exterior de uma casa de pelo menos quatro cômodos (se possível, fazer disso um projeto em grupo para uma pessoa com necessidades especiais da igreja ou da comunidade).",
+   "instructions": null
+  }
+ ]
+}

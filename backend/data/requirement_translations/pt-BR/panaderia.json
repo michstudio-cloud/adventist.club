@@ -1,0 +1,68 @@
+{
+ "honor_slug": "panaderia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Baking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a diferença de valor nutritivo entre a farinha de trigo integral e a farinha branca.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os efeitos do fermento biológico na fabricação do pão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar um episódio do Antigo Testamento e um do Novo Testamento em que se menciona o fermento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar um pão integral (pode ser de trigo, centeio, aveia etc.).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar dois dos seguintes:\n  a. Pãezinhos com fermento biológico\n  b. Pão sem fermento\n  c. Palitos de pão\n  d. Bagels\n  e. Pão de legumes",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por que se deve evitar o uso de fermento químico e bicarbonato de sódio e por que a mistura de leite, açúcar e ovos é prejudicial à saúde.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como testar se um bolo está assado? Como evitar que um bolo “murche”?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Preparar dois dos seguintes:\n  a. Bolo com ingredientes básicos (qualquer sabor)\n  b. Bolo de mistura pronta (qualquer sabor)\n  c. Bolo de frutas ou de nozes ou bolo inglês\n  d. Pão de ló",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma torta de cada uma das seguintes categorias:\n  a. Assada, de qualquer fruta, inclusive limão\n  b. Não assada (apenas a massa assada), de frutas frescas, gelatina etc.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer e assar uma receita de biscoitos. Fazer uma receita de biscoitos de geladeira. É preferível usar ingredientes saudáveis, como frutas, aveia, nozes etc.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Preparar um fichário com as receitas de todos os itens exigidos acima e de quaisquer outros que desejar. Ver quantas receitas você consegue encontrar que usem frutas sem grandes quantidades de açúcar.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "socorrismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lifesaving_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser aprovado de modo satisfatório no curso de instrutor de salva-vidas da Cruz Vermelha (Lifeguard Instructor) ou num curso equivalente da ACM (YMCA).",
+   "instructions": null
+  }
+ ]
+}

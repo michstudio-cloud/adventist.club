@@ -1,0 +1,63 @@
+{
+ "honor_slug": "soldadura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Welding_(GC)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar todas as partes dos seguintes itens:\n  a. Maçaricos de soldar e de cortar\n  b. Manômetros de oxigênio e de acetileno e suas diferenças\n  c. Mangueiras de oxigênio e de acetileno e suas diferenças\n  d. Cilindros de oxigênio e de acetileno e suas diferenças",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar as pressões seguras de trabalho do oxigênio e do acetileno, conforme as orientações de seu instrutor, para diversos procedimentos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Com os olhos vendados, demonstrar a capacidade de montar todo um conjunto oxiacetilênico, incluindo cilindros, manômetros, mangueiras e maçaricos, e acendê-lo.**",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conforme as orientações de seu instrutor, soldar duas chapas de teste de aço doce (1/8 polegada x 1 polegada x 8 polegadas) (0,3 cm x 2,5 cm x 20,3 cm) nas posições horizontal e vertical.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usar um maçarico de corte e demonstrar sua habilidade fazendo um corte reto de 12 polegadas (30,5 cm), um corte circular de pelo menos 3 polegadas (7,6 cm) de diâmetro e um corte em estrela de 3 polegadas (7,6 cm). Os cortes devem ser feitos em chapa de aço doce de pelo menos 1/4 polegada (0,6 cm) de espessura.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar sua capacidade de brasar um objeto de ferro fundido com uma solda de topo com chanfro duplo de pelo menos 1/4 polegada (0,6 cm) e 2 polegadas (5 cm) de comprimento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar as precauções e os equipamentos de segurança normalmente usados na soldagem elétrica com relação aos olhos, às mãos e às áreas de pele expostas. Por que as válvulas dos cilindros nunca devem ser lubrificadas com óleo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a diferença entre a soldagem oxiacetilênica e a soldagem a arco elétrico.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar a capacidade de escolher, com base num guia de eletrodos, a amperagem e o eletrodo adequados para diversos tipos e espessuras de metal.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar a capacidade de soldar nas posições plana, vertical, horizontal e sobrecabeça em chapas de teste de aço doce (1/8 polegada x 1 polegada x 8 polegadas) (0,3 cm x 2,5 cm x 20,3 cm).\n  Observação: É indispensável um instrutor. A soldagem é uma habilidade muito delicada e séria de aprender e não é um curso para fazer em casa. A soldagem basicamente substitui parafusos e rebites e, se não for bem feita, é muito perigosa. Exemplo: um engate de reboque mal soldado, ou máquinas expostas ao esforço de tração ou de peso, é um convite ao desastre.\n  Observação: **Este requisito demonstra a habilidade de trabalhar no escuro, como numa emergência. Todas as roscas das conexões de acetileno são para a esquerda, enquanto todas as roscas das conexões de oxigênio são para a direita.",
+   "instructions": null
+  }
+ ]
+}

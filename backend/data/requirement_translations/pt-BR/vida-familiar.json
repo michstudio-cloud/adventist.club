@@ -1,0 +1,68 @@
+{
+ "honor_slug": "vida-familiar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Family_Life/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar os papéis do pai, da mãe, da irmã e do irmão segundo a Bíblia e o Espírito de Profecia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre amor-próprio e orgulho? Escrever um parágrafo sobre algumas coisas que fazem você se sentir bem com sua família. Incluir aquilo de que você se orgulha e as boas qualidades e realizações de sua família.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma das seguintes tarefas em sua casa durante uma semana:\n  a. Tirar o pó e manter o chão limpo\n  b. Lavar a roupa\n  c. Lavar a louça\n  d. Descartar o lixo corretamente",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Cuidar dos membros mais novos de sua família ou da família de um vizinho durante pelo menos algumas horas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de algumas coisas em que sua família gasta dinheiro. Explicar sua responsabilidade em relação às finanças da família.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de atividades familiares de que você acha que sua família gostaria.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como você tornaria o culto familiar significativo para crianças em idade pré-escolar, juniores e adolescentes? Planejar e dirigir um culto familiar para uma dessas faixas etárias.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber o que fazer nas seguintes situações em sua casa:\n  a. Acidente\n  b. Tempestade forte\n  c. Crise financeira\n  d. Incêndio\n  e. Perda de um parente",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Planejar e realizar um exercício de evacuação de incêndio em sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de cinco maneiras de demonstrar cuidado ou interesse pelos seus vizinhos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Estudar as atividades recreativas de sua família. Que melhorias podem ser feitas, se houver alguma?",
+   "instructions": null
+  }
+ ]
+}

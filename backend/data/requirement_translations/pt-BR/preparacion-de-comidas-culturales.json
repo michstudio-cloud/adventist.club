@@ -1,0 +1,18 @@
+{
+ "honor_slug": "preparacion-de-comidas-culturales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cultural_Food_Preparation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Preparar sozinho uma refeição usando métodos e alimentos locais.\n  Ver o exemplo abaixo.\n  a. Materiais\n    i. Alimentos crus (por exemplo, dalo, mandioca, inhame, batata-doce, folhas de taro etc.)\n    ii. Folhas de bananeira ou outras folhas usadas em sua região.\n    iii. Pedras\n    iv. Lenha\n    v. Troncos de bananeira\n    vi. Folhas de coqueiro\n  b. Métodos\n    i. Acender primeiro o fogo.\n    ii. Empilhar a lenha em ordem (método cruzado).\n    iii. Colocar todas as pedras sobre a lenha.\n    iv. Deixar o fogo queimar toda a lenha até perceber que as pedras estão em brasa.\n    v. Limpar o lovo/forno.\n    vi. Colocar os troncos de bananeira amassados sobre as pedras.\n    vii. Começar a colocar todos os alimentos crus sobre os troncos de bananeira.\n    viii. Cobrir primeiro com folhas verdes de coqueiro antes de cobrir totalmente com folhas e deixar por uma hora a uma hora e meia.\n    ix. Descobrir o lovo/forno, e a comida está pronta.",
+   "instructions": null
+  }
+ ]
+}

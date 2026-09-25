@@ -1,0 +1,53 @@
+{
+ "honor_slug": "tapiceria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Upholstery/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Estofamento",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer cinco dos seguintes termos usados em estofamento para designar as ferramentas e indicar seus usos:\n  a. Arranca-tachas\n  b. Removedor de grampos\n  c. Regulador, agulha de colchoeiro\n  d. Martelo magnético\n  e. Faca afiada ou estilete de lâmina retrátil\n  f. Mesa de trabalho\n  g. Máquina de costura industrial\n  h. Itens diversos",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o uso dos seguintes itens:\n  a. Percinta\n  b. Grampos e tachas\n  c. Juta (aniagem)\n  d. Cordão para botões ou linho encerado\n  e. Algodãozinho (morim)\n  f. Fibra\n  g. Flocos de enchimento\n  h. Lâminas de espuma\n  i. Colas\n  j. Tira de acabamento para fixação invisível",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar dois tipos de tecido usados em estofamento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como ajustar o revestimento superior numa tampa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é o nome do material usado na base de sofás, na base de sua caixa etc., e qual é sua finalidade?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dois métodos de fixar o revestimento em cadeiras.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Completar a ou b:\n  a. Pufe (otomana)\n  b. Baú de brinquedos",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Completar um painel decorativo estofado.",
+   "instructions": null
+  }
+ ]
+}

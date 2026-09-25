@@ -1,0 +1,53 @@
+{
+ "honor_slug": "peluqueria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Barbering_and_Hairstyling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Passar no mínimo cinco horas observando um barbeiro/cabeleireiro profissional habilitado em seu trabalho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três cuidados essenciais com o cabelo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar a capacidade de lavar o cabelo corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber explicar e demonstrar pelo menos dois métodos de corte de cabelo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar e demonstrar a finalidade de pelo menos dois tipos diferentes de pente usados no corte de cabelo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar e demonstrar a finalidade de dois tipos diferentes de tesoura.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar e demonstrar pelo menos duas finalidades do uso de uma máquina de cortar cabelo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever 500 palavras sobre o que você aprendeu durante seu aprendizado.",
+   "instructions": null
+  }
+ ]
+}

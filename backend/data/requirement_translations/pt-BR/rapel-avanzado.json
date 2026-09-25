@@ -1,0 +1,43 @@
+{
+ "honor_slug": "rapel-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Abseiling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Rapel.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Repetir os requisitos teóricos e práticos da especialidade de Rapel.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser aprovado no exame com nota mínima de 80%.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descer de rapel passando por um nó na corda.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descer de rapel por uma saliência negativa ou caverna.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar o método de polias para resgate em penhasco.",
+   "instructions": null
+  }
+ ]
+}

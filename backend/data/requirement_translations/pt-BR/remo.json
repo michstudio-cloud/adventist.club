@@ -1,0 +1,73 @@
+{
+ "honor_slug": "remo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rowing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação intermediário I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com seu instrutor ou conselheiro sentado na popa e sem ajuda, remar corretamente o seguinte:\n  a. Um quarto de milha (400 metros) em linha reta, parar, fazer um giro sobre o próprio eixo e voltar ao ponto de partida.\n  b. Remar de ré em linha reta por 200 jardas (182,9 metros). Fazer uma curva em movimento, ainda remando de ré, e voltar ao ponto de partida. (Emplumar os remos após cada remada. Não usar toletes de pino.)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar o seguinte:\n  a. Lançar corretamente um barco a remo na água a partir da margem e trazê-lo de volta.\n  b. Ajudar com segurança uma pessoa a embarcar e desembarcar de um barco a remo ao lado de um píer.\n  c. Amarrar um barco a remo a um píer usando cada um dos seguintes:",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Sozinho ou com a ajuda de uma pessoa que saiba nadar, alagar um barco a remo, desvirá-lo, entrar nele e, com as mãos ou com um remo, impulsioná-lo por 30 pés (9,1 metros). Explicar por que você deve se segurar num barco a remo alagado ou entrar nele.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Afastar-se sozinho da margem ou do píer num barco a remo, aproximar-se de um nadador e manobrar de modo que o nadador possa ser rebocado com segurança até a margem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar e descrever um dóri, um esquife dóri, um bote (dinghy), uma chalana (punt) e um prame (pram).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar e descrever um tolete de pino, uma forqueta de caixa, uma forqueta de anel e uma forqueta aberta. Explicar por que as forquetas do tipo pino não são recomendadas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a vantagem de emplumar os remos ao remar?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como você conduziria um barco a remo numa tempestade repentina ou com vento forte?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como você calcularia o peso que pode ser transportado com segurança, em condições normais, em qualquer barco a remo?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que luzes são exigidas num barco a remo à noite, com e sem motor de popa?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Saber equipar corretamente um barco a remo e fazer sua manutenção e seus cuidados durante a temporada de navegação. Saber como preparar e guardar o barco a remo quando não estiver em uso.",
+   "instructions": null
+  }
+ ]
+}

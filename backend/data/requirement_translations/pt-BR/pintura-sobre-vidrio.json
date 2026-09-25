@@ -1,0 +1,38 @@
+{
+ "honor_slug": "pintura-sobre-vidrio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Glass_Painting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as cores primárias, as cores secundárias e como misturar as cores primárias para obter as secundárias.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer os materiais usados para pintar, montar e pendurar uma pintura em vidro.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer e expor uma pintura em vidro para cada um dos seguintes temas: animal, flor e paisagem terrestre ou marinha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma pintura em silhueta e montá-la para pendurar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um quadro de espelho pintado à mão, removendo a camada de trás do espelho na área da figura e pintando o desenho no verso do vidro do espelho.",
+   "instructions": null
+  }
+ ]
+}

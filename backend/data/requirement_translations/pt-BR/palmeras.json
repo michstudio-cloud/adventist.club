@@ -1,0 +1,43 @@
+{
+ "honor_slug": "palmeras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Palm_Trees/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar as características gerais da palmeira com relação às seguintes partes:\n  a. Estipe ou tronco\n  b. Raízes\n  c. Folhas\n  d. Inflorescência ou flores\n  e. Frutos",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que acontece quando a copa de uma palmeira é cortada? O que acontece quando o tronco de uma palmeira é danificado?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nas ilhas do Pacífico há várias espécies de palmeiras úteis ao ser humano. Citar duas delas e fazer uma lista do maior número possível de maneiras como cada uma ajuda o ser humano.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar à vista seis tipos diferentes de palmeiras que crescem em sua região. Isso pode ser feito em qualquer idioma.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar e nomear as seis palmeiras que você identificou, mostrando claramente a formação das folhas, as flores e o formato das sementes, bem como o fruto.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Partes das palmeiras são usadas como alimento ou no preparo de alimentos. Contar, a partir de sua cultura, como uma palmeira ou parte dela é usada como alimento ou no preparo de alimentos, por exemplo, o sagueiro e o coqueiro. Explicar como prepará-la.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "tarjetas-postales-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Postcards_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cartões-postais - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Cartões-postais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como a história de sua cidade ou estado/província/região é contada nos cartões-postais? Colecionar cartões-postais (ou imagens de cartões-postais) que ilustrem acontecimentos ou paisagens características de sua região.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o que você fez para conservar seus cartões-postais. (Os cartões-postais da especialidade básica)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a novidade mais recente em cartões-postais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as normas atuais para enviar cartões-postais personalizados pela agência dos correios local com a tarifa de cartão-postal?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma coleção de pelo menos 150 cartões-postais. (Não pode haver dois iguais.) Sua coleção deve incluir o seguinte:\n  a. Pelo menos 2 cartões-postais que retratem patrimônio histórico ou cultural importante de sua área/região.\n  b. Cartões-postais de pelo menos 20 estados/províncias/países diferentes.\n  c. Pelo menos 25 cartões sobre o mesmo tema (montanhas, praias, cachoeiras, viagens, religião, estações do ano, esportes, animais, passatempos, arte etc.).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer dois dos seguintes:\n  a. Criar seus próprios cartões-postais. Enviar pelo correio 5 dos cartões-postais criados por você para encorajar alguém.\n  b. Copiar um mapa dos Estados Unidos e/ou um mapa-múndi mostrando de onde vêm seus cartões-postais e expô-lo num evento. Expor seus cartões-postais do tema que escolher. (Não é preciso expor todos os 150 cartões-postais)\n  c. Criar um jogo usando cartões-postais como peças.\n  d. Criar um álbum digital ou uma apresentação multimídia que ilustre com mais detalhes a história ou as paisagens dos cartões de sua coleção (no mínimo 30).",
+   "instructions": null
+  }
+ ]
+}

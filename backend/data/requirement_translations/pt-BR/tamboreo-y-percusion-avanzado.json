@@ -1,0 +1,78 @@
+{
+ "honor_slug": "tamboreo-y-percusion-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drumming_%26_Percussion_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Fanfarra.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar a capacidade de manter o passo com a fanfarra participando de pelo menos três programas de evangelismo ou alcance da comunidade (por exemplo, Dia do Desbravador, evento promovido pela Associação ou pela igreja local), dos quais um deve ser um desfile de no mínimo ¼ de milha (400 m).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os 26 rudimentos padrão americanos de percussão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar conhecimento das famílias de rudimentos improvisando livremente durante pelo menos 60 segundos. Sua sequência deve conter pelo menos 3 rudimentos de cada família de rudimentos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir os passos corretos para afinar um tambor. Demonstrar afinando um tambor de qualquer naipe de sua fanfarra.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar a capacidade de fazer a manutenção do equipamento de percussão trocando e reafinando a pele de um tambor de qualquer naipe de sua fanfarra.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipos de líquidos ou solventes são usados para limpar o equipamento de percussão?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar a capacidade de acondicionar com segurança o equipamento de percussão ao guardá-lo ou ao viajar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer a área da pele que deve ser percutida em cada naipe de sua fanfarra.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar a capacidade de manter o passo com a fanfarra (com o equipamento) executando os seguintes comandos:\n  a. Em frente, marche\n  b. Flanco direito, marche\n  c. Flanco esquerdo, marche\n  d. Olhar à direita\n  e. Sentido\n  f. Direita, volver\n  g. Esquerda, volver\n  h. Descansar\n  i. À vontade\n  j. Meia-volta, volver\n  k. Retaguarda, marche\n  l. Apresentar/descansar armas",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar alguns exercícios úteis usados pelas fanfarras. Saber explicar sua finalidade.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Usando rudimentos, criar uma cadência de percussão que ainda não tenha sido executada. Cada naipe da fanfarra deve executar uma parte da cadência.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar a diferença entre marchar com passo completo e com meio passo em relação à execução das cadências.",
+   "instructions": null
+  }
+ ]
+}

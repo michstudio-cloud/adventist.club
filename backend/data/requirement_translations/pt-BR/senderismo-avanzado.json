@@ -1,0 +1,33 @@
+{
+ "honor_slug": "senderismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hiking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Excursionismo pedestre - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Excursionismo pedestre (nível 1).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Completar pelo menos dois dos seguintes. Observação: onde houver Desbravadores etc. disponíveis para fazer a especialidade de Excursionismo pedestre (nível 1), espera-se que as opções “a” e “b” sejam cumpridas. As opções “c” ou “d” só podem ser feitas se for impraticável fazer a opção “a” ou a opção “b”.\n  a. Participar do ensino da especialidade de Excursionismo pedestre (nível 1) a outras pessoas.\n  b. Ajudar a organizar pelo menos duas das caminhadas do requisito 11 da especialidade de Excursionismo pedestre (nível 1) e acompanhar uma ou mais pessoas na realização delas.\n  c. Elaborar um conjunto completo de apostilas que possam ser usadas para ensinar a especialidade de Excursionismo pedestre (nível 1) a outras pessoas.\n  d. Fazer uma apresentação sobre as habilidades que você adquiriu ao obter a especialidade de Excursionismo pedestre (nível 1). Incluir pelo menos três acontecimentos memoráveis.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer duas apresentações breves sobre “caminhadas” relatadas nas Escrituras.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ter o seguinte registro de caminhadas, incluindo um diário totalmente detalhado. Pelo menos uma caminhada deve ser feita em terreno sem trilhas:\n  a. Duas (2) caminhadas: duração de três (3) dias e duas (2) noites\n  b. Uma (1) caminhada: duração de cinco (5) dias e quatro (4) noites",
+   "instructions": null
+  }
+ ]
+}

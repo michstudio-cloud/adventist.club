@@ -1,0 +1,83 @@
+{
+ "honor_slug": "selvas-pluviales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rainforests/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Florestas pluviais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever uma floresta pluvial.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Indicar os dois principais tipos de florestas pluviais e descrever em que diferem. Marcar num mapa a localização desses dois tipos principais de florestas pluviais, identificando cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o que faz com que chova tanto nas áreas do bioma de floresta pluvial.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar um diagrama mostrando os estratos verticais de vegetação numa floresta tropical pluvial. Identificá-los.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever, desenhar ou fazer uma demonstração prática mostrando como as florestas pluviais se regeneram (substituem organismos vivos perdidos ou danificados).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber identificar cinco aves que vivem na floresta tropical pluvial.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber identificar dez animais que vivem na floresta tropical pluvial.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista da vegetação predominante nas florestas pluviais.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é uma epífita? Saber identificar por meio de figuras três exemplos de plantas epífitas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Aprender sobre uma espécie invasora que afeta a floresta pluvial.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Quais são alguns recursos renováveis que as florestas pluviais oferecem ao ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma lista de pelo menos três maneiras de proteger as florestas pluviais.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Preparar uma lição objetiva sobre uma planta, animal ou ave que vive na floresta pluvial. Compartilhar essa lição em grupo, como em um culto do clube ou da unidade, na história infantil da igreja, em volta da fogueira ou em um culto de pôr do sol.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer pelo menos três das seguintes atividades:\n  a. Visitar uma exposição ou estufa de árvores e/ou plantas de floresta pluvial.\n  b. Fazer uma coleção de pelo menos três tipos de epífitas.\n  c. Visitar um zoológico que tenha animais típicos do bioma de floresta pluvial.\n  d. Assistir a um vídeo sobre a floresta pluvial ou sobre plantas ou animais que vivem nela.\n  e. Desenhar ou pintar algo que você gostou de aprender ao estudar a floresta pluvial.\n  f. Em grupo, fazer um vídeo curto sobre um projeto real de conservação de uma floresta pluvial. Explicar por que esse hábitat específico deve ser preservado.",
+   "instructions": null
+  }
+ ]
+}

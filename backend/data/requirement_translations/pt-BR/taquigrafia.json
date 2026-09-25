@@ -1,0 +1,23 @@
+{
+ "honor_slug": "taquigrafia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Shorthand/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber tomar ditado de um texto novo a 80 palavras por minuto durante três minutos seguidos e transcrever com precisão as anotações feitas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter à disposição um dicionário de taquigrafia (geralmente fornecido pelas editoras dos cursos).",
+   "instructions": null
+  }
+ ]
+}
