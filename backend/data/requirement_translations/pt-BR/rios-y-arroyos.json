@@ -1,0 +1,88 @@
+{
+ "honor_slug": "rios-y-arroyos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rivers_and_Streams/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Rios e riachos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que distingue o bioma de rios e riachos de outros biomas aquáticos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Rio\n  b. Riacho\n  c. Córrego ou arroio\n  d. Regato ou filete de água\n  e. Corguinho\n  f. Afluente\n  g. Foz\n  h. Estuário\n  i. Cabeceira\n  j. Bacia hidrográfica\n  k. Divisor de águas continental\n  l. Corredeira rasa (riffle)\n  m. Corredeiras\n  n. Águas brancas\n  o. Silte\n  p. Aluvião\n  q. Leque aluvial\n  r. Delta\n  s. Detrito\n  t. Ripário",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar três diferenças entre a água da cabeceira e a da foz de um rio. Dar exemplos de algumas espécies diferentes encontradas em cada lugar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar num mapa os principais rios de seu continente. Conhecer pelo menos 5 de seus exploradores. Ler uma história sobre um dos exploradores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é um lago em ferradura (meandro abandonado)? Descrever como ele se forma.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de pelo menos cinco peixes que vivem em rios.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de pelo menos cinco plantas que vivem em rios ou em suas margens.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista de pelo menos cinco aves que vivem em rios ou perto deles.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista de pelo menos cinco mamíferos que vivem em rios ou em suas margens.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escrever um relatório ou apresentar oralmente a história de uma espécie de planta ou animal introduzida neste bioma. Incluir de onde ela veio, os problemas que causa e que medidas estão sendo tomadas para reduzir/eliminar os danos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descrever uma espécie nativa deste bioma que esteja ameaçada, em perigo ou extinta. Incluir algumas das causas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Cantar uma música sobre um rio ou riacho.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Ler sobre o “rio da vida” mencionado na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Elaborar ou ler uma lição objetiva sobre um rio e apresentá-la como culto dos Desbravadores, história infantil ou outra forma aceitável de compartilhar aprovada por um Guia Maior.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer pelo menos duas das seguintes atividades relacionadas a rios e riachos:\n  a. Fotografar ou desenhar os organismos encontrados em amostras de água que você coletou num riacho.\n  b. Caminhar ao longo de um riacho e fazer uma lista do maior número possível de plantas e animais que observar.\n  c. Visitar uma grande cachoeira ou barragem e explicar que dificuldade ela representa para a fauna.\n  d. Recolher lixo ao longo de um rio ou riacho.\n  e. Produzir um comercial de 60 segundos para informar o público sobre algo deste bioma.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "reptiles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Reptiles/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que características um animal deve ter para ser classificado como réptil?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar 15 répteis (lagartos, serpentes e/ou tartarugas) encontrados em sua localidade. Dizer onde vivem, seus hábitos alimentares e sua importância econômica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco répteis peçonhentos de sua região, descrevendo em cada um a localização das presas e a distribuição geográfica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o que fazer se você for picado por uma serpente peçonhenta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o que fazer se você for picado por uma serpente não peçonhenta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um dos seguintes:\n  a. Contar o ciclo de vida de um representante de cada grupo: lagarto, serpente, tartaruga. Comparar lagartos, serpentes, tartarugas e crocodilos quanto ao ciclo de vida e às variações nos olhos e ouvidos, dentes, coração, pulmões, membros, caudas e escamas (cascos).\n  b. Manter um pequeno réptil num terrário e fazer um registro de seus cuidados durante três meses.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Localizar duas histórias bíblicas em que um réptil teve papel importante.",
+   "instructions": null
+  }
+ ]
+}

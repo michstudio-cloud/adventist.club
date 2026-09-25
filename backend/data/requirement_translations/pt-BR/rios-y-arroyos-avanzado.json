@@ -1,0 +1,28 @@
+{
+ "honor_slug": "rios-y-arroyos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rivers_and_Streams_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Rios e riachos - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Rios e riachos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Passar pelo menos um dia num hábitat de rio ou riacho. Organizar um projeto de serviço do qual participar (limpeza, abertura de trilhas, ajudar outras pessoas a conhecer esse hábitat específico).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever um relatório sobre os seguintes pontos (incluir mapas, fotografias ou desenhos pode ajudar):\n  a. Que rio ou riacho você visitou?\n  b. Quando você o visitou?\n  c. O que você fez lá?\n  d. Novas informações que você aprendeu sobre esse tipo de hábitat, além do que aprendeu na especialidade básica.\n  e. Informações sobre o rio ou riacho específico que você visitou.\n  f. Descrever o projeto de serviço que você realizou (ser específico).\n  g. O que você aprendeu sobre si mesmo ao realizar o projeto de serviço?\n  h. O que você aprendeu sobre esse hábitat ao realizar esse projeto de serviço?",
+   "instructions": null
+  }
+ ]
+}
