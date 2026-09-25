@@ -1,0 +1,83 @@
+{
+ "honor_slug": "fogatas-y-cocina-al-aire-libre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fire_Building_%26_Camp_Cookery/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Preparar cinco tipos diferentes de fogueira e conhecer seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer com segurança lascas de madeira ou gravetos desfiados.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar as técnicas corretas para acender uma fogueira.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Acender uma fogueira com um único fósforo e mantê-la acesa durante pelo menos dez minutos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e praticar as regras de segurança com o fogo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar como cortar e rachar lenha de forma correta e segura.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar capacidade de acender fogo em um dia chuvoso ou na neve.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como cozinhar em fogo brando, ferver, fritar, assar pão no espeto, assar no papel-alumínio e assar em forno refletor.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer um método para manter os alimentos frescos no acampamento sem usar gelo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer maneiras de proteger seus alimentos e utensílios dos animais e dos insetos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que é importante manter limpos os utensílios de cozinha e de refeição?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrando conhecimento de nutrição adequada e dos grupos alimentares, elaborar um cardápio completo e equilibrado para seis refeições no acampamento. Incluir o seguinte:\n  a. Um café da manhã, almoço ou jantar adequado para uma caminhada em trilha, em que o peso leve é importante. A refeição não deve precisar ser cozida, mas deve ser nutritiva.\n  b. As outras cinco refeições podem ser compostas de qualquer tipo de alimento: enlatado, fresco, congelado ou desidratado. Uma das cinco deve ser uma refeição feita em uma só panela.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer uma lista dos suprimentos necessários para preparar as seis refeições acima.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Saber manusear os alimentos de forma correta e segura, descartar o lixo e os restos de comida e lavar seu equipamento.",
+   "instructions": null
+  }
+ ]
+}

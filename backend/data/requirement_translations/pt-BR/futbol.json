@@ -1,0 +1,68 @@
+{
+ "honor_slug": "futbol",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soccer/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras básicas do futebol.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o significado de \"espírito esportivo\"?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um desenho do campo de futebol.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar habilidade razoável na prática do futebol.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever as diferentes habilidades exigidas em cada posição.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o significado e os sinais do árbitro para o seguinte:\n  a. Impedimento\n  b. Segurar o adversário\n  c. Escanteio\n  d. Tiro livre indireto\n  e. Tiro livre direto\n  f. Gol",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir os seguintes termos:\n  a. Vantagem\n  b. Advertência (cartão)\n  c. Afastar a bola\n  d. Arcos de canto\n  e. Cruzamento\n  f. Drible\n  g. Bola ao chão\n  h. Chute de meia-bola (drop kick)\n  i. Finta\n  j. Meio voleio\n  k. Toque\n  l. Voleio\n  m. Cabeceio\n  n. Embaixadinhas\n  o. Marcação\n  p. Caneta (bola entre as pernas)\n  q. Bola fora\n  r. Recuo para o goleiro\n  s. Área penal\n  t. Carrinho\n  u. Desarme\n  v. Arremesso lateral\n  w. Domínio da bola\n  x. Barreira",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Dedicar pelo menos 4 horas a ajudar jogadores menos habilidosos ou mais novos a melhorar suas habilidades.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Jogar pelo menos 5 partidas com a família ou amigos. Mostrar espírito esportivo durante os treinos e as partidas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escrever um relatório de uma página sobre um jogador de futebol famoso. Discutir por que ele é ou não é um bom exemplo cristão.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Discutir com seu líder de Desbravadores, pastor ou professor os problemas enfrentados por um jovem adventista do sétimo dia que pensa em praticar esportes no ensino fundamental, no ensino médio ou na faculdade. Que alternativas existem que permitem continuar praticando esportes?",
+   "instructions": null
+  }
+ ]
+}

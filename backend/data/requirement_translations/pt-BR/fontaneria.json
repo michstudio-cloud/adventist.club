@@ -1,0 +1,48 @@
+{
+ "honor_slug": "fontaneria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plumbing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um diagrama do sistema hidráulico de uma casa de quatro cômodos que inclua as instalações da cozinha, do banheiro e da lavanderia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar dois pedaços de cano de ferro que você rosqueou e uniu com a conexão adequada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar um cano de plástico (PVC), de ferro ou de cobre consertado e dizer como consertar os três tipos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar capacidade de consertar uma torneira de pia que esteja vazando e de substituir ou consertar o mecanismo de descarga de um vaso sanitário.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o sistema de esgoto adequado da casa do nº 1 e explicar o uso de sifões e respiros.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o sistema comum de água quente e fria de uma casa e explicar como proteger o sistema do congelamento caso a casa tenha de ficar sem aquecimento durante o inverno.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o diagrama de pelo menos um tipo de sistema passivo de aquecimento de água, como o uso de energia solar.",
+   "instructions": null
+  }
+ ]
+}
