@@ -1,0 +1,73 @@
+{
+ "honor_slug": "dunas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dunes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são dunas? Qual é o seu principal componente?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar 4 elementos necessários para a formação das dunas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar as três maneiras seguintes pelas quais o vento move a areia.\n  a. Arrasto superficial (rastejamento)\n  b. Saltação\n  c. Suspensão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as seguintes formações de dunas: barcanas, dunas em estrela, dunas lineares ou longitudinais, parabólicas, em domo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é sucessão ecológica? Como ela se manifesta nas comunidades de dunas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é uma cavidade de deflação (blowout) nas dunas? Qual é a sua relação com a sucessão?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são plantas pioneiras? Qual é a sua função nas comunidades de dunas? Dar dois exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Dar três exemplos de plantas dos ambientes de dunas. Como elas estão adaptadas para sobreviver?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dar cinco exemplos de espécies animais dos ambientes de dunas. O que as torna singulares para viver nas comunidades de dunas?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descobrir um dos pioneiros do manejo e da conservação de dunas em sua Associação, União ou Divisão. Compartilhar sua descoberta com um instrutor ou grupo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Contar uma história sobre a areia e tirar dela uma lição espiritual.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer pelo menos 2 das seguintes atividades:\n  a. Visitar uma exposição ou estufa de plantas do deserto/das dunas. Observar como estão adaptadas para viver na areia ou em solo pobre, com temperaturas extremas e falta de água.\n  b. Visitar um zoológico onde haja animais do deserto, especialmente os adaptados a viver na areia. Se possível, observar alguns dos que estudou ao aprender sobre as dunas.\n  c. Assistir a um vídeo sobre dunas ou sobre plantas ou animais que vivem nas dunas.\n  d. Visitar uma duna e tirar algumas fotos ou fazer um desenho dela.\n  e. Montar ao ar livre uma demonstração prática da progressão de uma duna, usando areia, um objeto como obstáculo e um ventilador para soprar a areia. Observar como a areia passa por cima do obstáculo e cai do outro lado, formando uma duna. Usar óculos de proteção.\n  f. Desenhar ou pintar algo que você se divertiu aprendendo ao estudar as dunas.\n  g. Conversar com seu grupo, escrever ou fazer um vídeo curto sobre um projeto real de conservação de dunas. Explicar por que esse habitat específico deve ser preservado (por exemplo, espécies ameaçadas de plantas e/ou animais que vivem ali).",
+   "instructions": null
+  }
+ ]
+}

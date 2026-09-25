@@ -1,0 +1,63 @@
+{
+ "honor_slug": "economia-domestica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Housekeeping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Técnicas de lavanderia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista dos itens usados para manter a casa limpa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever a melhor maneira de manter limpos fogões, fornos de micro-ondas e geladeiras.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em que condições os germes e as pragas se proliferam? Citar maneiras de limpar cada um dos seguintes: porão, armários embutidos, armários de cozinha, pias, pisos e vasos sanitários.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dizer a maneira correta de preparar a louça para lavar, na pia ou na lava-louças. Dizer em que ordem devem ser lavados os talheres, os copos, a louça de mesa e os utensílios de cozinha.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como se devem limpar tapetes, carpetes, travesseiros, móveis estofados, paredes com papel de parede, paredes pintadas, pisos e janelas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como é feito o descarte do lixo em sua comunidade?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que precauções devem ser tomadas ao limpar uma lareira?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que significa manter a casa \"segura para bebês\"?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Planejar e fazer o trabalho de uma casa durante uma semana.",
+   "instructions": null
+  }
+ ]
+}

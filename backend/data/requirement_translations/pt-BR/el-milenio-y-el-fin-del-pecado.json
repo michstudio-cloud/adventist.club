@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-milenio-y-el-fin-del-pecado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/27_-_The_Millennium_and_the_End_of_Sin/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O milênio e o fim do pecado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber para onde irão as pessoas salvas por Jesus depois de Sua segunda vinda. (1 Tessalonicenses 4:16-17; João 14:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o que acontecerá com os ímpios (os que rejeitaram a salvação) no momento da volta de Jesus. (Apocalipse 6:15-17; Apocalipse 20:5)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Compreender como será a condição da Terra durante o período de mil anos que começa depois da volta de Jesus. (Jeremias 4:23-25)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Estudar o que a Bíblia diz que os salvos farão durante o milênio. (Apocalipse 20:4-6; 1 Coríntios 6:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Compreender como terminará o grande conflito entre o bem e o mal e qual será o destino final de Satanás e do pecado. (Apocalipse 21:2, 8; 20:5, 7-15)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Apocalipse 20:6.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como será o fim do pecado e o que acontecerá durante o milênio descrito em Apocalipse 20.",
+   "instructions": null
+  }
+ ]
+}

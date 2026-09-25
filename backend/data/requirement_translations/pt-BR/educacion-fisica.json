@@ -1,0 +1,48 @@
+{
+ "honor_slug": "educacion-fisica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Physical_Fitness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar dez benefícios de estar em boa forma física.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber como os seguintes fatores ajudam a alcançar o equilíbrio do corpo:\n  a. Exercício\n  b. Alimentação correta\n  c. Estabilidade emocional",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes exercícios:\n  a. Isométrico:\n  b. Isotônico:\n  c. Isocinético:\n  d. Anaeróbico:\n  e. Aeróbico:",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer o significado dos princípios envolvidos no seguinte programa de exercícios:\n  a. Aquecimento\n  b. Exercícios aeróbicos\n  c. Desaquecimento\n  d. Calistenia",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber como determinar sua frequência cardíaca em repouso e depois do exercício.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber como determinar a frequência mínima em que o coração deve bater para obter o melhor efeito de condicionamento aeróbico.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Usando os quatro passos dados no requisito 4, fazer um programa regular de exercícios pelo menos quatro vezes por semana durante três meses. Em cada período de exercício, manter a frequência cardíaca mínima determinada no requisito 6 durante pelo menos 20 minutos. Manter um registro do seguinte:\n  a. Tipo de exercícios de aquecimento feitos\n  b. Tipo de exercícios aeróbicos feitos\n  c. Durante quanto tempo os exercícios aeróbicos foram feitos\n  d. Tipo de calistenia feita",
+   "instructions": null
+  }
+ ]
+}

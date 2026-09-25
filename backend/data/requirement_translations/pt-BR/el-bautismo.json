@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-bautismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/15_-_Baptism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O batismo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Compreender o significado espiritual do batismo e o que ele representa para os que aceitam Jesus. (Romanos 6:3-5)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o requisito essencial para que alguém seja batizado. (Marcos 16:16)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir outro requisito importante para o batismo, segundo a Bíblia. (Atos 2:38)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o que uma pessoa batizada deve fazer depois de entregar a vida a Jesus. (Mateus 28:19-20)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Compreender o que é necessário para que um batismo seja realizado, segundo a Bíblia. (Mateus 3:6; João 3:23; Atos 8:38-39)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Mateus 3:16-17.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo a importância do batismo e convidá-lo a tomar essa decisão. (Atos 22:16)",
+   "instructions": null
+  }
+ ]
+}
