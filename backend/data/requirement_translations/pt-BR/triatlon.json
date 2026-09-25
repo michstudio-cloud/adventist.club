@@ -1,0 +1,38 @@
+{
+ "honor_slug": "triatlon",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Triathlon/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar três princípios bíblicos e dois princípios do Espírito de Profecia que apoiem o exercício físico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório sobre a alimentação correta para manter o máximo condicionamento físico e sobre como ela foi mantida durante o período de treinamento. Incluir a ingestão de líquidos antes e durante a competição e a ingestão de alimentos durante a competição.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Completar o seguinte:\n  a. Dar orientações para um treinamento correto, incluindo aquecimento, alongamento, prevenção de lesões, prevenção do excesso de treinamento etc.\n  b. Apresentar seu programa regular de treinamento.\n  c. Fazer uma lista do equipamento correto, incluindo bicicleta, calçados e roupas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar conhecimento das técnicas de natação, ciclismo e corrida.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Competir nas três modalidades de uma prova de triathlon reconhecida, sozinho ou como membro de uma equipe, num triathlon semelhante a:\n  a. Natação — 500m\n  b. Ciclismo — 15km\n  c. Corrida — 10km\n  d. em até 4,5 horas.",
+   "instructions": null
+  }
+ ]
+}

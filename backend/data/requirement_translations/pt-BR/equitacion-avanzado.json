@@ -1,0 +1,88 @@
+{
+ "honor_slug": "equitacion-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Horsemanship_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Equitação.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, em um desenho do contorno de um cavalo ou em um cavalo vivo, no mínimo 30 partes diferentes do cavalo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar e explicar como cuidar dos arreios.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar e explicar como pegar e colocar o cabresto em um cavalo com segurança.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar e explicar como amarrar um cavalo com segurança com o nó de manjedoura e com o lais de guia, usando o comprimento correto de corda e amarrando na altura correta em relação ao chão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar e explicar como encilhar e colocar o freio corretamente em um cavalo e ajustar o comprimento dos estribos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar as posições corretas ao montar a trote, incluindo círculos e mudanças de direção:\n  a. Sentado\n  b. Em pé nos estribos\n  c. Trote elevado (levantado)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar com segurança uma desmontagem de emergência.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Cavalgar em trilha durante um total acumulado de 7 horas, seguindo todas as regras de segurança e usando a posição correta.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar e explicar como usar o limpador de cascos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar o método correto de soltar um cavalo no pasto.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Identificar no mínimo 8 pelagens comuns de cavalos, 5 marcas faciais comuns e 5 marcas comuns nas pernas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar e explicar o espaçamento correto, a mudança de direção e a ultrapassagem de outros cavaleiros em uma arena, ao passo, com pelo menos um outro cavaleiro, seguindo todas as regras de segurança.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Percorrer ao passo, em terreno plano, um percurso simples de trilha com três obstáculos. Escolher entre os seguintes:\n  a. Passar por cima de um tronco ou vara, com altura máxima de 16 polegadas (40,6 cm).\n  b. Passar entre 2 barris ou fardos de feno separados por 45 polegadas (1,1 metros).\n  c. Fazer ziguezague entre varas colocadas a intervalos de 12 pés (3,6 metros).\n  d. Entrar em um grande \"buraco de fechadura\" (keyhole), um círculo de 15 pés (4,6 metros), virar e sair sem pisar em nenhuma linha demarcatória nem cruzá-la.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Saber como fazer o desaquecimento e cuidar de um cavalo depois de uma cavalgada exigente.",
+   "instructions": null
+  }
+ ]
+}

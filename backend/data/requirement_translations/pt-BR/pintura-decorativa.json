@@ -1,0 +1,58 @@
+{
+ "honor_slug": "pintura-decorativa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tole_Painting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é a pintura Bauer (tole painting)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre arte decorativa e belas-artes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar os tipos de superfície em que se encontra a pintura Bauer.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três países europeus que têm tradição em pintura Bauer. Indicar como ela é chamada nesses países.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar que tipos de objetos costumam receber pintura Bauer.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar cinco fotos de objetos com pintura Bauer, uma de cada uma das categorias abaixo:\n  a. Rosemaling\n  b. Kurbits\n  c. Japanning\n  d. Laca preta russa\n  e. Tole americano",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipos de tinta são usados na pintura Bauer?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma folha/placa de amostras das pinceladas básicas da pintura decorativa. Incluir a pincelada vírgula (para a direita e para a esquerda), a gota (pincelada de folha deslizada), a pincelada em U (em C), a pincelada chata e a pincelada em S. Pelo menos duas das pinceladas devem ser feitas com duas tintas carregadas lado a lado no pincel.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer dois dos seguintes itens, usando uma ou mais das pinceladas básicas da pintura decorativa (incluindo a preparação da superfície e o acabamento final):\n  a. Tábua de cortar com pintura Bauer\n  b. Bandeja com pintura Bauer\n  c. Caixa com pintura Bauer\n  d. Móvel com pintura Bauer\n  e. Utensílio doméstico de sua escolha com pintura Bauer",
+   "instructions": null
+  }
+ ]
+}

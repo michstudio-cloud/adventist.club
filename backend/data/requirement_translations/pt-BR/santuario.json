@@ -1,0 +1,63 @@
+{
+ "honor_slug": "santuario",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sanctuary/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Santuário",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar as três partes principais do santuário e do átrio.\n  a. Dizer o que havia em cada parte.\n  b. Dizer o que cada móvel representa.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar em escala uma planta do santuário, do átrio e da posição de todos os móveis. (Lembrar de indicar N, S, L, O)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quantas coberturas havia sobre o santuário?\n  a. Fazer uma lista dos tipos de cobertura, na ordem de dentro para fora.\n  b. Dizer o que cada cobertura representava.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "As seguintes cores eram usadas no santuário e nas vestes dos sacerdotes. Dizer o que cada cor representava.\n  a. Vermelho\n  b. Azul\n  c. Púrpura\n  d. Branco\n  e. Preto\n  f. Ouro:\n  g. Prata\n  h. Bronze",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir e memorizar 1 João 1:9, Daniel 8:14 e Êxodo 25:8.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De qual das 12 tribos eram os sacerdotes? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever as vestes:\n  a. Do sacerdote comum.\n  b. Do sumo sacerdote.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ler e discutir O Grande Conflito, página 488, e Hebreus 4:14-16.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que tipos de animais eram levados diariamente ao átrio?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escrever um parágrafo ou contar como você vê Cristo representado no santuário e em seus serviços.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "ultimate-disc",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ultimate_Disc/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as 10 regras simples do Ultimate e como o jogo é jogado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir e explicar o “espírito do jogo”.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que o nome “Frisbee” foi retirado do nome do jogo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar e saber lançar o disco:\n  a. Forehand\n  b. Backhand",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir ou explicar os seguintes termos do jogo:\n  a. Empilhamento e cortes (stacking & cutting)\n  b. Abrir espaço (clearing out)\n  c. Contagem de tempo (stall count)\n  d. Sem contato\n  e. Violação x falta\n  f. Manter a linha",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar as seguintes marcações ou regras:\n  a. Sem árbitros/resolução pelos jogadores\n  b. Faltas marcadas no disco\n  c. Faltas marcadas longe do disco\n  d. Andar com o disco (traveling)\n  e. Pé de pivô",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Em equipe ou individualmente, elaborar um plano para fazer trabalho missionário enquanto cumpre os requisitos desta especialidade. Algumas opções possíveis:\n  a. Convidar pelo menos um amigo que não seja de sua igreja para jogar uma partida.\n  b. Fazer uma oração antes ou depois de cada jogo.\n  c. Demonstrar o “espírito do jogo” dentro e fora do campo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Jogar seis (6) partidas informais de Desbravadores até doze (12) pontos e demonstrar uma compreensão razoável de manejo e lançamento do disco, recepção, pontuação e defesa.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escrever um relatório de uma página ou apresentar um relatório oral ao líder dos Desbravadores sobre como o conceito de “espírito do jogo” é aplicado no Ultimate e fora do esporte, como exemplo cristão para os outros. Discutir por que esse conceito é importante para o jogo limpo e para reduzir o desejo de vencer a qualquer custo.",
+   "instructions": null
+  }
+ ]
+}

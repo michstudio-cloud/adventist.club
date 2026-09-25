@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-cyclist-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=281",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ciclista II",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade Segurança nas estradas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar:\n  a. Como manter a bicicleta limpa\n  b. Como andar de bicicleta com segurança\n  c. O uso dos sinais de direção enquanto pedala\n  d. Como cuidar da bicicleta",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de uma atividade de ciclismo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um passeio de bicicleta de cinco milhas (8 km).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um mapa do trajeto que você percorreu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com sua família, usar seu mapa para refazer o trajeto.",
+   "instructions": null
+  }
+ ]
+}

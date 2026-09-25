@@ -1,0 +1,73 @@
+{
+ "honor_slug": "citologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cytology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Citologia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as três partes principais de uma célula eucariótica? Citar algumas de suas funções.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é uma célula procariótica?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três diferenças entre uma célula animal e uma célula vegetal.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que são células-tronco? Por que são importantes?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três funções da membrana plasmática.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar as seguintes formas de permeabilidade seletiva:\n  a. Osmose\n  b. Difusão",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar as seguintes formas de permeabilidade não seletiva:\n  a. Fagocitose\n  b. Pinocitose",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é transporte ativo e transporte passivo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são as partes do núcleo celular? Por que cada uma delas é importante?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar as funções das seguintes organelas citoplasmáticas:\n  a. Mitocôndria\n  b. Centríolo\n  c. Complexo de Golgi\n  d. Retículo endoplasmático rugoso\n  e. Retículo endoplasmático liso\n  f. Lisossomo\n  g. Ribossomo\n  h. Peroxissomo",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é a importância dos cílios e dos flagelos?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Identificar, por meio de fotos ou desenhos, cinco tipos diferentes de células (muscular, óssea, cartilaginosa, adiposa, leucócito, hemácia, neurônio etc.).",
+   "instructions": null
+  }
+ ]
+}

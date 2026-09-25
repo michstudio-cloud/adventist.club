@@ -1,0 +1,73 @@
+{
+ "honor_slug": "presas-y-diques",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dams_and_Levees/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Barragens e diques",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma barragem? Descrever brevemente sua função e como ela difere de um dique.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como e por que os castores constroem barragens. Como as barragens de castores afetam o meio ambiente? De que outras maneiras as barragens podem se formar na natureza?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os benefícios das barragens? Quais são alguns aspectos potencialmente negativos das barragens?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de cinco materiais usados historicamente na construção do aterro de uma barragem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Por meio de figuras, identificar as seguintes estruturas e explicar suas características e aplicações:\n  a. Barragem em arco\n  b. Barragem de contrafortes\n  c. Barragem de gravidade\n  d. Barragem de desvio\n  e. Barragem hidrelétrica\n  f. Dique marginal ou dique\n  g. Eclusas\n  h. Barragem de baixa queda (soleira)\n  i. Barragem a fio d’água\n  j. Barragem de sela (dique auxiliar)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer os seguintes termos para poder explicá-los a alguém que não conhece barragens e diques:\n  a. Trincheira de vedação\n  b. Passagem/escada de peixes\n  c. Pé de enrocamento\n  d. Vertedouro\n  e. Erosão interna (piping)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar por que uma barragem de baixa queda deve ser considerada perigosa e evitada ao praticar canoagem, caiaque ou natação.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "As barragens são estruturas complexas. Como as seguintes questões afetam a avaliação, o projeto ou a construção de uma barragem?\n  a. Fauna\n  b. Qualidade da água\n  c. Vertedouro de emergência\n  d. Plano de ação de emergência\n  e. Segurança\n  f. Investigações geotécnicas\n  g. Estrutura de descarga\n  h. Estabilidade dos taludes\n  i. Hidrologia e análise hidrológica\n  j. Análise por rede de fluxo\n  k. Licenciamento",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pesquisar sobre segurança de barragens ou entrevistar um engenheiro ou outro especialista no assunto. Pedir ao especialista que explique as técnicas de inspeção que usa para identificar uma barragem em risco de ruptura.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um dos seguintes:\n  a. Pesquisar e/ou visitar uma passagem/escada de peixes de uma barragem e projetar/esboçar uma para uma barragem perto de você.\n  b. Pesquisar e/ou visitar um sistema de eclusas. Com materiais de sua escolha, construir um modelo de sistema de eclusas com partes móveis.\n  c. Usando mapas de curvas de nível, projetar uma barragem para um riacho da região e fazer/responder ao seguinte:\n    i. Desenhar uma vista em planta e corte(s) transversal(is) de sua barragem, mostrando o vertedouro, o vertedouro de emergência, a crista, os ângulos dos taludes, o pé dos taludes, o nível máximo normal da água e outros elementos pertinentes.\n    ii. Que tipo de barragem você escolheu e por quê?\n    iii. Qual é a carga hidráulica de sua barragem?\n    iv. Delimitar a bacia hidrográfica que contribui para sua barragem.\n    v. Qual será o tamanho (área de superfície e volume) do reservatório formado por sua barragem?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ler Daniel 5 e pesquisar como Dario, o medo, conquistou a Babilônia. Encontrar dois outros lugares na Bíblia em que barragens ou o controle das águas são mencionados.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Compartilhar com seu Clube de Desbravadores uma meditação sobre uma lição espiritual que você aprendeu ao estudar esta especialidade.",
+   "instructions": null
+  }
+ ]
+}

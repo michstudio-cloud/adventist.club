@@ -1,0 +1,73 @@
+{
+ "honor_slug": "hierbas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Herbs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista de 25 ervas culinárias e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de 25 ervas medicinais e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar um prato usando ervas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um dos seguintes produtos à base de ervas:\n  a. Creme\n  b. Travesseiro de ervas\n  c. Geleia\n  d. Sabonete\n  e. Papel",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma porção de pot-pourri.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um pomander (bola aromática).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar e identificar 5 ervas que crescem de forma silvestre perto de você.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar 5 ervas que você pode usar para tingir e dizer a cor que elas dão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar 5 ervas que podem ser usadas no controle de insetos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Cultivar 5 ervas culinárias por 3 meses.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar 5 ervas que atraem especialmente as abelhas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar 5 ervas mencionadas na Bíblia e dar as referências bíblicas de cada uma.",
+   "instructions": null
+  }
+ ]
+}

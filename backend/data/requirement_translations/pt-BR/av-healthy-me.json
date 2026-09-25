@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-healthy-me",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=129",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Sou saudável",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir uma história sobre ser saudável.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer três coisas que você aprendeu sobre ser saudável.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um jogo de movimento sobre ser saudável.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho artístico sobre ser saudável.",
+   "instructions": null
+  }
+ ]
+}

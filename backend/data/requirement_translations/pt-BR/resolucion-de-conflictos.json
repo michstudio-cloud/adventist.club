@@ -1,0 +1,48 @@
+{
+ "honor_slug": "resolucion-de-conflictos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Conflict_Resolution/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Resolução de conflitos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar como Cristo encorajou pessoas em conflito nas seguintes histórias bíblicas. Identificar a natureza do conflito ou das necessidades humanas em cada história que você explicar.\n  a. João 8:1-11 (Maria Madalena)\n  b. Mateus 18:1-6 (Os discípulos – o maior no reino dos Céus)\n  c. 1 Reis 3:16-28 (Salomão e o bebê)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Discutir os conflitos de relacionamento, de identidade, raciais e culturais que os adolescentes de sua comunidade enfrentam hoje (por exemplo, relacionamento com os pais, autoestima, amizades).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever tipos de necessidades humanas e dar um exemplo real de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é escuta ativa? Praticar a escuta ativa dramatizando os conflitos mencionados no nº 2.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aplicar o seguinte método de resolução de conflitos a um exemplo do nº 2.\n  a. Preparar o ambiente\n  b. Reunir informações\n  c. Identificar o problema\n  d. Levantar possíveis soluções\n  e. Negociar uma solução.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como encaminhar alguém a um conselheiro profissional ou pastor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Discutir seus próprios motivos para querer ajudar seus amigos quando enfrentam conflitos. E quanto a desconhecidos?",
+   "instructions": null
+  }
+ ]
+}

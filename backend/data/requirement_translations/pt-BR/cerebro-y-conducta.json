@@ -1,0 +1,73 @@
+{
+ "honor_slug": "cerebro-y-conducta",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Brain_and_Behavior/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser capaz de identificar, em um diagrama ou modelo do cérebro humano, as seguintes partes e dizer brevemente a função de cada uma: bulbo, ponte, cerebelo, mesencéfalo, tálamo, hipófise e cérebro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é um neurônio? Desenhar um neurônio típico e identificar suas partes. Por onde a informação entra no neurônio e por onde sai?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como as drogas afetam o funcionamento dos neurônios, especialmente na \"sinapse\". Assumir o compromisso de nunca usar drogas, exceto por razões médicas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é um reflexo? Fazer em alguém o teste do reflexo patelar. (Instruções: bater levemente logo abaixo da patela de uma pessoa enquanto a perna dela está pendurada na borda de uma cadeira.) Explicar por que ele ocorre (usar os seguintes termos na resposta: neurônio sensorial, neurônio motor, medula espinhal). Por que os médicos usam esse teste no exame físico?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é um neurônio sensorial e o que é \"adaptação\"? Demonstrar a adaptação fazendo o seguinte:\n  a. Apoiar o braço sobre uma mesa e depois colocar uma pequena rolha (ou algo muito leve) sobre o braço.\n  b. Colocar um dedo de uma mão em uma tigela com água fria e um dedo da outra mão em uma tigela com água morna.\n  c. Que lição espiritual se pode tirar do conceito de adaptação?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Em que os sentidos do paladar e do olfato são semelhantes e em que são diferentes? Desenhar um mapa de que parte da língua responde aos seguintes sabores: doce, azedo, amargo, salgado. Instruções: pedir que alguém molhe um cotonete em uma das seguintes soluções: água com açúcar (doce), suco de limão (azedo), água tônica sem gás (amargo) ou água com sal (salgado), e depois toque levemente diferentes partes da sua língua. Observar quais áreas da língua sentem o sabor da solução testada. Enxaguar a boca com água pura entre um teste e outro e usar um cotonete novo para cada teste.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar as várias partes do olho e explicar por que você tem um ponto cego. Encontrar o ponto cego de um dos olhos. Instruções: fazer um ponto preto bem pequeno no centro de uma folha de papel branco. Fechar um olho e olhar fixamente para a frente. Segurar o papel com o braço estendido à sua frente e movê-lo até que o ponto \"desapareça\" (em geral isso ocorre quando o ponto está um pouco abaixo do nível dos olhos — isso é importante).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever as três partes básicas do ouvido e dizer a função de cada uma. Explicar por que as seguintes atividades podem prejudicar a audição:\n  a. Ouvir música em um \"walkman\" (fones de ouvido)\n  b. Colocar algo comprido no ouvido\n  c. Ficar na primeira fila de um show de música alta\n  d. Não tratar corretamente uma infecção de ouvido\n  e. Ficar atrás de um avião a jato em um aeroporto",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma ou mais das seguintes atividades (algumas delas precisarão ser planejadas com um profissional da área médica ou odontológica ou com uma faculdade ou universidade local — em geral eles estão muito dispostos a ajudar):\n  a. Observar um eletroencefalograma, ou um sendo feito em alguém, e descrever o que se pode aprender com esse exame.\n  b. Assistir à realização de um teste com o \"detector de mentiras\". Explicar brevemente como funciona.\n  c. Observar uma ressonância magnética, ou uma sendo feita, e explicar que informações se podem obter com esse exame.\n  d. Observar um neurônio ao microscópio.\n  e. Observar alguém recebendo anestesia local ou geral e explicar como funciona um anestésico.\n  f. Observar um cérebro humano real (fresco ou conservado)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar pelo menos 5 coisas que você pode fazer para proteger seu cérebro de lesões.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar e ajudar a cuidar (no mínimo 2 horas) de alguém que tenha uma doença cerebral e fazer um relatório sobre suas necessidades especiais.\n  b. Descrever brevemente os seguintes distúrbios do sistema nervoso:\n    i. Doença de Alzheimer\n    ii. Esclerose múltipla\n    iii. Epilepsia\n    iv. Depressão maior\n    v. Síndrome de Down\n    vi. Doença de Huntington\n    vii. Tetraplegia\n    viii. Paraplegia",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Encontrar pelo menos três referências da Bíblia que se refiram ao seu cérebro e/ou às decisões que você toma na vida.",
+   "instructions": null
+  }
+ ]
+}

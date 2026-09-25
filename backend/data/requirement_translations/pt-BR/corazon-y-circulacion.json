@@ -1,0 +1,63 @@
+{
+ "honor_slug": "corazon-y-circulacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Heart_and_Circulation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever a função básica das seguintes partes do sistema circulatório: coração, vasos sanguíneos, sangue e pulmões.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever a principal diferença entre artérias e veias. O que é um capilar e qual é a sua função?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar dois locais para medir o pulso. Demonstrar sua capacidade de medir com precisão o pulso de alguém.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Registrar sua frequência cardíaca em repouso e depois fazer exercício intenso (por exemplo, correr, nadar, subir escadas etc.) durante 10 minutos. Medir novamente o pulso logo depois do exercício e outra vez depois de cinco minutos. Fazer isso todos os dias durante uma semana, registrando os resultados em uma tabela ou gráfico. O exercício afetou sua frequência cardíaca?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um estetoscópio simples e ouvir o batimento cardíaco de alguém.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar pelo menos cinco coisas que você pode fazer para manter o coração saudável. Colocá-las em prática, se ainda não o faz.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é o colesterol e qual é a sua relação com a arteriosclerose?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é um ataque cardíaco e quais são os seus sintomas? Como a RCP pode ajudar?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é um ECG e como o médico o usa?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Encontrar cinco versículos da Bíblia que se referem ao coração. Memorizar dois deles.",
+   "instructions": null
+  }
+ ]
+}

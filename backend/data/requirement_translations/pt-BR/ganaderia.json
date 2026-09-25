@@ -1,0 +1,73 @@
+{
+ "honor_slug": "ganaderia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cattle_Husbandry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos 25 partes de um novilho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são quatro características de uma boa novilha?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é castração e qual é a sua finalidade?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que se faz a descorna e qual é a melhor idade para fazê-la?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é creep feeding (alimentação privativa dos bezerros)?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quando o bezerro é desmamado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as necessidades de instalações para o gado?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Por que é melhor colocar o alimento e a água em extremidades opostas do curral?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar, ao vivo ou por meio de figuras, três raças de gado de corte e três raças de gado leiteiro.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que tipo de alimentação é necessária nos seguintes períodos:\n  a. Primeiros 90 dias\n  b. De 90 a 180 dias\n  c. De 180 dias até a venda",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como uma novilha pode ser treinada para se tornar uma vaca mansa?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Cuidar de um ou mais bezerros por um período de seis meses.",
+   "instructions": null
+  }
+ ]
+}

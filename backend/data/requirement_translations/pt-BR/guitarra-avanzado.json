@@ -1,0 +1,53 @@
+{
+ "honor_slug": "guitarra-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Guitar_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Violão.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir \"tríades\" e mostrar como são usadas. Demonstrar como tocar tríades derivadas das notas mais agudas da partitura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar dois métodos diferentes de afinar o violão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir tablatura. Demonstrar como ler e tocar uma tablatura no violão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como mudar o tom de uma música para adaptá-la à extensão vocal dos cantores.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir e explicar as diferenças entre acorde consonante e acorde dissonante.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Praticar e tocar um solo em pelo menos duas escalas no violão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Montar um caderno de músicas pessoal com pelo menos 25 hinos e cânticos espirituais com os acordes escritos corretamente. Tocá-los como parte de um momento de louvor ou apresentação durante o culto de uma reunião do clube, um culto ou outra atividade em grupo.",
+   "instructions": null
+  }
+ ]
+}

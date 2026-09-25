@@ -1,0 +1,43 @@
+{
+ "honor_slug": "desarrollo-rural",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Rural_Development",
+ "license": "CC BY-SA 4.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a su instructor por qué algunas naciones de nuestro mundo se llaman países «en desarrollo» y por qué otras se llaman países «desarrollados».",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Nombrar diez países en desarrollo y hacer una lista de dos cosas que ADRA está haciendo en esos países que entrarían en la descripción de «ayuda» y tres cosas que entrarían en la descripción de «desarrollo».",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Leer lo que Elena G. de White escribió acerca de por qué tenemos a los pobres con nosotros en El Deseado de todas las gentes, capítulo 70, titulado «Estos mis hermanos pequeñitos». Resumir lo que aprendió de este capítulo en 50 palabras o menos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ver un video de ADRA que informe sobre actividades de desarrollo en otros países distintos del suyo, y participar después del video en un diálogo de por lo menos 20 minutos sobre lo que vio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para trabajo avanzado (nivel de destreza 2), participar en una de las siguientes salidas de campo o proyectos de grupo:\n  a. Trabajar como voluntario en el programa Global Village de ADRA cuando esté en funcionamiento.\n  b. Ir a un viaje misionero a una zona rural desfavorecida de otro país o de su propio país.\n  c. Un proyecto en su comunidad para reunir un camión lleno de ropa, herramientas manuales, suministros médicos, carpas u otros artículos que ADRA pueda usar en proyectos de desarrollo rural en el extranjero. Esto incluye recaudar suficientes donaciones para transportar los artículos reunidos hasta el depósito de ADRA más cercano.\n  d. Un ayuno en grupo de 24 horas con una sesión educativa de «encierro» con su grupo de jóvenes, centrada en comprender las necesidades de los pobres en los países en desarrollo y pensada para recaudar fondos para el desarrollo rural.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escribir una carta a una persona de su misma edad y sexo que viva en una zona rural y subdesarrollada de otro país. Hacer preguntas para saber cómo vive y expresar su interés en apoyar el desarrollo de su país, sin usar un lenguaje condescendiente.",
+   "instructions": null
+  }
+ ]
+}

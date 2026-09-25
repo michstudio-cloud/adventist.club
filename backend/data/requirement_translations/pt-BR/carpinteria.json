@@ -1,0 +1,38 @@
+{
+ "honor_slug": "carpinteria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Carpentry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever a função das seguintes ferramentas:\n  a. Serra de fita\n  b. Lixadeira de cinta\n  c. Serra tico-tico\n  d. Serra de meia-esquadria\n  e. Serra radial\n  f. Tupia manual\n  g. Tupia de mesa\n  h. Torno para madeira",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar como usar as seguintes ferramentas:\n  a. Plaina manual pequena\n  b. Serra circular (cortar em linha reta)\n  c. Esquadro de carpinteiro\n  d. Martelo\n  e. Serrote (cortar em linha reta)\n  f. Nível\n  g. Trena\n  h. Punção para pregos\n  i. Prumo\n  j. Formão",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever o uso e distinguir os seguintes tipos de pregos:\n  a. 20 penny (20d)\n  b. 16 penny (16d)\n  c. 12 penny (12d)\n  d. 8 penny (8d)\n  e. 6 penny (6d)\n  f. De acabamento\n  g. Sem cabeça (brad)\n  h. Para telhado\n  i. Anelado/espiralado (screw nail)\n  j. Revestido (sinker)\n  k. Comum\n  l. Galvanizado",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ajudar a construir uma edificação de pelo menos 6 x 8 pés (1,8 x 2,4 m) de área, com telhado de duas águas e pelo menos uma porta e uma janela, demonstrando capacidade de medir e de usar as ferramentas do requisito 2.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ao construir o projeto acima, usar todos estes elementos:\n  a. Vigas do piso\n  b. Contrapiso\n  c. Travessa inferior (soleira)\n  d. Travessa superior\n  e. Travessa dupla\n  f. Telhado convencional ou tesouras\n  g. Manta asfáltica\n  h. Telhas\n  i. Janela com verga estrutural\n  j. Porta com verga estrutural\n  k. Testeira nos beirais\n  l. Revestimento externo\n  Nota: os participantes devem ter 16 anos ou mais para usar ferramentas elétricas.",
+   "instructions": null
+  }
+ ]
+}

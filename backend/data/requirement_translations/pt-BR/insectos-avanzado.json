@@ -1,0 +1,58 @@
+{
+ "honor_slug": "insectos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Insects_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Insetos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma das seguintes atividades:\n  a. Acrescentar à sua coleção 50 espécies de insetos que representem pelo menos dez ordens diferentes. As etiquetas devem incluir o nome do coletor, a data, a localidade, a ordem, a família e o nome em nível de gênero ou espécie. (Não serão aceitos espécimes montados sem cuidado ou quebrados.)\n  b. Acrescentar aos seus desenhos ou pinturas coloridos 50 espécies de insetos, representando pelo menos dez ordens diferentes. Os desenhos ou pinturas devem ter tamanho natural ou maior, para mostrar os detalhes dos insetos pequenos, e cores naturais. Identificar os desenhos com a data, a ordem, a família e o nome em nível de gênero ou espécie.\n  c. Acrescentar às suas fotografias coloridas 50 espécies de insetos, representando pelo menos dez ordens diferentes. Todas as fotos devem estar em foco, ser em close e estar corretamente identificadas, mostrando onde e em que data foram tiradas, a ordem, a família e o nome em nível de gênero ou espécie.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como as estruturas e os hábitos especiais dos insetos os tornam tão admiravelmente adaptados à vida?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o ciclo de vida de quatro insetos de quatro famílias diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar dois tipos de insetos sociais. Em que eles são diferentes dos insetos não sociais?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar pelo menos quatro insetos que transmitem doenças ao ser humano. Citar pelo menos uma doença transmitida por cada um.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um dos seguintes:\n  a. Rede aérea\n  b. Rede de varredura\n  c. Rede aquática",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Construir e usar uma armadilha para insetos que voam à noite.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Identificar, por meio de figuras ou de insetos vivos, um inseto de cada um dos seguintes grupos:\n    i. Aquáticos\n    ii. Minadores de folhas\n    iii. Enroladores de folhas\n    iv. Brocas da madeira\n    v. Comedores de papel\n    vi. Parasitas do corpo de aves ou mamíferos.\n  b. Descrever as castas dos cupins e das abelhas melíferas.\n  c. Comparar o grau de inteligência demonstrado por um gafanhoto ou um besouro com o de uma formiga, abelha ou vespa.",
+   "instructions": null
+  }
+ ]
+}

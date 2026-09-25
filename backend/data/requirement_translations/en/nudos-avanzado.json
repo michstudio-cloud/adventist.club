@@ -4,9 +4,50 @@
  "source_locale": "es",
  "target_locale": "en",
  "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---actividades-recreacionales.html",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/nudos_avanzado.pdf",
  "license": null,
- "name": "Knot Tying - Advanced",
+ "name": null,
  "description": null,
- "requirements": []
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Have the Knot Tying honor.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Cite at least 3 Bible stories that mention the use of ropes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Which knot should be used to start a lashing?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Tie the following lashings:\n  a. Square\n  b. Diagonal\n  c. Parallel or round\n  d. Japanese square lashing\n  e. Figure-eight lashing\n  f. Single continuous lashing\n  g. Double continuous lashing\n  h. Continuous diagonal lashing\n  i. Double continuous diagonal lashing",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describe why the cords of some furniture loosen after a few days.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Tie at least 10 of the following decorative knots:\n  a. Double two-strand diamond knot / double lanyard knot\n  b. Single two-strand diamond knot / lanyard knot\n  c. Round mat or rose mat / Carrick bend mat\n  d. Victoria knot\n  e. Prosperity mat\n  f. Simple mat\n  g. Figure-eight mat\n  h. Right and left half-knot sinnet / cobra / knot-soloman bar / Portuguese sinnet\n  i. Three-turn mat\n  j. Chinese figure eight\n  k. Monkey's fist or barrilete\n  l. Chinese butterfly\n  m. Barrilete\n  n. Ocean mat\n  o. Five-turn Carrick mat\n  p. Prolonged ocean mat\n  q. Chinese button knot\n  r. Three-strand four-bight Turk's head\n  s. Loom weave\n  t. Square or frame mat\n  u. Double jury mast mat",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tie from memory at least 40 of the following knots, telling the examiner the name, what it is used for and its limitations. Write a report describing each one, what it is used for and the situations in which it should be used.\n  1) Overhand knot\n  2) Overhand loop\n  3) Square knot\n  4) Granny knot\n  5) Square knot with loop\n  6) Andean square knot (with safety half hitches)\n  7) Sheet bend\n  8) Sheet bend with loop\n  9) Clove hitch\n  10) Double clove hitch\n  11) Slip knot\n  12) Packer's knot / slipped figure eight\n  13) Sheepshank\n  14) Sheepshank with lock\n  15) Anchor bend\n  16) Fisherman's knot\n  17) Double fisherman's knot\n  18) Figure eight\n  19) Figure eight follow-through\n  20) Figure eight on a bight or double figure eight\n  21) Figure nine\n  22) Double figure nine\n  23) Timber hitch\n  24) Highwayman's hitch\n  25) Bowline\n  26) Double bowline\n  27) Round turn and two half hitches\n  28) Hangman's knot\n  29) Friar's knot\n  30) Bowline on a bight\n  31) Fireman's chair knot\n  32) Bottle sling or horse bridle knot\n  33) Trucker's hitch\n  34) Surgeon's knot\n  35) Double surgeon's knot\n  36) Man harness knot\n  37) Marlinspike hitch / galley\n  38) Middleman's knot / stirrup knot\n  39) Rosette\n  40) Single jury mast knot\n  41) Barrel hitch\n  42) Cat's paw\n  43) SHCK, Chinese half knot\n  44) Spanish windlass\n  45) Lark's head\n  46) Carrick bend group / Carrick / ordinary / adjusting knot\n  47) Victoria knot\n  48) Binder's knot\n  49) Chinese crown / square knot\n  50) Necktie knot\n  51) Tape knot or water knot\n  52) Hitch on a rope\n  53) Butterfly knot\n  54) Chain\n  55) Spanish sheepshank\n  56) Prusik\n  57) Simple whipping\n  58) American whipping\n  59) West Country whipping, half-hitch whipping\n  60) Munter hitch / half clove hitch / UIAA knot / HMS knot (Halbmastwursicherung)\n  61) Double Munter hitch / half clove hitch / UIAA knot / HMS knot (Halbmastwursicherung)\n  62) Tent-line hitch\n  63) Chain knot\n  64) Tie-down knot\n  65) Scaffold knot / scaffold sling\n  66) Machard hitch\n  67) Square or twisted half-knot sinnet\n  68) Bowline bend\n  69) Running bowline\n  70) Slipped half hitch\n  71) Fisherman's hitch with toggle / toggled loop\n  72) Half hitch around an object\n  73) Blood knot\n  74) Hawser knot\n  75) Double running loop\n  76) Muleteer's knot\n  77) Buntline hitch\n  78) Tensioning knot\n  79) Hunter's bend\n  80) Stevedore knot\n  81) Single rose knot\n  82) Lover's knot\n  83) Perfect love knot\n  84) Blackwall hitch\n  85) Double Blackwall hitch\n  86) Secured half hitch / tight turn\n  87) Diamond knot\n  88) Single halyard hitch\n  89) Turk's head\n  90) Hair braid\n  91) «Cutlet» knot (ribs)\n  92) Indian ritual / three-part crown\n  93) Trefoil knot / four-part crown\n  94) Black widow knot\n  95) Boy knot",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Make a display board containing at least 50 knots, 5 lashings and 5 decorative knots.",
+   "instructions": null
+  }
+ ]
 }

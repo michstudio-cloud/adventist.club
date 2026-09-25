@@ -1,0 +1,53 @@
+{
+ "honor_slug": "la-palabra-de-dios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/01_-_Holy_Scriptures/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A Palavra de Deus",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber quem é o autor da Bíblia, como ela foi escrita e por que devemos crer nela. (2 Pedro 1:20-21; Jeremias 1:4-5; 2 Timóteo 3:16-17)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Entender a diferença entre revelação especial e revelação geral, considerando a maneira como Deus Se revela à humanidade. (Hebreus 1:1-2; Romanos 1:20)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que a orientação bíblica é mais importante do que as tradições e as opiniões das pessoas. (Marcos 7:7-9)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber quem é o personagem principal da Bíblia. (João 1:1-4)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir como os autores dos livros da Bíblia podem ser provados para saber se o que dizem é realmente a palavra de Deus. (Mateus 7:16; Isaías 8:20)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar na ordem correta o nome dos 66 livros da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o propósito da mensagem da Bíblia. (2 Timóteo 3:16-17; João 5:39)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher alguém e dar-lhe de presente uma Bíblia e um estudo bíblico.",
+   "instructions": null
+  }
+ ]
+}

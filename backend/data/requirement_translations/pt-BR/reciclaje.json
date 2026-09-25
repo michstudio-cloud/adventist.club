@@ -1,0 +1,88 @@
+{
+ "honor_slug": "reciclaje",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Recycling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Reciclagem",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir reciclagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa R.R.R.? Como podemos praticar cada “R” em nossa escola/clube, em casa e na comunidade?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é o código de identificação de plásticos para reciclagem?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quem criou o primeiro logotipo ou símbolo da reciclagem?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em grupo, discutir pelo menos duas referências bíblicas em que Deus nos ordena cuidar de Sua Terra.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os motivos pelos quais você deve reciclar?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir as seguintes categorias de reciclagem: alumínio, plásticos (PETE/PET, PEAD/HDPE, V/PVC, PEBD/LDPE, PP, PS, outros #7), bimetal, vidro, aço. Identificar produtos do dia a dia que pertencem a cada categoria. Que métodos de reciclagem existem em sua comunidade para tratar cada tipo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que são plásticos sem código? Eles podem ser reciclados?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar 7 estados e 7 países estrangeiros que atualmente mantêm programas de recompra de recicláveis.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Encontrar e ler três artigos atuais de revistas, jornais ou da internet que tratem de algum aspecto da reciclagem.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Desenhar, esboçar, fotografar ou baixar o(s) símbolo(s) oficial(is) de reciclagem de seu estado/país.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Se for o caso, citar oito EMBALAGENS que podem ser trocadas por dinheiro no programa de reciclagem de embalagens de bebidas de seu estado ou país.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Individualmente ou em grupo, planejar e criar um cartaz sobre reciclagem para seu clube, igreja ou escola.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Individualmente ou em grupo, fazer um dos seguintes trabalhos manuais com materiais reciclados:\n  a. Comedouro para pássaros\n  b. Bebedouro para beija-flores\n  c. Farol dentro de uma garrafa\n  d. Oceano dentro de uma garrafa",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer o seguinte:\n  a. Passar 8 horas recolhendo e processando itens recicláveis em sua região.\n  b. Mostrar sua capacidade de separar corretamente os itens recicláveis.\n  c. Trabalhar com seu clube para realizar um programa de reciclagem durante no mínimo 3 meses, usando a renda como arrecadação de fundos para o clube.\n  d. Ao final dos 3 meses, avaliar o programa. Apresentar um relatório (oral ou escrito) sobre o que você aprendeu, quanto dinheiro vocês (arrecadaram) e em que você/seu clube o gastou.",
+   "instructions": null
+  }
+ ]
+}

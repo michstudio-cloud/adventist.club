@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-colors",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=55",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cores",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre as cores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Cantar uma música sobre as cores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Brincar de um jogo sobre as cores.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual sobre as cores.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "huracanes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hurricanes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Furacões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar a definição dos seguintes termos:\n  a. Boletim de aviso (advisory)\n  b. Temporada de furacões\n  c. Maré de tempestade\n  d. Tempestade tropical\n  e. Onda tropical\n  f. Olho\n  g. Alerta de furacão\n  h. Ciclone tropical\n  i. Alerta de tempestade tropical\n  j. Furacão/tufão\n  k. Vigilância de furacão\n  l. Depressão tropical\n  m. Vigilância de tempestade tropical",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir o que é um furacão e dizer como ele se forma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os perigos de um furacão?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as diferentes categorias de furacões?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista das precauções a tomar antes da chegada de um furacão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de itens que é preciso ter como preparação para um furacão.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista das ações a tomar enquanto o furacão está acontecendo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever o que fazer depois da passagem de um furacão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir ADRA.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer o programa de socorro em desastres de sua Associação local.",
+   "instructions": null
+  }
+ ]
+}

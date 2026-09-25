@@ -1,0 +1,68 @@
+{
+ "honor_slug": "surf-a-vela",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wind_Surfing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Windsurfe",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação intermediário I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender o significado dos seguintes termos:\n  a. Través ao vento\n  b. Mão de trás\n  c. Posição básica de partida\n  d. Lista de verificação do iniciante\n  e. Controle da prancha\n  f. Bolina (centerboard)\n  g. Linha central\n  h. Plano central\n  i. Punho da escota (clew)\n  j. À frente\n  k. Mão da frente\n  l. Para dentro\n  m. Jibe\n  n. Posição do mastro\n  o. Para fora\n  p. Posições do relógio\n  q. Regulagem da vela\n  r. Autorresgate\n  s. Técnica da tesoura\n  t. Bordejo (tack)\n  u. Cabo de içar (uphaul)\n  v. Ponto de referência visual",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os nomes das partes da prancha e demonstrar como montar sua própria vela.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os fundamentos da teoria da navegação a vela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir e demonstrar a posição básica de partida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir e demonstrar os quatro passos do bordejo (tack).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir e demonstrar os quatro passos do jibe.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista dos sete passos da sequência de partida usados para colocar uma prancha de windsurfe em movimento na água.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Responder às seguintes perguntas sobre segurança:\n  a. Que equipamento de segurança deve ser usado na prática do windsurfe?\n  b. Por que é importante conhecer a previsão do tempo local antes de entrar na água?\n  c. Ao aprender windsurfe, por que é importante estar numa área fechada ou protegida?\n  d. Quais são os sinais com as mãos para “Está tudo bem” e “Preciso de ajuda”?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como a vela e a prancha de windsurfe devem ser cuidadas para se manterem em boas condições de uso?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Velejar com êxito numa prancha de windsurfe até um ponto de referência visual e voltar à posição de partida.",
+   "instructions": null
+  }
+ ]
+}

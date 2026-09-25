@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-road-safety",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=33",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Segurança nas estradas",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar e explicar 10 placas de trânsito importantes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer quando e onde atravessar a rua com segurança.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar as regras de segurança nas estradas para:\n  a. Andar sozinho pela beira da estrada\n  b. Andar de bicicleta\n  c. Andar a cavalo\n  d. Andar em grupo",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar por que você deve usar o cinto de segurança quando anda de carro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ouvir um policial rodoviário ou outro agente de segurança falar sobre segurança para crianças.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de um jogo sobre segurança.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

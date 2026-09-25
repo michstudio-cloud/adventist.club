@@ -1,0 +1,93 @@
+{
+ "honor_slug": "gaita",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bagpipes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Gaita de foles",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender e saber escrever o nome gaélico/celta da gaita de foles escocesa (Great Highland bagpipe): \"The Piob Mhor\".",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar e compartilhar pelo menos três fatos históricos sobre os componentes e o funcionamento da gaita de foles escocesa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os três componentes básicos da gaita de foles.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar uma gaita de foles com os seguintes componentes: fole (bolsa), bordões, ponteiro, tubo de sopro e bocal.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que a válvula da gaita de foles impede que o ar faça?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De que são feitas tradicionalmente as palhetas dos bordões?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar sete peças da gaita de foles e a finalidade de cada uma em sua construção.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que país produz a cana usada na palheta do ponteiro?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é o tipo de gaita de foles mais popular?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em que cores pode ser feito o cânhamo usado na gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é o nome dos anéis que ficam nos pontos de conexão dos tubos?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "De que materiais são feitos os ponteiros da gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "A gaita de foles pode ser feita de plástico?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Há quanto tempo existe a forma atual da gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "O que é uma banda de gaitas de foles (pipe band) e onde acontece o maior encontro delas no mundo?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Assistir a uma apresentação de gaita de foles, ao vivo ou gravada.",
+   "instructions": null
+  }
+ ]
+}

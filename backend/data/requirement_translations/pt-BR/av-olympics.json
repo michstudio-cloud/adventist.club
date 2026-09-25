@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-olympics",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=295",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Olimpíadas",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender um pouco sobre os Jogos Olímpicos:\n  a. Onde foram realizados pela primeira vez?\n  b. Quando?\n  c. Onde serão realizados os próximos Jogos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma bandeira olímpica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma tocha olímpica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um jogo olímpico.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma corrente com as cores olímpicas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar 2 Timóteo 4:7.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quem, no Novo Testamento, fala de correr uma corrida?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conversar com seu pai, sua mãe ou seu professor sobre o significado de 1 Coríntios 9:24-26.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

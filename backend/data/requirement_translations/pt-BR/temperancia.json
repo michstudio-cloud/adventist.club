@@ -1,0 +1,48 @@
+{
+ "honor_slug": "temperancia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Temperance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Memorizar e assinar o Voto de Temperança:",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Memorizar dois dos seguintes textos bíblicos e duas das seguintes citações dos escritos de Ellen G. White:\n  a. Textos bíblicos\n    i. Romanos 12:1,2\n    ii. 1 Coríntios 10:31\n    iii. 1 Coríntios 6:19, 20\n    iv. Provérbios 20:1\n    v. Gálatas 5:22, 23\n    vi. 3 João 2\n  b. Escritos de Ellen G. White\n    i. Temperança, p. 3\n    ii. Conselhos Sobre o Regime Alimentar, p. 428\n    iii. Temperança, p. 201\n    iv. Temperança, p. 113\n    v. A Ciência do Bom Viver, p. 327-328",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer quatro dos seguintes:\n  a. Escrever e apresentar um discurso (oratória) de cinco a oito minutos\n  b. Escrever uma redação de 150 a 200 palavras sobre álcool, tabaco, drogas ou condicionamento físico e sobre seu compromisso com um estilo de vida saudável\n  c. Escrever uma quadrinha (jingle) de quatro versos sobre prevenção às drogas.\n  d. Desenhar/fazer um cartaz de 22 x 28 polegadas (55,9 x 63,5 cm) que fale sobre os efeitos prejudiciais de uma droga, do tabaco ou do álcool\n  e. Montar uma exposição sobre abuso de substâncias num shopping center, biblioteca ou escola da região\n  f. Fazer um álbum de recortes de pelo menos 20 páginas mostrando diversas propagandas de prevenção às drogas\n  g. Compartilhar com pelo menos cinco outras pessoas (sem contar seus parentes próximos) o que você realizou da lista acima e obter delas o Voto de Temperança assinado",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e explicar:\n  a. O motivo da advertência no maço de cigarros: “Advertência – fumar faz mal à saúde”\n  b. Sete componentes da fumaça do tabaco:\n    i. Nicotina\n    ii. Arsênico\n    iii. Formaldeído\n    iv. Monóxido de carbono\n    v. Cianeto\n    vi. Fenolbenzopireno\n    vii. Amônia\n  c. Enfisema, cirrose, dependência\n  d. Os efeitos do tabaco, do álcool e das drogas na gravidez",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ler o capítulo “Estimulantes e narcóticos” de A Ciência do Bom Viver. Saber discuti-lo brevemente ou apresentar um resumo escrito de aproximadamente dois ou três parágrafos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Depois de estudar os seguintes materiais, fazer uma lista de três coisas que contribuem para a temperança e a boa saúde (além de abster-se do que é prejudicial).\n  a. Temperança, página 139, parágrafo 1\n  b. Conselhos Sobre o Regime Alimentar, página 406, parágrafo 1\n  c. Temperança, página 140, parágrafo 2\n  d. Temperança, página 142, parágrafo 3\n  e. Conselhos Sobre Saúde, página 127, parágrafo 4\n  f. Temperança, página 147, parágrafo 3",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Discutir as seguintes situações e dramatizar o que você faria se:\n  a. Seu melhor amigo pedir que você experimente um cigarro.\n  b. Um colega de classe oferecer dinheiro para você vender maconha.\n  c. Um parente mais velho oferecer a você um copo de cerveja.\n  d. A fumaça do cigarro de um desconhecido estiver incomodando você.\n  e. Um amigo pedir que você fume maconha.\n  f. Você estiver numa festa com um amigo, ele se embriagar e insistir em levar você para casa dirigindo.",
+   "instructions": null
+  }
+ ]
+}

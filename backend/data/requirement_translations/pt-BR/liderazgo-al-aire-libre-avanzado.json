@@ -1,0 +1,78 @@
+{
+ "honor_slug": "liderazgo-al-aire-libre-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Outdoor_Leadership_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Liderança campestre.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conquistar três especialidades do Mestrado em Vida silvestre que ainda não tenha conquistado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter as especialidades de Primeiros socorros e de Reanimação cardiopulmonar e um certificado válido de ambas. Além dessas especialidades, conhecer a prevenção, os sintomas e o tratamento de primeiros socorros para o seguinte:\n  a. Hipotermia\n  b. Picada de cobra venenosa\n  c. Intermação e insolação\n  d. Exaustão pelo calor\n  e. Reação à hera venenosa e ao carvalho venenoso\n  f. Infecção de ferida aberta\n  g. Mal da altitude\n  h. Desidratação",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar roteiros e apresentar sete meditações diferentes para serem compartilhadas durante um acampamento. Usar textos e princípios bíblicos e ilustrá-los com exemplos disponíveis durante o acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar o roteiro de um testemunho pessoal que possa ser usado para iniciar uma amizade entre uma pessoa e Cristo. O testemunho pode incluir como Jesus se tornou seu Salvador pessoal, um milagre que aconteceu em sua vida etc. Apresentar esse testemunho a um grupo de jovens ao ar livre.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber como controlar o pânico de alguém que está perdido.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenvolver um plano de busca e resgate para um local específico de sua região, com 50 acres (20 hectares) ou mais. O plano deve envolver pelo menos dez pessoas, e você deve coordenar a atividade e a zona de busca de cada uma. Fazer uma lista dos equipamentos específicos que podem ser necessários para comunicação, primeiros socorros e transporte de vítimas, adequados ao local escolhido.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever em linhas gerais sua filosofia de etiqueta em áreas silvestres. Participar de uma a três horas de um projeto de conservação de áreas silvestres.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ensinar pelo menos uma especialidade do grupo do Mestrado em Vida silvestre.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer pelo menos quatro objetivos da liderança ao ar livre em cada uma das seguintes categorias:\n  a. Físico\n  b. Social\n  c. Pessoal\n  d. Espiritual",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer a diferença entre os juniores (de 10 a 12 anos) e os adolescentes (de 13 a 15 anos) nas seguintes áreas:\n  a. Física\n  b. Emocional\n  c. Mental\n  d. Espiritual",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Ter sete das seguintes especialidades. Qualquer especialidade conquistada há mais de dois anos deve ser estudada novamente, para que você consiga responder a qualquer pergunta de conhecimento incluída nela.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Planejar, organizar e realizar, durante um fim de semana, com um grupo de pelo menos cinco pessoas, uma das seguintes atividades:\n  a. Retiro espiritual ao ar livre\n  b. Viagem de canoa\n  c. Viagem de bicicleta\n  d. Viagem a cavalo\n  e. Viagem de mochila (trekking)",
+   "instructions": null
+  }
+ ]
+}

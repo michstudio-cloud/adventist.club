@@ -1,0 +1,63 @@
+{
+ "honor_slug": "trabajos-en-jabon-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soap_Craft_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Trabalhos em sabão - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Trabalhos em sabão.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipos de gordura podem ser usados na fabricação de sabão?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é usado para tornar o sabão transparente?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as vantagens e desvantagens do sabão e do detergente?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são alguns auxiliares de limpeza acrescentados às misturas de sabão?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que faz o sabão flutuar?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que torna o sabão duro?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender os seguintes versículos: Jeremias 2:22, Malaquias 3:2.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar dois métodos de fabricação de sabão. Fazer uma porção de sabão por um desses métodos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um dos seguintes:\n  a. Visitar um estabelecimento que fabrique sabão, comercial ou não comercial.\n  b. Obter de uma fábrica de sabão informações sobre como o sabão é feito.\n  c. Estudar e preparar, a partir de uma enciclopédia ou outra fonte, um relatório de uma a duas páginas explicando como o sabão é feito.",
+   "instructions": null
+  }
+ ]
+}

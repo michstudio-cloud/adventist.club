@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-seeds",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=245",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Sementes",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a parábola de Mateus 13:3-9. Ler outros dois versículos sobre sementes:\n  a. Gênesis 1:11\n  b. Marcos 4:31\n  c. Mateus 17:20",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que uma semente precisa para crescer?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Observar o que acontece quando uma semente germina e conversar sobre isso.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar algumas maneiras pelas quais as sementes se espalham naturalmente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar a maior e a menor semente que você já viu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Provar uma variedade de sementes comestíveis. Divirta-se descobrindo coisas novas!",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Colecionar e identificar pelo menos 2 sementes diferentes de cada categoria:\n  • Sementes de árvores\n  • Sementes de frutas\n  • Sementes de hortaliças\n  • Sementes de grãos/gramíneas\n  • Sementes de nozes e castanhas",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma colagem de sementes ou outro trabalho manual com sementes.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

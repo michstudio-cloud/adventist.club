@@ -1,0 +1,68 @@
+{
+ "honor_slug": "plantas-de-interior",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/House_Plants/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos cinco plantas de interior cultivadas por sua folhagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três plantas de interior cultivadas por suas flores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três plantas de interior adaptadas a:\n  a. luz solar direta\n  b. solos secos\n  c. solos muito úmidos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "A maioria das plantas de interior prefere uma temperatura de 65 a 75 graus (18 C - 22 C). Citar uma que precise de um ambiente fresco (45 a 55 graus F [7 C - 13 C]).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar um substrato especial para vasos com pelo menos 3 ingredientes diferentes. Escolher duas plantas de interior e cultivá-las nesse substrato durante três meses.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De quanta luz uma violeta-africana precisa? Qual é o melhor lugar da casa para cultivá-la? Cultivar duas ou mais violetas-africanas. Indicar se são violetas do tipo “menino” ou “menina”.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Todas as gesneriáceas precisam aproximadamente das mesmas condições de cultivo. De onde elas são originárias? De que tipo de temperatura, luz e umidade precisam?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar duas plantas de interior que podem ser propagadas por folhas, segmentos de caule ou divisão. Cultivar uma planta por dois desses métodos e mantê-la crescendo por pelo menos seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é um bonsai?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é umidade e qual é sua importância para uma planta?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cultivar pelo menos cinco das seguintes:\n  a. Violeta-africana\n  b. Aspidistra\n  c. Planta-alumínio (Pilea)\n  d. Narciso-trombeta\n  e. Gloxínia\n  f. Avenca\n  g. Planta-mãe (Tolmiea)\n  h. Tulipa\n  i. Samambaia-de-boston\n  j. Begônia\n  k. Asplênio (ninho-de-passarinho)\n  l. Fícus\n  m. Jacinto\n  n. Narciso\n  o. Clorofito\n  p. Coleus\n  q. Açafrão (Crocus)\n  r. Caládio\n  s. Gerânio\n  t. Íris\n  u. Filodendro\n  v. Sansevéria",
+   "instructions": null
+  }
+ ]
+}

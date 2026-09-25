@@ -1,0 +1,43 @@
+{
+ "honor_slug": "invertebrados-marinos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marine_Invertebrates/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber identificar pelo menos um exemplo de quinze dos seguintes animais do litoral:\n  a. Tunicado (ascídia)\n  b. Anêmona (flor-do-mar)\n  c. Quíton\n  d. Caranguejo-ermitão\n  e. Ofiúro (estrela-serpente)\n  f. Ouriço-do-mar\n  g. Pepino-do-mar\n  h. Colônia de briozoários (animais-musgo)\n  i. Craca\n  j. Estrela-do-mar\n  k. Mexilhão ou nereida (verme marinho)\n  l. Água-viva\n  m. Lapa\n  n. Verme tubícola\n  o. Ostra\n  p. Anfípode (pulga-da-areia)\n  q. Esponja\n  r. Bolacha-da-praia\n  s. Coral\n  t. Maria-farinha (caranguejo-fantasma)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma coleção ou fotografias dos seguintes animais do litoral:\n  a. Três tipos de caranguejos\n  b. Um tipo de estrela-do-mar\n  c. Outros cinco animais quaisquer da lista do requisito 1.\n  Animais de corpo duro, como caranguejos, estrelas-do-mar e quítons, podem ser sacrificados em uma solução de formaldeído a 5% ou de álcool a 70% e depois secos junto ao fogo. O sol faz a cor desbotar. Os animais de corpo mole devem ser conservados em uma solução de formaldeído a 3% ou de álcool a 70%. Se for usada formalina comercial no lugar do formaldeído, as porcentagens acima devem ser dobradas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever os seguintes processos:\n  a. O movimento de natação de uma água-viva\n  b. A maneira como a anêmona captura o alimento\n  c. A corrida de um caranguejo\n  d. Como a estrela-do-mar digere um marisco ou uma ostra se tem uma abertura bucal tão pequena?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar quatro animais da maré baixa e dois animais da maré alta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Responder às seguintes perguntas sobre parentesco entre os animais:\n  a. Que parentesco os caranguejos e as cracas têm com os insetos?\n  b. Que parentesco a ascídia tem com o ser humano?\n  c. Citar um animal terrestre comum que seja parente da nereida.\n  d. O polvo pertence ao filo Mollusca. Quais dois animais da lista do nº 1 são parentes do polvo?\n  e. A estrela-do-mar, o pepino-do-mar e o ouriço-do-mar pertencem ao filo Echinodermata. Por que estão no mesmo grupo? (Dica: descobrir o que significa \"Echinodermata\".)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um relato oral sobre duas das seguintes atividades:\n  a. Visitar o litoral à noite e, com uma lanterna, observar a atividade dos animais na praia e na água. Observar as muitas plantas e animais visíveis quando o feixe de luz é dirigido para a água. Esses organismos minúsculos se chamam plâncton.\n  b. Arrastar pela água um pano de malha fina ou uma rede de plâncton comum e observar ao microscópio os muitos animais e plantas minúsculos que forem coletados.\n  c. Escolher três itens do nº 1 que tenham importância econômica. Explicar por que são importantes.",
+   "instructions": null
+  }
+ ]
+}

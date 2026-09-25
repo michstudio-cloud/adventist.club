@@ -1,0 +1,68 @@
+{
+ "honor_slug": "ecologia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ecology_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ecologia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Enunciar a primeira e a segunda leis da termodinâmica e explicar por que são importantes para a ecologia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os três níveis tróficos (alimentares) básicos e dar um bom exemplo de planta ou animal para cada um.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar ou representar em diagrama os três tipos de pirâmides ecológicas da teia alimentar. Dar um exemplo de cada camada da pirâmide.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir ciclo biogeoquímico e explicar ou representar em diagrama todos os componentes básicos pelos quais o ciclo passa.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Representar em diagrama ou explicar os passos básicos do fluxo de energia através do ambiente (elemento) biótico de um ecossistema. Começar pelo Sol.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar a Lei do Mínimo, de Liebig, e a Lei da Tolerância, de Shelford, e dizer como essas leis nos mostram como e por que certas plantas e animais ficam ameaçados ou são eliminados quando seu habitat ou comunidade é perturbado OU fica desequilibrado.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher uma comunidade biológica de sua região, como uma floresta ou mata; um pântano, lago ou lagoa; uma pastagem ou campo; ou um cânion ou mata ciliar etc., que esteja perturbada ou ecologicamente desequilibrada de alguma forma. Fazer uma descrição dela, incluindo como e em que medida está perturbada. Depois, fazer recomendações sobre como a comunidade poderia ser melhorada e, quando possível, colocá-las em prática e ajudar a melhorá-la de alguma forma.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dedicar no mínimo 20 horas a um trabalho ativo e produtivo em um projeto de ecologia em sua região. Isso pode ser feito individualmente ou em grupo. Descrever o projeto em geral, mas relatar especificamente sua participação nele.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Definir os seguintes termos:\n  a. Comunidade\n  b. Matérias-primas\n  c. Fotossíntese\n  d. Quimiossíntese\n  e. Autotrofia\n  f. Heterotrofia\n  g. Equilíbrio ecológico\n  h. Sapróbio\n  i. Decompositor\n  j. Produtor\n  k. Consumidor\n  l. Fator limitante",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar uma citação do Espírito de Profecia e um texto bíblico relacionados à ecologia e explicar sua relevância e aplicação para os nossos dias.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "seguridad-basica-en-el-agua",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Water_Safety/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Entrar na água e sair dela sem ajuda.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Prendendo a respiração, mergulhar totalmente o rosto na água durante cinco segundos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Alternadamente, inspirar pela boca acima da superfície e soltar bolhas pela boca/nariz com o rosto completamente submerso, sete vezes, de forma rítmica e contínua.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Abrir os olhos debaixo d’água e recuperar objetos submersos duas vezes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Tentar calmamente flutuar de bruços durante cinco segundos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Deslizar de bruços por uma distância equivalente a duas vezes o comprimento do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tentar calmamente flutuar de costas durante quinze segundos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Segurando-se na borda da piscina, bater as pernas durante vinte segundos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando os movimentos dos braços e das pernas, nadar uma distância equivalente a cinco vezes o comprimento do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Aprender a vestir um colete salva-vidas e flutuar durante trinta segundos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar segurança na água:\n  a. Como pedir ajuda em caso de emergência.\n  b. Aprender como aliviar uma câimbra.\n  c. Demonstrar um salvamento com alcance (estendendo um objeto).\n  d. Aprender pelo menos dez regras de segurança perto da água.",
+   "instructions": null
+  }
+ ]
+}

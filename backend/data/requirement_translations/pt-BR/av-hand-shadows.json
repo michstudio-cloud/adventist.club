@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-hand-shadows",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=67",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Arte com sombras",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ensinar cada criança a fazer várias figuras de sombra com as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Depois que tiverem aprendido a fazer as sombras com as mãos, fazer as seguintes perguntas:\n  a. De qual sombra com as mãos você mais gosta?\n  b. Qual foi a mais difícil de aprender?\n  c. Por que foi mais difícil?\n  d. Houve alguma sombra que você não conseguiu fazer?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Deixar as crianças conversarem sobre como ensinariam essa habilidade a outras crianças.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Com a ajuda de seu líder, praticar ensinando outras pessoas a fazer sombras com as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ensinar alguém a fazer duas ou mais sombras com as mãos.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (nombre de la insignia DSA para Hand Shadows)"
+}

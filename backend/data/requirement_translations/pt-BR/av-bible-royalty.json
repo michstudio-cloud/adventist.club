@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-bible-royalty",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=347",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Realeza bíblica",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Memorizar Salmo 100:4.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco reis da Bíblia. Quais reis foram os melhores governantes e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Contar as histórias de dois dos reis enquanto as crianças as representam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar pelo menos quatro rainhas da Bíblia. Por que essas rainhas são importantes?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever uma história sobre rainhas e lê-la para a classe.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer dois dos seguintes itens:\n  a. Uma sala do trono usando uma caixa de sapatos\n  b. Fazer coroas e explicar o que os enfeites significavam para o rei\n  c. Decorar uma cadeira para um rei\n  d. Fazer um mural de uma sala do trono\n  e. Outro",
+   "instructions": null
+  }
+ ]
+}

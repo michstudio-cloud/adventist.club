@@ -1,0 +1,93 @@
+{
+ "honor_slug": "taiga",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Taiga/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Taiga",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as características de uma taiga?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que outros nomes são usados para o bioma da taiga?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que dois países contêm a maior parte da taiga?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que bioma se encontra ao norte e ao sul da taiga?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que bioma costuma ser encontrado em depressões baixas dentro da taiga?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é permafrost e onde pode ser encontrado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que árvores são comuns na taiga? Saber identificá-las.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que árvore conífera da taiga perde as acículas no outono e produz novas na primavera?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que plantas sem flores são comuns na taiga? Saber identificá-las.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que animais são comuns na taiga? Saber identificá-los.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que aves são comuns na taiga? Saber identificá-las.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como o fogo afeta a taiga?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Que dois recursos importantes a taiga nos fornece?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Aprender sobre uma espécie invasora que afeta a taiga.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Preparar uma lição objetiva sobre uma planta, animal ou ave que vive na taiga. Apresentar essa lição num culto do clube. Incluir um texto bíblico na apresentação.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Visitar uma exposição ou estufa de espécies de árvores coníferas.\n  b. Fazer uma coleção de folhas de pelo menos 5 tipos de árvores coníferas.\n  c. Visitar um zoológico que tenha animais típicos do bioma da taiga.\n  d. Assistir a um DVD ou vídeo sobre a taiga ou sobre plantas ou animais que vivem nela.\n  e. Desenhar ou pintar algo que você gostou de aprender ao estudar a taiga.\n  f. Em grupo, fazer um vídeo curto sobre um projeto real de conservação da taiga. Explicar por que esse hábitat específico deve ser preservado.\n  g. Visitar uma madeireira e aprender a identificar pelos veios pelo menos 3 espécies de árvores que crescem na taiga.\n  h. Visitar a taiga e tirar fotos de algumas plantas e animais.",
+   "instructions": null
+  }
+ ]
+}

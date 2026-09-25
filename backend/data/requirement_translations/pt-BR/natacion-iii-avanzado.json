@@ -1,0 +1,48 @@
+{
+ "honor_slug": "natacion-iii-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Nadar de forma coordenada e eficiente, sem parar, os seguintes estilos e distâncias:\n  a. Costas elementar: 50 jardas (45,7 metros)\n  b. Peito: 100 jardas (91,4 metros)\n  c. Peito invertido: 50 jardas (45,7 metros)\n  d. Nado de lado: 100 jardas (91,4 metros)\n  e. Nado de lado com braço por cima: 100 jardas (91,4 metros)\n  f. Nado Trudgen: 50 jardas (45,7 metros)\n  g. Crawl de costas: 100 jardas (91,4 metros)\n  h. Crawl: 100 jardas (91,4 metros)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer os seguintes mergulhos com boa técnica:\n  a. Mergulho de frente, em pé\n  b. Mergulho de frente, com corrida\n  c. Mergulho de superfície carpado\n  d. Mergulho de superfície grupado",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer a flutuação de sobrevivência durante dez minutos, completamente vestido.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o nado de sobrevivência durante dez minutos, completamente vestido.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um mergulho de superfície e nadar debaixo d'água por dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar sem parar durante 30 minutos, usando um ou mais estilos. Não é permitido segurar-se na borda (descansar) nem tocar o fundo com os pés.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer as causas dos acidentes que podem ocorrer dentro da água ou perto dela e como preveni-los.",
+   "instructions": null
+  }
+ ]
+}

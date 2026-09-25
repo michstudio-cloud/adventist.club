@@ -1,0 +1,23 @@
+{
+ "notes": "Nombres de categoría en otros idiomas que no vienen del índice de la Pathfinder Wiki (import_wiki_names.py carga los de las 8 categorías generales). Lo carga migrations/import_category_translations.py. pt-BR es el único locale de portugués: una fila 'pt' vieja se borra cuando la categoría ya tiene pt-BR, porque el API resuelve un solo locale para toda la tabla y ?locale=pt elegiría 'pt' y dejaría sin traducir las categorías de Conquistadores.",
+ "legacy_locales": {"pt": "pt-BR"},
+ "sources": {
+  "pathfinder-wiki-pt": "https://wiki.pathfindersonline.org/w/AY_Honors/ADRA/pt-br, https://wiki.pathfindersonline.org/w/AY_Honors/Masters/pt-br, https://wiki.pathfindersonline.org/w/AY_Honors/Doctrinal/pt-br (CC BY-SA 3.0)",
+  "dsa-aventureiros": "Áreas de especialidades de Aventureiros de la DSA: https://www.adventistas.org/pt/aventureiros/especialidades/ (menú del MDAWiki, https://mda.wiki.br/Especialidades/)",
+  "gc-award-book-2020": "Adventurer Award Book 2020 (GC), categoría Community",
+  "traduccion": "traducción propia del nombre en español/inglés (no hay categoría equivalente publicada en portugués)"
+ },
+ "categories": [
+  {"ministry": "pathfinders", "slug": "adra", "names": {"en": "ADRA", "pt-BR": "ADRA"}, "source": "pathfinder-wiki-pt"},
+  {"ministry": "pathfinders", "slug": "doctrinal", "names": {"en": "Doctrinal", "pt-BR": "Doutrinárias"}, "source": "pathfinder-wiki-pt", "note": "la wiki pt-br: «especialidades doutrinárias», categoría «Doutrinária»; la DSA las agrupa en el área «Ensinos Bíblicos» (código AM-EB)"},
+  {"ministry": "pathfinders", "slug": "community-services", "names": {"en": "Adventist Community Services", "pt-BR": "Serviços Comunitários Adventistas"}, "source": "traduccion"},
+  {"ministry": "pathfinders", "slug": "florida-conference", "names": {"en": "Florida Conference Honors", "pt-BR": "Especialidades da Associação da Flórida"}, "source": "traduccion"},
+  {"ministry": "pathfinders", "slug": "masters", "names": {"en": "Masters", "pt-BR": "Mestrados"}, "source": "pathfinder-wiki-pt", "note": "«Especialidades JA/Mestrados»; la DSA también dice Mestrados"},
+  {"ministry": "adventurers", "slug": "av-comunidad", "names": {"en": "Community", "pt-BR": "Comunidade"}, "source": "gc-award-book-2020", "note": "la DSA no tiene un área equivalente"},
+  {"ministry": "adventurers", "slug": "av-manualidades", "names": {"en": "Crafts", "pt-BR": "Artes Manuais"}, "source": "dsa-aventureiros"},
+  {"ministry": "adventurers", "slug": "av-hogar", "names": {"en": "Home", "pt-BR": "Habilidades Domésticas"}, "source": "dsa-aventureiros"},
+  {"ministry": "adventurers", "slug": "av-naturaleza", "names": {"en": "Nature", "pt-BR": "Estudos da Natureza"}, "source": "dsa-aventureiros"},
+  {"ministry": "adventurers", "slug": "av-recreacion", "names": {"en": "Recreation", "pt-BR": "Atividades Recreativas"}, "source": "dsa-aventureiros"},
+  {"ministry": "adventurers", "slug": "av-espiritual", "names": {"en": "Spiritual", "pt-BR": "Atividades Espirituais"}, "source": "dsa-aventureiros"}
+ ]
+}

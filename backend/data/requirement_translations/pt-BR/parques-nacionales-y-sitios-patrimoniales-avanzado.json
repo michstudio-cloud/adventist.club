@@ -1,0 +1,28 @@
+{
+ "honor_slug": "parques-nacionales-y-sitios-patrimoniales-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/National_Parks_and_Heritage_Sites_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Parques nacionais e locais históricos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descobrir o seguinte (sobre seu país ou outro país) e depois compartilhar de forma criativa suas descobertas com um grupo ou com um adulto:\n  a. PARQUES E SÍTIOS NACIONAIS/SISTEMAS DE PARQUES NACIONAIS:\n    i. Sobre o sistema de parques nacionais de que país você está aprendendo?\n    ii. Que passos devem ser dados para que um local se torne parque nacional ou área de parque nacional?\n    iii. Que tipos de locais podem ser escolhidos?\n    iv. Quem administra esses locais?\n    v. Quantos locais existem atualmente no sistema de parques que você está pesquisando?\n    vi. Quando foi acrescentado o local mais recente em seu país, estado ou região?\n  b. SÍTIOS DO PATRIMÔNIO MUNDIAL DA UNESCO:\n    i. Explicar os critérios usados pelas Nações Unidas (UNESCO) para designar um sítio do Patrimônio Mundial.\n    ii. Que tipos de locais podem ser escolhidos?\n    iii. Quantos sítios existem atualmente?\n    iv. Qual foi o sítio acrescentado mais recentemente e quando?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer o seguinte durante a visita a duas áreas diferentes de parques nacionais, sítios do Patrimônio Mundial ou parques estaduais, e apresentar um relatório multimídia sobre o que você viu nessas visitas:\n  a. Determinar se cada um é um parque natural, cultural, histórico ou de uso misto.\n  b. Compará-los, apontando semelhanças e diferenças. Incluir aspectos como: formas de relevo, fauna, esforços de conservação ou preservação, artefatos culturais ou históricos protegidos, serviços turísticos disponíveis, entrada paga ou gratuita e número de visitantes observados. Dependendo do lugar, seu instrutor poderá substituí-los por outros tipos de reservas naturais.\n  c. Visitar um centro de visitantes. Aprender a história do parque.\n    i. Quando o parque foi criado?\n    ii. Quem o criou?\n    iii. Por que foi criado?\n    iv. Antes de se tornar parque nacional, como era usado?\n    v. Qual é a área total do parque?\n    vi. Qual é o motivo para proteger esse local? O que se perderia para a história, a cultura ou a natureza se esse local não existisse?\n    vii. Que atividades e/ou opções de lazer estão disponíveis ali?\n  d. Entrevistar um funcionário ou guarda-parque e fazer perguntas como:\n    i. Em que consiste o seu trabalho?\n    ii. Do que você mais gosta no seu trabalho? E do que menos gosta?\n    iii. Por que a conservação e a preservação são importantes para este parque?\n    iv. O que eu posso fazer para ajudar a preservar ou conservar as áreas de parques nacionais e os sítios do Patrimônio Mundial?",
+   "instructions": null
+  }
+ ]
+}

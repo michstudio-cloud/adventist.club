@@ -1,0 +1,53 @@
+{
+ "honor_slug": "mineralogia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rocks_%26_Minerals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Distinguir entre rochas e minerais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter uma coleção de pelo menos quinze espécimes corretamente identificados. Etiquetar cada espécime com o nome do coletor, a data e a localidade onde foi encontrado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir e citar dois exemplos (de espécimes ou figuras) de cada um dos seguintes tipos de rocha:\n  a. Ígnea\n  b. Sedimentar\n  c. Metamórfica",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que se entende por escala de dureza de Mohs? Citar em ordem os minerais da escala de Mohs.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir clivagem, densidade relativa, brilho, cor, traço, textura, cristal.\n  a. Clivagem\n  b. Densidade relativa\n  c. Brilho\n  d. Cor\n  e. Traço\n  f. Textura\n  g. Cristal",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar quatro usos das rochas e quatro usos dos minerais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Contar quatro episódios bíblicos em que uma rocha teve importância.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são as pedras dos fundamentos da Nova Jerusalém?",
+   "instructions": null
+  }
+ ]
+}

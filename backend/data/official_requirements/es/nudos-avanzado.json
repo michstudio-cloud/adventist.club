@@ -1,0 +1,52 @@
+{
+ "honor_slug": "nudos-avanzado",
+ "ministry": "pathfinders",
+ "locale": "es",
+ "source": "guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/nudos_avanzado.pdf",
+ "license": null,
+ "retrieved": "2026-09-25",
+ "notes": "Nudos, avanzado (Knot Tying - Advanced), División Sudamericana, nivel de destreza 3. Hoja de requisitos de guiasmayores.com (transcripción del manual de la DSA). La Pathfinder Wiki tiene la especialidad pero no publica los requisitos (AY Honors/Knot Tying - Advanced/Requirements: 404, 25-09-2026).",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Nudos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar por lo menos 3 historias bíblicas en las que se mencione el uso de las cuerdas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Qué nudo debe usarse para iniciar un amarre?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Hacer los siguientes amarres:\n  a. Cuadrado\n  b. Diagonal\n  c. Paralelo o redondo\n  d. Amarre cuadrado japonés\n  e. Amarre en forma de ocho\n  f. Amarre continuo simple\n  g. Amarre continuo doble\n  h. Amarre continuo diagonal\n  i. Amarre continuo doble diagonal",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describir por qué las cuerdas de algunos muebles se aflojan después de unos días.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer por lo menos 10 de los siguientes nudos decorativos:\n  a. Nudo diamante de dos cordones doble / double lanyard knot\n  b. Nudo diamante de dos cordones simple / lanyard knot\n  c. Esterilla redonda o esterilla rosa / Carrick bend mat\n  d. Nudo Victoria\n  e. Esterilla de la prosperidad\n  f. Esterilla simple\n  g. Esterilla en ocho\n  h. Trenza de medio nudo derecha e izquierda / cobra / knot-soloman bar / Portuguese sinnet\n  i. Esterilla en tres vueltas\n  j. Figura de ocho chino\n  k. Puño de mono o barrilete\n  l. Mariposa china\n  m. Barrilete\n  n. Esterilla océano\n  o. Carrick Mat cinco vueltas\n  p. Esterilla océano prolongado\n  q. Botón chino\n  r. Cabeza de turco de tres cordones cuatro vueltas\n  s. Tejido telar\n  t. Esterilla cuadrada o de marco\n  u. Esterilla encapilladura doble",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Hacer de memoria por lo menos 40 de los siguientes nudos diciendo el nombre al evaluador, para qué sirve y sus limitaciones. Hacer un informe describiendo cada uno, para qué sirve y las situaciones en las que debe usarse.\n  1) Simple\n  2) Simple con gaza\n  3) Llano\n  4) Falso\n  5) Llano con lazo\n  6) Llano andino (con cotes de seguridad)\n  7) Vuelta de escota\n  8) Vuelta de escota con lazo\n  9) Vuelta de ballestrinque\n  10) Vuelta de ballestrinque doble\n  11) Nudo corredizo\n  12) Nudo de empaquetador / ocho corredizo\n  13) Margarita\n  14) Margarita con bloqueo\n  15) Ancla\n  16) Pescador\n  17) Pescador doble\n  18) Ocho\n  19) Trenzado en ocho\n  20) Ocho con seno (o) u ocho doble\n  21) Nueve\n  22) Nueve doble\n  23) Vuelta de braza\n  24) Fugitivo\n  25) As de guía\n  26) As de guía doble\n  27) Vuelta redonda con dos cotes\n  28) Nudo de la horca\n  29) Fraile\n  30) Balso por seno\n  31) Silla de bombero\n  32) Eslingado de botella o freno de caballo\n  33) Camionero\n  34) Cirujano\n  35) Cirujano doble\n  36) Arnés de hombre\n  37) Espeque / galera\n  38) Nudo del medio / nudo de estribo\n  39) Roseta\n  40) Encapilladura simple\n  41) Nudo de barril\n  42) Zarpa de gato\n  43) SHCK, medio nudo chino\n  44) Torniquete español\n  45) Presilla de alondra\n  46) Grupo calabrote / Carrick / ordinario / nudo de ajuste\n  47) Nudo Victoria\n  48) Encuadernador\n  49) Corona china / nudo cuadrado\n  50) Nudo corbata\n  51) Nudo cinta o de agua\n  52) Vuelta sobre cabo\n  53) Mariposa\n  54) Cadena\n  55) Margarita española\n  56) Prusik\n  57) Falcaceo simple\n  58) Falcaceo americano\n  59) Falcaceo occidental, falcaceo en medias vueltas mordías\n  60) Nudo dinámico / media vuelta de ballestrinque / nudo UIAA / nudo HMS (Halbmastwursicherung)\n  61) Nudo dinámico / media vuelta de ballestrinque / nudo UIAA / nudo HMS (Halbmastwursicherung) doble\n  62) Tensor de carpa\n  63) Nudo en cadena\n  64) Nudo de amarrar\n  65) Nudo de andamio / eslingado de andamio\n  66) Vuelta de Machard\n  67) Trenza medio nudo cuadrado o retorcido\n  68) Unión de as de guía\n  69) As de guía corredizo\n  70) Cote corredizo\n  71) Cote de pescador con burel o cazonete / lazada encabillada\n  72) Cote sobre un objeto\n  73) Nudo de sangre\n  74) Nudo de estacha\n  75) Doble lazo corredizo\n  76) Nudo (se) de arriero\n  77) Buntline\n  78) Nudo de atesar\n  79) Cazador o Hunter\n  80) Nudo estibador\n  81) Piña de rosa simple\n  82) Nudo de los enamorados\n  83) Amor perfecto\n  84) Vuelta de gancho\n  85) Vuelta de gancho doble\n  86) Cote asegurado / vuelta apretada\n  87) Nudo diamante\n  88) Vuelta de driza simple\n  89) Cabeza de turco\n  90) Trenza de cabello\n  91) Nudo «costeleta» (costillas)\n  92) Ritual del indio / corona de tres partes\n  93) Nudo trébol / corona de cuatro partes\n  94) Nudo viuda negra\n  95) Nudo niño",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer un cuadro que contenga por lo menos 50 nudos, 5 amarres y 5 nudos decorativos.",
+   "instructions": null
+  }
+ ]
+}

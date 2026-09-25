@@ -1,0 +1,43 @@
+{
+ "honor_slug": "evolucion-en-orden-cerrado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drill_Routines/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Evoluções em ordem unida",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as especialidades de Ordem unida e Ordem unida - Avançado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir o termo EVOLUÇÃO (ROTINA).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar cinco passos para desenvolver ou criar uma evolução de ordem unida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar duas evoluções de ordem unida e praticá-las com um grupo para apresentá-las em uma cerimônia, registrando o evento com fotos e vídeo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar e explicar um exemplo bíblico em que o conceito de evoluções de ordem unida foi usado para conquistar um território.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar em uma apresentação cinco evoluções criativas de ordem unida ainda não demonstradas. Escrever um relatório que mostre a filosofia do clube em relação às evoluções realizadas nos exercícios de ordem unida (mínimo de 200 palavras e máximo de 500 palavras).",
+   "instructions": null
+  }
+ ]
+}

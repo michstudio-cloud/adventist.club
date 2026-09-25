@@ -1,0 +1,78 @@
+{
+ "honor_slug": "pionerismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pioneering/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever por escrito, oralmente ou com figuras como os primeiros pioneiros supriam as seguintes necessidades básicas:\n  a. Moradia e mobília\n  b. Vestuário\n  c. Alimento\n  d. Cozinha\n  e. Calor e luz\n  f. Ferramentas e trabalhos manuais\n  g. Saneamento\n  h. Transporte",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Construir um móvel útil usando amarras. Aprender as seguintes amarras:\n  a. Amarra quadrada\n  b. Amarra diagonal\n  c. Amarra paralela (de tesoura)\n  d. Amarra contínua",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um dos seguintes:\n  a. Tecer um cesto com materiais naturais\n  b. Fazer um par de mocassins de couro\n  c. Fazer uma touca feminina costurada à mão\n  d. Fazer um brinquedo simples usado pelos pioneiros",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber fazer farinha de pelo menos uma planta silvestre para usar em assados.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Acender uma fogueira sem fósforos. Usar materiais naturais para fazer o fogo. Manter o fogo aceso por cinco minutos. Você pode usar os seguintes meios para acender o fogo:\n  a. Pederneira e aço\n  b. Fricção\n  c. Faísca elétrica\n  d. Vidro curvo (lente)\n  e. Fósforo de metal (ferrocério)\n  f. Ar comprimido",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar conhecimento no uso do machado nos seguintes itens:\n  a. Descrever os melhores tipos de machado.\n  b. Mostrar como afiar um machado corretamente.\n  c. Conhecer e praticar as regras de segurança no uso do machado.\n  d. Conhecer a maneira correta de usar um machado.\n  e. Cortar corretamente em duas partes um tronco com pelo menos oito polegadas (20,3 cm) de espessura.\n  f. Rachar corretamente uma tora com pelo menos oito polegadas (20,3 cm) de diâmetro e um pé (30,5 cm) de comprimento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer dois dos seguintes:\n  a. Fazer uma corda de dez pés (3,0 metros) com material natural ou barbante.\n  b. Dar dez nós úteis ao pioneiro e explicar como eram usados.\n  c. Usando corda e materiais naturais, fazer um dispositivo para mover objetos pesados.\n  d. Construir uma latrina adequada e confortável.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a necessidade de um saneamento adequado com relação ao lixo e aos dejetos humanos e à lavagem do corpo, das roupas e da louça.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ajudar na construção de uma ponte de troncos ou de cordas de dez pés (3,0 metros) de comprimento, usando amarras.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer quatro maneiras de manter a natureza selvagem bonita.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer dois dos seguintes:\n  a. Fazer uma vela de cera ou outra forma de iluminação dos pioneiros\n  b. Fazer uma porção de sabão\n  c. Ordenhar uma vaca\n  d. Bater manteiga\n  e. Fazer uma pena de escrever e escrever com ela\n  f. Fazer uma boneca de palha de milho\n  g. Ajudar a fazer uma colcha de retalhos",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Conhecer cinco remédios caseiros feitos de plantas silvestres e explicar seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer um dos seguintes:\n  a. Ajudar a construir uma balsa usando amarras. Fazer um percurso de cinco milhas (8,3 km) num rio com essa balsa.\n  b. Com um tropeiro experiente, participar de uma cavalgada de dois dias e 15 milhas (25 km), levando todos os suprimentos necessários num cavalo de carga que você aprendeu a carregar.\n  c. Com um líder experiente, participar de uma viagem de canoa de dois dias e 15 milhas (25 km), levando corretamente todos os suprimentos necessários. Deve-se fazer um pequeno trecho de transporte da canoa por terra (portage).\n  d. Com um líder experiente, participar de uma caminhada de dois dias e 15 milhas (25 km) com mochila, levando todos os suprimentos necessários.",
+   "instructions": null
+  }
+ ]
+}

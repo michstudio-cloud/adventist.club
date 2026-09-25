@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-shapes-and-sizes",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=89",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Formas e tamanhos",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um álbum para colar os trabalhos. Desenhar formas de tamanhos diferentes na capa.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e recortar seis formas diferentes. Colá-las no álbum. (Retângulo, quadrado, círculo, oval, losango e triângulo.)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um quadro usando formas diferentes (pode-se recortar as formas em papel-cartão). Colocá-lo no álbum.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um passeio e procurar formas diferentes. Há alguma forma que você vê mais vezes que as outras?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Tamanhos: distinguir entre pequeno, médio e grande.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usando blocos ou outros objetos, brincar de um jogo com tamanhos diferentes. Fazer perguntas como: Qual é grande, maior, o maior de todos, pequeno, menor, o menor de todos etc.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar, colorir ou pintar um quadro com objetos de tamanhos diferentes e dizer qual é pequeno, médio e grande.",
+   "instructions": null
+  }
+ ]
+}

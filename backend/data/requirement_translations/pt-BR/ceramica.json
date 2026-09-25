@@ -1,0 +1,48 @@
+{
+ "honor_slug": "ceramica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ceramics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar brevemente a história da cerâmica antiga.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber o que significam os seguintes termos:\n  a. Peça crua (greenware)\n  b. Biscoito\n  c. Decalque\n  d. Forno\n  e. Esmalte (vidrado)\n  f. Barbotina\n  g. Massa para reparo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o uso de cones pirométricos nos fornos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber como e quando usar o subvidrado (underglaze) e o esmalte.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as ferramentas usadas para concluir seus projetos de cerâmica.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Concluir uma peça usando esmalte cristalino.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Concluir dois dos seguintes objetos, usando subvidrado em pelo menos um deles:\n  a. Pote de biscoitos\n  b. Prato de torta\n  c. Vaso\n  d. Floreira\n  e. Bomboniere\n  f. Caneca\n  g. Objeto de sua escolha",
+   "instructions": null
+  }
+ ]
+}

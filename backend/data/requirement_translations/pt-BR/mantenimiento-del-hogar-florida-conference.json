@@ -1,0 +1,68 @@
+{
+ "honor_slug": "mantenimiento-del-hogar-florida-conference",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Home_Maintenance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Manutenção da casa",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar as seguintes ferramentas e conhecer seu uso:\n  a. Martelo\n  b. Chave de fenda comum\n  c. Chave Phillips\n  d. Alicate universal\n  e. Alicate de bico\n  f. Alicate de corte\n  g. Alicate de pressão\n  h. Esquadro\n  i. Nível\n  j. Serrote\n  k. Serra de arco\n  l. Serra circular\n  m. Furadeira e brocas\n  m. Prumo\n  o. Trena de aço retrátil\n  p. Caixa de meia-esquadria",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar habilidade para pregar na madeira pelo menos seis de dez pregos sem entortá-los.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando uma furadeira de sua escolha, fazer um furo em uma placa de parede (drywall) e instalar uma bucha (tipo molly) e um parafuso.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Colocar dois parafusos na madeira. Mostrar habilidade para usar a chave de fenda comum e a chave Phillips.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar habilidade para refazer a ligação de um plugue simples, como instalar um plugue novo no fio de um abajur ou consertar um já existente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usando esquadro e serrote, demonstrar habilidade para serrar uma tábua em ângulo reto.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever como pendurar um quadro, incluindo as ferramentas que você usaria. O que você faria de diferente para pendurar um quadro de 35 libras (16 kg) em comparação com um quadro de 2 libras (0,9 kg)?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Preparar uma caixa de ferramentas simples. Recomenda-se usar ferramentas reais, mas podem ser usadas figuras.\n  a. Que pontos devem ser considerados ao escolher um recipiente para suas ferramentas?\n  b. Por que é importante comprar ferramentas de boa qualidade, mesmo que isso signifique ter menos ferramentas?\n  c. Dar pelo menos um uso para cada ferramenta que você escolher para sua caixa de ferramentas.\n  d. Como você deve cuidar de suas ferramentas?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que você deve fazer se descobrir um cano de água rompido?\n  a. Se houver eletricidade envolvida?\n  b. Se não houver eletricidade envolvida?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar como trocar o vedante (courinho) gasto de uma torneira.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O que você deve fazer se um ralo entupir?\n  a. O que é um desentupidor? Como você o usaria para desentupir um ralo?\n  b. Que precauções devem ser tomadas ao usar desentupidores químicos?",
+   "instructions": null
+  }
+ ]
+}

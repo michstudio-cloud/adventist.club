@@ -1,0 +1,51 @@
+{
+ "honor_slug": "desarrollo-urbano",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Urban_Development",
+ "license": "CC BY-SA 4.0",
+ "name": "Desenvolvimento urbano",
+ "description": null,
+ "name_source": "traduccion-no-oficial-guiasmayores.com",
+ "name_source_url": "https://www.guiasmayores.com/especialidades-ja---adra.html",
+ "name_license": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o processo de urbanização e fazer uma lista de algumas das necessidades humanas que ele cria, especialmente para os pobres.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler os capítulos de A Ciência do Bom Viver, de Ellen G. White, intitulados «Os desempregados e os destituídos de lar» e «Os pobres desamparados», e escrever um resumo de uma página com os pontos principais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entrevistar o pastor, o líder dos Serviços Comunitários Adventistas ou o coordenador do programa para o centro da cidade de uma Igreja Adventista do Sétimo Dia do centro da cidade e perguntar como a igreja está atendendo às necessidades dos pobres da comunidade. Tomar notas durante a entrevista.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar um relatório de 15 minutos sobre como um grupo de jovens poderia ajudar nos problemas de desenvolvimento urbano que a igreja está patrocinando. O relatório pode ser apresentado individualmente ao seu instrutor ou ao adulto responsável pelo grupo de jovens, ou em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Passar pelo menos quatro horas em uma das seguintes saídas de campo como observador participante:\n  a. Sair com uma equipe de ministério de rua que distribui alimentos e/ou cobertores ou agasalhos aos moradores de rua de um bairro urbano\n  b. Sair com uma unidade móvel de exames de saúde que atua em um bairro urbano.\n  c. Sair com uma equipe cristã de trabalho que está reformando ou construindo moradias urbanas para os pobres.\n  d. Trabalhar em um restaurante popular ou em um abrigo para moradores de rua de um bairro urbano.\n  e. Ser voluntário em um centro dos Serviços Comunitários Adventistas localizado em um bairro urbano.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Assistir a um culto em uma igreja de um bairro urbano formada por um grupo étnico diferente do seu. Fazer uma lista, para o seu instrutor, das coisas que você observou que eram diferentes daquilo a que está acostumado em sua própria cultura. Depois, fazer uma lista das coisas que eram semelhantes ao que você está acostumado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever uma proposta de pelo menos quatro páginas para um projeto de desenvolvimento urbano que possa ser realizado principalmente por voluntários adolescentes e/ou jovens adultos. Incluir objetivos, plano de ação, pessoal necessário, cronograma e orçamento. Esta proposta pode ser escrita individualmente ou como projeto de uma equipe de trabalho de no máximo quatro pessoas.",
+   "instructions": null
+  }
+ ]
+}

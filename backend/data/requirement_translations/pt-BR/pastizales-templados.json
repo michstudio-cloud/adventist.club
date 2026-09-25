@@ -1,0 +1,68 @@
+{
+ "honor_slug": "pastizales-templados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Temperate_Grasslands/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pradarias temperadas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma pradaria?\n  a. Onde elas podem ser encontradas?\n  b. O que é necessário para que uma pradaria se forme?\n  c. De que maneira as pradarias são benéficas?\n  d. Quais são os diversos tipos de ecossistemas de pradaria? Descrevê-los brevemente.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três grandes famílias taxonômicas de plantas que podem ser encontradas em uma pradaria temperada. Descrever, fotografar ou desenhar cinco espécies diferentes e identificar a que família cada uma pertence.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar num desenho as partes de uma gramínea, incluindo: lâmina foliar, nó, bainha e raízes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "As pradarias temperadas podem ser divididas em que dois subgrupos? Quais são as diferenças entre eles?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os dois principais motivos pelos quais árvores e arbustos não são comuns nas pradarias temperadas? Em que condições as árvores podem crescer numa pradaria?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber identificar três de cada um dos seguintes grupos que podem ser encontrados em uma pradaria temperada. Descrever como suas características lhes permitem viver ali. Desenhá-los ou fotografá-los.\n  a. Plantas\n  b. Aves\n  c. Mamíferos\n  d. Insetos",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que faz com que o solo do bioma de pradaria temperada se torne rico em nutrientes?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher uma pradaria e descobrir o seguinte:\n  a. Tamanho\n  b. Temperatura média\n  c. Precipitação média anual\n  d. Tipo de gramínea mais comum\n  e. Usos comuns da pradaria pelas pessoas",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Por que é importante conservar as pradarias do mundo? Que medidas podem ser tomadas para protegê-las?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Visitar uma pradaria natural e demarcar um metro quadrado dela, identificando todas as espécies de plantas e animais que encontrar. Escrever, gravar ou compartilhar sua experiência com seu grupo.\n  b. Visitar um zoológico e desenhar/fotografar animais típicos de uma pradaria temperada.\n  c. Assistir a pelo menos 15 minutos de uma transmissão ao vivo ou de um vídeo sobre uma pradaria e discutir o que você aprendeu.\n  d. Criar uma palavra cruzada usando cada uma das espécies de plantas, aves, mamíferos e insetos de pradaria que você identificou anteriormente.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Preparar e apresentar uma lição objetiva sobre uma planta, ave ou mamífero que vive em uma pradaria temperada. Incluir pelo menos dois textos bíblicos nessa apresentação.",
+   "instructions": null
+  }
+ ]
+}

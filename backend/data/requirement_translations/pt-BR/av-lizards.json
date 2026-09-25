@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-lizards",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=227",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Lagartos",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um “herper” (entusiasta de répteis e anfíbios)? Como você pode se tornar um?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender sobre os lagartos de sua região.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender a cuidar de um lagarto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pegar um lagarto ou vê-los em um pet shop, em um vídeo, em um centro de estudos da natureza, em um zoológico ou em livros. Convidar um herpetólogo ou um convidado que conheça o assunto para falar aos Aventureiros.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pintar um lagarto em uma pedra.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler Levítico 11:29-30.",
+   "instructions": null
+  }
+ ]
+}

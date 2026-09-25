@@ -1,0 +1,48 @@
+{
+ "honor_slug": "trepar-arboles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tree_Climbing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Praticar várias vezes suas habilidades de escalada numa árvore de 10-15 pés (3-4,5 m).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Subir num coqueiro de 20 pés (6 m). Demonstrar a maneira de descer ao chão com segurança.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Completar o seguinte:\n  a. Subir numa árvore usando qualquer um dos quatro métodos comuns.\n  b. Descrever em detalhes os outros métodos ao instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O instrutor deve escolher árvores adequadas para a escalada: uma com muitos galhos e a outra um coqueiro. Cada pessoa deve demonstrar em cada uma das duas árvores como aplicar os dois métodos de escalada de árvores (salto agachado e estilo macaco).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como você levaria com segurança um facão e um machado árvore acima.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Completar o seguinte:\n  a. Subir num coqueiro demonstrando como você levaria uma sacola.\n  b. Retirar um coco sem usar faca ou instrumento cortante, usando apenas seus membros, e voltar ao chão com ele na sacola.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber como retirar uma pessoa ferida de uma árvore.",
+   "instructions": null
+  }
+ ]
+}

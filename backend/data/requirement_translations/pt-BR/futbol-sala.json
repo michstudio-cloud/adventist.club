@@ -1,0 +1,63 @@
+{
+ "honor_slug": "futbol-sala",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Futsal/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Futsal",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "De acordo com as regras internacionais do futsal, responder o seguinte:\n  a. O que é o futsal?\n  b. Qual é o objetivo do jogo?\n  c. Como se joga uma partida de futsal?\n  d. Como é a divisão dos tempos na partida de futsal?\n  e. Citar onde o futsal é praticado.\n  f. Quais são as dimensões oficiais de uma quadra de futsal?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um relatório contando a história do futsal e mostrar passo a passo o desenvolvimento histórico de sua prática.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as diferenças entre o futsal e o futebol society (indoor soccer)?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o órgão internacional que rege o futsal?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os seguintes fundamentos do futsal:\n  a. Passe\n  b. Drible\n  c. Finta\n  d. Cabeceio\n  e. Chute\n  f. Recepção\n  g. Condução\n  h. Domínio de bola\n  i. Tiro de meta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são as categorias oficiais do futsal? Dizer a idade de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever as seguintes posições:\n  a. Goleiro\n  b. Fixo\n  c. Ala\n  d. Pivô",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever as regras básicas do futsal, explicando cada uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Apresentar a ficha e o plano detalhado de um campeonato com pelo menos oito equipes de futsal e citar as regras disciplinares do evento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Participar de pelo menos três partidas de futsal e descrever por completo o desenvolvimento do jogo. Nessas partidas, você pode atuar como:\n  a. Técnico ou membro da comissão técnica\n  b. Jogador de linha ou goleiro\n  c. Árbitro ou assistente",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-muerte-y-la-resurreccion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/26_-_Death_and_Resurrection/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A morte e a ressurreição",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber quem é o único ser imortal, segundo a Bíblia. (1 Timóteo 6:15-16)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Estudar como Deus criou o ser humano e que advertência Ele deu a respeito da morte. (Gênesis 2:7, 16-17)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como a morte passou a fazer parte da realidade humana. (Gênesis 3:4, 6, 19)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entender o que a Bíblia explica sobre a duração da vida do ser humano. (Romanos 5:12; Tiago 4:14; Jó 14:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o meio pelo qual podemos receber a vida eterna. (Romanos 6:23; 2 Timóteo 1:10; 1 Coríntios 15:22)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar João 5:28-29.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo a solução da Bíblia para o problema da morte. (1 Coríntios 15:51-54)",
+   "instructions": null
+  }
+ ]
+}

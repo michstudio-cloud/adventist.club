@@ -1,0 +1,59 @@
+{
+ "honor_slug": "av-disciples",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=359",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Discípulos",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um discípulo?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Usando a Bíblia, encontrar os nomes e as profissões dos discípulos e escrever cada nome e cada profissão em um cartão separado. (Mateus 10:2-4, Marcos 3:14-19, Lucas 6:13-16, João 1:41-48). Misturar os cartões no chão e ver quantos nomes você consegue combinar com a profissão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar duas duplas de discípulos que eram irmãos. (Ver Mateus 10:2.)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descobrir qual discípulo foi chamado primeiro para seguir Jesus. Ler para descobrir o que esse discípulo fez quando descobriu que Jesus era o Messias (João 1:35-42).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que os discípulos pediram a Jesus que lhes ensinasse a fazer? (Ver Lucas 11:1.)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Repetir o Pai-Nosso.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher um discípulo e aprender três coisas sobre ele.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Cantar uma música sobre os discípulos e/ou fazer uma pequena encenação.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ser um discípulo de Jesus.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-magnet-fun-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=75",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com ímãs II",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade Diversão com ímãs I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Brincar com dois ímãs fazendo com que se atraiam. Brincar com dois ímãs fazendo com que se repelam. Todos os ímãs têm um polo ________________ e um polo _______________. Polos opostos se atraem, polos iguais se repelem.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um eletroímã.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usar uma bússola para encontrar as oito direções. Desenhá-las em uma rosa dos ventos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma bússola usando um ímã, uma vasilha com água, uma agulha de costura comprida, uma rodela de cortiça (ou papel encerado), cera de vela e uma bússola.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que acontece quando se deixa cair um ímã?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Aprender Provérbios 18:24.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

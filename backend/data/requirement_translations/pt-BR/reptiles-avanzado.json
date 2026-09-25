@@ -1,0 +1,53 @@
+{
+ "honor_slug": "reptiles-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Reptiles_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Répteis.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como se chama o estudo dos répteis?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descobrir e registrar (ou contar) pelo menos três lendas populares e três fatos relacionados aos répteis.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que será que grande parte das pessoas tem medo de répteis e que existem tantas histórias falsas envolvendo répteis?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os répteis se protegem?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os dois principais tipos de veneno de répteis e como eles afetam a presa ou o inimigo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar na natureza pelo menos metade da lista do requisito 2 da especialidade básica.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Encontrar um réptil na natureza e registrar suas observações sobre a atividade dele durante as horas de luz de um ou mais dias.",
+   "instructions": null
+  }
+ ]
+}

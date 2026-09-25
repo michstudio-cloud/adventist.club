@@ -1,0 +1,43 @@
+{
+ "honor_slug": "petanca",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/P%C3%A9tanque/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Petanca",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever um breve histórico da petanca.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as principais regras da petanca de forma visual e criativa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos: apontador (pointeur), atirador (tireur), meio (milieu), dupla montada, dupla sorteada (mêlée), trio misto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as principais marcas de bolas de petanca e as diferenças de uso. Saber aconselhar um amigo que queira comprar um jogo de bolas (tamanho, peso, revestimento etc.).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Assistir a (ou participar de) uma competição de petanca (no bairro, num acampamento etc.). Apresentar um breve relatório ao seu clube.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Organizar uma competição de petanca para seu clube ou igreja.",
+   "instructions": null
+  }
+ ]
+}

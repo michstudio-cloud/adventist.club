@@ -1,0 +1,48 @@
+{
+ "honor_slug": "peces",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fishes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar dez famílias de peixes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, por meio de figuras ou observação pessoal, dez peixes tropicais.\n  a. Explicar seus hábitos de reprodução.\n  b. Indicar o hábitat ou o país onde são encontrados.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar, por meio de figuras ou observação pessoal, dez peixes nativos de seu país. Explicar seus hábitos de alimentação e de reprodução.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir as seguintes partes de um peixe:\n  a. Nadadeira dorsal\n  b. Nadadeira peitoral\n  c. Nadadeira pélvica\n  d. Nadadeira anal\n  e. Nadadeira caudal\n  f. Linha lateral\n  g. Opérculo\n  h. Barbilhões\n  i. Bexiga natatória\n  j. Brânquias",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar brevemente o cuidado e a alimentação adequados de peixes da:\n  a. Zona tropical\n  b. Zona temperada",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Montar um aquário com pelo menos cinco galões (19 litros) de água, com equilíbrio entre plantas e peixes, tropicais ou nativos, e mantê-lo por pelo menos seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Observar o efeito dos seguintes fatores sobre os peixes e o aquário em geral:\n  a. Luz em excesso\n  b. Pouca luz\n  c. Excesso de alimentação\n  d. Mudança excessiva da temperatura da água\n  e. Poucas plantas e peixes demais",
+   "instructions": null
+  }
+ ]
+}

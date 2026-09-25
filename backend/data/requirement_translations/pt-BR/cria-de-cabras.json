@@ -1,0 +1,78 @@
+{
+ "honor_slug": "cria-de-cabras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Goat_Husbandry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar, ao vivo ou por meio de fotos, pelo menos duas raças de cabras. Dizer se são criadas para leite, carne ou lã.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipo de abrigo deve ser providenciado para as cabras?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipos de alimento são usados para:\n  a. O primeiro mês\n  b. O segundo mês\n  c. A gestação\n  d. A cabra recém-parida (em lactação)\n  e. O animal de um ano",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três plantas venenosas para as cabras.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quando os cabritos são desmamados?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quando os cabritos machos devem ser separados das cabras e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como se aparam os cascos das cabras?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Por que as cabras são boas para limpar terrenos cobertos de mato?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos seis objetos feitos com pele de cabra.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que são as barbelas (brincos)?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Criar pelo menos duas cabras durante seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Se criar cabras leiteiras, responder às seguintes perguntas:\n  a. Que pontos devem ser considerados na escolha de uma boa cabra leiteira?\n  b. Como se faz a pasteurização e qual é a sua finalidade?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Se criar cabras leiteiras, fazer o seguinte:\n  a. Fazer a ordenha de manhã ou à tarde de duas cabras, ou de manhã e à tarde de uma cabra, durante pelo menos três meses.\n  b. Manter registros diários da produção de leite.",
+   "instructions": null
+  }
+ ]
+}

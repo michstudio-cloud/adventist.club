@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-tin-can-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=101",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com latas",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o uso mais antigo conhecido do estanho e como ele é usado hoje?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Brincar do jogo “Lata misteriosa”.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Anotar quantas latas sua família usa em uma semana.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os alimentos eram conservados no tempo de Jesus?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como o estanho era usado nos tempos bíblicos?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um telefone de lata ou um pé de lata.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Levar três latas de alimento para doar.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-canoer",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=275",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Canoísta",
+ "description": "Observação: o aventureiro deve estar acompanhado de um instrutor o tempo todo.\n\nClasse sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade Natação I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Remar uma distância de 50 metros; virar à direita e à esquerda, mantendo sempre os remos do mesmo lado da canoa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Pular da canoa na água de modo que o barco continue seco; voltar à canoa, cuidando para que não entre água nela.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber o que é a proa e o que é a popa da canoa e aprender a manter o equilíbrio em uma canoa balançada pela água.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber como se preparar para andar de canoa:\n  a. Saber como se vestir de forma adequada.\n  b. Saber que precauções tomar em diferentes condições de tempo.",
+   "instructions": null
+  }
+ ]
+}

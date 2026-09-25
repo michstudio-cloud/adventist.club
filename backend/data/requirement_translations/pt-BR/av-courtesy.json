@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-courtesy",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=117",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cortesia",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que significa cortesia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a Regra de Ouro.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender e demonstrar boas maneiras à mesa.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como atender o telefone corretamente. Demonstrar boas maneiras ao telefone:\n  a. Fazendo uma ligação para um adulto\n  b. Fazendo uma ligação para um amigo de sua escolha OU\n  c. Apresentar um adulto a um amigo.\n  d. Apresentar seu professor a um de seus pais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Contar uma experiência de uma ocasião:\n  a. Em que um adulto foi cortês com você\n  b. Em que você foi cortês com outra pessoa",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar atos de cortesia ao\n  a. Pedir algo para beber\n  b. Dizer obrigado\n  c. Pedir desculpas\n  d. Cumprimentar um amigo\n  e. Compartilhar e esperar sua vez",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

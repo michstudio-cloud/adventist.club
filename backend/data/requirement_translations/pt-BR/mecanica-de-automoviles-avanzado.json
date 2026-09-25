@@ -1,0 +1,38 @@
+{
+ "honor_slug": "mecanica-de-automoviles-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Automobile_Mechanics_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mecânica automotiva.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desmontar, inspecionar e montar novamente o motor de um automóvel ou caminhonete. Substituir as peças defeituosas ou gastas. Retificar, dar partida e operar o veículo. Manter um registro completo dos acontecimentos durante a revisão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Remover e recolocar um conjunto de transmissão manual ou automática.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Refazer o sistema de freios de um automóvel ou caminhonete, seguindo os procedimentos de segurança adequados. Demonstrar a sangria e a regulagem corretas dos freios. Lubrificar corretamente um rolamento de roda.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma regulagem simples do motor, incluindo a troca das velas de ignição e a verificação visual do sistema elétrico.",
+   "instructions": null
+  }
+ ]
+}

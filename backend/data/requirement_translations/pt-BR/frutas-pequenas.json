@@ -1,0 +1,53 @@
+{
+ "honor_slug": "frutas-pequenas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Small_Fruit_Growing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as exigências de solo para cultivar amoras e framboesas, morangos, uvas e mirtilos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever um relatório de uma página explicando como cultivar uma das frutas acima. Incluir o seguinte:\n  a. Escolha da variedade\n  b. Preparo do solo\n  c. Técnicas de plantio\n  d. Adubação\n  e. Poda (quando for o caso)\n  f. Irrigação\n  g. Controle de pragas\n  h. Colheita",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três variedades de cada fruta que cresçam bem em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Podar dois pés de mirtilo, duas videiras ou uma fileira de dez pés (3 m) de amoras ou framboesas na época certa, na horta da família ou para um amigo ou vizinho.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é uma cultura perecível?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por quanto tempo podem ser armazenados os morangos, as amoras e framboesas, os mirtilos e as uvas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever um inseto ou doença grave de cada fruta. Incluir quando o problema ocorre, o dano causado e os tratamentos químicos ou culturais. Usar o maior número possível de fotos ou desenhos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer a análise do solo de uma horta e determinar quais frutas crescerão ali. Pedir recomendações de adubação para uma das culturas e calcular o custo do adubo necessário para seis fileiras de 100 pés (30,5 metros).",
+   "instructions": null
+  }
+ ]
+}

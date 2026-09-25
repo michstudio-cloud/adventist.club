@@ -1,0 +1,63 @@
+{
+ "honor_slug": "liderazgo-al-aire-libre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Outdoor_Leadership/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as seguintes especialidades: Arte de acampar e Acampamento I-III",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conquistar quatro das seguintes especialidades. Da lista abaixo, estudar novamente qualquer especialidade já conquistada, para poder responder aos requisitos com conhecimento.\n  a. Excursionismo pedestre com mochila\n  b. Acampamento IV\n  c. Fogueiras e cozinha ao ar livre\n  d. Excursionismo pedestre\n  e. Mapa e bússola\n  f. Pioneirismo\n  g. Acampamento em baixas temperaturas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter a especialidade de Primeiros socorros - básico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber o que fazer para vencer o medo quando estiver perdido. Conhecer pelo menos quatro maneiras de pedir socorro por sinais se estiver perdido em uma área selvagem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer pelo menos quatro atividades comuns e quatro atividades de sábado para usar ao ar livre em um dia de chuva.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte ao ar livre:\n  a. Planejar, organizar e ensinar uma especialidade de natureza a um grupo de jovens.\n  b. Ajudar a ensinar a um grupo de jovens as técnicas de acampamento exigidas em qualquer especialidade de acampamento e/ou nos requisitos das classes de JA.\n  c. Descobrir onde fica o hospital mais próximo.\n  d. Descobrir onde se pode obter a ajuda mais próxima da polícia ou de um guarda-parque.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por meio da Bíblia e/ou dos escritos de Ellen G. White, estudar e aprender como a natureza influenciou os seguintes personagens bíblicos:\n  a. Moisés\n  b. Davi\n  c. Elias\n  d. João Batista\n  e. Jesus",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber que cuidados devem ser tomados ao ar livre com um grupo de jovens nas seguintes áreas:\n  a. Segurança no acampamento\n  b. Prevenção de incêndios\n  c. Saneamento\n  d. Regras de segurança na natação\n  e. Regras de conduta\n  f. Observância correta do sábado",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista de pelo menos seis maneiras de manter a natureza bonita para que outros possam aproveitá-la.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer pelo menos dez qualidades de um bom líder de jovens.",
+   "instructions": null
+  }
+ ]
+}

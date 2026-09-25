@@ -1,0 +1,93 @@
+{
+ "honor_slug": "surf",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Surfing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Surfe",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir surfe.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que sete itens são necessários para surfar?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é a amplitude das marés?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que a amplitude das marés varia de um lugar para outro?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre maré baixa e maré alta?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como ocorrem as marés baixa e alta?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são ondas deslizantes (spilling) e ondas tubulares de arrebentação (dumping)?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é uma corrente de retorno?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar cinco sinais que permitem identificar uma corrente de retorno.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que você deve fazer se for pego por uma corrente de retorno?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar pelo menos cinco cuidados de segurança no surfe.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar pelo menos cinco regras de etiqueta do surfe.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Em que dia Deus criou o mar?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Identificar cinco versículos da Bíblia sobre as ondas e o mar.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Que atributos de Deus vêm à sua mente quando você está no oceano?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Participar de uma aula de surfe de duas horas OU surfar pelo menos cinco vezes com alguém que possa ensiná-lo.",
+   "instructions": null
+  }
+ ]
+}

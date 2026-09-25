@@ -1,0 +1,63 @@
+{
+ "honor_slug": "radioelectronica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Radio_Electronics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar pelo menos 20 símbolos usados em eletrônica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar o valor de resistores pelo código de cores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar técnicas corretas de soldagem.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o uso e o funcionamento de vários componentes importantes da eletrônica, como resistores, capacitores variáveis, capacitores fixos, bobinas, transistores, circuitos integrados, diodos e transformadores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e compreender a Lei de Ohm.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Determinar como posicionar ou encaixar corretamente circuitos integrados, transistores, diodos e capacitores numa placa de circuito.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que se entende por circuito em paralelo e circuito em série?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "A partir de um kit ou do zero, montar dois dos seguintes:\n  a. Alarme ou contador com fotocélula\n  b. Sirene\n  c. Voltímetro simples\n  d. Sensor de pressão\n  e. Fonte de alimentação CC simples\n  f. Rádio transistorizado simples",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar de memória, usando os símbolos corretos, o diagrama elétrico completo dos aparelhos montados no requisito 8.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de dez maneiras como a eletrônica é usada no dia a dia.",
+   "instructions": null
+  }
+ ]
+}

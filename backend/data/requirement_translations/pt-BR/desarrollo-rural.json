@@ -1,0 +1,46 @@
+{
+ "honor_slug": "desarrollo-rural",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-wikibooks",
+ "source_url": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/ADRA/Rural_Development",
+ "license": "CC BY-SA 4.0",
+ "name": "Desenvolvimento rural",
+ "description": null,
+ "name_source": "traduccion-no-oficial-guiasmayores.com",
+ "name_source_url": "https://www.guiasmayores.com/especialidades-ja---adra.html",
+ "name_license": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar ao seu instrutor por que algumas nações do mundo são chamadas de países «em desenvolvimento» e por que outras são chamadas de países «desenvolvidos».",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar dez países em desenvolvimento e fazer uma lista de duas coisas que a ADRA está fazendo nesses países que se enquadrariam na descrição de «assistência» e três coisas que se enquadrariam na descrição de «desenvolvimento».",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler o que Ellen G. White escreveu sobre por que temos os pobres conosco em O Desejado de Todas as Nações, capítulo 70, intitulado «Um destes Meus pequeninos irmãos». Resumir o que você aprendeu com este capítulo em 50 palavras ou menos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Assistir a um vídeo da ADRA sobre atividades de desenvolvimento em outros países que não o seu e participar, depois do vídeo, de uma discussão de pelo menos 20 minutos sobre o que você viu.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para trabalho avançado (Nível de Habilidade 2), participar de uma das seguintes saídas de campo ou projetos em grupo:\n  a. Trabalhar como voluntário no programa Global Village da ADRA, quando estiver em funcionamento.\n  b. Participar de uma viagem missionária a uma área rural carente em outro país ou em seu próprio país.\n  c. Um projeto em sua comunidade para recolher um caminhão de roupas, ferramentas manuais, suprimentos médicos, barracas ou outros itens que a ADRA possa usar em projetos de desenvolvimento rural no exterior. Isso inclui arrecadar doações suficientes para transportar os itens recolhidos até o armazém da ADRA mais próximo.\n  d. Um jejum em grupo de 24 horas com uma sessão educativa de «confinamento» com seu grupo de jovens, focada em entender as necessidades dos pobres nos países em desenvolvimento e planejada para arrecadar fundos para o desenvolvimento rural.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever uma carta para uma pessoa da sua idade e do seu sexo que viva em uma área rural e subdesenvolvida de outro país. Fazer perguntas para saber como ela vive e expressar seu interesse em apoiar o desenvolvimento do país dela, sem usar uma linguagem condescendente.",
+   "instructions": null
+  }
+ ]
+}

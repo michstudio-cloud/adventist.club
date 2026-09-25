@@ -1,0 +1,48 @@
+{
+ "honor_slug": "techado-con-paja",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Thatching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das várias ferramentas necessárias para cobrir telhados com palha, indicando seus usos, e mostrar um “dekspaan” e uma “agulha” feitos por você.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Indicar que materiais são necessários para montar a estrutura de um telhado pronto para ser coberto com palha. Explicar brevemente como montar a estrutura de uma rondavel (cabana redonda).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar os vários materiais necessários para cobrir com palha, incluindo vários tipos de “capins” e de “fios” de amarração. Mostrar amostras deles.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Responder às seguintes perguntas sobre a preparação do material de cobertura:\n  a. Quando o capim é cortado e como é empilhado para armazenamento?\n  b. Como o capim é “penteado” e preparado para a cobertura?\n  c. Como se faz a corda de amarração? Que matérias-primas são usadas em sua localidade?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Responder ao seguinte:\n  a. Qualquer formato de telhado pode ser coberto com palha?\n  b. Qual é o telhado mais fácil de cobrir com palha?\n  c. Quais são algumas vantagens de um telhado de palha?\n  d. Quais são algumas coisas que danificam a cobertura de palha? Como você protegeria um telhado de palha contra elas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ter algum conhecimento prático sobre como cobrir com palha e demonstrar habilidade assentando algumas fileiras curtas de palha.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Responder ao seguinte:\n  a. Quantos trabalhadores são necessários para cobrir uma rondavel com palha?\n  b. Descrever como você começaria a cobrir uma rondavel com palha.\n  c. Explicar e, se possível, demonstrar como você faria o acabamento de: (1) um telhado redondo (2) um telhado de duas águas",
+   "instructions": null
+  }
+ ]
+}

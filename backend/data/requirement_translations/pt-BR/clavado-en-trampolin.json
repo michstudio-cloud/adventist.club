@@ -1,0 +1,28 @@
+{
+ "honor_slug": "clavado-en-trampolin",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Springboard_Diving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar os seguintes saltos:\n  a. Salto de anjo (cisne)\n  b. Salto mortal para a frente (grupado)\n  c. Meio parafuso",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher dois saltos opcionais entre os seguintes: meio salto revirado (grupado, carpado ou estendido), salto invertido, salto mortal e meio para a frente, salto do marinheiro, meio parafuso, salto de costas, faca de costas (back knife), canivete de costas (back jack).\n  a. Meio parafuso\n  b. Salto invertido (cutaway)\n  c. Salto mortal e meio para a frente\n  d. Salto de costas\n  e. Canivete de costas\n  f. Meio salto revirado (grupado, carpado ou estendido)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer quais são as profundidades seguras de água sob um trampolim de um metro, um trampolim de três metros e uma plataforma. Quanto o trampolim deve se projetar sobre a piscina? Que trampolins são recomendados?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-scavenger-hunt",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=241",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Caça ao tesouro",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma caça ao tesouro com seu pai ou sua mãe, um professor ou outro adulto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Encontrar dois itens da natureza (bolotas, pinhas, nozes, folhas etc.).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar algo relacionado com uma história bíblica (cestinho = Moisés, algodão, lã de cordeiro, pedras = altar, tecido multicolorido = túnica de José etc.). Conversar sobre a história.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encontrar algo vermelho (flor, pedaço de tecido, lápis de cor etc.).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Encontrar um ovo de plástico (ou outro tipo de recipiente), abri-lo e compartilhar o conteúdo com outro Passarinho. (Pode-se colocar uvas, uvas-passas, balas ou o que quiser.)",
+   "instructions": null
+  }
+ ]
+}

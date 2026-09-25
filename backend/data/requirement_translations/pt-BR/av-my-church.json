@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-my-church",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=383",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Minha igreja",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Entender o significado de 1 Coríntios 3:16 e memorizar o versículo, e aprender o cântico “Senhor, prepara-me para ser um santuário”.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber o nome de sua igreja e escrever o endereço. Com o clube, desenhar um mural com a igreja no centro e incluir a casa de cada Aventureiro em relação à igreja, com o nome de todas as ruas e estradas, como um mapa até a igreja.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quem é seu pastor e qual é a responsabilidade dele(a)? Fazer as seguintes perguntas:\n  a. Por que você decidiu ser pastor?\n  b. Com que idade você decidiu ser pastor?\n  c. Aconteceu algo em sua vida que fez você querer ser pastor?\n  d. Eu posso ser pastor, se Deus me chamar?\n  e. Como posso me preparar para uma vida de serviço a Deus?\n  f. Como posso ser um ministro agora mesmo?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar a planta de sua igreja. Se sua igreja tiver os seguintes espaços, indicá-los em seu desenho:\n  a. Templo\n  b. Secretaria da igreja\n  c. Sua sala da Escola Sabatina\n  d. Salão social\n  e. Banheiros\n  f. Sala dos Aventureiros\n  g. Sala da Ação Solidária",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é a comissão da igreja e qual é sua função?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dez membros da comissão da igreja. Que cargo(s) eles ocupam?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar como você pode ajudar a Deus em sua igreja todas as semanas, começando nesta semana.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

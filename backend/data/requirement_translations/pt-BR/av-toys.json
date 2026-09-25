@@ -1,0 +1,59 @@
+{
+ "honor_slug": "av-toys",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=319",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Brinquedos",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são seus brinquedos preferidos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar ou colorir uma figura de seus brinquedos preferidos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por que é melhor pegar um ou dois brinquedos de cada vez e depois guardá-los?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Guardar seus brinquedos durante uma semana.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Compartilhar um brinquedo com:\n  a. Um amigo\n  b. Seu irmão ou sua irmã, com alegria",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cantar uma música sobre compartilhar e praticar enquanto canta.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dar um brinquedo a alguém que não tem brinquedos OU arrecadar um brinquedo e doá-lo a uma instituição de caridade.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Dizer a seu professor, seu pai ou sua mãe o que você escreveria em um bilhete de “Obrigado” para alguém que lhe deu um brinquedo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista de desejos desenhando ou recortando e colando figuras de quatro brinquedos diferentes que você gostaria de ganhar no Natal ou no seu aniversário.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

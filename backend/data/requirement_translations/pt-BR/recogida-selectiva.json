@@ -1,0 +1,33 @@
+{
+ "honor_slug": "recogida-selectiva",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Waste_Sorting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Coleta seletiva",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Visitar uma estação de tratamento de água, uma usina de reciclagem, um incinerador ou outra instalação de conservação de recursos e apresentar um relatório ao clube.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Visitar um centro de reciclagem para ver como os resíduos são tratados. Descobrir:\n  Quantas toneladas de lixo são descartadas por semana? E por ano?\n  Para que serve separar os resíduos?\n  Como alguns resíduos são reciclados?\n  O que é feito com os resíduos não recicláveis?\n  Quanto custa por pessoa, por ano, recolher e destruir o lixo em seu município?\n  E quanto aos produtos tóxicos e aos carros sucateados?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Implantar a separação do lixo em sua casa e fazer compostagem, se possível.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar uma atividade artística para seu clube com objetos reaproveitados.",
+   "instructions": null
+  }
+ ]
+}

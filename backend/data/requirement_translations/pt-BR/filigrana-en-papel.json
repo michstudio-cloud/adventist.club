@@ -1,0 +1,48 @@
+{
+ "honor_slug": "filigrana-en-papel",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Paper_Quilling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Como se chamava o quilling quando essa arte começou?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer a história do quilling.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer as ferramentas usadas no quilling",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e ser capaz de fazer corretamente cada um dos seguintes rolinhos:\n  a. Círculo fechado\n  b. Círculo solto\n  c. Gota\n  d. Gota modelada\n  e. Olho (marquise)\n  f. Olho modelado\n  g. Meia-lua\n  h. Quadrado\n  i. Retângulo\n  j. Triângulo\n  k. Orelha de coelho\n  l. Semicírculo\n  m. Coração enrolado (flecha)\n  n. Folha de azevinho",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e ser capaz de fazer corretamente cada um dos seguintes arabescos:\n  a. Arabesco solto\n  b. Coração aberto\n  c. Arabesco em V\n  d. Arabesco em S\n  e. Arabesco em C",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um desenho floral simples usando pelo menos três dos métodos acima.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um quadro ou enfeite preenchido.",
+   "instructions": null
+  }
+ ]
+}

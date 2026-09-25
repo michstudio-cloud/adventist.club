@@ -1,0 +1,18 @@
+{
+ "honor_slug": "primeros-auxilios-ii-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/First_Aid_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Se você mora nos Estados Unidos ou em qualquer outro país onde a Cruz Vermelha oferece instrução, ser aprovado no exame de Primeiros Socorros Avançados da Cruz Vermelha Americana e receber seu certificado.",
+   "instructions": null
+  }
+ ]
+}

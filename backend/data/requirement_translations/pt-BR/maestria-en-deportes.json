@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-deportes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sportsman_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Esportes",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar SETE das seguintes especialidades:\n  - Arco e flecha\n  - Basquete\n  - Ciclismo\n  - Ciclismo - Avançado\n  - Flag Football\n  - Golfe\n  - Equitação - Avançado\n  - Cultura física\n  - Esqui downhill\n  - Softbol\n  - Futebol\n  - Tênis\n  - Atletismo\n  - Triathlon\n  - Acrobacias e equilíbrio\n  - Ultimate\n  - Vôlei",
+   "instructions": null
+  }
+ ]
+}

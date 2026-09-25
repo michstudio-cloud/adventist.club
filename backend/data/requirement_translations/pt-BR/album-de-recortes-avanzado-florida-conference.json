@@ -1,12 +1,36 @@
 {
  "honor_slug": "album-de-recortes-avanzado-florida-conference",
  "ministry": "pathfinders",
- "source_locale": "es",
+ "source_locale": "en",
  "target_locale": "pt-BR",
- "source": "traduccion-no-oficial-guiasmayores.com",
- "source_url": "https://www.guiasmayores.com/especialidades-ja---asociacioacuten-de-florida.html",
- "license": null,
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scrapbooking_(FL)_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
  "name": "Álbum de recortes - Avançado",
  "description": null,
- "requirements": []
+ "name_source": "traduccion-no-oficial-guiasmayores.com",
+ "name_source_url": "https://www.guiasmayores.com/especialidades-ja---asociacioacuten-de-florida.html",
+ "name_license": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter concluído a especialidade de Álbum de recortes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Relatar brevemente a história dos álbuns de recortes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é o spray desacidificante e quando ele é usado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte:\n  a. Completar duas páginas de álbum de recortes de 12” x 12” (30 x 30 cm) ou 8,5” x 11” (21,6 x 27,9 cm) (cada página frente e verso). Escolher temas para cada página ou fazer com que todas as páginas formem um só tema (estas páginas devem ser adicionais às páginas feitas para obter a especialidade de Álbum de recortes).\n  b. Completar uma página de álbum de recortes (frente e verso) ou duas páginas lado a lado com temas do seu Clube de Desbravadores.\n  Estas páginas devem usar pelo menos um exemplo de cada um dos seguintes itens:\n  Papel vegetal\n  Montagem dupla\n  Recordações\n  Adesivos\n  Recortes com cortador (die cuts)\n  Três formas diferentes de letras à mão\n  Bordas\n  Anotações (journaling)\n  Fotografias recortadas",
+   "instructions": null
+  }
+ ]
 }

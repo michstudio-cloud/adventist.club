@@ -1,0 +1,59 @@
+{
+ "honor_slug": "av-first-aid-helper",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=283",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Primeiros socorros",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar como tratar um esfolado ou um corte e descrever os perigos de um curativo sujo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever como cuidar de um sangramento no nariz.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar diferentes tipos de atadura e fazer um mostruário com eles.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Montar um estojo simples de primeiros socorros e aprender a utilidade dos itens incluídos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Esterilizar um dos seguintes itens e dizer por que cada um é importante em seu estojo de primeiros socorros.\n  a. pinça\n  b. termômetro\n  c. agulha",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Visitar um pronto-socorro para conhecer algumas das emergências que ali são atendidas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Brincar de “hospital” e praticar suas habilidades nas emergências acima.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever e desenhar o símbolo dos primeiros socorros.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar uma ocasião em que Jesus prestou os primeiros socorros a alguém que sangrava muito.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

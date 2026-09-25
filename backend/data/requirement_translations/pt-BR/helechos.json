@@ -1,0 +1,48 @@
+{
+ "honor_slug": "helechos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ferns/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que as samambaias são diferentes das plantas com flores ou das árvores?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Onde fica o verdadeiro caule de uma samambaia? Que parte cresce acima do solo? Qual é o ambiente mais favorável para o crescimento das samambaias?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como as samambaias se reproduzem? Localizar e descrever três tipos de soros (de três tipos de samambaias).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os esporos viajam da planta-mãe até um novo local? Quanto tempo leva para um esporo se desenvolver em uma planta adulta? Observar em samambaias vivas ou em figuras como uma samambaia jovem é diferente de uma samambaia adulta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer os usos medicinais de três samambaias.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenhar ou fotografar dez tipos de samambaias e identificá-los corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Além das samambaias comuns, existem plantas semelhantes a elas, conhecidas como licopódios e cavalinhas. Saber reconhecer dois licopódios e uma cavalinha. Em que eles se parecem com as samambaias?",
+   "instructions": null
+  }
+ ]
+}

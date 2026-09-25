@@ -1,0 +1,53 @@
+{
+ "honor_slug": "mineralogia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rocks_%26_Minerals_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Rochas e minerais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter uma coleção de 30 rochas e minerais corretamente identificados, dos quais 20 coletados pessoalmente por você. Etiquetar com o nome do coletor, a data e a localidade onde foi encontrado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer dois minerais de cada um dos seguintes sistemas cristalinos:\n  a. Isométrico (cúbico)\n  b. Hexagonal\n  c. Tetragonal",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer a escala de dureza de Mohs e os testes simplificados de dureza em campo. Usando esses testes, coletar em sua região uma série de espécimes que cubram a escala, para formar seu próprio conjunto de teste de dureza.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades:\n  a. Conhecer e explicar dois processos diferentes pelos quais os metais são extraídos dos minérios.\n  b. Conhecer oito minerais e dizer como cada um é usado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir o seguinte:\n  a. Cristalino\n  b. Criptocristalino\n  c. Brecha\n  d. Não cristalino (amorfo)\n  e. Fratura fibrosa\n  f. Brilho vítreo\n  g. Geodo\n  h. Petrificação\n  i. Estalactite\n  j. Fluorescência",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que quatro metais são encontrados com frequência em forma nativa ou livre?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conversar sobre o conteúdo de três declarações dos escritos de Ellen G. White a respeito de rochas ou minerais.",
+   "instructions": null
+  }
+ ]
+}

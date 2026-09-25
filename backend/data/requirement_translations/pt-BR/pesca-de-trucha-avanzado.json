@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pesca-de-trucha-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trout_Fishing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pesca de truta - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pesca de truta (nível 1).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "História da pesca com mosca: Pesquisar e apresentar um breve histórico da pesca com mosca. Incluir informações sobre as origens da pesca com mosca e o desenvolvimento das técnicas de montagem de moscas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Tipos de moscas: Identificar e descrever pelo menos três tipos principais de moscas usadas na pesca de truta. Incluir informações sobre moscas secas, moscas molhadas e ninfas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Montagem de moscas\n  a. Montagem de moscas: Pesquisar e encontrar instruções sobre como montar pelo menos três tipos diferentes de moscas. Incluir instruções passo a passo para montar uma mosca seca, uma mosca molhada e uma ninfa.\n  b. Oficina de montagem de moscas: Participar de uma oficina de montagem de moscas. Passar pelo menos duas horas montando moscas e aprendendo sobre diferentes materiais e técnicas de montagem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Os peixes na Bíblia: Usando uma concordância, procurar versículos da Bíblia que façam referência a peixes. Analisá-los e buscar temas, redigir 3-4 parágrafos sobre o que você encontrou e discutir em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Prática de arremesso: Praticar arremessos com uma vara de pesca com mosca. Montar alvos e trabalhar sua precisão e técnica. Passar pelo menos duas horas praticando arremessos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Trabalho de campo: Participar de uma excursão de pesca de truta usando apenas moscas. Pescar por pelo menos 3-4 horas em um rio, lago ou riacho da região. Registrar em seu caderno de trabalho/caderno a experiência e os tipos de truta pescados.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "dibujo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drawing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Desenho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Usando 3 técnicas diferentes para cada um, desenhar 3 dos seguintes:\n  a. Natureza-morta\n  b. Paisagem\n  c. Paisagem urbana\n  d. Paisagem marinha\n  e. Retrato",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quem foi Albrecht Dürer e qual foi sua contribuição para o desenho?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dar três exemplos de artistas contemporâneos conhecidos por suas habilidades no desenho.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar uma paisagem usando técnica mista.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher um dos temas do requisito 2 e fazer um desenho a lápis de pelo menos 12 x 18\" (30 x 46 cm). Concentrar-se em uma boa perspectiva e profundidade. Depois, usando lápis, sombrear o trabalho com no mínimo 6-8 variações de valor tonal. Assinar o trabalho. Quando terminar, expor o trabalho em um local público.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar Salmo 104:24. Discutir como esse versículo se relaciona com seu desenho e como pode inspirar suas futuras obras de arte.",
+   "instructions": null
+  }
+ ]
+}

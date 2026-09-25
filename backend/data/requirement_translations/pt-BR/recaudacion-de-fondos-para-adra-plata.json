@@ -1,0 +1,41 @@
+{
+ "honor_slug": "recaudacion-de-fondos-para-adra-plata",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/ADRA_Annual_Appeal_Collector/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arrecadação de fundos para ADRA (Prata)",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/ADRA_Annual_Appeal_Collector/pt-br",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar e definir a palavra «Apelo». Escrevê-la.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar e relatar como a ADRA presta serviços a crianças e adultos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever um parágrafo explicando por que o trabalho que a ADRA faz é importante.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ler Mateus 25:31-46 e escrever um parágrafo explicando o que significa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conquistar um dos seguintes níveis:\n  a. BRONZE:\n  Arrecadar mais de £10 para a ADRA durante o Apelo usando o Cartão de Coleta de Moedas do Apelo.\n  b. PRATA:\n  Arrecadar mais de £20 para a ADRA durante o Apelo usando o Cartão de Coleta de Moedas do Apelo.\n  Fazer uma apresentação de três minutos em sua escola ou na Escola Sabatina de sua igreja sobre o que você sabe a respeito da ADRA.\n  c. OURO:\n    i. Idade 10-12. Pesquisar e escrever uma história moderna (uma página, A4) a partir do texto bíblico de Lucas 10:25-37.\n    Arrecadar mais de £30 para a ADRA durante o Apelo usando o Cartão de Coleta de Moedas do Apelo.\n    ii. Idade 13-15. Contar em suas redes sociais a história de por que você está arrecadando fundos para a ADRA e colocar um link para a ADRA (Facebook, Instagram, Twitter).\n    Organizar um evento de arrecadação de fundos para a ADRA e arrecadar pelo menos £30,00 (cada um, se estiver fazendo em grupo).",
+   "instructions": null
+  }
+ ]
+}

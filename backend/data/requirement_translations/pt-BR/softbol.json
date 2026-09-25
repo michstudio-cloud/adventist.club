@@ -1,0 +1,78 @@
+{
+ "honor_slug": "softbol",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Slow-Pitch_Softball/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras básicas do softbol de arremesso lento (slow-pitch).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o significado de espírito esportivo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar as habilidades exigidas para as dez (10) posições do softbol e demonstrar que você as compreende.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar o seguinte:\n  a. Taco\n  b. Círculo de espera (on deck)\n  c. Caixa do rebatedor\n  d. Campo externo\n  e. Caixa do técnico\n  f. Montinho do arremessador\n  g. Almofadas das bases\n  h. Placa do arremessador\n  i. Luva\n  j. Campo direito\n  k. Base principal (home)\n  l. Campo esquerdo\n  m. Campo interno\n  n. Bola de softbol",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir ou explicar os seguintes termos do jogo:\n  a. Bases lotadas\n  b. Time da casa\n  c. Bunt (toque)\n  d. Entradas (innings)\n  e. Escolha do defensor\n  f. Escalação\n  g. Bola alta\n  h. Bola alta curta (popup)\n  i. Jogada forçada\n  j. Corrida\n  k. Foul tip\n  l. Placar\n  m. Grand slam\n  n. Zona de strike\n  o. Bola rasteira\n  p. A contagem\n  q. Home run\n  r. Base por bolas (walk)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar as seguintes marcações ou regras da arbitragem:\n  a. Jogada dupla\n  b. Dupla por regra de campo\n  c. Erro\n  d. Regra da bola alta no campo interno (infield fly)\n  e. Bola boa (fair)\n  f. Eliminação (out)\n  g. Bola fora (foul)\n  h. Salvo (safe)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar a capacidade de ler uma súmula básica marcada num jogo de que você participou.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista e descrever cinco (5) responsabilidades de um árbitro.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar 5 atributos mentais e físicos que se podem desenvolver com o softbol de arremesso lento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em equipe ou individualmente, elaborar um plano para fazer trabalho missionário enquanto cumpre os requisitos desta especialidade. Algumas opções possíveis:\n  a. Convidar 3 amigos que não são de sua igreja para jogar uma partida.\n  b. Fazer uma oração antes de cada jogo.\n  c. Demonstrar espírito esportivo e jogo limpo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Jogar três (3) partidas oficiais de softbol de arremesso lento com árbitro e demonstrar habilidades razoáveis.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Escrever um relatório de uma página sobre um atleta famoso. Discutir por que ele é ou não é um bom exemplo cristão.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Discutir com seu líder de Desbravadores, pastor ou professor os problemas que um jovem adventista do sétimo dia enfrenta ao pensar em participar de esportes no ensino fundamental II, no ensino médio ou na faculdade. Que alternativas existem para continuar praticando esportes?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "fauna-marina",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marine_Fauna/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Fauna marinha",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar e descrever a importância da fauna marinha para o equilíbrio do ecossistema marinho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o efeito das grandes concentrações de plástico sobre a fauna marinha?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descobrir como você pode ajudar na preservação da vida marinha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir as principais características dos seguintes grupos e dar três exemplos de cada um:\n  a. Crustáceos\n  b. Celenterados\n  c. Moluscos\n  d. Cetáceos\n  e. Equinodermos\n  f. Peixes",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher três espécies de invertebrados e três espécies de vertebrados da fauna marinha e responder o seguinte:\n  a. Nome comum\n  b. Nome científico\n  c. Espécie\n  d. Localização\n  e. Tipos de alimento que come\n  e. Papel na vida marinha",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entrevistar um biólogo e informar-se sobre o tipo de reprodução dos grupos de animais citados no requisito anterior.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são os poríferos e por que são chamados de animais filtradores?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar a diferença entre corais e esponjas-do-mar. Qual é a sua importância para o meio ambiente?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar o que são bentos, plâncton e nécton.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Observar um animal marinho durante cerca de 30 minutos. Fazer um relatório descrevendo o que observou.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Assistir a um vídeo de pelo menos 30 minutos sobre a vida marinha. Fazer um relatório sobre o vídeo.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "trabajos-en-telar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Weaving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o princípio envolvido na maioria dos processos de tecelagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir o seguinte:\n  a. Urdidura\n  b. Trama\n  c. Lançadeira\n  d. Rolo da urdidura\n  e. Liço\n  f. Rolo do tecido",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um tear manual de papelão no qual se possa tecer uma bolsa tipo envelope.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar e tecer um caminho de mesa ou uma toalha, usando pelo menos três cores diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um pegador de panela com argolas de malha.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "tenido-anudado-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tie-Dye_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Tie-Dye.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um breve histórico da arte do tie-dye no mundo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber fazer os seguintes padrões:\n  a. Simétricos:\n    i. Amassado (crinkle)\n    ii. Listras\n    iii. Chevron (zigue-zague)\n    iv. Pregas\n  b. Geométricos:\n    i. Nó\n    ii. Espiral\n    iii. Rosetas\n    iv. Círculos\n    v. Raios de sol",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma peça de roupa usando um desenho simétrico e pelo menos 3 cores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um artigo de tie-dye com uma forma geométrica tingida no centro.",
+   "instructions": null
+  }
+ ]
+}

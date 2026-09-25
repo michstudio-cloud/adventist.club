@@ -1,0 +1,53 @@
+{
+ "honor_slug": "lombrices-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Worms_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Vermes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as 3 principais classes de platelmintos? Descrevê-las.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar um exemplo de nematódeo e descrever seu ciclo de vida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as três principais classes de anelídeos e como eles se movem?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Responder ao seguinte:\n  a. Distinguir entre as seguintes estruturas corporais: celomados, pseudocelomados e acelomados.\n  b. Que estruturas corporais são comuns aos três filos de vermes?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber demonstrar três maneiras de purificar a água.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte:\n  a. A partir do que você aprendeu sobre os vermes: por que a disponibilidade de água doce é tão importante para a saúde humana, especialmente nos países em desenvolvimento?\n  b. Organizar uma arrecadação de fundos para apoiar organizações que se empenham em fornecer água doce aos países do terceiro mundo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever uma lição espiritual da Bíblia sobre a água viva.",
+   "instructions": null
+  }
+ ]
+}

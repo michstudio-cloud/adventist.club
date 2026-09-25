@@ -1,0 +1,38 @@
+{
+ "honor_slug": "trenzado-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Braiding_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arte de trançar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um puxador de zíper ou um chaveiro de seis ou oito fios.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um puxador de zíper ou um chaveiro de seis ou oito fios mostrando a técnica de zigue-zague com a inversão da direção da trança, ou fazer um projeto mostrando a trança interna de três partes ou trança mágica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um dos seguintes:\n  a. Cordão (lanyard) de seis fios\n  b. Marcador de livro com pelo menos seis fios\n  c. Guia de cachorro de quatro fios usando barbante ou arame como alma para trançar ao redor",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber começar e terminar todos os projetos.",
+   "instructions": null
+  }
+ ]
+}

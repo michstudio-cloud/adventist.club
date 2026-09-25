@@ -1,0 +1,43 @@
+{
+ "honor_slug": "hongos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fungi/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar o nome de cinco classes de fungos e dar exemplos de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar quinze fungos comuns de sua região. Desenhá-los ou fotografá-los a partir de espécimes vivos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três fungos importantes e dizer qual é o valor deles.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Contar o ciclo de vida de um exemplo de cada um dos seguintes:\n  a. Ferrugem\n  b. Mofo\n  c. Cogumelo\n  d. Levedura",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar cinco doenças de plantas causadas por fungos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer as precauções de segurança que devem ser observadas ao manusear fungos.",
+   "instructions": null
+  }
+ ]
+}

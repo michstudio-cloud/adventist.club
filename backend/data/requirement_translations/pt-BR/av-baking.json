@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-baking",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=111",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Panificação",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a definição de assar (panificação)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever maneiras de ficar em segurança na cozinha enquanto se assa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos de panificação: massa mole, bater, untar a forma, bater até obter creme, massa, incorporar, preaquecer e mexer.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar pelo menos 8 utensílios usados em muitas receitas de forno.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ler quatro histórias da Bíblia em que se menciona o ato de assar.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quem Jesus diz que Ele é em João 6:35? Conversar sobre por que isso é importante para você.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Assar duas receitas de sua escolha.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

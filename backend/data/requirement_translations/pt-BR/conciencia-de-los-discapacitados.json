@@ -1,0 +1,43 @@
+{
+ "honor_slug": "conciencia-de-los-discapacitados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disability_Awareness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Conscientização sobre a deficiência",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Familiarizar-se com a Lei dos Americanos com Deficiência (Americans with Disabilities Act).\n  a. Saber a data em que foi sancionada.\n  b. Saber o nome do presidente dos Estados Unidos que a sancionou.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer os principais pontos da Lei dos Americanos com Deficiência e explicar como essa legislação afeta de forma positiva a vida das pessoas com deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar a definição \"legal\" de deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar palavras e expressões de sentido positivo, reescrevendo 10 termos de uso comum.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher uma deficiência física específica e fazer um relatório oral sobre como uma pessoa com essa deficiência poderia atuar com sucesso nas seguintes áreas:\n  a. Escola\n  b. Acampamento\n  c. Transporte\n  d. Testemunho",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um levantamento da acessibilidade de sua igreja e uma lista das coisas que precisam ser mudadas para atender melhor as pessoas com deficiência.",
+   "instructions": null
+  }
+ ]
+}

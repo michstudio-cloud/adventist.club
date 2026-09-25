@@ -1,0 +1,63 @@
+{
+ "honor_slug": "orientacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Orienteering/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que é um mapa topográfico, o que se espera encontrar nele e três usos para ele.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar pelo menos 20 sinais e símbolos usados em mapas topográficos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar a nomenclatura de uma bússola de orientação.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Altitude\n  b. Equidistância das curvas de nível\n  c. Norte magnético\n  d. Declinação\n  e. Escala\n  f. Medição\n  g. Azimute inverso (contra-azimute)\n  h. Norte verdadeiro\n  i. Azimute\n  j. Distância\n  k. Formas de relevo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como tirar um azimute magnético.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar como caminhar seguindo um azimute magnético.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer dois métodos para corrigir a declinação e quando a correção é necessária.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber orientar-se e orientar um mapa por inspeção e com bússola.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar o que é a interseção a ré (resseção) e qual é seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Provar sua habilidade no uso de mapa e/ou bússola percorrendo um trajeto de uma milha (1,6 km) através do campo, com pelo menos cinco leituras ou pontos de controle indicados.",
+   "instructions": null
+  }
+ ]
+}

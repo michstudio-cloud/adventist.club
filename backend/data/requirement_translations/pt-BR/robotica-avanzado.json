@@ -1,0 +1,58 @@
+{
+ "honor_slug": "robotica-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Robotics_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Robótica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Inteligência artificial\n  b. Sensor acelerômetro\n  c. Sensor de bússola\n  d. Buscador e receptor infravermelho\n  e. Sensor giroscópico\n  f. Sensor ultrassônico\n  g. Robô autônomo\n  h. Pneumático\n  i. Hidráulico\n  j. Sensor de som\n  k. Sensor de luz\n  l. Sensor de toque ou semelhante\n  m. Servomotor\n  n. Sensor de cor\n  o. Sistema operacional\n  p. Controle remoto\n  q. Engrenagens\n  r. Torque",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Pesquisar um clube ou liga de robótica existente e discutir o seguinte:\n  a. Quais são os valores fundamentais de uma liga de robótica local em sua região?\n  b. Como esses valores fundamentais se relacionam com ser um bom cristão?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando um kit, montar um modelo robótico seguindo as instruções. Programar seu robô para cumprir um dos seguintes desafios:\n  a. Separar pelo menos 3 itens de 3 cores diferentes\n  b. Separar pelo menos 3 itens de 3 formatos diferentes\n  c. Separar pelo menos 3 itens semelhantes de tamanhos diferentes\n  d. Pegar e mover um objeto de um ponto a outro\n  e. Chutar, lançar ou empurrar um objeto em direção a um alvo específico\n  f. Percorrer uma pista de obstáculos ou um labirinto\n  g. Erguer-se sozinho (usado para passar por cima de objetos que não consegue transpor rodando)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Projetar e construir seu próprio modelo robótico e programá-lo para cumprir um dos seguintes desafios (não pode ser o mesmo desafio cumprido no requisito anterior):\n  a. Separar pelo menos 3 itens de 3 cores diferentes\n  b. Separar pelo menos 3 itens de 3 formatos diferentes\n  c. Separar pelo menos 3 itens semelhantes de tamanhos diferentes\n  d. Pegar e mover um objeto de um ponto a outro\n  e. Chutar, lançar ou empurrar um objeto em direção a um alvo específico\n  f. Percorrer uma pista de obstáculos ou um labirinto\n  g. Erguer-se sozinho (usado para passar por cima de objetos que não consegue transpor rodando)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher um dos seguintes:\n  a. Usar seu modelo robótico como recurso visual numa história infantil para crianças de 2-9 anos na igreja ou na classe da Escola Sabatina.\n  b. Usar seu modelo robótico como parte de um projeto escolar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever um texto de 250 palavras ou fazer uma apresentação de 3-5 minutos para seu grupo ou clube explicando como você pode usar a robótica para testemunhar a quem não conhece a Deus.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Revisar as leis da robótica de Asimov e discutir se criar robôs é usurpar a prerrogativa criadora de Deus em relação aos seres sencientes.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Completar um dos seguintes:\n  a. Participar de um clube de robótica existente.\n  b. Fundar um clube de robótica.\n  c. Visitar um clube de robótica durante uma de suas competições.\n  d. Entrevistar um membro de um clube de robótica pessoalmente, por telefone, e-mail ou videochamada pela internet.",
+   "instructions": null
+  }
+ ]
+}

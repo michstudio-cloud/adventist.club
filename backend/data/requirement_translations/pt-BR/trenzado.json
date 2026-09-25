@@ -1,0 +1,38 @@
+{
+ "honor_slug": "trenzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Braiding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma trança de três fios usando cabelo, corda ou cordão.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um puxador de zíper ou um chaveiro usando a trança redonda ou quadrada de quatro fios.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma capa de cabide de quatro fios.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um cordão (lanyard) com trança redonda de quatro fios.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber começar e terminar todos os projetos.",
+   "instructions": null
+  }
+ ]
+}

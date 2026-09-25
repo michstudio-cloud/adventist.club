@@ -1,0 +1,33 @@
+{
+ "honor_slug": "geologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dar o significado geológico das seguintes palavras:\n  a. Delta\n  b. Pontal de areia\n  c. Dolina\n  d. Lago em ferradura (meandro abandonado)\n  e. Morena\n  f. Circo glacial\n  g. Mesa\n  h. Leque aluvial\n  i. Anticlinal\n  j. Sinclinal",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o seguinte:\n  a. Um vulcão em escudo comparado a um vulcão composto\n  b. Como uma geleira se move e que evidências deixa para trás\n  c. Como os sedimentos são depositados pela água\n  d. Os diferentes tipos de montanhas\n  e. Por que a margem de um rio ou riacho muitas vezes desmorona na parte externa de uma curva",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber a que categoria (sedimentar, metamórfica ou ígnea) pertencem as seguintes rochas:\n  a. Granito\n  b. Arenito\n  c. Conglomerado\n  d. Ardósia\n  e. Folhelho\n  f. Mármore\n  g. Lava\n  h. Calcário\n  i. Basalto\n  j. Gnaisse",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Tirar uma foto ou fazer um esboço de cada uma das seguintes formações geológicas:\n  a. Uma camada de sedimentos mais grossa na base e mais fina em direção ao topo (isso se chama acamamento gradacional normal).\n  b. Marcas de ondulação na areia ou na lama (se possível, mostrar com uma seta a direção da corrente).\n  c. Erosão em ravinas (voçorocas)\n  d. Gretas de contração na lama (geralmente podem ser encontradas depois de uma chuva forte ou enchente, quando a lama começa a secar).\n  e. Perfil do solo na margem de um riacho ou em um corte de estrada (você deve conseguir ver como o solo geralmente fica mais claro à medida que se afasta da superfície).\n  f. Banco de areia (os bancos de areia podem ser encontrados em rios ou riachos, ou ao longo do litoral).",
+   "instructions": null
+  }
+ ]
+}

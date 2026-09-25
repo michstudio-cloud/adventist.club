@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-tierra-nueva",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/28_-_The_New_Earth/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A Nova Terra",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber qual é a grande esperança dos filhos de Deus quanto ao destino da humanidade. (2 Pedro 3:13; Mateus 5:5; Apocalipse 21:1)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o que acontecerá com a cidade santa, a Nova Jerusalém. (Apocalipse 21:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar quem serão os habitantes da nova Terra, segundo a Bíblia. (Apocalipse 22:3-4; 21:7)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar quem não fará parte da nova Terra. (Apocalipse 21:8; 22:15; 1 Coríntios 6:9-10; Gálatas 5:19-21)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Refletir sobre como será viver com Jesus por toda a eternidade. (Apocalipse 5:13; 11:15; 21:4)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Mateus 5:5.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como será a vida na nova Terra, segundo as promessas da Bíblia. (Salmo 16:11; Isaías 65:17-25)",
+   "instructions": null
+  }
+ ]
+}

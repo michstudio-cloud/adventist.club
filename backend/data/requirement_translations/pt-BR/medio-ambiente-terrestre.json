@@ -1,0 +1,43 @@
+{
+ "honor_slug": "medio-ambiente-terrestre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Earth_Environment/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Meio ambiente terrestre",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o meio ambiente? Qual é a diferença entre meio ambiente e ecologia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é biodiversidade? Citar algumas espécies raras ou ameaçadas de extinção de sua região. Indicar alguns esforços feitos em nível regional e/ou local para proteger a biodiversidade. Qual pode ser a sua contribuição? Apresentar suas ideias.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Visitar, com uma pessoa qualificada (monitor ambiental, agentes de proteção da natureza etc.), uma área natural a ser protegida e valorizada por sua utilidade ambiental e social.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conversar com um médico e perguntar que doenças estão ligadas à deterioração do meio ambiente. Como elas podem ser curadas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o que é a cadeia alimentar, como ela funciona e como manter seu equilíbrio. Explicar quais são os perigos em caso de desequilíbrio.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar um projeto com o clube para conscientizar os membros de sua igreja sobre o respeito ao meio ambiente.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "cosmografia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Stars/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Responder às seguintes perguntas:\n  a. Qual é o vizinho celeste mais próximo da Terra?\n  b. Qual é a sua distância da Terra?\n  c. O que governa as marés?\n  d. O que causa um eclipse?\n  e. O que é uma estrela cadente?\n  f. Qual é a velocidade da luz?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um diagrama que mostre as posições e os movimentos relativos da Terra, do Sol e da Lua. Mostrar as posições e os movimentos nos eclipses do Sol e da Lua.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um diagrama de nosso sistema solar e ser capaz de citar os planetas em ordem a partir do Sol.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar no céu oito estrelas fixas. Qual é a diferença entre planetas e estrelas fixas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é uma constelação? Citar e mostrar seis. Citar duas constelações visíveis durante todo o ano.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Para o Hemisfério Norte: desenhar um mapa da Ursa Maior, de Cassiopeia e da Estrela Polar. Para o Hemisfério Sul: desenhar um mapa do Cruzeiro do Sul, de Órion e de Escorpião.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é a Via Láctea? Observar a Via Láctea no céu noturno.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é a estrela da manhã e a estrela da tarde? Por que ela tem os dois nomes?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar zênite e nadir.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é a aurora boreal? O que a causa?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-reporter",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=87",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Repórter",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um relato a seus pais sobre uma atividade dos Aventureiros.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um álbum de repórter que inclua pelo menos três passeios dos Aventureiros.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Assistir ao noticiário ou ouvi-lo durante uma semana e preparar um breve relato sobre as principais notícias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ouvir os anúncios na igreja e ler o boletim da igreja.\n  a. Colocar os anúncios do boletim em seu álbum.\n  b. Circular os eventos que mais interessaram a você.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar com seu pastor ou seu professor da Escola Sabatina. Incluir em seu álbum:\n  a. Um desenho da pessoa (incluir o nome e dizer onde ela trabalha)\n  b. Descrever do que ele ou ela mais gosta em seu trabalho.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Manter seu álbum de repórter durante pelo menos dois meses.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

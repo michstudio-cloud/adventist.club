@@ -1,0 +1,63 @@
+{
+ "honor_slug": "escalada",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rock_Climbing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Escalada",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e praticar as precauções de segurança que se devem seguir na escalada em rocha.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e demonstrar o uso do seguinte equipamento: mosquetões, pitons (vários tipos), nuts (vários tipos), fitas expressas e corda de escalada de náilon.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar como cuidar da corda de escalada e enrolá-la. Saber dar e usar os seguintes nós: lais de guia em volta do corpo (bowline on a coil), lais de guia duplo (em seio), nó oito, nó de fita (ring bend), pescador duplo e nó prússico (Prusik).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber quando formar uma cordada e o tipo de progressão da cordada para escaladas de classe três, quatro e cinco.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever as seis classes diferentes de escalada e os métodos de graduação das vias.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar como fazer segurança estática dando segurança a dois escaladores em uma escalada real. Mostrar conhecimento das posições corretas do corpo, das superfícies de frenagem, do apoio e da ancoragem e do recolhimento da corda durante a segurança estática.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer e usar os seguintes sinais de escalada: segurança pronta (belay on), escalando (climbing), pode subir (climb), recolher corda (up rope), dar corda (slack), tensionar (tension), caindo (falling), pedra (rock), segurança solta (off belay), segurança liberada (belay off), segurança até o ponto (belay to point).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando nós prússicos e fitas, subir 25 pés (7,62 metros) de corda vertical. Mostrar como usar ascensores mecânicos, como jumars, ascensores Gibbs etc.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escalar corretamente em livre vias de dificuldade até 5.3 (F3), em duas enfiadas diferentes, numa distância de pelo menos 50 pés (15,24 metros), com segurança de cima (top rope). Compreender e praticar os seguintes conceitos da escalada livre: ritmo, olhar à frente, peso sobre os pés, escalada em equilíbrio, escalada de oposição (contraforça) e entalamento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Mostrar como montar um rapel. Fazer rapel usando freio oito ou outros métodos mecânicos de frenagem. Fazer pelo menos dois rapéis de 50 pés (15,24 metros).",
+   "instructions": null
+  }
+ ]
+}

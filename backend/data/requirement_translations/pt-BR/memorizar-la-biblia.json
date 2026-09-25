@@ -1,0 +1,48 @@
+{
+ "honor_slug": "memorizar-la-biblia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Alive_Bible/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa a expressão \"Bíblia Viva\" (Alive Bible)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Entender quatro atalhos para aprender de cor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar uma maneira inteligente de \"aquecer\" o cérebro (por exemplo, o método \"Sparky\").",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando suas habilidades e sua compreensão de como as pessoas memorizam, explorar uma das seguintes aventuras bíblicas:\n  a. Aventura bíblica: Deus desfaz o plano maligno dos valentões\n    i. Ler em voz alta a história de Daniel 6:1-23.\n    ii. Com suas palavras, preparar uma breve introdução à história principal. Consultar Daniel 6:1-13.\n    iii. Aprender de cor a parte principal da história, em Daniel 6:13-23.\n  b. Aventura bíblica: O \"fantasma\" sobre as águas\n    i. Ler em voz alta a história de Mateus 14:13-33.\n    ii. Com suas palavras, preparar uma breve introdução à história principal. Consultar Mateus 14:13-21.\n    iii. Aprender de cor a parte principal da história, em Mateus 14:22-33.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "a. Como Bíblia Viva, compartilhar sua aventura bíblica pelo menos duas vezes. Uma das apresentações deve ser feita sozinho. Incluir sua introdução e \"dar vida\" à parte principal da história. Dica: se quiser, seja criativo e use tecnologia moderna, como vídeo etc.\n  b. Preencher seu Registro de Apresentações da Bíblia Viva, que exige a assinatura de um ouvinte \"adulto\".",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de três possíveis efeitos de um jovem cristão aprender de cor a Palavra de Deus e se tornar uma Bíblia Viva.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar algumas experiências sobre o que fazer esta especialidade significou para você:\n  a. Qual foi a coisa mais difícil ao fazer esta especialidade? Explicar por quê.\n  b. Que parte(s) da aventura mais falou(aram) ao seu coração? Explicar por quê.\n  c. Como esta especialidade ajudou você a se tornar um \"amigo para sempre\" de Jesus?",
+   "instructions": null
+  }
+ ]
+}

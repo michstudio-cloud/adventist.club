@@ -1,0 +1,73 @@
+{
+ "honor_slug": "computacion-v-especializado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computing_V_-_Specialization/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Computação V - Especializado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Computação IV - Avançado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Programação de computadores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar um relatório de pelo menos 1000 palavras sobre o desenvolvimento do computador nas áreas de inteligência artificial, realidade virtual, internet e intranet.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos:\n  a. Usuário\n  b. Programador\n  c. Analista de sistemas\n  d. Gerente de projeto\n  e. Líder de equipe\n  f. Help desk (suporte técnico)\n  g. Hacker\n  h. Hiperlink\n  i. www",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer a diferença entre as seguintes impressoras:\n  a. Matricial\n  b. Laser\n  c. Plotter\n  d. Jato de tinta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar uma página na web de seu clube ou unidade de Desbravadores e publicá-la na internet.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ter uma coleção de pelo menos 15 e-mails de outras pessoas ligadas aos Desbravadores em qualquer parte do mundo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ensinar a especialidade de Computação II a uma classe regular.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber explicar a passagem de informações entre os periféricos e a CPU usando o código binário \"1\" e \"0\": montar um diagrama.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que significa upgrade (atualização)?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ensinar um iniciante a usar o computador. Essa pessoa deve pelo menos saber ligar e desligar o computador corretamente e usar três comandos de um sistema operacional.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar quatro sistemas operacionais para redes de computadores.",
+   "instructions": null
+  }
+ ]
+}

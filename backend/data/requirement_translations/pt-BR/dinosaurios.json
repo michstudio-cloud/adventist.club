@@ -1,0 +1,53 @@
+{
+ "honor_slug": "dinosaurios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dinosaurs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa o termo dinossauro? Quem usou esse termo pela primeira vez?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Discutir como os cientistas descobrem qual pode ter sido a aparência dos dinossauros vivos, considerando que talvez tenham tido apenas um pequeno número de ossos/evidências em que basear seu raciocínio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar ou discutir o seguinte em um grupo ou com um instrutor.\n  a. Por que se considera que o Tyrannosaurus rex foi o rei dos dinossauros? Que outros dinossauros também são considerados espécies dominantes, \"reis\"?\n  b. Por que os dinossauros punham ovos?\n  c. Que tipos de pele os dinossauros provavelmente tinham? Dar exemplos de espécies para cada um.\n  d. O que são os sauropodomorfos? Em que dois grupos se dividem?\n  e. Por que os répteis marinhos e voadores não são considerados dinossauros? Dar exemplos dessas criaturas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Individualmente ou em grupo, fazer um diagrama da cadeia alimentar dos dinossauros. Quem supostamente está no topo da cadeia? Qual é a função desse dinossauro?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar, por meio de descrição e de esboços/desenhos, cada um dos seguintes grupos de dinossauros:\n  a. Saurópodes\n  b. Terópodes\n  c. Ceratopsianos\n  d. Anquilossauros\n  e. Plesiossauros\n  f. Pterossauros",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Individualmente ou em grupo, pesquisar e discutir/apresentar o seguinte:\n  a. Onde a Bíblia fala da criação dos répteis.\n  b. Evidências de que os dinossauros realmente existiram.\n  c. O aparecimento e o desaparecimento dos dinossauros segundo as seguintes teorias:\n    i. Evolucionista\n    ii. Criacionista\n  d. Quais são as evidências que apontam para a morte dos dinossauros por causa do dilúvio?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Individualmente ou em grupo, escolher um dinossauro e pesquisar seu tamanho e sua possível distribuição, onde seus fósseis foram encontrados, seus hábitos alimentares, de nidificação e de vida em grupo, além de outros fatos interessantes sobre ele. Mostrar sua descoberta fazendo uma das seguintes atividades:\n  a. Escrever uma redação de pelo menos 150 palavras.\n  b. Fazer um quadro ou cartaz com descrições, desenhos e imagens.\n  c. Fazer um vídeo curto ou uma apresentação com descrições, desenhos/esboços, imagens e som.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma coleção de dez imagens de fósseis de dinossauros e identificar o seguinte:\n  a. Nome\n  b. Local onde o fóssil foi encontrado\n  c. Ano da descoberta\n  d. Características gerais",
+   "instructions": null
+  }
+ ]
+}

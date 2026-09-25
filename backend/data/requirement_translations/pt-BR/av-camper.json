@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-camper",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=273",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Acampante",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e explicar as regras de segurança em acampamentos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Acampar pelo menos uma noite com seu clube ou família.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ajudar a armar uma barraca, OU fazer um abrigo simples com materiais da natureza.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ajudar a montar o fogareiro do acampamento ou a fazer uma fogueira para cozinhar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ajudar a preparar pelo menos uma refeição durante o acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Depois do acampamento, ajudar a guardar o material de acampamento.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

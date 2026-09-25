@@ -1,0 +1,98 @@
+{
+ "honor_slug": "presupuesto-familiar-division-sudamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Household_Budgeting_(SAD)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Orçamento familiar (Divisão Sul-Americana)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um orçamento familiar e qual é a importância de ter um?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista das despesas de sua família e classificá-las em necessárias, úteis e supérfluas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Verificar a lista de compras de supermercado e de produtos de higiene de sua família. Todos os itens são realmente necessários?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o melhor dia e lugar para comprar verduras, frutas e legumes em seu bairro?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que você e sua família podem fazer para economizar água, energia elétrica e telefone?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é inflação?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que impostos sua família precisa pagar?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que tipo de compra nunca deve ser feita a crédito? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que são juros? Como devem ser calculados?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pesquisar qual é a taxa de juros e quais são as responsabilidades financeiras nas seguintes linhas de crédito:\n  a. Cartão de crédito\n  b. Cheque especial\n  c. Empréstimo pessoal",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que medidas devem ser tomadas quando a família está endividada?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Que porcentagem da renda familiar deve ser poupada?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Pesquisar pelo menos dois métodos, além da caderneta de poupança, para investir o dinheiro poupado. Quais são as vantagens e desvantagens de cada um?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer o seguinte:\n  a. Preencher e endossar um cheque\n  b. Preencher um recibo\n  c. Pagar boletos e/ou uma fatura num caixa eletrônico\n  d. Arquivar os comprovantes de pagamento\n  e. Interpretar o extrato de uma conta corrente/poupança",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Manter um orçamento pessoal e um registro das entradas e saídas de dinheiro durante seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer um orçamento familiar e manter um registro preciso das entradas e saídas durante seis meses (Desbravadores e jovens podem fazer isso junto com os pais); quem mora em sítios ou fazendas pode fazer registros da lavoura, da produção de leite e da criação de animais.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Ler Malaquias 3:8-12 e escrever no mínimo 250 palavras sobre o significado de ser um mordomo fiel.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "instalacion-de-azulejos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tile_Laying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conversar sobre as diferenças de fabricação e de uso dos seguintes tipos de revestimento cerâmico:\n  a. Esmaltado\n  b. Não esmaltado\n  c. Ardósia\n  d. Granito/mármore",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever e demonstrar o uso correto de uma serra para cerâmica. Por que é necessário usar água com a serra para cerâmica?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar e desenhar quatro tipos diferentes de paginação (padrões de assentamento) de revestimento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever as diferenças entre dois tipos diferentes de adesivos para revestimento:\n  a. Mástique (cola pronta)\n  b. Argamassa colante (thinset)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quando se deve usar argamassa colante de cor escura na instalação de revestimentos? Quando se deve usar argamassa colante de cor clara?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever como vedar e dar o acabamento corretamente em um projeto de revestimento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar sobre a paginação do revestimento em um ambiente. Por que é importante começar o assentamento pelo centro do ambiente?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quando se deve usar placa cimentícia (CBU) na instalação de revestimentos? Descrever brevemente a instalação correta da placa cimentícia.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Instalar revestimento de piso em um ambiente de pelo menos 8′ x 8′ (2,4 m x 2,4 m)\n  b. Instalar revestimento de parede em uma área de pelo menos 4′ x 6′ (1,2 m x 1,8 m)\n  c. Participar de um projeto de ministério em que seja instalado revestimento e ajudar na instalação",
+   "instructions": null
+  }
+ ]
+}

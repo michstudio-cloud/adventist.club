@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-good-samaritan",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=369",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Bom samaritano",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa passar necessidade?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é prometido aos que ajudam os necessitados?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler Mateus 25:35-40 e conversar sobre esse texto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que instituições existem para ajudar alguém necessitado?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como sua igreja local ajuda os necessitados?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conversar sobre maneiras de ajudar os necessitados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar de duas atividades para ajudar alguém necessitado, como:\n  • Uma família necessitada de sua comunidade, ajudando-a\n  • Dar comida aos moradores de rua de sua comunidade\n  • Recolher alimentos enlatados para um abrigo de moradores de rua ou para uma campanha/um banco de alimentos\n  • Trabalhar como voluntário em um sopão comunitário, em um abrigo de moradores de rua ou em um banco de alimentos da cidade\n  • Participar de uma campanha do agasalho, distribuir cobertores e/ou meias etc.\n  • Ou uma ideia sua.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conversar sobre suas experiências nas atividades que você escolheu.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

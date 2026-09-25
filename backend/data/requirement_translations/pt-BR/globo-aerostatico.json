@@ -1,0 +1,83 @@
+{
+ "honor_slug": "globo-aerostatico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hot_Air_Balloons/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dizer que papel cada uma das seguintes pessoas desempenhou no desenvolvimento dos balões.\n  a. Joseph Michel Montgolfier e Jacques-Etienne Montgolfier\n  b. Jean Francois Pilatre de Rozier e Francois Laurent, Marquês d'Arlandes.\n  c. Jacques Alexandre Cesar Charles e Nicolas Louis Robert.\n  d. Ben L. Abruzzo, Maxie L. Anderson e Larry Newman\n  e. Bertrand Piccard e Brian Jones",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Enunciar o princípio de Arquimedes e descrever brevemente como ele se aplica a cada um dos seguintes casos:\n  a. Um pedaço de cortiça flutuando em uma tigela com água\n  b. Um navio flutuando no oceano\n  c. Um balão de ar quente flutuando na atmosfera",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando um livro didático de Química ou um livro de referência com tabelas científicas, montar uma tabela simples mostrando a composição do ar em peso e em volume.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Montar uma tabela simples comparando o número atômico, a massa atômica e a densidade do hidrogênio, do hélio, do nitrogênio e do oxigênio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar dois gases usados em balões de gás.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como o calor/a temperatura afeta a densidade do ar e como isso se aplica ao voo dos balões de ar quente.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar a função de cada um dos seguintes elementos na estrutura e no voo de um balão de ar quente:\n  a. Envelope\n  b. Estrutura de suporte\n  c. Boca\n  d. Fonte de combustível",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar dois materiais que podem ser usados no envelope de um balão de ar quente e comparar as vantagens que cada um oferece por causa de suas propriedades.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever como os balões tiveram utilidade em\n  a. Campanhas militares\n  b. Pesquisa científica",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em que horário do dia acontece a maioria dos voos esportivos de balão? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descrever como o piloto controla o movimento vertical de\n  a. Um balão de ar quente\n  b. Um balão de gás",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Descrever como o piloto controla o movimento lateral ou horizontal de um balão.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Construir por completo um modelo de balão de ar quente (ou dois, se estiver trabalhando em dupla).",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Lançar, fazer voar e recuperar com sucesso o(s) modelo(s) de balão de ar quente que você construiu.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-tecnologia-moderna",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Modern_Technology_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Tecnologia moderna",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Tecnologia moderna é conquistado quando o Desbravador conquista SETE especialidades quaisquer da lista a seguir.\n  - Inteligência artificial\n  - Informática\n  - Informática - Avançado\n  - Computadores e dispositivos móveis\n  - Computadores e dispositivos móveis - Avançado\n  - Engenharia\n  - Internet\n  - Internet - Avançado\n  - Ministério da transmissão de mídia\n  - Tecnologia móvel\n  - Robótica\n  - Robótica - Avançado\n  - Redes sociais\n  - Produção de vídeo\n  - Produção de vídeo\n  - Produção de vídeo - Avançado",
+   "instructions": null
+  }
+ ]
+}

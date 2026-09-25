@@ -1,0 +1,63 @@
+{
+ "honor_slug": "la-creacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Creation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A Criação",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler os capítulos 1 e 2 de Gênesis em sua Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Recitar de memória o que foi feito em cada dia da semana da Criação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista dos quatro rios que saíam do Jardim do Éden.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista das idades de cinco pessoas que viveram antes do dilúvio e indicar o homem que viveu mais tempo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de cinco mudanças em relação à Criação original como resultado do pecado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pelas mãos de quem foi tirada a primeira vida?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pesquisar o registro fóssil, relacionar as diferenças de tamanho de plantas ou animais e compará-las com as de hoje.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Dar um exemplo, tirado da Bíblia, do tamanho das pessoas da antiguidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler o capítulo 2, \"A Criação\", do livro Patriarcas e Profetas, de Ellen G. White. Escrever ou apresentar oralmente um resumo do que você aprendeu ao estudar esta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Visitar um dos seguintes lugares: zoológico, aquário, parque estadual, viveiro de plantas ou jardim, e fazer ao diretor do seu clube um relato sobre a diversidade e as maravilhas da criação de Deus que você viu.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "cuidado-y-entrenamiento-de-perros",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dog_Care_and_Training/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever os passos que se devem seguir nas seguintes áreas do cuidado com cães:\n  a. Escolha\n  b. Registro\n  c. Vacinas",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Descrever o que se pode fazer para eliminar pulgas, carrapatos e piolhos do cão.\n  b. Citar algumas das doenças, pragas e vermes que os cães podem ter.\n  c. Explicar o que se deve fazer em caso de mordida de cão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como ensinar um filhote a fazer as necessidades no lugar certo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar em detalhes como daria banho em um cão e cuidaria de sua higiene geral.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Assumir toda a responsabilidade pela alimentação e pela água de um cão durante dois ou três meses.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Treinar seu cão até conseguir demonstrar com sucesso o seguinte:*\n  a. Junto: o cão caminha perto de seu lado esquerdo e se senta quando você para.\n  b. Figura em 8: o cão permanece perto de você sem cheirar pessoas, hidrantes ou outros cães.\n  c. Em pé para exame: o cão permite que estranhos o toquem.\n  d. Chamada: o cão vem quando chamado, senta-se bem à sua frente e passa para o seu lado esquerdo sob comando.\n  e. Sentado prolongado e deitado prolongado: o cão permanece em qualquer das duas posições enquanto você se ocupa de outras coisas.\n  * Se for possível, os cães e seus condutores devem receber instruções de um instrutor qualificado, de preferência em uma turma. Um certificado de conclusão de treinamento em qualquer curso de obediência canina, com pontuação de aprovação de 170 de um total de 200, será aceito para esta especialidade.",
+   "instructions": null
+  }
+ ]
+}

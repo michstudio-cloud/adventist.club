@@ -1,0 +1,98 @@
+{
+ "honor_slug": "restauracion-y-conservacion-de-documentos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Document_Restoration_and_Preservation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Restauração e conservação de documentos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir:\n  a. Preservação\n  b. Conservação\n  c. Restauração\n  Entrevistar uma pessoa responsável pela área de conservação e restauração de uma biblioteca e relatar, em no mínimo 100 palavras, o que ela destacou sobre o trabalho de restaurar e conservar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir:\n  a. Patrimônio cultural\n  b. Bens materiais (tangíveis)\n  c. Bens imateriais (intangíveis)\n  d. Bens móveis\n  e. Bens imóveis",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Doação\n  b. Patrimônio",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer pelo menos uma escola de restauração de livros e documentos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os critérios básicos para considerar um documento ou livro raro e valioso?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever brevemente os cuidados na restauração de livros e documentos, levando em consideração os seguintes itens:\n  a. Higienização\n  b. Acondicionamento\n  c. Equipamento de proteção individual\n  d. Equipamento de restauração\n  e. Diferentes tipos de materiais de documentos ou livros\n  f. Controle climático\n  g. Raios ultravioleta",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são livros “encadernados” e como devem ser tratados?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como devem ser preservados diários ou mapas antigos?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é filtragem em câmara?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é ácido bórico e como é usado?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como tratar um livro que está ou esteve molhado?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que é liofilização?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "O que é um termo-higrógrafo?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "O que fazer com documentos e páginas dobrados e ressecados?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Por que o papelão é mais adequado do que o plástico para a conservação de livros?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Com a ajuda dos pais ou responsáveis, procurar um documento com mais de 50 anos, restaurá-lo, se necessário, e guardá-lo adequadamente (por exemplo, certidões, páginas de diário, receitas culinárias, cartas, revistas etc.).",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Ir a uma biblioteca e ajudar o bibliotecário na restauração de um documento designado por ele e sob sua supervisão.",
+   "instructions": null
+  }
+ ]
+}

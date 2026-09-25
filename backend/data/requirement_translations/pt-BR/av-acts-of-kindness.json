@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-acts-of-kindness",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=329",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Atos de bondade",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Romanos 12:10 e Provérbios 12:25. Conversar sobre o significado de cada versículo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dar exemplos de bondade e amor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que a Bíblia nos diz sobre cada uma destas duas palavras? Usar uma história bíblica para ilustrar alguém que demonstrou amor e bondade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ler ou ouvir três (3) histórias de bondade.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Representar, em uma pequena peça ou mímica, diferentes atos de bondade.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Planejar e realizar um ato de bondade com a classe ou o clube.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

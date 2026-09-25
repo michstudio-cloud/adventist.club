@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tejido-en-malla-plastica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plastic_Canvas/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é plástico canvas (tela plástica)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar quatro tipos de plástico canvas e fazer uma breve descrição de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipo de fio é o melhor para usar em plástico canvas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever os seguintes tipos de fio e dizer em que tipo de tela funcionam melhor:\n  a. Fio de espessura worsted (média)\n  b. Fio de espessura sport (fina)\n  c. Fio para tapeçaria\n  d. Lã persa\n  e. Algodão perlé\n  f. Meada de bordado",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que tipo de agulha é usado em plástico canvas? Que tamanho de agulha é usado em cada tipo de plástico canvas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que instrumentos são usados para cortar plástico canvas? Como se corta o plástico canvas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar pelo menos dez (10) pontos e fazer uma amostra de uma polegada (2,5 cm) de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer dois dos seguintes itens usando três pontos diferentes.\n  a. Porta-copos\n  b. Marcador de livro\n  c. Porta-retratos\n  d. Ímã de geladeira\n  e. Enfeite de Natal\n  f. Aviso de maçaneta",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um dos seguintes usando quatro pontos diferentes:\n  a. Capa para caixa de lenços de papel\n  b. Sacola\n  c. Porta-disquetes\n  d. Caixa para bijuterias/porta-copos",
+   "instructions": null
+  }
+ ]
+}

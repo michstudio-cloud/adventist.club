@@ -1,0 +1,73 @@
+{
+ "honor_slug": "lavado-y-planchado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Laundering/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que é importante ler as etiquetas das roupas antes de lavá-las?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a maneira correta de preparar as roupas para lavar?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipos de roupa devem ser lavados em água quente, morna e fria?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que precaução deve ser tomada ao usar alvejante com cloro? Quais são as vantagens do alvejante em pó à base de oxigênio? Por que nunca se deve misturar alvejante com cloro e amônia?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que precauções devem ser tomadas ao usar amaciantes líquidos?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que pontos devem ser considerados ao escolher uma máquina de lavar, uma secadora e um ferro de passar? Como esses aparelhos devem ser cuidados?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como são lavadas as roupas de lã e as semelhantes à lã?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber como remover as seguintes manchas: tinta de caneta, fruta, ferrugem, grama, chocolate, gordura, sangue, goma de mascar. Por que as manchas devem ser removidas antes da lavagem?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Por que é importante tirar as roupas da secadora logo que o ciclo terminar?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber que tipos de tecido devem ser secos apenas na temperatura mais baixa da secadora.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Mostrar uma blusa ou camisa que você passou corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Lavar e dobrar corretamente as roupas de sua família durante uma semana.",
+   "instructions": null
+  }
+ ]
+}

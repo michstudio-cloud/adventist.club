@@ -1,0 +1,63 @@
+{
+ "honor_slug": "cometas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Kites/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quando as pipas foram feitas e empinadas pela primeira vez? Citar pelo menos três maneiras como as pipas ajudaram na pesquisa científica e dizer como cada uma afetou o mundo em que vivemos. Contar a história de Benjamin Franklin e sua pipa.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar algumas das maneiras como as pipas podem ser usadas hoje.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar brevemente como as pipas voam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos:\n  a. Vareta(s) central(is)\n  b. Varetas transversais\n  c. Abertura de ventilação\n  d. Corda do arco\n  e. Cobertura\n  f. Armação\n  g. Rabiola\n  h. Quilha\n  i. Linha\n  j. Cabresto\n  k. Carretel\n  l. Diedro",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é uma causa comum de falha da pipa?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que se deve fazer quando uma pipa dá voltas durante o voo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que às vezes é necessário colocar rabiola na pipa?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos três regras de segurança para empinar pipas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer o seguinte:\n  a. Enrolar corretamente a linha em um bastão.\n  b. Unir pontas partidas com o nó de pescador.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer e empinar com sucesso duas das seguintes pipas:\n  a. Pipa trenó\n  b. Pipa plana\n  c. Pipa losango de duas varetas\n  d. Pipa delta\n  e. Pipa Eddy ou malaia\n  f. Pipa caixa\n  g. Pipa tetraédrica",
+   "instructions": null
+  }
+ ]
+}

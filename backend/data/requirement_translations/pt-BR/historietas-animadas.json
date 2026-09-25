@@ -1,0 +1,58 @@
+{
+ "honor_slug": "historietas-animadas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Comics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Histórias em quadrinhos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever um texto sobre a história das histórias em quadrinhos, com seus principais fatos históricos, características e personagens, explicando por que são consideradas a Nona Arte.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é uma história em quadrinhos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como é feito o roteiro de uma história em quadrinhos, citando e explicando quais são as etapas e as técnicas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar uma galeria de imagens mostrando pelo menos 5 estudos e/ou traços diferentes da anatomia de personagens. Escolher um deles para apresentar várias posições diferentes desenhadas por você, usando personagens masculinos e femininos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar e desenhar exemplos feitos por você sobre o seguinte:\n  a. Pré-produção, produção, pós-produção\n  b. Composição: diagramação da página, quadro, cena, adequação narrativa\n  c. Elementos gráficos de texto: recordatórios, balões, onomatopeias, letreiramento, tipografia\n  d. Finalização: tradicional, tratamento especial, técnicas mistas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar um personagem que seja um dos 12 discípulos e escrever uma história em quadrinhos de pelo menos 30 quadros sobre sua viagem missionária.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar uma história em quadrinhos que conte a história da revista Mis Amigos [Meus Amigos] (ou equivalente) e colocar o nome do autor, os personagens e outras informações relevantes.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Desenhar uma história em quadrinhos sobre um acontecimento divertido de seu clube ou unidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar uma capa colorida em tamanho A3, em linguagem de quadrinhos, para o livro missionário do ano.",
+   "instructions": null
+  }
+ ]
+}

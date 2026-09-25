@@ -1,0 +1,38 @@
+{
+ "honor_slug": "esqui-acuatico-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Water_Skiing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Esqui aquático - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Esqui aquático.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Usar sempre colete salva-vidas ao esquiar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Esquiar com sucesso em slalom (monoesqui), partindo de águas profundas com a corda totalmente estendida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Cruzar as duas esteiras (ondas) da lancha com o monoesqui.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um giro completo de 360 graus em um dos seguintes:\n  a. Kneeboard\n  b. Esquis de manobras (trick skis)\n  c. Wakeboard",
+   "instructions": null
+  }
+ ]
+}

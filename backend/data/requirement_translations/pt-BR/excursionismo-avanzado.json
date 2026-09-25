@@ -1,0 +1,48 @@
+{
+ "honor_slug": "excursionismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Backpacking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Excursionismo pedestre com mochila.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Mapa e bússola.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter a especialidade de Primeiros socorros - básico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Revisar a prevenção, os sintomas e os primeiros socorros para:\n  a. Queimadura solar\n  b. Bolhas\n  c. Congelamento\n  d. Hipotermia\n  e. Insolação\n  f. Exaustão pelo calor\n  g. Picada de cobra\n  h. Cãibras\n  i. Desidratação\n  j. Mal da altitude",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender e demonstrar técnicas corretas e seguras para atravessar riachos carregando uma mochila cheia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Praticar os seguintes procedimentos de segurança:\n  a. Obter as licenças adequadas de caminhada/acampamento para cada aventura de excursionismo\n  b. Registrar seus planos de excursão e deixar uma cópia com uma pessoa responsável de referência",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Planejar e realizar o seguinte:\n  a. Duas excursões com mochila de pelo menos cinco milhas (8 km), acampando pelo menos uma noite\n  b. Duas excursões com mochila de pelo menos dez milhas (16 km), acampando pelo menos uma noite\n  c. Uma excursão com mochila de pelo menos 25 milhas (40 km), acampando pelo menos duas noites",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "combustibles-alternativos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Alternative_Fuels/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a diferença entre um combustível convencional e um combustível alternativo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever brevemente cada um dos seguintes combustíveis alternativos e seus benefícios:\n  a. Combustíveis à base de algas\n  b. Bioálcool\n  c. Biodiesel\n  d. Hidrogênio\n  e. Eletricidade\n  f. Etanol\n  g. Nitrogênio líquido\n  h. Metanol\n  i. Gás natural\n  j. Metano não fóssil\n  k. Energia nuclear\n  l. Propano\n  m. Óleo vegetal",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descobrir pelo menos três razões pelas quais os combustíveis alternativos são importantes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são algumas vantagens dos combustíveis alternativos? E as desvantagens?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ilustrar, por meio de desenhos, esboços ou fotografias, os elementos que compõem o gás natural.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar a diferença entre o gás natural comprimido e o gás natural liquefeito.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar as etapas ou assistir a uma animação eletrônica que ilustre o processo de conversão para combustível alternativo usado na indústria automobilística.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever como funciona um veículo movido a propano.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir com um grupo a importância de encontrar métodos de combustível alternativo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer duas das seguintes atividades, individualmente ou em grupo:\n  a. Visitar uma instalação que produza um combustível alternativo de sua escolha. Preparar e fazer uma apresentação oral sobre a atividade.\n  b. Criar uma demonstração em forma de projeto de ciências que ilustre como um combustível alternativo pode ser usado.\n  c. Convidar alguém que trabalhe na indústria de combustíveis alternativos para falar a você ou a seu grupo.\n  d. Calcular e demonstrar a economia de custos dos veículos modernos movidos a combustível alternativo/híbridos. Apresentar suas conclusões por meio de uma apresentação, exposição ou relatório oral.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Discutir com um grupo os seguintes textos em relação aos combustíveis alternativos.\n  a. Salmo 24:1\n  b. Colossenses 1:16-17\n  c. João 1:3",
+   "instructions": null
+  }
+ ]
+}

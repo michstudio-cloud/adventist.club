@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-build-and-fly",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=45",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Pipas",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um avião de papel e fazê-lo voar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um planador simples e fazê-lo voar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma pipa simples, empiná-la e explicar as regras de segurança.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Observar quatro animais diferentes que voam e contar como eles voam.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um desenho de seu animal voador preferido.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber em que parte a Bíblia fala de um anjo voando.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber quem foram os primeiros pilotos de avião motorizado bem-sucedidos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Resolver uma palavra cruzada sobre os tipos de voo.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Pipas», son los de Build & Fly)"
+}

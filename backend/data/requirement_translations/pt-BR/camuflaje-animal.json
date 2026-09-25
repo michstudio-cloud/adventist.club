@@ -1,0 +1,38 @@
+{
+ "honor_slug": "camuflaje-animal",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Animal_Camouflage/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos relacionados aos animais que se escondem na natureza.\n  a. Camuflagem\n  b. Adaptação",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a finalidade da camuflagem animal.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever e dar um exemplo de cada um dos seguintes tipos de camuflagem animal:\n  a. Coloração críptica\n  b. Disfarce\n  c. Mimetismo\n  d. Coloração disruptiva",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer três dos seguintes projetos:\n  a. Criar um jogo baseado na camuflagem animal e jogá-lo com um grupo.\n  b. Escrever e contar uma história infantil com o tema da camuflagem animal.\n  c. Criar um cartaz ou exposição que mostre pelo menos quatro ambientes diferentes com animais que poderiam estar camuflados em cada um deles.\n  d. Criar uma exposição de fotos que você tirou ou desenhos que fez de 5 animais diferentes camuflados.\n  e. Passar pelo menos ½ hora observando um animal que usa camuflagem (em seu ambiente natural, se possível) e escrever um relatório sobre suas observações.\n  f. Criar um livro infantil ilustrado sobre a camuflagem animal.\n  g. Participar de uma mesa-redonda sobre o uso da camuflagem animal, dando exemplos e detalhes específicos e o tipo de ocultação que cada animal usa.\n  h. Criar uma maquete em escala de um animal imaginário e seu habitat, mostrando como ele pode se esconder na natureza.\n  i. Fazer um álbum de recortes dos quatro tipos de camuflagem animal (ver nº 3) com fotos de cinco animais de cada tipo.\n  j. Usando recursos multimídia, criar uma apresentação sobre a camuflagem animal.\n  k. Criar seu próprio projeto (submetê-lo à aprovação do diretor do clube antes de começar).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descobrir como Satanás usa o disfarce para enganar as pessoas e qual é o plano de redenção de Jesus. Incluir as seguintes passagens na discussão. Apresentar suas descobertas em uma encenação, peça de teatro ou teatro de fantoches.\n  a. Gênesis 3 (a tentação no jardim)\n  b. Capítulos 2 e 3 de Patriarcas e Profetas",
+   "instructions": null
+  }
+ ]
+}

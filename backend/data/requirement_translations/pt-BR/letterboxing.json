@@ -1,0 +1,38 @@
+{
+ "honor_slug": "letterboxing",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Letterboxing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o seguinte:\n  a. Esconderijo (cache)\n  b. Letterbox\n  c. Nome de trilha (trail name)\n  d. Livro de registro pessoal\n  e. Carimbar (stamp in)\n  f. Carimbo viajante (hitchhiker)\n  g. Caixa híbrida\n  h. Caixa bônus\n  i. Troca",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de pelo menos cinco comportamentos que você deve praticar no letterboxing.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer as habilidades básicas de orientação:\n  a. Contagem de passos\n  b. Uso da bússola\n  c. Saber encontrar as quatro direções principais sem bússola",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Projetar, criar e esculpir seu próprio carimbo pessoal.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em unidade, clube ou família, encontrar as pistas e depois localizar pelo menos dez letterboxes, das quais quatro podem fazer parte de uma série. Individualmente, \"carimbar\" com seu carimbo, imprimir o carimbo da letterbox em seu livro de registro e registrar o achado no site.",
+   "instructions": null
+  }
+ ]
+}

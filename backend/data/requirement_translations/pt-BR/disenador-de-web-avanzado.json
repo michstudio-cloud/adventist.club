@@ -1,0 +1,63 @@
+{
+ "honor_slug": "disenador-de-web-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Web_Design_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Web design - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Web design.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Imagem bitmap\n  b. Animação\n  c. DNS\n  d. Menu suspenso\n  e. WordPress\n  f. Joomla\n  g. MySQL\n  h. Webmaster\n  i. W3C\n  j. Comércio eletrônico\n  k. ActionScript\n  l. FTP\n  m. Hiperlink\n  n. JPEG\n  o. PNG\n  p. Resolução\n  q. GIF",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar por escrito uma página estática simples, usando somente as linguagens DHTML e CSS, com os seguintes elementos:\n  a. Cabeçalho\n  b. Corpo\n  c. Menu à esquerda\n  d. Centro\n  e. Rodapé",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando uma ferramenta gráfica, apresentar uma página de internet estática simples usando CSS e enviá-la ao servidor para visualizar a página, com os mesmos elementos usados no requisito anterior.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar e apresentar uma página dinâmica para o clube que contenha um sistema de cadastro de usuários, banners animados e um formulário de contato, usando PHP ou outra linguagem de sua preferência.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar por escrito o projeto de um site, com todos os elementos necessários para o seu desenvolvimento, com capa, justificativa, objetivo e conclusão (usar o projeto do site como prática).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Apresentar um relatório com informações sobre como podemos usar a internet para ajudar na pregação do evangelho e citar alguns exemplos de lugares onde isso já existe.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Apresentar um relatório sobre os passos necessários para criar um domínio e como registrá-lo para que funcione na web.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar e apresentar um servidor web.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como cristãos adventistas, cremos na volta de Cristo. Sabemos que as tecnologias são fruto da multiplicação da ciência, como a Bíblia já mencionava: das grandes descobertas e da revolução industrial até, agora, a internet. Citar o texto bíblico que fala da multiplicação da ciência e explicar a relação que isso tem com as profecias.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "honor_slug": "marcado-de-la-biblia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bible_Marking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer o seguinte:\n  a. Citar cinco métodos diferentes de marcação bíblica.\n  b. Explicar como cada método seria usado.\n  c. Fazer uma lista das vantagens e desvantagens de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de cinco diretrizes que você consideraria antes de começar a marcar sua Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer o seguinte:\n  a. Que método você seguiria para dar um estudo bíblico e por quê?\n  b. Marcar sua Bíblia sobre dois temas/assuntos usando esse método.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte:\n  a. Que métodos você usaria para um estudo devocional contínuo e por quê?\n  b. Marcar sua Bíblia sobre dois temas/assuntos usando um desses métodos, com no mínimo dez textos em cada um.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "informacion-programable",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computer_Programming/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Programação de computadores",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Apresentar um relatório de pelo menos duas páginas sobre a história das linguagens de programação.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir lógica de programação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher uma linguagem de programação para desenvolver um sistema e descrever a origem dessa linguagem.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar ao instrutor:\n  a. Um projeto de sistema de gestão de um Clube de Desbravadores que integre:\n    i. Cadastro de unidades, especialidades, classes e Desbravadores\n    ii. Controle de mensalidades\n    iii. Controle de caixa\n    iv. Controle de despesas\n    v. Controle de patrimônio\n    vi. Controle de registros\n    vii. Controle de eventos\n    viii. Relatório de autorizações de saída\n    ix. Relatório de fluxo de caixa\n    x. Relatório de patrimônio\n    xi. Relatório do livro de atas e eventos\n    xii. Relatório de mensalidades\n    xiii. Relatório de unidades, classes, especialidades e Desbravadores\n  b. Um sistema informatizado com os módulos mencionados.\n  c. O código-fonte dos módulos mencionados.\n  d. Instruções de uso do sistema.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Cumprir um dos seguintes itens:\n  a. Ter um certificado de conclusão de um curso em que tenha aprendido uma linguagem de programação.\n  b. Definir e conceituar os seguintes temas:\n    i. Código-fonte\n    ii. Código de máquina\n    iii. Compiladores\n    iv. Interpretadores\n    v. Programação linear\n    vi. Programação modular\n    vii. Programação estruturada\n    viii. Programação orientada a objetos\n    ix. Tipo estruturado\n    x. Programação de alto nível\n    xi. Programação de médio nível\n    xii. Programação de baixo nível\n    xiii. Quantas gerações de linguagens existem e quais são?\n    xiv. Linguagem compilada\n    xv. Linguagem de script\n    xvi. Linguagem interpretada\n    xvii. Paradigma de programação\n    xviii. Sintaxe das linguagens de programação",
+   "instructions": null
+  }
+ ]
+}

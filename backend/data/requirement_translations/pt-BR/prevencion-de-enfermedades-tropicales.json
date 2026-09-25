@@ -1,0 +1,38 @@
+{
+ "honor_slug": "prevencion-de-enfermedades-tropicales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Prevention_of_Tropical_Diseases/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Prevenção de doenças tropicais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Responder às seguintes perguntas:\n  a. O que são doenças tropicais?\n  b. Fazer uma lista de pelo menos cinco doenças tropicais comuns em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar e explicar as seguintes doenças, incluindo: transmissão, sinais e sintomas, tratamento, como preveni-las e combatê-las:\n  a. Malária\n  b. Febre amarela\n  c. Leishmaniose\n  d. Dengue\n  e. Doença de Chagas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como eliminar os seguintes depósitos de água acumulada, evitando a proliferação de mosquitos:\n  a. Pneus\n  b. Garrafas\n  c. Bebedouros de animais\n  d. Caixas-d’água\n  e. Bromélias ou plantas que acumulam água\n  f. Vasos de flores\n  g. Bacias\n  h. Calhas\n  i. Tampas, latas e pequenos potes descartáveis\n  j. Bandeja externa da geladeira",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Completar as seguintes tarefas:\n  a. Participar, com seu clube, unidade ou escola, de uma campanha contra a dengue em seu bairro.\n  b. Recolher recipientes que possam acumular água em praças e ruas de sua comunidade e descartá-los corretamente.\n  c. Conseguir folhetos informativos sobre as principais doenças tropicais e distribuí-los em seu bairro ou escola.\n  d. Descartar corretamente o lixo de sua casa durante uma semana.\n  e. Ajudar uma pessoa idosa de seu bairro a eliminar os depósitos que acumulam água, realizando as seguintes tarefas:\n    i. Ensinar como manter a casa livre de possíveis focos de mosquitos.\n    ii. Informar sobre os cuidados e os sintomas das doenças pesquisadas.\n    iii. Limpar a casa, recolher e descartar os recipientes inúteis.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com a ajuda de seu conselheiro, fazer uma apresentação, um debate ou uma dramatização para seu clube ou unidade sobre as doenças tropicais estudadas nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}

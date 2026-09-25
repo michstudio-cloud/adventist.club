@@ -1,0 +1,68 @@
+{
+ "honor_slug": "rescate-basico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Rescue/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a definição de resgate de emergência?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar como resgatar com segurança uma pessoa nas seguintes situações:\n  a. Em contato com um fio elétrico energizado\n  b. Num cômodo cheio de gases ou fumaça\n  c. Com a roupa pegando fogo\n  d. Afogando-se, usando um resgate sem nadar\n  e. Num acidente no gelo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar três maneiras de atrair aeronaves de resgate e comunicar-se com elas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer seis indicações da necessidade de um resgate imediato.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer seis procedimentos a seguir antes de remover uma vítima de uma situação de risco de vida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer cinco princípios envolvidos na remoção de uma vítima de uma situação de risco de vida",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer as maneiras corretas de ajudar uma vítima, sem auxílio de outra pessoa, nas seguintes situações:\n  a. Arrastando a vítima\n  b. Levantando a vítima\n  c. Ajudando a vítima a caminhar",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer a maneira correta de ajudar uma vítima, com auxílio de outras pessoas, nas seguintes situações:\n  a. Transporte em cadeira\n  b. Transporte pela frente e por trás\n  c. Assento de duas e de quatro mãos\n  d. Transporte em cobertor\n  e. Transporte em rede por três pessoas com a vítima em decúbito dorsal e ventral\n  f. Levantamento por três ou quatro pessoas\n  g. Levantamento e transporte por seis pessoas",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber usar corretamente uma maca e transportar uma vítima nela. Saber fazer uma maca improvisada.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber usar corretamente cordas e nós da seguinte forma:\n  a. Dar nós para emendar cordas\n  b. Dar nós para encurtar uma corda\n  c. Dar nós para usar em volta de uma pessoa num resgate\n  d. Enrolar e lançar com precisão uma corda leve e uma pesada de 50 pés (15,2 m).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que medidas devem ser tomadas antes de comunicar o desaparecimento de uma pessoa? Que informações serão necessárias ao comunicar o desaparecimento? Como é feita a busca por uma pessoa perdida numa área selvagem?",
+   "instructions": null
+  }
+ ]
+}

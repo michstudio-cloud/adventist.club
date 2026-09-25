@@ -1,0 +1,38 @@
+{
+ "honor_slug": "tallado-en-madera",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wood_Carving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as qualidades das madeiras duras e macias e quais são as melhores madeiras para entalhe.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as diferentes ferramentas de entalhe em madeira e explicar como afiá-las.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os melhores métodos para lidar com os veios da madeira ao planejar o desenho.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar e entalhar uma placa em baixo-relevo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar e entalhar dois dos seguintes itens:\n  a. Apito\n  b. Abridor de cartas\n  c. Bandeja\n  d. Aparadores de livros\n  e. Caixa de relógio\n  f. Itens equivalentes de sua escolha",
+   "instructions": null
+  }
+ ]
+}

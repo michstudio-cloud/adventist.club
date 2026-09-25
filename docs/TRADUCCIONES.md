@@ -146,3 +146,61 @@ que traducir. Los 13 sin ninguna lista: `album-de-recortes-avanzado-florida-conf
 `procesar-texto-division-del-pacifico-sur`, `recaudacion-de-fondos-para-adra-{bronce,plata,oro}`.
 Faltan también los nombres pt de 5 categorías (ADRA, Doctrinales, Servicios Comunitarios, Asociación de
 Florida, Maestrías) en `honor_category_translations` (fuera de este importador).
+
+## Las 13 sin ninguna lista (25 sep 2026, rama `feat/missing-requirements`)
+
+Faltaban por tres motivos: sin `wiki_title` (el índice de la wiki que usa `match_wiki.py` solo cubre
+GC/NAD y algunas divisiones), una página de requisitos que la wiki no tiene (404) o una fuente que no es
+la wiki. Resultado, verificado en la base `etl_m13` (copia de `etl_transl`):
+
+| Especialidad | Fuente oficial (licencia) | Por qué faltaba | es | en | pt-BR |
+|---|---|---|---|---|---|
+| `comida-cruda` | Wiki «Bushcraft Food» (SAD 2025; la wiki renombró «Raw Food», mismo parche) (CC BY-SA 3.0) | sin `wiki_title`: otro nombre | oficial | oficial | oficial |
+| `recaudacion-de-fondos-para-adra-{bronce,plata,oro}` | Wiki «ADRA Annual Appeal Collector» (Unión Británica; un solo award con 3 niveles en el req. 5) (CC BY-SA 3.0) | sin `wiki_title`: página regional | oficial | oficial | no oficial |
+| `album-de-recortes-avanzado-florida-conference` | Wiki «Scrapbooking (FL) - Advanced» (CC BY-SA 3.0) | sin `wiki_title`: (FL) | oficial | oficial | no oficial |
+| `procesar-texto-division-del-pacifico-sur` | en: PDF de la SPD «Word Processing 1» (sin licencia); es: guiasmayores.com | honor de la SPD, fuera de la wiki | oficial | oficial | no oficial |
+| `nudos-avanzado` | guiasmayores.com (DSA) | la wiki tiene la ficha pero no los requisitos (404) | oficial | no oficial | no oficial |
+| `ensamblaje-y-mantenimiento-de-computadoras` | guiasmayores.com (DSA) | ídem (404) | oficial | no oficial | no oficial |
+| `primeros-auxilios-de-san-juan` | guiasmayores.com (SPD) | ni la wiki ni la SPD lo publican | oficial | no oficial | no oficial |
+| `desarrollo-rural`, `desarrollo-urbano` (ADRA) | Wikibooks, Adventist Youth Honors Answer Book (CC BY-SA 4.0): honores ADRA de 2005 descontinuados en 2009 | la wiki solo tiene el «Rural Development» NAD (ya enlazado a `desarrollo-rural-community-services`) | no oficial | oficial | no oficial |
+| `la-unidad-en-el-cuerpo-de-cristo` | MDAWiki (transcripción del manual DSA, AM-EB-014; sin licencia) | la wiki no tiene los requisitos (404); el sitio de la DSA está tras Cloudflare | no oficial | no oficial | oficial |
+| `noken` | — | nadie publica los requisitos (la wiki los busca) | — | — | — |
+
+- `wiki_title` nuevos: filas a mano en `migrations/data/wiki_manual_links.csv` + entradas en
+  `wiki_without_match` de `wiki_honor_links.json` (Bushcraft Food, ADRA Annual Appeal Collector ×3,
+  Scrapbooking (FL) - Advanced, 14 - Unity in the Body of Christ, Computer Assembly and Repair,
+  Knot Tying - Advanced, Noken). Las que aún no tienen página de requisitos se cargarán solas cuando la
+  wiki la publique (en/pt-BR/es no oficiales se reemplazan; una lista oficial de otra fuente se respeta).
+- Páginas de la wiki descargadas a mano en `~/adventist-wiki/requirements/{en,es,pt-br}/`
+  (`Bushcraft_Food`, `ADRA_Annual_Appeal_Collector`, `Scrapbooking_(FL)_-_Advanced`).
+- Listas oficiales que no son de la wiki: `backend/data/official_requirements/<locale>/<slug>.json`, con
+  `migrations/import_official_requirements.py` (misma forma y reglas que el importador de la wiki).
+- `import_wiki_requirements.py` ya no añade la página como segunda lista cuando ese idioma tiene una lista
+  oficial de otra fuente (`kept_official_list`); antes, `Community Assessment` es (dos especialidades con
+  lista de guiasmayores.com) se habría duplicado en la siguiente corrida.
+
+### Categorías (`honor_category_translations`)
+
+`migrations/import_category_translations.py` carga `backend/data/category_translations.json` (cada nombre con
+su fuente) y **pasa las filas `pt` a `pt-BR`**: el API resuelve un solo locale para toda la tabla, así que
+con `pt` (Aventureros, de `import_adventurer_awards.py`) y `pt-BR` (Conquistadores) mezclados, `?locale=pt`
+dejaba en español las categorías de Conquistadores. `import_adventurer_awards.py` escribe ahora `pt-BR`.
+Nombres pt-BR: ADRA · Doutrinárias (wiki pt-br; la DSA las llama «Ensinos Bíblicos») · Serviços Comunitários
+Adventistas · Especialidades da Associação da Flórida · Mestrados; Aventureros con las áreas de la DSA:
+Comunidade (sin área DSA; «Community» del Award Book) · Artes Manuais · Habilidades Domésticas · Estudos da
+Natureza · Atividades Recreativas · Atividades Espirituais.
+
+### Producción (coordinador, en este orden)
+
+```sh
+cd backend
+export DATABASE_URL='<Neon>'
+python migrations/import_wiki_names.py migrations/data/wiki_honor_links.json --manual migrations/data/wiki_manual_links.csv [--commit]
+python migrations/import_wiki_requirements.py ~/adventist-wiki en es pt-br [--commit]
+python migrations/import_official_requirements.py [--commit --operator <email>]
+python migrations/import_requirement_translations.py [--commit --operator <email>]
+python migrations/import_category_translations.py [--commit]
+```
+Cada uno primero sin `--commit` (simulacro). Los tres últimos informan de lo que cambia y una segunda corrida
+debe salir todo «unchanged»; los dos de la wiki no comparan (reescriben en el sitio lo mismo), pero sobre la copia
+del catálogo (`etl_m13`) solo cambiaron las 13 especialidades: el resto de listas y nombres quedó idéntico.

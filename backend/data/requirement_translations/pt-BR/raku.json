@@ -1,0 +1,48 @@
+{
+ "honor_slug": "raku",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Raku/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Raku",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o significado de “raku” e o que o diferencia de outras formas de cerâmica?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Criar um desenho simples usando as cores disponíveis para esmaltar sua peça.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A que se referem os termos “biscoito”, “peça crua” e “queima de esmalte”?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a diferença da queima raku e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma peça simples beliscada (pinch) e uma peça de rolinhos (acordelado). Fazer a queima de biscoito, esmaltar e depois fazer a queima raku.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é a queima de “redução”, que materiais são usados e que efeitos eles produzem?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar e identificar as partes de um forno raku caseiro, mostrando a câmara de queima.",
+   "instructions": null
+  }
+ ]
+}

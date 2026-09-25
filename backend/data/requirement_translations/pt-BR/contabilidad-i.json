@@ -1,0 +1,43 @@
+{
+ "honor_slug": "contabilidad-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bookkeeping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre escrituração contábil e contabilidade?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Ativo\n  b. Passivo\n  c. Crédito\n  d. Débito\n  e. Lançamento\n  f. Balancete de verificação\n  g. Comprovante\n  h. Fatura\n  i. Juros",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre a escrituração por partidas dobradas e a escrituração por partidas simples?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que formação é necessária para ser auxiliar de contabilidade? Que outra formação é útil para essa carreira?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são algumas áreas profissionais relacionadas à escrituração contábil?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entrevistar o tesoureiro de sua igreja, fazendo as seguintes perguntas:\n  a. Quanto tempo você dedica por semana à sua função de tesoureiro da igreja?\n  b. O que você faz com o dinheiro recolhido nas salvas de ofertas?\n  c. Como você controla quem contribuiu com quanto dinheiro?\n  d. Que dinheiro é enviado para a Associação?\n  e. Que dinheiro fica em nossa igreja local?\n  f. Seus registros são revisados por um contador? Com que frequência?\n  g. Como você informa as finanças da igreja à comissão da igreja?\n  h. Como você informa as finanças da igreja à Associação?",
+   "instructions": null
+  }
+ ]
+}

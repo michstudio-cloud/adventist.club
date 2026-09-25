@@ -1,0 +1,58 @@
+{
+ "honor_slug": "av-habitats",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=217",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Habitats",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é um habitat e escolher um para estudar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender sobre o seu habitat. Registrar o dia e a hora em que você o observou e o que viu.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar, fotografar ou desenhar os animais, insetos etc. que você vê.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar, fotografar ou desenhar as plantas que você vê.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o seu habitat e contar coisas interessantes que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar versículos na Bíblia que falem do seu habitat.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Em que dia Deus criou o seu habitat?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever como você imagina que será o habitat do Céu.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar um habitat.",
+   "instructions": null
+  }
+ ]
+}

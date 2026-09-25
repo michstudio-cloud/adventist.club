@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-bible-storytelling",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=349",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Contar histórias bíblicas",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher cinco histórias bíblicas e dizer onde elas se encontram na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os personagens de suas histórias demonstraram que amavam ou não amavam Jesus?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conversar sobre três coisas importantes que devem ser lembradas ao contar uma história.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando sua lista acima, contar duas histórias a um pequeno grupo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usando dois métodos diferentes, ilustrar duas das histórias bíblicas que você escolheu.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

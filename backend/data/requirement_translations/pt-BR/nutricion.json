@@ -1,0 +1,63 @@
+{
+ "honor_slug": "nutricion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Nutrition/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Desenhar a pirâmide alimentar. Fazer uma lista do número de porções necessárias de cada grupo por dia. Por que é importante ter uma alimentação equilibrada?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre:\n  a. Ovolactovegetariano\n  b. Ovovegetariano\n  c. Vegetariano estrito (vegano)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Planejar um cardápio de dois dias com uma alimentação ovolactovegetariana equilibrada, usando a pirâmide alimentar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o outro nome das vitaminas B1 e B2?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de pelo menos três fontes alimentares importantes dos seguintes nutrientes:\n  a. Vitamina C\n  b. Vitamina A\n  c. Vitamina B1\n  d. Vitamina B2\n  e. Ferro\n  f. Cálcio",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por que é importante beber bastante água todos os dias? Quanta água você deve beber por dia?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar três doenças comuns que podem ser controladas pela alimentação.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a diferença entre farinha de trigo integral e farinha branca, e qual delas tem maior valor nutritivo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que significa a sigla RDA (Recommended Dietary Allowance)? O que ela quer dizer?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que é importante não tomar quantidades excessivas de algumas vitaminas e minerais?",
+   "instructions": null
+  }
+ ]
+}

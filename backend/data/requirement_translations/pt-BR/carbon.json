@@ -1,0 +1,83 @@
+{
+ "honor_slug": "carbon",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coal/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Carvão",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o carvão?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler a história do dilúvio em Gênesis 6–8 e relacionar os acontecimentos descritos na história com a formação do carvão. Como o relato do dilúvio de Gênesis se compara com outras teorias sobre a formação do carvão? Discutir em pequenos grupos os pressupostos de que cada teoria necessita e sua opinião sobre as teorias.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por que o carvão é chamado de combustível fóssil? Quais são os outros combustíveis fósseis e por que é importante economizar os combustíveis fósseis e explorar combustíveis/fontes de energia renováveis? Quanto a companhia de eletricidade de sua região depende dos combustíveis fósseis?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir as seguintes unidades de calor:\n  a. Unidade Térmica Britânica (BTU) (unidade de calor do sistema imperial)\n  b. Quilojoule (kJ) (unidade de calor do sistema métrico)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três dos principais usos atuais do carvão e três dos principais usos históricos do carvão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três vantagens e três desvantagens do uso do carvão como combustível.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar quatro dos principais impactos ambientais do uso do carvão. Que métodos podem ser usados para atenuá-los?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever pelo menos três métodos de mineração a céu aberto e três métodos de mineração subterrânea usados para extrair o carvão. Pesquisar e identificar o tipo de mineração de carvão mais próximo de sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir três grandes perigos da mineração subterrânea de carvão e o que se faz para reduzi-los.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Colecionar fotos ou amostras e ser capaz de identificar os quatro tipos principais de carvão:\n  a. Linhito\n  b. Antracito\n  c. Carvão sub-betuminoso\n  d. Carvão betuminoso",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer as características de cada um dos quatro tipos principais de carvão, incluindo: porcentagem de carbono; gama de cores e aspecto; usos principais; conteúdo energético em BTU (kJ); regiões onde é extraído; e outros fatos de interesse.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Obter pelo menos uma amostra de carvão.\n  a. Estudar e registrar o maior número possível de observações sobre a(s) amostra(s) que tiver, incluindo cor, dureza, facilidade de se desfazer em lâminas etc.\n  b. Usando os conhecimentos adquiridos nesta especialidade, identificar o tipo de carvão.\n  c. Tentar acender um pedaço de carvão com um isqueiro ou fósforo. Com que facilidade a(s) amostra(s) se acende(m) em comparação com outros materiais combustíveis?\n  d. Moer o material até virar pó e repetir o experimento. Quais foram os resultados?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar uma mina de carvão e ter uma discussão em grupo sobre o que aprendeu.\n  b. Visitar um museu da mineração de carvão e ter uma discussão em grupo sobre o que aprendeu.\n  c. Se não houver uma mina ou museu de carvão por perto, assistir a um vídeo sobre a mineração de carvão e ter uma discussão em grupo sobre o que aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Memorizar Romanos 8:28. Discutir como acontecimentos ruins em sua vida, ou na vida de alguém que você conhece, forneceram combustível para coisas melhores, da mesma forma que o dilúvio de Gênesis criou o carvão.",
+   "instructions": null
+  }
+ ]
+}

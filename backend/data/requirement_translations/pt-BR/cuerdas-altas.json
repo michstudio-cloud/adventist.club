@@ -1,0 +1,73 @@
+{
+ "honor_slug": "cuerdas-altas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/High_Ropes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cordas altas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar três tipos, tamanhos e usos diferentes de cordas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber dar os seguintes nós e conhecer seus usos:\n  a. Lais de guia duplo (em seio)\n  b. Nó direito\n  c. Nó de cirurgião\n  d. Nó prússico (Prusik)\n  e. Nó de barril\n  f. Lais de guia\n  g. Nó oito\n  h. Nó oito seguido (refeito)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber fazer uma cadeirinha Studebaker. Conhecer o comprimento regulamentar da corda para a cadeirinha Studebaker.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ser capaz de identificar e dizer os usos dos seguintes itens:\n  a. Mosquetão em D com trava\n  b. Elo rápido (maillon)\n  c. Freio oito\n  d. Placa Sticht\n  e. Capacete",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Estabelecer uma meta pessoal e trabalhar para alcançá-la.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer e demonstrar as técnicas corretas de observação e proteção (spotting).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar de quatro elementos baixos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer e usar os comandos corretos de escalada.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar sua própria metáfora espiritual para dois dos elementos baixos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar três objetivos da participação em um programa de cordas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Tentar realizar dois elementos altos. Completar pelo menos um elemento alto.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Conhecer e citar três elementos de uma segurança (belay) eficaz e segura.",
+   "instructions": null
+  }
+ ]
+}

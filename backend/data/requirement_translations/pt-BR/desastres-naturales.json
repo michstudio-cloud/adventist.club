@@ -1,0 +1,68 @@
+{
+ "honor_slug": "desastres-naturales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Natural_Disasters/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Desastres naturais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é um desastre natural.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir e explicar como se forma cada um dos seguintes desastres naturais e de outros tipos:\n  a. Inundação\n  b. Terremoto\n  c. Incêndios florestais\n  d. Tornado\n  e. Desastre tecnológico\n  f. Grande acidente de transporte",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os perigos que cada desastre representa?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista das precauções que se devem tomar antes de cada um desses desastres.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista das ações que se devem tomar enquanto cada um desses desastres está acontecendo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever o que fazer depois de cada desastre.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir ADRA.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer o programa de socorro em desastres de sua Associação local.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ter participado de uma situação de desastre natural.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Contar a história bíblica do dilúvio.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ler o que a Bíblia diz sobre os desastres nos últimos dias. Mateus 24:3-13 e Lucas 21:8-18",
+   "instructions": null
+  }
+ ]
+}

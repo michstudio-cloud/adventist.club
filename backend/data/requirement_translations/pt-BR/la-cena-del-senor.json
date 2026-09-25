@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-cena-del-senor",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/16_-_The_Lord's_Supper_(Communion)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A Ceia do Senhor",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Entender a mensagem que proclamamos quando participamos da Ceia do Senhor. (1 Coríntios 11:26)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o significado do pão e do suco de uva como símbolos na Santa Ceia. (Mateus 26:26-29; João 6:35; João 15:1)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber quem estabeleceu o lava-pés como parte da Santa Ceia. (João 13:3-5)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os dois significados do lava-pés ensinados por Jesus. (João 13:12-16; Mateus 6:14-15)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber quando Jesus prometeu que voltaria a celebrar a Santa Ceia com Seus discípulos. (Mateus 26:29)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Lucas 22:19-20.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo a importância da Ceia do Senhor, explicando a promessa de Jesus para quem participa dela. (João 6:54)",
+   "instructions": null
+  }
+ ]
+}

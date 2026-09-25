@@ -1,0 +1,58 @@
+{
+ "honor_slug": "senderismo-con-raquetas-de-nieve",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Snowshoeing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o formato e o tamanho de três tipos de raquetes de neve e quando/como podem ser usadas (aeróbico/corrida, recreação, montanhismo).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os seguintes acessórios para raquetes de neve e sua utilidade durante a caminhada:\n  a. Bastões de caminhada\n  b. Botas de caminhada\n  c. Polainas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar a técnica correta dos seguintes movimentos ao usar raquetes de neve:\n  a. Fazer curvas\n  b. Subir\n  c. Descer\n  d. Abrir trilha",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os princípios para manter o corpo aquecido e seco por meio do uso correto de roupas adequadas, em diversas condições de inverno, durante o deslocamento e o descanso. Saber prevenir e tratar com êxito a hipotermia em condições de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o valor para a segurança das seguintes práticas:\n  a. Levar um bom mapa e uma bússola ou um GPS de trilha e saber usá-los.\n  b. Deixar um plano com alguém quando for caminhar com raquetes de neve.\n  c. Caminhar com raquetes de neve acompanhado.\n  d. Levar água e lanches suficientes.\n  e. Levar kits de primeiros socorros, de sobrevivência e de reparos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar como se levantar depois de cair na neve usando um par de raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar a importância das fixações e saber prender corretamente suas botas nas fixações das raquetes de neve.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma série de três caminhadas – uma caminhada curta, uma de uma milha (1,6 km) e uma de duas milhas (3,2 km). Fazer um relatório detalhado descrevendo a profundidade e as condições aproximadas da neve, as plantas e os animais e a velocidade aproximada com que você se deslocou.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar o significado da expressão “mais alvo que a neve”, que se encontra no Salmo 51:7. Que outras metáforas da natureza você poderia usar para demonstrar o significado desse versículo?",
+   "instructions": null
+  }
+ ]
+}

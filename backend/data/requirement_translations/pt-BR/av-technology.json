@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-technology",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=177",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Computação",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a finalidade de cada item:\n  a. Sistema de computação\n  b. Monitor\n  c. Mouse\n  d. Teclado\n  e. Unidade central de processamento\n  f. Disco rígido\n  g. Scanner\n  h. CD-ROM\n  i. Modem\n  j. Impressora\n  k. Rede\n  l. Disquete",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Para que servem os computadores?\n  a. Documentos e livros\n  b. Bancos de dados\n  c. Cálculos\n  d. Comunicações\n  e. Pesquisa\n  f. Diversão",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma das seguintes atividades:\n  a. Digitar e imprimir um bilhete de agradecimento.\n  b. Participar de um jogo educativo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar um escritório e ver como o computador ajuda a pessoa em seu trabalho.\n  b. Visitar um vendedor de computadores e pedir que ele faça uma demonstração da tecnologia mais recente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer a fileira central (fileira base) do teclado.\n  a. Mostrar a posição correta das mãos no teclado.\n  b. Explicar por que a posição correta das mãos é importante.\n  c. Digitar em um programa básico de digitação, como Sticky Bear ou Mavis Beacon.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Computação», son los de Technology)"
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "motores-pequenos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Small_Engines/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o projeto e o funcionamento do motor de dois tempos e do motor de quatro tempos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as partes do motor de dois tempos e dizer a função de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de quatro combustíveis básicos usados em pequenos motores e explicar seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar cuidado e segurança no manuseio e armazenamento de combustível.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever três tipos de sistemas de ignição.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por que a gasolina não é um líquido de limpeza adequado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de dois líquidos de limpeza aceitáveis para pequenos motores.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista de três sistemas básicos de lubrificação e dizer como funcionam.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista, em ordem, das etapas de um procedimento geral de diagnóstico de defeitos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar que você consegue revisar, inspecionar e regular corretamente qualquer motor pequeno.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar que você sabe testar e limpar velas de ignição e velas de aquecimento.",
+   "instructions": null
+  }
+ ]
+}

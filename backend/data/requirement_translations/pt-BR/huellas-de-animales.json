@@ -1,0 +1,73 @@
+{
+ "honor_slug": "huellas-de-animales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Animal_Tracking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer dez tipos de pegadas, incluindo dois tipos de pegadas de aves. Fazer moldes de gesso de cinco delas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar pelo menos três coisas que as pegadas nos revelam.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Seguir as pegadas de algum animal, identificar o animal se possível e dizer se ele estava correndo ou andando. Medir a distância entre as pegadas de um animal quando corre e quando anda.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Manter uma estação de rastreio por pelo menos três dias, fazendo o seguinte:\n  a. Escolher um espaço plano e aberto em algum lugar tranquilo perto de seu acampamento ou de sua casa.\n  b. Alisar a terra, a lama, a areia etc.\n  c. Deixar alimento para os animais silvestres.\n  d. Verificar diariamente se há pegadas e repor o alimento quando necessário.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar dois animais de cada grupo de rastreio.\n  a. Plantígrados (pisam com a planta do pé)\n  b. Digitígrados (andam sobre os dedos)\n  c. Ungulígrados (andam sobre as unhas/cascos)\n  d. Saltadores ou de patas traseiras longas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar quatro sinais da presença de mamíferos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Distinguir entre as pegadas de coelho e de esquilo e entre as pegadas da família dos cães e da família dos gatos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar dois grupos de animais (mamíferos, aves, insetos etc.) que deixam pegadas ou trilhas de odor que outros de sua espécie podem seguir.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar duas aves para cada um dos seguintes tipos de pegadas:\n  a. Saltitantes\n  b. Andantes",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Além das pegadas, citar dois outros sinais da presença de aves.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar duas aves identificadas por seu padrão de voo.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Em sua região, observar as pegadas ou o rastro de um ou mais dos seguintes:\n  a. Sapo ou rã\n  b. Cobra\n  c. Tartaruga\n  d. Molusco\n  e. Minhoca\n  f. Toupeira",
+   "instructions": null
+  }
+ ]
+}

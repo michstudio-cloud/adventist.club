@@ -1,0 +1,68 @@
+{
+ "honor_slug": "cuidado-y-mantenimiento-de-guitarras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Guitar_Care_and_Maintenance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cuidado e manutenção de violões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Violão.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é um luthier? Citar um grande profissional dessa área.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um violão, ou desmontar e montar novamente um violão ou baixo, identificando, separando e explicando as funções das seguintes peças ou partes (os itens de \"a\" a \"e\" são obrigatórios; os demais são opcionais):\n  a. Tarraxas\n  b. Pestana (capotraste fixo)\n  c. Cavalete\n  d. Cordas\n  e. Trastes\n  f. Rastilho\n  g. Mão (cabeça)\n  h. Mastro\n  i. Braço\n  j. Corpo\n  k. Fundo\n  l. Tampo\n  m. Laterais\n  n. Boca\n  o. Escala (comprimento)\n  p. Escala (espelho)\n  q. Elementos decorativos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber distinguir as tarraxas para cordas de náilon e de aço; depois, desmontá-las, limpá-las e lubrificá-las para montá-las novamente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar as cordas pela espessura e afiná-las.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer a matéria-prima da pestana e do rastilho. Fazer uma pestana ou um rastilho.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar por que as cordas podem ser retiradas e conhecer os cuidados ao fazer esse procedimento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que cuidados devem ser tomados para evitar a oxidação das cordas e de outras peças do violão ou de outros instrumentos de corda?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar (se possível) e explicar como colar as rachaduras de um instrumento de corda, especificando que tipo de cola usar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como se colocam enxertos em um instrumento danificado?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Pintar um violão ou baixo, demonstrando os cuidados necessários no processo de lixamento, na escolha da tinta e na secagem.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "honor_slug": "maestria-en-testificacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Witnessing_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Testemunho",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Testemunho é conquistado quando o Desbravador conclui SETE (7) especialidades quaisquer da categoria Crescimento Espiritual, Atividades Missionárias e Herança.\n  - Linguagem bíblica (hebraico)\n  - Herança dos pioneiros adventistas\n  - Aventuras com Cristo\n  - Aventuras com Cristo - Avançado\n  - Herança adventista afro-americana em DNA\n  - Herança adventista afro-americana em DNA - Avançado\n  - Memorize a Bíblia\n  - Descobrindo a Bíblia I\n  - Descobrindo a Bíblia I - Avançado\n  - Descobrindo a Bíblia II\n  - Descobrindo a Bíblia II - Avançado\n  - Descobrindo a Bíblia III\n  - Descobrindo a Bíblia III - Avançado\n  - Descobrindo a Bíblia IV\n  - Descobrindo a Bíblia IV - Avançado\n  - Descobrindo a Bíblia V\n  - Descobrindo a Bíblia V - Avançado\n  - Descobrindo a Bíblia VI\n  - Descobrindo a Bíblia VI - Avançado\n  - Diário bíblico\n  - Diário bíblico - Avançado\n  - Marcação bíblica\n  - Marcação bíblica - Avançado\n  - Arqueologia bíblica\n  - Linguagem bíblica (hebraico) - Avançado\n  - Braille\n  - Prevenção de intimidação I\n  - Prevenção de intimidação II\n  - Cuidado de bebês\n  - Arte da pregação cristã\n  - Arte da pregação cristã - Avançado\n  - Cidadania cristã\n  - Dramatização cristã\n  - Asseio e cortesia cristã\n  - Arte de contar histórias cristãs\n  - Formação de equipes cristãs\n  - Visitação cristã\n  - Adoração cristã\n  - Melhoria da comunidade\n  - Criacionismo\n  - Criacionismo - Avançado\n  - Intervenção de crise\n  - Etnologia missionária\n  - Ministério de desastres\n  - Discípulos e apóstolos\n  - Primeiros missionários adventistas\n  - Vida familiar\n  - Ministério de alimentação\n  - Bandeiras\n  - Bandeiras - Avançado\n  - Viagens missionárias ao exterior\n  - Mensageira de Deus\n  - Hinos\n  - Avaliação da comunidade\n  - Introdução à herança dos pioneiros adventistas\n  - Jesus I - Sua vida\n  - Jesus II - Meu Salvador\n  - Jesus III - Seus milagres\n  - Jesus IV - Método de missão\n  - Jesus V - Seus ensinos\n  - Jesus VI - Na profecia\n  - Juízes de Israel\n  - Testemunho juvenil\n  - Liderança juvenil\n  - Reis de Israel\n  - Estudo de línguas\n  - Colportagem\n  - Ministério da transmissão de mídia\n  - Vida missionária\n  - O dilúvio de Noé\n  - Desfile com carros alegóricos\n  - Desfile com carros alegóricos - Avançado\n  - Patriarcas da Bíblia\n  - Pacificador\n  - Pacificador - Avançado\n  - Evangelismo pessoal\n  - Louvor e adoração\n  - Oração\n  - Oração - Avançado\n  - Pregador evangelista\n  - Pregador evangelista - Avançado\n  - Profetas e profecias\n  - Profetas e profecias - Avançado\n  - Arte em fantoches\n  - Arte em fantoches - Avançado\n  - Assistência a refugiados\n  - Desenvolvimento rural\n  - Apreciação do sábado\n  - Santuário\n  - Santuário - Avançado\n  - História adventista\n  - Servindo a comunidade\n  - Língua de sinais\n  - Língua de sinais - Avançado\n  - Estudo bíblico em pequeno grupo\n  - Estudo bíblico em pequeno grupo - Avançado\n  - Dons espirituais\n  - Mordomia\n  - Temperança\n  - As mensagens dos três anjos\n  - Tutoria\n  - Voz da Juventude\n  - Mulheres na história adventista\n  - Transformador do mundo",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "No máximo duas especialidades de ADRA podem (também) ser incluídas nas SETE (7) especialidades de atividades missionárias.\n  - Avaliação comunitária\n  - Desenvolvimento comunitário\n  - Serviço comunitário\n  - Resolução de conflitos\n  - Resposta a desastres\n  - Resposta a desastres - Avançado\n  - Combate à fome\n  - Alfabetização\n  - Reassentamento de refugiados",
+   "instructions": null
+  }
+ ]
+}

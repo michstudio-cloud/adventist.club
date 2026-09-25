@@ -1,0 +1,38 @@
+{
+ "honor_slug": "computadoras-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computers_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Informática.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dar exemplos de cada um dos seguintes componentes de software/mídia de computador. Explicar o papel que cada um desempenha na experiência de uma pessoa com o computador.\n  a. Software de processamento de texto\n  b. Software de apresentação\n  c. Software de criação gráfica\n  d. Software de gravação de mídia\n  e. Software de editoração\n  f. Software de criação de banco de dados\n  g. Software de planilha eletrônica\n  h. Mídia flash\n  i. Mídia em disco",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Instalar e usar com sucesso um programa de computador.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir com sua unidade, grupo e/ou família as questões morais relacionadas à pirataria de software e ao compartilhamento de arquivos. Com base na Bíblia, ser capaz de descrever qual deve ser a posição e a prática do cristão nessa área e explicar as razões de sua resposta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Realizar quatro das seguintes atividades, apresentando ao instrutor uma prova impressa ou digital da sua realização.\n  a. Criar uma carta usando um programa de processamento de texto. Usar a mala direta para que a mesma carta seja enviada a cinco pessoas diferentes, com personalização em cada carta (como campo de nome e campo de endereço). Usar a carta em um projeto como:\n    i. Solicitar recursos para uma viagem missionária ou atividade de serviço.\n    ii. Divulgar em sua comunidade uma campanha de arrecadação de alimentos não perecíveis para as festas.\n    iii. Descrever atividades de seu Clube de Desbravadores que possam interessar ao jornal local.\n    iv. Convidar amigos e familiares para um Sábado do Desbravador ou outro evento do ministério jovem.\n  b. Criar um banco de dados com pelo menos 15 registros de pessoas, que inclua pelo menos outros três campos (como endereços, especialidades conquistadas, números de telefone). Usar o banco de dados para gerar formulários que extraiam essas informações. Usar essas informações para fazer um relatório como:\n    i. Acompanhar quais especialidades foram conquistadas por seu clube durante o ano em curso.\n    ii. Determinar a frequência e/ou a pontuação de cada desbravador de seu clube.\n    iii. Acompanhar quais requisitos de classe foram cumpridos por cada pessoa de seu clube ou grupo.\n    iv. Acompanhar os contatos envolvidos em uma iniciativa de serviço de um ano.\n  c. Criar uma planilha eletrônica. Usar essa planilha para algo como:\n    i. Controlar as mensalidades e/ou doações de seu Clube de Desbravadores\n    ii. Controlar as receitas e despesas de um acampamento, viagem missionária ou outro evento do grupo\n    iii. Acompanhar o cumprimento dos requisitos de classe pela unidade\n  d. Criar um boletim informativo de duas páginas usando um programa de editoração. Usar várias colunas, imagens no texto, duas fontes, tamanhos de fonte adequados e informações adequadas de título e rodapé. Usar esse boletim para publicar um informativo como:\n    i. Boletim dos Desbravadores\n    ii. Boletim da igreja\n    iii. Relatório de uma viagem missionária ou atividade de serviço recente\n    iv. Publicação escolar\n  e. Usar um programa de apresentação para criar um arquivo de apresentação com pelo menos seis slides (com texto e fotos) e demonstrar seu funcionamento em uma apresentação em tela cheia. Usar modelos, elementos de design, cores e transições de forma adequada na apresentação. Usar a apresentação para apresentar um tema como:\n    i. Especialidade JA\n    ii. Conceito de uma classe\n    iii. Sermão\n    iv. Arrecadação de fundos\n  f. Usando um programa de gravação de mídia, gravar pelo menos quinze pastas e/ou arquivos em uma mídia gravável. Verificar a integridade dos dados da mídia depois de concluída a gravação.\n  g. Usando um programa de criação gráfica, modificar fotografias digitais originais das seguintes maneiras:\n    i. Emoldurar ou desfocar as bordas de uma fotografia\n    ii. Transformar uma foto colorida em uma foto em tom sépia ou em preto e branco\n    iii. Salvar uma fotografia em um tipo de arquivo diferente do original\n    iv. Combinar elementos de duas fotos para criar uma terceira fotografia\n    v. Acrescentar a uma foto digital um texto colorido com vários efeitos de fonte, como sombra projetada, bisel, relevo e contorno\n    vi. Redimensionar uma foto de modo que a foto final não tenha mais de 800 pixels de largura nem mais de 20% do tamanho em disco do arquivo digital original",
+   "instructions": null
+  }
+ ]
+}

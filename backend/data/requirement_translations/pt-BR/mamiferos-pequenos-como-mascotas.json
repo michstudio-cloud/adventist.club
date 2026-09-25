@@ -1,0 +1,68 @@
+{
+ "honor_slug": "mamiferos-pequenos-como-mascotas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Small_Mammal_Pets/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pequenos mamíferos de estimação",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mamíferos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter um pequeno mamífero de estimação por pelo menos seis meses. (Cães e gatos não são considerados pequenos mamíferos de estimação.) Para uma lista sugerida de animais para escolher, ver o nº 5 abaixo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma das seguintes atividades:\n  a. Se você tem atualmente um pequeno mamífero de estimação, fazer durante um mês um registro dos cuidados com ele. Incluir no registro quando ele recebe água e comida e quando a gaiola é limpa.\n  b. Se você não tem atualmente um pequeno mamífero de estimação, mas já teve um por pelo menos seis meses, \"cuidar\" do pequeno mamífero de estimação de outra pessoa por pelo menos uma semana. Registrar os cuidados necessários.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um relato oral (de pelo menos 3 minutos) sobre o que você observou em seu pequeno mamífero de estimação. Incluir os alimentos favoritos, alguns de seus hábitos, quando ele é mais ativo, sua história favorita sobre ele etc.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer o seguinte:\n  a. Saber distinguir entre os seguintes grupos de pequenos mamíferos de estimação:\n    i. Hamster\n    ii. Gerbos\n    iii. Ratos\n    iv. Camundongos\n    v. Porquinhos-da-índia\n    vi. Chinchilas\n    vii. Coelhos\n    viii. Furões\n  b. Descrever os cuidados básicos com um dos animais da lista acima e descrever uma diferença entre os cuidados com outro animal da lista e os cuidados com o que você escolheu.\n  c. Quais dois desses animais não são roedores?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever uma redação de 200 palavras sobre a história e o valor de um dos animais acima e as características que fazem dele um bom animal de estimação.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber identificar cinco variedades de hamsters e cinco variedades de coelhos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Por que não é bom transformar em animais de estimação pequenos mamíferos retirados da natureza?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Raiva: o que é? Como é transmitida? É possível pegar raiva de pequenos mamíferos? Tem cura? Como evitá-la? Quais pequenos mamíferos de estimação podem transmiti-la?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que você não deve manusear seus pequenos mamíferos de estimação quando estiver resfriado?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar na Bíblia três referências a animais que hoje consideramos pequenos mamíferos de estimação. Segundo a Bíblia, eles são considerados carne limpa ou imunda?",
+   "instructions": null
+  }
+ ]
+}

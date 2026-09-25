@@ -1,0 +1,78 @@
+{
+ "honor_slug": "geocaching-busqueda-por-gps",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geocaching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar as ferramentas tecnológicas necessárias para o geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir ou identificar os seguintes termos de geocaching:\n  a. Container (recipiente)\n  b. Logbook (livro de registro)\n  c. Cache Owner (CO, dono do cache)\n  d. Coordenadas\n  e. Muggle\n  f. Smilie/Find (carinha/encontrado)\n  g. Nome de usuário no geocaching/geonick (login)\n  h. Travel Bug/Travel Coin",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir e dar exemplos dos diferentes tamanhos de cache.\n  a. Extrapequeno/Micro/Nano\n  b. Pequeno\n  c. Médio/regular\n  d. Grande\n  e. Outro",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir e identificar em um mapa de geocaching os seguintes tipos de geocache:\n  a. Tradicional\n  b. Multi-cache\n  c. Mistério\n  d. Virtual\n  e. Earthcache\n  f. Letterbox OU Wherigo",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que objetos podem ser deixados em um geocache? Quais não podem?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que significa Cache In, Trash Out (CITO)?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar duas maneiras de encontrar a localização de um geocache em sua região em um site ou aplicativo de geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usar os seguintes recursos (ou equivalentes) em um receptor GPS e em um site ou aplicativo de geocaching:\n  a. Buscar pelo código GC\n  b. Buscar por localização\n  c. Filtrar locais (por exemplo, escolher apenas os que têm dificuldade 3 ou menos e terreno 3 ou menos)\n  d. Bússola\n  e. Rotas no mapa\n  f. Descrição\n  g. Registros (logs) anteriores\n  h. Dica",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Encontrar três geocaches em sua região, sendo pelo menos um deles um cache regular (tradicional).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conversar sobre os cuidados de segurança que você deve considerar ao praticar geocaching. Ver os atributos de um cache próximo para identificar os perigos apontados pelos donos dos caches.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Comparar as coordenadas e as dicas do geocaching com a orientação de Deus nas Escrituras (Salmo 119:105). Explicar como seguir as instruções de Deus pode manter uma pessoa espiritualmente \"no rumo certo\", assim como as coordenadas exatas fazem no geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer uma das seguintes atividades:\n  a. Depois de encontrar um geocache, escrever um registro cuidadoso que demonstre honestidade, gratidão e respeito pelos outros. Depois, explicar ao seu instrutor ou a um grupo como suas atitudes durante o geocaching (CITO, seguir as regras, respeitar a propriedade, ser gentil com os outros) podem ser um testemunho cristão silencioso, mesmo quando ninguém sabe quem você é.\n  b. Ler e conversar sobre as passagens bíblicas de Mateus 6:19-21 e Jeremias 29:13. Explicar como o geocaching ilustra a diferença entre buscar coisas passageiras e buscar o que tem valor duradouro. Compartilhar uma maneira prática de buscar a Deus intencionalmente no dia a dia, e não apenas quando é conveniente.",
+   "instructions": null
+  }
+ ]
+}

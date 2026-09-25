@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-media-critic",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=77",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Crítico de mídia",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que significa o termo mídia. Dar quatro exemplos. Explicar o que significa o termo crítico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar sobre três princípios que nos ajudam a formar bons hábitos de leitura, de assistir e de ouvir.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um registro do tempo que você passa por dia com os diferentes tipos de mídia. Anotar se o conteúdo é cristocêntrico ou secular. Fazer isso durante duas semanas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma das seguintes atividades com um adulto:\n  a. Assistir à televisão\n  b. Ler uma história\n  c. Ouvir uma gravação",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ser um “crítico de mídia” e conversar juntos sobre os pontos bons e ruins de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com um adulto, usar uma programação de TV, uma lista de livros de um clube do livro etc. para escolher o que você poderia assistir ou ler.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ouvir o começo de uma história curta e inventar seu próprio final.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

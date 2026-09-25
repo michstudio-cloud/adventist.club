@@ -1,0 +1,48 @@
+{
+ "honor_slug": "geocaching-geologico-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geological_Geocaching_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Geocaching geológico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Geocaching - Avançado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter a especialidade de Rochas e minerais - Avançado ou de Geologia - Avançado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Resumir as diretrizes para enviar um earthcache para publicação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades, individualmente ou com um pequeno grupo.\n  a. Visitar e registrar no geocaching.com doze earthcaches. Além disso, escrever dois earthcaches e publicá-los no geocaching.com.\n  b. Visitar e registrar no Geocaching.com cinco (5) tipos de earthcache (da lista abaixo).\n  c. Visitar e registrar no geocaching.com 15 earthcaches. Escrever um earthcache e publicá-lo no geocaching.com.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler a história do dilúvio em Gênesis 6-9. Conversar sobre os impactos geológicos que um dilúvio global poderia ter tido na formação das características geológicas que vemos hoje.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar com um instrutor, pastor ou líder de jovens qualificado sobre como os cristãos criacionistas entendem a formação da coluna geológica. Se necessário, você pode comparar essa visão com a visão evolucionista.\n  Notas.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "honor_slug": "triatlon-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Triathlon_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Triathlon.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Elaborar um programa de treinamento para você.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Manter um registro de treinamento durante dois meses.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um triathlon avançado como participante individual, num triathlon semelhante a:\n  a. Natação — 1,5km\n  b. Ciclismo — 40km\n  c. Corrida — 10km\n  d. em até 4,5 horas",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "pickleball",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pickleball/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender e compartilhar estes fatos históricos sobre o pickleball:\n  a. Fazer um breve relato do “nascimento” do pickleball, como ele foi criado, a filosofia do esporte e como as regras foram elaboradas para refletir essa filosofia.\n  b. Contar as duas histórias diferentes de como esse esporte recebeu o nome de “Pickleball”.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O pickleball costuma ser descrito como uma mistura de tênis, badminton, raquetebol e pingue-pongue. Explicar pelo menos três regras ou aspectos que tornam o pickleball diferente desses outros esportes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A contagem de pontos é diferente no pickleball e muitas vezes confunde os iniciantes.\n  a. Descrever cada um dos três números do placar e o que é diferente na equipe que saca primeiro em uma partida.\n  b. Descrever até quantos pontos se joga na maioria das partidas normais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como montar e instalar uma rede portátil e como guardá-la de volta na bolsa corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar os seguintes golpes, conseguindo executá-los pelo menos três vezes seguidas com um instrutor:\n  a. Forehand\n  b. Backhand\n  c. Saque (para os lados direito e esquerdo da quadra)\n  d. Voleio (voleio básico de bloqueio)\n  e. Dink\n  f. Lob",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Jogar três partidas, demonstrando o anúncio correto do placar antes de cada saque e a troca das posições de saque e de recepção na quadra.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Embora o pickleball seja um esporte de baixa intensidade e seguro para quem está fora de forma, as pessoas se machucam jogando. Descrever pelo menos dois tipos de lesão que ocorrem no pickleball e o que pode ser feito para preveni-las.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar alongamentos e exercícios de aquecimento adequados para prevenir duas das lesões acima.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever pelo menos três aspectos do jogo que refletem valores cristãos e citar um texto bíblico que apoie cada valor.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como o pickleball pode fazer parte do “evangelismo pelo exercício” e ser usado por uma escola ou igreja para alcançar a comunidade?",
+   "instructions": null
+  }
+ ]
+}

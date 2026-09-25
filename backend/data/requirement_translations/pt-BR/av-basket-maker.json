@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-basket-maker",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=41",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cesteiro",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que é um cesto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever vários cestos que há em sua casa e contar como são usados.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar e descrever as ferramentas de um cesteiro.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Contar como os materiais são preparados para trançar cestos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um cesto simples de capim, junco ou outro material natural da sua região, OU decorar um cesto para ser usado de forma prática em sua casa, como os de costura, de lixo, de frutinhas ou de flores.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Decorar um cesto para dar de presente.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um cesto com alça.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

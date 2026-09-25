@@ -1,0 +1,63 @@
+{
+ "honor_slug": "dibujo-vectorial",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Vector_Drawing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Desenho vetorial",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é desenho vetorial?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três programas especializados para fazer desenhos vetoriais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco formatos comuns de desenho vetorial.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as diferenças entre a imagem de mapa de bits (bitmap) e o desenho vetorial?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como um desenho vetorial consegue manter sua qualidade quando é ampliado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é a curva de Bézier? Qual é a sua importância para a estrutura de um desenho vetorial?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as principais diferenças entre um editor de bitmap e um editor de imagens vetoriais? Dar dois exemplos de cada tipo de editor.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher um programa de desenho vetorial e explicar por que o escolheu. Mostrar ao instrutor:\n  a. Cinco ou mais atalhos de mouse ou de teclado do programa escolhido.\n  b. Apresentar e demonstrar o uso de 20 ferramentas diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer os seguintes desenhos:\n  a. O emblema do Clube de Desbravadores, mostrando o uso de guias e réguas.\n  b. Um desenho de sua escolha mostrando o uso da ferramenta \"mão livre\".\n  c. Um animal, mostrando o uso de detalhes.\n  d. Um cartaz, faixa ou folhetos de divulgação (trípticos, dípticos) de algum evento de seu clube ou igreja.\n  e. Transformar a foto de um rosto em um desenho vetorial, usando as ferramentas necessárias, como vetorizador de bitmap, filtro de transparência etc.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Apresentar os desenhos feitos para esta especialidade e submetê-los à apreciação de profissionais da área, visitando um especialista ou publicando os trabalhos em uma rede social ou fórum especializado. Depois de concluir a atividade, apresentar ao instrutor os comentários, aprovações e propostas de correções e mudanças feitos pelos profissionais sobre seu desenho.",
+   "instructions": null
+  }
+ ]
+}

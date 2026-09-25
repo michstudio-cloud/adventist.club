@@ -1,0 +1,58 @@
+{
+ "honor_slug": "eucaliptos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Eucalypts/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quantas espécies diferentes de eucaliptos foram descritas na Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o seguinte:\n  a. De onde vem o nome eucalipto?\n  b. A que família pertencem os eucaliptos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o seguinte:\n  a. Em que outras partes do mundo crescem eucaliptos?\n  b. Em quantos desses países eles são nativos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o seguinte:\n  a. Que país tem a árvore de madeira de lei mais alta?\n  b. Onde ela cresce?\n  c. Qual é a sua altura?\n  d. Que país tem as árvores floríferas mais altas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que grupos os eucaliptos se dividem e que característica é usada para isso?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como os eucaliptos se adaptam a:\n  a. Incêndios florestais frequentes?\n  b. Regiões áridas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar o seguinte:\n  a. De que espécies se extrai o óleo de eucalipto?\n  b. Onde isso é feito na Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar maneiras como os eucaliptos ajudam o ser humano, os animais, as aves e os insetos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma coleção de 15 espécies diferentes de eucaliptos que você consiga identificar e desenhar, decalcar ou coletar o fruto de cada uma, indicando a data, o local e o nome do coletor.",
+   "instructions": null
+  }
+ ]
+}

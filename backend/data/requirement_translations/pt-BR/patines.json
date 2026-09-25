@@ -1,0 +1,53 @@
+{
+ "honor_slug": "patines",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Skates/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Patins",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Resumir a história da criação e do desenvolvimento dos patins.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o equipamento de segurança usado na patinação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos três esportes em que se usam patins.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever a diferença entre os seguintes tipos de patins:\n  a. Patins em linha\n  b. Patins tradicionais (quad)\n  c. Patins de gelo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para cada um dos tipos de patins citados no requisito 4, mencionar:\n  a. Local apropriado para uso\n  b. Pelo menos 3 modalidades em que cada tipo é usado\n  c. Vantagens oferecidas pelo modelo\n  d. Desvantagens",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber fazer a manutenção dos patins e explicá-la (escolher um tipo que possa ser usado em sua região).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte enquanto patina:\n  a. Saber aumentar a velocidade\n  b. Saber frear rapidamente\n  c. Patinar de costas\n  d. Ganhar velocidade e deslizar agachado por pelo menos 5 metros\n  e. Mudar de direção (para a direita e para a esquerda)\n  f. Ganhar velocidade e saltar sobre um objeto\n  g. Fazer um giro de 360° sobre um pé",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pesquisar um dos esportes do requisito 3 e citar as regras, o nível das competições, as categorias e informações interessantes sobre o esporte.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "honor_slug": "ingenieria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Engineering/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é engenharia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os quatro ramos da engenharia a seguir.\n  a. Engenharia química\n  b. Engenharia elétrica\n  c. Engenharia civil\n  d. Engenharia mecânica",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar e definir pelo menos 15 outras modalidades de engenharia.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as responsabilidades gerais de um engenheiro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar sobre que tipo de formação é necessária para uma carreira em engenharia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como a engenharia tem contribuído para a sociedade?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Sozinho ou em grupo, montar um painel que apresente um breve histórico de um engenheiro famoso, destacando suas contribuições para a sociedade. Preparar e fazer uma apresentação oral sobre suas descobertas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ler Gênesis 6. Conversar sobre o contexto bíblico desse capítulo, fazendo comparações com a área da engenharia.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar 4 maravilhas específicas da engenharia na Bíblia que ilustrem a arte e a importância da engenharia.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Definir os seguintes termos relacionados à engenharia:\n  a. CAD (desenho assistido por computador)\n  b. Simulação\n  c. Renderização\n  d. Regime permanente\n  e. Restrição",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O que é engenharia reversa?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Dar um exemplo do mundo real em que a engenharia reversa é útil.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Sozinho ou em grupo, fazer um dos seguintes projetos de engenharia OU um projeto de acordo com seu nível de habilidade.\n  a. Construir um avião de papel, aparando e fazendo ajustes para que voe melhor\n  b. Construir uma bússola usando uma caixa, um prego e um ímã\n  c. Construir uma pequena barragem usando palitos de sorvete e pedras",
+   "instructions": null
+  }
+ ]
+}

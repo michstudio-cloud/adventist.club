@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-environmentalist",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=203",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ecologia",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Recitar Gênesis 1:26. Explicar nosso papel na proteção dos animais silvestres.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de três animais em perigo de extinção e explicar por quê.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de três aves em perigo de extinção e explicar como você pode ajudar a proteger as aves.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Estudar as árvores ameaçadas de extinção em sua região. Plantar ou adotar uma árvore.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em sua região:\n  a. O que causa a poluição? Fazer uma lista de maneiras de evitar a poluição.\n  b. Investigar como e por que a poluição foi causada.\n  c. Explicar como você pode evitar poluir a água.\n  d. Que perigos ameaçam a qualidade do ar?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de uma das seguintes atividades comunitárias para ajudar a limpar o meio ambiente:\n  a. Participar de eventos do Dia da Terra.\n  b. Ajudar seu grupo a recolher o lixo da beira de uma estrada ou de um córrego.\n  c. Ajudar a recolher papel, latas ou outros materiais para reciclagem.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Criar um mural da Terra renovada.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Ecologia», son los de Environmentalist)"
+}

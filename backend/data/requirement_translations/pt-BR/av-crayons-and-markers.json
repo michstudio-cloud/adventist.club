@@ -1,0 +1,68 @@
+{
+ "honor_slug": "av-crayons-and-markers",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=57",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Giz de cera e canetinhas",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Como o giz de cera é fabricado? Quais são as oito cores principais do giz de cera e das canetinhas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que é feito o giz de cera?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que acontece se o giz de cera esquentar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o nome de um menino que tinha uma túnica de muitas cores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar ou colorir uma figura de José e sua túnica.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenhar ou colorir uma figura com canetinhas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que as canetinhas precisam de tampa?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Onde se deve usar canetinhas? Onde não se deve usar canetinhas?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma pasta para seus desenhos e decorar a capa com canetinhas ou giz de cera.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Desenhar ou colorir dois dos seguintes com canetinhas ou giz de cera:\n  a. animal ou pássaros\n  b. Jesus e as crianças\n  c. arco-íris\n  d. sua mão\n  e. sua casa",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer nove cores.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "honor_slug": "predicar-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Preach_It_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pregador evangelista.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Participar de uma série evangelística multimídia:\n  a. Em qualquer país\n  b. Pregar pelo menos 6 dos sermões dessa série",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler Evangelismo, p. 628-683, “O obreiro e suas qualificações”.",
+   "instructions": null
+  }
+ ]
+}

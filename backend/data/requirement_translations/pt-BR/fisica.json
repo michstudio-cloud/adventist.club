@@ -1,0 +1,68 @@
+{
+ "honor_slug": "fisica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Physics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o seguinte:\n  a. Física\n  b. Massa\n  c. Trabalho\n  d. Força\n  e. Potência\n  f. Energia potencial\n  g. Energia cinética\n  h. Peso\n  i. Matéria\n  j. Inércia\n  k. Atrito\n  l. Onda\n  m. Centro de gravidade\n  n. Notação exponencial\n  o. Zero absoluto\n  p. Fulcro (ponto de apoio)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é o método científico? Como o método científico pode ser usado para estudar a Bíblia?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é um experimento controlado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os termos da equação E = mc^2 de Albert Einstein.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que unidades de medida de massa, comprimento e tempo são usadas onde você mora?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que unidades de medida são usadas para as profecias de tempo na Bíblia? Em que livro, capítulo e versículo podem ser encontradas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar as três leis do movimento de Newton.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando uma toalha de mesa e vários livros pesados, demonstrar a primeira lei do movimento de Newton.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando um balão cheio de ar, demonstrar a terceira lei do movimento de Newton.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar o experimento dos corpos em queda de Galileu, soltando ao mesmo tempo, de uma altura de sete pés (2,1 m), duas garrafas plásticas de bebida (uma cheia de água e a outra pela metade). Registrar os resultados e tirar uma aplicação espiritual desse experimento.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar a vantagem mecânica das alavancas arrancando um prego grande, cravado fundo em uma tábua, usando apenas um martelo. Arrancar um segundo prego usando um martelo e um pequeno bloco de madeira colocado perto do prego, sob a cabeça do martelo. Observar a diferença de força necessária para arrancar o prego com diferentes posições do martelo sobre o bloco (fulcro) e tirar uma aplicação espiritual desse experimento.",
+   "instructions": null
+  }
+ ]
+}

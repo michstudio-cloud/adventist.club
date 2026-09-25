@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-wise-steward",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=407",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Sábio mordomo",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever um sábio mordomo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com um adulto, encontrar na Bíblia um texto que diga a quem pertencem todas as coisas da Terra.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar Malaquias 3:8-10. Ser capaz de preencher seu próprio envelope de dízimo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um cartaz que mostre algumas das coisas para as quais são usadas as suas ofertas da Escola Sabatina.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ouvir a história bíblica da viúva e sua pequena oferta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Contar como e por que um sábio mordomo cuida de seus pertences.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

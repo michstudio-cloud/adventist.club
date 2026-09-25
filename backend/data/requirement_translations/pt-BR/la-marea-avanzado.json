@@ -1,0 +1,33 @@
+{
+ "honor_slug": "la-marea-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tides_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Marés - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma das seguintes atividades:\n  a. Se você mora perto de águas com maré, fazer durante um mês tabelas que mostrem os horários da maré alta e da maré baixa, das marés de quadratura e das marés de sizígia.\n  b. Construir um relógio de marés que mostre a maré alta e a maré baixa de um dia de maré médio e que possa ser ajustado para tocar em diferentes níveis de maré. Não é possível fazer relógios que correspondam a áreas com fluxo de maré irregular. Esses relógios podem ser feitos pegando um relógio velho e desacelerando o mecanismo para corresponder ao dia de maré de 24 horas, 50 minutos e 28 segundos (seria preciso dividir isso ao meio para comparar com o período de 12 horas que um relógio mostra).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma tabela ou diagrama mostrando como as várias fases da lua afetam as marés.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Com que frequência os padrões de maré se repetem? Como descobrir como estava a maré em uma data passada em determinado local, ou como estará em uma data futura, para poder planejar uma expedição científica?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever uma redação sobre o efeito das marés na ecologia. Explicar o que se entende por níveis diários de maré superior, inferior e médio. Dar exemplos de vida marinha que pode ser encontrada em cada nível. Explicar como o calendário mensal das marés de quadratura e de sizígia afeta o ciclo de vida de habitantes do mar, como o grunion, o límulo (caranguejo-ferradura), algumas tartarugas marinhas etc.",
+   "instructions": null
+  }
+ ]
+}

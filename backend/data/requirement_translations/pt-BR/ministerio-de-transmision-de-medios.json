@@ -1,0 +1,68 @@
+{
+ "honor_slug": "ministerio-de-transmision-de-medios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Media_Broadcast_Ministry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar cinco exemplos de como a mídia pode ser usada para ministrar além das paredes do templo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar sobre como o uso crescente da mídia e das transmissões ao vivo pode ter papel fundamental no ministério de sua igreja local.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Compartilhar exemplos de várias fontes que mostrem como a tecnologia está sendo integrada ao ministério para levar o evangelho a todo o mundo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conversar sobre alguns dos impactos positivos e negativos que a tecnologia trouxe para a igreja.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Comparar como a mídia de apoio à igreja mudou a cultura tradicional de adoração nos cultos de louvor e adoração de nossas igrejas locais.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Em grupo, ler Mateus 28:19-20 e conversar sobre como o ministério de mídia procura cumprir a Grande Comissão.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar em grupo sobre como cada uma das seguintes formas de mídia cristã citadas no nº 1 pode ser usada como parte de uma experiência de adoração para compartilhar o evangelho:\n  a. Transmissão ao vivo\n  b. Cultos gravados em arquivo\n  c. Rádio pela internet (webcasting)\n  d. Igrejas ou distritos com vários locais (multi-site)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Assistir a um culto transmitido pela mídia ou ao vivo pela internet. Preparar e apresentar a um grupo sua experiência geral, destacando observações sobre os seguintes pontos (ou equivalentes semelhantes):\n  a. Fontes de onde foram tiradas as anotações do pregador.\n  b. Reconhecimento, por parte dos oradores, de quem está assistindo pela internet.\n  c. Posição das telas usadas para as músicas e as referências bíblicas.\n  d. Número de participantes que usam Bíblias e hinários físicos.\n  e. Comportamento e vestuário de quem está conduzindo o culto.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrevistar uma pessoa ou equipe responsável pela transmissão de mídia em uma igreja. Preparar e apresentar suas descobertas a um grupo.\n  a. Quais são algumas das vantagens de uma transmissão semanal?\n  b. Quais são alguns dos obstáculos para produzir uma transmissão semanal?\n  c. De que você mais gosta no ministério de mídia?\n  d. Quanto tempo leva para criar um programa (do começo ao fim)?\n  e. Que ferramentas (hardware, software etc.) você usa semanalmente?\n  f. Que conselho você daria a alguém que quer começar seu próprio ministério de mídia?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Entrevistar um membro antigo da igreja e perguntar o seguinte:\n  a. Como a mídia mudou os cultos da igreja ao longo dos anos?\n  b. O que você acha que o ministério de transmissão de mídia fez para ajudar as pessoas a adorar?\n  c. Você vê desafios no ministério de transmissão de mídia?\n  d. Que conselho você me daria para usar a mídia da melhor maneira possível no ministério do evangelho?\n  e. Como um ministério de transmissão de mídia pode ser usado para divulgar o evangelho, em comparação com os métodos tradicionais?\n  f. Com base em suas observações e experiência, quais são algumas maneiras pelas quais o ministério de mídia pode ser usado para envolver a congregação?\n  g. Você acredita que o ministério de mídia está ajudando a cumprir a Grande Comissão?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades, individualmente ou em grupo:\n  a. Participar regularmente do funcionamento do departamento de mídia de sua igreja por no mínimo três meses. Durante esse tempo, descobrir e/ou avaliar o seguinte:\n    i. Em que tipos de mídia o departamento decidiu investir e por quê\n    ii. O que o departamento de mídia está fazendo bem\n    iii. O que o departamento de mídia gostaria de ter recursos para fazer melhor\n    iv. Que público o departamento de mídia está alcançando (e deseja alcançar)\n  b. Assistir e/ou ouvir cinco programas de ministério de mídia on-line. Responder às seguintes perguntas sobre cada um (compartilhar sua pesquisa com um instrutor, líder adulto ou grupo):\n    i. Qual é o formato do programa? (entrevista, conversa em grupo, apresentação individual etc.)\n    ii. Qual é a duração do programa?\n    iii. Qual é o objetivo do programa ou das informações apresentadas?\n    iv. Quantas vezes ele foi visto ou reproduzido? Ou quantas pessoas sintonizaram? (se for o caso)\n    v. Os oradores se dirigem ao público on-line ou remoto?\n    vi. Quantas vezes são citados versículos bíblicos?\n    vii. É algo que você gostaria de ver ou ouvir novamente?\n    viii. Que experiências importantes se perdem quando se participa dos cultos apenas pela mídia?",
+   "instructions": null
+  }
+ ]
+}

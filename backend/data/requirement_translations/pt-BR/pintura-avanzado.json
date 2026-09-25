@@ -1,0 +1,43 @@
+{
+ "honor_slug": "pintura-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Painting_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pintura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os seguintes estilos de pintura e mostrar exemplos de obras de 3 artistas de cada estilo:\n  a. Impressionismo\n  b. Pontilhismo\n  c. Fauvismo\n  d. Realismo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber esticar uma tela para pintura.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pintar 5 quadros. Usar pelo menos 3 meios diferentes e pelo menos 3 temas diferentes; um deles deve ser em técnica mista.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar dois exemplos de pintores contemporâneos e dar três motivos pelos quais você aprecia o trabalho deles.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar Gênesis 9:13. Discutir por que Deus encheu a Terra de cores e variedade e como Ele tocou ou mudou pessoalmente seus pensamentos sobre a vida e a arte.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "honor_slug": "cosmografia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Stars_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Astronomia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como se explica o movimento diário aparente das estrelas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é cada um dos seguintes?\n  a. Planeta\n  b. Satélite\n  c. Cometa\n  d. Meteoro\n  e. Nebulosa\n  f. Constelação\n  g. Estrela fixa\n  h. Mancha solar",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que significam os termos:\n  a. Esfera celeste\n  b. Polo celeste\n  c. Equador celeste\n  d. Horizonte\n  e. Ascensão reta\n  f. Declinação\n  g. Trânsito\n  h. Conjunção\n  i. Eclíptica",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a principal diferença entre o telescópio refrator e o telescópio refletor. Descrever uma montagem equatorial de telescópio.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Em que cores a luz do Sol se dispersa ao passar por um prisma? De que maneira as cores das estrelas são usadas para indicar sua temperatura?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que relação existe entre a eclíptica e os equinócios de primavera e de outono? Que datas geralmente estão associadas aos equinócios?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender as 12 constelações chamadas signos do zodíaco. Conhecer a história dos signos do zodíaco.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar pelo nome e mostrar no céu as constelações que podem ser vistas durante toda a noite em uma noite clara em seu hemisfério.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar cinco constelações visíveis entre o pôr do sol e a meia-noite em seu hemisfério durante:\n  a. Os meses de verão.\n  b. Os meses de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Em que época do ano a constelação de Órion é mais bem vista? Localizar e identificar no céu as três estrelas mais brilhantes dessa constelação.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como as letras do alfabeto grego são usadas para dar nome às estrelas de uma constelação? Dar cinco exemplos do uso das letras do alfabeto grego para nomear as estrelas de uma constelação.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Localizar as 15 estrelas de primeira magnitude conforme aparecem ao longo do ano.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Usando um diagrama, mostrar as posições relativas da Terra e da Lua durante a maré alta e a maré baixa.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Descrever as características peculiares de cada um dos planetas de nosso sistema solar. Quais não podem ser vistos sem a ajuda de um telescópio? Quais são os dois planetas que só são vistos perto do nascer ou do pôr do sol?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Onde e de que maneira a Bíblia se refere a Órion, às Plêiades e a Arcturo?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Discutir a declaração feita por Ellen G. White em Primeiros Escritos, página 41, sobre a abertura em Órion.",
+   "instructions": null
+  }
+ ]
+}

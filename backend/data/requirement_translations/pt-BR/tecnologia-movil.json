@@ -1,0 +1,78 @@
+{
+ "honor_slug": "tecnologia-movil",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mobile_Technology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um dispositivo móvel? Dar quatro exemplos de dispositivos móveis que você já viu ou usou.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar um diagrama mostrando como a tecnologia móvel usa estações rádio base, ou células (e por que se usa a palavra “célula”). Usar esse diagrama para explicar os fatores que afetam o seguinte:\n  a. Cobertura\n  b. Densidade\n  c. Rastreamento de localização\n  d. Transferência de chamadas (handoff)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir em grupo algumas precauções de segurança que devem ser consideradas no uso de um dispositivo móvel.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar uma lista de diferentes tipos de dispositivos móveis.\n  a. Discutir em grupo as vantagens e desvantagens de cada dispositivo da lista.\n  b. Discutir em grupo como os dispositivos móveis podem ser usados para difundir o evangelho de Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em grupo, discutir maneiras como a tecnologia móvel pode ser usada em benefício da sociedade e da indústria, como:\n  a. Negócios\n  b. Lazer pessoal\n  c. Segurança e proteção\n  d. Educação\n  e. Saúde\n  f. Transporte\n  g. Tarefas escolares",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever os seguintes tipos de estações rádio base.\n  a. Camufladas\n  b. Sistemas isolados da rede elétrica (off-grid)\n  c. Instalações temporárias",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ilustrar uma torre de celular por meio de desenhos, esboços ou fotografias. Saber identificar uma torre de celular numa área aberta.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Criar um discurso, apresentação, vídeo ou jogo que ilustre o que você aprendeu sobre tecnologia móvel ao fazer esta especialidade. Compartilhar sua criação com um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir em grupo algumas maneiras como a tecnologia móvel pode ser integrada ao ministério para compartilhar o evangelho em todo o mundo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Discutir em grupo como a tecnologia móvel pode ser usada para enriquecer os seguintes aspectos de sua vida espiritual:\n  a. Meditações\n  b. Músicas inspirativas\n  c. Lembretes de oração\n  d. Participar de cultos\n  e. Compartilhar mensagens inspirativas",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Discutir em grupo como as seguintes passagens bíblicas se aplicam ao uso da tecnologia móvel.\n  a. Mateus 24:1\n  b. 1 Coríntios 6:12",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Avaliar como ser cristão deve influenciar seu uso da tecnologia móvel. Ser detalhista e honesto, levando em conta o que você vivenciou nesta especialidade. Compartilhar sua avaliação por escrito com um amigo ou líder de confiança.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer o seguinte, individualmente ou em grupo:\n  a. Criar uma lista temporária de contatos com seus amigos. Obter a permissão deles para enviar uma mensagem de texto diária. Num horário escolhido, compartilhar diariamente uma mensagem inspirativa com as pessoas da lista durante no mínimo uma semana. Respeitar qualquer pedido para ser removido da lista.\n  b. Ao longo de três cultos, observar quando as pessoas usam seus dispositivos durante o culto e com que finalidade.",
+   "instructions": null
+  }
+ ]
+}

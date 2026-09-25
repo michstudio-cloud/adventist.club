@@ -1,0 +1,63 @@
+{
+ "honor_slug": "espeologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Caving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer pelo menos três fontes de luz para a exploração de cavernas e a importância de ter suprimentos de luz extras e lanternas reservas. Pedir a uma pessoa experiente em espeleologia que lhe mostre como funciona uma lanterna de carbureto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de todo o equipamento necessário para uma expedição bem-sucedida a uma caverna, sem incluir o equipamento vertical, e começar a montar seu próprio conjunto de equipamentos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar um espeleólogo experiente e acompanhá-lo na exploração de pelo menos três cavernas relativamente fáceis, acumulando um total de dez horas de exploração efetiva.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Manter um registro dessas explorações, anotando a data, a localização das cavernas, as condições, as características, as horas passadas em cada uma, os nomes dos outros membros do grupo e o nome do líder da expedição.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender, conhecer bem e praticar as regras de segurança da exploração de cavernas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Praticar a subida de uma encosta íngreme puxando-se por uma corda.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever várias maneiras como as cavernas eram usadas nos tempos bíblicos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar do processo de mapeamento de uma pequena caverna que tenha explorado.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer os nomes de pelo menos cinco espeleotemas diferentes e três animais que vivem em cavernas. Incluir no relatório os que observou durante as explorações.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escrever um relatório de pelo menos 500 palavras sobre suas dez ou mais horas de experiência em cavernas e incluir tudo o que aprendeu ao cumprir os nove requisitos anteriores.",
+   "instructions": null
+  }
+ ]
+}

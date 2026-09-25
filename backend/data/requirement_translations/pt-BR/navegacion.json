@@ -1,0 +1,63 @@
+{
+ "honor_slug": "navegacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Navigation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Climatologia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer pelo menos 20 termos náuticos usados na navegação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos três auxílios à navegação e suas funções. Por quem eles são mantidos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar seis tipos de boias. O que significam e como são usadas? Dar as cores das seis boias citadas. Como as boias são numeradas? Como elas marcam os canais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Recitar os pontos da rosa dos ventos com oito pontos cardeais e colaterais. Por que ela é tão importante na navegação? Onde a bússola é instalada na embarcação e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar quatro dos nós mais úteis na marinharia. Saber dá-los e dizer seus principais usos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Familiarizar-se com a leitura e a interpretação de uma \"carta náutica\". Por que a carta náutica é tão valiosa em águas desconhecidas? Citar algumas coisas que uma carta mostra. Dar os símbolos usados em uma carta, ou dois dos tipos de boia mais usados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quando você participa ativamente da navegação, quais são três das melhores regras de segurança a seguir?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que significa estar adequadamente equipado? Ilustrar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que se entende por \"regras de navegação\" e por \"etiqueta adequada na água\"?",
+   "instructions": null
+  }
+ ]
+}

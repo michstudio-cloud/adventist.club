@@ -1,0 +1,43 @@
+{
+ "honor_slug": "mamiferos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mammals_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mamíferos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que mamíferos de sua região são protegidos por lei? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que os processos de nascimento e de cuidado com os filhotes dos monotremados e dos marsupiais são diferentes dos de todas as outras ordens de mamíferos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar cinco maneiras diferentes pelas quais os mamíferos protegem a si mesmos e a seus filhotes e dar um exemplo de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que mamíferos transmitem a tularemia, a peste bubônica, a triquinose e a raiva?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de 15 espécies de mamíferos silvestres que você observou e identificou pessoalmente na natureza. Para cada um da lista, incluir os seguintes dados:\n  a. Nome\n  b. Data da observação\n  c. Localidade\n  d. Hábitat (bosque, campo, pântano)\n  e. Horário\n  f. Comportamento (o que o animal estava fazendo)",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "computacion-ii-intermedio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computing_II_-_Intermediate/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Computação II - Intermediário",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Computação I - Básico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório de pelo menos 1000 palavras sobre os computadores de segunda geração.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Netbook\n  b. Notebook\n  c. Microcomputador\n  d. Tablet\n  e. Mainframe",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever uma carta e enviá-la a um parente próximo, usando um processador de texto e aproveitando corretamente os recursos de formatação que ele oferece.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber o que significam as seguintes expressões na hora de comprar:\n  a. Quantidade de memória\n  b. Velocidade do processador\n  c. Tipos de processadores\n  d. Tipos de monitores",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como proteger o computador contra picos de energia?",
+   "instructions": null
+  }
+ ]
+}

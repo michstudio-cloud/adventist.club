@@ -1,0 +1,37 @@
+{
+ "honor_slug": "procesar-texto-division-del-pacifico-sur",
+ "ministry": "pathfinders",
+ "locale": "es",
+ "source": "guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/procesar_texto.pdf",
+ "license": null,
+ "retrieved": "2026-09-25",
+ "notes": "Procesar texto (Word Processing), División del Pacífico Sur, nivel de destreza 2. Hoja de requisitos de guiasmayores.com (traducción de la SPD).",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Describir brevemente el significado del término «procesar texto».\nHacer una lista de los componentes necesarios para procesar texto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demostrar buena postura al usar un teclado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demostrar la habilidad de correctamente encender la computadora y abrir el programa de procesar texto, y cerrar el programa de procesar texto y apagar la computadora.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demostrar la habilidad de:\n  a. Navegar por los archivos y documentos del sistema de almacenamiento de la computadora.\n  b. Encontrar y abrir un documento del sistema de almacenamiento de la computadora.\n  c. Crear un nuevo archivo en el sistema de almacenamiento de la computadora.\n  d. Crear un nuevo documento dentro el programa de procesar texto.\n  e. Dar el nuevo documento un nombre apropiado y grabarlo en el archivo apropiado del sistema de almacenamiento de la computadora. Explicar por qué es importante asegurarse de grabar un documento continuamente y hacer un respaldo cuando se está trabajando.\n  f. Asegurar que el documento tiene un nombre y la última revisión está claramente anotada en el documento. Explicar por qué es importante hacer esto.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Crear un documento que consiste de 800 palabras o más y que demuestra habilidad en aplicar lo siguiente:\n  a. Configurar un documento:\n    i. Grabar el documento en el archivo apropiado. Crear un nuevo archivo si es mejor.\n    ii. Configurar la orientación de la página: vertical u horizontal\n    iii. Agregar un encabezado y pie de página\n    iv. Configurar los márgenes\n    v. Insertar números de página automáticos en el encabezado o pie de página\n    vi. Poner la fecha de la última revisión y el nombre del documento en el encabezado y pie de página\n  b. Configurar el formato de un documento:\n    i. Fuentes: tipo (Arial, etc.), tamaño (12, etc.), estilo (negrita, etc.), color y subrayado\n    ii. Alinear texto: a la izquierda, centrado, a la derecha y justificado\n    iii. Ajustar el espaciado entre líneas de texto\n    iv. Listas y viñetas\n    v. Numeración del encabezado de página\n  c. Editar un documento:\n    i. Copiar texto\n    ii. Mover texto\n    iii. Corregir ortografía y gramática usando el corrector ortográfico\n    iv. Buscar y reemplazar palabras o texto\n  d. Insertar en un documento:\n    i. Una tabla de contenido con un mínimo de 3 columnas y 5 filas\n    ii. Una imagen\nGrabar e imprimir el documento. Hacer una copia de seguridad.",
+   "instructions": null
+  }
+ ]
+}

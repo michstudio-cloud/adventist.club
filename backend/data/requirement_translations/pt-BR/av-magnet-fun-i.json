@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-magnet-fun-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=73",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com ímãs I",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "De que é feito um ímã?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler a história/lenda grega de como o primeiro ímã foi encontrado e recebeu seu nome.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever os três principais tipos de ímãs:\n  a. Ímãs permanentes\n  b. Ímãs temporários\n  c. Eletroímãs",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Para que servem os ímãs?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer três experiências com ímãs, como as indicadas abaixo:\n  a. Caça ao tesouro com ímã: Espalhar pela sala objetos que são e que não são atraídos pelo ímã. Ver quantos objetos diferentes as crianças conseguem pegar com seu ímã. Sugestões: porcas, parafusos, papel-alumínio, alfinetes de segurança etc.\n  b. Rochas minerais com ferro: Colocar várias rochas minerais sobre uma mesa e ver se as crianças conseguem escolher as que contêm ferro e depois tentar pegá-las com seu ímã. (Ver o recurso nº 2)\n  c. Mover um objeto com um ímã: Pedir a um amigo que segure uma folha de papel com as duas mãos, colocar um clipe sobre o papel e um ímã embaixo. Com a mão, mover o clipe de uma ponta à outra e de volta. Repetir esta experiência pedindo ao amigo que segure uma régua de plástico, um espelho, um papelão etc. no lugar do papel. Funcionou?\n  d. Criar um ímã: Esfregar um prego de aço no ímã 25-30 vezes. Esfregar em uma só direção.\n    i. Quantos clipes você consegue pegar de uma vez?\n    ii. O prego é tão forte quanto seu ímã?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler e memorizar Hebreus 7:19 e Tiago 4:8.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "huellas-de-animales-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Animal_Tracking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Rastreio de animais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre moldes positivos e negativos de pegadas de animais?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer pelo menos um molde positivo a partir de um molde negativo ou de um molde de borracha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é escatologia (estudo das fezes) e por que ela é importante no estudo dos animais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Encontrar pelo menos um vestígio de um animal que não seja sua pegada. Por meio de observação e/ou análise cuidadosa, tirar o máximo de conclusões possível a partir dessa evidência.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com um parceiro, montar um percurso de pistas e trilha de pelo menos uma milha (1,6 km) que inclua pelo menos quatro mudanças de direção, usando sinais tradicionais de rastreio, e fazer com que pelo menos duas outras pessoas sigam o percurso com sucesso. Seguir com sucesso um percurso de uma milha (1,6 km) montado por outra pessoa.",
+   "instructions": null
+  }
+ ]
+}

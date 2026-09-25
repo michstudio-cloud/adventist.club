@@ -1,0 +1,68 @@
+{
+ "honor_slug": "nociones-de-economia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Economics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Noções de economia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é economia e como ela afeta diretamente nossa vida?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir:\n  a. Macroeconomia\n  b. Microeconomia",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes indicadores econômicos e conhecer os dados mais recentes de seu país:\n  a. Taxa de câmbio\n  b. Produto interno bruto\n  c. Renda mediana\n  d. Produto nacional bruto\n  e. Taxa de juros\n  f. Dívida externa\n  g. Taxa de inflação\n  h. Desemprego\n  i. Balança comercial",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer a história da economia mundial e qual modelo econômico é adotado em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as seguintes teorias econômicas:\n  a. Economia clássica\n  b. Economia marxista\n  c. Economia neoclássica\n  d. Economia keynesiana",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer os ciclos econômicos enfrentados por seu país.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever a relação direta entre economia e política.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber como a economia de seu país está estruturada.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber como a economia de um país pode afetar o atraso ou o avanço da pregação do evangelho.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever pelo menos três registros bíblicos de atividades econômicas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar uma bolsa de valores e saber como ela funciona.\n  b. Entrevistar um economista ou administrador e descrever como ele pode ajudar com os princípios econômicos do clube/unidade.",
+   "instructions": null
+  }
+ ]
+}

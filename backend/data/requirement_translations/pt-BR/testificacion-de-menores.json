@@ -1,0 +1,43 @@
+{
+ "honor_slug": "testificacion-de-menores",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Junior_Witness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser membro de um Clube de Desbravadores ou de uma Sociedade de Jovens Adventistas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Participar de pelo menos cinco atividades missionárias durante um ano.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Inscrever pelo menos duas pessoas num curso bíblico por correspondência.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber de memória pelo menos dois textos-chave para cada um dos seguintes ensinos bíblicos:\n  a. A segunda vinda de Cristo\n  b. O sábado do sétimo dia\n  c. O estado dos mortos\n  d. A lei e a graça\n  e. A conversão\n  f. O juízo\n  g. A inspiração da Bíblia\n  h. O Espírito de Profecia\n  i. A recompensa dos santos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dar pelo menos dois estudos bíblicos pelo método da Bíblia aberta, usando recursos visuais, de áudio ou equipamento eletrônico.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos 50 contatos pessoais usando literatura missionária, a campanha anual de arrecadação da ADRA, pesquisas de saúde/da igreja ou outros programas de contato pessoal.",
+   "instructions": null
+  }
+ ]
+}

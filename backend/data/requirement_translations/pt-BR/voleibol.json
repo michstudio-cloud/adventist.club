@@ -1,0 +1,73 @@
+{
+ "honor_slug": "voleibol",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Volleyball/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever as regras atuais da FIVB e citar as oito regras principais do vôlei.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa a expressão “jogo limpo” (fair play), especialmente para um cristão?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Ace\n  b. Assistência\n  c. Ataque\n  d. Manchete\n  e. Condução\n  f. Carregada\n  g. Defesa (dig)\n  h. Largada\n  i. Dois toques\n  j. Bola de segunda (dump)\n  k. Sistemas 5-1 e 6-2\n  l. Bola de graça\n  m. Disputa na rede\n  n. Ponto de ataque (kill)\n  o. Líbero\n  p. Match point\n  q. Central\n  r. Oposto\n  s. Ponteiro\n  t. Rodízio\n  u. Saque\n  v. Levantamento\n  w. Cortada\n  x. Pedido de tempo",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar e compreender as diferentes habilidades exigidas em cada posição do vôlei.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar domínio razoável nas seguintes áreas:\n  a. Saque por baixo\n  b. Saque por cima: o flutuante\n  c. Passe\n  d. Ataque\n  e. Bloqueio\n  f. Levantamento\n  g. Rolamento",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Se for um jogador iniciante, passar pelo menos 4 horas aprendendo e aperfeiçoando suas habilidades de vôlei com um jogador mais experiente. Se for um jogador experiente, passar pelo menos 4 horas ajudando um jogador menos habilidoso ou mais novo a melhorar suas habilidades no vôlei.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Jogar pelo menos dez partidas de vôlei com uma equipe completa (6 pessoas). Demonstrar “jogo limpo” durante os treinos e as partidas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Apresentar, por meio de um trabalho escrito, uma dramatização ou outra forma de exposição, um jogador de vôlei famoso. Explicar por que você acha que esse jogador é um bom exemplo para um cristão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar em escala uma quadra de vôlei com os limites corretamente definidos. Indicar as dimensões, incluindo a altura da rede, as linhas laterais, as linhas de fundo, a linha de ataque e a linha central.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Discutir com seu líder, pastor ou professor os problemas enfrentados pelo jovem adventista do sétimo dia que deseja competir no ensino médio e na universidade. Que alternativas existem para permitir uma participação contínua no esporte?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descobrir e avaliar o que Ellen G. White diz sobre o uso adequado dos esportes competitivos pelos cristãos.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Compartilhar pelo menos uma lição espiritual que você aprendeu com sua experiência numa equipe de vôlei.",
+   "instructions": null
+  }
+ ]
+}

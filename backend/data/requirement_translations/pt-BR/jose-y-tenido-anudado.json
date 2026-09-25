@@ -1,0 +1,53 @@
+{
+ "honor_slug": "jose-y-tenido-anudado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Joseph_Tie-Dying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "José e tingimento tie-dye",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler a história de José. Gênesis 37-50 e Patriarcas e Profetas (PP), p. 209-240",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de 5 características de José e conversar sobre exemplos da história de sua vida.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por que Jacó deu a José uma túnica de muitas cores?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que a túnica de muitas cores significava?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que os irmãos mais velhos de José acharam do presente (a túnica) dado a José?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conversar sobre as comparações entre a vida de José e a de Jesus. PP, p. 239-240",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar em grupo com seus colegas Desbravadores sobre como você pode se tornar parecido com José e com Jesus. PP, p. 222",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma camiseta, bandana ou outra peça de roupa multicolorida de sua escolha.",
+   "instructions": null
+  }
+ ]
+}

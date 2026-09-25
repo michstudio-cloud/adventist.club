@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-reading-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=155",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Leitura II",
+ "description": "Concedida aos Aventureiros que leem, ou ouvem enquanto outra pessoa lê:\n\nClasse sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dois capítulos do livro de Marcos em uma tradução moderna e simples da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Uma história bíblica ou um livro sobre Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Um livro sobre saúde ou segurança.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Um livro sobre família, amigos ou sentimentos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Um livro sobre história ou missões.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Um livro sobre a natureza.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: la DSA tiene «Leitura» y «Excelência na leitura»; aquí «Leitura» con el número del libro de 2020"
+}

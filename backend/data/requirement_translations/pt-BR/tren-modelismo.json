@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tren-modelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Model_Railroad/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar a história e o desenvolvimento do ferreomodelismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença no funcionamento das seguintes unidades de tração reais:\n  a. A vapor\n  b. A diesel\n  c. Elétrica",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o nome, a escala e a bitola de quatro padrões de ferreomodelismo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os formatos e os nomes de pelo menos oito tipos de traçado de trilhos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer pelo menos seis pontos a verificar na manutenção de uma maquete ferroviária.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar e explicar o uso de:\n  a. Cinco tipos de vagões de carga\n  b. Três tipos de vagões de passageiros\n  c. Três tipos de locomotivas a vapor segundo a disposição das rodas\n  d. Dois tipos de dispositivos de advertência em passagens de nível\n  e. Dois tipos de sinais ferroviários\n  f. Cinco tipos de edifícios ou estruturas relacionados à ferrovia",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer o significado dos seguintes termos do ferreomodelismo:\n  a. Lastro\n  b. Rodas motrizes sem friso (blind drivers)\n  c. Bloco (cantão)\n  d. Travessa do truque (bolster)\n  e. Cruzamento\n  f. Travessão (crossover)\n  g. Tração dupla\n  h. Aparelho de choque e tração\n  i. Friso da roda\n  j. Jacaré (frog)\n  k. Interrupção (gap)\n  l. Bitola\n  m. Rampa\n  n. Pátio de gravidade\n  o. Caixa de eixo superaquecida\n  p. Junta isolante de trilho\n  q. Mancal\n  r. Maquete (layout)\n  s. Linha principal\n  t. Protótipo\n  u. Junta de trilho\n  v. Laço de reversão\n  w. Desvio\n  x. Ramal\n  y. Aparelho de mudança de via\n  z. Máquina\n  aa. Truque Talgo\n  bb. Truque\n  cc. Chave de desvio (turnout)\n  dd. Dois trilhos\n  ee. Triângulo de reversão (wye)\n  ff. Chave em Y (Yswitch)\n  gg. Pátio",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Construir uma parte de uma maquete ferroviária. Na construção, fazer o seguinte:\n  a. Ajudar a montar a estrutura\n  b. Instalar uma seção de lastro\n  c. Instalar uma seção de trilhos\n  d. Instalar pelo menos um aparelho de mudança de via, incluindo a fiação\n  e. Ajudar a fazer o cenário, como árvores, rochas, montanhas ou grama\n  f. Fazer um edifício ou estrutura de ferreomodelismo\n  g. Ajudar na fiação para fornecer energia elétrica aos trilhos",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Operar com êxito um trem modelo na maquete que você ajudou a construir.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-unidad-en-el-cuerpo-de-cristo",
+ "ministry": "pathfinders",
+ "source_locale": "pt-BR",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-mda.wiki.br",
+ "source_url": "https://mda.wiki.br/Especialidade_de_Unidade_no_Corpo_de_Cristo",
+ "license": null,
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber cuál es el testimonio más importante que la Iglesia debe dar al mundo. (Juan 17:21-23)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conocer qué actitudes debemos cultivar para mantener la unidad de la Iglesia. (Efesios 4:2-3)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir quién es el principal vínculo que une a los miembros de la Iglesia. (Juan 15:5)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entender cómo espera Jesús que sea la relación entre sus seguidores. (Juan 15:12-13, 17)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar qué actitudes causan división entre los miembros de la Iglesia. (2 Timoteo 3:2-5; Santiago 3:16; Santiago 4:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar y recitar el Salmo 133:1.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartir con un amigo cuál debe ser la principal actitud de un cristiano para promover la unión en la Iglesia. (1 Corintios 1:10)",
+   "instructions": null
+  }
+ ]
+}

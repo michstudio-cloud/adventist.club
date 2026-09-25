@@ -1,0 +1,43 @@
+{
+ "honor_slug": "ejercicios-y-marchas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drilling_%26_Marching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar cinco ou mais objetivos da ordem unida.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir o seguinte:\n  a. Formação\n  b. Linha\n  c. Fileira\n  d. Intervalo\n  e. Coluna\n  f. Coluna por um (fila)\n  g. Distância\n  h. Cobertura\n  i. Flanco\n  j. Cadência",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar as ações de cada um dos seguintes grupos:\n  a. À vontade, descansar e descanso de parada (At Ease, Stand At Ease e Parade Rest)\n  b. Marcar passo, passo ordinário e passo acelerado\n  c. Continência individual e apresentar armas\n  d. Flanco direito (esquerdo) e coluna à direita (esquerda)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Executar corretamente os seguintes movimentos básicos:\n  a. Sentido\n  b. Descanso de parada (Parade Rest)\n  c. Descansar (Stand At Ease)\n  d. À vontade (At Ease)\n  e. Pela direita, alinhar\n  f. Posição de oração\n  g. Apresentar armas\n  h. Ombro armas (fim da continência)\n  i. Direita, volver\n  j. Esquerda, volver\n  k. Meia-volta, volver\n  l. Fora de forma",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Executar corretamente os seguintes movimentos:\n  a. Marcar passo\n  b. Em frente, marche\n  c. Flanco direito\n  d. Flanco esquerdo\n  e. Coluna à direita (com colunas de três ou quatro pessoas)\n  f. Coluna à esquerda (com colunas de três ou quatro pessoas)\n  g. Retaguarda, marche\n  h. Alto",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar e demonstrar como usar, exibir, dobrar e cuidar da bandeira nacional.",
+   "instructions": null
+  }
+ ]
+}

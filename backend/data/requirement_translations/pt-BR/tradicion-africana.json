@@ -1,0 +1,33 @@
+{
+ "honor_slug": "tradicion-africana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/African_Lore/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber citar e localizar pelo menos dez tribos africanas atuais e citar várias características marcantes de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Completar o seguinte:\n  a. Escolher uma tribo africana para estudar. (Se você pertence a uma tribo africana, escolher outra que não seja a sua.)\n  b. Buscar informações detalhadas sobre a tribo escolhida nas seguintes áreas:\n  (1) Hábitos alimentares\n  (2) Cerimônia de iniciação\n  (3) Feiticeiros\n  (4) Condições de vida e de culto\n  (5) Educação\n  (6) Sepultamentos\n  (7) Dinheiro\n  (8) Vestuário\n  (9) Indústria",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Contar uma história popular africana destacando sua moral.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma coleção de pelo menos 15 objetos fabricados por tribos africanas (que não seja a sua).",
+   "instructions": null
+  }
+ ]
+}

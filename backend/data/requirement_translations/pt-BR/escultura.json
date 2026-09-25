@@ -1,0 +1,33 @@
+{
+ "honor_slug": "escultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sculpturing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Escultura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das ferramentas e dos materiais usados na escultura simples.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Modelar dois ou mais exemplos de animais de brinquedo usando um material de escultura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um modelo da mão ou do pé humano usando um material de escultura.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "A partir de um modelo vivo, fazer uma estátua \"de vulto\" (tridimensional) da cabeça humana usando um material de escultura (não necessariamente em tamanho natural).",
+   "instructions": null
+  }
+ ]
+}

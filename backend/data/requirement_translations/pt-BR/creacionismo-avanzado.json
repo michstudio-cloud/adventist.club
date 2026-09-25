@@ -1,0 +1,68 @@
+{
+ "honor_slug": "creacionismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Creationism_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as seguintes especialidades:\n  a. Criacionismo\n  b. Geologia\n  c. Fósseis",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar os seguintes termos:\n  a. Cosmologia\n  b. Cosmogênese\n  c. Teoria do Design Inteligente\n  d. Espécies de transição ou elo perdido\n  e. Fóssil vivo\n  f. Teoria do Big Bang",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Na interpretação criacionista, qual é a origem do homem e quem foram os homens das cavernas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever brevemente o argumento do relojoeiro, de Paley.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Relatar brevemente o experimento de Pascal e explicar por que \"a vida só vem da vida\".",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler o Salmo 139 e Gênesis 1 e 2. Descobrir aspectos do poder criador de Deus na natureza que demonstrem propósito e planejamento. Apresentar suas descobertas por meio de um dos seguintes:\n  a. Cartaz\n  b. Quadro\n  c. Apresentação",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Diferenciar a evolução (no sentido macro ou micro) da adaptação ao meio ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Reler a história bíblica do dilúvio e descrever sua influência nas seguintes questões:\n  a. Deriva continental\n  b. Relevo e clima\n  c. Extinção em massa e formação dos fósseis",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista pessoal de dez evidências científicas da criação (diferentes das apresentadas nesta especialidade e na básica) e apresentá-las a um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Estudar a vida e as contribuições de um cientista criacionista e contar a história durante uma fogueira ou outra reunião espiritual.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Participar de um debate ativo sobre criacionismo versus evolucionismo.\n  b. Apresentar a um grupo na igreja, ou em um evento criacionista, uma apresentação audiovisual de pelo menos trinta minutos sobre algumas das evidências dos nove requisitos desta especialidade.\n  c. Apresentar três certificados diferentes de participação em encontros de caráter criacionista, realizados nos últimos dois anos.\n  d. Organizar um evento sobre criacionismo com um palestrante capacitado e qualificado.\n  e. Fazer uma pesquisa sobre a criação com base nas descobertas ou documentos do Geoscience Research Institute (Instituto de Pesquisa em Geociências).",
+   "instructions": null
+  }
+ ]
+}

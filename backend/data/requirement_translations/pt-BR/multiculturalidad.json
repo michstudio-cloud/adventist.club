@@ -1,0 +1,33 @@
+{
+ "honor_slug": "multiculturalidad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cultural_Diversity_Appreciation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir cultura e diversidade cultural.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir estereótipo e identificar como você pode ter estereotipado pessoas no passado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Estudar os seguintes textos bíblicos e responder às perguntas.\n  a. 1 Coríntios 9:20 Como este texto explica a importância de um cristão ter consciência da diversidade cultural?\n  b. Gálatas 3:27 O que este texto diz sobre todos os que fazem parte da família de Cristo?\n  c. Efésios 2:14 Qual deve ser o resultado de aceitar Cristo Jesus em nossa vida? Como você pretende aplicar essa mensagem em seu dia a dia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer amizade com um menino, menina ou pessoa mais velha de sua igreja, escola ou comunidade cuja origem cultural seja diferente da sua e pesquisar sobre essa cultura nas seguintes fontes: biblioteca, internet, vídeos, enciclopédia etc. Marcar uma entrevista com essa família e responder ao seguinte:\n  a. Onde essa cultura se originou?\n  b. Que língua é falada?\n  c. Que religiões predominam nessa sociedade?\n  d. Que alimentos são normalmente consumidos no:\n    i. Café da manhã\n    ii. Almoço\n    iii. Jantar\n  e. Como os hábitos alimentares são influenciados pelos alimentos disponíveis nesse país?\n  f. Há tradições culturais diferentes das suas? Quais são?\n  g. As pessoas dessa cultura comemoram os feriados que nós comemoramos? Que costumes elas têm para comemorar os diferentes feriados?\n  h. Que costumes ou tradições da cultura original a família manteve neste país?\n  i. A maneira de se vestir é diferente da de sua cultura?\n  j. Identificar pelo menos 5 semelhanças e 5 diferenças entre vocês e dizer como sua atitude ou seus sentimentos em relação a pessoas de outras origens culturais afetaram você. Como você se sente em relação às diferenças entre vocês?\n  k. Ir à igreja com seu amigo, se for uma igreja diferente da sua, ou assistir a um culto de um grupo cultural diferente. Identificar 3 semelhanças e 3 diferenças que você observar nos cultos.",
+   "instructions": null
+  }
+ ]
+}

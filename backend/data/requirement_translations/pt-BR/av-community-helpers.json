@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-community-helpers",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=15",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ajudantes da comunidade",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir uma história sobre os ajudantes da comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fingir ser ajudantes da comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um jogo de movimento usando as habilidades dos ajudantes da comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho artístico sobre os ajudantes da comunidade.",
+   "instructions": null
+  }
+ ]
+}

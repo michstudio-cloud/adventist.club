@@ -1,0 +1,53 @@
+{
+ "honor_slug": "tutoria-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tutoring/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no 8º ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler a história de Filipe ensinando o eunuco etíope em Atos 8:26-40.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever as condições sociais que tornam mais difícil para as crianças desfavorecidas alcançar as habilidades básicas de leitura e matemática durante o ensino fundamental.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os principais tipos de programas comunitários de tutoria:\n  a. Tutoria na escola entre alunos de idades diferentes\n  b. Programa depois da aula ou nos fins de semana\n  c. Centro comunitário de apoio às tarefas escolares",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a diferença entre a tutoria individual e as aulas em pequenos grupos e fazer uma lista dos prós e contras de cada abordagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista das funções básicas incluídas na descrição do cargo de tutor voluntário num programa comunitário de tutoria.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever os recursos ou ferramentas que um tutor voluntário usa num programa comunitário de tutoria.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Completar pelo menos cinco sessões de tutoria com uma criança mais nova.",
+   "instructions": null
+  }
+ ]
+}

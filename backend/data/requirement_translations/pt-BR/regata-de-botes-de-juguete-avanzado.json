@@ -1,0 +1,58 @@
+{
+ "honor_slug": "regata-de-botes-de-juguete-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Toy_Boat_Regatta_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Regata de barcos de brinquedo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar um esquema de um barco pop-pop (às vezes chamado de barco putt-putt) mostrando os elementos pertinentes e como funcionam. Mostrar as opções de motor de tubo em espiral (motor de serpentina de cobre) e de motor de diafragma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever o que acontece com a água líquida quando se transforma em vapor e demonstrar esse fenômeno com qualquer experiência de sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o que acontece quando o vapor de água esfria e demonstrar esse fenômeno com qualquer experiência de sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever como o motor de um barco pop-pop utiliza a Primeira Lei do Movimento de Newton.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos um barco com motor pop-pop usando materiais recicláveis, tendo como fonte de calor uma vela de rechaud.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Modificar o barco pop-pop do requisito anterior ou fazer vários barcos pop-pop para determinar como as mudanças na capacidade do reservatório e/ou no diâmetro dos tubos afetam o funcionamento do barco. Formular hipóteses sobre os resultados antes de fazer os testes com o(s) barco(s) modificado(s), avaliar o desempenho e documentar os resultados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de uma corrida organizada de barcos pop-pop usando um barco pop-pop que você fez para completar esta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando as dimensões bíblicas da arca de Noé, formular por conta própria uma teoria sobre quanto os animais e a outra carga poderiam ter pesado. Lembrar de considerar o peso da madeira usada na construção do barco. Se possível, comparar suas suposições e respostas com as de outras pessoas que estejam fazendo esta especialidade. Com base nesse peso disponível para carga, quantos animais poderiam ter cabido na arca segundo suas suposições?",
+   "instructions": null
+  }
+ ]
+}

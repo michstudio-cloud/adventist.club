@@ -1,0 +1,28 @@
+{
+ "honor_slug": "maestria-en-salud-y-ciencia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Health_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Saúde e ciência",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar três das seguintes:\n  - Sangue e defesas do corpo\n  - Ossos, músculos e articulações\n  - Sistema nervoso\n  - Cuidado de bebês\n  - Digestão\n  - Saúde e cura\n  - Enfermagem básica",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conquistar duas das seguintes:\n  - Resgate básico\n  - Reanimação cardiopulmonar\n  - Primeiros socorros\n  - Primeiros socorros - básico\n  - Primeiros socorros - intermediário\n  - Alerta vermelho\n  - Alerta vermelho I\n  - Alerta vermelho II",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "E conquistar duas das seguintes:\n  - Química\n  - Microscopia\n  - Ótica\n  - Física\n  - Vírus",
+   "instructions": null
+  }
+ ]
+}

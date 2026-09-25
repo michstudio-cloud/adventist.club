@@ -1,0 +1,63 @@
+{
+ "honor_slug": "higiene-oral-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Oral_Hygiene_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Higiene bucal - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Higiene bucal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber identificar as seguintes partes dos dentes, descrevendo a função de cada uma:\n  a. Esmalte\n  b. Dentina\n  c. Polpa\n  d. Gengivas\n  e. Cemento\n  f. Fibras periodontais",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever os seguintes problemas dentários:\n  a. Placa bacteriana\n  b. Tártaro\n  c. Gengivite\n  d. Periodontite",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é pasta profilática?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever como é feita a aplicação de flúor, descrevendo cada etapa.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que se deve fazer quando um dente sofre um trauma por causa de uma queda?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que causa a sensibilidade dos dentes? Como esse problema pode ser resolvido?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que cuidados bucais adicionais deve ter uma pessoa que usa aparelho ortodôntico?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que cuidados bucais adicionais deve ter uma pessoa que usa prótese dentária?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Criar uma história que ilustre maneiras de prevenir as cáries e apresentá-la de forma criativa a um grupo de crianças.",
+   "instructions": null
+  }
+ ]
+}

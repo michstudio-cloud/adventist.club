@@ -1,0 +1,48 @@
+{
+ "honor_slug": "los-dones-y-ministerios-espirituales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/17_-_Spiritual_Gifts_and_Ministries/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Os dons e ministérios espirituais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber que missão Jesus confiou a Seus discípulos. (Marcos 16:15-16)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como os discípulos seriam capacitados para cumprir essa missão. (Atos 1:4, 8)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o resultado imediato da obra do Espírito Santo na vida dos primeiros cristãos. (Atos 2)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entender como o Espírito Santo distribui os dons espirituais entre os membros da igreja. (1 Coríntios 12:7-11)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o propósito para o qual os dons espirituais são dados. (Efésios 4:12-13)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 1 Pedro 2:9.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como é possível receber dons espirituais. (Tiago 1:5-6)",
+   "instructions": null
+  }
+ ]
+}

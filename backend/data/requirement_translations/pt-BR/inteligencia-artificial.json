@@ -1,0 +1,83 @@
+{
+ "honor_slug": "inteligencia-artificial",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Artificial_Intelligence/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é inteligência artificial?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Sozinho ou em grupo, montar um painel que apresente um breve histórico da inteligência artificial. Preparar e fazer uma apresentação oral sobre sua atividade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o objetivo final da pesquisa em inteligência artificial?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é um androide?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com relação à área de inteligência artificial, saber definir os seguintes termos.\n  a. Inteligência geral\n  b. Inteligência social\n  c. Criatividade\n  d. Aprendizagem\n  e. Movimento\n  f. Planejamento\n  g. Percepção\n  h. Heurística\n  i. Reconhecimento de padrões\n  j. Rede neural\n  k. Processamento de linguagem natural\n  l. Engenharia do conhecimento",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar três exemplos do mundo real de como a inteligência artificial é usada para ajudar a sociedade.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são algumas das limitações da inteligência artificial? Saber explicar pelo menos três.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são algumas habilidades humanas básicas que a inteligência artificial não consegue demonstrar?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dar uma definição básica de sistema especialista.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais são algumas das vantagens de um sistema especialista?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Dar um exemplo do mundo real de como um sistema especialista é usado na sociedade.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Sozinho ou em grupo, conversar sobre a importância da inteligência artificial e o papel que ela desempenha na sociedade. Preparar e fazer uma apresentação oral sobre suas conclusões.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Com base em suas observações da questão anterior, visitar um local que aplique o uso da inteligência artificial. Preparar e fazer uma apresentação oral sobre sua atividade.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Conversar com um grupo sobre várias passagens bíblicas que falam da inteligência humana. Comparar a inteligência artificial moderna com a inteligência que Deus deu aos seres que Ele criou. Alguns textos são: Gênesis 1:26, 27; Salmo 139; e Salmo 8:3-6.",
+   "instructions": null
+  }
+ ]
+}

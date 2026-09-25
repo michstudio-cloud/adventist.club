@@ -1,0 +1,58 @@
+{
+ "honor_slug": "nudos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Knot_Tying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Seio\n  b. Chicote\n  c. Firme\n  d. Volta por baixo\n  e. Volta por cima\n  f. Volta\n  g. Nó de emenda\n  h. Volta de amarração\n  i. Costura\n  j. Falcaça",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber como cuidar das cordas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever a diferença entre corda torcida e corda trançada e fazer uma lista de três usos de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar os seguintes tipos de corda:\n  a. Manilha\n  b. Sisal\n  c. Náilon\n  d. Polipropileno",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são algumas vantagens e desvantagens da corda sintética?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte em uma corda:\n  a. Costura\n  b. Costura de alça\n  c. Costura de remate\n  d. Arrematar a ponta de uma corda com uma coroa dupla, uma falcaça ou um nó Matthew Walker.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um pedaço de seis pés (1,8 m) de corda torcida de três pernas a partir de materiais nativos ou barbante.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "De memória, dar pelo menos 20 dos seguintes nós e conhecer seus usos comuns e suas limitações. Demonstrar como são usados.\n  a. Nó de âncora\n  b. Lais de guia\n  c. Lais de guia pelo seio\n  d. Nó borboleta alpino\n  e. Nó de carrick\n  f. Pata de gato\n  g. Volta do fiel\n  h. Nó constritor\n  i. Nó de coroa\n  j. Laço duplo\n  k. Nó de escota duplo\n  l. Nó de oito\n  m. Volta de pescador\n  n. Alça de pescador\n  o. Nó de cabresto\n  p. Nó do caçador\n  q. Nó de laçada (lariat)\n  r. Boca de lobo\n  s. Nó de arreio\n  t. Nó de moleiro\n  u. Nó de embalador\n  v. Volta de tubo\n  w. Nó prussik\n  x. Catau\n  y. Nó de escota\n  z. Nó corrediço\n  aa. Meia-volta com alça\n  bb. Nó de escota com alça\n  cc. Nó direito\n  dd. Nó de estivador\n  ee. Nó estrangulador\n  ff. Nó de cirurgião\n  gg. Nó de barraca (taut-line)\n  hh. Volta de lenhador\n  ii. Duas meias-voltas",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um quadro de nós com 25 ou mais nós.",
+   "instructions": null
+  }
+ ]
+}

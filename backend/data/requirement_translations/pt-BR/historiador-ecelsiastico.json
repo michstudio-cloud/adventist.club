@@ -1,0 +1,73 @@
+{
+ "honor_slug": "historiador-ecelsiastico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Church_Historian/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Historiador eclesiástico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Entrevistar um professor de história e apresentar a entrevista ao avaliador:\n  a. O que motivou você a escolher ser historiador ou professor de história?\n  b. O que mais chama sua atenção ao estudar história?\n  c. Qual seria o aspecto mais interessante dessa profissão e o mais difícil?\n  d. O que é história?\n  e. O que é historiografia?\n  f. Qual é a importância de estudar história?\n  g. Qual é o trabalho do historiador e em que área ele atua?\n  h. Quais são as principais técnicas de levantamento e pesquisa histórica?\n  i. O que é cronologia e periodização?\n  j. Qual é a diferença entre conhecimento histórico e reflexão histórica?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista das principais fontes de pesquisa sobre a história da igreja (escritas: documentos, diários, livros, cartas etc.; não escritas: orais, monumentos, fotografias, músicas, trajes etc.).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos uma fonte que trate da história denominacional da Igreja Adventista do Sétimo Dia no país.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever um relatório de pelo menos 400 palavras sobre o surgimento do movimento adventista.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usar técnicas de estudo histórico (bibliográfica, documental, entrevistas etc.) e escrever uma biografia detalhada de um:\n  a. Pioneiro da Igreja Adventista no mundo\n  b. Pioneiro da Igreja Adventista no país ou na região",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como a mensagem adventista chegou à região?\n  a. Entrevistar alguém, se possível, que seja pioneiro da igreja na região.\n  b. Ter uma foto da pessoa.\n  c. Ter uma cópia de uma fonte escrita que mencione a chegada do adventismo à região (pode ser ou não uma revista denominacional).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como foi organizada a igreja à qual o clube pertence?\n  a. Entrevistar alguém, se possível mais de uma pessoa, que tenha sido pioneiro da igreja local.\n  b. Conseguir fotos dos primeiros membros da igreja.\n  c. Ter uma cópia de algumas fontes escritas sobre a fundação da igreja (ata da reunião, compra do terreno).\n  d. Ter fotos da construção da igreja, da inauguração, da dedicação etc.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usar o material estudado no requisito 5 e preparar um relatório final sobre a história da igreja local e da congregação na região. (Este relatório pode ser apresentado em comemorações da igreja e do campo, ou você também pode doar alguns exemplares às autoridades municipais e às bibliotecas.)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com a ajuda do diretor do clube, fazer um relatório histórico detalhado sobre a existência do Clube de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Preparar um cartaz sobre a história da igreja e expô-lo na igreja por pelo menos dois sábados (se a especialidade for feita em grupo, as tarefas devem ser distribuídas e o cartaz deve ser exposto em mais de um lugar, por pelo menos dois sábados em cada lugar). O cartaz deve seguir o esquema abaixo (Observação: se o cartaz for feito em grupo, o número de lugares onde ele será exposto deve ser proporcional ao número de membros que participaram de sua confecção; pedir ajuda ao diretor ou ao conselheiro):\n  a. Formato de linha do tempo da história da igreja.\n  b. Abranger desde o Grande Desapontamento até o último campori do clube.\n  c. Apresentar imagens da maioria dos acontecimentos.\n  d. Todos os acontecimentos devem ter data.\n  e. Destacar acontecimentos da Divisão, da igreja e do clube.\n  f. Apresentar pelo menos 20 acontecimentos históricos no total, destacando a relevância global, regional e local desses acontecimentos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Participar de uma esquete sobre algum acontecimento curioso da história dos pioneiros adventistas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Depois de concluído todo o trabalho, conversar com o instrutor sobre o sentido de herança, legado, tradição e pertencimento.",
+   "instructions": null
+  }
+ ]
+}

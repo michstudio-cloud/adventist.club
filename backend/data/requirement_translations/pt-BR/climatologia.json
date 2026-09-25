@@ -1,0 +1,73 @@
+{
+ "honor_slug": "climatologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Weather/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar como se forma cada um dos seguintes fenômenos:\n  a. Neblina\n  b. Chuva\n  c. Orvalho\n  d. Neve\n  e. Chuva congelada\n  f. Granizo\n  g. Geada",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, no céu ou por meio de fotos, os seguintes tipos de nuvens: cirros, cúmulos, estratos, nimbos. Que tipo de tempo está associado a cada um?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o funcionamento de um termômetro de mercúrio ou de álcool, de um barômetro de mercúrio, de um barômetro aneroide e de um pluviômetro.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que pode estar chovendo de um lado de uma cordilheira e seco do outro? Dar um exemplo de seu país ou região.\n  a. Por que nas montanhas é mais frio e úmido do que nas terras baixas?\n  b. De que direção geralmente vêm a chuva e o tempo bom em sua localidade?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar, com a ajuda de um diagrama, como a relação da Terra com o Sol produz as estações do ano.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que causa os relâmpagos e os trovões? Que tipos diferentes de relâmpagos existem?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar, com a ajuda de um diagrama, o que é convecção. Qual é a sua relação com os ventos?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar como o radar, os satélites e os computadores são usados na previsão do tempo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dizer como os seguintes fenômenos podem afetar o tempo:\n  a. Corrente de jato\n  b. Erupção vulcânica",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um desenho que mostre o ciclo da água no tempo atmosférico.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um cata-vento simples ou um pluviômetro.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Manter um registro meteorológico durante uma semana, anotando as leituras a cada 12 horas. Incluir o seguinte:\n  a. Temperatura\n  b. Umidade (orvalho, neblina, chuva, geada ou neve)\n  c. Formação de nuvens\n  d. Direção do vento",
+   "instructions": null
+  }
+ ]
+}

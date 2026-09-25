@@ -1,0 +1,88 @@
+{
+ "honor_slug": "tamboreo-y-percusion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drumming_%26_Percussion/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever um trabalho de uma página demonstrando seu conhecimento sobre como uma fanfarra pode ser usada para ministrar em:\n  a. sua igreja local\n  b. sua comunidade",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as quatro famílias de rudimentos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber citar cinco rudimentos de cada uma das quatro famílias de rudimentos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar a capacidade de manter o passo com a fanfarra participando de pelo menos um programa de evangelismo ou alcance da comunidade (por exemplo, Dia do Desbravador, evento promovido pela Associação ou pela igreja local).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre suportes (coletes) de tambor e talabartes (correias) de tambor? Demonstrar com o equipamento de percussão em formação.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os sete rudimentos essenciais? Por que são essenciais?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a diferença entre tocar aberto e fechado?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando o método aberto/fechado, demonstrar seu conhecimento dos sete rudimentos essenciais. Executar: aberto, fechado e aberto",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a diferença entre a pegada tradicional e a pegada paralela (matched) das baquetas? Demonstrar cada estilo tocando uma sequência de no mínimo três rudimentos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a diferença entre as baquetas usadas numa fanfarra e as usadas numa bateria?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Quais são os naipes que compõem uma fanfarra?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Com base na pergunta anterior, qual é a função de cada naipe?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Mostrar os vários tipos de dispositivos de proteção usados para guardar com segurança o equipamento da fanfarra.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Quais são os vários tipos e tamanhos de baquetas usados numa fanfarra?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Conhecer as ferramentas e os equipamentos usados nos ensaios de percussão.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "honor_slug": "av-sewing-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=163",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Lazer em costura",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar de que eram feitas provavelmente as primeiras agulhas de costura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o que provavelmente foi usado primeiro como linha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Contar quando surgiram as primeiras máquinas de costura.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como colocar a linha na agulha e dar um nó na ponta da linha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pregar um botão em um pedaço de tecido.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pregar dois botões de pressão e fechá-los corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pregar um colchete (macho e fêmea) e fechá-lo corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar a capacidade de costurar três tipos diferentes de pontos, como os seguintes:\n  a. Alinhavo ou ponto corrido\n  b. Ponto de bainha\n  c. Pesponto",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um objeto útil usando pelo menos dois pontos diferentes.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Lazer em costura», son los de Sewing Fun)"
+}

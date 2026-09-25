@@ -1,0 +1,38 @@
+{
+ "honor_slug": "fabricacion-de-esteras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mat_Making/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar os materiais usados em sua cultura para fazer esteiras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar e demonstrar como preparar esse material.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar plantas que podem ser usadas para fazer tinturas em sua cultura. Dizer de onde vêm e como prepará-las para tingir.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar como usar tinturas naturais e sintéticas para tingir o material das esteiras.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer duas esteiras que mostrem dois tipos diferentes de trançado. Uma das esteiras deve ter um trançado razoavelmente fino.",
+   "instructions": null
+  }
+ ]
+}

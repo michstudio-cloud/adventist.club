@@ -1,0 +1,38 @@
+{
+ "honor_slug": "evaluacion-comunitaria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Community_Assessment/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Avaliação comunitária",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher uma comunidade ou área urbana que você conheça e descrever, da melhor forma possível, as seguintes informações: localização no mapa, condições econômicas, descrição demográfica dos moradores (idade, sexo, profissões mais comuns etc.), grau de acesso à saúde, índice de criminalidade e educação.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista das necessidades que você vê em sua comunidade. Isso pode incluir melhor apoio às famílias de baixa renda, assistência às pessoas solitárias ou idosas, melhor limpeza das áreas públicas etc.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ouvir um líder comunitário, professor, pastor da igreja ou policial falar sobre maneiras pelas quais alguém como você pode ter um impacto positivo em uma comunidade. Lembrar-se de fazer anotações.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Relatar à sua maneira ao seu Clube de Desbravadores suas descobertas e descrever o que aprendeu especificamente sobre a comunidade que escolheu. Ser criativo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever as melhorias mais importantes de que sua comunidade precisa e o que você pode fazer para ajudar.",
+   "instructions": null
+  }
+ ]
+}

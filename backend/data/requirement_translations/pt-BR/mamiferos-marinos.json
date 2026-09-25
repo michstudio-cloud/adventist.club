@@ -1,0 +1,58 @@
+{
+ "honor_slug": "mamiferos-marinos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marine_Mammals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber identificar três exemplos de cada um dos seguintes grupos e saber onde cada um é encontrado. Conhecer pelo menos um de cada grupo pelo nome científico:\n  a. Baleias com dentes (odontocetos)\n  b. Baleias com barbatanas (misticetos)\n  c. Focas verdadeiras\n  d. Otárias (focas com orelhas)\n  e. Golfinhos/botos\n  f. Morsas (um tipo)\n  g. Lontra-marinha (um tipo)\n  h. Peixes-boi",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e localizar a história de como Deus usou uma baleia nos tempos bíblicos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o maior mamífero do mar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as seguintes palavras:\n  a. Salto (breaching)\n  b. Ecolocalização\n  c. Espionagem (spyhopping)\n  d. Barbatana (baleen)\n  e. Grupo (pod)\n  f. Harém\n  g. Plâncton",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar uma cadeia alimentar de dois mamíferos marinhos diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a função da camada de gordura?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer dois motivos pelos quais as focas são caçadas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever por que as focas e os golfinhos conseguem se mover tão rapidamente na água.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar um aquário. Aprender sobre o horário diário de alimentação de um mamífero marinho e observá-lo.\n  b. Escrever um relatório de 500 palavras sobre um mamífero marinho. Incluir figuras.\n  c. Escrever um relatório de 500 palavras sobre acontecimentos atuais envolvendo mamíferos marinhos e seu ambiente e como eles poderiam estar ameaçados.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "ornamentacion-floral",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flower_Arrangement/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar seis plantas perenes e seis anuais adequadas para arranjos florais em ambientes internos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar pelo menos três flores que florescem na primavera ou no início do verão adequadas para arranjos florais em ambientes internos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos três flores que não se conservam bem depois de cortadas e três que se conservam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dar seis sugestões sobre o corte das flores e os cuidados posteriores, como quando cortar, como cortar e como conservar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que estágio de desenvolvimento devem ser cortadas as rosas, os gladíolos e as dálias?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar três sugestões sobre a relação entre os recipientes e as flores usadas e três sobre a relação entre o arranjo e o ambiente e a mobília.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Num arranjo floral, qual deve ser a relação entre tons escuros e claros, flores grandes e pequenas, flores abertas e parcialmente abertas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer dois arranjos florais artísticos em cada uma das seguintes áreas: (Podem ser usadas flores naturais ou de seda.)\n  a. Decoração de mesa\n  b. Uso geral na casa\n  c. Culto ou evento público",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são algumas flores silvestres que poderiam ser usadas em arranjos para a casa? Que combinações dessas flores podem ser usadas?",
+   "instructions": null
+  }
+ ]
+}

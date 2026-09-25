@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-saving-animals",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=239",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Animais em extinção",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que os animais estão ameaçados de extinção?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que aconteceu com os animais extintos? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar e citar pelo menos 5 animais extintos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender sobre 5 animais ameaçados de extinção.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quantos animais estão atualmente na lista de espécies ameaçadas de extinção? Colecionar figuras de pelo menos 5 animais ameaçados de extinção e dizer o nome deles.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um cartaz ou um livreto incentivando as pessoas a salvar os animais ameaçados de extinção. Mostrá-lo a alguém.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar Provérbios 12:10 (ARA). Objetivo: aprender a se importar com o reino animal e a respeitá-lo, pois Deus colocou o homem como mordomo sobre ele, para que os animais não sejam extintos.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: probablemente el de la DSA para esta especialidad (insignia «Animais em extinção»); sin confirmar"
+}

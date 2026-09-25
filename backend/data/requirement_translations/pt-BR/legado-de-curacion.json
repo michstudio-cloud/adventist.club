@@ -1,0 +1,58 @@
+{
+ "honor_slug": "legado-de-curacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Legacy_of_Healing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Legado de cura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar na Bíblia pelo menos três exemplos que ilustrem como o ministério de cura de Cristo continuou por meio de Seus seguidores. Usando um desses exemplos, fazer uma das seguintes atividades:\n  a. Encenar a cena bíblica como uma esquete com um grupo de colegas.\n  b. Criar uma apresentação multimídia detalhando como os seguidores de Cristo continuaram Seu ministério de cura.\n  c. Gravar um podcast percorrendo a história bíblica e aprofundando como nós, seguidores de Cristo, também podemos continuar a sustentar o ministério de cura de Cristo.\n  d. Outra atividade adequada e relacionada, aprovada por seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual foi o impacto da resposta da igreja primitiva às epidemias/pestes sobre a expansão do cristianismo e sobre a sociedade da época?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Durante várias pestes, os cristãos arriscaram a própria saúde e segurança e escolheram ficar nas cidades para cuidar dos doentes. Pesquisar o cuidado que os primeiros cristãos ofereceram aos doentes e como isso influenciou o que os outros pensavam deles. Dar alguns exemplos desses atos de bondade e explicar como eles seguiram o exemplo de cura de Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dividir-se em pequenos grupos; cada grupo deve ler e conversar sobre uma das seguintes citações de Ellen G. White. Compartilhar com o grupo maior o que aprenderam sobre a importância de criar lugares (chamados sanatórios na época) onde as pessoas pudessem receber cuidado e cura.\n  a. Testemunhos para a Igreja, vol. 7, capítulo 20, segundo parágrafo\n  b. Testemunhos para a Igreja, vol. 7, capítulo 20, quinto parágrafo\n  c. Propósito e Objetivos das Instituições Adventistas do Sétimo Dia, capítulo 3, quarto parágrafo\n  d. Propósito e Objetivos das Instituições Adventistas do Sétimo Dia, capítulo 3, seção \"Durante o período de expansão\", segundo parágrafo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer o seguinte:\n  a. Citar pelo menos dois cristãos não adventistas que foram reformadores da saúde e explicar as contribuições que deram para o avanço da assistência à saúde.\n  b. Citar pelo menos quatro pioneiros adventistas e reformadores da saúde que apoiaram a obra de saúde e a obra médica da Igreja Adventista. Criar um jogo para compartilhar com outros e aprender sobre o início do ministério de saúde adventista.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conversar em grupo sobre as várias maneiras como o legado de cura de Jesus influenciou o foco da Igreja Adventista na saúde e na cura. Demonstrar uma dessas ideias.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um mapa grande que ilustre e mostre o tamanho e o impacto das instituições adventistas de saúde no mundo hoje.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer o seguinte:\n  a. Informar o nome de cinco instituições adventistas de saúde e onde ficam.\n  b. Comparar uma instituição adventista de saúde de um país desenvolvido com outra de um país em desenvolvimento.\n  c. Onde é possível estudar uma carreira da área da saúde em uma universidade adventista? Citar as instituições e onde ficam.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de uma ação de saúde na comunidade com sua igreja e compartilhar sua experiência por meio de uma exposição para a igreja e/ou fazer uma apresentação de cinco minutos para um grupo.",
+   "instructions": null
+  }
+ ]
+}

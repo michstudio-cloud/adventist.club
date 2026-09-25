@@ -1,0 +1,83 @@
+{
+ "honor_slug": "guitarra",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Guitar/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar a história do violão e como ele chegou ao seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever ou mostrar a diferença entre melodia, harmonia e ritmo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Distinguir três tipos diferentes de violão/guitarra. Descrever as vantagens e as desvantagens de cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar as três divisões do violão e identificar 15 partes diferentes, explicando a função de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar a postura correta para praticar violão. Explicar a importância de praticar nessa posição.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o nome dos dedos, das cordas e das posições das mãos. Demonstrar cada um da maneira correta.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Na afinação padrão, as seis cordas do violão correspondem a que notas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que são os acordes (cifras) e como são formados? Escrever de memória uma lista de todos os acordes maiores e menores, com a posição específica dos dedos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar habilidade para tocar pelo menos sete acordes maiores e menores (por exemplo, A, B, B, C, D, E, G, F, Lá menor).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar a diferença entre bemóis e sustenidos. Mostrar como são representados para tocar violão.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descrever a diferença entre cordas de náilon e cordas de aço e explicar o motivo de sua preferência.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar o uso do capotraste e como trocar uma corda do violão.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Tocar uma música usando pelo menos duas técnicas diferentes:\n  a. Batida (rasgueado)\n  b. Dedilhado\n  c. Clássica\n  d. Outra",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Escolher três hinos ou cânticos espirituais simples que você consiga tocar no violão e ensiná-los a uma unidade, clube ou grupo.",
+   "instructions": null
+  }
+ ]
+}

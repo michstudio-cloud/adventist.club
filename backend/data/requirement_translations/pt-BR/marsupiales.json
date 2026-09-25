@@ -1,0 +1,53 @@
+{
+ "honor_slug": "marsupiales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marsupials/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Distinguir:\n  a. Os mamíferos dos outros animais.\n  b. Os placentários, os marsupiais e os monotremados entre si.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Entender como os marsupiais são classificados em famílias e descrever, de modo geral, os hábitos dessas famílias.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever a distribuição, o hábitat (isto é, o tipo de região em que vivem), a alimentação e o comportamento reprodutivo, além de outras informações interessantes, de doze grupos diferentes de marsupiais e monotremados.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber explicar a diferença entre a reprodução dos marsupiais e a dos mamíferos verdadeiros (isto é, os placentários).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a importância da direção da abertura da bolsa e do número de filhotes por ninhada nos marsupiais.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar uma explicação para a ocorrência única dos marsupiais na Austrália.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber explicar a necessidade de conservação de nossos marsupiais.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever um relatório de sua visita a um museu de história natural, santuário de vida silvestre, zoológico etc., indicando em cerca de 10-15 linhas o alcance de suas observações.",
+   "instructions": null
+  }
+ ]
+}

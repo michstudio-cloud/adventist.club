@@ -1,0 +1,58 @@
+{
+ "honor_slug": "pista-y-campo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Track_%26_Field/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras básicas, os cuidados de segurança e os exercícios de aquecimento das seis provas de atletismo relacionadas abaixo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Correr os 50 jardas (45,7 metros) rasos no tempo (segundos) correspondente ao seu sexo e idade, conforme abaixo:",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Na corrida de velocidade, que parte do pé deve tocar o chão primeiro durante a passada? Quais são as posições corretas dos braços e da cabeça?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer os 600 jardas (548,6 metros) em corrida e caminhada no tempo (minutos/segundos) correspondente ao seu sexo e idade, conforme abaixo:",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Responder às seguintes perguntas sobre corrida de longa distância:\n  a. Encontrar duas histórias bíblicas que mencionem corredores de longa distância.\n  b. Quais são as roupas adequadas, incluindo os calçados, para corrida de longa distância em sua região?\n  c. Qual é o comprimento de uma pista padrão?\n  d. Qual é a distância de uma maratona?\n  e. Que parte do pé deve tocar o chão primeiro durante a passada?\n  f. Quais são as posições corretas dos braços e da cabeça durante a corrida de longa distância?\n  g. Qual é a maneira correta de respirar?\n  h. Em que a corrida cross-country difere da corrida na pista?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Correr uma das seguintes provas pelo menos duas vezes e registrar o melhor tempo:\n  a. 50 jardas (45,7 metros) com quatro barreiras.\n  b. 70 jardas (64,0 metros) com seis barreiras.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o salto em altura com boa técnica pelo menos cinco vezes e registrar o salto mais alto.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer o salto em distância com corrida três vezes e registrar a melhor marca.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Correr os seguintes revezamentos:\n  a. Revezamento com passagem visual\n  b. Revezamento com passagem cega",
+   "instructions": null
+  }
+ ]
+}

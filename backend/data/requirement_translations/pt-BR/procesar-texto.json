@@ -1,0 +1,38 @@
+{
+ "honor_slug": "procesar-texto",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Word_Processing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar o seguinte:\n  a. Descrever brevemente o significado do termo “processamento de texto”.\n  b. Fazer uma lista do hardware necessário para o processamento de texto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar a postura correta ao usar um teclado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar a capacidade de, corretamente:\n  a. Ligar o hardware e abrir o software de processamento de texto.\n  b. Fechar todos os documentos e programas e depois desligar todo o hardware.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar a capacidade de: (Observação: isso pode ser feito em conjunto com o requisito 5)\n  a. Navegar pelo sistema de armazenamento de documentos/arquivos do computador (por exemplo, a pasta “Documentos” da Microsoft).\n  b. Recuperar/abrir um documento do sistema de armazenamento de documentos/arquivos do computador.\n  c. Criar uma nova pasta no sistema de armazenamento de documentos/arquivos do computador.\n  d. Criar um novo documento de processamento de texto.\n  e. Dar ao novo documento um nome de arquivo adequado e salvá-lo na pasta apropriada do sistema de armazenamento de documentos/arquivos do computador. Explicar por que é importante garantir que um documento em elaboração seja salvo continuamente e tenha cópia de segurança.\n  f. Garantir que o nome do arquivo e sua última revisão estejam claramente indicados no documento. Explicar por que é importante fazer isso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar um documento com no mínimo 800 palavras que demonstre habilidade na aplicação de cada um dos itens abaixo. Salvar e imprimir o documento. Fazer uma cópia de segurança.\n  a. Configuração do documento:\n    i. Salvar o documento na pasta apropriada. Criar uma nova pasta, se for o melhor.\n    ii. Definir a orientação da página: retrato ou paisagem.\n    iii. Criar um cabeçalho e um rodapé.\n    iv. Definir as margens.\n    v. Inserir a numeração automática de páginas no cabeçalho ou no rodapé.\n    vi. Inserir a data da última revisão e o nome do arquivo do documento no cabeçalho ou no rodapé.\n  b. Formatação do documento usando o seguinte:\n    i. Fontes: tipo (por exemplo, Arial etc.), tamanho (por exemplo, 12 etc.), estilo (por exemplo, negrito), cor e sublinhado.\n    ii. Alinhamento do texto: à esquerda, centralizado, à direita e justificado.\n    iii. Espaçamento entre linhas.\n    iv. Listas e marcadores.\n    v. Numeração de títulos.\n  c. Edição do documento:\n    i. Copiando texto.\n    ii. Movendo texto.\n    iii. Corrigindo a ortografia e a gramática com a autocorreção.\n    iv. Localizando e substituindo palavras ou texto.\n  d. Inserção no documento de:\n    i. Uma tabela com títulos e no mínimo 3 colunas e 5 linhas.\n    ii. Uma imagem ou clip-art.",
+   "instructions": null
+  }
+ ]
+}

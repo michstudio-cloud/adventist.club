@@ -1,0 +1,88 @@
+{
+ "honor_slug": "estuarios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Estuaries/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Estuários",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um estuário?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três tipos de estuários e dar um exemplo de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como se mede o comprimento de um estuário?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que fatores fazem dos estuários os biomas mais vulneráveis do mundo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar por que os estuários são muito produtivos e ecologicamente diversos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por que os estuários são importantes para um ecossistema equilibrado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar pelo menos uma maneira como um estuário se forma.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos três maneiras como os estuários beneficiam a humanidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Há estuários com água doce e salgada. Como se chamam os peixes que conseguem sobreviver nesse ambiente? Dar cinco exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar três aves e um mamífero que vivem em estuários de sua região ou país.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar pelo menos dois fatores que tornam a vegetação de mangue adequada aos estuários tropicais.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar pelo menos três tipos de mangue comuns nos estuários tropicais.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Citar cinco atividades recreativas que podem ser realizadas em regiões de estuários sem causar danos ou contaminação.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Qual é o estuário mais próximo de sua casa?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Realizar uma das seguintes atividades:\n  a. Visitar um estuário. Durante a visita, procurar sinais de conservação ou de degradação ambiental. Com um grupo, sob a supervisão de um líder, organizar e executar um projeto de preservação do estuário.\n  b. Ler um livro ou assistir a um vídeo sobre estuários. Fazer uma pesquisa e escrever um relatório sobre quinze estuários diferentes do mundo. Deve incluir: nome do estuário, localização, estado atual de conservação e possíveis razões desse estado, fotografias etc. Citar as fontes da pesquisa.",
+   "instructions": null
+  }
+ ]
+}

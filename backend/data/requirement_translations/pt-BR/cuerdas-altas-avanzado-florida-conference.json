@@ -1,0 +1,83 @@
+{
+ "honor_slug": "cuerdas-altas-avanzado-florida-conference",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/High_Ropes_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cordas altas - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter 14 anos ou mais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Cordas altas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Estabelecer uma nova meta pessoal e trabalhar para alcançá-la.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e demonstrar as normas de segurança corretas com cordas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer corretamente uma escalada e uma descida de prática usando talabartes com mosquetões (crab claws).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Montar e desmontar um elemento alto.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar como enrolar corretamente uma corda. Conhecer os cuidados corretos com a corda e demonstrar como registrar seu uso e guardá-la.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Posicionar corretamente os observadores (spotters) nos elementos baixos e descrever sua função.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de quatro elementos baixos, diferentes dos realizados para conquistar a especialidade de Cordas altas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Criar sua própria metáfora espiritual para um elemento alto.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Realizar dois elementos altos, diferentes dos realizados para conquistar a especialidade de Cordas altas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Posicionar corretamente cada membro da equipe de segurança (belay) e descrever sua função.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conhecer dois métodos diferentes de segurança (belay).",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Dar segurança (belay), de forma correta e segura, a cinco pessoas, uma das quais pese pelo menos 20 libras (9 kg) a mais que quem está dando segurança.",
+   "instructions": null
+  }
+ ]
+}

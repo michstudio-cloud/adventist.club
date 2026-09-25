@@ -1,0 +1,53 @@
+{
+ "honor_slug": "e-v-a-etilvinilacetato",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/EVA/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "EVA",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o EVA?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as principais características e vantagens do EVA?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os materiais usados para cortar e colar o EVA?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a ferramenta mais adequada para fazer um trabalho com EVA?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o procedimento para transferir moldes para o EVA.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que vantagens a borracha EVA pode trazer ao meio ambiente?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer três objetos de EVA e usá-los em um departamento da igreja.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma das seguintes atividades, diferente das realizadas no requisito anterior, combinando o EVA com algum material reciclável.\n  a. Flor ornamental\n  b. Porta-lápis\n  c. Capas de livros\n  d. Ímã de geladeira\n  e. Porta-toalhas\n  f. Chaveiros\n  g. Porta-retratos\n  h. Um objeto de sua escolha",
+   "instructions": null
+  }
+ ]
+}

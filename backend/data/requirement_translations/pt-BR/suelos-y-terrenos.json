@@ -1,0 +1,53 @@
+{
+ "honor_slug": "suelos-y-terrenos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soils/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Solos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que significa “solo”.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Onde, na Terra, se encontra todo o solo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são 5 fatores-chave na formação do solo?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos:\n  a. Horizonte A\n  b. Horizonte B\n  c. Horizonte C\n  d. Camada orgânica\n  e. Camada mineral\n  f. Argila\n  g. Lixiviação\n  h. Sílica\n  i. Húmus\n  j. Perfil do solo\n  k. Material de origem\n  l. Pedólogo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o termo “classificação dos solos”. Por que os solos são classificados?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir três diferenças entre os seguintes tipos de solo:\n  a. Desértico\n  b. Temperado\n  c. Tropical",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Examinar um corte vertical de solo de 2 pés (60 cm). Identificar os diferentes tipos de matéria orgânica encontrados, identificar os diferentes horizontes do solo e marcar a transição da camada de solo para a camada mineral.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Desenhar, fotografar ou coletar e identificar corretamente 5 tipos diferentes de solo.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "honor_slug": "volcanes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Volcanoes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Vulcões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é vulcanologia e o que fazem os vulcanólogos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever os cinco tipos de vulcões:\n  a. Composto (estratovulcão)\n  b. Cone de escórias\n  c. Escudo\n  d. Caldeira\n  e. Fissural",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber identificar as partes de um vulcão numa folha de exercícios ou num desenho feito por você.\n  a. Cratera\n  b. Cume\n  c. Base\n  d. Conduto\n  e. Dique\n  f. Garganta\n  g. Chaminé\n  h. Câmara magmática",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever os diferentes tipos de lava. Fazer um desenho de cada tipo.\n  a. Derrames pahoehoe\n  b. Derrames aa\n  c. Lava em blocos\n  d. Lava em almofada",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os seguintes termos:\n  a. Materiais piroclásticos\n    i. Bomba\n    ii. Bloco\n    iii. Escória (cinza vulcânica grossa)\n    iv. Pedra-pomes\n  b. Fluxo piroclástico\n  c. Lahar\n  d. Magma\n  e. Plútons\n  f. Ponto quente",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como um vulcão entra em erupção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir os quatro níveis de atividade vulcânica:\n  a. Ativo\n  b. Intermitente\n  c. Adormecido\n  d. Extinto",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é o Círculo de Fogo e onde ele se encontra?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever como as ilhas havaianas se formaram e ainda estão se formando.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pesquisar a erupção do monte Santa Helena ou de outro vulcão de sua escolha. Escrever um relatório de uma página sobre o que você descobriu.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar na Bíblia um versículo que fale de vulcões (dica: usar uma versão moderna).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer seu próprio modelo 3D de um vulcão.",
+   "instructions": null
+  }
+ ]
+}

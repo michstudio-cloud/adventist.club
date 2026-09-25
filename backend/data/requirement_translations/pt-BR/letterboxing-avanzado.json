@@ -1,0 +1,38 @@
+{
+ "honor_slug": "letterboxing-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Letterboxing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Letterboxing.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Criar um carimbo de letterbox, publicar as pistas em um site, criar e manter uma letterbox por seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em unidade, clube ou família, encontrar as pistas e depois localizar mais vinte letterboxes que não tenham sido encontradas para a especialidade básica, das quais oito podem fazer parte de duas ou mais séries. Individualmente, \"carimbar\": imprimir o carimbo da letterbox em seu livro de registro e registrar o achado no site.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Projetar, criar e esculpir seu próprio carimbo viajante (hitchhiker). Escondê-lo em uma letterbox, publicá-lo em um site e acompanhar suas viagens por seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de uma troca com praticantes de letterboxing que não sejam membros de seu clube local e obter no mínimo 20 impressões de carimbos.",
+   "instructions": null
+  }
+ ]
+}

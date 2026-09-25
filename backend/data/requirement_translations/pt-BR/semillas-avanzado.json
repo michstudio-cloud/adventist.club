@@ -1,0 +1,53 @@
+{
+ "honor_slug": "semillas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Seeds_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Sementes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar em desenhos as seguintes partes de uma semente e conhecer a função de cada uma: endosperma, radícula, plúmula, micrópila.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer várias diferenças entre uma semente de monocotiledônea e uma de dicotiledônea e dar três exemplos de cada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar a finalidade e o uso do teste de germinação em rolo de pano (“boneca de pano”). Usá-lo para testar a germinação de 100 sementes de uma planta silvestre e de 100 sementes de uma planta cultivada. Relatar os resultados de cada teste.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que uma semente difere de um esporo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever ou contar oralmente duas lições espirituais que podemos aprender com as sementes. Você encontrará ajuda em Parábolas de Jesus, de Ellen G. White, páginas 33 a 89.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma coleção de 60 tipos diferentes de sementes, dos quais apenas 15 podem ser tirados de pacotes comerciais de sementes; as outras 45 você mesmo deve coletar. Identificar cada tipo da seguinte forma: nome da semente, data da coleta, local da coleta e nome do coletor.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ter em sua coleção quatro tipos de sementes de cada uma de duas famílias de plantas, mostrando a semelhança entre as sementes das plantas de uma mesma família.",
+   "instructions": null
+  }
+ ]
+}

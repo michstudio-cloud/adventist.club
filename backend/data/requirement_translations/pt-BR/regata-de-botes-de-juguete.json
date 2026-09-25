@@ -1,0 +1,63 @@
+{
+ "honor_slug": "regata-de-botes-de-juguete",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Toy_Boat_Regatta/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Desenhar um esquema de um barco movido a vento (veleiro) mostrando os elementos pertinentes e como funcionam. Os elementos devem incluir, entre outros, a retranca, o casco, a bujarrona, a quilha, a vela mestra, o mastro e o leme. Como os elementos que costumam ser retirados dos barcos de brinquedo afetam o funcionamento?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar o projeto de um barco de brinquedo movido a elástico, do modelo de sua escolha, mostrando os elementos pertinentes que diferem de um barco movido a vento.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber descrever o Princípio de Arquimedes sobre a flutuação e como esse princípio se aplica a todos os barcos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber descrever a Primeira Lei do Movimento de Newton e como esse princípio se aplica a todos os barcos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber descrever a Terceira Lei do Movimento de Newton e como esse princípio se aplica a um barco movido a vento (veleiro).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber descrever a diferença entre energia potencial e energia cinética. Discutir como e quando um barco de brinquedo movido a elástico usa os dois tipos de energia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Usar materiais recicláveis para fazer pelo menos um barco de brinquedo movido a vento (veleiro) e pelo menos um barco de brinquedo movido a elástico. Cada barco de brinquedo não deve ter mais de 4 polegadas (10 cm) de largura e deve ser adequado para navegar numa raia de água de 6 polegadas (15 cm) de largura.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de uma corrida organizada de barcos movidos a vento (veleiros) usando um barco que você fez para completar esta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de uma corrida organizada de barcos movidos a elástico usando um barco que você fez para completar esta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Identificar e contar brevemente pelo menos dois episódios da Bíblia que descrevam barcos/objetos flutuando e dois que desafiem o Princípio de Arquimedes.",
+   "instructions": null
+  }
+ ]
+}

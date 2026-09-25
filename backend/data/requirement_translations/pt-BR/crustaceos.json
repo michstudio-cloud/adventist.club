@@ -1,0 +1,68 @@
+{
+ "honor_slug": "crustaceos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Crustaceans/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Crustáceos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos quatro características de um crustáceo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é um exoesqueleto?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A que filo pertence esse grupo?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como se divide o corpo desses animais?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que passagens bíblicas se encontram informações sobre o consumo de crustáceos?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a diferença entre um siri e um caranguejo? Onde se podem encontrar esses animais?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar um caranguejo terrestre.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como se distingue um siri macho de uma fêmea? Por que isso é importante?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a importância dos pequenos crustáceos para o meio ambiente?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Realizar uma das seguintes atividades e apresentar um relatório ilustrado:\n  a. Dissecar um camarão e identificar suas partes principais.\n  b. Em uma aula, observar vários tipos de crustáceos. Desenhar pelo menos dois deles.\n  c. Ser capaz de diferenciar um caranguejo de um siri e saber diferenciar o macho da fêmea.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ser capaz de identificar, ao vivo ou por meio de fotos, os seguintes animais:\n  a. Craca\n  b. Caranguejo-eremita (ermitão)\n  c. Tatuzinho-de-jardim\n  d. Lagosta\n  e. Camarão\n  f. Caranguejo\n  g. Siri",
+   "instructions": null
+  }
+ ]
+}

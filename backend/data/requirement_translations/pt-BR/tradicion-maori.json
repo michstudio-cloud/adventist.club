@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tradicion-maori",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/M%C4%81ori_Lore/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos de uso comum:\n  a. Marae\n  b. Powhiri\n  c. Karakia\n  d. Mate\n  e. Waiata\n  f. Korero\n  g. Haka\n  h. Kuia\n  i. Tane\n  j. Wero\n  k. Mana\n  l. Manuhiri\n  m. Hongi\n  n. Hui\n  o. Poroporoaki\n  p. Whanau\n  q. Tangi\n  r. Aroha\n  s. Whakairo\n  t. Koro\n  u. Kaumatua\n  v. Wahine\n  w. Mihi\n  x. Whaikorero\n  y. Tangata whenua\n  z. Taonga",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Completar o seguinte:\n  a. Desenhar ou decalcar um mapa-múndi e mostrar com setas as direções do povoamento polinésio.\n  b. De onde os maoris consideram ter vindo para a Nova Zelândia?\n  c. Explicar o que é o Mito da Grande Migração. Quem foi o criador do mito? Quais foram as canoas que chegaram nessa migração e de onde vieram?\n  d. Desenhar ou decalcar um mapa da Nova Zelândia mostrando todas as principais áreas tribais e indicar a canoa de cada uma.\n  e. Por que Rangitoto recebeu o nome de “Rangitoto”?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Visitar um marae com um grupo que tenha sido convidado para um hui. Escrever um relatório sobre os acontecimentos desde o momento em que você chega ao marae até o momento em que sai. Indicar o nome do marae, sua localidade e a tribo à qual está ligado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Relatar brevemente os costumes observados em cada um dos seguintes eventos:\n  a. Mate (luto)\n  b. Refeições\n  c. Discursos\n  d. Hora de dormir",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Completar o seguinte:\n  a. Quais são as duas religiões maoris praticadas atualmente e quais são algumas de suas características?\n  b. Descrever brevemente a história maori da criação.\n  c. Resumir brevemente a história do adventismo do sétimo dia entre o povo maori.\n  d. Qual é a atitude dos maoris em relação à religião em geral?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma amostra de painel tukutuku (aprox. 30cm x 30cm) OU um tipare OU uma pequena esteira/cesta de linho.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber, corretamente:\n  a. Cumprimentar as pessoas em maori\n  b. Fazer o hongi",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Completar o seguinte:\n  a. Quais eram cinco passatempos diferentes das crianças maoris antigamente?\n  b. Aprender a fazer três figuras com barbante e a andar de pernas de pau.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Visitar o local de um antigo pa (povoado fortificado) em sua região e fazer um breve relatório escrito sobre o que você pôde ver.",
+   "instructions": null
+  }
+ ]
+}

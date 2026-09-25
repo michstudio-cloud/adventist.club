@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-special-helper",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=169",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ajudante especial",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre ser prestativo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Cantar uma música sobre ser prestativo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Brincar de um jogo sobre ser prestativo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual sobre ser prestativo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ajudar um familiar em uma tarefa especial durante uma semana (por exemplo, alimentar um animal de estimação).",
+   "instructions": null
+  }
+ ]
+}

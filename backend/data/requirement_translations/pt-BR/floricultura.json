@@ -1,0 +1,68 @@
+{
+ "honor_slug": "floricultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flower_Culture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir cada um dos seguintes termos:\n  a. Plantas perenes\n  b. Plantas anuais\n  c. Plantas bienais",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dar instruções gerais para fazer uma estufa de canteiro aquecido (hotbed). Qual é a diferença entre um canteiro aquecido e um canteiro frio (cold frame)?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é drenagem? Qual é a sua importância?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três pragas de plantas e dizer como controlá-las.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dar instruções para fazer uma floreira de janela e dizer seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar o solo, adubar, plantar e cultivar até a maturidade três tipos diferentes de plantas anuais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cuidar de duas ou mais flores perenes plantadas ao ar livre durante uma estação, adubando, regando, tirando as ervas daninhas e tratando as pragas conforme necessário. Manter um registro escrito com anotações semanais, relacionando o trabalho feito.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são os três nutrientes mais importantes para as plantas floríferas?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar três plantas floríferas adaptadas a cada uma das seguintes condições:\n  a. Sombra\n  b. Solo seco\n  c. Sol pleno\n  d. Solo úmido",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a finalidade de uma análise do solo?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma coleção de imagens de dez plantas anuais, cinco perenes e duas bienais. Identificá-las e saber de memória o nome de cada uma.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-my-community-friends",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=29",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigos da vizinhança",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar cinco (5) amigos diferentes que moram em sua comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um álbum de recortes ou uma colagem de seus amigos da vizinhança, incluindo pelo menos cinco (5) pessoas diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer três (3) coisas que você e seus amigos podem fazer para tornar sua vizinhança um lugar melhor.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dizer a um de seus amigos que Jesus o ama.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer algo gentil por um amigo da comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um novo amigo em sua vizinhança.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: probablemente el de la DSA para esta especialidad (insignia «Amigos da vizinhança»); sin confirmar"
+}

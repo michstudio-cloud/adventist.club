@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-outdoor-explorer",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=229",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Explorador ao ar livre",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma caminhada na natureza e recolher:\n  a. Uma folha e dizer de que árvore ou planta ela é\n  b. Uma pena e descobrir de que ave ela é\n  c. Uma pedra e aprender de que tipo ela é\n  d. Uma semente e identificar de que planta ela é",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender e recitar as seguintes regras de ouro para caminhadas:\n  a. Nunca cortar árvores.\n  b. Nunca arrancar plantas vivas.\n  c. Não retirar nenhum tipo de sinalização.\n  d. Não entrar em propriedades com a placa “Entrada proibida”.\n  e. Pedir permissão antes de andar em uma propriedade particular.\n  f. Não jogar lixo no chão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer de que lado da estrada se deve andar e explicar por quê.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Caminhar meia milha (1 km) até uma área de piquenique, levando seu próprio lanche, e almoçar nesse lugar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer duas caminhadas de pelo menos uma milha (1,6 km) cada. Uma pode ser com o clube e outra com a família. Fazer o seguinte enquanto caminham juntos:\n  a. Encontrar itens da natureza para cada letra do alfabeto, como: A = Abelha; B = Borboleta; C = Caracol etc.\n  b. Conversar sobre o que vocês veem e dizer em que dia cada coisa foi criada.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Aprender e recitar as cinco regras de segurança a seguir para caminhadas:\n  a. Caminhar sempre com pelo menos um companheiro.\n  b. Levar água ao sair para caminhar.\n  c. Usar calçados confortáveis para caminhar.\n  d. Usar roupas adequadas.\n  e. Prestar atenção por onde anda para não se perder.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

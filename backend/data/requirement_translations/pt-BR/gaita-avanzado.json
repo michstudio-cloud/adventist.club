@@ -1,0 +1,68 @@
+{
+ "honor_slug": "gaita-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bagpipes_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Gaita de foles - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar e compartilhar pelo menos sete fatos históricos sobre a gaita de foles escocesa (Great Highland bagpipe).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quem foram as principais pessoas que desenvolveram a gaita de foles escocesa até sua forma atual?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir as funções e os materiais de cada parte da gaita de foles e depois escolher o material que você usaria para fazer sua própria gaita.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quantos pinos de afinação podem ser encontrados em uma gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em que classificação de instrumentos a gaita de foles se enquadra?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar 10 peças da gaita de foles e a finalidade de cada uma em sua construção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é o nome do material branco usado para vedar as diversas junções da gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que fatores contribuem para que a gaita de foles desafine com tanta facilidade?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são algumas maneiras de ensinar e aprender a tocar gaita de foles?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Compartilhar os motivos e as abordagens relacionados à conservação animal na fabricação das gaitas de foles modernas e explicar por que tem havido uma volta às bolsas feitas de pele de animal.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Assistir a uma apresentação de gaita de foles, ao vivo ou gravada, e depois conversar com o gaiteiro.",
+   "instructions": null
+  }
+ ]
+}

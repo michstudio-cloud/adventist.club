@@ -1,0 +1,38 @@
+{
+ "honor_slug": "salud-y-curacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Health_and_Healing_(GC)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Saúde e cura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no oitavo ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender na Bíblia e/ou no Espírito de Profecia como Jesus curava os enfermos e o procedimento que os anciãos da igreja devem seguir para ungir os enfermos e pedir a Deus a cura. Escrever um relatório de 250 palavras ou fazer uma apresentação oral de dois minutos sobre o que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é educação continuada em relação às carreiras da saúde?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entrevistar pelo menos duas pessoas que trabalham em carreiras da área da saúde. Uma delas deve ser alguém que não seja médico nem enfermeiro, como alguém que trabalhe em odontologia, fisioterapia, fisioterapia respiratória, radiologia, nutrição etc. Na entrevista, fazer as seguintes perguntas:\n  a. Por que você escolheu sua profissão?\n  b. Que formação é necessária para ingressar em sua profissão?\n  c. Depois da formação, quanto tempo leva para obter a certificação ou dominar sua área?\n  d. De que parte do seu trabalho você mais gosta? E de qual menos gosta?\n  e. Em que dias da semana e quantas horas por dia você trabalha?\n  f. Que possibilidades de progresso existem em sua área?\n  g. Que curso universitário complementaria a profissão que você escolheu?\n  h. Que escolas da região oferecem formação em sua profissão?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um dos seguintes:\n  a. Ser voluntário ou auxiliar num hospital ou estabelecimento de saúde.\n  b. Visitar um consultório médico ou odontológico e fazer o seguinte:\n    (1) Observar as áreas de funcionamento, como a administração, o laboratório, as salas de exame, a sala de raios X etc.\n    (2) Conhecer o equipamento usado no consultório.\n    (3) Aprender as etapas de uma consulta, desde o momento em que o paciente entra na sala de espera até sair do consultório.\n    (4) Aprender como o médico faz um exame, desde a coleta do histórico do paciente até o diagnóstico.\n  c. Acompanhar um enfermeiro numa visita domiciliar e fazer o seguinte:\n    (1) Aprender as etapas de uma visita domiciliar, desde o momento em que o enfermeiro toma conhecimento do paciente até quando faz o relatório ao médico.\n    (2) Observar o enfermeiro medindo os sinais vitais.\n    (3) Observar o enfermeiro dando instruções e medicamentos.\n  d. Visitar um setor de atendimento ambulatorial de um hospital, como fisioterapia, raios X, laboratório etc. Fazer o seguinte:\n    (1) Observar as áreas de funcionamento do setor.\n    (2) Conhecer o equipamento usado no setor e como ele funciona.\n    (3) Aprender as etapas que um paciente percorre ao ser atendido no setor.\n    (4) Quantas pessoas são necessárias para compor a equipe do setor?\n    (5) O setor funciona à noite?",
+   "instructions": null
+  }
+ ]
+}

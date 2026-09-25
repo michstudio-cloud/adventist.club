@@ -1,0 +1,68 @@
+{
+ "honor_slug": "patrimonio-historico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Historical_Heritage/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Patrimônio histórico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o conceito de patrimônio histórico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre história e memória.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a importância do patrimônio histórico para:\n  a. A identidade do povo\n  b. A preservação da memória\n  c. A formação do ser humano",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como se forma um patrimônio histórico e quais são os benefícios de sua criação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como a história pode influenciar as decisões de uma sociedade?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir as seguintes categorias:\n  a. Patrimônio histórico material\n  b. Patrimônio histórico imaterial",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é o papel do ser humano como agente ativo na construção da história?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pesquisar três elementos da cultura imaterial de sua cidade ou região.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrevistar uma pessoa idosa sobre suas lembranças da cidade.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um relatório sobre os monumentos que existem na região onde você mora. Descobrir por que estão ali e que história eles procuram preservar.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma coleção de dez elementos que são parte importante de seu patrimônio pessoal.",
+   "instructions": null
+  }
+ ]
+}

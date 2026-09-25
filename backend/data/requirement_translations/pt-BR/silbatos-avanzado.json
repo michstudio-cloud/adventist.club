@@ -1,0 +1,43 @@
+{
+ "honor_slug": "silbatos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Whistles_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Apitos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é um apito de casca deslizante e quem fez esse tipo de apito pela primeira vez?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que acontece quando o galho usado para fazer um apito de casca deslizante é grande ou pequeno demais?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é um apito do tipo flauta doce?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer os seguintes apitos:\n  a. apito de salgueiro (de casca deslizante)\n  b. apito do tipo flauta doce",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar sua capacidade de usar corretamente cada um dos apitos que você fez.",
+   "instructions": null
+  }
+ ]
+}

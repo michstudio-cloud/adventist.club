@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-finger-play",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=59",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Brincadeiras com os dedos",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir uma história sobre as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer três coisas que você aprendeu sobre as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Recitar um poema e usar a mão para representá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual que use suas mãos como parte do projeto (por exemplo, pintura a dedo, contorno das mãos).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma atividade usando os dedos (por exemplo, construir algo com blocos, sovar pão).",
+   "instructions": null
+  }
+ ]
+}

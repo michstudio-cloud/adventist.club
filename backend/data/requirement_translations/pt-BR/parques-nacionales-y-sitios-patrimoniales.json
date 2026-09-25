@@ -1,0 +1,48 @@
+{
+ "honor_slug": "parques-nacionales-y-sitios-patrimoniales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/National_Parks_and_Heritage_Sites/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o seguinte:\n  a. Parque nacional\n  b. Patrimônio Mundial da UNESCO",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Completar a ou b:\n  a. Aprender a história dos parques e monumentos nacionais (ou seus equivalentes), descobrindo o seguinte:\n    i. Em que país foram criados os parques nacionais?\n    ii. Citar algumas das pessoas que iniciaram o processo de criação dos primeiros parques nacionais.\n    iii. Quais foram os motivos para criar essas áreas protegidas nacionalmente?\n    iv. Qual é a área do sistema nacional de proteção mais próxima de onde você mora?\n  b. Aprender a história dos sítios do Patrimônio Mundial da UNESCO:\n    i. Quando a ONU começou a designar sítios do Patrimônio Mundial?\n    ii. Qual foi o motivo para designar esses sítios?\n    iii. Quais foram alguns dos primeiros sítios designados como Patrimônio Mundial?\n    iv. Qual é o sítio do Patrimônio Mundial da UNESCO mais próximo de onde você mora?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Além dos parques nacionais, que outros tipos de áreas históricas, culturais e naturais são protegidos em seu país, se houver? Como são chamados? Citar três desses locais e sua importância.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descobrir a diferença entre um parque regional/estadual e um parque nacional em seu país (se houver). Quem é responsável por cuidar dessas áreas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar de forma visual e criativa o que você descobriu ao estudar esta especialidade. Devem ser usados tanto imagens quanto texto. Alguns projetos criativos possíveis:\n  a. Uma colagem de fotos (digital ou impressa)\n  b. Um painel informativo de três dobras ou um cartaz\n  c. Um vídeo informativo (pode ser feito em combinação com uma apresentação de slides)\n  d. Um documentário “no local” de um de seus parques nacionais ou sítios do Patrimônio Mundial favoritos\n  e. Um jogo de tabuleiro ou digital de “perguntas e respostas” usando os fatos aprendidos.\n  f. Outro projeto aprovado por seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar uma lição objetiva (incluir pelo menos um objeto visual e manipulável) sobre o valor que Deus dá à Sua criação e como Ele deseja que cuidemos dela. Compartilhar essa lição em grupo, como em um culto do clube ou da unidade, na história infantil da igreja, em volta da fogueira ou em um culto de pôr do sol. Usar estes textos ou outros:\n  a. Gênesis 1:26-28 e Gênesis 2:15\n  b. Salmo 24:1\n  c. Salmo 95:5\n  d. Jeremias 2:7",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Completar três dos seguintes:\n  a. Completar um programa Junior Ranger/Parks Canada Xplorers (ou equivalente) em um parque nacional, monumento, sítio histórico ou outra área equivalente e discutir com seu grupo o que você aprendeu.\n  b. Visitar um sítio do Patrimônio Mundial da UNESCO ou uma área do sistema de parques nacionais e registrar sua visita com um álbum de fotos (digital ou impresso).\n  c. Desenhar ou pintar algo que você gostou de aprender ao estudar as áreas do sistema de parques nacionais e/ou os sítios do Patrimônio Mundial.\n  d. Percorrer uma trilha durante a visita a um parque nacional ou sítio do Patrimônio Mundial. Registrar três coisas que você viu, três coisas que ouviu e pelo menos um cheiro que sentiu.\n  e. Escolher uma área do sistema de parques nacionais ou um sítio do Patrimônio Mundial e registrar ou apresentar:\n    i. Quando se tornou parque nacional, monumento, litoral protegido, sítio do patrimônio etc.?\n    ii. Onde está localizado?\n    iii. Pelo que é conhecido?\n    iv. O que mais lhe interessou nesse local?\n  f. Fazer uma apresentação, escrever ou fazer um vídeo curto sobre um projeto atual de conservação de um parque nacional.\n  g. Assistir a um vídeo de no mínimo 15 minutos sobre parques nacionais e resumir o que você viu.\n  h. Começar um passaporte de parques nacionais e colecionar cinco carimbos de parques nacionais ou de áreas de parques nacionais.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "honor_slug": "gatos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cats/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o nome científico da família dos gatos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Em que a estrutura da pata é semelhante em todos os felinos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que os olhos de todos os felinos se parecem?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o principal alimento da família dos gatos? Como os dentes do gato são adaptados para isso?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para que servem os bigodes do gato?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como as orelhas do gato são protegidas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar, por meio de figuras ou de observação pessoal, quatro tipos de gatos domésticos. Descrever o temperamento de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que benefícios os gatos domésticos trazem ao ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar, por meio de figuras ou de observação pessoal, sete tipos de felinos selvagens. Dizer em que parte do mundo são encontrados.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que animal é conhecido como o rei dos animais? Por que recebeu esse título? Como é realmente o seu temperamento?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Contar a história de Ândrocles e o leão.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Contar quatro histórias da Bíblia em que é mencionado um membro da família dos felinos.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-collector",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=113",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Colecionador",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o que faz um colecionador.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco coisas que as pessoas costumam colecionar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer duas coleções pessoais diferentes, com pelo menos 20 itens cada uma.\n  a. Objetos como selos, cartões-postais, moedas etc.\n  b. Objetos da natureza como folhas, pedras, penas, conchas etc. OU\n  c. Fazer uma coleção pessoal de objetos; e\n  d. Em grupo ou com a classe, colecionar itens da natureza.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma exposição de colecionadores e mostrar suas coleções pessoais bem organizadas, com todos os objetos bem identificados.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar e explicar algo que você aprendeu com uma de suas coleções.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

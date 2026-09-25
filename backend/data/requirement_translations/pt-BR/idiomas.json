@@ -1,0 +1,43 @@
+{
+ "honor_slug": "idiomas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Language_Study/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler e traduzir à primeira vista um trecho de pelo menos 300 palavras de um livro ou revista em uma língua que não seja a sua língua materna.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Manter uma conversa simples, mas contínua, em uma língua estrangeira moderna por um período de pelo menos cinco minutos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ouvir um discurso ou declaração de pelo menos dois minutos de duração feito por uma pessoa cuja língua materna seja essa língua estrangeira e traduzi-lo para a sua língua.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever uma carta simples na língua estrangeira de sua escolha, contando os contatos que você conseguiu fazer com pessoas cuja língua materna é a língua escolhida.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e repetir de memória o Voto e a Lei do Desbravador nessa língua estrangeira.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever ou contar oralmente sobre a população estrangeira de sua vizinhança e as oportunidades que você tem de conversar com quem fala a língua que você estudou.",
+   "instructions": null
+  }
+ ]
+}

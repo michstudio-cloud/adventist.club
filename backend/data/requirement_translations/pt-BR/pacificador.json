@@ -1,0 +1,33 @@
+{
+ "honor_slug": "pacificador",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Peace_Maker/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir conflito e discutir a diferença entre conflito bom e conflito ruim.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar as 4 causas de conflito descritas na Bíblia. Ler as seguintes passagens como auxílio:\n  a. Atos 15:1-20\n  b. 1 Coríntios 12:12-31\n  c. Gênesis 13:1-12\n  d. Tiago 4:1-3",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar cada trecho da ladeira escorregadia na maneira de lidar com conflitos e discutir exemplos de cada tipo tirados da Bíblia e de suas próprias experiências.\n  a. FUGA\n    i. Negação\n    ii. Jogo da culpa\n    iii. Fugir\n  b. ATAQUE\n    i. Menosprezar\n    ii. Fofoca\n    iii. Brigar\n  c. RESOLVER/CONCILIAÇÃO\n    i. Relevar\n    ii. Conversar\n    iii. Buscar ajuda",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma dramatização invertida de um conflito de sua própria vida e identificar em que ponto da “ladeira escorregadia” você está e que opções de conciliação poderia tentar.",
+   "instructions": null
+  }
+ ]
+}

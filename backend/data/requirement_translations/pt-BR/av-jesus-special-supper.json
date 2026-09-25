@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-jesus-special-supper",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=371",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Santa Ceia",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar a história da Última Ceia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar por que Jesus lavou os pés dos discípulos como um servo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o que o pão e o suco representam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que aconteceu no final da ceia especial?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma oração agradecendo a Jesus pelo amor DELE.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um trabalho manual que ilustre a Última Ceia.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

@@ -1,0 +1,88 @@
+{
+ "honor_slug": "manaties",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Manatees/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Peixes-boi",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o nome popular, o reino, o filo, a classe, a ordem, a família, o gênero, a espécie e a subespécie do peixe-boi?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que os peixes-boi comem e quanto por dia?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Onde os peixes-boi vivem e qual é seu hábitat e sua área de distribuição?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma descrição detalhada de um peixe-boi.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os peixes-boi respiram e com que frequência precisam subir para respirar?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever uma redação sobre a reprodução, a gestação e a relação da fêmea do peixe-boi com o filhote.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como os peixes-boi se comunicam?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como é o comportamento deles?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que valor o peixe-boi tem para o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer as regras para navegar de barco ou de jet ski perto de peixes-boi.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer todas as placas de sinalização aquática para navegar de barco ou de jet ski.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que se deve e o que não se deve fazer perto de um peixe-boi?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quais são os inimigos e os problemas do peixe-boi?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Quais são as outras espécies de sirênios?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Visitar um lugar onde seja possível observar peixes-boi em seu hábitat.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "honor_slug": "procesar-texto-division-del-pacifico-sur",
+ "ministry": "pathfinders",
+ "locale": "en",
+ "source": "pathfinders-spd",
+ "source_url": "https://pathfinders.adventistchurch.com/wp-content/uploads/sites/15/2021/08/Word_Processing_1_Honour_Requirements___Framework.pdf",
+ "license": null,
+ "retrieved": "2026-09-25",
+ "notes": "Word Processing 1, South Pacific Division honour (Vocational, skill level 2), reviewed July 2013. Official SPD 'Requirements & Framework' PDF (pathfinders.adventistchurch.com, no licence stated). Same text as the wiki's NAD 'Word Processing'.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "a. Briefly describe the meaning of the term ‘word processing’\nb. List the hardware needed for word processing.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrate correct posture while using a keyboard.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrate ability to correctly:\n  a. Switch on the hardware and open the word processing software.\n  b. Close all documents and software, then shutdown / turn-off all hardware.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrate ability to: (Note that this may be done in conjunction with Requirement 5)\n  a. Navigate the computer’s document / file storage system (viz Microsoft’s ‘My Documents’)\n  b. Retrieve / open a document from the computer’s document / file storage system\n  c. Create a new folder in the computer’s document / file storage system\n  d. Create a new word-processing document.\n  e. Give the new document a suitable file name and save it in the appropriate folder in the computer’s document / file storage system. Explain why it is important to ensure that a document being worked on is continually saved and backed up.\n  f. Ensure the document has its file name and its latest revision clearly noted on the document. Explain why it is important to do so.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Create a document consisting of no less than 800 words and which demonstrates skill in applying each of the following. Save and print the document. Make a backup copy.\n  a. Setting up a document:\n    i. Save the document in the appropriate folder. Make a new folder if this is best.\n    ii. Set page orientation: portrait or landscape.\n    iii. Create a header and footer.\n    iv. Set margins.\n    v. Insert automatic page numbering in the header or footer.\n    vi. Insert the date of the latest revision and the document’s file name in the header or footer.\n  b. Formatting a document using the following:\n    i. Fonts: Type (ie Arial etc), Size (ie 12 etc), Style (ie bold), Colour & Underlining.\n    ii. Text alignment: Left, Centre, Right and Justify.\n    iii. Line spacing.\n    iv. Lists and bullets.\n    v. Numbering of headings.\n  c. Editing a document by:\n    i. Copying text.\n    ii. Moving text.\n    iii. Correcting spelling and grammar using auto correct.\n    iv. Searching and replacing words or text.\n  d. Inserting into a document:\n    i. A table with headings and a minimum of 3 columns and 5 rows.\n    ii. A picture or Clip Art.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "futbol-de-botones",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Button_Football/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Futebol de botão",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é o futebol de botão. Contar um breve histórico de como o esporte surgiu.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer pelo menos duas modalidades que podem ser praticadas no futebol de botão.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e explicar algumas regras básicas antes de começar uma partida de futebol de botão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista do equipamento necessário para jogar uma partida de futebol de botão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar algumas das matérias-primas que podem ser usadas na fabricação de um botão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever os seguintes termos do futebol de botão:\n  a. Botonista\n  b. Gol marcado\n  c. 3 toques\n  d. Lei da vantagem\n  e. Lateral\n  f. Pênalti\n  g. Tiro livre direto e indireto\n  h. Falta\n  i. Bola prensada",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é o tempo médio de duração de uma partida de futebol de botão?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a medida oficial da mesa de futebol de botão? Fazer um diagrama demonstrativo do campo, desenhando as linhas e as medidas obrigatórias para praticar esse jogo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Montar um time completo de futebol de botão com qualquer material de sua escolha. Criar um escudo de identificação para seu time.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Participar de pelo menos uma partida ou inscrever-se em uma competição de futebol de botão organizada em sua região, fazendo um breve relatório do que aconteceu na(s) partida(s).",
+   "instructions": null
+  }
+ ]
+}

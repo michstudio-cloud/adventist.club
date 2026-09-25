@@ -1,0 +1,83 @@
+{
+ "honor_slug": "enfermeria-casera",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Home_Nursing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Primeiros socorros - básico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que alimentos estão incluídos nas seguintes dietas:\n  a. Líquida\n  b. Pastosa\n  c. Leve\n  d. Completa",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os sintomas da febre. Saber medir a temperatura de uma pessoa. Saber como BAIXAR uma temperatura alta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber quais são a frequência de pulso, a frequência respiratória e a temperatura normais. Praticar a medição da frequência de pulso, da frequência respiratória e da temperatura de um amigo ou colega.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é uma doença transmissível? Como é transmitida? Que precauções se devem seguir para se proteger das doenças transmissíveis? Fazer uma lista das medidas de segurança que se devem observar ao cuidar em casa de uma pessoa com doença transmissível.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que sintomas indicam que uma pessoa está fisicamente doente?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber como ajudar a cuidar de um recém-nascido e de um idoso em sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber quando e como lavar as mãos ao cuidar de uma pessoa doente.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber como deixar confortável na cama um paciente acamado.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Mostrar como alimentar na cama um paciente que não consegue se alimentar sozinho.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Mostrar como dar remédio líquido e comprimidos, pílulas ou cápsulas a crianças e adultos. Saber aplicar corretamente colírio.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar o método de aplicar fomentações e escalda-pés. Explicar o valor de seu uso e dizer em que condições esses tratamentos devem ser aplicados.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar a aplicação de uma compressa aquecedora e o uso do calor e do frio no tratamento de inflamações e contusões.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Explicar como os seguintes remédios naturais ajudam a prevenir doenças. Observar que, em inglês, a primeira letra de cada item forma NEW START.\n  a. Nutrição (Nutrition)\n  b. Exercício (Exercise)\n  c. Água (Water)\n  d. Luz solar (Sunshine)\n  e. Temperança (Temperance)\n  f. Ar puro (Air)\n  g. Repouso (Rest)\n  h. Confiança em Deus (Trust in God)",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-temperance",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=405",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Temperança",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler os textos e conversar sobre eles:\n  a. 1 Co 6:19, 20\n  b. 1 Co 3:17",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer o que significa:\n  a. Abuso de drogas\n  b. Temperança",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma das seguintes atividades:\n  a. Conversar com um médico/enfermeiro ou com outro adulto sobre os males do uso de:\n    i. Tabaco\n    ii. Álcool\n    iii. Outras drogas\n  b. Assistir a um filme ou vídeo sobre os perigos do uso de qualquer um dos itens acima e conversar sobre ele.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dizer por que algumas pessoas escolhem fumar, beber álcool ou usar drogas. Dizer como nós podemos escolher não usá-los.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Planejar uma pequena encenação que incentive os outros a dizer “NÃO” e apresentá-la com seu grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar um desenho contra o fumo, as drogas ou o álcool e pintá-lo em uma camiseta, OU criar um cartaz que mostre os perigos do abuso de drogas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar duas pessoas famosas que não usam tabaco, drogas nem álcool e que estão entre as melhores em sua área, OU entrevistar duas pessoas que você conhece que vivem felizes e com saúde sem usar tabaco, drogas nem álcool e conversar com elas sobre seus motivos para não usar essas coisas.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

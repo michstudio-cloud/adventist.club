@@ -1,0 +1,83 @@
+{
+ "honor_slug": "perros",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dogs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar o nome científico da família dos cães.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco características distintivas da família dos cães.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar, por meio de figuras ou observação pessoal, cinco membros selvagens da família dos cães.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar, por meio de figuras ou observação pessoal, 25 raças diferentes de cães.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar cinco contribuições que a família dos cães trouxe ao ser humano.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar o nome da menor e da maior raça de cão.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever ou descrever oralmente o valor para o ser humano dos seguintes cães:\n  a. Cão-guia\n  b. São-bernardo\n  c. Pastor\n  d. Collie\n  e. Cão esquimó",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever ou contar que contribuição especial os cães deram ao ser humano em tempos de guerra.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar, por meio de figuras ou observação pessoal, cinco cães classificados como cães “toy”.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é o único cão que tem a língua totalmente azul ou preta?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é o cão mais veloz?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Qual dos cães “toy” se tornou o mais popular?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Que cão tem sido especialmente útil no rastreamento de criminosos?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Escrever ou contar uma história sobre cães.",
+   "instructions": null
+  }
+ ]
+}

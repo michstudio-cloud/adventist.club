@@ -1,0 +1,63 @@
+{
+ "honor_slug": "drones",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drones/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descobrir e descrever uma breve história dos drones e dos voos não tripulados.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar os seguintes componentes de um drone e descrever como funcionam juntos para fazer o drone voar:\n  a. Hélices e motores\n  b. Controlador eletrônico de velocidade (ESC)\n  c. Controladora de voo\n  d. Sistema de Posicionamento Global (GPS)\n  e. Bateria\n  f. Receptor e transmissor de controle remoto (RC)\n  g. Câmera",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender pelo menos dez procedimentos básicos de segurança para operadores de drones recreativos. Identificar quais dessas regras se devem a leis ou regulamentos de seu estado/província/território.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Revisar as regras e os regulamentos atuais para pilotos de drones recreativos/amadores em sua região (como os da FAA ou da TCAA).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender como obter a certificação obrigatória FAA TRUST ou TCAA (ou equivalente) para pilotos de drones recreativos/amadores.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por que é importante considerar os seguintes itens ao escolher um drone para uso recreativo:\n  a. Tempo de voo/duração da bateria\n  b. Câmera\n  c. Disponibilidade de peças de reposição\n  d. Sistema de Posicionamento Global (GPS)\n  e. Comprar no lugar certo",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Encontrar fotos e vídeos de drones em seis aplicações comerciais (não militares) que o ajudem a descobrir exemplos empolgantes da tecnologia dos drones e possíveis oportunidades de serviço e de carreira na indústria de drones.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ler Isaías 55:9-11, em que Deus diz que Seus caminhos são mais altos que os nossos. Discutir como o fato de Deus ver as coisas de um nível mais alto beneficia as pessoas. Como essa perspectiva diferente beneficia um operador de drone?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando imagens aéreas feitas com drone, individualmente ou como clube, criar um filme para uso em evangelismo ou em outros fins ministeriais. Cumprir todos os requisitos legais no uso das imagens de drone.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Depois de obter a certificação, fazer as seguintes manobras básicas com um drone:\n  a. Decolagem e pouso\n  b. Voo para a frente e para trás\n  c. Voo para a esquerda e para a direita\n  d. Rotação de 360 graus",
+   "instructions": null
+  }
+ ]
+}

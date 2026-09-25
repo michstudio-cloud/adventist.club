@@ -1,0 +1,59 @@
+{
+ "honor_slug": "av-swimmer-iii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=317",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Natação III",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar e receber a especialidade Natação I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Revisar e conversar sobre as regras de segurança que devem ser observadas ao nadar ou brincar na água.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Boiar de costas durante 30 segundos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Boiar de bruços durante 30 segundos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pular em uma água onde você não dá pé e pegar duas pedras.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar 10 jardas (10 m) em estilo livre.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nadar de costas 10 jardas (10 m).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar alguns metros usando só os pés e depois só as mãos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dizer três coisas que você poderia fazer para ajudar a salvar alguém que está se afogando.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

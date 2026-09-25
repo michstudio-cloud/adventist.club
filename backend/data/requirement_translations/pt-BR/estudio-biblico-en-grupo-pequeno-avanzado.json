@@ -1,0 +1,48 @@
+{
+ "honor_slug": "estudio-biblico-en-grupo-pequeno-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Small_Group_Bible_Study_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Estudo bíblico em pequeno grupo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Em que momento o líder de um pequeno grupo deve multiplicar o grupo em outros grupos menores?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é um bom tamanho mínimo de grupo? Por que grupos muito pequenos devem se reunir em lugares públicos e o que se considera um lugar público?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como o líder deve lidar com a situação em que apenas um outro membro comparece ao estudo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher um modelo de estudo bíblico que possa ser usado para conduzir uma série de estudos bíblicos em pequeno grupo sobre um dos seguintes temas:\n  a. Heróis da Bíblia\n  b. Temas relevantes para o crescimento espiritual dos adolescentes\n  c. Temas que deem orientação espiritual\n  d. Como compartilhar Jesus na escola, no trabalho ou com os amigos\n  e. Algumas das 28 crenças fundamentais",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenvolver a série de estudos com base no modelo escolhido.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dirigir um estudo bíblico em pequeno grupo durante pelo menos 8 encontros, usando o roteiro criado no requisito anterior.",
+   "instructions": null
+  }
+ ]
+}

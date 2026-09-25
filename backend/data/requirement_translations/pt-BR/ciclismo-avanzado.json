@@ -1,0 +1,73 @@
+{
+ "honor_slug": "ciclismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cycling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ciclismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever como escolher o tamanho correto do quadro, o guidão, a montagem e a altura do selim de acordo com o tamanho do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever brevemente todas as características desejáveis de uma bicicleta usada para cicloturismo de longa distância.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desmontar, limpar e montar novamente os rolamentos das rodas dianteira e traseira, da caixa de direção e do movimento central.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Centralizar (alinhar) uma roda traseira, verificando se o prato (dish) está correto.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher a combinação de coroas e catracas que daria os melhores resultados nas seguintes condições:\n  a. Pedalar em terreno montanhoso\n  b. Cicloturismo com bagagem na bicicleta\n  c. Pedalar em terreno plano",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar como as características de rodagem de uma bicicleta são afetadas por:\n  a. A geometria do quadro da bicicleta, incluindo:\n  b. O tipo de rodas usadas, incluindo:",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista dos itens de equipamento desejáveis para um cicloturismo de vários dias, incluindo equipamento de abrigo e de cozinha.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer as precauções de segurança que se devem observar ao andar de bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais são as vantagens do vácuo (pedalar na esteira de outro ciclista)? Saber como fazer o vácuo de forma segura e correta.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer as diferentes roupas e equipamentos de segurança usados no ciclismo e as vantagens de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Cumprir o seguinte registro de pedaladas enquanto trabalha nesta especialidade.\n  a. Fazer três passeios de 20 milhas (35 quilômetros) em locais diferentes.\n  b. Pedalar 100 milhas (160 quilômetros) consecutivas em menos de 15 horas.\n  c. Fazer um cicloturismo de três dias de pelo menos 125 milhas (200 km) e escrever um relatório de 500 palavras sobre a viagem.",
+   "instructions": null
+  }
+ ]
+}

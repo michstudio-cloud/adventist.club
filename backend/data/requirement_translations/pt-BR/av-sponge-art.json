@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-sponge-art",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=93",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Arte com esponja",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um quebra-cabeça com esponjas de formatos diferentes. (Usar esponjas de poliéster, não de celulose.) Fazer um cartão com o contorno das peças do quebra-cabeça usando cartolina grossa e plastificá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "As formas ficam em pé sobre as bordas? Elas podem ser empilhadas? Separá-las por cor e por forma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um animal ou um objeto de esponja. (Usar cola para artesanato, não cola branca comum.)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando tinta, fazer um quadro de arte com esponja à sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usando tinta e esponjas, fazer um dos seguintes:\n  • Seu nome, decorando em volta dele\n  • Um animal\n  • Seu brinquedo preferido",
+   "instructions": null
+  }
+ ]
+}

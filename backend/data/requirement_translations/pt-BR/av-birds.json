@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-birds",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=191",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Pássaros",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar cinco pássaros que você vê perto de sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar a ave símbolo de seu estado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três tipos de alimento para pássaros (sementes de girassol preto, sementes de cardo, milho, mistura de sementes, sementes de girassol listrado).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar um pássaro e depois preencher o desenho com uma mistura de sementes para pássaros.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um comedouro para pássaros com uma pinha e pendurá-lo em seu quintal. Contar quantos pássaros vêm comer nele.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dois pássaros mencionados na Bíblia (águia, pomba, pardal, corvo).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer o canto de dois pássaros e fingir que você é esse pássaro.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

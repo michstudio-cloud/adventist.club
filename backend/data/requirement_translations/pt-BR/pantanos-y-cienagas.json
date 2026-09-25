@@ -1,0 +1,73 @@
+{
+ "honor_slug": "pantanos-y-cienagas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bogs_%26_Fens/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma turfeira ácida (bog)? O que a torna única?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Onde são encontradas as turfeiras ácidas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar 6 fatores necessários para a formação de uma turfeira ácida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar e descrever três tipos diferentes de turfeiras ácidas verdadeiras.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre uma turfeira ácida (bog) e uma turfeira alcalina (fen)? O que é sucessão ecológica e como as turfeiras ilustram esse processo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são algumas adaptações das plantas de turfeira?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é o musgo Sphagnum e por que ele é vital para as turfeiras ácidas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que são plantas carnívoras e o que as torna próprias das turfeiras? Citar e descrever pelo menos duas delas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar e descrever cinco outras plantas ou árvores encontradas em turfeiras ácidas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar e descrever 5 animais que podem ser encontrados em turfeiras ácidas e alcalinas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Contar uma história sobre as turfeiras e tirar dela uma lição espiritual.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer pelo menos 2 das seguintes atividades:\n  a. Visitar uma exposição ou estufa de plantas de áreas úmidas, especialmente musgos (se possível, do gênero Sphagnum) e plantas carnívoras. Observar como elas estão adaptadas a viver em solo pobre, temperaturas frias e falta de nutrientes.\n  b. Visitar um zoológico que tenha animais de áreas úmidas. Se possível, observar alguns dos que você estudou ao aprender sobre as turfeiras.\n  c. Assistir a um DVD ou vídeo sobre turfeiras ou sobre plantas ou animais que vivem nelas.\n  d. Desenhar ou pintar algo que você gostou de aprender ao estudar as turfeiras.\n  e. Falar para seu grupo, escrever ou fazer um vídeo curto sobre um projeto real de conservação de uma turfeira. Explicar por que esse hábitat específico deve ser preservado, por exemplo, por causa de espécies de plantas e/ou animais ameaçadas de extinção que vivem ali.",
+   "instructions": null
+  }
+ ]
+}
