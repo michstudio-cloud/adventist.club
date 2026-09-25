@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-vida-muerte-y-resurreccion-de-cristo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/09_-_The_Life,_Death,_and_Resurrection_of_Christ/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A vida, morte e ressurreição de Cristo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender como 1 Pedro 2:22-23 descreve a vida perfeita que Cristo viveu.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Reconhecer quem foi o único ser humano que nunca pecou. (Hebreus 4:15)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender o que Cristo realizou por meio de Sua morte. (Romanos 5:10; Apocalipse 5:9)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar por que Jesus teve de morrer, mesmo sem ter cometido pecado. (1 Timóteo 1:15; Romanos 5:8)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir a importância da ressurreição de Jesus para a nossa salvação. (1 Coríntios 15:20-23)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Isaías 53:4-5.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o propósito da vinda, da morte e da ressurreição de Jesus. (Lucas 19:10; João 3:16-17; Hebreus 7:25; Atos 4:12)",
+   "instructions": null
+  }
+ ]
+}

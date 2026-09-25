@@ -1,0 +1,73 @@
+{
+ "honor_slug": "lecheria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dairying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer 25 partes de uma vaca leiteira.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que aspectos devem ser considerados ao escolher uma bezerra?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os cuidados, o manejo e a alimentação das vacas leiteiras nas seguintes fases:\n  a. Bezerras\n  b. Do desmame aos seis meses\n  c. Dos seis aos quinze meses\n  d. Dos quinze meses até a novilha prenhe próxima do parto\n  e. A vaca seca",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as técnicas corretas de alimentação de uma vaca em lactação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber como o leite é produzido na vaca.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer as etapas da ordenha de uma vaca, manual ou mecânica.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer oito partes de uma ordenhadeira mecânica.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é mastite? Que medidas podem ser tomadas para preveni-la?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer cinco problemas de saúde do rebanho, seus sintomas e como preveni-los e/ou tratá-los.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Concentrados\n  b. Proteína bruta\n  c. Descarte\n  d. Período seco\n  e. Em lactação\n  f. Ciclo ou período de lactação\n  g. Ocitocina",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar a pasteurização do leite e o cuidado correto com os utensílios e equipamentos de laticínios.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Ajudar no cuidado e na ordenha de um rebanho de vacas leiteiras por pelo menos três meses.",
+   "instructions": null
+  }
+ ]
+}

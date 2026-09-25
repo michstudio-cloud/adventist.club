@@ -1,0 +1,53 @@
+{
+ "honor_slug": "la-naturaleza-humana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/07_-_Nature_of_Humanity/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A natureza humana",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer a origem da vida humana e citar o material usado para criar o homem. (Gênesis 1:27; 2:7)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar por que nossos primeiros pais, que foram criados para viver para sempre, perderam essa condição de imortalidade. (Gênesis 2:16-17; 3:22)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir pecado. (1 João 3:4; Tiago 4:17; Romanos 14:23)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entender as consequências do pecado. (Romanos 6:23; Ezequiel 18:4, 20)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Reconhecer a mentira contada pela serpente no Éden, na qual muitos ainda creem hoje, e saber quem é o único ser imortal. (Gênesis 3:4; 1 Timóteo 6:15-16)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 1 João 5:11-12.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o que Deus fez para resolver o problema do pecado. (João 3:16)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar de forma prática à sua unidade ou a outro grupo os elementos que Deus usou na criação da humanidade (pode ser por meio de dramatização ou de outro método ilustrativo).",
+   "instructions": null
+  }
+ ]
+}
