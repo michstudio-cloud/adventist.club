@@ -1,0 +1,33 @@
+{
+ "honor_slug": "servicio-comunitario",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Community_Service/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Serviço comunitário",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler os seguintes textos bíblicos e explicar o que você acha que Deus está nos pedindo para fazer para ajudar os pobres e sofredores de nossa comunidade:\n  a. Isaías 58:3-12\n  b. Lucas 10:25-37\n  c. Mateus 25:31-46",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar ao seu instrutor:\n  a. O que significam as letras “ADRA” e a diferença entre “desenvolvimento” e “assistência”.\n  b. Falar sobre uma organização local que atende os pobres e desfavorecidos de sua comunidade e que serviços ela oferece.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Reunir-se com um líder comunitário de sua região e perguntar sobre projetos que sua unidade de Desbravadores poderia realizar para ajudar a suprir necessidades de sua comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Planejar, organizar e completar um projeto de serviço comunitário com sua unidade de Desbravadores ou classe em sua comunidade. Esse projeto deve atender a uma necessidade específica de sua comunidade. O tempo total, do planejamento à conclusão do projeto, deve ser de aproximadamente 10 horas.",
+   "instructions": null
+  }
+ ]
+}

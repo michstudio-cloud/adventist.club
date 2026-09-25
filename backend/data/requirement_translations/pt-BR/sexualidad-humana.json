@@ -1,0 +1,88 @@
+{
+ "honor_slug": "sexualidad-humana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Human_Sexuality/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Sexualidade humana",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é sexualidade humana?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o modelo divino para a sexualidade? O que a Bíblia ou o Espírito de Profecia dizem sobre o assunto?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é sexo biológico? Quantos tipos existem?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar os órgãos reprodutores masculinos e femininos e responder ao seguinte:\n  a. Quais são os órgãos sexuais/reprodutores internos?\n  b. Quais são os órgãos sexuais/reprodutores externos?\n  c. Qual é a função de cada um desses órgãos?\n  d. Por que é importante chamar esses órgãos pelo nome correto?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é puberdade? Quando ela começa nos meninos e nas meninas? Que mudanças físicas e psicológicas ocorrem?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que são a menstruação e a polução noturna? Em que idade começam e terminam?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que a higiene genital é importante para homens e mulheres?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é gravidez, como ela acontece e quanto tempo dura? Fazer um quadro mês a mês mostrando as principais características da gravidez.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é aborto? Quais são as consequências físicas e psicológicas? Quando o aborto é aconselhável?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é o papel do homem e da mulher e que responsabilidades são atribuídas a cada um segundo sua cultura? Como os papéis de gênero mudaram ao longo do tempo até hoje? Por que os estereótipos dos papéis de gênero são perigosos?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como você pode reconhecer um possível abuso sexual e proteger-se dele? Quais são os perigos? A quem você deve recorrer se alguém (um desconhecido, amigo ou familiar) fizer insinuações ou tocar você de forma inadequada? Por que é importante não ficar calado?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que são as ISTs (infecções sexualmente transmissíveis)? Responder ao seguinte:\n  a. O que é o HIV?\n  b. O que é a AIDS?\n  c. Como o HIV se propaga?\n  d. Quanto tempo leva até o aparecimento dos primeiros sintomas?\n  e. Que testes ou exames médicos são feitos para saber se uma pessoa está infectada?\n  f. De que cuidados uma pessoa soropositiva precisa? Que medicamentos e quantos são tomados por dia?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quando você tem uma pergunta/dúvida sobre sexualidade, a quem pode recorrer? Por que os amigos da mesma idade são “pouco confiáveis” nesse assunto?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "O que é masturbação e qual é a posição da igreja em relação a esse ato? Que outro nome Ellen G. White dá a ele?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "O que é paixão e o que é namoro? Quando são saudáveis? Quando se tornam distorcidos e prejudiciais? Como terminar um relacionamento de maneira adequada?",
+   "instructions": null
+  }
+ ]
+}

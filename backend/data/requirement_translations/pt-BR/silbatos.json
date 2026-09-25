@@ -1,0 +1,103 @@
+{
+ "honor_slug": "silbatos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Whistles/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Relatar brevemente a história da fabricação de apitos e explicar por que os apitos foram inventados.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a importância da conservação da natureza em relação à fabricação de apitos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que as estações do ano têm a ver com a fabricação de um apito de salgueiro?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar duas (2) árvores que produzem os melhores apitos e por quê. Fazer uma lista de três (3) outras árvores que podem ser usadas para fazer apitos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma breve descrição dos seguintes estilos de apitos:\n  a. Apitos de tubo\n  b. Apitos de pã\n  c. Apitos de flauta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar cinco (5) tipos de apitos modernos e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que instrumento musical moderno é um apito sofisticado?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como funciona um apito?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é o equipamento mais comum usado na fabricação de apitos?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar a importância dos veios da madeira ao entalhar um apito.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que o tamanho dos furos e da câmara deve ser proporcional à quantidade de fluxo de ar?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como se afina um apito?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar que você consegue fazer um apito com as duas mãos usando as mãos e uma folha de capim.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demonstrar a técnica e tentar assobiar usando a(s) mão(s) ou os dedos.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Revisar e demonstrar os primeiros socorros e as regras de segurança adequados para o uso de um canivete.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Saber afiar um canivete usando uma pedra de amolar ou uma pedra de afiar a óleo.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Fazer os seguintes apitos:\n  a. Apito de pã (tubos)\n  b. Apito de flauta",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Aprender a tocar uma música simples em cada apito que você fez.",
+   "instructions": null
+  }
+ ]
+}

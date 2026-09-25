@@ -1,0 +1,43 @@
+{
+ "honor_slug": "serigrafia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Silk_Screen_Printing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Serigrafia - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Serigrafia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Esticar e fixar corretamente o tecido serigráfico numa moldura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber que tecidos podem ser usados em serigrafia e as vantagens de cada um. Que fatores influenciam a escolha da contagem de fios (malha) da tela?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Compreender e usar cada uma das seguintes técnicas de serigrafia:\n  a. Método de estêncil de filme recortado à mão\n  b. Método fotográfico\n  c. Método de reserva (bloqueio)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Usar duas das seguintes técnicas para cumprir o requisito 4:\n  a. Imprimir um desenho em duas ou mais cores com registro correto\n  b. Imprimir um desenho de repetição ou estampa corrida\n  c. Imprimir um desenho de três cores usando apenas duas cores de tinta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Imprimir num material que não seja papel nem tecido, como vidro, metal ou couro.",
+   "instructions": null
+  }
+ ]
+}
