@@ -1,0 +1,63 @@
+{
+ "honor_slug": "odonatos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Odonates/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são odonatos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber quantas espécies de libelinhas (donzelinhas) e de libélulas existem em seu país (ou estado/província), em seu continente e no mundo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que as libélulas e as libelinhas são diferentes?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que distingue os odonatos dos outros insetos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que outros insetos se parecem um pouco com os odonatos?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever e desenhar o ciclo de vida de um odonato.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer os seguintes termos relacionados aos odonatos:\n  a. Exúvia\n  b. Ocelos\n  c. Crepuscular\n  d. Cercos\n  e. Pruinosidade\n  f. Nervuras das asas\n  g. Células das asas\n  h. Olhos compostos\n  i. Segmentos\n  j. Pterotórax\n  k. Lábio\n  l. Asa anterior\n  m. Pterostigma\n  n. Asa posterior\n  o. Fronte",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é o valor dos odonatos e por que devemos estudá-los?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar e observar pelo menos 15 espécies de odonatos. Registrar o local, o hábitat e a data em que foram encontrados.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar como capturar e soltar corretamente um odonato sem feri-lo.",
+   "instructions": null
+  }
+ ]
+}

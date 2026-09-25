@@ -1,0 +1,63 @@
+{
+ "honor_slug": "gusto",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Taste/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Paladar",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o sistema gustativo?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir a palavra \"paladar\".",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que são as papilas gustativas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar as cinco sensações gustativas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "No diagrama abaixo, identificar as partes indicadas do sistema gustativo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como o paladar está relacionado aos outros sentidos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nossa preferência de sabores é determinada geneticamente ou é treinada? Explicar.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são as opções de tratamento para alguém que perdeu o paladar?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar cinco textos bíblicos que se referem ao sentido do paladar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um teste de degustação às cegas com no mínimo dez alimentos.",
+   "instructions": null
+  }
+ ]
+}

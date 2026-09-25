@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-actividades-agricolas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Farming_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Atividades agrícolas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Atividades agrícolas é conquistado quando o Desbravador conquista SETE especialidades quaisquer da categoria Atividades Agrícolas. Na Divisão do Pacífico Sul, essa categoria se chama Indústrias Primárias, mas os requisitos são os mesmos.\n  - Agricultura\n  - Apicultura\n  - Pecuária\n  - Criação de gado leiteiro\n  - Floricultura\n  - Pomicultura\n  - Jardinagem e horticultura\n  - Criação de cabras\n  - Criação de cavalos\n  - Hidroponia e aquaponia\n  - Hidroponia e aquaponia - Avançado\n  - Pescaria\n  - Paisagismo\n  - Criação de pombos\n  - Avicultura\n  - Criação de ovelhas\n  - Pomicultura II - frutas pequenas\n  - Agricultura de subsistência",
+   "instructions": null
+  }
+ ]
+}

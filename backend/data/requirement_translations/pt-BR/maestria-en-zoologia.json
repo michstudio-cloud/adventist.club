@@ -1,0 +1,28 @@
+{
+ "honor_slug": "maestria-en-zoologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Zoology_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Zoologia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar uma das seguintes:\n  - Cetáceos\n  - Animais ameaçados de extinção\n  - Mamíferos\n  - Mamíferos marinhos",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conquistar quatro especialidades de fauna silvestre (animais que vivem na natureza), como:\n  - Anfíbios\n  - Antílopes\n  - Morcegos\n  - Morcegos - Avançado\n  - Aves\n  - Aves - Avançado\n  - Dinossauros\n  - Insetos\n  - Insetos - Avançado\n  - Marsupiais\n  - Microscopia\n  - Mariposas e borboletas\n  - Odonata\n  - Odonata\n  - Odonata - Avançado\n  - Tubarões\n  - Tubarões\n  - Aranhas\n  - Vermes",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "E duas especialidades de fauna doméstica (animais de estimação ou de criação), como:\n  - Aves de estimação\n  - Felinos\n  - Cães - cuidado e treinamento\n  - Cães\n  - Peixes\n  - Rebanhos domésticos\n  - Papagaios e cacatuas\n  - Aves domésticas\n  - Répteis\n  - Répteis - Avançado\n  - Pequenos mamíferos de estimação",
+   "instructions": null
+  }
+ ]
+}

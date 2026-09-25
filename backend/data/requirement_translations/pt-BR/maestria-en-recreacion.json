@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-recreacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Recreation_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Recreação",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar SETE das seguintes:\n  - Excursionismo pedestre com mochila\n  - Exploração de cavernas\n  - Ordem unida\n  - Fanfarra\n  - Geocaching\n  - Geocaching geológico\n  - Prospecção de ouro\n  - Excursionismo pedestre\n  - Equitação\n  - Pipas\n  - Nós e amarras\n  - Letterboxing\n  - Mapa e bússola\n  - Mapa e bússola\n  - Liderança campestre\n  - Cultura física\n  - Escalada\n  - Esqui Cross Country\n  - Excursionismo pedestre na neve\n  - Excursionismo pedestre na neve\n  - Excursionismo pedestre na neve - Avançado\n  - Excursionismo pedestre na neve - Avançado\n  - Excursionismo pedestre na neve - Avançado\n  - Monociclo",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-las-cronicas-de-hunter",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/The_Hunter_Chronicles_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em As Crônicas de Hunter",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar as seguintes especialidades de As Crônicas de Hunter:\n  - As Crônicas de Hunter 1\n  - As Crônicas de Hunter 2\n  - As Crônicas de Hunter 3\n  - As Crônicas de Hunter 4\n  - As Crônicas de Hunter 5\n  - As Crônicas de Hunter 6\n  - As Crônicas de Hunter 7\n  - As Crônicas de Hunter 8",
+   "instructions": null
+  }
+ ]
+}

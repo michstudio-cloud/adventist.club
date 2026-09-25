@@ -1,0 +1,23 @@
+{
+ "honor_slug": "medio-ambiente-acuatico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Water_Environment/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Meio ambiente aquático",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar um curso d'água perto de você. Verificar os itens a seguir e apresentar um relatório sobre as observações feitas.\n  Indicadores de boa saúde:\n  Abundância de peixes pequenos e insetos aquáticos\n  Água limpa e cheiro fresco\n  Margens cobertas de vegetação\n  Algumas algas verdes na água (verde-claro)\n  Presença de plantas aquáticas\n  Presença de aves aquáticas (martim-pescador etc.)\n  Presença de lagostins, insetos debaixo das pedras etc.\n  Bancos de areia cobertos de vegetação, indicando boa estabilidade do nível da água\n  Indicadores de poluição da água:\n  Presença de grande quantidade de algas verde-escuras\n  Margens sem (ou com pouca) vegetação\n  Cheiro de putrefação na água\n  Espuma na superfície da água por causa da presença de detergentes\n  Lixo no curso d'água e nas margens\n  Água com excesso de lodo\n  Ausência de insetos aquáticos e de peixes\n  Presença de manchas de óleo na superfície da água\n  Galpões ou fábricas despejando seus resíduos no rio",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Organizar uma operação de limpeza de um curso d'água ou de um lago de seu município ou de um particular (apresentando-lhe o projeto).",
+   "instructions": null
+  }
+ ]
+}

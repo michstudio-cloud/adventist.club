@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-marea",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tides/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Marés",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que porcentagem da superfície da Terra é coberta por água?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que se entende por marés?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que corpos celestes afetam as marés e que porcentagem da atração gravitacional cada um exerce?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir as seguintes palavras:\n  a. Maré de sizígia (maré viva)\n  b. Maré de quadratura (maré morta)\n  c. Maré média\n  d. Corrente de retorno (rip tide)\n  e. Poça de maré\n  f. Maré vazante\n  g. Maré enchente (fluxo)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é o intervalo médio entre as marés e o que se entende por dia de maré?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nem todos os lugares têm um dia de maré padrão. Citar alguns lugares que fogem da norma e dizer quais podem ser os fatores que contribuem para essa variação.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Em que lugares do mundo se encontram algumas das maiores marés? Qual é a altura delas?",
+   "instructions": null
+  }
+ ]
+}

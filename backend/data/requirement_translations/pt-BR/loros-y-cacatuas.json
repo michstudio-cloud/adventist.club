@@ -1,0 +1,68 @@
+{
+ "honor_slug": "loros-y-cacatuas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Parrots_and_Cockatoos/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Papagaios e cacatuas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar 15 espécies de papagaios e cinco espécies de cacatuas comuns na Austrália e saber identificá-las ao vivo ou por meio de figuras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar duas espécies de papagaio que constroem o ninho em cupinzeiros e dizer onde cada uma é encontrada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que parte da Austrália se encontra cada uma das seguintes aves? Descrever a alimentação natural de cada uma.\n  a. Corela-de-bico-comprido (Long Billed Corella)\n  b. Cacatua-palmeira (Great Palm Cockatoo)\n  c. Cacatua-gang-gang (Gang Gang Cockatoo)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as três espécies de cacatua conhecidas como as mais raras?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a maior espécie da família das rosellas? De onde ela vem e qual é sua alimentação habitual?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cada estado da Austrália tem uma rosella comum naquele estado. Algumas são encontradas em mais de um estado, mas há uma que é associada ao seu estado. Qual é?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quando o papagaio-eclectus foi descoberto, pensava-se que o macho e a fêmea eram de espécies diferentes. Por quê? Onde eles são encontrados e qual é sua alimentação habitual?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual cacatua australiana é considerada a mais bonita do mundo? Descrever sua aparência e onde é encontrada.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar quatro loriquetes diferentes e dizer por que todos têm a língua em forma de escova.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber descrever o ninho de qualquer um dos papagaios ou cacatuas acima e dizer também a cor do ovo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma lista de todos os papagaios e cacatuas comuns em sua região.",
+   "instructions": null
+  }
+ ]
+}

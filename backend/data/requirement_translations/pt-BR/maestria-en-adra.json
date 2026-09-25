@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-adra",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/ADRA_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em ADRA",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em ADRA é conquistado quando o Desbravador conquista SEIS especialidades quaisquer da lista a seguir:\n  - Avaliação comunitária\n  - Desenvolvimento comunitário\n  - Serviço comunitário\n  - Resolução de conflitos\n  - Resposta a desastres\n  - Resposta a desastres - Avançado\n  - Combate à fome\n  - Alfabetização\n  - Reassentamento de refugiados",
+   "instructions": null
+  }
+ ]
+}

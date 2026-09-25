@@ -1,0 +1,38 @@
+{
+ "honor_slug": "insectos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Insects/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma das seguintes atividades:\n  a. Montar uma coleção de 20 espécies de insetos que representem pelo menos seis ordens diferentes. (Não serão aceitas mariposas nem borboletas, nem espécimes montados sem cuidado ou quebrados.)\n    i. Colocar embaixo de cada espécime uma etiqueta indicando a localidade e a data da captura e o nome do coletor. As etiquetas não devem ser maiores que 1/4 x 3/4 polegadas (6 mm x 20 mm).\n    ii. Identificar os insetos com o nome popular e o nome em nível de gênero ou espécie em uma segunda etiqueta, a ser colocada abaixo da primeira.\n    iii. Organizar todos os espécimes com capricho em uma caixa entomológica, por ordens e famílias. As ordens devem ser fixadas na caixa, e não presas aos alfinetes de cada inseto.\n  b. Fazer desenhos ou pinturas coloridos de 20 espécies de insetos, representando pelo menos seis ordens diferentes. Os desenhos ou pinturas devem ter tamanho natural ou maior, para mostrar os detalhes dos insetos pequenos, e cores naturais. Identificar os desenhos com o nome popular e o nome em nível de gênero ou espécie.\n  c. Tirar fotografias coloridas de 20 espécies de insetos, representando pelo menos seis ordens diferentes. Todas as fotos devem estar em foco, ser em close e estar corretamente identificadas, mostrando onde e em que data foram tiradas, o nome popular e o nome em nível de gênero ou espécie.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as características que distinguem um inseto?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco espécies de insetos nocivos e dizer como controlá-los.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar cinco espécies de insetos úteis.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Contar duas histórias bíblicas em que os insetos tiveram papel importante.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "mecanografia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Typewriting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Mostrar como limpar corretamente os tipos ou a esfera e trocar a fita de uma máquina de escrever.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer a diferença entre uma fita de tecido e uma fita de carbono.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar as seguintes partes da máquina de escrever e conhecer sua função:\n  a. Estrutura\n  b. Teclado\n  c. Barra de espaço\n  d. Tecla de retrocesso\n  e. Teclas de maiúsculas e trava\n  f. Rolo\n  g. Controle de impressão\n  h. Marginadores\n  i. Liberador do papel\n  j. Alavanca de espaçamento entre linhas\n  k. Controle de ajuste de linha\n  l. Escala de centralização do papel\n  m. Guia de cartões\n  n. Alavanca da barra de papel\n  o. Alavanca de seleção de passo\n  p. Liberador de margem",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber definir as tabulações. Datilografar corretamente uma página tabulada com pelo menos quatro colunas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar como centralizar informações horizontal e verticalmente no papel.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar como montar cartas em estilo bloco e com parágrafos recuados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Operar uma máquina de escrever a uma velocidade de quarenta palavras por minuto, com texto inédito, durante cinco minutos, com no máximo cinco erros.",
+   "instructions": null
+  }
+ ]
+}

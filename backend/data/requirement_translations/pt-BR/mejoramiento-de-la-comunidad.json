@@ -1,0 +1,53 @@
+{
+ "honor_slug": "mejoramiento-de-la-comunidad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Community_Improvement/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar cursando pelo menos o 10º ano (1º ano do ensino médio).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o processo de urbanização e fazer uma lista de algumas das necessidades humanas que ele cria, especialmente para os pobres ou menos favorecidos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler os capítulos do livro A Ciência do Bom Viver, de Ellen White, intitulados \"Auxílio aos desempregados e sem-teto\" e \"Os pobres desamparados\" e escrever um resumo de uma página dos pontos principais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Entrevistar um pastor ou uma pessoa que trabalhe com o Serviço Comunitário Adventista, a ADRA Canadá ou um programa adventista de desenvolvimento comunitário e perguntar como a igreja está atendendo às necessidades dos pobres da comunidade. Fazer anotações durante a entrevista.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar um relatório de 10 minutos sobre como um grupo de jovens poderia ajudar nos projetos de desenvolvimento urbano patrocinados pela igreja. O relatório pode ser apresentado a um membro da diretoria de Desbravadores ou em grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar durante pelo menos quatro horas de uma das seguintes saídas de campo:\n  a. Sair com uma equipe de ministério de rua que distribui alimentos, cobertores ou roupas para pessoas em situação de rua.\n  b. Sair com uma unidade móvel de exames de saúde.\n  c. Sair com uma equipe cristã de trabalho que esteja reformando ou construindo moradias para os pobres.\n  d. Sair com uma equipe cristã de trabalho que esteja reformando casas em uma área devastada por um desastre natural.\n  e. Trabalhar em um sopão comunitário ou abrigo para pessoas em situação de rua.\n  f. Trabalhar como voluntário em um programa de desenvolvimento comunitário do Serviço Comunitário Adventista ou da ADRA Canadá.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Assistir a um culto em uma igreja formada por um grupo étnico diferente do seu. Fazer uma lista, para o seu instrutor, das coisas que você observou e que eram diferentes daquilo a que está acostumado em sua própria cultura. Depois, fazer uma lista das coisas que eram semelhantes.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever uma proposta de projeto de desenvolvimento comunitário que possa ser realizado principalmente por voluntários adolescentes e/ou jovens adultos. A proposta pode incluir objetivos, plano de ação, pessoal necessário, cronograma e orçamento. Ela pode ser escrita individualmente ou como projeto de uma equipe de no máximo quatro pessoas.",
+   "instructions": null
+  }
+ ]
+}

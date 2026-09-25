@@ -1,0 +1,18 @@
+{
+ "honor_slug": "instructor-de-seguridad-en-el-agua",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Water_Safety_Instructor/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Instrutor de segurança aquática",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser aprovado no curso Water Safety Instructor (WSI, instrutor de segurança aquática) da Cruz Vermelha ou em curso equivalente da ACM (YMCA).",
+   "instructions": null
+  }
+ ]
+}

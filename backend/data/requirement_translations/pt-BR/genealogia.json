@@ -1,0 +1,83 @@
+{
+ "honor_slug": "genealogia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Genealogy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir as seguintes palavras:\n  a. Genealogia\n  b. Antepassado\n  c. Descendente\n  d. Cônjuge\n  e. Irmão/irmã",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler a genealogia de Cristo.\n  a. Saber dizer onde ela se encontra no Novo Testamento\n  b. Escrever a genealogia de Cristo, começando por Adão",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de cinco maneiras de obter informações sobre a genealogia da família.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer pelo menos três sociedades que ajudam na pesquisa genealógica.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender quatro passos importantes da pesquisa genealógica.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a finalidade da documentação?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir fonte primária e fonte secundária de documentação e explicar a diferença.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Preparar uma árvore genealógica de quatro gerações, começando por você.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista de maneiras de registrar suas informações genealógicas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pesquisar a história de sua família conversando ou trocando cartas com seu parente vivo mais idoso. Perguntar o seguinte:\n  a. Primeira lembrança\n  b. Quando e onde você nasceu?\n  c. Qual é a primeira igreja que você se lembra de ter frequentado?\n  d. Nome e localização das escolas que você frequentou.\n  e. Onde você morava aos dez e aos catorze anos.\n  f. De que país nossos antepassados emigraram?\n  g. Onde e quando você se casou.\n  h. Se você teve filhos, informar o nome, o local e a data de nascimento deles.\n  i. Escrever um agradecimento ao seu parente pelo tempo dedicado, incluir uma foto sua e perguntar se ele estaria disposto a compartilhar com você uma cópia de uma foto antiga da família.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um registro histórico de sua vida, incluindo:\n  a. Árvore genealógica\n  b. Documentos relacionados à sua vida\n  c. Fotos\n  d. Histórias\n  e. Compartilhar isso com seu grupo/clube/escola",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Visitar a seção de genealogia de uma biblioteca municipal (ou outro centro de pesquisa genealógica) e escrever um parágrafo sobre a visita, incluindo:\n  a. Tipos de informação disponíveis\n  b. Qualquer informação nova que você descobriu sobre sua família",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Visitar um cemitério e, copiando as lápides, descobrir:\n  a. O sobrenome de três famílias diferentes\n  b. As datas de nascimento e de morte dos membros dessas famílias\n  c. A duração média de vida dos membros dessas famílias",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Conversar com os responsáveis pelo cemitério local para saber como é feita a manutenção e perguntar como você pode ajudar na limpeza de um cemitério de sua região. Depois, fazer isso!",
+   "instructions": null
+  }
+ ]
+}

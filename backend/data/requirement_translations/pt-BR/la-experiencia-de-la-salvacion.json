@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-experiencia-de-la-salvacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/10_-_The_Experience_of_Salvation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A experiência da salvação",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber o que é preciso fazer para receber a salvação que Deus oferece a todos os seres humanos. (Atos 16:31; Romanos 10:9; Efésios 2:8-9)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Entender por que devemos obedecer a Deus mesmo sabendo que não somos salvos por nossas boas obras. (João 14:15, 21, 23)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber o que Jesus fez para garantir o perdão e a salvação da humanidade. (Lucas 23:46; Isaías 53:5; Apocalipse 5:9)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o que devemos fazer para receber o perdão de nossos pecados. (1 João 1:9)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o que Jesus nos orienta a fazer depois de sermos perdoados. (João 5:14; 8:11)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Marcos 16:15-16.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo qual é a maior vitória que podemos alcançar, segundo a Bíblia. (1 Coríntios 15:51-54)",
+   "instructions": null
+  }
+ ]
+}

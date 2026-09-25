@@ -1,0 +1,48 @@
+{
+ "honor_slug": "gimnasia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tumbling_%26_Balancing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Acrobacias e equilíbrio - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Acrobacias e equilíbrio.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Executar as seguintes acrobacias com postura e boa técnica:\n  a. Estrelas em série\n  b. Estrela\n  c. Reversão para a frente (flic-flac frontal)\n  d. Reversão para trás (flic-flac)\n  e. Rodante",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Revisar os alongamentos:\n  a. Pernas, tornozelos, panturrilhas\n  b. Braços, punhos\n  c. Costas, pescoço",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Executar quatro das seguintes com postura e boa técnica.\n  a. Mortal para a frente\n  b. Tinsica\n  c. Barani\n  d. Passagem para a frente (walkover)\n  e. Passagem para trás (walkover)\n  f. Pose de escorpião",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Executar três equilíbrios com postura e boa técnica:\n  a. Parada de mãos com impulsão a partir da parada de cabeça\n  b. Parada de mãos com uma mão; alternativa para meninas: passagem para trás com parada de cabeça\n  c. Pirueta\n  d. Prancha com braços estendidos; alternativa para meninas: afastamento controlado a partir da parada de mãos\n  e. Parada de mãos dupla em posição de cervo (stag)\n  f. Parada de mãos com impulsão",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Executar quatro com um parceiro de acrobacia.\n  a. Lançamento pelos pés (toe pitch)\n  b. Equilíbrio alto braço a braço\n  c. Equilíbrio alto mão a mão\n  d. Estrela\n  e. Anjo alto de costas\n  f. Equilíbrio alto mão no pé",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher uma para executar com postura e boa técnica:\n  a. Rodante e reversão para trás\n  b. Rodante e duas reversões para trás\n  c. Tinsica e mortal para a frente\n  d. Mortal para trás, reversão para trás",
+   "instructions": null
+  }
+ ]
+}

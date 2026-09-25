@@ -1,0 +1,68 @@
+{
+ "honor_slug": "herencia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Heredity/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa o termo \"hereditariedade\"?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer o desenho de uma célula animal e identificar as seguintes partes: membrana celular, citoplasma, núcleo, membrana nuclear, complexo de Golgi, ribossomos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o seguinte:\n  a. O que é um cromossomo e onde os cromossomos se localizam?\n  b. O que é um gene e onde ele é encontrado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o seguinte:\n  a. O que significa o termo \"alelo\"?\n  b. Em que um alelo dominante é diferente de um alelo recessivo?\n  c. Determinar que alelo você tem das seguintes características genéticas:\n    i. Bico de viúva (linha do cabelo em V)\n    ii. Lóbulo da orelha solto\n    iii. Covinhas\n    iv. Polegar curvado\n    v. Dedo mínimo curvado\n    vi. Pelos nos dedos\n    vii. Enrolar a língua\n    viii. Segundo dedo do pé mais comprido\n  d. Usando um quadro de Punnett, prever a proporção de descendentes produzidos por estes cruzamentos mono-híbridos: TT (alto) cruzado com tt (baixo), Tt (alto) cruzado com Tt (alto), Tt (alto) cruzado com tt (baixo).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o seguinte:\n  a. O que o processo de mitose realiza?\n  b. Desenhar uma sequência de células que mostre o processo de mitose, incluindo: prófase, metáfase, anáfase e telófase.\n  c. Explicar brevemente como o DNA dos cromossomos é copiado durante esse processo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar o seguinte:\n  a. O que o processo de meiose realiza e em que ele é diferente da mitose?\n  b. Desenhar uma sequência de células que mostre o processo de meiose, incluindo: prófase I e II, metáfase I e II, anáfase I e II e telófase I e II.\n  c. As células resultantes da meiose continuam haploides? Explicar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever como o DNA codifica as proteínas específicas que resultam nas características genéticas. Demonstrar seu conhecimento desse processo usando diagramas ou modelos de papel.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é mutação? Usando os diagramas ou modelos criados na questão 7, ilustrar o efeito de uma mutação sobre a característica genética.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer pelo menos cinco doenças genéticas e contar a história de uma pessoa famosa ou de alguém que você conhece que tenha tido uma dessas doenças.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "A hereditariedade biológica é o único fator que contribui para o seu caráter, isto é, para fazer de você quem você é?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar 3 declarações dos escritos de Ellen White relacionadas à pergunta anterior.",
+   "instructions": null
+  }
+ ]
+}

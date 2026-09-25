@@ -1,0 +1,68 @@
+{
+ "honor_slug": "habilidad-matematica-iii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Math_Skills_III/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Habilidades matemáticas III",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Habilidades matemáticas II.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Resolver as seguintes operações usando o algoritmo tradicional:\n  a. 641 + 135\n  b. 845 - 124\n  c. 34 x 125\n  d. 856 ÷ 24",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar e classificar os conjuntos numéricos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar habilidade para resolver as seguintes equações:\n  a. 2x - 10 = -4x + 14\n  b. 18x - 43 = 65\n  c. 23x - 16 = 14 - 17x\n  d. 10y - 5(1 + y) = 3(2y - 2) - 20\n  e. x(x + 4) + x(x + 2) = 2x² + 12\n  f. (x - 5) / 10 + (1 - 2x) / 5 = (3-x) / 4\n  g. 4x(x + 6) - x² = 5x²",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar habilidade para resolver os seguintes produtos:\n  a. (x + 3y)²\n  b. (a + 2bc)²\n  c. (3x + y²)²\n  d. (1 + 5m)(1 - 5m)\n  e. (ab - c)²\n  f. (m - 1)³\n  g. (a³ - b³) (a³ + b³)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Calcular a área das seguintes figuras:",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Na especialidade de Mapa e bússola, o Desbravador precisa conhecer ângulos para saber usar cartas cartográficas e usar a bússola. Demonstrar habilidade para converter ângulos em minutos e minutos em segundos, mostrando três exemplos práticos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Na especialidade de Pioneirismo, aprendemos a construir móveis de acampamento, o que envolve toda uma relação matemática. Projetar e apresentar alguns móveis de acampamento em que apareçam formas geométricas e classificar cada uma. Citar três exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Apresentar um cartaz mostrando dez exemplos práticos de figuras geométricas usadas no dia a dia. Podem ser recortes, fotos ou desenhos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar habilidade para resolver os seguintes problemas de proporção:\n  a. A 60 km/h, percorro a distância entre duas cidades em duas horas. Viajando a 80 km/h, qual é o tempo estimado para fazer esse percurso?\n  b. A uma média de 90 km/h, consigo fazer uma viagem em três horas. Para fazer essa viagem em apenas duas horas, qual deve ser minha velocidade média?\n  c. Se 20 homens trabalhando durante 20 dias constroem 500 metros de um muro, quantos homens serão necessários para construir mais 1000 metros desse muro em 30 dias?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar habilidade para resolver situações-problema que envolvam equações:\n  a. Tenho a seguinte escolha: compro 20 unidades de um produto com todo o dinheiro que tenho, ou compro apenas 14 unidades de um projeto com todo o dinheiro que tenho, ou compro apenas 14 unidades e ainda recebo $15,00 de troco. Qual é o valor unitário desse produto?\n  b. Qual é a raiz da equação 7x - 2 = -4x + 5?\n  c. Se eu somar 8 à quantidade de carrinhos de brinquedo que tenho, terei a mesma quantidade de carrinhos que meu irmão se, dos 28 que ele tem, for subtraída a quantidade que eu tenho. Quantos carrinhos de brinquedo eu tenho?",
+   "instructions": null
+  }
+ ]
+}

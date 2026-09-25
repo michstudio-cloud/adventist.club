@@ -1,0 +1,83 @@
+{
+ "honor_slug": "mantenimiento-de-bicicletas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bicycle_Maintenance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Manutenção de bicicletas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o tipo de bicicleta necessário para cada situação:\n  a. Área urbana\n  b. Estrada asfaltada\n  c. Estrada de terra",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar e explicar a função de cada uma das seguintes peças:\n  a. Quadro\n  b. Roda\n  c. Garfo\n  d. Guidão\n  e. Selim\n  f. Corrente\n  g. Freio\n  h. Pneu\n  i. Câmbio dianteiro\n  j. Câmbio traseiro\n  k. Cassete\n  l. Aro\n  m. Cabo flexível de aço inox para freio V-brake\n  n. Manete de freio\n  o. Garfo com suspensão\n  p. Manoplas\n  q. Pinhão\n  r. Eixo do movimento central\n  s. Pedal\n  t. Pedivela\n  u. Coroa\n  v. Caixa de câmbio\n  w. Raios\n  x. Canote do selim\n  y. Amortecedores",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar e trocar as pastilhas ou sapatas de freio e diferenciar cada modelo de freio:\n  a. No pneu (aro)\n  b. Contrapedal\n  c. A disco",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a importância de manter os cabos de freio lubrificados e regulados?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Instalar um sistema de marchas em uma bicicleta, ou desmontar, lubrificar e regular um que você já tenha. Depois, explicar o motivo da lubrificação e da regulagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar três tipos diferentes de aro e explicar as diferenças e as qualidades de cada um para cada tipo de bicicleta e de terreno.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Colocar os raios no aro e alinhá-los corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar como encontrar furos na câmara de ar. Remendá-los, mostrando o equipamento adequado para esse serviço.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar como funcionam os amortecedores dianteiro e traseiro de uma bicicleta e como provocam perda de velocidade.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que tipo de óleo deve ser usado nas correntes, nos discos e nos pinhões?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Há dois tipos de pedal: com e sem firma-pé (pedal de encaixe). Explicar e demonstrar as diferenças, como trocá-los, como lubrificá-los e como cuidar de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como o garfo é preso ao guidão? Demonstrar os diferentes tipos de guidão e de garfo.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Saber o tamanho da bicicleta e a altura adequada do selim e do guidão para cada pessoa.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Estagiar em uma bicicletaria por pelo menos 15 dias e fazer um relatório do que aconteceu durante esse período.",
+   "instructions": null
+  }
+ ]
+}

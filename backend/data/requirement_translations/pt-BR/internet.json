@@ -1,0 +1,53 @@
+{
+ "honor_slug": "internet",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Internet/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Internet\n  b. World Wide Web (WWW)\n  c. Sala de bate-papo\n  d. Download\n  e. Upload\n  f. Site\n  g. E-mail\n  h. Vírus",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos e dar exemplos de cada um:\n  a. Webmail / e-mail POP3 / IMAP\n  b. Navegador web\n  c. Cliente de IRC/IM (mensageiro instantâneo)\n  d. Mídia por streaming\n  e. Mecanismos de busca e diretórios de busca\n  f. Software antivírus\n  g. Firewall",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma das seguintes atividades:\n  a. Escrever uma breve história da internet, com 250-300 palavras.\n  b. Fazer uma palestra de 2-3 minutos sobre a história da internet. Qualquer que seja a opção escolhida, incluir as datas/acontecimentos relacionados à sua origem, os principais marcos, o surgimento e o crescimento dos navegadores (como Mosaic, Netscape, Internet Explorer) e o que ela faz hoje. Lembre-se: não se trata de uma história dos computadores, mas de uma breve história da internet. Você deve citar pelo menos 2 fontes on-line em que encontrou informações relevantes para o seu relatório.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que o software antivírus é importante? Incluir na resposta:\n  a. Quais são algumas maneiras de receber vírus pela internet?\n  b. Por que ter um antivírus atualizado é importante para manter seguros os arquivos do seu computador?\n  c. Como a falta de proteção pode levar você a compartilhar o vírus com outros familiares e amigos?\n  d. Que danos um vírus pode causar ao seu computador ou ao computador de outras pessoas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "De que maneiras os filtros de conteúdo (programas como Net Nanny™ ou o Controle dos Pais da AOL) protegem sua família? Com sua família, elaborar e assinar um Acordo Familiar de Uso da Internet que inclua os seguintes elementos:\n  a. Nunca revelar informações pessoais.\n  b. Lembrar que as pessoas podem não ser quem dizem ser.\n  c. Nunca se encontrar pessoalmente pela primeira vez com um amigo virtual sem a presença de um dos pais.\n  d. Nunca responder a mensagens ofensivas (flames).\n  e. Parar imediatamente se vir ou ler algo que incomode você\n  f. O tempo que cada membro da família pode passar na internet por semana. Estabelecer limites que favoreçam o tempo para a família, as tarefas escolares e outras atividades familiares necessárias.\n  g. Tipos de sites que são aceitáveis/inaceitáveis para ver. Quais são os princípios que sua família vai usar para determinar o que é aceitável? Basear esses princípios na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar sua habilidade para navegar na internet demonstrando o seguinte:\n  a. Visitar pelo menos 3 sites diferentes (com nomes de domínio distintos). Imprimir a página inicial de cada site para o seu instrutor.\n  b. Demonstrar sua habilidade para usar um mecanismo de busca para encontrar um site da Bíblia on-line. Ir ao site, procurar pelo menos 3 versos bíblicos para memorizar em 3 versões diferentes e imprimir os resultados para o seu instrutor.\n  c. Encontrar 3 sites que falem sobre a Igreja Adventista do Sétimo Dia. Imprimir a página inicial de cada site para o seu instrutor.\n  d. Baixar da internet um arquivo compactado (tar, zip etc.) para o seu disco rígido, descompactá-lo e executar o programa ou abrir o arquivo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar sua habilidade para usar o e-mail demonstrando o seguinte (se necessário, criar uma conta de e-mail, com nome de usuário e senha próprios):\n  a. Criar e enviar um e-mail\n  b. Receber e baixar e-mails\n  c. Baixar/visualizar um anexo\n  d. Conhecer 5 princípios para usar o e-mail com segurança",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Memorizar Filipenses 4:8. Como esse texto bíblico orienta o uso da internet por um cristão?",
+   "instructions": null
+  }
+ ]
+}

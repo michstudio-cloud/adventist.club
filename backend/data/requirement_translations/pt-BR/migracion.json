@@ -1,0 +1,73 @@
+{
+ "honor_slug": "migracion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Migration/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é migração? Fazer um breve histórico de como a compreensão humana sobre a migração dos animais se desenvolveu.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que os animais migram?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são algumas maneiras pelas quais os animais sabem quando e para onde ir?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que espécies de animais migram? Fazer uma lista de dois exemplos de cada um dos seguintes grupos:\n  a. Aves\n  b. Peixes\n  c. Mamíferos\n  d. Insetos\n  e. Anfíbios\n  f. Répteis\n  g. Crustáceos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são alguns perigos que os animais migratórios enfrentam? Explicar como as espécies de animais citadas acima podem encontrar perigos em suas migrações.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dizer a diferença entre migração completa, parcial e nômade e identificar espécies que praticam cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever pelo menos três maneiras pelas quais os seres humanos podem afetar ou perturbar os padrões de migração dos animais. O que pode ser feito para ajudar a resolver esses problemas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher a andorinha-do-mar-ártica, o caribu, o salmão, a borboleta-monarca, a Grande Migração ou outra migração importante e reunir as seguintes informações:\n  a. Nome popular e nome científico\n  b. Rota de migração (desenhar um diagrama da rota percorrida e o número estimado de animais na migração)\n  c. Distância da migração\n  d. Motivos da migração\n  Apresentar de forma criativa o que você descobriu.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como os animais migratórios são estudados hoje? Dar exemplos de três maneiras de rastrear animais migratórios.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Em que as migrações humanas são semelhantes às migrações dos animais e em que são diferentes?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Escolher duas histórias bíblicas que mencionam uma migração e conversar com seu instrutor sobre o propósito da migração.\n  a. Noé\n  b. Moisés e o Êxodo\n  c. Abraão\n  d. José\n  e. O cativeiro babilônico\n  f. José e Maria na fuga para o Egito\n  g. A dispersão dos cristãos em Atos 8\n  h. Outra de sua escolha",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer duas das seguintes atividades:\n  a. Participar de um projeto de conservação que tenha impacto positivo sobre os animais migratórios.\n  b. Conversar com seu grupo, escrever ou fazer um vídeo descrevendo sua experiência no projeto de conservação da opção a. Não deixar de incluir informações sobre os animais que seus esforços vão beneficiar.\n  c. Assistir a um vídeo sobre migração e compartilhar o que aprendeu com seu instrutor.\n  d. Visitar um zoológico, parque de animais ou aquário onde haja animais migratórios em exposição. Aprender três coisas sobre um dos animais migratórios observados.\n  e. Fotografar pelo menos cinco animais migratórios na natureza ou em cativeiro e compartilhar com seu grupo.\n  f. Visitar um local de descanso comum de animais migratórios e identificar o maior número possível de espécies diferentes.",
+   "instructions": null
+  }
+ ]
+}

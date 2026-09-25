@@ -1,0 +1,93 @@
+{
+ "honor_slug": "noe-y-modelar-globos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Noah_and_Balloon_Animals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Noé e animais de balões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar o nome do pai, do avô e do bisavô de Noé. Gênesis 5:21-29",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que havia de especial em seu avô e em seu bisavô? Gênesis 5:21-27",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por que Noé achou \"graça\" aos olhos de Deus? Gênesis 6:9; Hebreus 11:7",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que idade Noé tinha quando seus filhos nasceram? Citar o nome deles. Gênesis 5:32",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quanto tempo levou para terminar a arca? Quais eram suas medidas (em côvados ou em pés) e de que material ela foi construída? Gênesis 6:3, 14 e 15",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por que Deus pediu a Noé que construísse a arca? Gênesis 6:11-21",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que idade Noé tinha quando começou o dilúvio? Até que altura subiram as águas? Gênesis 7:6 e 20",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quantos animais de cada espécie entraram na arca? Deus fazia diferença entre animais limpos e imundos naquela época? Se fazia, como? Gênesis 7:2 e 3",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quanto tempo Noé, sua família e os animais ficaram dentro da arca até Deus abrir a porta? Gênesis 7:1, 4, 10, 11 e 8:14",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual foi o sinal da aliança que Deus fez com Noé e seus filhos, e qual era a aliança? Gênesis 9:9-16",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Que idade Noé tinha quando morreu? Gênesis 9:29",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Que evidência você encontra de que o dilúvio destruiu o mundo inteiro? Gênesis 7:19",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Ler os capítulos 7 e 8 de Patriarcas e Profetas (PP) e Gênesis 5:1, 9:17.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Como Noé soube que era hora de sair da arca? Gênesis 6:6 e PP, p. 97, 98",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Qual é a relação entre Noé e a arca e o fim do mundo? PP, p. 98",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer três ou mais animais de balão e dizer se eles entraram na arca de dois em dois ou de sete em sete. Levítico 11",
+   "instructions": null
+  }
+ ]
+}

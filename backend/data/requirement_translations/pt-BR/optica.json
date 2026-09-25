@@ -1,0 +1,68 @@
+{
+ "honor_slug": "optica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Optics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir e/ou desenhar um diagrama do seguinte:\n  a. Distância focal\n  b. Lente positiva\n  c. Lente negativa\n  d. Dois tipos de distorção\n  e. Aberração cromática longitudinal\n  f. Aberração cromática lateral\n  g. Aberração esférica\n  h. Lente acromática\n  i. Refração da luz",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como a luz se comporta quando incide sobre a água, o óleo, o feldspato e um espelho ou os atravessa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar e desenhar diagramas de três tipos de lentes positivas e três tipos de lentes negativas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual deve ser a distância mínima entre a fonte de luz e a lente ao medir a distância focal?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Encontrar a distância focal de pelo menos quatro lentes, sendo uma delas negativa.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar com um diagrama por que a imagem formada por uma lente positiva é invertida e revertida.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar com diagramas como funciona um prisma. Dizer os ângulos em que as cores aparecem e desaparecem.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Mostrar e demonstrar o que acontece quando a luz incide sobre um vidro espelhado (espelho falso).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Construir um instrumento óptico usando espelhos ou lentes, como um periscópio, um projetor de slides ou opaco, ou um telescópio simples.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar o que significam os termos 6x35 e 7x50 aplicados aos binóculos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Definir o termo \"número f\" (f/stop) usado em relação às câmeras. O que significa dizer que uma lente é rápida ou lenta? Uma lente f/8.5 é mais rápida ou mais lenta que uma lente f/8?",
+   "instructions": null
+  }
+ ]
+}

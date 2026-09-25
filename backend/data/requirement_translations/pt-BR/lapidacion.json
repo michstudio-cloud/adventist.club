@@ -1,0 +1,73 @@
+{
+ "honor_slug": "lapidacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lapidary/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar quatro precauções de segurança que devem ser tomadas ao serrar rochas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar dois tipos de soluções lubrificantes e de resfriamento para serra diamantada e sua finalidade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como a serra diamantada corta as rochas, como perde o corte e como pode ser afiada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever as cinco etapas básicas a seguir para polir uma placa ou superfície plana.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que precaução importante deve ser tomada entre cada etapa de desbaste e lixamento?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é um gabarito e como é usado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é um cabochão e qual é a espessura habitual da placa a partir da qual ele é feito?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como decidir qual é o melhor ângulo ou posição para cortar um espécime em placas?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar dois métodos de lixamento a úmido ao modelar e polir a rocha.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "De que material são feitos os compostos de polimento? Se aparecer um risco durante o polimento, como ele é removido?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Serrar, aparar, fixar corretamente no bastão (dop) e levar um cabochão pelas etapas necessárias de desbaste, lixamento e polimento até obter um acabamento de alto brilho ou vítreo.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Montar o cabochão em algum tipo de base, como um alfinete de gravata, um broche, um chaveiro etc., usando cola.",
+   "instructions": null
+  }
+ ]
+}

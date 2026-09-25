@@ -1,0 +1,43 @@
+{
+ "honor_slug": "lenguaje-de-signos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sign_Language_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Língua de sinais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter no mínimo 5 horas de instrução em língua de sinais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Transmitir e receber soletração manual (datilologia) a uma velocidade de 12 palavras por minuto, usando no mínimo 50 letras.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender pelo menos 350 sinais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Interpretar em sinais pelo menos 6 músicas para um amigo com deficiência auditiva.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber sinalizar para um amigo com deficiência auditiva:\n  a. O Pai-Nosso - Mateus 6:9-13.\n  b. As Bem-aventuranças - Mateus 5:3-12.\n  c. Os Dez Mandamentos - Êxodo 20:6-17.",
+   "instructions": null
+  }
+ ]
+}

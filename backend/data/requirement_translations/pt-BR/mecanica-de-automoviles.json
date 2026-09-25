@@ -1,0 +1,48 @@
+{
+ "honor_slug": "mecanica-de-automoviles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Automobile_Mechanics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dar partida corretamente no motor de um automóvel ou caminhonete com transmissão automática e no de um com transmissão manual. Explicar por que é necessário que o motor tenha os níveis e as pressões corretos de óleo, água, combustível e bateria para funcionar bem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Remover e recolocar corretamente um pneu (ou roda) e demonstrar como consertar um furo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os princípios dos motores de quatro e de dois tempos e a diferença entre os motores a gasolina e a diesel. Explicar as principais diferenças entre os sistemas de alimentação com carburador e com injeção eletrônica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever a construção de um motor a gasolina típico e explicar brevemente a função destas unidades:\n  a. Motor: virabrequim, bielas, pistões, eixo de comando de válvulas, válvulas, bomba de óleo, carburador, bicos injetores, distribuidor de ignição, distribuidor de combustível, sistema elétrico, incluindo alternador, bateria e regulador\n  b. Diferença entre a transmissão manual e a automática e como o torque do motor é transmitido aos dois tipos de transmissão; a finalidade do overdrive\n  c. Diferença entre a tração traseira e a tração dianteira\n  d. Diferença entre os freios a tambor e a disco, os freios comuns e os servoassistidos, e o freio de estacionamento",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer a manutenção automotiva típica conforme a lista abaixo:\n  a. Verificar os níveis de óleo do motor e da transmissão.\n  b. Verificar o nível de água/anticongelante. Trocar o líquido e limpar o sistema de arrefecimento.\n  c. Trocar o óleo e o filtro do motor.\n  d. Trocar um conjunto de pneu/roda, seguindo o procedimento de segurança adequado.\n  e. Lubrificar o chassi de acordo com o manual de serviço do veículo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com que frequência devem ser trocados o óleo do motor, o óleo da transmissão e o líquido de arrefecimento?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dar algumas dicas sobre o cuidado adequado com o veículo e seu acabamento, tanto interno quanto externo.",
+   "instructions": null
+  }
+ ]
+}

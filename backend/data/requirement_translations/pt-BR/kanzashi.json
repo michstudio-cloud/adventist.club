@@ -1,0 +1,53 @@
+{
+ "honor_slug": "kanzashi",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Kanzashi/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir Kanzashi, ou Hana Kanzashi. De onde vem essa arte? Como ela se desenvolveu?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever ou mostrar quais materiais e ferramentas são usados no Kanzashi.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar como podem ser dobradas as pétalas redondas de Kanzashi tridimensionais ou bidimensionais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar como podem ser dobradas as pétalas estreitas (pontudas) de Kanzashi tridimensionais ou bidimensionais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar como podem ser dobradas as pétalas de Kanzashi redondas duplas e estreitas duplas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma flor de Kanzashi com pétalas tridimensionais e fazer a base de tecido.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma flor de Kanzashi com pétalas bidimensionais e fazer a base de tecido.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer um produto de Kanzashi acabado (presilha de cabelo, broche etc.).",
+   "instructions": null
+  }
+ ]
+}

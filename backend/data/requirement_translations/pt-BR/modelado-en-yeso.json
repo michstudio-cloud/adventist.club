@@ -1,0 +1,58 @@
+{
+ "honor_slug": "modelado-en-yeso",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plaster_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o principal ingrediente do gesso de Paris?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as etapas para moldar uma peça de gesso e prepará-la para a pintura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber como remover as bolhas de ar de uma peça moldada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber como aumentar ou diminuir o tempo de secagem (pega) do gesso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que precauções devem ser tomadas ao limpar o equipamento de mistura e de moldagem?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quando se aplica um selador a uma peça de gesso e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipo de tinta é melhor usar em peças de gesso?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pintar três peças que incluam os seguintes desenhos e técnicas, ou equivalentes:\n  a. Motivo floral, para mostrar sombreamento\n  b. Frutas, para mostrar realces de luz\n  c. Animal, para mostrar traços finos ou detalhes\n  d. Lema religioso, para mostrar o realce das letras",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Moldar e pintar mais duas peças com desenhos diferentes.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "honor_slug": "nociones-de-derecho",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fundamental_Rights/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Noções de direito",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é o direito ou as ciências jurídicas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Constituição\n  b. Lei\n  c. Decreto\n  d. Poder Judiciário\n  e. Poder Executivo\n  f. Poder Legislativo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar a pirâmide de Kelsen e explicar por que ela é importante.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são as principais funções dos seguintes profissionais:\n  a. Advogado\n  b. Juiz\n  c. Promotor",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que são direitos fundamentais? Fazer uma lista de pelo menos cinco direitos fundamentais dos cidadãos de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que deve ser feito se um direito seu (ou de alguém próximo) estiver sendo violado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar brevemente como as leis são criadas em seu país. Como o povo pode participar do processo legislativo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é uma sentença? É possível pedir que uma sentença seja revista por outros juízes?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar o que é uma decisão salomônica. Por que essas decisões têm esse nome?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que ninguém pode ser condenado sem ser ouvido e sem passar pelo devido processo legal?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ler sobre o julgamento de Jesus em João 18:19-24; 28-40; 19:1-16 (se necessário, ver também Mateus 26:57-68; 27:11-26; Marcos 14:53-65; 15:1-15; Lucas 22:66-71; 23:1-25). Jesus teve um julgamento justo? Justificar sua resposta.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Imaginar uma situação em seu clube em que você possa defender alguém acusado de violar o regimento interno por mau comportamento. Como você procederia? Como essa atitude pode ser comparada à atuação de um advogado?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "O que é uma testemunha? Por que a testemunha é obrigada a dizer a verdade?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Escrever um texto de 10 linhas explicando por que Jesus é um advogado, segundo a Bíblia. Citar pelo menos dois textos bíblicos.",
+   "instructions": null
+  }
+ ]
+}

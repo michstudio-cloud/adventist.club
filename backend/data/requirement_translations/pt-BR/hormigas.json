@@ -1,0 +1,63 @@
+{
+ "honor_slug": "hormigas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ants/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Formigas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "A que ordem e família pertencem as formigas? Descobrir o número de espécies catalogadas em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o ciclo de vida de uma formiga.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer a anatomia interna e externa de uma formiga.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descobrir as espécies de formigas que não vivem em colônias e citar:\n  a. Seu hábitat ou sociedade\n  b. Sua forma de reprodução\n  c. Seus hábitos alimentares",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever pelo menos três características que diferenciam as formigas de outros insetos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer as vantagens e as desvantagens das formigas para os seres humanos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como as formigas se comunicam?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos dez espécies de formigas que vivem em seu país e citar:\n  a. Seu hábitat ou sociedade\n  b. Sua forma de reprodução\n  c. Seus hábitos alimentares",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Em grupo ou individualmente, fazer uma das seguintes atividades:\n  a. Montar um formicário. Conhecer as etapas para montá-lo e mantê-lo.\n  b. Observar uma colônia diariamente durante uma semana e conhecer seu funcionamento e sua rotina.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Apresentar uma esquete, história, música ou poema sobre o significado de Provérbios 6:6-11.",
+   "instructions": null
+  }
+ ]
+}

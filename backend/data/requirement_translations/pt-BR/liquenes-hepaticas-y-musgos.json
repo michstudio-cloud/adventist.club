@@ -1,0 +1,53 @@
+{
+ "honor_slug": "liquenes-hepaticas-y-musgos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lichens,_Liverworts_%26_Mosses/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer o ciclo de vida de um musgo, líquen ou hepática.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que são líquenes?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos duas maneiras pelas quais os líquenes têm sido úteis ao ser humano.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em que as hepáticas são diferentes de todas as outras plantas verdes? Citar uma usada em aquários. Qual é a sua função?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever pelo menos três papéis importantes que o musgo tem desempenhado na economia humana.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um jardim de musgo (pequeno terrário) ou \"jardim eterno\" usando pelo menos três tipos diferentes de musgos e líquenes.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Encontrar e identificar cinco líquenes, uma hepática e seis musgos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Observar com uma lupa as cápsulas de esporos de vários tipos diferentes de musgo para ver as diferenças nas \"coifas\" e nos \"dentes\" que distinguem muitas espécies.",
+   "instructions": null
+  }
+ ]
+}

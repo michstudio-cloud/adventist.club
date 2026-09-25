@@ -1,0 +1,43 @@
+{
+ "honor_slug": "numismatica-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Currency_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Numismática.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher uma moeda ou cédula de sua coleção e apresentar um relatório oral ou escrito sobre a importância histórica, ou de outro tipo, das pessoas, lugares, objetos ou símbolos que aparecem nos dois lados.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as leis sobre falsificação de dinheiro em seu país e que recursos são usados na moeda de seu país para impedi-la?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de uma reunião de um clube local de numismática e relatar sua experiência. Itens que podem ser considerados:\n  a. Nível de conhecimento dos membros, demonstrado pelas apresentações e diálogos.\n  b. Idade média geral dos participantes.\n  c. Ideias que poderiam ajudar o clube a estender o interesse pelo colecionismo a um público maior.\n  d. Quão receptiva a organização é com os novatos.\n  e. Sugestões de como essas pessoas poderiam ser alcançadas com o evangelho de uma maneira que achassem atraente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher uma das três categorias de sua coleção exigidas nos requisitos 7 e 8 da especialidade de Numismática e aumentar sua coleção até ter o dobro do número total de exemplares.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Acrescentar à sua coleção pelo menos uma das formas incomuns (estranhas e curiosas) de dinheiro estudadas no requisito 1 da especialidade de Numismática e ter em seus arquivos da especialidade de Numismática pelo menos um parágrafo resumindo como, quando e onde esse item foi usado como dinheiro.",
+   "instructions": null
+  }
+ ]
+}

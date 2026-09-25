@@ -1,0 +1,58 @@
+{
+ "honor_slug": "modelo-de-papel",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Papercraft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Papercraft (modelos de papel)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é papercraft ou modelagem em papel.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de pelo menos cinco métodos de papercraft.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os materiais necessários para o papercraft?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a gramatura mais usada (indicada) para imprimir/desenhar os modelos? Por que não se deve usar papel brilhante ou fotográfico?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os melhores tipos de impressora/estilos de impressão para que os modelos tenham alta qualidade?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir os seguintes termos:\n  a. Abas ou orelhas\n  b. Linhas de dobra\n  c. Laminação",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Construir um personagem bíblico em forma de cubo, com um desenho de sua autoria.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Construir dois dos seguintes modelos:\n  a. Meio de transporte (carro, avião, barco etc.)\n  b. Construção (casa, prédio, ponte etc.)\n  c. Animal\n  d. Pessoa ou personagem\n  e. Instrumento musical",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Construir uma cena bíblica ou a cena de uma história com moral (pode ser criação sua ou obtida em revistas ou na internet). Usar os modelos para apresentar uma reflexão/meditação para sua unidade ou Escola Sabatina.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "mariposas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Moths_%26_Butterflies/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre mariposas e borboletas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos: antenas, casulo, pupa, larva, crisálida.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber identificar três mariposas e/ou borboletas por seus casulos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que faz sair um pó colorido que fica nas mãos quando você toca as asas de uma borboleta ou mariposa? Examinar com uma lupa o pó de uma borboleta ou mariposa e descrever suas descobertas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três mariposas prejudiciais às árvores e uma mariposa prejudicial dentro de casa e dizer em que fase da vida cada uma causa danos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que borboleta famosa segue as aves rumo ao sul a cada inverno e volta para o norte na primavera?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar no campo e depois desenhar, fotografar ou coletar 25 espécies de mariposas e borboletas, com no máximo dois espécimes de cada variedade. Ao coletar, os espécimes devem ser anestesiados com tetracloreto de carbono ou outro produto químico no frasco de coleta. Em qualquer um dos projetos, identificar corretamente e incluir as seguintes informações:\n  a. Nome\n  b. Data da observação\n  c. Local\n  d. Horário\n  e. Planta da qual o inseto se alimentava ou material sobre o qual estava pousado",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever o ciclo de vida de uma borboleta ou mariposa. Que lição se pode aprender em relação à ressurreição dos justos?",
+   "instructions": null
+  }
+ ]
+}

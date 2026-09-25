@@ -1,0 +1,68 @@
+{
+ "honor_slug": "negocios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Business/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Ponto de equilíbrio\n  b. Negócio\n  c. Plano de negócios\n  d. Capital\n  e. Distribuição\n  f. Juros\n  g. Microempresa\n  h. Preço\n  i. Produto\n  j. Produção\n  k. Lucro\n  l. Promoção\n  m. Serviço\n  n. Público-alvo",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever três maneiras pelas quais um negócio pode ser concebido.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os benefícios de ter uma equipe de gestão em um negócio (observe que, em uma empresa pequena/micro, uma só pessoa pode assumir todos esses papéis).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de maneiras de promover o produto/serviço de um negócio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar como determinar:\n  a. O preço do produto\n  b. O ponto de equilíbrio\n  c. O lucro/prejuízo",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conversar sobre maneiras pelas quais os lucros de uma empresa podem ser usados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um levantamento de pelo menos 4 ideias de pequenos negócios que possam ser realizados pelos Desbravadores de seu clube ou pelos jovens de sua igreja. Avaliar as forças, as fraquezas, as oportunidades e as ameaças associadas a cada uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Elaborar um plano de negócios para pelo menos uma de suas ideias do nº 7 acima. Incluir no plano o seguinte:\n  a. Descrição do negócio\n  b. Capital necessário e sua origem\n  c. Preço do produto/serviço\n  d. Público-alvo\n  e. Método de promoção\n  f. Local de venda\n  g. Ganhos esperados\n  h. Destinação do lucro",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Executar o plano.\n  a. Formar a equipe de gestão\n  b. Criar o produto\n  c. Divulgar o produto/serviço\n  d. Vender o produto ou prestar o serviço\n  e. Relatar o lucro/prejuízo\n  f. Relatar o uso dos lucros\n  g. Sugestões de melhoria",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conversar sobre as questões éticas e os valores cristãos envolvidos na condução de um negócio.\n  a. Para com Deus\n  b. Para com o governo\n  c. Para com o cliente\n  d. Para com o funcionário",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Contar a história de José como administrador e homem de negócios perspicaz (Gênesis 41:39-57), a parábola dos talentos (Lucas 19:11-26) ou outra passagem bíblica semelhante. Identificar três lições da história que possam ser aplicadas ao seu negócio.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "liderazgo-en-la-naturaleza-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wilderness_Leadership_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as seguintes especialidades:\n  a. Plantas silvestres comestíveis\n  b. Liderança campestre\n  c. Liderança na selva\n  d. Vida silvestre",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e praticar os princípios de camuflagem e de rastreio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que preparativos físicos e mentais são necessários antes de uma experiência em área selvagem?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar algumas habilidades necessárias para a liderança em áreas selvagens em duas das seguintes áreas que não tenham sido feitas para a especialidade de Liderança na selva:\n  a. Tropical\n  b. Deserto\n  c. Pântano\n  d. Montanha (rochas, gelo, grande altitude)\n  e. Planície e tundra\n  f. Floresta temperada",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar a construção e o funcionamento de dois tipos de laço ou armadilha.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer os pontos a considerar nos seguintes tipos de travessia:\n  a. Glacial\n  b. Montanha\n  c. Neve\n  d. Água",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Entender os princípios para desenvolver a fé na direção divina, conforme descritos no Salmo 91.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entender que medidas devem ser tomadas para sobreviver em áreas selvagens.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ajudar a ensinar uma das especialidades citadas no requisito 1 da especialidade de Liderança na selva.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Construir um abrigo com materiais naturais sem vida (como uma cabana de detritos).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Planejar e participar de uma semana de acampamento em área selvagem, aplicando os princípios e as habilidades aprendidos nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}

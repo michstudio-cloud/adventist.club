@@ -1,0 +1,103 @@
+{
+ "honor_slug": "natacion-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Intermediate/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demonstrar a respiração alternada (bilateral).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar a entrada na água com salto em passada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar um mergulho em pé a partir do trampolim.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar um mergulho longo e raso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nadar peito: dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar de lado: dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nadar debaixo d'água: 15 jardas (14 m).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar costas elementar: 25 jardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar a pernada golfinho: 10 jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Nadar crawl de frente: 50 jardas (46 m).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Nadar crawl de costas: 10 jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar a virada aberta nadando de frente.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar a virada aberta nadando de costas.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Conversar sobre as regras de segurança para mergulhar do trampolim.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Conversar sobre como reconhecer uma lesão na coluna.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demonstrar o apoio de quadril/ombro.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demonstrar o mergulho de superfície com os pés primeiro.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Flutuar na posição vertical durante dois minutos no total, com duas pernadas diferentes.",
+   "instructions": null
+  }
+ ]
+}

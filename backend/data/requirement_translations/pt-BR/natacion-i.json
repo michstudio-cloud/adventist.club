@@ -1,0 +1,103 @@
+{
+ "honor_slug": "natacion-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Beginner/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Recuperar um objeto do fundo, com a água na altura do peito, sem apoio e com os olhos abertos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer 15 imersões ritmadas (bobbing), submergindo completamente a cabeça, com a água na altura do peito.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer imersões ritmadas em águas profundas (um pouco acima da cabeça) para se deslocar até uma área segura ou até a borda da piscina.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pular em águas profundas a partir da borda da piscina.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mergulhar da borda da piscina a partir da posição ajoelhada e compacta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Deslizar de bruços, com impulso, por duas vezes o comprimento do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Deslizar de costas, com impulso, por duas vezes o comprimento do corpo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar crawl de frente: dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Nadar crawl de costas: dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar a pernada do nado de costas elementar: dez jardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Mudar de direção nadando de frente.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Mudar de direção nadando de costas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conversar sobre as regras de segurança para mergulhos.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Flutuar na posição vertical (pedalar na água).",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Pular em águas profundas com colete salva-vidas.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demonstrar a posição H.E.L.P. (postura para reduzir a perda de calor) durante um minuto.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demonstrar a posição de grupo (huddle) durante um minuto.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Demonstrar a técnica correta para abrir as vias aéreas para a respiração de resgate.",
+   "instructions": null
+  }
+ ]
+}

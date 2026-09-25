@@ -1,0 +1,58 @@
+{
+ "honor_slug": "mercadotecnia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marketing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Marketing",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é marketing?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os conceitos de marketing podem ser aplicados para alcançar objetivos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é criatividade?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como a criatividade pode ajudar no dia a dia? Mencionar pelo menos um exemplo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como a criatividade pode ser usada para levar as pessoas aos pés de Jesus?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entrevistar um profissional de comunicação social (publicidade), explicar qual é a função do Clube de Desbravadores e descobrir a melhor maneira de divulgar o clube.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Elaborar um plano estratégico de marketing para divulgar o clube ou a unidade. Esse plano deve incluir:\n  a. Públicos-alvo\n  b. Estratégia de divulgação\n  c. Ferramentas necessárias\n  d. Metas\n  e. Prazos",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pôr em prática o plano estratégico. Depois de concluí-lo, fazer uma avaliação com o líder.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenvolver um projeto de marketing para arrecadar fundos para o clube sem violar os princípios básicos da Igreja Adventista do Sétimo Dia.",
+   "instructions": null
+  }
+ ]
+}

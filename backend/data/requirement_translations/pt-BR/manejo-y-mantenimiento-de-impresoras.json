@@ -1,0 +1,73 @@
+{
+ "honor_slug": "manejo-y-mantenimiento-de-impresoras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Printer_Handling_and_Maintenance/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Uso e manutenção de impressoras",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dizer quem foram os criadores da impressora e da fotocopiadora, que motivos levaram à sua invenção e como eram usadas no início.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o funcionamento, o abastecimento de tinta e o preço de cada tipo de impressora a seguir:\n  a. Impressora matricial/de impacto/de linha\n  b. Impressora jato de tinta\n  c. Impressora a laser\n  d. Impressora térmica\n  e. Impressora a solvente\n  f. Plotter\n  g. Impressora de cera térmica\n  h. Impressora de sublimação de tinta (dye-sublimation)\n  i. Impressora de tinta sólida\n  j. Impressora de sublimação\n  k. Impressora de cartões de PVC",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que cuidados devemos ter ao manusear um cartucho de toner e um cartucho de tinta comum?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como trocar um cartucho de tinta em uma impressora jato de tinta.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar 5 causas que impedem a impressão e explicar como cada uma é resolvida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever o tipo de papel e de impressora adequados para os seguintes tipos de impressão:\n  a. Fotografia\n  b. Documento comum\n  c. Transparência",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Instalar e configurar uma impressora de computador, conectá-la em rede e no modo sem fio.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher um tipo de impressora, desmontá-la, limpá-la e montá-la novamente, explicando como é feito esse processo de limpeza.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber desmontar superficialmente uma impressora para manutenção e limpeza.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Realizar algum tipo de projeto de divulgação sobre a conscientização quanto ao uso e à reciclagem de papel e de cartuchos de impressora.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Pesquisar e anexar pelo menos cinco fotos das impressoras mais antigas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Trabalhar em uma oficina de conserto e manutenção de impressoras, ou acompanhar o trabalho feito ali, por pelo menos quinze dias.",
+   "instructions": null
+  }
+ ]
+}

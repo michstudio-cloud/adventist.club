@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-vida-primitiva",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wilderness_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Vida silvestre",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar SETE especialidades da lista a seguir.\n  - Excursionismo pedestre com mochila\n  - Arte de acampar\n  - Segurança no acampamento\n  - Acampamento IV\n  - Sobrevivência no frio\n  - Cozinha com forno holandês\n  - Plantas silvestres comestíveis\n  - Fogueiras e cozinha ao ar livre\n  - Excursionismo pedestre\n  - Nós e amarras\n  - Mapa e bússola\n  - Mapa e bússola\n  - Liderança campestre\n  - Pioneirismo\n  - Tendas de acampamento\n  - Liderança na selva\n  - Vida silvestre\n  - Acampamento em baixas temperaturas",
+   "instructions": null
+  }
+ ]
+}

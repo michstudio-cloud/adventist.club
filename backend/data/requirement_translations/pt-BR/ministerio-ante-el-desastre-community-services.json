@@ -1,0 +1,53 @@
+{
+ "honor_slug": "ministerio-ante-el-desastre-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disaster_Ministries/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Mateus 24:1-14 e as páginas 589-590 de O Grande Conflito, de Ellen White. Conversar com sua unidade ou classe de Desbravadores sobre como os acontecimentos atuais se refletem nessas passagens.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o tipo de dano que provavelmente ocorrerá às casas e às pessoas em cada um dos seguintes tipos principais de desastre:\n  a. Furacões\n  b. Tornado\n  c. Enchentes\n  d. Terremotos\n  e. Incêndios florestais",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar os desastres mais prováveis de ocorrer em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever brevemente os tipos de serviços prestados aos sobreviventes de desastres pelo Serviço Comunitário Adventista (ACS, nos Estados Unidos e nas Bermudas) ou pela ADRA Canadá (no Canadá).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar pelo menos cinco outros órgãos governamentais ou organizações voluntárias que atuam em desastres em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler um relatório do ACS (http://www.communityservices.org) ou da ADRA Canadá (http://www.adra.ca/wp/) sobre um projeto recente de resposta a desastres.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o curso \"Introdução à Preparação para Desastres\" oferecido pelo setor de Resposta a Desastres do Serviço Comunitário Adventista (entrar em contato com o coordenador de Resposta a Desastres do Serviço Comunitário Adventista de sua Associação local para obter informações sobre esse treinamento). O curso da ADRA Canadá deve ser identificado.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Encontrar um texto bíblico que você poderia usar para consolar e encorajar uma pessoa da sua idade e do seu sexo que acabou de perder completamente a casa e dizer por que você escolheu esse texto.",
+   "instructions": null
+  }
+ ]
+}

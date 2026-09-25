@@ -1,0 +1,63 @@
+{
+ "honor_slug": "liquenes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lichens/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Líquenes",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são líquenes? Os líquenes se parecem com alguns dos reinos de seres vivos conhecidos; por quê?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o ciclo de vida de um líquen.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar, identificar e fotografar líquenes fruticosos, crostosos e folhosos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que os líquenes são importantes para a natureza?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que determina o pigmento ou a cor de um líquen?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a relação entre os organismos que formam um líquen?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são os principais grupos de fungos que se associam às algas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar o que são simbiose e mutualismo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos dois benefícios dos líquenes para o ser humano e para o meio ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a relação entre a espécie de líquen Lecanora esculenta e o maná?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "honor_slug": "globoflexia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Balloon_Modelling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Modelagem de balões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das ferramentas e do equipamento necessários para a modelagem básica de balões.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar as seguintes torções básicas da modelagem de balões:\n  a. Torção de trava (lock twist)\n  b. Torção em laço (loop twist)\n  c. Torção de beliscão (pinch twist)\n  d. Torção tulipa (tulip twist)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como fazer cinco esculturas de balão diferentes usando as torções acima.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar e apresentar a uma plateia uma lição objetiva ou história que inclua modelagem de balões.",
+   "instructions": null
+  }
+ ]
+}

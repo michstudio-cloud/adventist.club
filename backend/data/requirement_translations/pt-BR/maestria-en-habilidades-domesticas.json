@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-habilidades-domesticas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Homemaking_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Habilidades domésticas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Habilidades domésticas é conquistado quando o Desbravador conquista SETE especialidades quaisquer da lista a seguir.\n  - Panificação\n  - Costura básica\n  - Arte culinária\n  - Arte culinária - Avançado\n  - Comidas típicas\n  - Corte e costura\n  - Corte e costura - Avançado\n  - Técnicas de fazer conserva\n  - Desidratação de alimentos\n  - Congelamento de alimentos\n  - Orçamento familiar\n  - Orçamento familiar\n  - Cuidados da casa\n  - Técnicas de lavanderia\n  - Fazendo pizza\n  - Arte de fazer esteiras\n  - Nutrição\n  - Nutrição - Avançado\n  - Cozinhando pizzas\n  - Patchwork\n  - Ofício de alfaiate\n  - Vestido de tapa",
+   "instructions": null
+  }
+ ]
+}

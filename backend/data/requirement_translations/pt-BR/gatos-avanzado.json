@@ -1,0 +1,28 @@
+{
+ "honor_slug": "gatos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cats_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Felinos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Questionário \"de livro aberto\" sobre gatos. (Este não é um requisito de prova para ser aprovado; foi criado para incentivar a pesquisa sobre o mundo dos gatos.) Aproveite as novas descobertas ao pesquisar as seguintes perguntas sobre algumas raças incomuns de gatos domésticos de várias partes do mundo.\n  a. O gato doméstico conhecido como Sphynx apareceu pela primeira vez no final da década de 1960. Qual das afirmações a seguir é verdadeira sobre essa raça canadense?\n  (1) É selvagem demais para ser um gato doméstico adequado.\n  (2) É o animal de estimação nacional do Canadá.\n  (3) Parece não ter pelos.\n  b. Verdadeiro ou falso: o Chartreux, com seus olhos laranja brilhantes e lábios azulados, é uma raça intimamente associada à França.\n  c. Relacionar os gatos a seguir com as características especiais de suas raças:\n  d. A raça Scottish Fold remonta a 1961. Verdadeiro ou falso: esse gato recebeu esse nome porque dobra o corpo para se manter aquecido.\n  e. Uma raça foi desenvolvida a partir de um tipo de gato que antigamente vagava pelas ruas de Singapura. Hoje chamada Singapura, ela também é conhecida por qual dos nomes a seguir?\n  (1) Gato de esgoto\n  (2) Gato gordo\n  (3) Gato voador\n  f. O nome das raças nem sempre reflete o país de origem. Por exemplo, a raça Nebelung (\"criatura da névoa\", em alemão) foi desenvolvida nos EUA. Verdadeiro ou falso: o gato Poodle foi desenvolvido na Alemanha.\n  g. Os ingleses são conhecidos apreciadores de gatos. Qual dos seguintes não é uma raça de gato doméstico desenvolvida no Reino Unido?\n  (1) Abissínio\n  (2) Havana Brown\n  (3) Gato-do-mato-grande (gato-de-geoffroy)\n  h. Desenvolvido nos EUA, o Ocicat é um felino de aparência selvagem com pelagem pintada. Verdadeiro ou falso: é proibido ter um Ocicat como animal de estimação na maioria dos países.\n  i. Originalmente chamada Spotted Mist, o nome dessa raça australiana foi mudado quando alguns filhotes nasceram com pelagem tigrada. Qual é o seu novo nome?\n  (1) Australian Mist\n  (2) Gato dingo\n  (3) Spotted and/or Marbled Mist\n  j. O gato Japanese Bobtail surgiu na China há séculos. Verdadeiro ou falso: é a única raça de gato doméstico praticamente sem cauda.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter um gato por pelo menos seis meses e fazer uma das seguintes atividades:\n  a. Se você tem um gato atualmente, fazer durante um mês um registro dos cuidados com ele. Incluir no registro quando ele recebe água e comida e com que frequência e com que materiais você cuida da caixa de areia. Por que o seu gato não deve ter permissão para andar livremente pela vizinhança?\n  b. Se você não tem um gato atualmente, mas já teve um por pelo menos 6 meses no passado, cuidar do gato de outra pessoa por pelo menos uma semana. Registrar os cuidados necessários e explicar a relação dos gatos domésticos com o meio ambiente e por que é melhor não deixá-los se tornar ferais (asselvajados).\n  c. Participar de um projeto relacionado a gatos, à sua escolha, em apoio a uma sociedade protetora dos animais local ou a uma organização semelhante.",
+   "instructions": null
+  }
+ ]
+}

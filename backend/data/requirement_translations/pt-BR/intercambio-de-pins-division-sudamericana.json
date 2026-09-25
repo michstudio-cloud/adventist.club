@@ -1,0 +1,53 @@
+{
+ "honor_slug": "intercambio-de-pins-division-sudamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pin_Trading_(SAD)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Troca de pins",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as origens da troca de pins e como ela começou no Clube de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Botton\n  b. Fecho (clutch)\n  c. Etiqueta\n  d. Cordão (lanyard)\n  e. Pin",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar os dois tipos mais comuns de fecho de pin e demonstrar ou descrever como prendê-los e retirá-los com segurança.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber onde conseguir pins para trocar, incluindo pins gratuitos ou baratos. Colecionar pelo menos três pins para trocar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar sobre pelo menos cinco métodos diferentes de expor seus pins para troca. Escolher o método de que mais gostar e organizar seus pins para troca.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três locais ou eventos em que a troca de pins é uma atividade popular.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conversar sobre os três princípios da etiqueta da troca de pins (os três \"F\" em inglês):\n  a. Divertido (Fun)\n  b. Justo (Fair)\n  c. Amigável (Friendly)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Trocar pins com pelo menos cinco pessoas que você não conhece em um local ou evento onde haja troca de pins, usando os princípios de etiqueta \"Divertido, Justo e Amigável\". Compartilhar com outra pessoa ou em grupo histórias interessantes ou pessoas que você conheceu durante a troca de pins.",
+   "instructions": null
+  }
+ ]
+}

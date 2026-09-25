@@ -1,0 +1,53 @@
+{
+ "honor_slug": "numismatica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Currency/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar brevemente a história do escambo, mostrando três razões pelas quais o dinheiro surgiu e citando pelo menos dez formas estranhas de dinheiro usadas no lugar de moedas ou cédulas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Contar brevemente a história das moedas e do papel-moeda em seu país, mencionando as datas de fundação das casas da moeda ou gráficas de valores. Descobrir também alguma mudança na composição metálica de uma moeda, apresentando os fatos interessantes relacionados a essa mudança.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como o dinheiro é distribuído em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes termos:\n  a. Liga\n  b. Data alterada\n  c. Moedas polidas\n  d. Moedas fundidas\n  e. Moedas revestidas\n  f. Comemorativa\n  g. Cunho\n  h. Campo\n  i. Legenda\n  j. Bordo com inscrição\n  k. Marca da casa da moeda\n  l. Anverso\n  m. Disco (cospel)\n  n. Proof\n  o. Bordo serrilhado\n  p. Reverso\n  q. Série\n  r. Tipo\n  s. Moedas escovadas (whizzed)\n  t. Bordo com rebarba (wire edge)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o anverso e o reverso das cédulas dos seis menores valores em uso atualmente em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber como os colecionadores classificam as moedas quanto ao estado de conservação.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Colecionar e montar uma série-tipo de moedas de seu país, de qualquer data, que estejam sendo cunhadas ou em circulação atualmente. Não são necessárias moedas proof, comemorativas, raras, de prata ou caras.\n  a. Em sua coleção: ter pelo menos uma moeda de cada casa da moeda na série-tipo.\n  b. Em sua coleção: localizar e identificar a marca da casa da moeda (se houver) em cada moeda.\n  c. Em sua coleção: localizar e identificar as iniciais (se houver) do(s) desenhista(s) de cada moeda.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer duas das seguintes atividades:\n  a. Fazer desenhos ampliados dos dois lados de dez moedas de valores ou formas diferentes de seu país que não estejam mais em circulação.\n  b. Colecionar, identificar e montar 25 moedas estrangeiras diferentes. Não pode haver duas moedas iguais.\n  c. Colecionar e montar uma série-tipo de moedas de seu país cunhadas durante o século 20.\n  d. Colecionar e montar uma série de datas de moedas de seu país, começando pelo ano de seu nascimento. (Não é preciso incluir moedas comemorativas, de ouro, proof, caras ou raras.)",
+   "instructions": null
+  }
+ ]
+}

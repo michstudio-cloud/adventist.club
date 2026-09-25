@@ -1,0 +1,58 @@
+{
+ "honor_slug": "mamiferos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mammals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que versículo da Bíblia indica o dia em que os mamíferos foram criados?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de quatro características de um mamífero.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar uma ou mais características que identifiquem cada uma das seguintes ordens de mamíferos e citar uma ou mais espécies de mamíferos de cada ordem:\n  a. Marsupialia\n  b. Insectivora\n  c. Chiroptera\n  d. Carnivora\n  e. Pinnipedia\n  f. Rodentia\n  g. Lagomorpha\n  h. Artiodactyla\n  i. Sirenia\n  j. Cetacea",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de quatro mamíferos benéficos e dizer por que são benéficos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de quatro coisas prejudiciais que os mamíferos fazem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de quatro mamíferos completamente aquáticos e indicar sua área de distribuição natural.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar o maior mamífero do mundo e dizer onde vive, como se alimenta e o que come.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista de oito espécies de mamíferos silvestres de sua região. Passar pelo menos 5 horas procurando mamíferos silvestres em seu hábitat natural.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escrever ou contar uma história sobre \"Mamíferos silvestres que observei\".",
+   "instructions": null
+  }
+ ]
+}

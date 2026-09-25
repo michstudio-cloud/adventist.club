@@ -1,0 +1,48 @@
+{
+ "honor_slug": "la-ley-de-dios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/19_-_The_Law_of_God/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A lei de Deus",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os 10 Mandamentos da Lei de Deus. (Êxodo 20:3-17; Deuteronômio 5:7-21)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descobrir se Jesus aboliu ou confirmou a importância da obediência à Lei de Deus para a igreja cristã. (Mateus 5:17-18)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entender por que devemos obedecer aos mandamentos de Deus. (João 14:15; 15:10; 1 João 2:3-4)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar por que devemos guardar todos os 10 Mandamentos, e não apenas alguns. (Tiago 2:10-11)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os dois grandes princípios que resumem os 10 Mandamentos. (Lucas 10:27)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar os 10 Mandamentos em ordem.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo os benefícios prometidos aos que obedecem à Lei de Deus. (Salmos 119:98-99, 165; 1 João 3:22)",
+   "instructions": null
+  }
+ ]
+}

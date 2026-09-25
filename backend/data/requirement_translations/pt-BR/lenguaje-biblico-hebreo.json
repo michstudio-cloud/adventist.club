@@ -1,0 +1,48 @@
+{
+ "honor_slug": "lenguaje-biblico-hebreo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biblical_Language_(Hebrew)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Linguagem bíblica (hebraico)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Individualmente ou em grupo, apresentar pelo menos cinco razões pelas quais é importante estudar as línguas originais do Antigo Testamento.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Memorizar o alfabeto e as vogais do hebraico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Cantar o alfabeto hebraico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Baixar a versão em hebraico do Salmo 119 e circular as letras do alfabeto hebraico no início de cada versículo desse capítulo.\n  a. O que você observou no Salmo 119?\n  b. Que reflexão você pode tirar dessa observação?\n  c. Você observa esse alfabeto na tradução em português?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever e entregar a versão em hebraico dos Dez Mandamentos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entregar uma gravação da leitura de uma passagem em hebraico (cinco versículos).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar seu versículo favorito em hebraico.",
+   "instructions": null
+  }
+ ]
+}

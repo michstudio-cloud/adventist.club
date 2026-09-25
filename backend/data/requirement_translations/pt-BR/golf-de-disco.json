@@ -1,0 +1,63 @@
+{
+ "honor_slug": "golf-de-disco",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disc_Golf/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Disc golf",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Resumir o jogo de disc golf, incluindo sua origem e seu crescimento ao longo do tempo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar e descrever os seguintes elementos usados no disc golf:\n  a. Área de lançamento (tee pad)\n  b. Disco de golfe\n    i. Driver\n    ii. Mid-range\n    iii. Putter\n  c. Alvo",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Os discos são projetados com determinado padrão de voo em mente, definido por uma série de números. Outro termo usado é a estabilidade do disco. Explicar o significado de cada um dos termos relacionados ao voo listados abaixo.\n  a. Velocidade (speed)\n  b. Planeio (glide)\n  c. Curva (turn)\n  d. Queda final (fade)\n  e. Estável\n  f. Sobre-estável (overstable)\n  g. Sub-estável (understable)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ilustrar um cesto de disc golf (disc catcher), incluindo todas as partes e medidas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descobrir as regras básicas do disc golf profissional. Descobrir quais regras são usadas no percurso que você vai usar.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de pelo menos cinco regras básicas de etiqueta usadas no disc golf e conversar sobre elas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar os seguintes lançamentos e técnicas:\n  a. Lançamento de backhand\n  b. Corrida de aproximação para o backhand (X-step)\n  c. Lançamento anhyzer\n  d. Lançamento de forehand\n  e. Lançamento de aproximação\n  f. Putt\n  g. Lançamentos de posições difíceis",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Desenvolver três maneiras diferentes de usar o disc golf como ferramenta evangelística. Colocar em prática um desses planos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma lista de pelo menos duas lições espirituais e/ou de formação do caráter que se podem aprender com o disc golf e dar um testemunho pessoal/exemplos de como você usou essas qualidades fora do disc golf.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Jogar pelo menos três rodadas de 9 buracos (total de 27 buracos). Praticar a boa etiqueta e demonstrar boa técnica nos vários tipos de lançamento. Anotar a pontuação.",
+   "instructions": null
+  }
+ ]
+}

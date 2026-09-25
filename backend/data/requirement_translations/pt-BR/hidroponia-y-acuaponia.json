@@ -1,0 +1,73 @@
+{
+ "honor_slug": "hidroponia-y-acuaponia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hydroponics_and_Aquaponics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são hidroponia e aquaponia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Em que a hidroponia e a aquaponia são iguais a outros métodos agrícolas de sua região? Em que são diferentes?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar seis montagens diferentes de sistemas hidropônicos e o funcionamento básico de cada uma. Como os sistemas aquapônicos se comparam a essas seis montagens?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os benefícios do uso da hidroponia e da aquaponia que não se obtêm com outros métodos de cultivo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as vantagens e as desvantagens de um sistema hidropônico em comparação com um sistema aquapônico?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é um substrato? Que tipos de substrato são usados em um sistema hidropônico/aquapônico?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como a produção de um sistema hidropônico se compara à de um sistema aquapônico e à dos métodos de cultivo comuns?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que tipos de doenças afetam os sistemas hidropônicos? E os sistemas aquapônicos? Por que o produtor deve evitar usar pesticidas, fungicidas e fertilizantes em um sistema aquapônico?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar os componentes básicos necessários para montar o sistema hidropônico ou aquapônico que você pretende construir.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Construir e operar seu próprio sistema hidropônico ou aquapônico simples, mantendo-o por no mínimo dois meses.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer duas das seguintes atividades:\n  a. Visitar uma instalação de hidroponia ou aquaponia já estabelecida e perguntar ao proprietário ou operador sobre as experiências que teve nessa área.\n  b. Entrevistar um especialista em peixes e perguntar que peixes se adaptariam melhor a um sistema aquapônico e o motivo dessa escolha.\n  c. Provar frutas ou hortaliças cultivadas em hidroponia ou aquaponia e compará-las com frutas ou hortaliças cultivadas no campo.\n  d. Montar uma exposição (cartaz, painel etc.) sobre o que você aprendeu nesta especialidade e sobre os benefícios da hidroponia ou da aquaponia.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Criar e compartilhar com um grupo uma meditação de 3 a 5 minutos, usando uma lição espiritual que você aprendeu ao estudar hidroponia e aquaponia. Ilustrar com elementos de sua experiência.",
+   "instructions": null
+  }
+ ]
+}

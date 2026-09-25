@@ -1,0 +1,73 @@
+{
+ "honor_slug": "oceanos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Oceans/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Oceanos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Responder ao seguinte:\n  a. O que é um oceano?\n  b. Qual é a diferença entre oceano e mar?\n  c. Que porcentagem da Terra é coberta por oceano?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer o seguinte sobre a salinidade:\n  a. Definir salinidade.\n  b. Qual é a salinidade do oceano?\n  c. Preparar uma solução que represente a salinidade do oceano. Pegar uma gota da solução e prová-la.\n    i. Por que a salinidade do oceano o torna menos viável como fonte de água potável?\n    ii. Fazer brotar sete feijões em um recipiente e outros sete em outro recipiente. Regar um com água doce e o outro com a solução salgada que você preparou. Avaliar o crescimento depois de sete dias.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar em um mapa em branco o oceano Pacífico, o oceano Atlântico, o oceano Ártico, o oceano Índico, o oceano Antártico (Austral), o mar Mediterrâneo, o mar de Chukchi, o mar das Filipinas e o mar da China Oriental. Qual oceano é o maior? Qual mar é o maior?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte sobre as zonas oceânicas:\n  a. Desenhar um corte transversal do oceano e identificar as seguintes zonas oceânicas: zona entremarés, zona nerítica, zona oceânica, zona bentônica, zona abissal, zona pelágica, zona afótica, zona fótica e a plataforma continental.\n  b. Explicar a diferença entre a zona fótica e a zona afótica.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer o seguinte sobre o vento:\n  a. Descrever o que causa o vento.\n  b. Explicar o que causa os padrões globais de vento.\n  c. Definir o efeito Coriolis.\n  d. Identificar as seguintes correntes de vento em um diagrama do globo: ventos polares de leste, ventos de oeste, ventos alísios e zona de calmarias. Identificar as correntes de vento do hemisfério em que você vive.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte sobre as marés:\n  a. O que causa as marés?\n  b. Descrever os seguintes tipos de maré: maré de quadratura, maré de sizígia, maré alta e maré baixa.\n  c. Que perigos as marés representam?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte sobre as correntes oceânicas:\n  a. O que são correntes superficiais?\n  b. O que são correntes oceânicas profundas?\n  c. O que é uma corrente de retorno? Como sobreviver se for pego por uma corrente de retorno?\n  d. Em um mapa-múndi em branco, desenhar a esteira transportadora oceânica global.\n    i. Usar uma caneta ou lápis azul para representar as correntes frias e densas.\n    ii. Usar uma caneta ou lápis vermelho para representar as correntes quentes e menos densas.\n    iii. Identificar os oceanos pelos quais passa a esteira transportadora global.\n  e. Fazer um experimento de sua escolha que demonstre como funciona a esteira transportadora global.\n  f. O que são correntes de maré?\n  g. Explicar por que a parte do oceano junto à costa ocidental da Europa é mais quente do que outras áreas na mesma latitude.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como os oceanos afetam os seres humanos, já que vivemos em terra?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer o seguinte sobre as ameaças aos oceanos:\n  a. Fazer um levantamento de pelo menos cinco das maiores ameaças aos oceanos. Comparar sua lista com outra fonte confiável.\n  b. Pesquisar a causa de cada uma dessas ameaças e fazer uma lista de 10 ações que você pode realizar para ajudar.\n  c. Escrever um plano de como vai pôr em prática uma de suas ideias. Executar o plano e relatar ao seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber identificar pelo menos dois organismos de cada reino (animais, plantas, fungos, bactérias, arqueias e algas) que vivem no oceano.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Contar uma história bíblica que envolva um oceano (ou mar).\n  b. Escrever uma música ou poema comparando algo que você aprendeu sobre os oceanos com uma lição espiritual.\n  c. Memorizar dois versículos bíblicos sobre oceanos (ou mares).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Assistir a um vídeo sobre os oceanos ou sobre os organismos que vivem neles.\n  b. Visitar um zoológico ou aquário que tenha uma exposição sobre o oceano. Pensar em quais zonas oceânicas viveriam as criaturas que você vê.\n  c. Montar um vídeo curto ou uma apresentação de slides sobre o que outras pessoas estão fazendo para ajudar a proteger os oceanos e seus habitantes da poluição. Incluir algumas ideias suas para ajudar os oceanos.\n  d. Desenhar ou pintar algo que você gostou de aprender ao estudar os oceanos.\n  e. Visitar um oceano ou mar. Observar o que você estudou sobre marés, correntes, vento e vida selvagem.",
+   "instructions": null
+  }
+ ]
+}

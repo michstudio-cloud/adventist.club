@@ -1,0 +1,73 @@
+{
+ "honor_slug": "modelado-textil",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/modelado_textil.pdf",
+ "license": null,
+ "name": "Modelagem têxtil",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir arte têxtil. Como ela foi influenciada ao longo da história? Por que hoje é necessário usar roupas feitas a partir de moldes técnicos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é um molde? Que material é usado para fazê-lo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre moldes simétricos e assimétricos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é um protótipo ou peça-piloto? Por que é tão importante na indústria de confecção?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o seguinte:\n  - Urdidura\n  - Trama\n  - Ourela\n  - Caimento\n  - Folga\n  - Linhas de traçado\n  - Corte\n  - Acabamento",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a diferença entre tecido plano e malha?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como são classificados os tipos de folga? Demonstrar cada um deles com um desenho para facilitar a compreensão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que materiais podem ser usados para fazer um molde básico? Explicar cada um deles.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é um molde básico? Como ele pode ajudar uma costureira em suas criações?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que é importante usar tabelas de medidas? Existe um modelo padrão para elas?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar pelo menos 2 tipos de corte que podem ser usados no traçado rápido. Dar exemplos de máquinas que podem ser usadas para fazer esses cortes.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer, desenvolver e explicar de forma criativa uma ficha técnica. Escolher qualquer peça de roupa e explicar em detalhes todas as etapas básicas de sua confecção.",
+   "instructions": null
+  }
+ ]
+}

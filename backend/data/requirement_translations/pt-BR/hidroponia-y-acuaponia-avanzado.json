@@ -1,0 +1,53 @@
+{
+ "honor_slug": "hidroponia-y-acuaponia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hydroponics_and_Aquaponics_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter ou conquistar a especialidade de Hidroponia e aquaponia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos e explicar sua importância para a hidroponia ou a aquaponia:\n  a. Micronutrientes\n  b. Macronutrientes\n  c. Nitrato\n  d. Aquicultura\n  e. Plantio consorciado (plantas companheiras)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como funciona a aquaponia? Descrever a relação entre as plantas, a água, os peixes, os resíduos e as bactérias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é \"pH\" e como ele afeta as plantas em um sistema hidropônico ou aquapônico? Medir o pH de uma amostra de água e demonstrar como o pH pode ser aumentado e diminuído.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar o ciclo de um sistema hidropônico e de um sistema aquapônico. Descrever as diferenças entre os dois sistemas. Usar os desenhos para explicar por que o sistema hidropônico exige monitoramento contínuo e atento e o sistema aquapônico não.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar os requisitos para a certificação orgânica. Que benefícios a certificação orgânica traz?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Usando seus próprios planos, projetar e construir um sistema hidropônico e um sistema aquapônico, operando-os com sucesso até a colheita. Manter um registro dos cuidados com os dois sistemas e comparar suas produções.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Sozinho ou em grupo, criar e pôr em prática um plano para usar a hidroponia ou a aquaponia como forma de compartilhar sua fé. Relatar ao seu clube e/ou à sua congregação os resultados de compartilhar sua fé.",
+   "instructions": null
+  }
+ ]
+}

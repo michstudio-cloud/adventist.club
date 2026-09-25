@@ -1,0 +1,78 @@
+{
+ "honor_slug": "higiene-oral",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Oral_Hygiene/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Higiene bucal",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir higiene bucal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipo de dentição tem o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Para que servem os dentes de leite?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os diferentes tipos de dentes? Descrever a função de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com que idade deve começar a higiene bucal? Como? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os alimentos recomendados para ter dentes saudáveis?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que danos a escovação malfeita pode causar?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são as formas de uso do flúor? Em que formas ele é encontrado?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é evidenciador de placa bacteriana?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que deve ser usado para uma higiene bucal completa?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar a maneira correta de:\n  a. Aplicar o evidenciador de placa bacteriana\n  b. Escovar os dentes\n  c. Usar o fio dental",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Por que se deve usar creme dental com flúor?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Como as cáries se formam?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "navegacion-a-vela",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sailing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Navegação a vela",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação intermediário I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer as \"regras de navegação\" para embarcações.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber como as condições do tempo e as ondas altas podem afetar a segurança e o desempenho na navegação a vela.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que precauções de segurança devem ser seguidas ao velejar?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com a ajuda de um amigo, fazer o seguinte.\n  a. Colocar um veleiro em movimento a partir de um cais, de uma poita ou de uma praia.\n  b. Ajustar corretamente as velas para as seguintes condições:\n    i. Contravento (bolina cerrada)\n    ii. Través\n    iii. Largo\n    iv. Bolina folgada\n    v. Popa (vento em popa)\n  c. Mudar de bordo por davante (virada) e em roda (jibe)\n  d. Levar o veleiro de volta a um cais, poita ou praia e prepará-lo para ficar sem ninguém",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber dar e usar os seguintes nós na navegação a vela:\n  a. Nó direito\n  b. Lais de guia\n  c. Volta do fiel\n  d. Nó de oito\n  e. Duas meias-voltas\n  f. Nó de amarração (mooring hitch)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de maneiras de cuidar de seu equipamento de vela ao longo do ano.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer pelo menos 20 termos usados na navegação a vela e seus significados.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar pelo menos 15 partes de um veleiro.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar o resgate de uma pessoa que caiu na água.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar o que fazer quando um veleiro emborca.",
+   "instructions": null
+  }
+ ]
+}

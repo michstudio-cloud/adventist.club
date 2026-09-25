@@ -1,0 +1,68 @@
+{
+ "honor_slug": "gramineas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Grasses/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que características uma planta precisa ter para ser considerada uma gramínea?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipo de raiz todas as gramíneas têm?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aproximadamente quantas espécies existem no mundo na família das gramíneas, chamada Gramineae ou Poaceae?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "As sementes das gramíneas têm duas metades, como o feijão (uma dicotiledônea), ou a semente é formada por uma só parte, como no lírio, na tâmara e no coco (monocotiledôneas)?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que característica única do crescimento das folhas das gramíneas permite que a planta se desenvolva mesmo sendo continuamente cortada ou pastada?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três gramíneas anuais, isto é, gramíneas que brotam da semente, florescem, produzem sementes e morrem no mesmo verão.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar três gramíneas perenes, isto é, gramíneas cujas raízes vivem de um ano para outro, embora a parte de cima morra até a coroa a cada outono.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Em cada um dos casos a seguir, citar uma gramínea (ou mais, quando indicado) da qual o produto é feito:\n  a. Pão (três gramíneas)\n  b. Vassouras\n  c. Varas de pescar\n  d. Glúten\n  e. Álcool de cereais (duas gramíneas)\n  f. Feno\n  g. Canjica (hominy)\n  h. Melaço\n  i. Mingau de aveia\n  j. Amido\n  k. Açúcar\n  l. Farinha branca",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Coletar e etiquetar corretamente dez gramíneas cultivadas.\n  b. Escrever uma redação sobre os diversos usos das gramíneas por diferentes povos do mundo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Prensar ou secar, montar e etiquetar corretamente as hastes florais ou as hastes com sementes de cinco gramíneas daninhas, geralmente consideradas ervas daninhas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Além da sua coleção de hastes florais ou com sementes de espécies daninhas, prensar, montar e identificar corretamente pelo nome as hastes florais ou as hastes com sementes de outras dez gramíneas que crescem em sua vizinhança. Esta coleção pode incluir algumas das plantas cujas sementes estão em sua coleção de gramíneas cultivadas.",
+   "instructions": null
+  }
+ ]
+}

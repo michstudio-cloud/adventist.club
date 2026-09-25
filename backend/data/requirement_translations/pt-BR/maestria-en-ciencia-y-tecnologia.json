@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-ciencia-y-tecnologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Science_and_Technology_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Ciência e tecnologia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar SETE das seguintes especialidades:\n  - Bioquímica\n  - Bioquímica - Avançado\n  - Química\n  - Programação de computadores\n  - Computação I - Básico\n  - Computação II - Intermediário\n  - Computação III - Regular\n  - Computação IV - Avançado\n  - Computação V - Especializado\n  - Internet\n  - Internet - Avançado\n  - Ótica\n  - Física\n  - Desenvolvimento de software",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "internet-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Internet_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Internet.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Informática.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos (ou seus equivalentes) e dizer quando e como são usados:\n  a. HTTP\n  b. Hiperlink\n  c. HTML\n  d. Cores seguras para navegador e códigos hexadecimais\n  e. URL\n  f. GIF\n  g. JPEG",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender e demonstrar o uso destas tags HTML OU demonstrar os comandos equivalentes de construção de sites em uma das linguagens atuais de desenvolvimento web (PHP, XML etc.)\n  a. <html>...</html>\n  b. <head>...</head>\n  c. <body>....</body>\n  d. <h1>...</h1>\n  e. <b>...</b>\n  f. <i>...</i>\n  g. <center>...</center>\n  h. <p>...</p>\n  i. <br />\n  j. <hr />\n  k. <ol>...</ol>\n  l. <ul>...</ul>\n  m. <a href>\n  n. <img>",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma tabela simples, incluindo texto, uma imagem, uma linha horizontal e um link. Usar códigos hexadecimais para colorir o texto. Deixar o título maior que o texto principal do documento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Aprender sobre:\n  a. Imagens para a web e saber explicar o processo usado para fazer com que carreguem rapidamente.\n  b. Cores seguras para a web e saber quando usá-las. Usar esse conhecimento para criar um JPG e um GIF, ambos com menos de 15k, mas ainda fáceis de visualizar em um site, e para criar pelo menos cinco botões gráficos de navegação e um cabeçalho de título para seu site.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Individualmente ou em família, unidade ou outro grupo, desenvolver um site funcional. Todas as páginas do site devem estar \"ligadas\" entre si, de modo que quem visitar sua \"página inicial\" possa clicar para ir a cada uma das outras páginas do site. O site deve ter no mínimo 4 páginas. O site deve incluir:\n  a. Uma página de boas-vindas que explique o motivo do site e inclua pelo menos uma imagem ou fotografia.\n  b. Uma página de fotos que mostre atividades/eventos de que você, sua família ou seu grupo participaram.\n  c. Um livro de visitas ou página de contato em que as pessoas possam \"assinar\" que visitaram o site OU em que haja um endereço de e-mail para que as pessoas possam escrever para você quando visitarem seu site.\n  d. Uma página de links para outros sites de que você gosta. Esta página deve conter pelo menos 8 links.\n  e. Se a sua página for para Desbravadores/grupo de jovens/igreja ou organização semelhante, criar uma página de calendário com os próximos eventos.\n  f. Manter o site acima por pelo menos 3 meses. Manter as informações do site atualizadas, alterando e editando o conteúdo com frequência (acrescentar fotos, atualizar o calendário etc.).",
+   "instructions": null
+  }
+ ]
+}

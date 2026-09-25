@@ -1,0 +1,68 @@
+{
+ "honor_slug": "lancha-a-motor",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Power_Boating/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação principiante II.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer as leis que regulam a navegação de recreio em seu estado ou província.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber que riscos climáticos podem afetar a segurança e o desempenho da navegação.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as regras náuticas de navegação e os auxílios à navegação nas vias navegáveis.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber que equipamentos de segurança, dispositivos de sinalização e luzes são exigidos em embarcações Classe A e Classe 1.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer e praticar as regras de segurança da navegação.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que os passageiros devem fazer se o barco virar?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é a Regra Geral de Prudência?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer o significado dos seguintes termos náuticos:\n  a. A ré de (abaft)\n  b. Pelo través\n  c. A bordo\n  d. À ré\n  e. A meia-nau\n  f. Pela popa\n  g. Boca\n  h. Abaixo do convés\n  i. Nó de emenda (bend)\n  j. Porão (sentina)\n  k. Proa\n  l. Antepara\n  m. Cunhos (cleats)\n  n. Calado\n  o. Borda livre\n  p. Quilha\n  q. Sotavento\n  r. Bombordo\n  s. Boreste (estibordo)\n  t. Popa\n  u. Compasso (trim)\n  v. Barlavento",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Mostrar como operar corretamente um barco a motor fazendo o seguinte:\n  a. Ajudar a colocar um barco na água a partir de uma carreta de barco.\n  b. Verificar todo o equipamento de segurança. Verificar o combustível e o motor.\n  c. Dar partida no motor e sair de uma praia ou de um cais.\n  d. Conduzir o barco em linha reta por um quarto de milha (400 m). Fazer uma curva de 90 graus para a esquerda e para a direita. Fazer uma curva de 180 graus.\n  e. Com o barco parado, lançar e recolher a âncora.\n  f. Atracar em um cais ou abicar em uma praia, amarrando corretamente.\n  g. Ajudar a tirar um barco da água e colocá-lo em uma carreta de barco.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Saber como preparar e guardar um barco e um motor para a entressafra (período em que não serão usados).",
+   "instructions": null
+  }
+ ]
+}

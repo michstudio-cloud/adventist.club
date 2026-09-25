@@ -1,0 +1,43 @@
+{
+ "honor_slug": "lenguaje-de-signos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sign_Language/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender o alfabeto manual usado pelos surdos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter no mínimo três horas de instrução em língua de sinais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Transmitir e receber soletração manual (datilologia) a uma velocidade de cinco palavras por minuto, usando no mínimo 25 letras.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender pelo menos 100 sinais de um ou mais dos livros indicados abaixo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender e apresentar em língua de sinais (não em datilologia) pelo menos duas músicas simples.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma das seguintes atividades:\n  a. Explicar a diferença entre a Ameslan (Língua de Sinais Americana) e o inglês sinalizado e demonstrar o uso de ambos.\n  b. Ler sobre uma escola de seu país ou estado especializada na educação de surdos e apresentar um relatório oral ou escrito.",
+   "instructions": null
+  }
+ ]
+}

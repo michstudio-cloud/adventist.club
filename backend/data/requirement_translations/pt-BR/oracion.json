@@ -1,0 +1,53 @@
+{
+ "honor_slug": "oracion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Prayer/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em grupo ou com um amigo, conversar sobre:\n  a. O que você acha que é oração?\n  b. Por que você acredita que a oração é importante?\n  c. Você acha que uma pessoa pode ser cristã e não orar?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Individualmente ou em grupo, examinar as duas versões do Pai-Nosso (Mateus 6:9-13 e Lucas 11:2-4) encontradas nos evangelhos.\n  a. Quais são as diferenças?\n  b. Quando uma das versões pode ser mais adequada que a outra em sua vida espiritual?\n  c. Por que você acha que o Pai-Nosso é importante para o cristianismo? E para você?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Localizar seis orações na Bíblia (pelo menos 2 de Jesus e 2 do Antigo Testamento) e depois:\n  a. Ler/ouvir cada oração\n  b. Descobrir quem orou, pelo que orou e por que orou.\n  c. Descobrir o resultado de cada oração",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender o método A C T S (em inglês) para a oração e citar um exemplo bíblico de oração de cada tipo.\n  a. A: Adoração (louvor)\n  b. C: Confissão\n  c. T: Ações de graças (Thanksgiving)\n  d. S: Súplica (pedidos)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em grupo ou com um amigo, ler/ouvir e conversar sobre o capítulo sobre oração do livro Caminho a Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Em grupo ou com um amigo, conversar sobre como você viu Deus responder a orações pessoais, suas ou de um amigo ou familiar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenvolver uma vida pessoal de oração orando diariamente, durante um mês, por:\n  Uma missão/um missionário\n  Pessoa(s) doente(s)\n  Um líder da igreja ou da escola\n  Uma ou mais questões que afetam os vizinhos de sua comunidade.\n  Compartilhar sua experiência com seu grupo e/ou instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Orar com alguém que tenha uma necessidade física, emocional ou espiritual.",
+   "instructions": null
+  }
+ ]
+}

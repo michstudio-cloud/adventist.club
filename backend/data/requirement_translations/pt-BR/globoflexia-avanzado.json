@@ -1,0 +1,33 @@
+{
+ "honor_slug": "globoflexia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Balloon_Modelling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Modelagem de balões - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Modelagem de balões.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar como fazer mais cinco esculturas de balão diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar três esculturas que usem vários balões.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usar suas habilidades de modelagem de balões em uma atividade de evangelismo organizada (por exemplo, StormCo, programa de clube de férias para crianças etc.).",
+   "instructions": null
+  }
+ ]
+}

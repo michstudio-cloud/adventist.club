@@ -1,0 +1,68 @@
+{
+ "honor_slug": "musica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Music/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tocar ou cantar uma escala e conhecer sua composição.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever uma escala na clave de sol e na clave de fá.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o semitom, o tom, a terça, a quinta e a oitava.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Distinguir uma marcha de uma valsa e dizer o compasso de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é uma semínima? Uma mínima? Uma semibreve? Desenhar o símbolo de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar cinco grandes compositores e uma composição de cada um, incluindo um oratório, uma composição para piano e uma canção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tocar, com ou sem partitura, ou cantar de memória 15 hinos (uma estrofe de cada) e/ou outros cânticos sacros ou corinhos e citar o compositor de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Tocar ou cantar de memória uma boa música que não seja nenhuma das usadas no nº 7.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Para instrumentistas: saber ler à primeira vista e tocar uma música de dificuldade moderada. Explicar todos os sinais e termos que aparecem nela.\n  b. Para cantores: mostrar, com a batuta ou com o braço, como reger um grupo cantando composições escritas em compasso 3/4 e 4/4.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Definir orquestra e citar pelo menos cinco instrumentos de uma orquestra.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um esboço biográfico de um compositor de hinos famoso e apresentá-lo oralmente a um grupo.",
+   "instructions": null
+  }
+ ]
+}

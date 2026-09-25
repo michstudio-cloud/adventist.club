@@ -1,0 +1,88 @@
+{
+ "honor_slug": "la-mayordomia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/21_-_Stewardship/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "A mordomia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Com base no Salmo 24:1 e em 1 Coríntios 6:20, Quem é o verdadeiro dono deste mundo e das pessoas que o habitam?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Segundo Deuteronômio 8:18 e Tiago 1:17, Quem nos capacita a obter os recursos financeiros necessários para viver bem?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Segundo 1 Coríntios 6:19-20, por que precisamos cuidar bem do nosso corpo?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que Efésios 5:15-16 ensina sobre o cuidado com nosso modo de vida e o uso do nosso tempo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ler a parábola dos talentos (Mateus 25:14-30) e explicar o que ela ensina sobre como devemos usar os dons e talentos que Deus nos confiou.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que porcentagem de nossa renda Deus nos ordenou devolver como reconhecimento de que tudo vem dEle? (Levítico 27:30; Deuteronômio 14:22)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Segundo a Bíblia, qual deve ser o destino dos dízimos? (Números 18:21; 1 Coríntios 9:13-14)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Também segundo a Bíblia, qual deve ser o destino das ofertas? (Êxodo 36:3; 2 Reis 12:4-5; 2 Crônicas 24:5)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual deve ser nossa atitude ao dar nossas ofertas a Deus? (2 Coríntios 9:7)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Comparar o texto de Malaquias 3:8 com os outros estudados nesta especialidade para diferenciar dízimos e ofertas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conversar com o tesoureiro, o ancião e/ou o pastor de sua igreja para entender o que é feito com os recursos recebidos dos dízimos e das ofertas e para descobrir como as ofertas são usadas em sua igreja.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Memorizar e recitar Malaquias 3:10.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Compartilhar com um amigo a importância de ser fiel a Deus nos dízimos e nas ofertas.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer uma simulação de orçamento mensal com base no valor de sua mesada ou de um salário mínimo, com categorias como dízimos e ofertas, alimentação, vestuário, transporte, lazer etc.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Depois de estudar esta especialidade, explicar o que significa ser um mordomo cristão.",
+   "instructions": null
+  }
+ ]
+}

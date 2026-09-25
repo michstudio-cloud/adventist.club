@@ -1,0 +1,78 @@
+{
+ "honor_slug": "olfato",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Smell/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Olfato",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e saber identificar as partes do principal órgão responsável pelo olfato: o sistema olfativo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como o cérebro participa do sentido do olfato?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como a falta de olfato afeta o dia a dia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Anotar algumas lembranças associadas ao seu olfato.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como você deve limpar o nariz?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Por que o nariz é importante para o nosso bem-estar e desenvolvimento?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quantos tipos diferentes de cheiro o ser humano consegue distinguir?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que fatores genéticos estão associados ao olfato?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "De que maneiras o sentido do olfato está relacionado aos outros sentidos?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais são alguns distúrbios associados ao olfato?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como você compara a capacidade olfativa dos seres humanos com a de outros seres vivos?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Saber identificar o cheiro de cinco plantas diferentes, cinco alimentos diferentes e cinco objetos do dia a dia de sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conhecer três textos bíblicos relacionados ao olfato.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-conservacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Conservation_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Conservação",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Conservação é conquistado quando o Desbravador conquista SETE especialidades quaisquer da lista a seguir.\n  - Combustíveis alternativos\n  - Combustíveis alternativos - Avançado\n  - Pântanos e lamaçais\n  - Pântanos e lamaçais - Avançado\n  - Dunas\n  - Dunas - Avançado\n  - Ecologia\n  - Ecologia - Avançado\n  - Animais ameaçados de extinção\n  - Conservação ambiental\n  - Silvicultura\n  - Silvicultura - Avançado\n  - Fósseis\n  - Geologia\n  - Geologia - Avançado\n  - Montanhas\n  - Reciclagem\n  - Energias renováveis\n  - Rios e riachos\n  - Rios e riachos - Avançado\n  - Rochas e minerais\n  - Rochas e minerais - Avançado\n  - Areia\n  - Taiga\n  - Taiga - Avançado",
+   "instructions": null
+  }
+ ]
+}
