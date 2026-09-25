@@ -1,0 +1,88 @@
+{
+ "honor_slug": "campamento-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camping_Skills_I/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no 5º ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender e praticar a etiqueta do acampamento e da vida ao ar livre em relação à preservação da natureza.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer oito coisas que se devem fazer quando se está perdido.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer vários tipos de equipamento de dormir adequados ao local e à estação do ano.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista dos objetos pessoais necessários para um acampamento de fim de semana.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Planejar um acampamento de fim de semana e participar dele.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber armar e desmontar corretamente uma barraca. Observar as precauções contra o fogo quando a barraca estiver em uso.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer e praticar os princípios corretos de higiene no acampamento, tanto em locais primitivos como em áreas de acampamento estruturadas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usar corretamente a faca e a machadinha. Conhecer dez regras de segurança para seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fogo:\n  a. Demonstrar capacidade de escolher e preparar o local para uma fogueira.\n  b. Conhecer as precauções de segurança com o fogo.\n  c. Saber acender corretamente um fósforo.\n  d. Praticar como acender uma fogueira com um único fósforo, usando apenas materiais naturais.\n  e. Demonstrar como proteger a lenha em tempo chuvoso.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Assar pão em um espeto.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Descrever os procedimentos corretos para lavar e manter limpos os utensílios de cozinha e de refeição.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Descrever a roupa de dormir e como se manter aquecido durante a noite.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Tirar uma lição espiritual da natureza durante o acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Explicar e praticar o lema: \"Leve apenas fotografias e deixe apenas pegadas.\"\n  Nota: a cor da barraca do Acampamento I é azul.",
+   "instructions": null
+  }
+ ]
+}

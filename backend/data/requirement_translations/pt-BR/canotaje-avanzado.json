@@ -1,0 +1,83 @@
+{
+ "honor_slug": "canotaje-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Canoeing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Canoagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir águas calmas, classe um, classe dois, classe três e classe quatro.\n  a. Águas calmas\n  b. Águas rápidas\n  c. Classe I\n  d. Classe II\n  e. Classe III\n  f. Classe IV",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista do equipamento pessoal necessário para a viagem.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista do equipamento de grupo necessário para a viagem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista do equipamento de emergência necessário para a viagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Montar um estojo pessoal de primeiros socorros.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar que cuidados se devem tomar nos lagos quando está ventando.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar os sinais de segurança da canoagem.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Planejar o roteiro de uma viagem de canoa de 4 dias, incluindo as seguintes informações:\n  a. Obter um mapa das vias navegáveis que pretende usar.\n  b. Contatar o serviço florestal ou a administração do parque da área para onde vai, a fim de obter as licenças necessárias (por exemplo: fogo, acampamento e canoagem).\n  c. Se necessário, providenciar o traslado de seu veículo ou alguém que o leve de volta ao veículo. (Há serviços de guia que fazem isso mediante pagamento.)\n  d. Descobrir se serão cobradas taxas de acampamento na área onde vai acampar.\n  e. Planejar o número de milhas que vai remar por dia e onde pretende acampar. (Lembre-se de que você não será o único na água.)\n  f. Encontrar lugares para visitar e coisas para ver.\n  g. Anotar onde ficam os trechos de transporte por terra (portagens) e qual é a sua extensão.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Planejar um cardápio para a viagem de canoa de 4 dias. Considerando as distâncias e as portagens, procurar manter os alimentos leves para facilitar o transporte.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma portagem de ¼ de milha (400 m) ou mais. Você deve transportar sua canoa e seu equipamento sozinho ou com a ajuda de seu companheiro.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer as duas atividades seguintes:\n  a. Fazer uma viagem preparatória de canoa, com pernoite, com seu grupo, praticando as habilidades que está aprendendo nesta especialidade para que a viagem seja bem-sucedida.\n  b. Fazer uma viagem de canoa de pelo menos 4 dias na água, usando as habilidades que aprendeu nesta especialidade para que a viagem seja bem-sucedida.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Durante a viagem de canoa de 4 dias, fazer uma das seguintes atividades:\n  a. Tirar fotos da viagem, incluindo fotos da natureza. Ao voltar, fazer uma apresentação de uma seleção dessas fotos para um grupo.\n  b. Fazer um diário da viagem, incluindo as lições espirituais que encontrou e o que observou na natureza durante a viagem. Ao voltar, compartilhar algumas de suas reflexões com um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Dirigir um culto, individualmente ou em grupo, durante uma viagem de canoa com pernoite. Se possível, usar ilustrações da natureza em sua reflexão.",
+   "instructions": null
+  }
+ ]
+}

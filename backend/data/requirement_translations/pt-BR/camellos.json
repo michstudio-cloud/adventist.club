@@ -1,0 +1,43 @@
+{
+ "honor_slug": "camellos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camelids/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Camelídeos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as diferenças entre o dromedário e o camelo-bactriano. Por que ambos são reconhecidos e importantes?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as seguintes características dos camelos:\n  a. Três utilidades que lhes são atribuídas\n  b. Quantidade de água que bebem\n  c. Três características de sobrevivência\n  d. Origem",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três camelídeos sul-americanos e analisar o seguinte:\n  a. Região onde vivem\n  b. Diferentes utilidades que lhes são atribuídas\n  c. Características físicas\n  d. Alimentação",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma pesquisa sobre a predação dos camelídeos sul-americanos. Por que esses animais estão ameaçados de extinção?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um estudo bíblico sobre o versículo de Mateus 19:24, dando ênfase às palavras de Jesus. Escrever 200 palavras sobre o que aprendeu com esta lição (usar comentários bíblicos para entender o contexto; é necessário ler todo o capítulo 19 de Mateus).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar cinco versículos bíblicos que mencionam camelos.",
+   "instructions": null
+  }
+ ]
+}

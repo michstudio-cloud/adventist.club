@@ -1,0 +1,58 @@
+{
+ "honor_slug": "cantar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Singing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Canto",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber respirar pelo abdômen (diafragma).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer um exercício de aquecimento:\n  Para a respiração\n  Para a agilidade\n  Para a extensão vocal (notas agudas e graves)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever as cordas vocais e como funcionam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar a função do diafragma.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ter conhecimentos básicos de teoria musical.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ser capaz de decifrar uma música desconhecida e explicar todos os sinais e termos que ela contém.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever um artigo sobre três grandes cantores ou cantores de estilos diferentes (clássico, jazz, variedades).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ser capaz de dirigir um cântico para uma plateia.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escolher uma música que anime a família ou os amigos e cantá-la para eles.",
+   "instructions": null
+  }
+ ]
+}

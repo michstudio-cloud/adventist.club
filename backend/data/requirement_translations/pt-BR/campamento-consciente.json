@@ -1,0 +1,58 @@
+{
+ "honor_slug": "campamento-consciente",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Conscious_Camping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Acampamento consciente",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar e fazer uma lista dos princípios para realizar um acampamento de acordo com a filosofia Não Deixe Rastros (Leave No Trace).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a importância de um bom planejamento para um acampamento consciente?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a importância de preservar parques e locais históricos e por que não podemos acampar nessas áreas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um acampamento de fim de semana usando técnicas para minimizar o impacto sobre a natureza.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever os princípios para cozinhar em um acampamento consciente. Explicar que tipo(s) de fogueira causam menos impacto e por quê. Usá-la no acampamento e limpar corretamente o que sobrar após o uso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descartar corretamente os resíduos produzidos no acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descartar corretamente os dejetos humanos. Explicar os riscos de não descartá-los corretamente para a fauna, os campistas e as fontes de água.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar e demonstrar qual deve ser a atitude do Desbravador em relação a:\n  a. Outros campistas e visitantes\n  b. Fauna e flora\n  c. Habitantes e moradores locais",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar três versículos da Bíblia que falam do cuidado que devemos ter com a natureza.",
+   "instructions": null
+  }
+ ]
+}

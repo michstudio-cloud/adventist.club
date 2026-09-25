@@ -1,0 +1,58 @@
+{
+ "honor_slug": "canotaje",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Canoeing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter o nível intermediário da especialidade de Natação.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar, primeiro sozinho e depois com um companheiro, o método correto de:\n  a. Embarcar e lançar uma canoa\n    i. A partir de uma praia\n    ii. A partir de um cais ou píer.\n  b. Aportar e desembarcar de uma canoa\n    i. Em uma praia\n    ii. Em um cais ou píer.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Acompanhado do conselheiro examinador, demonstrar corretamente as seguintes remadas:\n  a. Remada de proa\n  b. Remada de aproximação diagonal\n  c. Meia varredura\n  d. Remada em J\n  e. Meia varredura reversa\n  f. Remada de afastamento\n  g. Varredura completa\n  h. Combinação de remada de aproximação e remada em J",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Sozinho e com um companheiro, tanto na proa como na popa, remar em linha reta por 100 jardas (91,4 metros). Virar à direita e à esquerda. O remo deve ser mantido sempre do mesmo lado da canoa. Demonstrar duas posições ajoelhadas para remar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar, com uma canoa, o resgate de um companheiro que virou a canoa longe da margem:\n  a. Esvaziando a água da canoa alagada, puxando-a de cabeça para baixo sobre as bordas da canoa de resgate.\n  b. Lançar novamente a canoa resgatada.\n  c. Estabilizar a canoa enquanto o companheiro sobe a bordo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saltar de uma canoa em águas profundas e voltar a embarcar da maneira correta sem deixar entrar água. (O candidato deve estar acompanhado de um salva-vidas em um barco de resgate equipado.)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Vestido:\n  a. Virar uma canoa em águas profundas.\n  b. Desvirar a canoa e guardar os remos e a almofada para ajoelhar.\n  c. Entrar na canoa cheia de água e remar com as mãos ou com o remo por 25 jardas (22,9 metros).\n  d. Tirar a roupa, guardar a roupa e o remo, sair da canoa, segurar a proa da canoa com uma das mãos, nadar e rebocar a canoa alagada até a margem.\n  e. Esvaziar a canoa corretamente e levá-la à margem (o candidato deve estar acompanhado de um salva-vidas em um barco de resgate equipado).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Satisfazer plenamente o examinador quanto ao conhecimento completo das regras de segurança que farão do candidato um canoísta seguro e competente para levar outras pessoas em uma canoa. Prometer observar essas regras sempre.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar como fazer os seguintes reparos de emergência:\n  a. Consertar um furo de uma polegada (2,5 cm) em uma canoa de fibra de vidro, de lona e de alumínio.\n  b. Consertar a haste quebrada de um remo.",
+   "instructions": null
+  }
+ ]
+}
