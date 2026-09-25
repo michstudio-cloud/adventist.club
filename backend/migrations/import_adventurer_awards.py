@@ -71,13 +71,16 @@ AUDIT_ACTION = "HONOR_IMPORT"
 IMPORTER = "import_adventurer_awards"
 
 # category_en -> (slug, es, en, pt)
+# pt-BR: the Adventurer areas of the DSA manual (Artes Manuais, Atividades Espirituais, Atividades Recreativas,
+# Estudos da Natureza, Habilidades Domésticas); Community has no DSA area. Same names as
+# data/category_translations.json (import_category_translations.py).
 CATEGORIES = {
     "Community": ("av-comunidad", "Comunidad", "Community", "Comunidade"),
-    "Crafts": ("av-manualidades", "Manualidades", "Crafts", "Artesanato"),
-    "Home": ("av-hogar", "Hogar", "Home", "Lar"),
-    "Nature": ("av-naturaleza", "Naturaleza", "Nature", "Natureza"),
-    "Recreation": ("av-recreacion", "Recreación", "Recreation", "Recreação"),
-    "Spiritual": ("av-espiritual", "Espiritual", "Spiritual", "Espiritual"),
+    "Crafts": ("av-manualidades", "Manualidades", "Crafts", "Artes Manuais"),
+    "Home": ("av-hogar", "Hogar", "Home", "Habilidades Domésticas"),
+    "Nature": ("av-naturaleza", "Naturaleza", "Nature", "Estudos da Natureza"),
+    "Recreation": ("av-recreacion", "Recreación", "Recreation", "Atividades Recreativas"),
+    "Spiritual": ("av-espiritual", "Espiritual", "Spiritual", "Atividades Espirituais"),
 }
 # class_en -> (es, en) as the description says it
 CLASSES = {
@@ -252,7 +255,7 @@ def run(conn, plans: list[dict], *, publish: bool = False, operator: str | None 
                 (ministry, _tag(prefix, es, " "), _tag(prefix, slug, "-")))
             categories[key], created = cur.fetchone()
             report["categories_created"] += int(created)
-            for locale, name in (("en", en), ("pt", pt)):
+            for locale, name in (("en", en), ("pt-BR", pt)):  # pt-BR, like every other table
                 cur.execute(
                     "INSERT INTO honor_category_translations (category_id, locale, name) VALUES (%s, %s, %s)"
                     " ON CONFLICT (category_id, locale) DO UPDATE SET name = EXCLUDED.name,"
