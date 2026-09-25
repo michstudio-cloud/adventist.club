@@ -1,0 +1,73 @@
+{
+ "honor_slug": "trompos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tops/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Piões",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever e apresentar um relatório de 300 palavras sobre a história dos piões.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que material eram feitos os piões antigos? De que materiais são feitos hoje?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar cada um dos seguintes métodos para fazer um pião girar:\n  a. Fricção\n  b. Cordão ou barbante\n  c. Mola\n  d. Dedos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar um pião e identificar as seguintes partes:\n  a. Coroa\n  b. Ponta ou pé\n  e. Corpo ou massa",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar e explicar como funcionam os seguintes tipos de pião:\n  a. Pião tradicional de madeira\n  b. Pião de dedo ou de haste longa\n  c. Snurra sueca\n  d. Pião de lata\n  e. Dreidel",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar o uso do cordão (fieira):\n  a. Qual é o tamanho ideal do cordão?\n  b. Qual é a importância de segurar a ponta no dedo?\n  c. Citar três maneiras de prender o cordão no dedo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a utilidade da tampografia nos piões tradicionais?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a relação entre a estabilidade, o movimento e o lançamento do pião e os seguintes conceitos da física:\n  a. Velocidade angular\n  b. Efeito giroscópico\n  c. Centro de gravidade\n  d. Princípios da dinâmica (1ª lei de Newton)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com seu instrutor, estabelecer e seguir um código de segurança para brincadeiras com pião com pelo menos cinco regras.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Usando um pião tradicional, demonstrar a capacidade de fazer as seguintes atividades:\n  a. Força e equilíbrio: enrolar a fieira corretamente e lançar o pião de modo que ele gire por pelo menos 20 segundos antes de perder o equilíbrio.\n  b. Técnica calculada: lançar o pião e depois apanhá-lo na palma da mão; depois de alguns segundos, devolvê-lo ao chão, e ele deve continuar girando.\n  c. Fazer dormir: fazer o pião girar durante 10 segundos num mesmo lugar de modo que pareça parado.\n  d. Girar sobre a coroa: fazer o pião girar invertido, sobre a coroa.\n  e. Deslizar: enquanto o pião gira, com a ajuda da fieira, levá-lo de um lugar a outro sem que caia.\n  f. Precisão: lançar o pião num alvo. Pode ser uma linha ou um círculo no chão.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer pelo menos uma das seguintes manobras:\n  a. Rolar no ar: consiste em lançar o pião e, antes que ele toque o chão e antes que a fieira se desenrole totalmente, puxá-lo de volta de modo que o pião gire na mão.\n  b. Ponte ou teleférico: com uma mão, segurar as duas pontas da fieira e, com a outra, segurar a dobra restante. Mantendo a fieira parada, colocar o pião sobre ela, levantar uma ponta da ponte formada e fazer o pião deslizar de uma ponta à outra.\n  c. Lançamento: enquanto o pião gira no chão, fazê-lo saltar sobre a ponta, puxando a fieira com habilidade e força para servir de impulso. Fazer isso duas vezes: uma com ele saltando e caindo no chão e outra caindo na mão.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Conhecer ou criar pelo menos quatro brincadeiras coletivas com piões. Convidar os membros de sua unidade para participar de cada brincadeira. No final, conversar com o instrutor sobre como você se sentiu durante as atividades e quais são as vantagens da prática de recreação ao ar livre.",
+   "instructions": null
+  }
+ ]
+}
