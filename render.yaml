@@ -17,4 +17,4 @@ services:
       - key: PUBLIC_WEB_URL
         value: https://conquistadores.app
       - key: CORS_ORIGINS
-        value: https://conquistadores.app,https://www.conquistadores.app
+        value: https://conquistadores.app,https://www.conquistadores.app,https://adventist.club,https://www.adventist.club,https://admin.adventist.club,https://events.adventist.club

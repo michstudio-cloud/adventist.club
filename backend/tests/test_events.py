@@ -420,23 +420,25 @@ async def test_adjustments_and_total(client, w):
                                              "adjustment_type_id": w["s"]["Disciplina: toque de queda"],
                                              "reason": "Ruido a las 2 a.m."}, headers=w["coordinator"]["headers"])
     assert undefined.status_code == 409 and "por definir" in undefined.json()["detail"]
-    proposed = await client.post(url, json={"registration_id": w["s"]["reg"], "adjustment_type_id": w["s"]["Área sucia"],
+    # Only coordination registers adjustments (owner decision 2026-09-25): a judge cannot.
+    by_judge = await client.post(url, json={"registration_id": w["s"]["reg"], "adjustment_type_id": w["s"]["Área sucia"],
                                             "reason": "Basura en el área"}, headers=w["judge"]["headers"])
-    assert proposed.status_code == 201 and proposed.json()["status"] == "PENDING"
+    assert by_judge.status_code == 403
     assert (await client.post(url, json={"registration_id": w["s"]["reg"], "kind": "PENALTY", "points": 5,
                                          "reason": "libre"}, headers=w["judge"]["headers"])).status_code == 403
     breakdown_url = f"{API}/{event_id}/registrations/{w['s']['reg']}/breakdown"
     b = (await client.get(breakdown_url, headers=w["admin"]["headers"])).json()
-    # bands 60 + final 20 + rubric 40 = 120; + bonus 50; the pending penalty does not count yet.
+    # bands 60 + final 20 + rubric 40 = 120; + bonus 50.
     assert b["evaluated_points"] == 120 and b["bonus"] == 50 and b["penalty"] == 0 and b["total"] == 170
-    assert len(b["pending_adjustments"]) == 1
+    assert b["pending_adjustments"] == []
     group = next(a for a in b["activities"] if a["kind"] == "group")
     assert group["points"] == 80 and group["state"] == "scored"
     states = {a["name"]: a["state"] for a in b["activities"] if a["kind"] != "group"}
     assert states["Señal"] == "pending" and states["Inspección"] == "to_define"
     assert b["progress"] == {"done": 3, "expected": 5, "complete": False}
-    approved = await client.post(f"{url}/{proposed.json()['id']}/approve", headers=w["coordinator"]["headers"])
-    assert approved.status_code == 200 and approved.json()["status"] == "APPROVED"
+    dirty = await client.post(url, json={"registration_id": w["s"]["reg"], "adjustment_type_id": w["s"]["Área sucia"],
+                                         "reason": "Basura en el área"}, headers=w["coordinator"]["headers"])
+    assert dirty.status_code == 201 and dirty.json()["status"] == "APPROVED"
     # No implicit floor: a big free penalty takes the total below zero.
     free = await client.post(url, json={"registration_id": w["s"]["reg"], "kind": "PENALTY", "points": 500,
                                         "reason": "Prueba sin piso"}, headers=w["admin"]["headers"])
@@ -456,15 +458,14 @@ async def test_adjustments_and_total(client, w):
     applied = await client.post(url, json={**base, "points": 7.5}, headers=w["coordinator"]["headers"])
     assert applied.status_code == 201 and applied.json()["points"] == 7.5
     assert applied.json()["status"] == "APPROVED" and applied.json()["label"] == "Otros criterios"
-    by_judge = await client.post(url, json={**base, "points": 3}, headers=w["judge"]["headers"])
-    assert by_judge.status_code == 201 and by_judge.json()["status"] == "PENDING"
+    assert (await client.post(url, json={**base, "points": 3}, headers=w["judge"]["headers"])).status_code == 403
     b = (await client.get(breakdown_url, headers=w["admin"]["headers"])).json()
-    assert b["total"] == 112.5 and len(b["pending_adjustments"]) == 1
+    assert b["total"] == 112.5 and b["pending_adjustments"] == []
     # A used type no longer changes its amount mode.
     used = await client.patch(f"{API}/{event_id}/adjustment-types/{other}", json={"amount_mode": "FIXED"},
                               headers=w["admin"]["headers"])
     assert used.status_code == 409
-    for done in (applied, by_judge):
+    for done in (applied,):
         assert (await client.post(f"{url}/{done.json()['id']}/void", json={"reason": "Prueba"},
                                   headers=w["admin"]["headers"])).status_code == 200
 

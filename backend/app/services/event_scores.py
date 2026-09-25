@@ -528,9 +528,10 @@ async def _check_limits(db: AsyncSession, event: Event, adjustment_type: EventAd
 
 async def create_adjustment(db: AsyncSession, actor: User, event: Event, roles: EventRoles,
                             payload, request: Request | None) -> tuple[EventAdjustment, str | None]:
-    """Coordination applies it approved; a judge proposes it PENDING (it does not count yet)."""
-    if not (roles.coordination or roles.judge):
-        raise _http(status.HTTP_403_FORBIDDEN, event_service.FORBIDDEN)
+    """Only coordination registers adjustments, and they count at once (owner decision
+    2026-09-25: judges do not propose them)."""
+    if not roles.coordination:
+        raise _http(status.HTTP_403_FORBIDDEN, "Sólo la coordinación registra bonificaciones y penalizaciones")
     _require_in_progress(event)
     # Serialize adjustments of the event so the limits hold under concurrency.
     await event_service.get_event(db, event.id, lock=True)
