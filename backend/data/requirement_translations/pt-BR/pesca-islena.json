@@ -1,0 +1,43 @@
+{
+ "honor_slug": "pesca-islena",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Island_Fishing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar cinco métodos nativos usados na pesca nas ilhas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar sua capacidade de fazer pelo menos um tipo de apetrecho de pesca com material nativo usado em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em seu contexto cultural, identificar os tipos de pesca de acordo com as marés e as fases da lua.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Expor e identificar com etiquetas uma coleção de iscas, iscas artificiais e anzóis tradicionalmente usados em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de uma pescaria e pegar dois peixes usando dois métodos tradicionais diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte:\n  a. Colecionar figuras de dez peixes tropicais e identificar seus nomes locais e seu hábitat.\n  b. Citar dez peixes venenosos ou perigosos de sua região.",
+   "instructions": null
+  }
+ ]
+}

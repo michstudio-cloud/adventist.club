@@ -1,0 +1,63 @@
+{
+ "honor_slug": "pesca-de-trucha",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trout_Fishing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pesca de truta",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Informações históricas: Pesquisar e apresentar um breve histórico da pesca de truta. Incluir informações sobre as origens da pesca com mosca e sua evolução ao longo do tempo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Peixamento: Explicar por que a truta é escolhida para o peixamento (repovoamento de águas). Discutir os benefícios e os desafios de soltar trutas em diferentes corpos d’água.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Introdução na Austrália: Aprender sobre a introdução das espécies de truta na Austrália. Descrever o processo e o impacto que isso teve nos ecossistemas locais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Métodos para pescar truta: Identificar e descrever pelo menos três métodos usados para pescar truta. Incluir informações sobre pesca com mosca, pesca com isca natural e pesca com isca artificial.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Licença e requisitos de segurança: Pesquisar a licença e os requisitos de segurança para a pesca de truta em sua região. Explicar por que essas normas são importantes e como cumpri-las.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista dos itens usados na pesca de truta. Descrever cada item e sua finalidade. Incluir vara e molinete, linha, anzóis, chumbadas, boias, iscas artificiais, iscas naturais, caixa de pesca, puçá e óculos de sol polarizados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Espécies de truta: Aprender a identificar pelo menos três espécies diferentes de truta comuns em sua região. Descrever suas características e como diferenciá-las de outros peixes.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Impacto ambiental: Discutir o impacto ambiental da pesca e do peixamento de trutas. Explicar a importância de práticas de pesca sustentáveis e como minimizar seu impacto no meio ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "A pesca na Bíblia: Procurar e discutir pelo menos dois versículos bíblicos que mencionem peixes ou pesca. Refletir sobre seu significado e o que eles podem nos ensinar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Trabalho de campo: Participar de uma excursão de pesca de truta. Pescar por pelo menos 2 horas em um rio, lago ou riacho da região. Registrar em seu caderno a experiência e os tipos de truta pescados.",
+   "instructions": null
+  }
+ ]
+}

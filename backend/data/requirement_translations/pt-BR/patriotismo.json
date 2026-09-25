@@ -1,0 +1,78 @@
+{
+ "honor_slug": "patriotismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Patriotism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Patriotismo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descobrir a origem do nome oficial e dos idiomas de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar quem foram os primeiros habitantes de seu país e como sua cultura influenciou a nação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é miscigenação? Descrever os principais grupos étnicos que formaram a população do país e de qual deles sua família descende.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer, cantar e explicar o significado de dois hinos oficiais de seu país (como o da Independência, o da Bandeira, o da Proclamação etc.), além do Hino Nacional.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a origem da bandeira nacional e seu significado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o sistema de defesa de seu país e como funciona o alistamento militar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar a forma de governo de seu país e como os representantes são eleitos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber os nomes dos cinco últimos presidentes de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar de um evento cívico/patriótico com a presença de autoridades do governo ou representantes do país.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber o que é um embaixador e contar uma história sobre o comportamento de um embaixador em países estrangeiros.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que podemos ser considerados embaixadores de Cristo?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Explicar a frase: “Estamos apenas de passagem por este mundo; nossa verdadeira pátria está além do rio.”",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Citar três passagens bíblicas que retratam a pátria celestial.",
+   "instructions": null
+  }
+ ]
+}

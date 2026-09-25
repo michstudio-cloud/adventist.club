@@ -1,0 +1,63 @@
+{
+ "honor_slug": "periodismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Journalism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever os elementos de um bom lide e o uso e a importância das manchetes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever uma notícia de pelo menos três parágrafos, com um bom lide, sobre algo interessante que tenha acontecido em sua igreja, escola, lar ou Clube de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os elementos essenciais para escrever uma boa história?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer a diferença entre voz passiva e voz ativa e dar três exemplos comparativos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever a uma editora pedindo as orientações para envio de histórias.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever uma história sobre um dos seguintes temas:\n  a. Como sua família aceitou Cristo pela primeira vez, seja você, seus pais, seus avós etc.\n  b. Experiências pessoais de oração respondida ou de direção divina.\n  c. Um animal de estimação interessante que você teve.\n  d. Uma experiência que você teve num acampamento de férias ou numa viagem de acampamento.\n  e. Quando Deus se tornou real para você pela primeira vez como amigo e Salvador pessoal.\n  f. A coisa mais difícil de ser cristão hoje.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Enviar uma história para uma publicação adventista do sétimo dia.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber escrever uma carta de apresentação ao editor para enviar sua história ou artigo e escrever uma carta de apresentação ao editor para acompanhar sua história ou artigo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que formação é útil para seguir a carreira de jornalismo?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Que tipos de trabalho estão disponíveis para quem se interessa por jornalismo?",
+   "instructions": null
+  }
+ ]
+}

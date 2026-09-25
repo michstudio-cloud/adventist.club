@@ -1,0 +1,88 @@
+{
+ "honor_slug": "pintura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Painting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Desenho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Criar um círculo cromático usando giz de cera ou lápis de cor. Incluir e compreender:\n  a. Cores primárias\n  b. Cores secundárias\n  c. Cores terciárias\n  d. Cores neutras\n  e. Cores quentes/frias\n  f. Tints (cores clareadas com branco)\n  g. Shades (cores escurecidas com preto)\n  h. Cores complementares",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Criar uma escala de valores de uma cor quente e de uma cor fria usando lápis de cor.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar sete (7) meios de pintura em cores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre tintas à base de água e tintas à base de óleo? Citar 2 de cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que técnica de pintura era feita com gema de ovo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir os seguintes itens e explicar como são usados:\n  a. Gesso acrílico (gesso)\n  b. Líquido de mascaramento (máscara líquida)\n  c. Aguarrás/terebintina\n  d. Paleta\n  e. Cavalete",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever para que servem os seguintes pincéis:\n  a. Redondos\n  b. Chatos\n  c. Pincel liner (traço fino)\n  d. Pincel leque\n  e. Pincel mop (trincha macia)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a melhor maneira de cuidar dos pincéis?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever e saber explicar a diferença entre:\n  a. Arte realista\n  b. Arte abstrata",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer a diferença e mostrar exemplos dos seguintes temas:\n  a. Retrato\n  b. Paisagem\n  c. Natureza-morta\n  d. Abstrato",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Desenhar e pintar, no meio de pintura em cores de sua escolha, uma natureza-morta ou um tema floral.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Pintar uma paisagem mostrando perspectiva linear.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Pintar, a partir de uma foto, o retrato de um amigo e/ou de seu animal de estimação favorito.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Memorizar Salmo 19:1. Discutir como esse texto inspira sua arte.",
+   "instructions": null
+  }
+ ]
+}
