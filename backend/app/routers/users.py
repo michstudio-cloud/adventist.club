@@ -31,6 +31,7 @@ from app.rbac import (
     outranks,
 )
 from app.schemas.auth import MFAResetRequest, RoleName
+from app.services import role_assignments
 from app.schemas.membership import as_club_ref
 from app.schemas.profile import MyProfile, ProfileUpdate
 from app.schemas.user import (
@@ -76,9 +77,13 @@ async def _get_user_or_404(db: AsyncSession, user_id: uuid.UUID) -> User:
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_my_profile(current_user: User = Depends(get_authenticated_user)):
+async def get_my_profile(
+    current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
+):
     """Like `GET /auth/me`, readable while the MFA enrolment is still pending."""
-    return UserResponse.from_model(current_user, own=True)
+    out = UserResponse.from_model(current_user, own=True)
+    out.roles = await role_assignments.roles_out(db, current_user)
+    return out
 
 
 @router.patch("/me/profile", response_model=MyProfile)

@@ -64,6 +64,7 @@ from app.services import invitations as invitation_service
 from app.services import ministries as ministry_service
 from app.services import notifications
 from app.services import mfa as mfa_service
+from app.services import role_assignments
 from app.services import verification
 from app.services.audit import record_audit
 
@@ -314,10 +315,15 @@ async def refresh(payload: RefreshRequest, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/me", response_model=UserResponse)
-async def me(current_user: User = Depends(get_authenticated_user)):
+async def me(
+    current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
+):
     """Readable even by an account that still owes its second factor: the
-    enrolment screen needs to know who is signed in."""
-    return UserResponse.from_model(current_user, own=True)
+    enrolment screen needs to know who is signed in. `roles` lists every role in
+    force (Bloque I §1.1), `role` stays the principal one."""
+    out = UserResponse.from_model(current_user, own=True)
+    out.roles = await role_assignments.roles_out(db, current_user)
+    return out
 
 
 # ----------------------------------------------------------------------------

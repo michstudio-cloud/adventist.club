@@ -40,6 +40,8 @@ from app.routers import notifications as notifications_router
 from app.routers import template_thumbnails as template_thumbnails_router
 # El campo «Club» del asistente: clubes registrados (lookup público) y el club propio.
 from app.routers import club_lookup as club_lookup_router
+# Bloque I §1: el equipo de cada organización (roles con ámbito e invitaciones nominales).
+from app.routers import org_invitations as org_invitations_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
@@ -58,6 +60,8 @@ app.include_router(honor_sheets_router.router)
 app.include_router(notifications_router.router)
 app.include_router(template_thumbnails_router.router)
 app.include_router(club_lookup_router.router)
+app.include_router(org_invitations_router.router)
+app.include_router(org_invitations_router.invitations_router)
 
 class PrototypeBatchCreate(BaseModel):
     recipient_names:list[str]=Field(min_length=1,max_length=200)
