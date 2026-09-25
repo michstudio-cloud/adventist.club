@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-jesus-star",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=373",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "A estrela de Jesus",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quem criou as estrelas e em que dia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os magos souberam que Jesus havia nascido?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar de que direção Jesus virá.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar, recortar ou colorir uma estrela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Localizar a Estrela Polar. Visitar um planetário ou observar as estrelas à noite.",
+   "instructions": null
+  }
+ ]
+}

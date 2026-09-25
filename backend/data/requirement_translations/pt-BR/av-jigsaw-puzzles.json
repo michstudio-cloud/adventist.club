@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-jigsaw-puzzles",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=71",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Quebra-cabeças",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar e recortar uma figura grande de uma revista, colá-la em uma cartolina e cortá-la em três peças. (Cortar em formas variadas.)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Participar de um jogo com o quebra-cabeça.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Comprar um quebra-cabeça grande e montá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer e colorir um desenho, colá-lo em uma cartolina e cortá-lo em peças grandes.",
+   "instructions": null
+  }
+ ]
+}
