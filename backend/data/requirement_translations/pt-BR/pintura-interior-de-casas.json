@@ -1,0 +1,68 @@
+{
+ "honor_slug": "pintura-interior-de-casas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/House_Painting,_Interior/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar e demonstrar como preparar e dar acabamento a madeiramentos novos ou antigos das seguintes maneiras:\n  a. Tingimento\n  b. Envernizamento\n  c. Pintura",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar dois métodos de pintura texturizada (pontilhado).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quando se deve usar uma pistola de pintura?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever os métodos corretos de limpeza e cuidado dos pincéis de tinta e de verniz.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar como usar massa corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar a diferença entre tintas para exteriores e para interiores.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de dez combinações de cores adequadas para a pintura interna de casas usando amostras de cores de uma loja de tintas. Por que as cores muito vivas/berrantes não são preferidas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a composição das seguintes tintas e quando usá-las:\n  a. À base de óleo\n  b. À base de água",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pintar o madeiramento de pelo menos quatro cômodos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pintar pelo menos um cômodo, mostrando habilidade em manter a tinta apenas onde ela deve ficar.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar e mostrar como guardar corretamente a tinta que não foi usada.",
+   "instructions": null
+  }
+ ]
+}

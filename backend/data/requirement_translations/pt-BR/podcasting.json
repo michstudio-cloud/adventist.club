@@ -1,0 +1,48 @@
+{
+ "honor_slug": "podcasting",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Podcasting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Podcasting",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Blog\n  b. Podcast\n  c. Vodcast\n  d. Transmissão ao vivo (livestream)\n  e. Sob demanda (on demand)\n  f. Assinante\n  g. RSS\n  h. Agregador\n  i. Estação de trabalho de áudio digital (DAW)\n  j. Normalização de áudio\n  k. MP3\n  l. WAV\n  m. Metadados\n  n. Direitos autorais",
+   "instructions": "Seção: Pré-requisito: Ter a especialidade de Internet."
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar familiaridade com o equipamento de gravação.\n  a. Microfone (características, escolha do microfone para o tipo de gravação)\n  b. Mesa de som\n  c. Interface USB para o computador\n  d. Smartphone (uso do smartphone para gravar um podcast)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar domínio no uso de 1 DAW (por exemplo: Adobe Audition, ProTools, Audacity).\n  a. Gravar uma entrevista simples com 2 pessoas (no mínimo 5 minutos)\n  b. Acrescentar música livre de direitos autorais\n  c. Fazer a mixagem final\n  d. Exportar para WAV\n  e. Comprimir para MP3",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar domínio na publicação de seu podcast.\n  a. Criar uma conta num agregador de podcasts\n  b. Publicar seu podcast\n  c. Validar o código RSS\n  d. Mostrar o podcast publicado on-line",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Compartilhar com um grupo de amigos/familiares as muitas maneiras como o podcasting pode ser usado para evangelismo e nutrição espiritual. Refletir sobre os seguintes textos bíblicos (Mateus 28:19 e 20; João 20:21; Atos 1:8; Atos 13:47; Romanos 1:16; 2 Timóteo 4:2; 1 Coríntios 9:16; 1 Pedro 3:15) e sobre como o podcasting contribui para cumprir essas instruções.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Compartilhar com um grupo seus podcasts favoritos (pelo menos 2 podcasts adventistas e 2 seculares).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ensinar outra pessoa (talvez alguém com menos familiaridade com tecnologia) a buscar temas de podcasts e a assiná-los, e registrar essa experiência num diário.\n  Extras: (não obrigatórios para a especialidade, mas recomendados por interesse pessoal)\n  a. Analisar os diferentes tipos/estilos e gêneros de podcasts\n  b. Compreender as técnicas e os princípios de redação de roteiros\n  c. Obter a especialidade de Jornalismo",
+   "instructions": null
+  }
+ ]
+}

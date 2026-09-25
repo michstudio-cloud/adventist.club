@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pintura-sobre-tela",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Textile_Painting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pintura em tecido",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer os melhores tipos de tecido para pintura e como prepará-los para pintar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber decalcar e transferir um risco para o tecido.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quanto tempo se deve esperar para a tinta secar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como centralizar os riscos no tecido.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Limpar corretamente os pincéis depois de usá-los ou, se usar tintas em bisnaga, cuidar corretamente das bisnagas e dos bicos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pintar três desenhos diferentes, usando pincéis em pelo menos dois deles, com as seguintes técnicas:\n  a. Luz (realce)\n  b. Sombreado\n  c. Traço fino",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Usando um estêncil, pintar um objeto com pelo menos duas cores.",
+   "instructions": null
+  }
+ ]
+}

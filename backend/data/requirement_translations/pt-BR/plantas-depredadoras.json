@@ -1,0 +1,63 @@
+{
+ "honor_slug": "plantas-depredadoras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Predatory_Plants/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Plantas predadoras",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Flores ou de Pântanos e lamaçais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que características fazem de uma planta uma planta predadora?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é uma planta assassina? Explicar a diferença entre plantas assassinas e predadoras. Dar o exemplo de uma espécie de planta assassina que não seja predadora.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que condições ambientais favorecem as plantas predadoras?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as duas categorias de mecanismos que as plantas predadoras usam para capturar e consumir suas presas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como é o processo de “digestão” nessas plantas e como elas obtêm os nutrientes necessários dos insetos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descobrir se há maneiras pelas quais as plantas assassinas ou predadoras podem ser prejudiciais ao ser humano e explicar como.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista das características dos seguintes tipos de plantas predadoras. Criar um caderno de imagens organizado ou uma apresentação de slides com nomes, descrições breves e imagens para ilustrar o que foi aprendido sobre cada espécie.\n  a. Armadilhas de queda\n    i. Jarro:\n      1) Simples (2 espécies)\n      2) Com capuz (3 espécies)\n      3) Balão (2 espécies)\n    ii. Copo-de-macaco (3 espécies)\n    iii. Tampa de mocassim (1 espécie)\n    iv. Urna (1 espécie)\n  b. Armadilhas adesivas (papel pega-moscas)\n    i. Pinguícula (2 espécies)\n    ii. Drósera (2 espécies)\n  c. Armadilhas de mola (2 espécies)\n  d. Armadilhas de sucção (bexiga) (2 espécies)\n  e. Armadilhas tipo covo (1 espécie)\n  f. Armadilhas combinadas (1 espécie)\n  g. Armadilhas limítrofes (1 espécie)",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Observar pessoalmente três plantas predadoras com flores na natureza, num jardim botânico ou num viveiro. Obter um exemplar e mantê-lo por no mínimo dois meses. Fazer anotações por escrito sobre o cuidado e a alimentação da planta.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "As plantas predadoras têm características que se prestam a aplicações para a vida. Encontrar uma lição para a vida e uma passagem bíblica relacionada que surjam de seu estudo das plantas predadoras. Compartilhar isso como uma meditação na igreja ou num encontro do ministério jovem.",
+   "instructions": null
+  }
+ ]
+}

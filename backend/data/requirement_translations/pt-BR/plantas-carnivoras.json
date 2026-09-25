@@ -1,0 +1,48 @@
+{
+ "honor_slug": "plantas-carnivoras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Carnivorous_Plants/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Plantas carnívoras",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que características de uma planta carnívora a diferenciam das plantas comuns?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que precauções especiais devem ser tomadas no cuidado e na conservação das plantas carnívoras?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma pesquisa e estabelecer a relação entre as flores das plantas carnívoras, o processo de polinização e os insetos de que elas se alimentam.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever as características das seguintes quatro famílias principais de plantas carnívoras, indicando suas espécies, o nome de alguns exemplos, a origem e as características que as definem:\n  a. Nepenthaceae\n  b. Sarraceniaceae\n  c. Droseraceae\n  d. Lentibulariaceae",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Um mecanismo interessante é a maneira como elas usam suas armadilhas para capturar presas. Descrever cada uma, identificando as espécies mencionadas no requisito anterior:\n  a. Armadilhas de gaiola\n  b. Armadilhas de sucção\n  c. Folhas pegajosas\n  d. Ácido\n  e. Outras formas",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como é o processo de “digestão” nessas plantas e como elas obtêm os nutrientes necessários dos insetos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades:\n  a. Ter uma coleção devidamente catalogada de três espécies diferentes (naturais), indicando para cada uma o nome popular, o nome científico, a família e outros detalhes sobre a espécie.\n  b. Montar um álbum de fotos de pelo menos 15 espécies diferentes, indicando o nome popular, o nome científico, a família e outros detalhes de cada espécie. Pode ser catalogado em formato digital (apresentação de slides) ou em papel.\n  c. Cultivar e cuidar de uma planta carnívora de qualquer espécie durante três meses e fazer um relatório indicando os cuidados diários com ela.",
+   "instructions": null
+  }
+ ]
+}
