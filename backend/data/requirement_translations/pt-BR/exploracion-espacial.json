@@ -1,0 +1,43 @@
+{
+ "honor_slug": "exploracion-espacial",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Space_Exploration/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Exploração espacial",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber e discutir quem foram estas pessoas e qual foi sua contribuição para a exploração espacial:\n  a. Robert H. Goddard\n  b. Hermann Oberth\n  c. Wernher von Braun\n  d. Galileu Galilei\n  e. Neil Armstrong\n  f. Sally K. Ride\n  g. John Glenn\n  h. Yuri Gagarin\n  i. Laika\n  j. Sam\n  k. Valentina Tereshkova\n  l. Alan Shepard",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o significado destas siglas:\n  a. NASA\n  b. VAB\n  c. EVA\n  d. STS\n  e. EMU\n  f. MMU",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever cada um destes programas espaciais:\n  a. Mercury\n  b. Gemini\n  c. Apollo\n  d. Skylab\n  e. Ônibus espacial\n  f. Apollo-Soyuz",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que foi o Sputnik?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Os astronautas da Apollo 8 estavam em órbita lunar no dia de Natal de 1968. Cada um deles leu um trecho de um livro, e suas leituras foram transmitidas para a Terra. Qual era o nome do livro?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ter a especialidade de Astronomia.",
+   "instructions": null
+  }
+ ]
+}

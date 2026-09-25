@@ -1,0 +1,83 @@
+{
+ "honor_slug": "estudio-de-los-estados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/State_Study/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Estudo dos estados",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um álbum de recortes que inclua as seguintes informações. Usar fotos, mapas ou desenhos para torná-lo atraente.*\n  (*O emblema foi desenhado para que se possa acrescentar uma estrela à bandeira para cada estado estudado para a especialidade.)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar o estado e o ano em que ele se uniu à federação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar ou encontrar uma imagem dos seguintes itens:\n  a. Flor do estado\n  b. Ave do estado\n  c. Árvore do estado\n  d. Animal do estado\n  e. Bandeira do estado",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o hino e o lema do estado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar um mapa e mostrar a capital, as principais cidades, os rios e os lagos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar os parques nacionais e três parques estaduais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar pelo menos dois recursos naturais, principais produtos, indústrias etc.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar pelo menos três lugares interessantes para visitar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar o nome do presidente da Associação Adventista do Sétimo Dia.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar a cidade onde fica a sede da Associação.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Quantos dos seguintes a Igreja Adventista do Sétimo Dia tem nesse estado?\n  a. Igrejas\n  b. Escolas\n  c. Hospitais\n  d. Membros\n  e. Desbravadores",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Esse estado tem uma faculdade ou universidade adventista? Se tiver, dar o nome e a localização.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Informar o mês e o ano em que você reuniu essas informações.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Usar folhetos de parques e lugares para visitar.",
+   "instructions": null
+  }
+ ]
+}

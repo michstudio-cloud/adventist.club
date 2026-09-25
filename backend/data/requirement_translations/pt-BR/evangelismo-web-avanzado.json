@@ -1,0 +1,58 @@
+{
+ "honor_slug": "evangelismo-web-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Web_Evangelism_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Evangelismo na web - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Evangelismo na web.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com base nos critérios aprendidos nos requisitos cinco e seis do nível básico da especialidade de Evangelismo na web, criar uma página/blog pessoal ou de seu clube. Usando essa página/blog, durante pelo menos três meses, publicar semanalmente material relacionado a pelo menos três dos seguintes temas:\n  a. Como aplicar os ensinos bíblicos na vida de um Desbravador.\n  b. Notícias de seu Clube de Desbravadores.\n  c. Artigos ou entrevistas que expliquem as vantagens de fazer parte de um Clube de Desbravadores.\n  d. Conteúdo de referência, feito por você, com tutoriais, guias, folhetos, fotografias, vídeos, artigos e testemunhos relacionados às classes e especialidades do clube, que possam ajudar outros Desbravadores.\n  e. Temas sobre o desenvolvimento social realizado por seu clube, pela ADRA ou por outros projetos, como Quebrando o Silêncio, Vida por Vidas e Missão Calebe.\n  f. As publicações devem incluir pelo menos três links para páginas oficiais da Igreja Adventista do Sétimo Dia ou páginas de voluntários com temas relacionados ao material publicado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Divulgar sua página/blog semanal usando as contas mencionadas no requisito três do nível básico da especialidade de Evangelismo na web e/ou outros métodos criativos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um gráfico com os dados de acesso semanal, com uma análise da variação do número de acessos e dos conteúdos mais acessados (páginas do site).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar pelo menos cinco páginas virtuais que ofereçam a Bíblia em várias traduções, com caixa de busca de palavras e guias de estudo. Fazer um levantamento dos diferentes recursos oferecidos por cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usando o site citado no requisito três desta especialidade, pesquisar um dos temas do requisito dois do nível básico da especialidade de Evangelismo na web, fazendo uma lista de pelo menos 15 versículos bíblicos sobre o tema escolhido. Escrever um pequeno parágrafo explicativo para cada versículo e enviar um versículo por dia durante 15 dias, com o texto explicativo, para pelo menos 50 contatos não adventistas em cada uma das contas usadas no requisito dois do nível básico da especialidade de Evangelismo na web.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a importância da internet como ferramenta para pregar às pessoas que vivem em regimes fechados, onde não há liberdade religiosa? Citar pelo menos cinco países que não têm liberdade religiosa. Discutir com o instrutor como a internet pode ajudar a cumprir a comissão de Cristo registrada em Marcos 16:15.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Publicar, em pelo menos cinco dos artigos sobre doutrinas do requisito dois desta especialidade, pelo menos um parágrafo traduzido para o idioma de um dos países citados na discussão do requisito sete desta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Durante o tempo em que trabalhar nesta especialidade, fazer uma das seguintes atividades:\n  a. Participar de um evento promovido pela Igreja Adventista do Sétimo Dia com transmissão de vídeo em tempo real pela internet, interagindo e divulgando o evento por meio das ferramentas disponíveis.\n  b. Criar um fórum na internet que inclua discussões sobre temas de evangelismo na web.\n  c. Criar um canal em qualquer site de vídeos e publicar pelo menos cinco vídeos sobre temas voltados para o estudo da Bíblia.",
+   "instructions": null
+  }
+ ]
+}
