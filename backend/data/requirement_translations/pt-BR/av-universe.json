@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-universe",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=251",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Universo",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler versículos bíblicos sobre Deus criando o universo e os céus.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar sobre como será o Céu e fazer um desenho que mostre como você imagina o Céu.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar versículos bíblicos sobre o universo, as estrelas, a lua, os planetas e/ou o sol.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual do nosso sistema solar e citar os 8 planetas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é o universo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é a Via Láctea?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar de um jogo sobre o espaço.",
+   "instructions": null
+  }
+ ]
+}

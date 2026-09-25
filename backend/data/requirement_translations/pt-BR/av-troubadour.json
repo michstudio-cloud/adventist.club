@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-troubadour",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=179",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Artes",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tocar uma música em um instrumento simples ou marcar o ritmo de uma melodia com um pandeiro, um triângulo etc.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Representar um personagem ou um animal com fantasia ou gestos para que o grupo possa reconhecê-lo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Representar uma história com um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três pessoas da Bíblia que eram músicos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar um poema sobre a natureza.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cantar duas músicas tradicionais de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Com alguns amigos, organizar 15 minutos de entretenimento para um grupo, OU contar uma história a um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Encontrar e ler Salmo 66:1-2 e explicar seu significado.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Artes», son los de Troubadour)"
+}
