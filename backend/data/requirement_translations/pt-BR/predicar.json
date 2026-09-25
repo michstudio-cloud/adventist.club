@@ -1,0 +1,63 @@
+{
+ "honor_slug": "predicar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Preach_It/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Preparação espiritual\n  a. O que é preparação espiritual intencional?\n  b. Discutir com seu instrutor o papel da preparação espiritual no evangelismo.",
+   "instructions": "Seção: Prólogo: é necessário um instrutor"
+  },
+  {
+   "position": 2,
+   "description": "Semeadura\n  a. O que é semeadura?\n  b. Citar 5 exemplos de “semeadura”\n  c. Participar de pelo menos um evento de “semeadura”",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Convite – Demonstrar e/ou explicar três maneiras de convidar alguém para uma reunião evangelística.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Compreender um orçamento\n  a. Elaborar um orçamento com o pastor ou com o líder de sua equipe evangelística\n  b. Saber com quanto dinheiro você pode contar e como ajustar seu planejamento com base no orçamento\n  c. A menos que já estejam disponíveis no local, descobrir os custos de:\n    i. Equipamentos\n    ii. Material impresso\n    iii. Despesas de correio e postagem\n    iv. Publicidade\n    v. TV\n    vi. Anúncios de rádio\n    vii. Aluguel do local",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as leis/normas sobre a realização de reuniões públicas em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecimento de equipamentos - Fazer uma lista, descrever o uso e os cuidados especiais dos equipamentos necessários numa série evangelística baseada em recursos multimídia, como os seguintes:\n  a. Projetor\n    Conhecer os cuidados adequados com o equipamento\n    Como protegê-lo da poeira (especialmente em países em desenvolvimento)\n    Demonstrar a capacidade de conectá-lo corretamente ao computador e operá-lo\n  b. Computador\n    Conhecer os cuidados adequados (proteção contra poeira etc.)\n    Demonstrar a capacidade de conectá-lo e usá-lo com o projetor\n      Entender o programa para usar a “tela dividida”\n      Conhecer os diversos adaptadores de tomada para uso em outros países\n  c. Inversor de energia",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparação do sermão - Usando sermões evangelísticos multimídia de tela dividida no computador:\n  a. Demonstrar a capacidade de editar\n  b. Usar a “folha de tradução da 1ª vez” e aprender o espaçamento\n  c. Trabalhar com um intérprete*\n  d. Ensaiar o sermão 3-5 vezes em voz alta com um intérprete*\n  e. Trabalhar com seu instrutor para receber conselhos e sugestões para melhorar sua apresentação.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Obtenção de decisões – Apelos\n  a. O que é um apelo?\n  b. Quais são alguns elementos-chave de um apelo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Apresentar um sermão de cinco minutos que você editou",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Acompanhamento da série evangelística\n  a. O que significa o termo discípulo?\n  b. Qual era o método de Cristo para fazer discípulos?\n  c. Citar cinco coisas que uma igreja pode fazer para discipular um novo crente",
+   "instructions": null
+  }
+ ]
+}

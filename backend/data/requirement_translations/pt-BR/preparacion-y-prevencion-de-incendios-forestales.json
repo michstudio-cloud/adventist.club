@@ -1,0 +1,93 @@
+{
+ "honor_slug": "preparacion-y-prevencion-de-incendios-forestales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wildfire_Preparation_and_Prevention/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Preparação e prevenção de incêndios florestais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que a conscientização e a prevenção de incêndios florestais são importantes? Como as tendências dos incêndios florestais mudaram ao longo dos anos em sua região?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os incêndios florestais afetam as pessoas, as propriedades e o meio ambiente, e como o manuseio seguro do fogo influencia o risco de incêndios?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever a diferença entre um incêndio em vegetação (wildfire) e um incêndio florestal. Citar e descrever os seguintes tipos de incêndio: subterrâneo, de superfície e de copa.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Num desenho ou numa foto aérea, identificar as seguintes partes de um incêndio:\n  a. Origem\n  b. Cabeça\n  c. Cauda\n  d. Dedo\n  e. Bolsão ou baía\n  f. Ilha\n  g. Flanco esquerdo\n  h. Flanco direito\n  i. Perímetro\n  j. Direção do vento\n  k. Área queimada (o preto)\n  l. Área não queimada (o verde)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com que velocidade um incêndio pode avançar? Como o clima e a topografia podem afetar isso? Com seu instrutor, demonstrar o “efeito chaminé” e como ele ajuda os incêndios a se propagarem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar o órgão e o número para o qual ligar para comunicar um incêndio em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar cinco maneiras pelas quais o ser humano pode causar incêndios florestais e uma forma de prevenir cada uma. Fazer uma lista das maneiras mais comuns pelas quais os incêndios podem começar naturalmente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar os seguintes termos relacionados aos incêndios florestais e por que é importante considerá-los ao estudar sua prevenção:\n  a. Ponto de combustão\n  b. Evapotranspiração\n  c. Frente de fogo\n  d. Transferência de calor\n  e. Fogo de copa isolado (torching)\n  f. Motores quentes\n  g. Focos secundários\n  h. Aceiro\n  i. Contenção\n  j. Condições meteorológicas\n  k. Triângulo / tetraedro do fogo",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir como cada um dos seguintes itens pode ajudar a prevenir incêndios florestais:\n  a. Queimas controladas\n  b. Manejo florestal\n  c. Preparo do terreno\n  d. Conscientização da comunidade",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pesquisar um incêndio florestal específico e discutir as medidas que poderiam ter sido tomadas antes para minimizar os danos ou evitar totalmente que o fogo começasse.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma lista de cinco maneiras pelas quais você pode ajudar a prevenir ou minimizar os danos dos incêndios florestais.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Descrever as medidas que podem ser tomadas para preparar uma casa ou edifício para resistir a incêndios florestais e os tipos de materiais que seriam usados numa casa nova para torná-la resistente ao fogo. Como uma casa antiga pode ser reformada para se tornar resistente a incêndios florestais?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Preparar uma lista dos itens que você deve reunir caso seja necessário evacuar por causa de um incêndio florestal.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Na planta de uma casa, desenhar maneiras de preparar o terreno para que seja resistente a incêndios florestais.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer um dos seguintes:\n  a. Planejar uma campanha de conscientização, ou participar de uma, para incentivar a prevenção de incêndios florestais na comunidade e em seus arredores.\n  b. Participar de um projeto local de preparação de uma floresta ou área natural para minimizar ou prevenir incêndios.\n  c. Conversar com um brigadista florestal ou uma autoridade e perguntar sobre o papel deles na prevenção de incêndios florestais. Perguntar qual é a coisa mais importante que você pode fazer para preveni-los.\n  d. Com um grupo, preparar três casas ou edifícios existentes para que sejam resistentes a incêndios florestais.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Descobrir uma aplicação espiritual a partir do que você aprendeu nesta especialidade e compartilhá-la numa breve meditação para um grupo.",
+   "instructions": null
+  }
+ ]
+}
