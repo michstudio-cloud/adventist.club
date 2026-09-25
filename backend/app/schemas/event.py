@@ -18,6 +18,8 @@ ActivityKind = Literal["participation", "rubric", "bands", "per_correct", "stati
 ActivityStatus = Literal["READY", "TO_DEFINE"]
 StaffRole = Literal["COORDINATOR", "JUDGE"]
 AdjustmentKind = Literal["BONUS", "PENALTY"]
+AmountMode = Literal["FIXED", "FREE"]
+AMOUNT_MODE_RULE = "FIXED usa points (o ninguno: por definir); FREE usa max_points (o ninguno)"
 
 SLUG_PATTERN = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
 KEY_PATTERN = r"^[A-Za-z0-9._:-]{8,100}$"
@@ -197,17 +199,30 @@ class ActivityOut(BaseModel):
 class AdjustmentTypeCreate(_Body):
     kind: AdjustmentKind
     label: str = Field(min_length=1, max_length=200)
+    amount_mode: AmountMode = "FIXED"
+    # FIXED: the amount (None = to define). FREE: never; use max_points (optional bound).
     points: float | None = Field(default=None, gt=0, le=100000)
+    max_points: float | None = Field(default=None, gt=0, le=100000)
     max_per_event: int | None = Field(default=None, ge=1, le=10000)
     max_per_club: int | None = Field(default=None, ge=1, le=10000)
     position: int | None = Field(default=None, ge=0, le=10000)
 
     _clean = field_validator("label", mode="before")(_squeeze)
 
+    @model_validator(mode="after")
+    def _mode(self):
+        if (self.amount_mode == "FIXED" and self.max_points is not None) or (
+            self.amount_mode == "FREE" and self.points is not None
+        ):
+            raise ValueError(AMOUNT_MODE_RULE)
+        return self
+
 
 class AdjustmentTypeUpdate(_Body):
     label: str | None = Field(default=None, min_length=1, max_length=200)
+    amount_mode: AmountMode | None = None
     points: float | None = Field(default=None, gt=0, le=100000)
+    max_points: float | None = Field(default=None, gt=0, le=100000)
     max_per_event: int | None = Field(default=None, ge=1, le=10000)
     max_per_club: int | None = Field(default=None, ge=1, le=10000)
     position: int | None = Field(default=None, ge=0, le=10000)
@@ -221,7 +236,10 @@ class AdjustmentTypeOut(BaseModel):
     event_id: str
     kind: AdjustmentKind
     label: str
+    amount_mode: AmountMode
     points: float | None
+    max_points: float | None
+    # FIXED without points: cannot be applied yet.
     to_define: bool
     max_per_event: int | None
     max_per_club: int | None
@@ -330,6 +348,8 @@ class EvaluationOut(BaseModel):
     rules_version: int
     status: Literal["CONFIRMED", "VOID"]
     judge_id: str | None
+    # JUDGE, or COORDINATION when coordination entered it (judge_id is who did).
+    captured_as: Literal["JUDGE", "COORDINATION"]
     revision: int
     idempotency_key: str
     created_at: datetime | None

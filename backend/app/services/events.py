@@ -59,6 +59,7 @@ TRANSITIONS = {
     ARCHIVED: set(),
 }
 READY, TO_DEFINE = "READY", "TO_DEFINE"
+FIXED, FREE = "FIXED", "FREE"
 
 ENTITY_EVENT = "EVENT"
 ENTITY_ACTIVITY = "EVENT_ACTIVITY"
@@ -176,7 +177,8 @@ def activity_out(activity: EventActivity) -> ActivityOut:
 def adjustment_type_out(row: EventAdjustmentType) -> AdjustmentTypeOut:
     return AdjustmentTypeOut(
         id=str(row.id), event_id=str(row.event_id), kind=row.kind, label=row.label,
-        points=_num(row.points), to_define=row.points is None, max_per_event=row.max_per_event,
+        amount_mode=row.amount_mode, points=_num(row.points), max_points=_num(row.max_points),
+        to_define=row.amount_mode == FIXED and row.points is None, max_per_event=row.max_per_event,
         max_per_club=row.max_per_club, position=row.position, active=row.active,
     )
 
@@ -427,7 +429,8 @@ async def duplicate_event(db: AsyncSession, actor: User, source: Event, payload,
         await db.flush()
     for row in await list_adjustment_types(db, source):
         db.add(EventAdjustmentType(
-            id=uuid.uuid4(), event_id=copy.id, kind=row.kind, label=row.label, points=row.points,
+            id=uuid.uuid4(), event_id=copy.id, kind=row.kind, label=row.label,
+            amount_mode=row.amount_mode, points=row.points, max_points=row.max_points,
             max_per_event=row.max_per_event, max_per_club=row.max_per_club, position=row.position,
             active=row.active,
         ))
@@ -677,13 +680,15 @@ async def create_adjustment_type(db: AsyncSession, actor: User, event: Event, pa
         position = int(await db.scalar(select(func.coalesce(func.max(EventAdjustmentType.position), 0))
                                        .where(EventAdjustmentType.event_id == event.id)) or 0) + 1
     row = EventAdjustmentType(id=uuid.uuid4(), event_id=event.id, kind=payload.kind,
-                              label=payload.label, points=payload.points,
+                              label=payload.label, amount_mode=payload.amount_mode,
+                              points=payload.points, max_points=payload.max_points,
                               max_per_event=payload.max_per_event, max_per_club=payload.max_per_club,
                               position=position, active=True)
     db.add(row)
     record_audit(db, action="EVENT_ADJ_TYPE_CREATE", entity_type=ENTITY_ADJ_TYPE, entity_id=row.id,
                  actor=actor, details=row.label,
-                 metadata={"event_id": str(event.id), "kind": row.kind, "points": payload.points},
+                 metadata={"event_id": str(event.id), "kind": row.kind, "amount_mode": row.amount_mode,
+                           "points": payload.points, "max_points": payload.max_points},
                  request=request)
     return row
 
@@ -695,8 +700,25 @@ async def update_adjustment_type(db: AsyncSession, actor: User, event: Event,
     changes = payload.model_dump(exclude_unset=True)
     if "label" in changes and changes["label"] is None:
         raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "El nombre es obligatorio")
+    mode = changes.get("amount_mode") or row.amount_mode
+    if mode != row.amount_mode:
+        used = await db.scalar(select(exists().where(
+            EventAdjustment.adjustment_type_id == row.id, EventAdjustment.voided_at.is_(None))))
+        if used:
+            raise _http(status.HTTP_409_CONFLICT,
+                        "Ese tipo ya tiene ajustes aplicados: no cambia su modo de monto")
+        # Switching mode drops the field of the other mode unless it is sent again.
+        if mode == FREE and "points" not in changes:
+            changes["points"] = None
+        if mode == FIXED and "max_points" not in changes:
+            changes["max_points"] = None
+    points = changes["points"] if "points" in changes else row.points
+    bound = changes["max_points"] if "max_points" in changes else row.max_points
+    if (mode == FIXED and bound is not None) or (mode == FREE and points is not None):
+        raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    "FIXED usa points (o ninguno: por definir); FREE usa max_points (o ninguno)")
     for key, value in changes.items():
-        if key in ("active", "position") and value is None:
+        if key in ("active", "position", "amount_mode") and value is None:
             continue
         setattr(row, key, value)
     row.updated_at = utcnow()

@@ -166,11 +166,30 @@ async def test_build_activities_and_rules(client, w):
     # Adjustment types, one «por definir».
     for body in ({"kind": "BONUS", "label": "Ganador final", "points": 50, "max_per_event": 1},
                  {"kind": "PENALTY", "label": "Área sucia", "points": 50, "max_per_club": 1},
-                 {"kind": "PENALTY", "label": "Disciplina: toque de queda"}):
+                 {"kind": "PENALTY", "label": "Disciplina: toque de queda"},
+                 {"kind": "PENALTY", "label": "Otros criterios", "amount_mode": "FREE", "max_points": 20}):
         response = await client.post(f"{API}/{event_id}/adjustment-types", json=body, headers=h)
         assert response.status_code == 201, response.text
         w["s"][body["label"]] = response.json()["id"]
-    assert response.json()["to_define"] is True
+    free = response.json()
+    assert free["amount_mode"] == "FREE" and free["max_points"] == 20 and free["to_define"] is False
+    types = {t["label"]: t for t in (await client.get(f"{API}/{event_id}/adjustment-types", headers=h)).json()}
+    assert types["Disciplina: toque de queda"]["to_define"] is True
+    assert types["Área sucia"]["amount_mode"] == "FIXED" and types["Área sucia"]["to_define"] is False
+    # A FIXED type carries no bound and a FREE type no fixed amount.
+    for bad in ({"kind": "PENALTY", "label": "X", "amount_mode": "FREE", "points": 5},
+                {"kind": "PENALTY", "label": "X", "amount_mode": "FIXED", "max_points": 5}):
+        assert (await client.post(f"{API}/{event_id}/adjustment-types", json=bad, headers=h)).status_code == 422
+    # Mode is editable while unused: FIXED -> FREE -> FIXED with the amount defined.
+    scratch = (await client.post(f"{API}/{event_id}/adjustment-types",
+                                 json={"kind": "BONUS", "label": "Temporal", "points": 5}, headers=h)).json()
+    url = f"{API}/{event_id}/adjustment-types/{scratch['id']}"
+    to_free = await client.patch(url, json={"amount_mode": "FREE", "max_points": 10}, headers=h)
+    assert to_free.status_code == 200 and to_free.json()["points"] is None and to_free.json()["max_points"] == 10
+    assert (await client.patch(url, json={"points": 3}, headers=h)).status_code == 422
+    back = await client.patch(url, json={"amount_mode": "FIXED", "points": 7}, headers=h)
+    assert back.status_code == 200 and back.json()["points"] == 7 and back.json()["max_points"] is None
+    assert (await client.patch(url, json={"active": False}, headers=h)).status_code == 200
 
 
 # ----------------------------------------------------------------------------
@@ -291,10 +310,6 @@ async def test_capture_gates(client, w):
     # Not assigned to this activity.
     response = await client.post(url, json=_capture(w, "participation", {"points": 10}),
                                  headers=w["judge"]["headers"])
-    assert response.status_code == 403
-    # Coordination does not capture (only judges).
-    response = await client.post(url, json=_capture(w, "rubric", {"criteria": {"voz": 1, "tiempo": 1}}),
-                                 headers=w["admin"]["headers"])
     assert response.status_code == 403
     # TO_DEFINE blocks its own activity only.
     response = await client.post(url, json=_capture(w, "to_define", {"criteria": {"carpas": 1}}),
@@ -432,6 +447,26 @@ async def test_adjustments_and_total(client, w):
                               headers=w["admin"]["headers"])).status_code == 200
     b = (await client.get(breakdown_url, headers=w["admin"]["headers"])).json()
     assert b["total"] == 120 and b["honor"]["key"] == "terceros"
+    # FREE type: the amount comes with each adjustment, within the type's bound.
+    other = w["s"]["Otros criterios"]
+    base = {"registration_id": w["s"]["reg"], "adjustment_type_id": other, "reason": "Pleito en fila"}
+    assert (await client.post(url, json=base, headers=w["coordinator"]["headers"])).status_code == 422
+    over = await client.post(url, json={**base, "points": 25}, headers=w["coordinator"]["headers"])
+    assert over.status_code == 422 and "máximo" in over.json()["detail"]
+    applied = await client.post(url, json={**base, "points": 7.5}, headers=w["coordinator"]["headers"])
+    assert applied.status_code == 201 and applied.json()["points"] == 7.5
+    assert applied.json()["status"] == "APPROVED" and applied.json()["label"] == "Otros criterios"
+    by_judge = await client.post(url, json={**base, "points": 3}, headers=w["judge"]["headers"])
+    assert by_judge.status_code == 201 and by_judge.json()["status"] == "PENDING"
+    b = (await client.get(breakdown_url, headers=w["admin"]["headers"])).json()
+    assert b["total"] == 112.5 and len(b["pending_adjustments"]) == 1
+    # A used type no longer changes its amount mode.
+    used = await client.patch(f"{API}/{event_id}/adjustment-types/{other}", json={"amount_mode": "FIXED"},
+                              headers=w["admin"]["headers"])
+    assert used.status_code == 409
+    for done in (applied, by_judge):
+        assert (await client.post(f"{url}/{done.json()['id']}/void", json={"reason": "Prueba"},
+                                  headers=w["admin"]["headers"])).status_code == 200
 
 
 async def test_director_sees_only_their_club(client, w):
@@ -460,6 +495,37 @@ async def test_director_sees_only_their_club(client, w):
     standings = (await client.get(f"{API}/{event_id}/standings", headers=w["coordinator"]["headers"])).json()
     assert [row["registration_id"] for row in standings["rows"]] == [w["s"]["reg"], w["s"]["reg2"]]
     assert standings["rows"][0]["total"] == 120 and standings["rows"][1]["total"] == 90
+
+
+async def test_coordination_may_enter_the_first_evaluation(client, w):
+    """Owner decision: when a judge is missing, coordination (COORDINATOR staff or an event admin)
+    enters the first evaluation, with the same gates, validation and idempotency, recorded."""
+    url = f"{API}/{w['s']['event']}/evaluations"
+    body = _capture(w, "participation", {"points": 10}, key=f"{RUN}-coord-1")
+    assert (await client.post(url, json={**body, "inputs": {"points": 151}},
+                              headers=w["coordinator"]["headers"])).status_code == 422
+    first = await client.post(url, json=body, headers=w["coordinator"]["headers"])
+    assert first.status_code == 201, first.text
+    assert first.json()["captured_as"] == "COORDINATION" and first.json()["judge_id"] == w["coordinator"]["id"]
+    retry = await client.post(url, json=body, headers=w["coordinator"]["headers"])
+    assert retry.status_code == 200 and retry.json()["id"] == first.json()["id"]
+    audit = await fetch_one("SELECT user_id, metadata_json FROM audit_log WHERE action = 'EVALUATION_CREATE'"
+                            " AND entity_id = :id", id=first.json()["id"])
+    assert str(audit["user_id"]) == w["coordinator"]["id"]
+    assert audit["metadata_json"]["captured_as"] == "COORDINATION"
+    # The platform admin of the event too; TO_DEFINE still blocks coordination.
+    blocked = await client.post(url, json=_capture(w, "to_define", {"criteria": {"carpas": 1}}),
+                                headers=w["admin"]["headers"])
+    assert blocked.status_code == 409 and "por definir" in blocked.json()["detail"]
+    judged = (await client.get(f"{url}?activity_id={w['s']['rubric']}", headers=w["admin"]["headers"])).json()
+    assert {e["captured_as"] for e in judged} == {"JUDGE"}
+    # Neither a director nor a stranger captures.
+    for who in ("director", "stranger"):
+        assert (await client.post(url, json=_capture(w, "participation", {"points": 1}, reg="reg2"),
+                                  headers=w[who]["headers"])).status_code == 403
+    b = (await client.get(f"{API}/{w['s']['event']}/registrations/{w['s']['reg']}/breakdown",
+                          headers=w["admin"]["headers"])).json()
+    assert b["total"] == 130
 
 
 async def test_closed_event_blocks_everything(client, w):
@@ -548,7 +614,10 @@ async def test_duplicate_copies_rules_only(client, w):
     assert {names[a["parent_id"]] for a in copied if a["parent_id"]} == {"Conexión"}
     assert not {a["id"] for a in copied} & {a["id"] for a in source}
     types = (await client.get(f"{API}/{new['id']}/adjustment-types", headers=w["admin"]["headers"])).json()
-    assert [t["label"] for t in types] == ["Ganador final", "Área sucia", "Disciplina: toque de queda"]
+    assert [(t["label"], t["amount_mode"], t["points"], t["max_points"], t["active"]) for t in types] == [
+        ("Ganador final", "FIXED", 50, None, True), ("Área sucia", "FIXED", 50, None, True),
+        ("Disciplina: toque de queda", "FIXED", None, None, True),
+        ("Otros criterios", "FREE", None, 20, True), ("Temporal", "FIXED", 7, None, False)]
     counts = await fetch_one(
         "SELECT (SELECT count(*) FROM event_registrations WHERE event_id = :id) AS regs,"
         " (SELECT count(*) FROM event_staff WHERE event_id = :id) AS staff,"
@@ -611,11 +680,15 @@ async def test_seed_template_universo(w):
     assert [c.get("deduction_step") for c in esencia] == [2, 2, 2, 2, None]
     mision = next(r for r in rows if r["name"] == "Misión Galáctica")["config"]["stations"]
     assert mision[-1] == {"key": "centro_mando", "label": "Centro de Mando (pin)", "points": 0}
-    types = await fetch_all("SELECT kind, label, points, max_per_event, max_per_club FROM event_adjustment_types"
-                            " WHERE event_id = :id ORDER BY position", id=event_id)
+    types = await fetch_all("SELECT kind, label, amount_mode, points, max_points, max_per_event, max_per_club"
+                            " FROM event_adjustment_types WHERE event_id = :id ORDER BY position", id=event_id)
     assert (types[0]["kind"], types[0]["points"], types[0]["max_per_event"]) == ("BONUS", 50, 1)
     assert (types[1]["kind"], types[1]["points"], types[1]["max_per_club"]) == ("PENALTY", 50, 1)
     assert len(types) == 10 and all(t["points"] is None for t in types[2:])
+    assert [t["amount_mode"] for t in types[:2]] == ["FIXED", "FIXED"]
+    modes = {t["label"]: t["amount_mode"] for t in types[2:]}
+    assert modes.pop("Disciplina: Otros criterios que determinen los jueces") == "FREE"
+    assert set(modes.values()) == {"FIXED"} and len(modes) == 7
     # The seeded template is a normal event: the association admin sees and edits it.
     async with SessionLocal() as db:
         from app.models import Event, User

@@ -134,11 +134,17 @@ DISCIPLINE = [
     "Otros criterios que determinen los jueces",
 ]
 
-# (kind, etiqueta, puntos (None = por definir), máx. por evento, máx. por club)
+# Decisión del propietario (2026-09-24): el modo de monto se elige por tipo. FIXED = monto del
+# tipo aplicado tal cual (None = por definir, bloquea aplicarlo); FREE = monto por ajuste.
+# «Otros criterios que determinen los jueces» es FREE; las demás faltas, FIXED por definir.
+FREE_DISCIPLINE = {"Otros criterios que determinen los jueces"}
+
+# (kind, etiqueta, modo, puntos, máx. puntos (FREE), máx. por evento, máx. por club)
 ADJUSTMENT_TYPES = [
-    ("BONUS", "Ganador de la final de Conexión con Dios", 50, 1, None),
-    ("PENALTY", "Área de acampar sucia al retirarse", 50, None, 1),
-] + [("PENALTY", f"Disciplina: {label}", None, None, None) for label in DISCIPLINE]
+    ("BONUS", "Ganador de la final de Conexión con Dios", "FIXED", 50, None, 1, None),
+    ("PENALTY", "Área de acampar sucia al retirarse", "FIXED", 50, None, None, 1),
+] + [("PENALTY", f"Disciplina: {label}", "FREE" if label in FREE_DISCIPLINE else "FIXED",
+      None, None, None, None) for label in DISCIPLINE]
 
 
 class SeedError(Exception):
@@ -169,6 +175,9 @@ def build() -> dict:
     for row in activities:
         if row["kind"] == "group" and children.get(row["key"]) != row["max_points"]:
             raise SeedError(f"{row['name']}: las rondas suman {children.get(row['key'])}")
+    for kind, label, mode, points, bound, _, _ in ADJUSTMENT_TYPES:
+        if (mode == "FIXED" and bound is not None) or (mode == "FREE" and points is not None):
+            raise SeedError(f"{label}: FIXED usa points; FREE usa max_points")
     if base != BASE_TOTAL:
         raise SeedError(f"La suma base es {base}, no {BASE_TOTAL}")
     return {"event": {**EVENT, "honor_bands": scoring.validate_honor_bands(EVENT["honor_bands"])},
@@ -225,11 +234,14 @@ def run(conn, plan: dict, *, association: str, operator: str | None = None) -> d
              positions[row["parent"]], row["name"], row["description"], row["kind"],
              row["max_points"], Jsonb(row["config"]), row["status"]),
         )
-    for position, (kind, label, points, per_event, per_club) in enumerate(plan["adjustment_types"], 1):
+    for position, (kind, label, mode, points, bound, per_event, per_club) in enumerate(
+        plan["adjustment_types"], 1
+    ):
         cur.execute(
-            "INSERT INTO event_adjustment_types (id, event_id, kind, label, points, max_per_event,"
-            " max_per_club, position) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-            (uuid.uuid4(), event_id, kind, label, points, per_event, per_club, position),
+            "INSERT INTO event_adjustment_types (id, event_id, kind, label, amount_mode, points,"
+            " max_points, max_per_event, max_per_club, position)"
+            " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (uuid.uuid4(), event_id, kind, label, mode, points, bound, per_event, per_club, position),
         )
     cur.execute(
         "INSERT INTO audit_log (id, action, entity_type, entity_id, details, metadata_json)"

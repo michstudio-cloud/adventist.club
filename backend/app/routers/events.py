@@ -136,7 +136,7 @@ async def my_view(event_id: uuid.UUID, current_user: User = Depends(get_current_
                 "activities": [{"id": str(a.id), "name": a.name} for a in activities
                                if a.status == event_service.TO_DEFINE],
                 "adjustment_types": [{"id": str(t.id), "label": t.label} for t in types
-                                     if t.points is None and t.active],
+                                     if t.amount_mode == event_service.FIXED and t.points is None and t.active],
             },
         }
     if roles.judge:
@@ -415,10 +415,11 @@ async def list_evaluations(event_id: uuid.UUID, activity_id: uuid.UUID | None = 
 @router.post("/{event_id}/evaluations", response_model=EvaluationOut, status_code=status.HTTP_201_CREATED)
 async def capture(event_id: uuid.UUID, payload: EvaluationCreate, request: Request, response: Response,
                   current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    """201 the first time; 200 with the very same evaluation when retried with its key."""
+    """201 the first time; 200 with the very same evaluation when retried with its key.
+    The assigned judge captures; coordination may too (a missing judge), recorded as such."""
     event = await event_service.get_event(db, event_id)
     roles = await event_service.roles_for(db, current_user, event)
-    if not roles.judge:
+    if not (roles.judge or roles.coordination):
         raise HTTPException(status.HTTP_403_FORBIDDEN, scores.NOT_ASSIGNED)
     row, created = await scores.capture(db, current_user, event, roles, payload, request)
     await db.commit()

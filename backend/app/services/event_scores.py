@@ -241,8 +241,8 @@ def evaluation_out(row: Evaluation, *, created: bool | None = None) -> Evaluatio
         id=str(row.id), registration_id=str(row.registration_id), activity_id=str(row.activity_id),
         inputs=row.inputs or {}, points=float(row.points), breakdown=row.breakdown or {},
         rules_version=row.rules_version, status=row.status,
-        judge_id=str(row.judge_id) if row.judge_id else None, revision=row.revision,
-        idempotency_key=row.idempotency_key, created_at=row.created_at, updated_at=row.updated_at,
+        judge_id=str(row.judge_id) if row.judge_id else None, captured_as=row.captured_as,
+        revision=row.revision, idempotency_key=row.idempotency_key, created_at=row.created_at, updated_at=row.updated_at,
         created=created,
     )
 
@@ -313,7 +313,13 @@ async def capture(db: AsyncSession, actor: User, event: Event, roles: EventRoles
         return _replay(existing, actor, payload), False
     registration = await get_registration(db, event, payload.registration_id)
     activity = await event_service.get_activity(db, event, payload.activity_id)
-    if not roles.judges(activity.id, activity.parent_id):
+    # The assigned judge; or coordination (COORDINATOR staff, event admins) when a judge is
+    # missing — same gates, same validation, same idempotency; `captured_as` says which.
+    if roles.judges(activity.id, activity.parent_id):
+        captured_as = "JUDGE"
+    elif roles.coordination:
+        captured_as = "COORDINATION"
+    else:
         raise _http(status.HTTP_403_FORBIDDEN, NOT_ASSIGNED)
     _capture_gates(event, registration, activity)
     if payload.rules_version is not None and payload.rules_version != event.rules_version:
@@ -328,7 +334,7 @@ async def capture(db: AsyncSession, actor: User, event: Event, roles: EventRoles
         id=uuid.uuid4(), registration_id=registration.id, activity_id=activity.id,
         inputs=payload.inputs, points=result.points, breakdown=result.breakdown,
         rules_version=event.rules_version, status=CONFIRMED, judge_id=actor.id,
-        idempotency_key=payload.idempotency_key, revision=1,
+        captured_as=captured_as, idempotency_key=payload.idempotency_key, revision=1,
     )
     try:
         async with db.begin_nested():
@@ -344,6 +350,7 @@ async def capture(db: AsyncSession, actor: User, event: Event, roles: EventRoles
                  actor=actor, metadata={"event_id": str(event.id),
                                         "registration_id": str(registration.id),
                                         "activity_id": str(activity.id), "points": float(row.points),
+                                        "captured_as": captured_as,
                                         "rules_version": row.rules_version}, request=request)
     return row, True
 
@@ -523,14 +530,26 @@ async def create_adjustment(db: AsyncSession, actor: User, event: Event, roles: 
             raise _http(status.HTTP_409_CONFLICT, "Ese tipo de ajuste está desactivado")
         if payload.kind is not None and payload.kind != adjustment_type.kind:
             raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "kind no coincide con el tipo de ajuste")
-        if adjustment_type.points is None:
-            raise _http(status.HTTP_409_CONFLICT,
-                        f"El monto de «{adjustment_type.label}» está por definir: no se puede aplicar todavía")
-        if payload.points is not None and Decimal(str(payload.points)) != adjustment_type.points:
-            raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY,
-                        "El monto lo fija el tipo de ajuste: no lo envíes o envía el mismo")
+        if adjustment_type.amount_mode == event_service.FREE:
+            # FREE: the amount comes with each adjustment, within the type's bound if any.
+            if payload.points is None:
+                raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            f"«{adjustment_type.label}» se aplica con un monto: envía points")
+            points = scoring.to_points(payload.points, "points")
+            if adjustment_type.max_points is not None and points > adjustment_type.max_points:
+                raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            f"El máximo de «{adjustment_type.label}» es "
+                            f"{scoring.as_number(adjustment_type.max_points)}")
+        else:
+            if adjustment_type.points is None:
+                raise _http(status.HTTP_409_CONFLICT,
+                            f"El monto de «{adjustment_type.label}» está por definir: no se puede aplicar todavía")
+            if payload.points is not None and Decimal(str(payload.points)) != adjustment_type.points:
+                raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            "El monto lo fija el tipo de ajuste: no lo envíes o envía el mismo")
+            points = adjustment_type.points
         await _check_limits(db, event, adjustment_type, registration)
-        kind, points, label = adjustment_type.kind, adjustment_type.points, adjustment_type.label
+        kind, label = adjustment_type.kind, adjustment_type.label
     else:
         if not roles.coordination:
             raise _http(status.HTTP_403_FORBIDDEN, "Un ajuste sin tipo sólo lo aplica la coordinación")

@@ -78,8 +78,11 @@ CREATE TABLE IF NOT EXISTS event_adjustment_types (
   event_id uuid NOT NULL REFERENCES events(id) ON DELETE CASCADE,
   kind varchar(8) NOT NULL CHECK (kind IN ('BONUS', 'PENALTY')),
   label varchar(200) NOT NULL,
-  -- NULL = monto por definir: bloquea aplicar ajustes de este tipo hasta que se defina.
+  -- FIXED: el monto es `points` y se aplica tal cual (NULL = por definir: bloquea aplicarlo).
+  -- FREE: el monto se captura en cada ajuste, opcionalmente acotado por `max_points`.
+  amount_mode varchar(5) NOT NULL DEFAULT 'FIXED' CHECK (amount_mode IN ('FIXED', 'FREE')),
   points numeric(8,2) CHECK (points IS NULL OR points > 0),
+  max_points numeric(8,2) CHECK (max_points IS NULL OR max_points > 0),
   max_per_event integer CHECK (max_per_event IS NULL OR max_per_event >= 1),
   max_per_club integer CHECK (max_per_club IS NULL OR max_per_club >= 1),
   position integer NOT NULL DEFAULT 0,
@@ -87,6 +90,19 @@ CREATE TABLE IF NOT EXISTS event_adjustment_types (
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
+-- Bases donde 025 ya se aplicó antes de existir el modo de monto (sólo bases de prueba).
+ALTER TABLE event_adjustment_types
+  ADD COLUMN IF NOT EXISTS amount_mode varchar(5) NOT NULL DEFAULT 'FIXED'
+    CHECK (amount_mode IN ('FIXED', 'FREE')),
+  ADD COLUMN IF NOT EXISTS max_points numeric(8,2) CHECK (max_points IS NULL OR max_points > 0);
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'event_adjustment_types_mode_ck') THEN
+    ALTER TABLE event_adjustment_types ADD CONSTRAINT event_adjustment_types_mode_ck CHECK (
+      (amount_mode = 'FIXED' AND max_points IS NULL) OR (amount_mode = 'FREE' AND points IS NULL));
+  END IF;
+END;
+$$;
 CREATE INDEX IF NOT EXISTS event_adjustment_types_event_idx ON event_adjustment_types (event_id, position);
 
 CREATE TABLE IF NOT EXISTS event_staff (
@@ -134,13 +150,18 @@ CREATE TABLE IF NOT EXISTS evaluations (
   breakdown jsonb NOT NULL DEFAULT '{}'::jsonb,
   rules_version integer NOT NULL,
   status varchar(10) NOT NULL DEFAULT 'CONFIRMED' CHECK (status IN ('CONFIRMED', 'VOID')),
+  -- Quién capturó (juez o coordinación, cuando falta el juez) y con qué papel.
   judge_id uuid REFERENCES users(id) ON DELETE SET NULL,
+  captured_as varchar(12) NOT NULL DEFAULT 'JUDGE' CHECK (captured_as IN ('JUDGE', 'COORDINATION')),
   -- Reintentar la misma petición devuelve la misma evaluación; nunca suma dos veces.
   idempotency_key varchar(100) NOT NULL UNIQUE,
   revision integer NOT NULL DEFAULT 1 CHECK (revision >= 1),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
+ALTER TABLE evaluations
+  ADD COLUMN IF NOT EXISTS captured_as varchar(12) NOT NULL DEFAULT 'JUDGE'
+    CHECK (captured_as IN ('JUDGE', 'COORDINATION'));
 -- Una vigente por (registro, actividad).
 CREATE UNIQUE INDEX IF NOT EXISTS evaluations_current_uq
   ON evaluations (registration_id, activity_id) WHERE status = 'CONFIRMED';
