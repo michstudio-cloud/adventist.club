@@ -1,0 +1,83 @@
+{
+ "honor_slug": "glaciares",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Glaciers/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Geleiras",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma geleira? Por que o estudo das geleiras é importante e como as geleiras são estudadas hoje?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Criar um jogo (como jogo da memória, jogo de tabuleiro, perguntas e respostas etc.) que explore e defina os seguintes termos relacionados às geleiras:\n  a. Fenda (crevasse)\n  b. Firn (neve granular)\n  c. Depósito glacial (drift)\n  d. Bloco errático\n  e. Lago glacial\n  f. Cascata de gelo\n  g. Lago kettle (marmita glacial)\n  h. Névé\n  i. Lagos em rosário (paternoster)\n  j. Arranque glacial (plucking)\n  k. Serac\n  l. Corrente subglacial\n  m. Tarn (lago de circo)\n  n. Término (frente da geleira)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como as geleiras se formam? Onde podem ser encontradas? Em um mapa, destacar os lugares onde se encontram geleiras hoje.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar os dois principais tipos de geleiras e dois subtipos de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em um diagrama de uma geleira, identificar as seguintes partes e explicar como atuam em conjunto para produzir o movimento glacial:\n  a. Zona de acumulação\n  b. Zona de ablação\n  c. Linha de equilíbrio",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como uma geleira avança e recua.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer a diferença entre os vales formados por rios e riachos e os vales formados por geleiras.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever as duas principais maneiras pelas quais as geleiras podem se mover.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar, fotografar, modelar ou descrever as seguintes formas de relevo criadas pelas geleiras:\n  a. Aresta (arête)\n  b. Circo\n  c. Colo\n  d. Drumlin\n  e. Esker\n  f. Fiorde\n  g. Horn (pico piramidal)\n  h. Kame\n  i. Nunatak\n  j. Leque de outwash (planície de lavagem)\n  k. Rocha aborregada (roche moutonnée)\n  l. Estria glacial\n  m. Linha de trim (trimline)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é uma morena? Citar e descrever três tipos de morenas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Com sua turma, conversar sobre segurança em cima ou nas proximidades de geleiras.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Evidências de geleiras que já desapareceram ainda podem ser vistas no mundo todo. Com sua turma, conversar, a partir de uma perspectiva bíblica, sobre como elas podem ter se formado.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quando algo fica preso em uma geleira, muitas vezes é preservado como uma cápsula do tempo por décadas ou até centenas de anos, oferecendo ótimas oportunidades de estudar o passado. Apresentar de forma criativa ao seu grupo uma dessas descobertas.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer duas das seguintes atividades:\n  a. Visitar uma geleira ou um lugar onde houve glaciação e conversar com seu grupo ou escrever um relatório de 200 palavras sobre o que você viu. Incluir as formas de relevo que observou.\n  b. Assistir a um vídeo sobre geleiras e conversar com seu grupo ou escrever um relatório de 200 palavras sobre o que você viu.\n  c. Desenhar ou pintar algo que você gostou de aprender ao estudar as geleiras.\n  d. Conversar com seu grupo, escrever ou fazer um vídeo curto sobre um estudo real de geleiras ou um projeto de conservação.",
+   "instructions": null
+  }
+ ]
+}

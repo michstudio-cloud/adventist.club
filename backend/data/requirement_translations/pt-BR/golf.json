@@ -1,0 +1,63 @@
+{
+ "honor_slug": "golf",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Golf/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o objetivo do jogo de golfe e conversar sobre as origens do jogo moderno de rodadas e buracos.",
+   "instructions": "Seção: Observação: é necessário um instrutor"
+  },
+  {
+   "position": 2,
+   "description": "Explicar o sistema de pontuação do golfe.\n  a. Par\n  b. Ace\n  c. Albatroz ou Double Eagle\n  d. Eagle\n  e. Birdie\n  f. Bogey, double bogey, triple bogey",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o principal equipamento necessário para uma partida de golfe e o número máximo de tacos permitidos na bolsa:\n  a. Bolas: explicar a composição de uma bola de golfe moderna e dizer por que foram acrescentadas covinhas à bola\n  b. Madeiras: explicar o sistema de numeração e em que situações você usaria uma madeira\n  c. Ferros: explicar o sistema de numeração e por que existem tantos ferros\n  d. Tacos de recuperação (rescue): o que são e quando você os usaria\n  e. Híbridos: para quem são mais indicados e com que finalidade\n  f. Wedges: quais são os usos dos wedges de finalidade especial\n  g. Putter: como e quando é usado\n  h. Tees\n  i. Bolsa\n  j. Sapatos, camisa, boné/viseira",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Com o uso de um diagrama, demonstrar que você compreende o campo de golfe explicando um campo típico.\n  a. Área de saída (tee box)\n  b. Fairway\n  c. Rough\n  d. Obstáculos (água, naturais)\n  e. Bunkers (de fairway, de green, de areia natural)\n  f. Green\n  g. Copo (buraco)\n  h. Bandeira (pino)\n  i. Fora de limites",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar que você compreende o swing correto demonstrando o seguinte:\n  a. Empunhadura correta ao se posicionar diante da bola\n  b. Postura correta ao se posicionar diante da bola\n  c. Meio swing\n  d. Swing completo",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler um artigo sobre como fazer corretamente o swing com um taco de golfe e anotar um \"pensamento de swing\" que ajude você a acertar melhor a bola e a mandá-la mais reta.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte:\n  a. Fazer putts em um green (putts de 5 pés (1,5 m) e de 10 pés (3 m), tacadas em aclive e em declive)\n  b. Bater um balde médio de bolas (50-75) em um driving range. Você deve bater pelo menos 25 bolas com os ferros a partir do tapete ou do chão e bater com as madeiras a partir do tee (se as madeiras fizerem parte do seu equipamento).\n  c. Jogar pelo menos um percurso de 9 buracos e anotar a pontuação de cada buraco.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conversar sobre os Nove Valores Fundamentais estabelecidos pelo The First Tee (um programa de golfe juvenil) e sobre como esses valores positivos ligados ao golfe se parecem com itens do Voto e da Lei do Desbravador.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar o órgão que rege o golfe em seu país e fazer uma lista do seguinte:\n  a. As regras básicas do golfe que regem as competições em seu país\n  b. As ligas profissionais de seu país, femininas e masculinas\n  c. A associação amadora da qual você poderia fazer parte, se quisesse",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de maneiras pelas quais o golfe pode ser usado como ferramenta evangelística.",
+   "instructions": null
+  }
+ ]
+}

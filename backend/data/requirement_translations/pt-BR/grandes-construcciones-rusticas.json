@@ -1,0 +1,78 @@
+{
+ "honor_slug": "grandes-construcciones-rusticas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Large_Rustic_Constructions/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Grandes construções rústicas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são os melhores tipos de madeira e/ou bambu para construir grandes estruturas rústicas? Descrever suas características físicas e sua resistência.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer pelo menos três tipos de tratamento preventivo que podem ser aplicados à madeira para prolongar sua vida útil ao ar livre.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que a madeira e o bambu devem estar o mais secos possível para esse tipo de construção.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as normas locais que regulam a construção de grandes estruturas rústicas e as normas de segurança que devem ser observadas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o que é uma estrutura fixa ou enterrada e uma estrutura autoportante, dizer que porcentagem da estrutura deve ficar enterrada em relação à sua altura e que medidas de segurança adicionais são necessárias para uma estrutura autoportante.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar como decompor uma força e qual é a utilidade desse conhecimento ao projetar uma grande estrutura.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar habilidade no uso das ferramentas necessárias para construir grandes estruturas rústicas, como facão, machadinha, faca, serra de arco, esmerilhadeira, plaina elétrica e manual, formões, macetes ou marretas, chaves combinadas, chaves de grifo e furadeira elétrica com brocas para madeira de diferentes diâmetros.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como se deve obter uma linha vertical perfeita em uma estrutura de pelo menos quatro metros, enterrada ou não?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar habilidade para fazer um encaixe e amarrar a interseção de duas peças de madeira com diâmetro maior que 10 cm em ângulos de 90° e 45°.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar como fazer conexões com ferragens, como barras roscadas, pregos, parafusos e arames. Explicar por que, em alguns casos, esses elementos devem ser usados em grandes estruturas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Saber desenhar (à mão ou com programas de computador) uma planta em escala, com vistas frontal, superior e lateral, de um projeto de grande porte, detalhando todas as suas características e incluindo todas as medidas e especificações necessárias para sua execução. (Este requisito deve ser cumprido para pelo menos dois dos projetos pedidos no requisito 13.)",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Escolher um dos projetos que você vai realizar no requisito seguinte e fazer antes uma maquete realista em uma escala entre 1:20 e 1:50. A maquete deve ser feita com o máximo de detalhes, procurando ficar o mais próxima possível da realidade, incluindo decoração com bandeiras, iluminação e placas de identificação.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Realizar pelo menos três dos seguintes projetos. Em todos os casos, deve haver decoração adequada com elementos do clube, iluminação, colocação correta das bandeiras e dos símbolos pátrios e uma placa de identificação do clube/campo/União:\n  a. Uma torre de pelo menos 4 metros de altura, sem contar a altura dos mastros, com área de pelo menos 2 x 2 metros, para o acampamento do seu clube.\n  b. Um portal de entrada para o seu Clube de Desbravadores em um evento da Associação ou Missão, com pelo menos 4,5 metros de altura, sem contar a altura dos mastros, e com área de pelo menos 2 x 3 metros.\n  c. Um portal, torre ou mastro para hastear bandeiras em um evento da Associação/Missão, com pelo menos 5 metros de altura, sem contar a altura dos mastros, e com área de pelo menos 9 m².\n  d. Um portal, torre ou mastro para a sua Associação/Missão em um evento da União, com pelo menos 5,5 metros de altura, sem contar a altura dos mastros, e com área de pelo menos 10 m².\n  e. Estrutura de grande porte para a sua União em um evento da Divisão, com pelo menos 6 metros de altura, sem contar a altura dos mastros, e com pelo menos 12 m².",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "habilidad-matematica-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Math_Skills_II/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Habilidades matemáticas II",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as quatro operações básicas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar e apresentar a história da raiz quadrada e resolver dois exemplos práticos de extração de raiz.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar e resolver dois exemplos simples de potenciação com números inteiros, com expoentes positivos e negativos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar ou recortar de revistas ou jornais três exemplos práticos em que usamos números inteiros negativos e positivos no dia a dia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar habilidade para resolver uma expressão numérica com números inteiros negativos e positivos. Mostrar dois exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar e apresentar por escrito as principais frações do nosso dia a dia e em que situações usamos cada uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar habilidade para resolver as quatro operações básicas envolvendo frações, incluindo o cálculo do MMC no caso da adição e da subtração, e terminar com a forma mais simples, quando possível.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Apresentar em um cartaz as principais figuras planas com suas características e demonstrar como calcular sua área e seu perímetro.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar habilidade para converter as principais unidades de medida: metro (m), metro quadrado (m²), quilograma (kg), grama (g) e metro cúbico (m³). Apresentar três exemplos de conversão.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Apresentar três exemplos de equações com a letra \"x\" e resolver cada uma, dando a solução correta.",
+   "instructions": null
+  }
+ ]
+}

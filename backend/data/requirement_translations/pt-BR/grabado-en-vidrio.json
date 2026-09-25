@@ -1,0 +1,43 @@
+{
+ "honor_slug": "grabado-en-vidrio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Glass_Etching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar as ferramentas e os materiais necessários para a gravura em vidro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as onze etapas da gravura em vidro.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a técnica de aplicação do creme de gravação (velvet etch)?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um projeto em vidro transparente.\n  a. Letras ou versículos.\n  b. Flores, animais ou pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um projeto em um espelho. Incluir o seguinte:\n  a. Letras, versículos, flores, animais ou pessoas.\n  b. Finalizar emoldurando o espelho com fita colorida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um projeto em um copo, pote ou objeto oval.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "habilidad-matematica-i",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Math_Skills_I/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Habilidades matemáticas I",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer o sistema decimal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber identificar e classificar os algarismos do sistema decimal e representar a posição de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Classificar e identificar as quatro operações básicas, representando cada algoritmo por meio de quatro exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar e resolver quatro exemplos práticos em que se usam as quatro operações básicas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pesquisar e apresentar, com um desenho ou por escrito, a possível origem dos sinais de raiz quadrada, divisão, adição e subtração.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar na prática a resolução de pelo menos três exemplos de potenciação e três exemplos de expressão numérica, usando os sinais de parênteses, colchetes e chaves.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Apresentar e resolver três exemplos práticos de situações que envolvam frações nas operações de adição, subtração, multiplicação e divisão. Lembrar que o MMC é usado nas operações de adição e subtração.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Apresentar e demonstrar a resolução de três problemas que envolvam cálculo de porcentagem na compra e venda de produtos, obtendo descontos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Apresentar e demonstrar a resolução de quatro exemplos de operações com números decimais em adição, subtração, multiplicação e divisão, usando o método prático para resolver.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Apresentar, com um cartaz ou recurso multimídia, cinco exemplos de figuras planas e cinco exemplos de sólidos geométricos, mostrando suas características e, ao lado, que tipo de objeto do dia a dia tem esse formato.",
+   "instructions": null
+  }
+ ]
+}
