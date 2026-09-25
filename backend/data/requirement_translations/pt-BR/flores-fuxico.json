@@ -1,0 +1,43 @@
+{
+ "honor_slug": "flores-fuxico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fabric_Yo-Yo/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Flores de fuxico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o que é o fuxico. Qual é a origem dessa técnica?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o principal objetivo dessa técnica?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar as etapas dessa técnica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que materiais e ferramentas são necessários?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar e dar exemplos do seguinte:\n  a. Base tradicional\n  b. Base de bico\n  c. Base invertida",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer dois dos seguintes projetos e colocar em prática as técnicas mencionadas no requisito 5:\n  a. Elásticos de cabelo\n  b. Tapete\n  c. Chaveiro\n  d. Ímã de geladeira\n  e. Bolsa\n  f. Sandálias ou chinelos\n  g. Objeto de sua escolha",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "electricidad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Electricity/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar e ilustrar um experimento que mostre as leis da atração e da repulsão elétricas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre corrente contínua e corrente alternada e demonstrar os usos para os quais cada uma é adequada. Dar um método para determinar qual tipo de corrente passa por um circuito.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ligar uma cigarra, campainha ou lâmpada a uma bateria, com um interruptor no circuito.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Montar e fazer funcionar um motor elétrico simples a partir de um kit, ou desmontar um motor, identificar as partes e explicar como funciona.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma pilha elétrica simples.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar capacidade de trocar fusíveis ou religar disjuntores e demonstrar uma emenda aprovada pelas normas elétricas (National Electric Code – NEC, ou a norma de seu país) usando fios isolados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mostrar como você resgataria uma pessoa em contato com um fio elétrico energizado e conhecer o método de reanimar uma pessoa inconsciente por choque elétrico.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer um diagrama simples do sistema de iluminação de um automóvel.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um diagrama que mostre corretamente as luzes, os interruptores e as tomadas controlados por cada disjuntor de uma casa.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Ler corretamente um medidor de energia elétrica e calcular a conta de uma residência de acordo com a tarifa cobrada em sua comunidade.",
+   "instructions": null
+  }
+ ]
+}

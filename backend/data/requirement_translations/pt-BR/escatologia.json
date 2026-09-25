@@ -1,0 +1,53 @@
+{
+ "honor_slug": "escatologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Eschatology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Escatologia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Mateus 24:3-14 e pesquisar pelo menos 20 sinais, ocorridos nos últimos cinco anos, que indicam a breve volta de Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber de memória onde encontrar na Bíblia pelo menos cinco versículos diferentes, encontrados nesta especialidade, que apresentam promessas da segunda vinda de Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar uma das parábolas bíblicas sobre a segunda vinda de Cristo por um dos seguintes meios: música, desenho, poesia ou dramatização.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma linha do tempo de pelo menos uma página que ligue os principais acontecimentos finais que culminarão com a volta de Cristo. Incluir o que acontecerá nos 1.000 anos seguintes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Estudar na Bíblia a ascensão de Cristo ao Céu depois de Sua ressurreição. Fazer uma lista de semelhanças e diferenças entre esse acontecimento e Sua segunda vinda.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar a relação entre os versículos \"Eis que venho como vem o ladrão\", de Apocalipse 16:15, e \"todo olho o verá\", de Apocalipse 1:7.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler as seguintes passagens da Bíblia e do Espírito de Profecia:\n  a. 2 Timóteo 4:8\n  b. Apocalipse 2:10\n  c. Mateus 24:36\n  d. Eventos Finais, p. 243\n  e. Primeiros Escritos, p. 15 e 16\n  f. O Grande Conflito, p. 639-646",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com base no conhecimento adquirido neste estudo e nas outras passagens discutidas nesta especialidade, responder o seguinte:\n  a. Por que é possível dizer que a segunda vinda de Cristo está tão próxima?\n  b. Como você pode fazer com que Cristo volte mais cedo?\n  c. Qual deve ser o foco em relação a uma coroa celestial e à quantidade de estrelas nela?\n  d. Quem sabe o dia e a hora da volta de Cristo?\n  e. Quais serão os primeiros sinais vistos no céu, momentos antes da volta de Cristo?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "corte-y-confeccion-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dressmaking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Corte e costura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer o seguinte: uma costura com acabamento nas bordas, pences, franzido, viés, pesponto e costura francesa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma casa de botão bem-feita.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar em outra pessoa como medir o comprimento da saia e da calça, o comprimento da manga e o comprimento do pescoço até a cintura.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma blusa ou camisa com manga montada e gola, e explicar como ajustaria os ombros para pessoas de diferentes compleições.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como fazer pelo menos quatro dos seguintes ajustes ou modificações em moldes: encurtar/alongar a cintura, encurtar/alongar a manga, medida da cintura, encurtar/alongar a saia ou a calça e encurtar/alongar a blusa.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma calça ou bermuda que sirva bem.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma saia que sirva bem.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escolher em fotos ou desenhar um conjunto de roupas para você que mostre harmonia de cores adequada e que valorize sua silhueta.",
+   "instructions": null
+  }
+ ]
+}

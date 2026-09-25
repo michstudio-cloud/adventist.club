@@ -1,0 +1,83 @@
+{
+ "honor_slug": "campamento-iii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camping_Skills_III/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no 7º ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Revisar os seis pontos para a escolha de um bom local de acampamento (vento, água, clima, animais selvagens, lenha e disposição). Revisar as regras de segurança para acender fogueiras.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um acampamento de fim de semana.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar as três fogueiras seguintes e dizer para que servem:\n  a. Fogueira do caçador\n  b. Fogueira refletora\n  c. Fogueira em estrela",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer seis maneiras de acender fogo sem fósforo. Acender uma fogueira usando uma delas:\n  a. Ar comprimido\n  b. Vidro curvo (lente)\n  c. Pederneira\n  d. Fricção\n  e. Fósforo de metal (ferrocério)\n  f. Faísca",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber afiar corretamente uma machadinha e uma faca.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cozinhar uma refeição em uma só panela usando alimentos frescos ou desidratados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever os vários tipos de barracas e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como ocorre a condensação nas barracas e como pode ser evitada?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar sua capacidade de fixar uma barraca usando o nó de tensão e o nó de dois cotes.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Durante o acampamento, planejar e apresentar uma meditação de dez minutos, ou organizar e dirigir um jogo sobre a natureza ou a Bíblia, ou dirigir a Escola Sabatina, o culto ou o pôr do sol no acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Localizar e construir corretamente uma das seguintes instalações e descrever sua importância para o indivíduo e para o meio ambiente:\n  a. Pia e área de lavar louça do acampamento\n  b. Latrina\n  c. Chuveiro",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar quatro amarras básicas e construir um objeto simples usando essas amarras.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Saber trocar as camisinhas de um lampião de acampamento. Demonstrar como reabastecer o combustível de um lampião e de um fogareiro de acampamento. Saber manter em bom funcionamento a bomba de pressão de um fogareiro de acampamento.\n  Nota: a cor da barraca do Acampamento III é verde.",
+   "instructions": null
+  }
+ ]
+}

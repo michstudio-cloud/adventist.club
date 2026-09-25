@@ -1,0 +1,53 @@
+{
+ "honor_slug": "esmaltado-en-cobre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Copper_Enameling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer a diferença entre a esmaltagem em baixa temperatura e em alta temperatura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar os materiais em que o processo de baixa temperatura pode ser usado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o método correto de limpar as peças a serem esmaltadas? Por que é importante limpá-las?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como se dá acabamento ao cobre para evitar que escureça?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar as ferramentas usadas na esmaltagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que fontes de calor podem ser usadas na esmaltagem em baixa temperatura? Que precauções de segurança se devem seguir?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como se fixam alfinetes e ímãs no verso das peças de metal?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer pelo menos cinco peças usando as seguintes técnicas:\n  a. Marmorizado (swirling)\n  b. Estêncil\n  c. Fios\n  d. Mosaico\n  e. Esgrafito",
+   "instructions": null
+  }
+ ]
+}

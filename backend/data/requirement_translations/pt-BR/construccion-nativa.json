@@ -1,0 +1,23 @@
+{
+ "honor_slug": "construccion-nativa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Native_Brush_Construction/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ajudar a demarcar no terreno, em esquadro e com precisão, a planta de uma casa simples.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ajudar a escolher e a cortar no mato a madeira adequada para pilares, piso, caibros, frechais, montantes, degraus e portas.\n  3a. Trançar materiais locais para as paredes.\n  3b. Fazer seções de parede de 1m x 1m e mostrar dois padrões diferentes de parede.\n  4. Demonstrar capacidade de cobrir corretamente um telhado com palha, especialmente a cumeeira e os espigões, usando capim kunai, folhas de sagueiro, folhas de coqueiro ou quaisquer outros materiais.\n  5. Quando for o caso, escolher, preparar e usar cipós para atar e amarrar.\n  6. Participar da construção de uma casa de pelo menos 4m x 2m usando materiais nativos. Na construção da casa, praticar todas as demonstrações dos nºs 1-5. Mostrar, durante a construção, que tomou medidas para mantê-la livre de cupins.\n  7. Demonstrar capacidade de citar, usar e cuidar das seguintes ferramentas: machado, serrote, martelo, formão, facão, régua e trena, pá.",
+   "instructions": null
+  }
+ ]
+}

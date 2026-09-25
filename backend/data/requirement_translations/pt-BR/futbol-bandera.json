@@ -1,0 +1,88 @@
+{
+ "honor_slug": "futbol-bandera",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flag_Football/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras básicas do flag football conforme apresentadas no livro de regras SDA-SARC (Comitê de Regras de Atividades Esportivas dos Adventistas do Sétimo Dia).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o significado de \"espírito esportivo\"?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um desenho do campo de flag football e identificar suas partes com as dimensões de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar conhecimento de flag football desenvolvendo três jogadas de ataque e três de defesa e testando-as em um jogo real.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Durante o treino, demonstrar as habilidades exigidas nas seguintes posições:\n  a. Quarterback\n  b. End (esquerdo e direito)\n  c. Center\n  d. Halfback (esquerdo e direito)\n  e. Pass rusher\n  f. Safety\n  g. Middle linebacker\n  h. Cornerback\n  i. Outside linebacker",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Revisar o significado dos sinais do árbitro conforme apresentados no SDA-SARC.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Revisar as penalidades de cada infração relacionada no SDA-SARC.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever as adaptações de regras do flag football, em relação ao futebol americano com contato, feitas por razões de segurança, para cada um dos seguintes:\n  a. Fumbles (bola solta)\n  b. Punts (chute de devolução)\n  c. Pressão sobre o quarterback (rush)\n  d. Bola mal recebida (muffed ball)\n  e. Bloqueio",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir os seguintes termos:\n  a. Snap\n  b. Passe\n  c. Down (tentativa)\n  d. Formação\n  e. Huddle (reunião)\n  f. Passe incompleto\n  g. Interceptação\n  h. Tackle\n  i. Touchdown\n  j. Conversão",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Praticar as seguintes habilidades:\n  a. Pegar a bola usando a postura e a técnica corretas, parado e correndo.\n  b. Praticar três rotas de passe, como post, fade ou curl.\n  c. Usando a postura correta, praticar passes para um alvo parado e para um alvo em movimento.\n  d. Executar três das habilidades de corrida: slant, corte, giro.\n  e. Demonstrar a pegada, a posição dos ombros e a aceleração corretas ao receber um handoff (entrega da bola em mãos).\n  f. Demonstrar a pegada, a postura e o movimento dos olhos corretos durante o long snap.\n  g. Combinar todas as áreas das estratégias de ataque e defesa e da dinâmica de jogo em uma partida de flag football de 6 contra 6.\n  h. Demonstrar as habilidades necessárias para defender um passe.\n  i. Aplicar em uma partida de flag football as estratégias defensivas de marcação individual e por zona.\n  j. Demonstrar a formação e a execução corretas de um punt, tanto no ataque como na defesa.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Participar de pelo menos cinco partidas oficiais de flag football, demonstrando espírito esportivo e incorporando todas as habilidades de ataque e defesa aprendidas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Discutir os benefícios físicos de praticar esportes coletivos e o que se ganha jogando em equipe.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Cooperar com os outros jogadores para melhorar as habilidades de jogo da equipe.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Ler Gálatas 5:19-25. Que lista de qualidades de caráter descreve melhor um técnico, jogador e espectador cristão? Como se obtêm os bons frutos?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Discutir com uma pessoa ou grupo os problemas enfrentados por um jovem adventista do sétimo dia que pensa em praticar esportes no ensino fundamental, no ensino médio ou na faculdade. Que alternativas existem que permitem continuar praticando esportes?",
+   "instructions": null
+  }
+ ]
+}

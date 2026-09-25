@@ -1,0 +1,63 @@
+{
+ "honor_slug": "conservacion-ambiental",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Environmental_Conservation/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre ecologia e conservação ambiental?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever uma redação de 500 palavras sobre como o aumento da população humana está ameaçando nossa existência na Terra.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que significa o termo \"morte\" de um lago ou rio? Existe em sua região ou país algum lago ou rio classificado como \"morto\"?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma investigação de um pequeno córrego que passe por sua cidade ou perto dela. Verificar o seguinte:\n  a. Sinais de pureza\n  b. Sinais de deterioração e morte do córrego",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Se o córrego mostrar alguns dos sinais de morte acima, fazer algo para limpá-lo. Entrar em contato com o órgão governamental mais próximo para perguntar o que você e/ou seu grupo podem fazer para ajudar a melhorar o córrego. Organizar um grupo de jovens para ajudar a recolher o lixo ao longo do córrego. Se possível, conseguir que empresas ajudem na campanha.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Visitar o aterro ou lixão da cidade ou do município para ver como os resíduos são tratados. Descobrir o seguinte:\n  a. Quantas toneladas de lixo são despejadas por dia? E por ano?\n  b. Que tentativas são feitas para reciclar parte desse lixo?\n  c. Parte do lixo é queimada ou todo ele é enterrado?\n  d. Qual é o custo por pessoa por ano do tratamento do lixo?\n  e. O que acontece com os carros sucateados em sua região?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Visitar a estação de tratamento de esgoto mais próxima. Desenhar e identificar um diagrama detalhado do que acontece com os resíduos líquidos e sólidos desde que entram na estação até que saem. Em que forma saem? É feito algum outro uso desses resíduos?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Visitar a estação de tratamento de água mais próxima. Fazer um fluxograma das etapas da purificação da água, desde que a água entra na estação até que sai para ser distribuída às casas e às lojas. Por meio de leituras e de conversas com os funcionários da companhia de água, determinar se os recursos hídricos serão suficientes para atender à demanda no futuro.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler um livro sobre questões ambientais, como Primavera Silenciosa, de Rachel Carson, e escrever uma resenha.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que são espécies raras e ameaçadas de extinção? Descobrir que esforços estão sendo feitos para proteger essas espécies em sua região. O que você pode fazer para ajudar? Escrever um trabalho de 300-500 palavras com suas ideias.",
+   "instructions": null
+  }
+ ]
+}

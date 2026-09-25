@@ -1,0 +1,43 @@
+{
+ "honor_slug": "evaluacion-comunitaria-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Identifying_Community_Needs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Jesus compreendia as necessidades de sua comunidade porque saía e via essas necessidades. Ler Mateus 9:35-38.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher um bairro urbano ou suburbano, uma cidade pequena ou uma região rural em que se concentrar para cumprir os requisitos desta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Montar uma pasta de informações sobre a comunidade escolhida, que pode incluir:\n  a. Um mapa da área\n  b. Um perfil demográfico\n  c. Estatísticas de saúde pública\n  d. Indicadores econômicos\n  e. Informações sobre moradia\n  f. Meio ambiente e transporte",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Com um adulto responsável, fazer uma caminhada ou um percurso de carro de observação por uma parte específica da comunidade escolhida, com o objetivo de ver as necessidades humanas. Fazer uma lista de todas as necessidades que vir, como quintais e áreas públicas que poderiam ser limpos, lixo que poderia ser recolhido, pessoas solitárias ou idosas que poderiam ser ajudadas, famílias de baixa renda com filhos que poderiam receber assistência etc.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Perguntar a um líder cívico ou profissional da comunidade sobre as necessidades da comunidade, as várias organizações que prestam serviços nela e como um grupo de jovens cristãos poderia contribuir com a comunidade. Fazer anotações durante a entrevista.\n  Requisito alternativo: convidar um líder cívico ou profissional da comunidade para fazer uma apresentação ao seu Clube de Desbravadores, grupo de jovens ou grupo da igreja sobre esses temas. Fazer anotações durante a apresentação.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma apresentação de pelo menos 10 minutos a uma comissão da igreja local, organização de serviço comunitário, seu Clube ou unidade de Desbravadores ou grupo semelhante. A apresentação deve incluir um relatório das informações coletadas e pelo menos 3 sugestões de projetos, necessários nessa comunidade, que o Serviço Comunitário Adventista local (nos Estados Unidos), a ADRA Canadá (no Canadá), o Youth Empowered to Serve ou o Clube de Desbravadores poderiam realizar.",
+   "instructions": null
+  }
+ ]
+}

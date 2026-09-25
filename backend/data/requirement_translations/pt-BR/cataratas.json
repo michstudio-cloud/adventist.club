@@ -1,0 +1,33 @@
+{
+ "honor_slug": "cataratas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Waterfalls/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes tipos de quedas d'água e dar um exemplo de cada um.\n  a. Em bloco\n  b. Em cascata\n  c. Em rabo de cavalo\n  d. Em mergulho\n  e. Segmentada\n  f. Em degraus",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher 10 quedas d'água, incluindo 2 próximas da região ou do estado em que você mora, e fazer uma lista com as seguintes informações sobre elas: nome, altura total, tipo de queda d'água, curso d'água, localização.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Realizar duas das seguintes atividades.\n  a. Visitar uma queda d'água e escrever um parágrafo contando sua experiência.\n  b. Escolher uma queda d'água (diferente das do nº 2) que lhe interesse e registrar fatos e informações interessantes sobre ela.\n  c. Assistir a um vídeo sobre uma queda d'água.\n  d. Fazer um álbum de recortes sobre quedas d'água. Incluir fotos de quedas d'água e informações importantes sobre cada uma. Pode ser um projeto em grupo.\n  e. Usando as informações obtidas, criar palavras cruzadas ou um caça-palavras:",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "A água é mencionada em cada um dos seguintes versículos. Descrever o que está acontecendo em cada versículo e depois dizer o que a água simboliza.\n  a. João 9:11\n  b. João 13:5\n  c. Mateus 3:16",
+   "instructions": null
+  }
+ ]
+}

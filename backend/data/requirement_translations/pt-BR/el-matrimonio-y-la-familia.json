@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-matrimonio-y-la-familia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/23_-_Marriage_and_the_Family/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O casamento e a família",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Compreender o propósito com que Deus criou a mulher para viver com o homem, segundo o plano da criação. (Gênesis 2:18-24)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber como o casamento é descrito na Bíblia. (Gênesis 2:24; Mateus 19:6; Hebreus 13:4)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Compreender como deve ser a relação entre marido e mulher segundo os princípios bíblicos. (Efésios 5:21-33)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar quanto tempo um casamento deve durar, segundo o plano de Deus. (Mateus 19:6; Romanos 7:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar as consequências da infidelidade conjugal para a família, mostrando como ela viola o sétimo mandamento da Lei de Deus. (Êxodo 20:14; Provérbios 6:32-33)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 1 Coríntios 13:4-8.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como é possível ser verdadeiramente feliz no casamento seguindo os ensinos da Bíblia. (Eclesiastes 4:9-12)",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "especies-en-peligro-de-extincion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Endangered_Species/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Ameaçado de extinção\n  b. Extinto\n  c. Habitat\n  d. Bioma\n  e. Cadeia alimentar\n  f. Caçador ilegal",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escrever Gênesis 1:28 com suas próprias palavras.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar quatro fatores que levaram animais a ficar ameaçados de extinção.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar quatro animais que hoje estão extintos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar quatro coisas que estão sendo feitas para salvar os animais ameaçados de extinção.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar quatro atividades que você pode fazer para ajudar os animais selvagens.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar dez animais ameaçados de extinção. Dizer onde vivem e por que ficaram ameaçados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer duas das seguintes atividades:\n  a. Visitar um zoológico ou reserva que tenha um ou mais animais ameaçados de extinção. Fazer uma lista dos animais que viu, onde vivem normalmente e por que ficaram ameaçados.\n  b. Assistir a um vídeo sobre um animal ameaçado de extinção. Fazer uma lista dos animais que viu, onde vivem normalmente e por que ficaram ameaçados.\n  c. Escolher um animal ameaçado de extinção e escrever ou apresentar oralmente um breve relatório sobre ele. Dizer onde vive normalmente, por que ficou ameaçado, o que está sendo feito para salvá-lo e quaisquer outros detalhes especiais que aprendeu sobre esse animal.\n  d. Fazer um álbum de recortes sobre animais ameaçados de extinção. Pode incluir artigos de jornal, histórias, fotos, selos ou desenhos. Pode ser um projeto em grupo.\n  e. Fazer um círculo ambiental.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "espiritu-de-profecia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Spirit_of_Prophecy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Espírito de Profecia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é o dom profético?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as principais características de um verdadeiro profeta?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como você pode ter certeza de que uma profecia é verdadeira?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como se pode identificar um falso profeta?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quem foi Ellen G. White? Qual foi sua importância para a Igreja Adventista do Sétimo Dia?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler e apresentar um relatório de pelo menos dois dos seguintes grupos de livros do Espírito de Profecia:\n  a. O grande conflito: História da Redenção, O Grande Conflito e Eventos Finais\n  b. História: Patriarcas e Profetas, Profetas e Reis e Atos dos Apóstolos\n  c. Série Testemunhos para a Igreja: quaisquer três livros de sua escolha dessa série\n  d. Alimentação: A Ciência do Bom Viver, Conselhos sobre o Regime Alimentar, Temperança e Conselhos sobre Saúde\n  e. Serviço de beneficência: Serviço Cristão, Obreiros Evangélicos e Beneficência Social\n  f. Série missionária: Fé e Obras, Caminho a Cristo, Serviço Cristão e Primeiros Escritos\n  g. Educação: Educação, Conselhos aos Pais, Professores e Estudantes, Fundamentos da Educação Cristã, Mente, Caráter e Personalidade, v. 1 ou 2, O Lar Adventista e Mensagens aos Jovens\n  h. Meditações: Nossa Alta Vocação, Olhando para o Alto e Para Conhecê-Lo\n  i. A vida de Cristo: Parábolas de Jesus, O Desejado de Todas as Nações e O Maior Discurso de Cristo\n  j. Qualquer outra série de livros de sua preferência que tenha pelo menos três livros",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Encontrar nos livros do Espírito de Profecia textos sobre pelo menos dois dos seguintes temas:\n  a. Histórias bíblicas\n  b. Segunda vinda de Cristo\n  c. Reforma de saúde\n  d. Hábitos saudáveis\n  e. Estrutura familiar\n  f. Liderança\n  g. Organização da igreja",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como o estudo do Espírito de Profecia pode ajudar na compreensão da Bíblia?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como Deus manifesta o Espírito de Profecia em Seus servos?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "cultura-taina",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ta%C3%ADno_Culture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cultura taína",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer o seguinte:\n  a. Colecionar pelo menos 10 itens relacionados aos costumes dos taínos. Podem ser originais, réplicas, uma coleção de fotos, artesanato e outros artefatos. Pode ser uma coleção em grupo, que deve ser variada, com pelo menos três objetos de cada participante.\n  b. Visitar um museu ou aldeia indígena onde sejam expostos diferentes aspectos da cultura taína, ou ver uma exposição com objetos da cultura taína. Discutir com seu grupo o que mais lhe interessou e por quê.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir pelo menos 10 das seguintes palavras:\n  a. Arcaicos\n  b. Yucayeque\n  c. Cacique\n  d. Caney\n  e. Conucos\n  f. Guanín\n  g. Bija\n  h. Nagua\n  i. Areyto\n  j. Nitaínos\n  k. Bohíque\n  l. Naborias\n  m. Guasábaras\n  n. Coatí\n  o. Taínos",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar 10 alimentos típicos dos taínos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o nome de cinco caciques.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar cinco características físicas dos taínos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é um petróglifo? Desenhar duas figuras relacionadas à cultura taína.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar quatro materiais que usavam nos trabalhos domésticos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar duas crenças religiosas dos taínos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais das crenças religiosas taínas são praticadas hoje?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar 10 palavras taínas que ainda são usadas.",
+   "instructions": null
+  }
+ ]
+}

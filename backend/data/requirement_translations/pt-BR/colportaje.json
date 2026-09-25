@@ -1,0 +1,48 @@
+{
+ "honor_slug": "colportaje",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Literature_Evangelism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Com base na Bíblia e nos escritos de Ellen G. White, escrever um resumo de pelo menos 250 palavras sobre a importância do uso da literatura para levar pessoas a Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco qualidades essenciais de um colportor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como o colportor é sustentado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os quatro passos da venda de um livro ou revista?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Resumir brevemente como despertar o interesse pela compra de um livro ou revista.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber como responder às objeções à compra de um livro ou revista.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades:\n  a. Manter um expositor de literatura durante quatro meses, registrando quais livros são mais e menos procurados.\n  b. Fazer um projeto de distribuição de literatura de casa em casa ou pelo correio em sua comunidade durante dez horas. Incluir na literatura um cartão-resposta para solicitar mais literatura, estudos bíblicos e/ou um curso bíblico por correspondência.\n  c. Dedicar-se à venda de livros e/ou revistas adventistas do sétimo dia durante um período de pelo menos cinco semanas, com pelo menos 20 horas em cada uma.\n  d. Fazer um projeto de distribuição de livros religiosos às autoridades do governo local. Dedicar pelo menos dez horas ao projeto.\n  e. Fazer um projeto de fornecimento de literatura religiosa aos pacientes de um hospital ou casa de repouso. Dedicar pelo menos dez horas ao projeto.\n  f. Fazer um projeto de oferecer uma assinatura de um ano da revista Liberty aos juízes e/ou advogados de sua comunidade. Arrecadar o dinheiro ou obter contribuições para as assinaturas de presente.\n  g. Fazer um projeto de envio de literatura e/ou Bíblias para o campo missionário. Parte desse projeto é recolher a literatura e/ou as Bíblias, determinar para onde enviar o material, embalá-lo e enviá-lo.",
+   "instructions": null
+  }
+ ]
+}

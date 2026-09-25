@@ -1,0 +1,53 @@
+{
+ "honor_slug": "cetaceos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cetaceans/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que a família dos cetáceos é diferente da maior parte da vida marinha?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre baleias com barbatanas e baleias com dentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "De que maneira as baleias e os golfinhos têm sido benéficos para o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como uma baleia que se reproduz nas águas quentes dos trópicos também consegue sobreviver nas águas geladas da Antártida, para onde vai se alimentar (considerando que a baleia é um mamífero de sangue quente como o ser humano).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Memorizar os seguintes textos bíblicos sobre as baleias:\n  a. Gênesis 1:21\n  b. Ezequiel 32:2\n  c. Jó 7:12\n  d. Mateus 12:40",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escrever e ler para um grupo, ou contar de memória, a história de Jonas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar uma baleia com barbatanas e identificar onde estão as seguintes partes do corpo:\n  a. Barbatanas (placas bucais)\n  b. Espiráculo\n  c. Nadadeira dorsal\n  d. Ouvido\n  e. Olho\n  f. Pregas ventrais\n  g. Lobos da cauda\n  h. Nadadeiras peitorais\n  i. Fenda genital\n  j. Entalhe mediano\n  k. Pedúnculo caudal",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ser capaz de identificar pelo menos quinze cetáceos.",
+   "instructions": null
+  }
+ ]
+}

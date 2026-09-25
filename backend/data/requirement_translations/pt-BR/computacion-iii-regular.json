@@ -1,0 +1,68 @@
+{
+ "honor_slug": "computacion-iii-regular",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computing_III_-_Regular/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Computação III - Regular",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Computação II - Intermediário.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório de pelo menos 1000 palavras sobre os computadores de terceira geração.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Placa-mãe\n  b. Modem interno\n  c. Modem externo\n  d. Dispositivos multimídia\n  e. Porta paralela\n  f. Porta serial",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Durante a manutenção, que equipamentos e técnicas devem ser usados para proteger os componentes do computador dos danos causados pela eletricidade estática?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que significa backup (cópia de segurança)? Por que é importante fazê-lo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma planilha dos custos de sua casa, lançando as despesas e as receitas de um mês, usando um editor de planilhas eletrônicas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que significa o termo banco de dados?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que significa compatibilidade de equipamentos e de versões?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como os computadores podem ser interligados em um escritório ou empresa?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais são os tipos de redes existentes?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descrever três opções atuais para as seguintes áreas:\n  a. Processadores de texto\n  b. Planilhas eletrônicas\n  c. Banco de dados\n  d. Linguagem de programação\n  e. Editores de imagem\n  f. Editores de som e multimídia",
+   "instructions": null
+  }
+ ]
+}

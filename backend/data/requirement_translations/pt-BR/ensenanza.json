@@ -1,0 +1,48 @@
+{
+ "honor_slug": "ensenanza",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Teaching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que formação acadêmica é exigida para lecionar em:\n  a. Creche\n  b. Educação infantil (pré-escola)\n  c. Ensino fundamental\n  d. Ensino médio\n  e. Ensino superior",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a importância da atualização da certificação do professor?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Entrevistar pelo menos dois professores, fazendo a cada um as seguintes perguntas:\n  a. O que o inspirou a ser professor?\n  b. Quais são algumas das responsabilidades de um professor?\n  c. De que aspectos do magistério você mais gosta?\n  d. De que aspectos do magistério você menos gosta?\n  e. Que atividades você realiza para se preparar para um ano letivo?\n  f. Como você se prepara para um dia de aula?\n  g. Que atividades relacionadas ao magistério você faz depois do fim das aulas a cada dia?\n  h. Quais são algumas qualidades de um bom professor?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pedir a dois professores que lhe falem sobre dois ou mais dos seguintes métodos de ensino que tenham achado úteis. Pedir que deem exemplos de como usaram esse método.\n  a. Aprendizagem adaptativa\n  b. Ensino individual\n  c. Aprendizagem assíncrona\n  d. Ensino diferenciado\n  e. Sala de aula invertida\n  f. Gamificação\n  g. M-learning (aprendizagem móvel)\n  h. Aprendizagem personalizada\n  i. Aprendizagem baseada em projetos\n  j. Aprendizagem baseada no lugar",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é um plano de aula e por que é usado? Pedir a um professor que lhe mostre um exemplo de plano de aula que tenha usado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Estudar a Bíblia e o livro Educação, de Ellen G. White, para aprender os métodos de ensino que Jesus usava. Comparar e contrastar os métodos de ensino de Jesus com pelo menos um da questão 4. Apresentar um relatório oral sobre o que aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cumprir uma das seguintes opções:\n  a. Se você tiver 16 anos ou menos, fazer duas das seguintes atividades durante no mínimo 40 minutos por semana, durante três semanas:\n    i. Ajudar um professor a planejar e preparar um mural.\n    ii. Ajudar um professor a preparar recursos didáticos.\n    iii. Ajudar um professor a elaborar um plano de aula.\n    iv. Sob a supervisão de um professor, ensinar a uma criança ou classe pelo menos um conceito usando os métodos de ensino.\n  b. Se você tiver mais de 16 anos, fazer três das seguintes atividades:\n    i. Dar aula em uma classe da Escola Sabatina de adultos ou de crianças durante no mínimo seis semanas.\n    ii. Dar aula em um departamento da Escola Cristã de Férias.\n    iii. Ensinar três especialidades JA.\n    iv. Ajudar a ensinar os requisitos de uma das classes, culminando na investidura.\n    v. Ministrar um seminário do currículo de liderança AYMT (Adventist Youth Ministry Training).",
+   "instructions": null
+  }
+ ]
+}

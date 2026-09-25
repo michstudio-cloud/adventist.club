@@ -1,0 +1,43 @@
+{
+ "honor_slug": "computacion-i-basico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computing_I_-_Basic/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Computação I - Básico",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Apresentar um relatório de pelo menos 1000 palavras sobre os computadores de primeira geração.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Hardware\n  b. Software\n  c. Sistemas operacionais\n  d. Driver\n  e. Disco rígido\n  f. Memória RAM\n  g. Memória ROM",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que cuidados básicos devemos ter ao usar CDs, DVDs, pen drives e discos rígidos externos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar ao instrutor:\n  a. Como proteger o computador da sujeira.\n  b. O que é a manutenção preventiva do computador.\n  c. Que sabe ligar e desligar um computador corretamente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que são periféricos?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar quatro exemplos de periféricos.",
+   "instructions": null
+  }
+ ]
+}

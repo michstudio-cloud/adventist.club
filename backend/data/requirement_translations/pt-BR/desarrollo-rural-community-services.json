@@ -1,0 +1,43 @@
+{
+ "honor_slug": "desarrollo-rural-community-services",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rural_Development/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar ao instrutor por que alguns países de nosso mundo são chamados de países \"em desenvolvimento\" e outros de países \"desenvolvidos\".",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar dez países em desenvolvimento e fazer uma lista de duas coisas que a ADRA está fazendo nesses países que se enquadrariam na descrição de \"ajuda humanitária\" e duas que se enquadrariam na descrição de \"desenvolvimento\".",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler o que Ellen White escreveu sobre por que temos os pobres conosco em O Desejado de Todas as Nações, capítulo 70, intitulado \"Um destes Meus pequeninos irmãos\". Resumir em 50 palavras ou menos o que aprendeu com esse capítulo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Assistir a um vídeo-reportagem da ADRA (www.adra.org) sobre atividades de desenvolvimento em outros países que não o seu e participar de uma discussão sobre o que viu depois do vídeo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de uma das seguintes saídas de campo ou projetos em grupo:\n  a. Fazer uma viagem missionária a uma área rural carente em outro país ou em seu próprio país.\n  b. Arrecadar fundos e contribuir para o conteúdo de uma caixa ADRA-kids de sua escolha (http://kids.adra.org).\n  c. Um jejum em grupo de 24 horas e uma sessão educativa de pernoite com seu grupo de jovens, voltada para a compreensão das necessidades dos pobres nos países em desenvolvimento e destinada a arrecadar fundos para o desenvolvimento rural.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ouvir ou assistir a uma apresentação sobre uma pessoa que cresceu em uma área rural pouco desenvolvida. Discutir com a liderança, o clube, a unidade ou a classe de Desbravadores em que os seguintes aspectos eram diferentes de sua vida:\n  a. O que vestiam ou comiam\n  b. Como se mantinham aquecidos ou refrescados\n  c. Como eram a casa, a igreja ou a escola",
+   "instructions": null
+  }
+ ]
+}

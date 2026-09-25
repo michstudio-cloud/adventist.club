@@ -1,0 +1,48 @@
+{
+ "honor_slug": "crochet",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Crocheting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir e fazer em crochê o seguinte: ST (ponto), SP (espaço), STS (pontos), RND (carreira circular), INCL (inclusive), DEC (diminuição) e INC (aumento).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer quadrados de pelo menos 20 pontos dos seguintes tipos: SC (ponto baixo), DC (ponto alto), HDC (meio ponto alto), TR (ponto alto duplo) e DTR (ponto alto triplo).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar como medir a amostra de pontos ou de carreiras nos quadrados de amostra.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber cuidar de peças feitas de lã, orlon, náilon e algodão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber fazer um quadrado da vovó (granny square) e mostrar algo que você fez usando quadrados da vovó, como gorro, cachecol, capa de almofada etc.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar uma amostra de acabamento de borda simples que você fez com linha.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer em crochê, com fio de lã, um dos seguintes: gorro, cachecol, colete ou pantufas.",
+   "instructions": null
+  }
+ ]
+}

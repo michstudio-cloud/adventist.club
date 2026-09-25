@@ -1,0 +1,38 @@
+{
+ "honor_slug": "esmaltado-en-cobre-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Copper_Enameling_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Esmaltado em cobre.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar o uso de um tripé de apoio (trivet).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que materiais podem ser usados para decorar peças esmaltadas com a técnica de aplicação (appliqué)?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usar quatro das seguintes técnicas para cumprir o requisito 5:\n  a. Contraesmaltagem (esmaltar o verso)\n  b. Aplicação (appliqué)\n  c. Cloisonné\n  d. Pintura a seco\n  e. Esgrafito",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer quatro dos seguintes projetos:\n  a. Enfeite de data comemorativa\n  b. Enfeite para cozinha\n  c. Flor de folha metálica\n  d. Broche ou alfinete de lapela\n  e. Suportes para livros de metal\n  f. Espelho de interruptor de metal\n  g. Objeto tridimensional\n  h. Objeto semelhante de sua escolha",
+   "instructions": null
+  }
+ ]
+}

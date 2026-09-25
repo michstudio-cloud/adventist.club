@@ -1,0 +1,43 @@
+{
+ "honor_slug": "falda-escocesa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Kilts/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Kilts",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir as seguintes palavras:\n  a. Kilt\n  b. Plaid (manta)\n  c. Tartan (tecido xadrez escocês)\n  d. Sett (padrão do tartan)\n  De que ano é a primeira referência escrita ao plaid com cinto (belted plaid)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser capaz de reconhecer a diferença entre o Great Kilt (belted plaid) e o kilt de passeio (walking kilt). Conhecer os benefícios do kilt para os habitantes das Terras Altas (Highlands). Saber quanto tecido é necessário para fazer um kilt de qualidade e o tempo médio que um fabricante de kilts leva para costurar à mão um kilt completo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser capaz de identificar facilmente cinco tartans diferentes de kilt:\n  a. Heritage of Scotland\n  b. Scottish National\n  c. Black Watch\n  d. Royal Stewart\n  e. Um tartan de sua escolha",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte:\n  a. Projetar/desenhar seu próprio modelo de kilt e de traje típico das Highlands.\n  b. Costurar um kilt em miniatura (tamanho de boneca), ou equivalente, usando tecido de tartan.\n  c. Criar um boneco de papelão ou cartolina, em pé, vestido com o traje das Highlands. Colar/prender um pedaço de tecido de tartan no boneco ou fazer um que possa ser colocado e retirado à vontade. Pode-se desenhar ou recortar em papel os acessórios do kilt (colete, sporran etc.).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pesquisar para descobrir se sua família, estado/província ou país tem um tartan.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Reflexão espiritual: tudo no kilt era importante como cobertura: protegia quem o usava do mau tempo; mantinha-o aquecido; servia de cama; era adaptável a todas as circunstâncias. Essas características também poderiam ser usadas para descrever tanto a graça de Deus como Sua fiel proteção. Refletir sobre os seguintes versículos e discutir o que significa Deus nos cobrir.\n  a. Salmo 91:4\n  b. Salmo 3:3-5\n  c. Ezequiel 16:8\n  d. Habacuque 2:14\n  e. Encontrar outro versículo para acrescentar a esta lista.",
+   "instructions": null
+  }
+ ]
+}

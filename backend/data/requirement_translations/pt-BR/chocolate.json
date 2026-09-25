@@ -1,0 +1,58 @@
+{
+ "honor_slug": "chocolate",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Chocolate/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Chocolate",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o processo pelo qual as sementes de cacau se transformam em chocolate.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar seis benefícios do chocolate para a saúde.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir as diferenças entre o chocolate ao leite, o chocolate doce, o chocolate amargo, o chocolate branco e a alfarroba.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar dez usos do chocolate em receitas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dizer qual é a maneira correta de armazenar o chocolate.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir as propriedades do chocolate em:\n  a. temperaturas frias\n  b. temperaturas mornas\n  c. temperaturas quentes\n  d. temperaturas muito quentes",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer duas das seguintes receitas:\n  a. Ovo de chocolate\n  b. Coelhinho de chocolate\n  c. Bombons com recheio cremoso\n  d. Brownies de chocolate\n  e. Cookies com gotas de chocolate",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar a maneira correta de derreter chocolate.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Responder à pergunta feita em Juízes 14:18.",
+   "instructions": null
+  }
+ ]
+}

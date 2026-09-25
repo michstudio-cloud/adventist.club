@@ -1,0 +1,53 @@
+{
+ "honor_slug": "dios-el-padre",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/03_-_God_the_Father/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Deus Pai",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber por que Deus pode ser considerado nosso Pai. (Gênesis 1:27; Isaías 64:8)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender qual foi a maior demonstração de amor que Deus Pai nos deu. (Romanos 5:8)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir a importância, para nós, das duas virtudes de Deus Pai encontradas nos seguintes versículos: Lucas 6:36; Mateus 5:48.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar, na oração ensinada por Jesus, a quem devemos nos dirigir quando falamos com Deus. (Mateus 6:9-13)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar por que devemos considerar Jesus a melhor forma de revelação de Deus Pai. (João 1:18; Mateus 11:27)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Efésios 1:3.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o grande amor demonstrado por Deus Pai. (1 João 3:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Se você tivesse de escolher um símbolo ou objeto para representar Deus, qual seria? Mostrá-lo e explicá-lo à sua unidade.",
+   "instructions": null
+  }
+ ]
+}

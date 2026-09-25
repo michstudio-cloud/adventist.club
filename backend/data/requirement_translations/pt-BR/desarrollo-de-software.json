@@ -1,0 +1,58 @@
+{
+ "honor_slug": "desarrollo-de-software",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Software_Development/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Desenvolvimento de software",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Computação V - Especializado.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer o que é software e quais são suas funções no controle e no tratamento da informação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir o que é linguagem de programação e descrever a diferença entre programação de alto nível e de baixo nível.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir os seguintes tipos de linguagens de programação:\n  a. Programação estruturada\n  b. Programação funcional\n  c. Programação orientada a objetos\n  d. Programação orientada a eventos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os seguintes termos:\n  a. Código binário\n  b. Escopo\n  c. Fluxograma\n  d. Programação\n  e. Banco de dados\n  f. Compilação",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer os principais passos para criar um software.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever o uso da UML nas fases do desenvolvimento de software.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que técnicas se aplicam melhor ao desenvolvimento ágil de software (software leve e rápido)? Apresentar um estudo sobre essa técnica.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Em que projetos de desenvolvimento é possível aplicar o RUP e quais são as suas fases?",
+   "instructions": null
+  }
+ ]
+}

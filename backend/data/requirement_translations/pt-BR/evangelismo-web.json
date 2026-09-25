@@ -1,0 +1,78 @@
+{
+ "honor_slug": "evangelismo-web",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Web_Evangelism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Evangelismo na web",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar dez maneiras diferentes de evangelizar usando a internet.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar pelo menos duas páginas virtuais, diferentes entre si, sobre cada um dos seguintes temas, que possam ajudar um instrutor bíblico adventista em uma aula.\n  a. Jesus\n  b. Salvação\n  c. A Bíblia\n  d. Família\n  e. Reforma de saúde\n  f. O sábado\n  g. Comportamento cristão",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ter contas nas seguintes redes de relacionamento virtuais:\n  a. Rede social: ter pelo menos 50 relacionamentos com não adventistas\n  b. E-mail: ter uma lista de pelo menos 25 contatos não adventistas\n  c. Microblog: ter pelo menos 25 contatos não adventistas\n  Usando ferramentas próprias de cada uma, preparar um projeto de evangelismo com datas e trechos escolhidos; durante um mês, três vezes por semana, enviar um versículo bíblico e/ou um trecho do Espírito de Profecia sobre um dos temas do requisito 2 a todas as pessoas cadastradas em cada uma das contas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar a importância de manter também um plano de evangelismo pessoal regular e fazer uma lista das vantagens e desvantagens de evangelizar apenas de forma digital.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que cuidados um cristão deve ter ao navegar na internet? Com base em Filipenses 4:8, preparar uma lista de critérios para escolher páginas da web. Escrever um voto e assiná-lo como compromisso de seguir sua lista de critérios.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dez sites ou blogs de diferentes Clubes de Desbravadores e avaliá-los de acordo com o seguinte:\n  a. Quais mostram, além de conteúdo técnico, conteúdo evangelístico?\n  b. Quais têm um formato melhor para a navegação?\n  c. Quais contêm links para sites de evangelismo?\n  d. Quais são mais adequados para apresentar o clube a qualquer interessado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Visitar cinco páginas da web diferentes da Igreja Adventista do Sétimo Dia, identificar-se na seção de comentários e enviar ideias de novos materiais ou conteúdos de evangelismo para o site.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar como a internet pode ajudar a cumprir a comissão de Cristo registrada em Marcos 16:15.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "\"Curtir\" e compartilhar a página fb.com/evangelismoweb e seguir @evangelismoweb no Twitter. Participar ativamente dessas comunidades.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Assinar o boletim informativo em evangelismoweb.com.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "\"Curtir\" e compartilhar a página fb.com/clubdconquistadores e seguir @conquistadorsda no Twitter. Participar ativamente dessas comunidades.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Participar como algum tipo de colaborador (intercessor, conselheiro, instrutor) do site biblia.com.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Participar de um projeto promovido pelo evangelismoweb para a Divisão Sul-Americana, a União ou o campo local (Associação/Missão).",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "honor_slug": "campamento-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camping_Skills_II/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no 6º ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenvolver uma filosofia pessoal de etiqueta ao ar livre, como a cortesia com outros campistas e a conservação da natureza.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e compreender os seis fatores seguintes para a escolha de um bom local de acampamento: vento, água, clima, animais selvagens, lenha e disposição (Wind, Water, Weather, Wild things, Wood, Willingness).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar sua capacidade de proteger a natureza e sua fonte de água por meio da higiene pessoal adequada e da higiene no preparo dos alimentos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de um acampamento de fim de semana.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de um culto no acampamento, incluindo uma das seguintes atividades:\n  a. Dirigir o momento de cânticos\n  b. Estudo da lição da Escola Sabatina\n  c. História\n  d. Reflexão para o culto",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber acender e usar com segurança um fogareiro e um lampião de acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer as regras de segurança e demonstrar sua capacidade de cortar lenha corretamente. Demonstrar como quebrar corretamente a madeira seca.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando gravetos desfiados ou raspados, construir e conhecer o uso de uma fogueira de conselho ou cruzada e de um tipo de fogueira para cozinhar. Revisar as regras de segurança para acender fogueiras.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Explicar duas maneiras de manter frescos os alimentos no acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Construir dois tipos diferentes de suportes para panelas (guindastes de acampamento).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Preparar refeições no acampamento cozinhando, fritando e assando.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar como escolher o local da barraca. Armar e desmontar corretamente uma barraca. Que precauções devem ser tomadas ao desmontar uma barraca molhada? Limpar, secar e guardar corretamente uma barraca.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Roupa de cama:\n  a. Mostrar as maneiras corretas de guardar ou enrolar seu saco de dormir ou colchonete para o transporte.\n  b. Dizer como manter seco o saco de dormir ou colchonete durante um acampamento.\n  c. Descrever como limpar corretamente seu saco de dormir ou colchonete.\n  Nota: a cor da barraca do emblema do Acampamento II é vermelha.",
+   "instructions": null
+  }
+ ]
+}

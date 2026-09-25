@@ -1,0 +1,58 @@
+{
+ "honor_slug": "construccion-de-canoas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Canoe_Building/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que árvores de sua região são usadas para construir canoas? Citar seus nomes em sua língua. São consideradas madeiras macias ou madeiras duras?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que árvores são usadas para construir canoas: de madeira macia ou de madeira dura?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que ferramentas são usadas para construir canoas? Começar pela derrubada da árvore até a conclusão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher uma boa árvore para canoa, de cerca de quatro metros de comprimento, e observar sua derrubada correta. Explicar o que aconteceu.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever como se prepara um tronco para construir uma canoa.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com a ajuda de outras pessoas, dar a forma correta à parte externa da canoa e escavar a parte interna. Alisar corretamente as duas superfícies, interna e externa.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ajudar a fazer remos, bancos, varas e acessórios para a canoa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ajudar na construção do convés, do flutuador lateral, do mastro e da vela, se a canoa for de casco duplo ou com flutuador lateral.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma maquete em madeira do tipo de canoa usado em seu distrito.",
+   "instructions": null
+  }
+ ]
+}

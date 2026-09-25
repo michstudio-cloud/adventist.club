@@ -1,0 +1,33 @@
+{
+ "honor_slug": "conciencia-de-discapacidad",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disability_Awareness_(FBU)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Conscientização sobre a deficiência (FBU)",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o termo \"deficiência\".",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar e explicar o que faz o órgão reconhecido em seu país (por exemplo, na França, a MDPH, Casa Departamental das Pessoas com Deficiência) que oferece acolhimento, informação, orientação e apoio às pessoas com deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um levantamento sobre uma instituição: procedimentos de admissão e de saída, perspectivas futuras para os beneficiários etc.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar um trajeto simples da vida cotidiana e fazer uma lista das dificuldades encontradas conforme o tipo de deficiência (sensorial, motora, intelectual etc.). Sugerir que o clube percorra esse trajeto para conscientizar cada participante.",
+   "instructions": null
+  }
+ ]
+}

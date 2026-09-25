@@ -1,0 +1,43 @@
+{
+ "honor_slug": "camuflaje-animal-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Animal_Camouflage_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Camuflagem animal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que papel a camuflagem desempenha no mundo de hoje? Descrever maneiras pelas quais três indústrias ou organizações usam a camuflagem.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher um animal de cada um dos seguintes habitats e descrever que tipo de camuflagem ele usa:\n  a. Deserto\n  b. Pradaria/campo\n  c. Tundra\n  d. Floresta/selva\n  e. Oceano",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher um animal de cada um dos seguintes grupos e descrever que tipo de camuflagem ele usa.\n  a. Réptil\n  b. Mamífero\n  c. Anfíbio\n  d. Ave\n  e. Peixe\n  f. Molusco ou crustáceo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar um pet shop, zoológico ou outro parque zoológico e encontrar pelo menos 5 animais que usam camuflagem.\n    i. Fazer uma lista de cada animal.\n    ii. Fazer uma lista dos tipos de camuflagem que usam.\n    iii. Fazer uma lista do ambiente/habitat em que vivem na natureza.\n    iv. Usando um diagrama de Venn ou equivalente, comparar e contrastar três dos animais, com atenção especial ao uso da camuflagem.\n  b. Ter e/ou ajudar a cuidar (durante 2 semanas) de um animal que usa camuflagem.\n    i. Dizer o tipo de camuflagem que ele usa\n    ii. Dizer o ambiente/habitat em que vive na natureza\n    iii. Usando um diagrama de Venn ou equivalente, comparar e contrastar seu uso da camuflagem com o de um animal semelhante que não usa camuflagem.\n    iv. Descrever o papel que você desempenhou no cuidado dele e se alguma vez ele usou a camuflagem para se esconder de você.\n  c. Visitar um parque ou área de proteção de habitat e, com a ajuda de um guia ou de material interpretativo, identificar várias espécies nativas da fauna que usam camuflagem.\n    i. Fazer uma lista de cada animal\n    ii. Fazer uma lista dos tipos de camuflagem que usam\n    iii. Fazer uma lista do ambiente/habitat em que vivem na natureza\n    iv. Usando um diagrama de Venn ou equivalente, comparar e contrastar três dos animais, com atenção especial ao uso da camuflagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar e apresentar uma meditação sobre a camuflagem animal. Incluir uma aplicação espiritual significativa. Passagens bíblicas que podem ser usadas:\n  a. Salmo 32:7\n  b. Salmo 119:14\n  c. Jeremias 23:24\n  d. 1 Pedro 5:8\n  e. Tito 1:10\n  f. Hebreus 4:13\n  g. Apocalipse 6:15-16",
+   "instructions": null
+  }
+ ]
+}

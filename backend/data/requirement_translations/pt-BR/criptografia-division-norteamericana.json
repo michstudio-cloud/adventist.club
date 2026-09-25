@@ -1,0 +1,58 @@
+{
+ "honor_slug": "criptografia-division-norteamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cryptography/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Criptografia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir criptografia e citar suas principais aplicações.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Código\n  b. Cifra\n  c. Esteganografia\n  d. Texto simples\n  e. Chave\n  f. Criptografia de chave pública\n  g. Função unidirecional",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir cada uma das seguintes categorias de cifras, dar um exemplo de cada uma e cifrar seu nome usando cada técnica.\n  a. Transposição\n  b. Quadrado de Políbio\n  c. Quadrado\n  d. Substituição\n  e. Polialfabética",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar se cada item da lista abaixo é um código, uma cifra, esteganografia ou uma mensagem em texto simples.\n  a. O processamento feito por um computador para verificar se um usuário digitou a senha correta\n  b. Uma referência de versículo bíblico\n  c. As cores usadas em um semáforo para indicar \"Pare\", \"Siga\" ou \"Atenção\"\n  d. O HTTPS:// usado em um endereço (URL) na internet\n  e. Formar uma mensagem escrevendo-a em uma grade linha por linha e lendo-a coluna por coluna\n  f. Tinta invisível\n  g. A língua navajo usada pelos Code Talkers (codificadores navajos) na Segunda Guerra Mundial\n  h. A representação de dados por meio de uma grade de pontos (códigos QR) ou de linhas (códigos de barras)\n  i. A máquina Enigma usada na Segunda Guerra Mundial\n  j. Anotar a senha de seu computador em um pedaço de papel\n  k. O sinal usado por Jônatas e Davi relatado em 1 Samuel 20:18-23",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "A criptologia clássica é o estudo dos códigos e das cifras usados no passado. Descobrir como as seguintes formas criptográficas eram codificadas na Antiguidade e tentar reproduzir seus processos para registrar uma mensagem:\n  a. Hieróglifos egípcios, 1900 a.C.\n  b. Cifra hebraica Atbash, 500 a.C.\n  c. Cifra de substituição de Júlio César, 100 a.C.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar uma mensagem com a Lei do Desbravador cifrada com a cifra de César e indicar a chave usada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Usar a esteganografia para escrever o Voto do Desbravador.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher uma cifra para criptografar um texto bíblico favorito e deixar que outra pessoa o decifre. Informar a essa pessoa o tipo de cifra e a chave usada.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Decifrar uma mensagem feita por outra pessoa usando a chave e o tipo de cifra que ela usou.",
+   "instructions": null
+  }
+ ]
+}

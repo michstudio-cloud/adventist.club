@@ -1,0 +1,48 @@
+{
+ "honor_slug": "cristales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Crystals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cristais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Cultivar seus próprios cristais para uma coleção permanente a partir de algumas das seguintes substâncias: ALÚMEN, SAL, AÇÚCAR, BÓRAX, SAL DE ROCHELLE (ou outras). Cultivar pelo menos quatro cristais diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender a escrever e a definir:\n  a. Eflorescente\n  b. Deliquescente\n  c. Piezoelétrico\n  d. Refração",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever, definir e memorizar os seis sistemas de simetria.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma coleção de pelo menos 10 cristais formados pela natureza. (Exemplos: quartzo, pirita de ferro, rubi natural e outras pedras preciosas)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para mostrar uma propriedade elétrica útil dos cristais, cultivar um cristal de sal de Rochelle de pelo menos duas polegadas (5 cm) de espessura e fazer um experimento que mostre o efeito piezoelétrico, a contento de seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Para mostrar uma propriedade óptica útil dos cristais, cultivar um cristal de nitrato de sódio de pelo menos duas polegadas (5 cm) de largura e demonstrar o fenômeno da dupla refração, a contento de seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar pelo menos cinco produtos de consumo que exigem o uso de cristais ou que são cristais em forma utilizável.",
+   "instructions": null
+  }
+ ]
+}

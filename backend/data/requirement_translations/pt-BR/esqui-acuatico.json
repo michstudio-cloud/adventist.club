@@ -1,0 +1,43 @@
+{
+ "honor_slug": "esqui-acuatico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Water_Skiing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Esqui aquático",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Natação intermediário I.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e praticar as seguintes regras de segurança:\n  a. Nunca esquiar à noite.\n  b. Nunca esquiar durante uma tempestade elétrica.\n  c. Usar sempre colete salva-vidas ao esquiar.\n  d. Verificar se a fivela do colete está bem fechada.\n  e. Verificar se a corda de esqui está em bom estado.\n  f. Verificar se as botas/fixações dos esquis estão em bom estado.\n  g. Ter um observador ou um espelho na lancha.\n  h. Manter-se longe de objetos, como outros esquiadores, nadadores, cais ou objetos flutuantes.\n  i. Em caso de queda, soltar a corda.\n  j. Depois de uma queda, levantar a mão para indicar que está bem.\n  k. Não ficar em pé na lancha enquanto ela estiver em movimento.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os seguintes sinais de mão:\n  a. Mais devagar\n  b. Velocidade boa\n  c. Mais rápido\n  d. Voltar ao cais\n  e. Parar\n  f. Virar",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Calçar os esquis em águas profundas. Fazer uma partida de águas profundas com dois esquis e a corda totalmente estendida.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Cruzar com sucesso as duas esteiras da lancha.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar o seguinte:\n  a. Esqui duplo\n  b. Monoesqui (slalom)\n  c. Esqui de manobras\n  d. Kneeboard",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "construcciones-rusticas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rustic_Construction/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Construções rústicas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter pelo menos 12 anos de idade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Nós e amarras.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber usar as seguintes ferramentas:\n  a. Faca\n  b. Serrote\n  c. Facão\n  d. Serra de arco",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar seu conhecimento das regras de segurança no uso de ferramentas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a importância de manter as ferramentas afiadas para o trabalho? Quais são as principais maneiras de cuidar das ferramentas e conservá-las? Afiar as ferramentas mencionadas no requisito 3.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar sua capacidade de unir objetos usando as seguintes amarras:\n  a. Amarra quadrada\n  b. Amarra diagonal\n  c. Amarra redonda\n  d. Amarra redonda contínua\n  e. Amarra diagonal contínua",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer os seguintes móveis de acampamento:\n  a. Um tripé de pelo menos 2 metros para pendurar um lampião.\n  b. Uma mesa que use um tripé.\n  c. Uma mesa que use dois tripés.\n  d. Uma mesa com quatro bases e pelo menos oito amarras.\n  e. Uma sapateira com duas bases.\n  f. Uma estrutura para fogueira ao ar livre.\n  g. Um lava-louças, uma pia e uma fossa.\n  Observação: não se devem usar pregos, parafusos nem arames. Os clubes devem evitar o hábito de usá-los nas construções rústicas. Precisamos ensinar aos Desbravadores as técnicas corretas e ajudá-los a adquirir prática e experiência.",
+   "instructions": null
+  }
+ ]
+}

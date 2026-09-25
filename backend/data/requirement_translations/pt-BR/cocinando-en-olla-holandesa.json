@@ -1,0 +1,103 @@
+{
+ "honor_slug": "cocinando-en-olla-holandesa",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dutch_Oven_Cooking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as especialidades de Arte culinária e Acampamento III.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um breve histórico dos fornos holandeses e de seu papel na história dos Estados Unidos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer a diferença entre um forno para pão, um forno para ensopados/carnes, um forno de fogão (sem pés) e um forno de acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como são classificados os tamanhos dos fornos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e demonstrar a segurança no manuseio do fogo e do forno holandês e o uso correto do equipamento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que tipos de combustível são usados para cozinhar com o forno?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as vantagens do carvão vegetal sobre a lenha como combustível?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como se controla a temperatura?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que efeito as cinzas têm sobre a eficiência das brasas?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Se usar lenha, que tipos são melhores para cozinhar?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar como curar corretamente um forno holandês novo.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demonstrar como limpar corretamente um forno holandês depois de cada uso.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demonstrar como transportar corretamente fornos holandeses.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demonstrar como guardar corretamente um forno holandês por um período curto e por um período longo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Cozinhar um prato de cada categoria usando fornos holandeses:\n  a. Sopa/ensopado\n  b. Caçarola (prato gratinado)\n  c. Legume\n  d. Pão\n  e. Sobremesa",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Cozinhar usando somente a tampa como chapa.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Citar as seis maneiras diferentes de cozinhar em um forno holandês.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "O que significa cozinhar com fornos empilhados?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "disenador-de-web",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Web_Design/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Web design",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as especialidades de Computação I, II, III e IV.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Layout\n  b. HTML\n  c. DHTML\n  d. CSS\n  e. JavaScript\n  f. Tags\n  g. Body (corpo)\n  h. PHP\n  i. SQL\n  j. Página estática\n  k. Página dinâmica\n  l. Links\n  m. WWW",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Apresentar por escrito um código HTML simples, usando os seguintes elementos:\n  a. Título\n  b. Cabeçalho\n  e. Corpo\n  d. Menu\n  e. Tabelas\n  f. Rodapé",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar em uma ilustração, ou usando meios audiovisuais, a função das principais ferramentas disponíveis no mercado para a produção de um site, como:\n  a. Dreamweaver\n  b. CorelDraw\n  c. Fireworks\n  d. Flash\n  e. Photoshop",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar uma página estática simples usando apenas o Bloco de Notas e, com o código, abri-la no navegador com os seguintes elementos:\n  a. Título\n  b. Cabeçalho\n  c. Corpo\n  d. Menu à esquerda com links\n  e. Rodapé\n  f. Banner animado, pelo menos dois",
+   "instructions": null
+  }
+ ]
+}

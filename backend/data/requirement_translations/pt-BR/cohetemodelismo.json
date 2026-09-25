@@ -1,0 +1,43 @@
+{
+ "honor_slug": "cohetemodelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Model_Rocketry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e explicar o código de segurança do espaçomodelismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e explicar a importância dos componentes básicos de um modelo de foguete.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar o seguinte:\n  a. As etapas do voo de um modelo de foguete\n  b. Uma vista em corte de um motor de modelo de foguete, identificando cada parte\n  c. Um esquema de um sistema de lançamento simples, usando os símbolos elétricos corretos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir o seguinte:\n  a. Bucha de proteção (wadding)\n  b. Planadores-foguete (boost gliders)\n  c. Estol\n  d. Carga útil\n  e. Apogeu\n  f. Centro de gravidade\n  g. Centro de pressão\n  h. Impulso\n  i. Velocidade\n  j. Ejeção",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar e descrever pelo menos quatro sistemas de recuperação diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "A partir de um kit, construir, dar acabamento e pintar um foguete de um estágio com comprimento mínimo de seis polegadas (15 cm) e um sistema de recuperação, como paraquedas ou fita. Lançar e recuperar com sucesso o foguete, com o sistema de recuperação funcionando corretamente.",
+   "instructions": null
+  }
+ ]
+}

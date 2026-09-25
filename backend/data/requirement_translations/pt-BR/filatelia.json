@@ -1,0 +1,63 @@
+{
+ "honor_slug": "filatelia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Stamps/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Filatelia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar brevemente a história do início do serviço postal em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como a história de seu país é contada nos selos postais?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as tarifas da correspondência de primeira classe em seu país?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que país não tem o nome em seus selos e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer o significado do seguinte:\n  a. Selo de bobina\n  b. Selo de caderneta\n  c. Picotes (perfuração)\n  d. Odontômetro\n  e. Selos regulares (definitivos)\n  f. Selos comemorativos\n  g. Charneiras\n  h. Protetores plásticos",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber como descolar selos do papel em água e como secá-los.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma coleção de pelo menos 750 selos. (Nenhum selo igual a outro.)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Classificar corretamente esses selos:\n  a. Por país.\n  b. Em séries, ou seja, de acordo com o ano e o desenho.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Montar os selos com charneiras gomadas ou protetores plásticos. (Os protetores plásticos são preferíveis para selos novos.)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escolher um tema e desenvolver uma exposição de pelo menos nove páginas, incluindo uma página de título, adequada para uma mostra de clube filatélico, feira de Desbravadores etc. A exposição deve ter disposição artística, legendas e montagem bem-feitas, mostrando reflexão e pesquisa cuidadosas. Incluir vários envelopes ou carimbos comemorativos.",
+   "instructions": null
+  }
+ ]
+}

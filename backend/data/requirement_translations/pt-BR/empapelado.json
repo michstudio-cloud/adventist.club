@@ -1,0 +1,33 @@
+{
+ "honor_slug": "empapelado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Paperhanging/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dizer como escolher corretamente estampas e combinações de papel de parede para os seguintes ambientes:\n  a. Sala de estar\n  b. Sala de jantar\n  c. Quarto\n  d. Banheiro\n  e. Cozinha\n  f. Brinquedoteca\n  g. Igreja",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Registrar em um caderno as respostas às questões acima e, no nº 3, incluir a estampa, a cor e o material escolhidos para cada ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar a preparação correta da parede para a colocação de papel de parede.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como colocar papel de parede. Descrever pelo menos dois métodos. Usar um dos métodos para aplicar papel em pelo menos duas paredes de uma casa, como em quartos, salas etc. Mostrar o encaixe correto da estampa.",
+   "instructions": null
+  }
+ ]
+}

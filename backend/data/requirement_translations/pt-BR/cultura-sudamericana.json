@@ -1,0 +1,63 @@
+{
+ "honor_slug": "cultura-sudamericana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/South_American_Culture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Cultura sul-americana",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever quais países compõem a Divisão Sul-Americana da Igreja Adventista do Sétimo Dia e citar três ou quatro características típicas da cultura de cada país, que podem ser o idioma, a bandeira, a comida típica, os costumes e a roupa típica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher uma tribo ou civilização nativa sul-americana e preparar uma apresentação visual, com cerca de cinco fotos por cartaz, vídeo ou PowerPoint, sobre sua história e seus costumes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever, em 25 a 35 linhas, como ocorreu a colonização espanhola e portuguesa na América do Sul e como ocorreu a independência dos países sul-americanos. Descrever que outros povos e imigrantes ajudaram a construir as cidades sul-americanas em seu país.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever pelo menos oito regiões que podem ser identificadas e que estão crescendo na América do Sul, como a Igreja Adventista chegou a este continente e como realiza sua obra. Citar o ano em que a Igreja Adventista chegou a cada país e detalhar em 10 linhas como chegou ao seu país.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é o nome do deserto mais seco do mundo e onde fica?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a montanha mais alta da América do Sul? Qual é a sua altura e localização?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a área com mais floresta na América do Sul? Citar pelo menos três espécies de animais encontradas nessa floresta.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher um bioma da América do Sul e descrever o clima, os animais e a ecologia em pelo menos uma página.\n  a. Pantanal\n  b. Cerrado\n  c. Pampa\n  d. Mata Atlântica\n  e. Caatinga\n  f. Mangue\n  g. Diferentes tipos de litoral sul-americano\n  h. Cordilheira dos Andes\n  i. Patagônia",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever cinco espécies de animais encontradas somente na América do Sul.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma entrevista, pessoalmente ou pela internet, com um Desbravador (de 10 a 15 anos) de outro país sul-americano e perguntar: Como são os Desbravadores de seu país? De que especialidades você mais gosta? Do que você mais gosta em seu país? Que lugares da América do Sul você gostaria de visitar? Se possível, trocar um troféu, emblema ou camiseta com esse novo amigo.",
+   "instructions": null
+  }
+ ]
+}

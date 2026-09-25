@@ -1,0 +1,43 @@
+{
+ "honor_slug": "fotografia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Photography/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar os princípios de construção da câmera, o que faz a lente da câmera, o efeito da luz sobre o filme fotossensível e a ação dos reveladores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que se entende por \"velocidade\" do filme? O que significa ASA/ISO?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a relação entre a velocidade do obturador, a abertura da lente e a velocidade do filme?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar os principais usos da fotografia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Tirar fotos em papel ou em slide que ilustrem pelo menos oito das seguintes técnicas. Usar fotos comparativas como ilustração:\n  a. Enquadramento\n  b. Estabilidade da câmera\n  c. Direção da iluminação: frontal, contraluz, lateral\n  d. Panorâmica: fundo desfocado com o assunto em foco\n  e. Regra dos terços\n  f. Ângulo: nível dos olhos, plongée (de cima) e contra-plongée (de baixo)\n  g. Horizonte nivelado\n  h. Distância do assunto: preencher o quadro\n  i. Uso de linhas condutoras\n  j. Qualidade da luz: sombra, sol e hora do dia\n  k. Exposição correta: subexposta, superexposta e corretamente exposta\n  l. Uso do flash: distância e objetos refletores",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma das seguintes atividades:\n  a. Dizer como o filme em preto e branco é revelado em negativos e ampliar oito de suas próprias fotos.\n  b. Dizer como são feitos os slides e revelar um rolo de filme.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "fosiles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fossils/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma coleção de pelo menos dez tipos diferentes de fósseis e identificar cada um com o nome e a localização geográfica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter em seu caderno uma breve definição de cada um dos seguintes termos:\n  a. Geologia\n  b. Fósseis\n  c. Catastrofismo\n  d. Paleontologia\n  e. Graptólito\n  f. Trilobita\n  g. Dinossauro\n  h. Mamute\n  i. Mastodonte\n  j. Crinoide\n  k. Lingula\n  l. Calamites\n  m. Foraminíferos\n  n. Radiolários\n  o. Paleozoico\n  p. Mesozoico\n  q. Cenozoico\n  r. Pleistoceno\n  s. Paleobotânica\n  t. Pelecípode\n  u. Braquiópode",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Visitar um museu onde haja fósseis em exposição e fazer um relatório escrito ou oral da visita.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o processo correto de retirada de exemplares delicados. Dizer como seria retirado o esqueleto de um dinossauro ou outro fóssil gigantesco. Por que os iniciantes não devem retirar esses exemplares? O que o iniciante deve fazer quando encontra algo que obviamente é um fóssil valioso?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a diferença entre as explicações que os cientistas evolucionistas e os criacionistas dão para a presença dos fósseis.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Com base na Bíblia e nos escritos de Ellen G. White, citar declarações que expliquem a origem do seguinte:\n  a. Carvão\n  b. Petróleo\n  c. Fósseis\n  d. Calcário",
+   "instructions": null
+  }
+ ]
+}

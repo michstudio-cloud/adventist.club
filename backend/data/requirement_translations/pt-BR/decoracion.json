@@ -1,0 +1,43 @@
+{
+ "honor_slug": "decoracion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Decoration/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Decoração",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Discutir com seu grupo a importância de decorar os ambientes onde são realizados eventos especiais. Esse costume está relacionado ao valor que se dá aos convidados do programa.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista e explicar as várias maneiras de usar a decoração com os seguintes itens:\n  a. Cinco espécies de plantas ornamentais\n  b. Três maneiras diferentes de expor fotografias do clube\n  c. Cinco tipos diferentes de artesanato que podem ser feitos pelo clube\n  d. Cinco coleções diferentes\n  e. Faixas e painéis\n  f. Quatro modelos diferentes de balões\n  g. Tecidos, TNT, feltro, silicone etc.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Durante a realização desta especialidade, observar pelo menos cinco decorações em programas promovidos por diferentes departamentos de sua igreja em sua Associação. Apresentar ao instrutor um relatório com suas observações (se possível com fotografias), analisando os pontos positivos e negativos de cada uma e como poderiam ser melhoradas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ter um caderno de esboços com desenhos de decorações. Para cada projeto, fazer uma lista de todos os materiais necessários, orçamento, tempo estimado etc. O caderno deve ter pelo menos sete das seguintes decorações: Em sua igreja\n  a. Programa regular, noturno, dirigido pelos Desbravadores\n  b. Programa de investidura\n  c. Batismo de Desbravadores\n  d. Cívica (Dia da Independência, Dia da Bandeira etc.)\n  e. Dia do Desbravador",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "No local de reunião do clube (escola, ginásio etc.)\n  a. Programa de abertura das atividades do ano\n  b. Programa especial de investidura\n  c. Programa de recepção dos pais\n  d. Programa pré-acampamento\n  e. Um programa/evento de sua escolha, aprovado pelo instrutor",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos quatro das decorações do caderno de esboços pedidas no requisito anterior. Apresentar fotografias dessas decorações ao instrutor. Relatar as possíveis diferenças entre o projeto e a decoração real, com os motivos.",
+   "instructions": null
+  }
+ ]
+}

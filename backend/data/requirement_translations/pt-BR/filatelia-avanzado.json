@@ -1,0 +1,48 @@
+{
+ "honor_slug": "filatelia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Stamps_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Filatelia - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Filatelia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o significado do seguinte:\n  a. Carimbo de obliteração\n  b. Perfins (selos perfurados)\n  c. Quadras\n  d. Quadras com número de chapa\n  e. Pré-obliterados\n  f. Envelopes de primeiro dia\n  g. Carimbos comemorativos (cachets)\n  h. Blocos comemorativos\n  i. Marcas-d'água\n  j. Pinças",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma exposição de pelo menos 16 páginas adequada para uma mostra de clube filatélico, feira de Desbravadores ou exposição filatélica juvenil. A exposição deve ter disposição artística, legendas e montagem bem-feitas, mostrando reflexão e pesquisa cuidadosas. Devem ser usados também carimbos comemorativos e envelopes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma coleção de 750 selos adicionais, com pelo menos 50 selos de cada um de cinco países estrangeiros.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar dois catálogos diferentes para identificar selos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usando um catálogo de selos, identificar e montar os selos de acordo com o número do catálogo e o país.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Montar os selos com charneiras gomadas ou protetores plásticos. (Os protetores plásticos são preferíveis para selos novos.)",
+   "instructions": null
+  }
+ ]
+}

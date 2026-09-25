@@ -1,0 +1,33 @@
+{
+ "honor_slug": "campori-seguro",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camporee_Safety/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Campori seguro",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos cinco situações de risco e perigo de acidentes no campori.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir prevenção de acidentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Memorizar as dicas de prevenção do seguinte acróstico:\n  S -- Seja cuidadoso\n  E -- Esteja sempre acompanhado da unidade\n  G -- Guarde uma garrafa de água com você\n  U -- Use chapéu, protetor solar e repelente\n  R -- Respeite os outros\n  O -- Observe qualquer perigo",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar duas maneiras pelas quais você pode ser um agente de prevenção para um campori seguro.",
+   "instructions": null
+  }
+ ]
+}

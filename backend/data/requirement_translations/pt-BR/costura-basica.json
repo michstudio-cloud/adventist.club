@@ -1,0 +1,48 @@
+{
+ "honor_slug": "costura-basica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basic_Sewing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o uso correto dos seguintes itens:\n  a. Dedal\n  b. Fita métrica\n  c. Tesoura e tesourão\n  d. Tesoura de picotar (zigue-zague)\n  e. Agulhas de vários tamanhos e tipos",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer a máquina de costura de sua casa ou escola. Identificar:\n  a. Volante\n  b. Estica-fio\n  c. Calcador\n  d. Alavanca do calcador\n  e. Agulha\n  f. Dentes de arrasto\n  g. Bobina\n  h. Pedal (controle)\n  i. Alavanca de retrocesso",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como passar a linha corretamente e fazer a máquina funcionar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma bainha em um dos seguintes itens, com pontos bem-feitos e uniformes:\n  a. Toalha\n  b. Avental\n  c. Manta de flanela para bebê\n  d. Manta de flanela para o colo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar sua capacidade de pregar corretamente botões e colchetes de pressão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dizer o que significam ourela, viés e fio do tecido.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um saco de roupa suja para acampamento ou outro objeto simples semelhante.",
+   "instructions": null
+  }
+ ]
+}

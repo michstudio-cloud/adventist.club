@@ -1,0 +1,58 @@
+{
+ "honor_slug": "ejercicios-y-marchas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drilling_%26_Marching_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ordem unida.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com o bandeirim da unidade, demonstrar as seguintes posições básicas:\n  a. Bandeirim em posição de descanso (ao lado do corpo)\n  b. Bandeirim em posição de transporte\n  c. Continência com o bandeirim em descanso\n  d. Continência com o bandeirim em transporte\n  e. Apresentar bandeirim\n  f. Erguer bandeirim",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como e quando usar a posição básica do bandeirim durante todos os comandos de ordem unida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ser membro de uma equipe de ordem unida ativa que tenha se apresentado pelo menos duas vezes no último ano em uma atividade especial da comunidade, da Associação ou pública.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar capacidade de manter o passo com a equipe de ordem unida e de se mover como parte dela o tempo todo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como membro de uma equipe de ordem unida, fazer quatro evoluções de ordem unida de precisão (ordem unida especial), sendo pelo menos uma delas com comandos combinados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Comandar uma equipe de ordem unida de pelo menos quatro pessoas, fazendo a equipe executar manobras básicas, iniciando os comandos de direção com o pé correto e distinguindo entre as vozes de advertência e as vozes de execução.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Comandar um Clube de Desbravadores inteiro em pelo menos dez movimentos básicos de ordem unida, incluindo abrir fileiras.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com uma unidade (ou uma guarda de bandeira escolhida), hastear e arriar formalmente a bandeira nacional em uma cerimônia de acampamento de férias, uma reunião especial de Desbravadores, um programa do Dia do Desbravador, um campori ou outro programa ou cerimônia semelhante. Demonstrar também a colocação das bandeiras nacional e dos Desbravadores no local de honra.",
+   "instructions": null
+  }
+ ]
+}

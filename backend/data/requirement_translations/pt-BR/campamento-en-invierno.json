@@ -1,0 +1,68 @@
+{
+ "honor_slug": "campamento-en-invierno",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Winter_Camping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arte de acampar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista completa do equipamento de acampamento necessário para condições de inverno, como possíveis temperaturas abaixo de zero (-18 °C), tempestades e neve.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar os princípios para manter o corpo aquecido e seco por meio do uso correto de roupas e equipamento de dormir em todas as temperaturas até zero, durante o deslocamento, o descanso e o sono.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista e explicar as características da escolha de um local de acampamento no inverno.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever ou, quando possível, mostrar a preparação de um local nivelado para a barraca na neve, e armar uma barraca em condições de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar um cardápio equilibrado de três dias para ser usado em sua experiência de acampamento de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber como obter água a partir da neve.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer cinco regras de segurança do acampamento de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar os passos corretos a seguir caso fique isolado sem equipamento em condições de inverno.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar conhecimento e capacidade para prevenir, reconhecer e tratar congelamento leve, hipotermia, cegueira da neve leve e desidratação.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Passar um total de seis dias e noites acampando em clima frio.\n  a. Todas as noites devem ter temperaturas mínimas na casa dos 40 °F (5 °C).\n  b. Duas noites devem ter temperaturas mínimas abaixo do ponto de congelamento (0 °C).\n  c. Todas as noites devem ser passadas em barracas, sob lonas ou ao relento.",
+   "instructions": null
+  }
+ ]
+}

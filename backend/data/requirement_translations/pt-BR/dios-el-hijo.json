@@ -1,0 +1,48 @@
+{
+ "honor_slug": "dios-el-hijo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/04_-_God_the_Son_(Jesus_Christ)/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Deus Filho",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender por que Deus Filho recebeu o nome de Jesus. (Mateus 1:21)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender o papel de Jesus na criação do mundo, já que João O identificou como o \"Verbo\" ou a \"Palavra\" de Deus. (João 1:2-3; Colossenses 1:16-17)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o papel de Jesus no plano de Deus para salvar a humanidade da morte. (Lucas 19:10)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender o que a Bíblia diz sobre a natureza divina de Jesus. (João 10:30; Hebreus 1:3; João 1:1; Colossenses 2:9)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Estudar o que a Bíblia ensina sobre a natureza humana de Jesus. (João 1:14; Hebreus 4:15; 1 João 4:2; Filipenses 2:6-8)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar os nomes ou títulos que o profeta Isaías usa para Jesus. (Isaías 9:6; 7:14)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo as promessas que Jesus faz aos que creem nEle. (João 11:25-26; 14:1-3)",
+   "instructions": null
+  }
+ ]
+}

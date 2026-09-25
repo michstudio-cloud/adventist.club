@@ -1,0 +1,58 @@
+{
+ "honor_slug": "cria-de-caballos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Horse_Husbandry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que tipo de lucro se obtém com o uso de éguas especialmente selecionadas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que é preferível criar potros de raça pura em vez de mestiços comuns?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos cinco pontos desejáveis na escolha de um cavalo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que tipo de treinamento ajudará os potros a se tornarem cavalos mansos e confiáveis?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o cuidado e a alimentação corretos dos cavalos e citar três tipos diferentes de alimento para cavalos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o seguinte:\n  a. Cabresto\n  b. Freio (cabeçada com rédeas)\n  c. Sela",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber colocar corretamente o cabresto, o freio e a sela em um cavalo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber cuidar corretamente dos cascos de um cavalo. Conhecer as partes do casco.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Cuidar de um potro ou cavalo durante pelo menos uma semana.",
+   "instructions": null
+  }
+ ]
+}

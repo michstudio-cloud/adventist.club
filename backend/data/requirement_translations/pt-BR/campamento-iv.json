@@ -1,0 +1,78 @@
+{
+ "honor_slug": "campamento-iv",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camping_Skills_IV/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Estar pelo menos no 8º ano escolar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Planejar e executar uma atividade de uma hora no sábado, durante o acampamento, que não seja um culto, para tornar o sábado uma experiência significativa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever um relatório de 200 palavras ou fazer uma apresentação oral de dois minutos sobre a preservação da natureza, abordando a etiqueta e a conservação.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Planejar seu cardápio para um acampamento de dois dias e calcular o custo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de dois acampamentos de fim de semana.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Acender uma fogueira em tempo chuvoso, sabendo onde obter a isca e como manter o fogo aceso.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer a madeira mais adequada para fazer um fogo rápido e quente.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer a madeira mais adequada para fazer brasas para cozinhar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar como rachar lenha.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar o cuidado e o armazenamento corretos dos alimentos no acampamento e como construir vários tipos de depósitos para proteger os alimentos dos animais.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Preparar um jantar no acampamento com sopa, legumes, prato principal e bebida, todos cozidos.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Assar seus alimentos em um forno refletor.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Purificar água por três métodos diferentes.\n  Nota: a cor da barraca do Acampamento IV é prateada.",
+   "instructions": null
+  }
+ ]
+}

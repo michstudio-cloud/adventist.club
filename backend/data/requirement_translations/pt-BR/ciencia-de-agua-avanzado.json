@@ -1,0 +1,58 @@
+{
+ "honor_slug": "ciencia-de-agua-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Water_Science_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Ciência da água - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ciência da água.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ilustrar e descrever brevemente como cada estado físico da água contribui para o clima da Terra.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir com um grupo os efeitos da água por meio de inundações e da erosão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os seguintes termos relacionados às mudanças de estado da água.\n  a. Condensação\n  b. Evaporação\n  c. Solidificação (congelamento)\n  d. Fusão\n  e. Deposição (sublimação inversa)\n  f. Sublimação",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ser capaz de explicar e ilustrar, usando fotografias, diagramas ou esboços, os seguintes tipos de água:\n  a. Água filtrada\n  b. Água mole\n  c. Água destilada\n  d. Água da chuva\n  e. Água de neve\n  f. Água deionizada\n  g. Água bruta\n  h. Água dura",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é uma bacia hidrográfica? Discutir com um grupo a importância das bacias hidrográficas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como a filtragem torna a água limpa?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Sozinho ou com um grupo, fazer o seguinte experimento e explicar nos resultados o que se pode fazer para manter limpas as fontes de água.\n  Investigando a poluição\n  A água pode ser poluída de muitas maneiras. Além da poluição natural, como o solo, as folhas e os organismos vivos, as pessoas causam a poluição mais grave. Dos fertilizantes e pesticidas agrícolas ao escoamento urbano e aos resíduos industriais, os poluentes podem infiltrar-se nas águas subterrâneas, que muitas vezes são usadas como fonte de água potável. Seguir as instruções deste experimento para produzir água poluída e observar o que os poluentes podem fazer com o abastecimento de água.\n  Materiais:\n  8 potes de um pint (cerca de 500 ml) (quatro com tampas bem ajustadas)\n  Fita crepe\n  Funil\n  Algodão\n  Óleo de motor\n  Vinagre\n  Detergente para roupa\n  Terra\n  Copos plásticos\n  Procedimento:\n  Etiquetar dois conjuntos de potes. Numerar quatro dos potes (1,2,3 e 4) com fita crepe. Verificar se esses quatro potes têm tampas bem ajustadas. Encher esse conjunto de potes com água até a metade. Numerar os outros quatro potes (5,6,7 e 8) com fita crepe e separá-los.\n  Observar a água do pote nº 1. Registrar suas observações.\n  Colocar uma colher de sopa de óleo de motor no pote nº 2. Fechar bem a tampa e agitar o pote com cuidado. Registrar suas observações.\n  Colocar uma colher de sopa de vinagre no pote nº 3. Fechar bem a tampa e agitar o pote com cuidado. Registrar suas observações.\n  Colocar uma colher de sopa de detergente no pote nº 4. Fechar bem a tampa e agitar o pote com cuidado. Registrar suas observações.\n  Colocar um pedaço de algodão no funil e depois acrescentar um pouco de terra. Colocar o funil sobre o pote vazio nº 5.\n  Despejar o conteúdo do pote nº 1 (só água) no funil e deixar que pingue através do funil no pote nº 5.\n  Passar o funil com o algodão e a terra para o pote vazio nº 6. Despejar o conteúdo do pote nº 2 (óleo e água) no funil e deixar que pingue através do funil no pote nº 6. Observar e registrar suas observações.\n  Passar o funil com o algodão e a terra para o pote vazio nº 7. Despejar o conteúdo do pote nº 3 (vinagre) no funil e deixar que pingue através do funil no pote nº 7. Observar e registrar suas observações.\n  Passar o funil com o algodão e a terra para o pote vazio nº 8. Despejar o conteúdo do pote nº 4 (detergente) no funil e deixar que pingue através do funil no pote nº 8. Registrar suas observações.\n  Fazendo descobertas:\n  Se essas substâncias fossem adicionadas a uma fonte de água real, como poderiam afetar a água?\n  Como os animais e as pessoas poderiam ser afetados?\n  Você consegue pensar em casos em que materiais como esses (óleo, detergente químico etc.) possam ter sido derramados ou despejados, colocando em perigo o abastecimento de água?\n  Que medidas uma comunidade poderia tomar para evitar esses acidentes?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenvolver uma aplicação espiritual a partir da água e compartilhá-la com seu grupo.",
+   "instructions": null
+  }
+ ]
+}

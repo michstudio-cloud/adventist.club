@@ -1,0 +1,88 @@
+{
+ "honor_slug": "dibujo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Drawing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista dos materiais e técnicas de desenho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é o claro-escuro? E que efeito ele tem no desenho?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar uma escala de valores tonais com pelo menos 10 valores diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a melhor maneira de começar a desenhar até ter certeza de que todos os tamanhos, posições e proporções estão corretos?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer a diferença entre ponto de vista ao nível dos olhos, vista aérea (olho de pássaro) e vista de baixo (olho de minhoca).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar primeiro plano, plano intermediário e fundo em uma paisagem simples.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é um desenho em \"técnica mista\"?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar a perspectiva linear e citar pelo menos 4 maneiras de obtê-la ao desenhar uma paisagem.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar um objeto cilíndrico e um objeto retangular agrupados, um pouco abaixo do nível dos olhos, mostrando a perspectiva, a luz e a sombra corretas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Compreender e descrever os seguintes tipos de tema:\n  a. Retratos\n  b. Paisagens\n  c. Natureza-morta\n  d. Abstrato",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Desenhar um animal usando formas simples, como quadrados, triângulos e retângulos.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer um esboço à mão livre de um animal, mostrando em valores tonais a distribuição das cores.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Fazer um desenho de alguma paisagem perto de sua casa.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Desenhar e sombrear uma natureza-morta.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Memorizar Salmo 33:6 e discutir como ele se relaciona com o desenho.",
+   "instructions": null
+  }
+ ]
+}

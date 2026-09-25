@@ -1,0 +1,78 @@
+{
+ "honor_slug": "excursionismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Backpacking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Discutir com seu instrutor o significado do lema: \"Não leve nada além de fotografias e não deixe nada além de pegadas.\"",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer o essencial sobre roupas, calçados e capas de chuva adequados para o excursionismo com mochila.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os princípios para escolher uma mochila de boa qualidade. Em uma emergência, o que poderia ser usado no lugar de uma mochila?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer os itens essenciais a serem levados em uma excursão com mochila.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que tipo de saco de dormir e de isolante térmico são melhores para sua região de acampamento? Conhecer pelo menos três tipos de cada um que estejam disponíveis.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber arrumar corretamente uma mochila.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que tipos de alimento são melhores para o excursionismo com mochila? Visitar um supermercado e fazer uma lista dos alimentos encontrados ali que sejam adequados para o excursionismo com mochila. Com seu instrutor:\n  a. Preparar um cardápio para uma excursão de fim de semana usando alimentos comprados no supermercado.\n  b. Aprender as técnicas de medir, embalar e etiquetar os alimentos da excursão.\n  c. Fazer um lanche de trilha.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer a prevenção, os sintomas e os primeiros socorros para:\n  a. Queimadura solar\n  b. Bolhas\n  c. Congelamento\n  d. Hipotermia\n  e. Insolação\n  f. Exaustão pelo calor\n  g. Picada de cobra\n  h. Cãibras\n  i. Desidratação",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ter um estojo de primeiros socorros na mochila e saber usá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "De acordo com seu peso, qual é o número máximo de libras (quilogramas) que você deveria carregar?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conhecer três maneiras de encontrar a direção sem bússola. Demonstrar pelo menos duas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Mostrar a maneira correta de colocar e tirar a mochila sozinho e com um companheiro.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Participar de uma excursão de fim de semana com mochila de pelo menos cinco milhas (8 km) até um local inacessível a veículos e cozinhar suas próprias refeições.",
+   "instructions": null
+  }
+ ]
+}

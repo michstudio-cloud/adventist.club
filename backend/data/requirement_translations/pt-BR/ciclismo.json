@@ -1,0 +1,53 @@
+{
+ "honor_slug": "ciclismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cycling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber o nome e explicar a finalidade das várias partes de uma bicicleta.\n  a. Movimento central\n  b. Cabo do freio\n  c. Manete do freio\n  d. Cassete\n  e. Corrente\n  f. Coroa\n  g. Garfo traseiro inferior (chainstay)\n  h. Pedivela\n  i. Câmbio\n  j. Tubo inferior\n  k. Gancheira\n  l. Catraca (roda livre)\n  m. Freio dianteiro\n  n. Suspensão dianteira\n  o. Guidão\n  p. Caixa de direção\n  q. Tubo da direção\n  r. Cubo\n  s. Roldana do câmbio\n  t. Niple\n  u. Pedal\n  v. Freio traseiro\n  w. Amortecedor traseiro\n  x. Aro\n  y. Selim (banco)\n  z. Canote do selim\n  aa. Garfo traseiro superior (seat stay)\n  bb. Tubo do selim\n  cc. Trocador de marchas dianteiro\n  dd. Trocador de marchas traseiro\n  ee. Blocagem (eixo de engate rápido)\n  ff. Eixo do pedal\n  gg. Raios\n  hh. Mesa (avanço)\n  ii. Balança (braço oscilante)\n  jj. Pneu\n  kk. Tubo superior\n  ll. Válvula\n  mm. Cubo da roda",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Consertar um pneu de bicicleta furado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desmontar, limpar e montar novamente, de forma correta, uma bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Regular corretamente os freios e os câmbios dianteiro e traseiro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer e praticar as regras de cortesia e segurança no ciclismo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é a vantagem de usar capacete de ciclismo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cumprir o seguinte registro de pedaladas:\n  a. Fazer três passeios de 10 milhas (16,1 km) em locais diferentes.\n  b. Fazer um passeio de 50 milhas (80,6 km) em dez horas ou menos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber ler um mapa rodoviário traçando seu percurso de 50 milhas (80,6 km) e seguindo-o com precisão em um passeio real.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "honor_slug": "electronica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Electronics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Eletrônica",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Projetar um diagrama esquemático simples, com um sensor de luminosidade que controle a alimentação de uma lâmpada, usando a simbologia correta para representar cada um dos elementos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar a maneira correta de soldar e dessoldar componentes eletrônicos, bem como os cuidados que se devem tomar para evitar sua deterioração e inutilização.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as principais regras de segurança que se devem seguir ao manusear placas de circuito eletrônico para não danificá-las?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar o desenvolvimento da válvula termiônica (válvula a vácuo):\n  a. Como foi descoberta?\n  b. Que usos teve?\n  c. Que elementos seu inventor usou?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista das principais unidades de medida encontradas na eletrônica e saber identificá-las em cada componente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar o que é um semicondutor do tipo N e o que é um semicondutor do tipo P. De que materiais são feitos e o que esses elementos fazem nos dispositivos eletrônicos?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é uma porta lógica? Definir cada uma das seguintes portas, ilustrando-as:\n  a. AND\n  b. OR\n  c. NOR\n  d. NAND\n  e. XOR",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber o que são diodos e como funcionam.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Projetar, desenhar, preparar e montar uma placa de circuito impresso.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Construir um receptor AM ou FM simples e compreender como funciona.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demonstrar o uso correto dos instrumentos e aparelhos de medição mais comuns em um laboratório de eletrônica (osciloscópio, multímetro etc.).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Conhecer as principais áreas de aplicação da eletrônica e explicar uma delas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Construir um controle remoto para PC.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Construir um wattímetro de corrente alternada para eletrodomésticos.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "ecologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ecology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Construir um diagrama do ecossistema de uma lagoa de água doce com recortes de animais colados.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher um mamífero, uma ave, um réptil e um anfíbio do ambiente em que você vive e, para cada um, construir um diagrama de sua pirâmide ecológica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Ecologia\n  b. Comunidade\n  c. Cadeia alimentar\n  d. Comensalismo\n  e. Sucessão ecológica\n  f. Plâncton\n  g. Conservação\n  h. Comunidade clímax\n  i. Eutrofização\n  j. Bioma",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer observações de campo detalhadas e um estudo cuidadoso em livros de biblioteca sobre o habitat de algum animal pequeno do ambiente em que você vive. Escrever um relatório de cerca de 700 palavras, metade com base nas observações de campo e metade com base no estudo em livros.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir ecossistema e dizer quais são os fatores biológicos e físicos básicos que o mantêm como um sistema equilibrado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar o descarte do lixo em sua comunidade. Quanto é descartado por família por dia? E por semana? E por ano? Como poderia ser mais bem tratado?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Consultar o jornal diário durante um mês para verificar o nível de poluição do ar ou a qualidade do ar da cidade grande mais próxima e registrar em papel quadriculado os resultados do mês. Descobrir o que causou os picos do gráfico.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar dez maneiras pelas quais você poderia trabalhar ativamente para melhorar o ambiente em que vive. Colocar quatro delas em prática.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar uma citação do Espírito de Profecia e um texto bíblico relacionados à ecologia e ser capaz de explicar sua relevância e aplicação para os nossos dias.",
+   "instructions": null
+  }
+ ]
+}

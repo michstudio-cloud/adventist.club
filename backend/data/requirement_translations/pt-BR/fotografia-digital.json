@@ -1,0 +1,68 @@
+{
+ "honor_slug": "fotografia-digital",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Digital_Photography/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o seguinte:\n  a. Os princípios de construção da câmera digital e como ela funciona.\n  b. O efeito da luz sobre o sensor de imagem.\n  c. Como as imagens coloridas são criadas a partir da imagem em preto e branco captada pelo sensor.\n  d. O que faz a lente da câmera; o que significa distância focal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a relação entre a abertura da lente e a profundidade de campo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever pixels, resolução da imagem e tamanho da imagem.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os dois tipos de compressão de imagem?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar e descrever três tipos de formato de imagem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar os principais usos da fotografia:",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tirar fotos que ilustrem pelo menos oito das seguintes técnicas. Usar fotos comparativas como ilustração:\n  a. Enquadramento.\n  b. Estabilidade da câmera.\n  c. Direção da iluminação: frontal, lateral ou contraluz.\n  d. Qualidade da luz: sombra, sol e hora do dia.\n  e. Regra dos terços.\n  f. Ângulo: nível dos olhos, plongée (de cima) e contra-plongée (de baixo).\n  g. Horizonte nivelado.\n  h. Distância do assunto: preencher o quadro.\n  i. Uso de linhas condutoras.\n  j. Exposição correta: subexposta, superexposta e corretamente exposta.\n  k. Uso do flash: distância adequada e objetos refletores.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender a colocar fotos no PowerPoint. Criar uma apresentação no PowerPoint que mostre as fotos que você tirou usando as técnicas acima.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usando um programa de edição de fotos no computador, mostrar capacidade de recortar, corrigir a cor, aumentar a nitidez e ajustar o brilho/contraste das fotos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Concluir pelo menos três projetos fotográficos criativos em um programa de edição de fotos, como uma capa de CD, uma página de álbum de fotos, uma colagem etc.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ter uma compreensão básica das técnicas de organização de arquivos.",
+   "instructions": null
+  }
+ ]
+}

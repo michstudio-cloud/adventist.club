@@ -1,0 +1,58 @@
+{
+ "honor_slug": "cuidado-de-ninos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Child_Care/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser capaz de cuidar de um bebê durante várias horas na ausência da mãe.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de todas as precauções que se devem tomar ao preparar a mamadeira do bebê; prepará-la e dá-la ao bebê.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar, dar banho, trocar a fralda e vestir o bebê.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preparar a cama do bebê e colocá-lo para dormir à noite.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber pesar um bebê e preencher a ficha de controle de peso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar por que o aleitamento materno é superior à mamadeira.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é o desmame?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é a fontanela (moleira)? Em que idade aproximadamente ela desaparece?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Entrevistar os funcionários de uma creche local sobre sua organização e a ajuda que oferecem às mães.",
+   "instructions": null
+  }
+ ]
+}

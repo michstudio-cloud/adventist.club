@@ -1,0 +1,58 @@
+{
+ "honor_slug": "determinantes-sociales-de-la-salud",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Social_Determinants_of_Health/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Determinantes sociais da saúde",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos relacionados à saúde:\n  a. Defesa de direitos (advocacy)\n  b. Acesso\n  c. Populações vulneráveis\n  d. Pobreza",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar brevemente cinco áreas-chave dos determinantes sociais da saúde (DSS):\n  a. Estabilidade econômica\n  b. Vizinhança e ambiente construído\n  c. Contexto social e comunitário\n  d. Acesso aos serviços de saúde e sua qualidade\n  e. Acesso à educação e sua qualidade",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Assistir a um vídeo ou explorar um site que explique brevemente os \"determinantes sociais da saúde\".",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encontrar os dados demográficos relacionados aos DSS em sua região. Comparar suas descobertas com as de regiões vizinhas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Compartilhar pelo menos um \"determinante social da saúde\" que você observou em sua comunidade ou na sociedade em geral. Criar um recurso visual que mostre como esse DSS está afetando as pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar um vídeo ou artigo educativo de seu interesse sobre os resultados negativos para a saúde causados pela qualidade dos DSS. Depois de assistir/ler, discutir as conexões entre pelo menos dois \"determinantes sociais da saúde\" e como eles podem desencadear resultados negativos para a saúde de uma população.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler os seguintes textos bíblicos e escolher dois que, a seu ver, correspondem melhor ao que você fará para ajudar os vulneráveis e a como isso honra a Deus.\n  a. Deuteronômio 15:7, 10\n  b. Provérbios 19:17\n  c. Provérbios 22:9\n  d. Provérbios 31:8-9\n  e. Isaías 58:10\n  f. Mateus 5:1-12\n  g. Mateus 25:40\n  h. João 5:3-10\n  i. 2 Coríntios 9:6-7\n  j. 1 Timóteo 6:18",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descobrir o que a Igreja Adventista declarou oficialmente sobre os temas \"Pobreza global\" e \"Compromisso com a saúde e a cura\". Avaliar de que maneiras você acha que a igreja como um todo (ou sua igreja local) tem sido bem-sucedida nesses objetivos. Fazer um brainstorming de uma lista de coisas específicas que seu clube, grupo ou igreja poderia fazer para ajudar a igreja mundial nesses objetivos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer uma das seguintes atividades:\n  a. Criar uma apresentação educativa sobre os determinantes sociais da saúde para um grupo de pessoas mais jovens. Fazer a apresentação.\n  b. Concentrar-se em uma área dos DSS e encontrar uma organização que trabalhe para melhorar o acesso de uma comunidade aos recursos e que você possa ajudar. Relatar à comissão da igreja, ao pastor ou a outro grupo de adultos o que você fez para ajudar.\n  c. Convidar um líder comunitário que atue em uma função relacionada aos determinantes sociais da saúde para falar a seu grupo. Preparar 8-10 perguntas de entrevista e entregá-las a esse líder antes do evento. Resumir o que ele compartilhou.\n  d. Convidar um profissional de defesa de direitos da comunidade para falar a seu grupo sobre o que significa a defesa de direitos e como ser um defensor pode ajudar a melhorar os determinantes sociais da saúde de uma comunidade. Resumir o que ele compartilhou.\n  e. Pesquisar o que as organizações online estão fazendo para defender as populações desfavorecidas que não têm pleno acesso aos DSS. Escrever uma carta ou criar um quadro de prós e contras que mostre sua possível disposição (ou falta de disposição) para apoiar a causa delas.",
+   "instructions": null
+  }
+ ]
+}

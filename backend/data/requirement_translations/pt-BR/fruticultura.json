@@ -1,0 +1,53 @@
+{
+ "honor_slug": "fruticultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fruit_Growing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que as árvores frutíferas são enxertadas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa rusticidade (resistência ao frio)?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que condições de local e de solo são necessárias para cultivar três das seguintes frutas:\n  a. Maçãs\n  b. Pêssegos\n  c. Peras\n  d. Ameixas\n  e. Cerejas\n  f. Laranjas\n  g. Uma opção equivalente cultivada em sua região, não citada acima.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que é uma árvore frutífera anã e como se faz para que ela seja anã?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Plantar pelo menos duas árvores frutíferas e conduzi-las por meio da poda durante pelo menos duas estações, ou conduzir e podar uma árvore já existente. Com supervisão, adubar e pulverizar conforme necessário durante uma estação de cultivo. Mostrar ao examinador um exemplo da fruta colhida.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Responder às seguintes perguntas:\n  a. O que é polinização?\n  b. O que é uma polinizadora?\n  c. Que árvores precisam de uma polinizadora?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Como as árvores jovens são protegidas dos danos causados por roedores? Proteger suas árvores jovens dos roedores.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Comparar as qualidades de sabor, textura e aparência de duas variedades diferentes da mesma fruta.",
+   "instructions": null
+  }
+ ]
+}

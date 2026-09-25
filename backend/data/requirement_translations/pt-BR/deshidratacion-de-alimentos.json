@@ -1,0 +1,53 @@
+{
+ "honor_slug": "deshidratacion-de-alimentos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Food_-_Drying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos três maneiras diferentes de desidratar alimentos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que e como se sulfuram as frutas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como as frutas secas são armazenadas e protegidas dos insetos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os alimentos desidratados são reidratados?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é importante na escolha das frutas a serem usadas para fazer couro de fruta (fruit leather)?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como se armazenam as nozes secas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desidratar os seguintes alimentos e fornecer amostras para degustação:\n  a. Pão. Fazer farinha de rosca e usá-la em uma receita para degustação.\n  b. Couro de fruta\n  c. Couro de legumes\n  d. Fatias de fruta\n  e. Fatias de legumes (como cenoura) ou pedaços (como ervilhas)\n  f. Carne seca vegetariana (jerky)\n  g. Salsinha ou outra erva",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Reidratar um legume e cozinhá-lo para degustação.",
+   "instructions": null
+  }
+ ]
+}

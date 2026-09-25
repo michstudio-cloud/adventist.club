@@ -1,0 +1,68 @@
+{
+ "honor_slug": "ciclismo-en-montana-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mountain_Biking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Mountain Biking - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Mountain Biking.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar as diferenças entre as mountain bikes de cross-country, all-mountain, enduro, downhill, dirt jump e trail.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a diferença entre os capacetes usados no mountain biking e quando usar cada um (full face, enduro, XC, dirt jump).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar como ajustar e regular a suspensão, sangrar freios hidráulicos, desmontar e montar novamente todas as peças e componentes principais e instalar pneus sem câmara (tubeless).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como fazer um drop com as duas rodas e um salto em rampa (lipped jump).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar ou explicar as seguintes manobras: stoppie, bunny hop, track stand, catwalk (wheelie) e manual.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer os principais tamanhos de roda das mountain bikes modernas e explicar seu uso.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Mapear, planejar e liderar um passeio em trilha com um grupo. O grupo deve ter pelo menos duas pessoas e o passeio deve ser em trilha estreita (single track) de pelo menos 5 milhas (8 km).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar ou criar uma oportunidade de trabalhar como voluntário na construção ou manutenção de trilhas em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Além dos passeios do nível básico, cumprir os seguintes requisitos de pedalada. Todos os passeios devem ser feitos em algum tipo de trilha fora de estrada, como single track ou double track, e em ocasiões diferentes. Uma mesma trilha pode ser usada para mais de um passeio ou percorrida mais de uma vez para que o passeio tenha a extensão necessária (se preciso). O uso de estradas de acesso para bombeiros deve ser mínimo.\n  a. Cinco passeios de 5 milhas (8 km)\n  b. Três passeios de 10 milhas (16 km)\n  c. Um passeio de 15 milhas (24 km)",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Usar a mountain bike como forma de testemunho. As opções podem incluir, entre outras:\n  a. Convidar alguém que não é membro da igreja para um passeio de mountain bike com o Clube de Desbravadores/grupo da igreja\n  b. Oferecer conserto/manutenção de mountain bikes em troca de doações destinadas à obra missionária\n  c. Encontrar uma maneira de identificar para o público sua igreja/Clube de Desbravadores nas atividades de construção/manutenção de trilhas do requisito 9",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "estudio-biblico-en-grupo-pequeno",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Small_Group_Bible_Study/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever, comparar e contrastar as seguintes formas de estudo da Bíblia.\n  a. Devoção pessoal\n  b. Pequeno grupo\n  c. Culto congregacional",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever, comparar e contrastar as seguintes ferramentas de estudo da Bíblia:\n  a. Concordância\n  b. Comentário bíblico\n  c. Dicionário bíblico",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir com um grupo as maneiras pelas quais o estudo da Bíblia é essencial para o desenvolvimento de um estilo de vida cristão.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir com um grupo a importância de começar cada estudo bíblico em pequeno grupo com oração.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Em grupo, e com a orientação de um pastor, ancião ou membro da diretoria do clube, criar uma lista detalhada de orientações para o sucesso na participação em um estudo bíblico em pequeno grupo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir com um grupo como um estudo bíblico em pequeno grupo pode levar uma pessoa a uma experiência eficaz e transformadora com Deus. Dramatizar ou ilustrar essa experiência de transformação.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar de um estudo bíblico em pequeno grupo durante pelo menos 3 meses e comparecer à maioria dos encontros/estudos realizados pelo grupo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com base em sua experiência de participação no pequeno grupo, criar um cartaz, desenho, apresentação oral, esquete, vídeo ou avaliação escrita que expresse os benefícios de um pequeno grupo. Descrever algumas das seguintes características do estudo bíblico em pequeno grupo:\n  Oferece apoio espiritual aos seus membros.\n  Abre oportunidade para compartilhar a fé / convidar outros para o grupo.\n  Cria amizade e comunhão entre os membros.\n  Incentiva as pessoas a adorar como Jesus orientou, \"em comunidade\".",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ao concluir a experiência definida no requisito 7, compartilhar com alguém que não era membro de seu pequeno grupo como esses estudos o ajudaram a crescer como cristão. Convidá-lo a participar de seu pequeno grupo ou, se o grupo estiver ficando grande demais, multiplicá-lo em outros pequenos grupos.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "flores-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flowers_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Flores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fotografar, colecionar imagens ou desenhar 75 espécies de flores. Fazer um álbum com elas e identificar corretamente cada flor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar as características distintivas das flores de cada uma das 12 famílias de plantas mais comuns.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar capacidade de usar chaves de identificação de plantas até o gênero e a espécie.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a diferença entre flores perfeitas e imperfeitas. O que se entende por flores pistiladas e estaminadas? Dar um exemplo de planta monoica e de planta dioica. Explicar a diferença entre monocotiledôneas e dicotiledôneas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar na Bíblia duas lições espirituais em que os escritores usaram flores como ilustração.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar e descrever oito plantas venenosas, indicando a parte da planta que é venenosa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma das seguintes atividades:\n  a. Citar cinco plantas de valor medicinal e indicar que parte de cada planta é usada.\n  b. Citar dez plantas silvestres comestíveis na raiz, no caule ou na folha.\n  c. Uma opção do requisito 6 da especialidade de Flores que não tenha sido cumprida para aquela especialidade.",
+   "instructions": null
+  }
+ ]
+}

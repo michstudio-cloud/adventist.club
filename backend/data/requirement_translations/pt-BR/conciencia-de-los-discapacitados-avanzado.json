@@ -1,0 +1,43 @@
+{
+ "honor_slug": "conciencia-de-los-discapacitados-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Disability_Awareness_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Conscientização sobre a deficiência - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Conscientização sobre a deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Passar pelo menos duas horas simulando uma deficiência visual ou uma deficiência de mobilidade que exija equipamento adaptado (por exemplo: cadeira de rodas, muletas, andador, bengala etc.). Compartilhar sua experiência em uma discussão em grupo no clube.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de pelo menos um projeto de adaptação de acessibilidade em sua igreja que atenda a uma pessoa com deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um programa de conscientização sobre a deficiência.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar uma breve pantomima de uma pessoa famosa que teve/tem uma deficiência e deixar que o grupo adivinhe quem é.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um relatório oral contando como mudou sua visão sobre as pessoas com deficiência desde que conquistou a especialidade de Conscientização sobre a deficiência.",
+   "instructions": null
+  }
+ ]
+}

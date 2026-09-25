@@ -1,0 +1,63 @@
+{
+ "honor_slug": "criptografia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cryptography_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Criptografia - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é a gematria e quem a desenvolveu?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o significado e o simbolismo de certos números (gematria) encontrados na Bíblia?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as sete letras romanas que representam os números romanos e como são usadas para formar outros números?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o número de emergência (código de emergência) mais comum no mundo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que cidade introduziu pela primeira vez um número telefônico de emergência (código de emergência)? Qual era esse número?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que são os números \"ICE\" (ou códigos ICE)?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são os \"números do amor\" (ou códigos do amor) encontrados em algumas culturas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Por que o uso do código numérico \"555\" apresenta um contraste tão cômico entre seu uso na gíria da Tailândia e seu uso na China?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que são as runas e como às vezes são usadas para enviar mensagens secretas?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer pelo menos quatro cifras de substituição (códigos) que codificam mensagens secretas usando números.",
+   "instructions": null
+  }
+ ]
+}

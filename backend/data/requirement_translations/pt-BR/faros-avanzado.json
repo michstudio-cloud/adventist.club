@@ -1,0 +1,73 @@
+{
+ "honor_slug": "faros-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lighthouses_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Faróis.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um álbum de recortes que inclua o seguinte:\n  a. Fotos, cartões-postais ou desenhos de vinte e cinco faróis. A legenda deve incluir uma breve descrição de: localização, ano de construção, situação (ativo/inativo) e ordem da lente.\n  b. Escrever um breve histórico desses faróis.\n  c. Incluir no álbum desenhos/fotos e as respostas a todos os requisitos desta especialidade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever o desenvolvimento da lente de Fresnel, incluindo:\n  a. Nome do homem que a inventou\n  b. País de onde ele era\n  c. Ano em que foi desenvolvida",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar uma lente de Fresnel:\n  a. Mostrar como os prismas são usados para concentrar a luz\n  b. Desenhar uma lente olho de boi e dizer sua finalidade",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma tabela que mostre cada classe de lente de Fresnel:\n  a. Definir \"ordem\" e fazer a lista por tamanho\n  b. Citar pelo menos um farol que use cada ordem",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar e descrever a história do mecanismo de rotação das luzes.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma tabela de seis faróis que mostre a característica noturna (luz) e a diurna (marca diurna).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que é um navio-farol? Por que e onde são necessários os navios-faróis?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler sobre os faroleiros e citar alguns dos perigos que enfrentavam no cumprimento de seus deveres.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Estudar citações de Ellen White que mencionam faróis e discutir seu significado. Colocar uma cópia das citações em seu álbum.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Obter um \"Passaporte de Faróis\" e carimbá-lo em 10 faróis diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Construir um farol inspirado em um farol real, usando um kit de farol, madeira ou outro material. Saber o nome, a localização e a data em que o farol real foi construído originalmente.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "computadoras",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computers/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever a função e indicar os seguintes componentes de um computador pessoal:\n  a. CPU\n  b. Memória (RAM)\n  c. Placa-mãe\n  d. Disco rígido\n  e. Unidade externa\n  f. Unidade interna\n  g. USB\n  h. Unidade óptica\n  i. Dispositivos de entrada\n  j. Monitor\n  k. Teclado\n  l. Impressora\n  m. Mouse\n  n. Modem / placa de rede\n  o. Câmera digital\n  p. Scanner",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as técnicas corretas de manuseio e armazenamento de disquetes, CDs, CD-Rs, DVDs, pen drives/unidades USB e outros dispositivos de mídia óptica equivalentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a diferença entre mídia somente leitura, de gravação única e regravável. Quais são exemplos de cada uma?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Determinar o seguinte em um sistema de computador:\n  a. Velocidade do processador\n  b. Capacidade de armazenamento do disco rígido\n  c. Capacidade de memória (RAM)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as vantagens de aumentar a velocidade do processador, a capacidade de armazenamento do disco rígido e a memória RAM de um computador?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dois tipos diferentes de impressoras e explicar os usos e as vantagens de cada tipo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar como cada um dos seguintes elementos ajuda a proteger um sistema de computador. Por que a segurança do computador é tão importante?\n  a. Backup dos arquivos pessoais\n  b. Backup da imagem de todo o sistema\n  c. Proteção contra surtos de tensão\n  d. Hardware/software de segurança na internet",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever uma redação de 250 palavras ou fazer um relatório oral de três minutos sobre a história dos computadores. Incluir os acontecimentos e as personalidades mais importantes para o desenvolvimento do computador, tanto do hardware como do software. O relatório deve se concentrar no desenvolvimento do computador pessoal, e não na internet ou em outras funções acessórias relacionadas à informática.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Passar uma semana registrando o tempo que você passa no computador. Anotar quanto tempo foi gasto com tarefas escolares, jogos, internet etc. No fim da semana, avaliar com seu conselheiro, família ou líder do grupo como sua administração do tempo no computador se relaciona com as instruções da Bíblia sobre a mordomia de nosso tempo e de nossos recursos (Romanos 14:12; Salmos 31:15; Eclesiastes 31:1-8; Efésios 5:15-16).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conversar com um usuário de computador experiente sobre as vantagens/desvantagens dos Macs e dos PCs. Algumas perguntas que você deve fazer:\n  a. Que sistema operacional cada um usa? Quais são algumas vantagens desse sistema operacional?\n  b. Que problemas de compatibilidade esses dois tipos de computador têm em relação ao compartilhamento de dados e à instalação de programas?\n  c. Que tipos de indústrias/carreiras tendem a usar cada tipo de sistema de computador?",
+   "instructions": null
+  }
+ ]
+}

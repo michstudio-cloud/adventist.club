@@ -1,0 +1,58 @@
+{
+ "honor_slug": "escalada-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Rock_Climbing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Escalada - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Escalada.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e demonstrar o uso de todo o equipamento especial de escalada em rocha, como bongs, RURPs, pitons de lâmina (knife blades), equipamento de chapeletas (bolts), laços de fita (hero loops), fitas, estribos (etriers) e ascensores mecânicos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar como usar todos os movimentos da escalada livre, incluindo: apoio na borda do pé; agarras com a ponta dos dedos; oposição (lay back); entalamento de mão, braço, pé e perna; e chaminé (stemming), escalando vias de dificuldade 5.6(F6) em paredes de treino, com segurança de cima.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar como dar segurança correta e segura a um escalador guia. Mostrar que consegue segurar a queda de um escalador guia durante uma queda de treino.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar como guiar e seguir (usando jumar) uma enfiada contínua de escalada artificial classe 5 ponto 6, de dificuldade A2, de pelo menos 20 pés (6,1 metros).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar como içar e descer, usando apenas equipamento comum de escalada, um escalador ferido com segurança e relativo conforto. Construir uma maca de corda e demonstrar seu uso correto.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar de pelo menos duas escaladas de várias enfiadas de dificuldade 5.5 (F5) ou superior, com pelo menos 120 pés (36,6 metros) de escalada cada uma, guiando pelo menos duas das enfiadas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher o mínimo de equipamento de bivaque, incluindo comida para um jantar e um café da manhã, e passar uma noite em bivaque em uma plataforma rochosa de pelo menos 30 pés (9,1 metros) de altura, alcançada por escalada moderada, içando o equipamento pelos métodos corretos de içamento com corda.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar o uso básico de mapa e bússola. Explicar como o mapa pode ser útil ao escalador e como determinar o rumo da bússola a partir do mapa.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "honor_slug": "dunas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dunes_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Dunas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Organizar ou participar de um projeto de serviço que beneficie a comunidade das dunas (limpeza, abertura de trilhas, ajudar outros a conhecer esse habitat específico). Escrever um relatório sobre os seguintes itens (incluir mapas, fotografias ou desenhos pode ajudar):\n  a. Que duna você visitou?\n  b. Quando você a visitou?\n  c. O que você fez lá?\n  d. Novas informações que aprendeu sobre esse tipo de habitat, além do que aprendeu na especialidade básica.\n  e. Informações sobre a duna específica que visitou.\n  f. Descrever o projeto de serviço que realizou (ser específico).\n  g. O que você aprendeu sobre si mesmo ao realizar o projeto de serviço?\n  h. O que aprendeu sobre esse habitat ao realizar o projeto de serviço?",
+   "instructions": null
+  }
+ ]
+}

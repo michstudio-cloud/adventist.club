@@ -1,0 +1,68 @@
+{
+ "honor_slug": "ciclismo-en-montana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mountain_Biking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ciclismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Usando como exemplo uma mountain bike e uma bicicleta de estrada, mostrar e descrever cinco diferenças entre elas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar a função e as vantagens dos pedais de encaixe (clipless), das extensões de guidão (bar ends) e da suspensão dianteira em uma mountain bike.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar pelo menos três materiais com que se fabricam os quadros de mountain bike e explicar por que sempre estão sendo testados novos materiais para eles.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar as diferenças entre single track, double track e estradas de acesso para bombeiros.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar a definição dos termos \"hard tail\" e \"full suspension\" e explicar as vantagens e desvantagens de uma bicicleta com suspensão total em comparação com uma hard tail.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever as regras básicas de cortesia que devem ser seguidas ao pedalar fora de estrada.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar 3 equipamentos básicos de segurança que devem ser usados na prática de mountain biking.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer os 3 ossos que se quebram com mais frequência em acidentes de mountain biking e como evitar essas lesões.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar como limpar, polir e lubrificar corretamente sua bicicleta depois de pedalar.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cumprir os seguintes requisitos de pedalada. Todos os passeios devem ser feitos em algum tipo de trilha fora de estrada, como single track, e uma mesma trilha pode ser usada para mais de um passeio ou percorrida mais de uma vez para que o passeio tenha a extensão necessária (se preciso).\n  a. Três passeios de 5 milhas (8 km).\n  b. Dois passeios de 10 milhas (16 km).\n  c. Um passeio de 20 milhas (32 km).",
+   "instructions": null
+  }
+ ]
+}

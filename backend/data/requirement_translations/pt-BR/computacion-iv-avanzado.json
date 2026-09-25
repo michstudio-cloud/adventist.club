@@ -1,0 +1,68 @@
+{
+ "honor_slug": "computacion-iv-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Computing_IV_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Computação IV - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Computação III - Regular.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório de pelo menos 2000 palavras sobre os computadores de quarta geração.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Bit\n  b. Kilobyte\n  c. Megabyte\n  d. Gigabyte\n  e. Terabyte",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que são vírus? Como podemos nos proteger deles?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever em detalhes três vírus famosos e os estragos que causam em um computador.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é a internet? Como ela pode nos influenciar na vida moderna?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Acessar e descrever o conteúdo de cinco sites educativos na internet. Apresentar um relatório de uma página sobre o que aprendeu em cada um dos sites.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Registrar, como uma agenda, os dados de pelo menos 25 pessoas em um banco de dados e apresentar um relatório que contenha o nome, o endereço, o número de telefone e o endereço de e-mail de cada pessoa.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pesquisar em revistas especializadas e apresentar um relatório de duas páginas sobre o que foi o bug do milênio (Y2K).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever a função dos seguintes equipamentos:\n  a. Teclado\n  b. Monitor\n  c. Impressora\n  d. Driver\n  e. CPU\n  f. Cabos\n  g. Modem\n  h. CD/DVD-ROM",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Ensinar a especialidade de Computação I a uma classe regular.",
+   "instructions": null
+  }
+ ]
+}

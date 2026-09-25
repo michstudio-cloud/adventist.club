@@ -1,0 +1,58 @@
+{
+ "honor_slug": "el-gran-conflicto",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/08_-_The_Great_Controversy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O grande conflito",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender como a Bíblia descreve a origem, a glória e a queda do anjo Lúcifer, usando as figuras dos reis de Tiro e da Babilônia como ilustração. (Ezequiel 28:12, 15; Isaías 14:12-14)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender quantos anjos se uniram a Lúcifer em sua rebelião contra Deus. (Apocalipse 12:4)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Compreender o que aconteceu no Céu entre os anjos fiéis e os rebeldes. (Apocalipse 12:7-9)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como Satanás introduziu o pecado na Terra. (Gênesis 3:1-6)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os efeitos do pecado sobre a humanidade. (Gênesis 6:5)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Deuteronômio 1:30.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como podemos estar preparados para enfrentar o mal. (Efésios 6:13-18)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escolher uma história bíblica que envolva a ação de anjos e, com o apoio de sua unidade ou grupo, dramatizar a história durante um acampamento, culto, Escola Sabatina, culto jovem etc.\n  a. Daniel 6 – Daniel protegido pelos anjos na cova dos leões\n  b. Mateus 4 – Jesus no deserto fortalecido pelos anjos\n  c. Atos 5 – Os apóstolos libertados da prisão pelos anjos",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um desenho ou ilustração que represente o grande conflito e explicar seu significado.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "coqui-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coqu%C3%AD_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Coquí - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Coquí.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar slides ou fotos de cinco coquís diferentes dos mostrados na especialidade básica, dando o nome científico.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Mostrar slides ou fotos de dois Eleutherodactylus de outros países, além de Porto Rico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os únicos coquís que cantam ou chamam durante o dia e por que fazem isso?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que coquís vivem nos seguintes habitats:\n  a. No chão da floresta.\n  b. Sob o solo, as folhas caídas e as raízes na floresta nebular da Floresta Nacional El Yunque.\n  c. Na vegetação alta.\n  d. No capim.\n  e. Na vegetação baixa.\n  f. Em bromélias.\n  g. Nas cavernas conhecidas como \"guajonales\".\n  h. Em rios e riachos.\n  i. Em árvores.\n  j. Nas áreas úmidas herbáceas de Sabana Seca (Toa Baja).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entre os coquís de Porto Rico, qual:\n  a. é o único com pés palmados?\n  b. não põe ovos?\n  c. não tem a falange terminal em forma de T?\n  d. apresenta dimorfismo sexual?\n  e. é o único endêmico de El Yunque, Porto Rico?\n  f. é conhecido como o \"demônio de Porto Rico\"?\n  g. tem menor capacidade reprodutiva?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Entre as rãs, os sapos e os coquís, a fêmea geralmente é maior que o macho. Entre os coquís de Porto Rico, qual é aquele em que o macho é maior que a fêmea?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entre os coquís, quem é responsável pelo cuidado e pela incubação da ninhada de ovos?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a expectativa de vida do coquí?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Visitar o habitat de pelo menos três espécies de coquí e, se possível, tirar uma foto de um coquí.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Escolher uma espécie de coquí e extrair dela uma lição, aplicação ou ilustração espiritual, e compartilhá-la com o clube.",
+   "instructions": null
+  }
+ ]
+}

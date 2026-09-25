@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-don-de-profecia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/18_-_The_Gift_of_Prophecy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O dom de profecia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber por meio de quem Deus transmite Suas mensagens à humanidade. (Amós 3:7)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber quem são as pessoas que serviram de fundamento para o estabelecimento da igreja. (Efésios 2:20-21)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Compreender o propósito do dom de profecia na igreja. (1 Coríntios 14:4)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar as duas principais características da igreja verdadeira nos últimos dias. (Apocalipse 12:17; 19:10)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os sinais de um verdadeiro profeta. (Isaías 8:20; Mateus 7:16, 18-20; Gálatas 5:19-23)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 2 Pedro 1:20-21.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo os benefícios para os que confiam nos profetas de Deus. (2 Crônicas 20:20)",
+   "instructions": null
+  }
+ ]
+}

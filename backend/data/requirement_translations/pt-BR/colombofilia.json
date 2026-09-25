@@ -1,0 +1,43 @@
+{
+ "honor_slug": "colombofilia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pigeon_Raising/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o tipo adequado de pombal, poleiro, alçapão e ninho para a criação de pombos. Fazer uma lista do equipamento interno necessário para um pombal.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer uma boa fórmula de sementes, grãos e grit (cascalho mineral) para a alimentação e em que proporções devem ser misturados. Por que se deve usar menos milho nos climas quentes?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a importância das diferentes partes da asa do pombo, especialmente das penas de voo primárias e secundárias?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a importância de uma muda correta? Como se pode controlar a época da muda?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar pelo menos dois casais de pombos. Se forem pombos-correio, treiná-los para voltar ao pombal a partir de uma distância de 25 milhas (40 km). Se forem pombos ornamentais ou de exposição, prepará-los para exposição e exibi-los em uma feira ou exposição.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar um breve relatório sobre sua experiência no cuidado e no treinamento desses pombos, incluindo a higiene e a prevenção de doenças, piolhos, ácaros, ratos, camundongos e outras pragas.",
+   "instructions": null
+  }
+ ]
+}

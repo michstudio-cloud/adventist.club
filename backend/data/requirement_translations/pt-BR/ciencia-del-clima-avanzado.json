@@ -1,0 +1,53 @@
+{
+ "honor_slug": "ciencia-del-clima-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Climate_Science_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Ciência do clima e pelo menos uma das seguintes especialidades:\n  Combustíveis alternativos\n  Ecologia\n  Conservação ambiental\n  Reciclagem\n  Energias renováveis\n  Rios e riachos\n  Climatologia",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é a agricultura industrializada? Quais são alguns impactos positivos e negativos que a agricultura industrializada tem tido sobre o clima da Terra? Como os métodos da agricultura industrializada mudaram nos últimos 200 anos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos dois órgãos governamentais de seu país e três organizações não governamentais (por exemplo, ONU, IPCC) que realizam pesquisas relacionadas às mudanças climáticas com o objetivo de influenciar as políticas governamentais. Analisar um relatório publicado por cada uma dessas cinco entidades e discutir as semelhanças e diferenças de suas evidências e conclusões.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar um tema sobre mudanças climáticas que possa ser controverso.\n  a. Identificar uma fonte de cada lado da controvérsia que use evidências científicas para apoiar as conclusões dos autores.\n  b. Resumir cada argumento, apresentando a hipótese, as evidências e a conclusão de cada lado.\n  c. Examinar seus resumos para determinar se seus preconceitos pessoais os afetaram.\n  d. Responder à seguinte pergunta: uma pessoa pode examinar evidências científicas sem permitir que seus preconceitos pessoais afetem essa análise?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que é o permafrost? Como o clima da Terra afeta o permafrost? Por que é importante que os cientistas monitorem o permafrost?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Pesquisar os esforços do governo de seu estado/província para enfrentar os efeitos dos gases de efeito estufa. Estar preparado para discutir suas descobertas com um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "A energia renovável tem sido proposta como solução para reduzir os gases de efeito estufa. Fazer três das seguintes atividades:\n  a. Ilustrar, por meio de mídias criativas, o processo pelo qual se supõe que os gases de efeito estufa provocam mudanças em nosso clima.\n  b. Pesquisar que esforços o governo de seu estado/província está fazendo para promover a adoção de fontes de energia renováveis.\n  c. Fazer uma lista de maneiras pelas quais você e sua família podem adotar a energia renovável ou reduzir sua pegada energética.\n  d. Quando possível, convidar um especialista local para falar a seu grupo sobre mudanças climáticas e energia renovável.\n  e. Encontrar e analisar recursos online, vídeos, reportagens e mídias semelhantes e compartilhá-los com seu grupo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Individualmente ou em grupo, fazer uma das seguintes atividades:\n  a. Criar um modelo de sistema de captação de água. Preparar e fazer uma apresentação oral para um grupo, apresentando seu modelo, sua eficácia e as leis locais sobre a captação de água da chuva.\n  b. Visitar um parque, museu, centro de ciências ou outro local que adote práticas ecologicamente conscientes. Fazer uma visita guiada, conversar com um funcionário ou, de alguma outra maneira, conhecer e avaliar os recursos que observar.",
+   "instructions": null
+  }
+ ]
+}

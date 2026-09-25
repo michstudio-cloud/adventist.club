@@ -1,0 +1,43 @@
+{
+ "honor_slug": "cactus-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cacti_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Cactos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que são plantas suculentas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar, ao vivo ou por meio de fotos, cinco plantas suculentas que não sejam cactos. Em que elas diferem dos cactos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as definições dos seguintes termos no contexto dos cactos e das suculentas:\n  a. Aréola\n  b. Cefálio\n  c. Coalescer\n  d. Corimbo\n  e. Diurno\n  f. Epífita\n  g. Gloquídio\n  h. Noturno\n  i. Rebento\n  j. Panícula\n  k. Escama\n  l. Estolão\n  m. Zigomorfo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "No cultivo de suculentas — incluindo os cactos —, as plantas podem ser atacadas por doenças e pragas. Quais são as mais comuns e como prevenir ou resolver esses problemas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Propagar pelo menos uma planta por um dos seguintes métodos: por sementes, por estacas ou por enxertia.",
+   "instructions": null
+  }
+ ]
+}
