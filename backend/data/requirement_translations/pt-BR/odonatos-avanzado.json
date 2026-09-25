@@ -1,0 +1,38 @@
+{
+ "honor_slug": "odonatos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Odonates_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Cumprir os requisitos básicos da especialidade de Odonata.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos relacionados aos odonatos.\n  a. lábio\n  b. exúvia\n  c. crepuscular\n  d. olhos compostos\n  e. ocelos\n  f. pterotórax\n  g. nervuras\n  h. células\n  i. asa anterior\n  j. asa posterior\n  k. fronte\n  l. pterostigma\n  m. sutura ocular\n  n. cercos\n  o. listras laterais\n  p. segmentos\n  q. pruinosidade",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar e identificar, desenhar ou fotografar espécimes que representem pelo menos 3 famílias de libelinhas (donzelinhas) e 4 famílias de libélulas encontradas em seu continente.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encontrar e identificar 30 espécies de odonatos. Não deixar de incluir as informações pertinentes sobre localidade, hábitat, data, horário e condições do tempo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber como capturar, montar e expor espécimes de odonatos.",
+   "instructions": null
+  }
+ ]
+}

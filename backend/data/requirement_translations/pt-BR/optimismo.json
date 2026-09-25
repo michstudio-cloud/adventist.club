@@ -1,0 +1,58 @@
+{
+ "honor_slug": "optimismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Optimism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Otimismo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que significa o termo otimismo. Por que é bom pensar e ser otimista?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Em que parte do Lema e do Voto do Desbravador você vê uma ligação com o pensamento otimista?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de sete coisas que impedem você de ser otimista e de sete coisas que fazem você se sentir otimista.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quando e onde alguém motivou você e o ajudou a pensar de forma otimista? Como essa pessoa fez isso? Contar ao seu líder de grupo ou ao grupo.\n  OU\n  Fazer uma lista de três coisas que deram coragem a você em situações aparentemente \"sem esperança\" ou em grandes desafios.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever durante um mês um diário de gratidão, anotando todos os dias pelo que você é grato. Mostrá-lo ao seu líder de grupo e conversar sobre um registro que tocou você de modo especial.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Procurar na Bíblia promessas de Deus que deem a você um motivo pessoal para ter confiança. Memorizar pelo menos três dessas promessas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cantar uma música que motive e encoraje outras pessoas em situações em que estão reclamando.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Motivar seu grupo pelo menos três vezes, em situações diferentes, com pensamentos positivos e estímulos otimistas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pensar em cinco \"frases de encorajamento\", escrevê-las em pequenos cartões e entregá-las a alguém que precise de coragem.",
+   "instructions": null
+  }
+ ]
+}
