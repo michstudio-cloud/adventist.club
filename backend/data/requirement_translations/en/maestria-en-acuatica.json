@@ -1,0 +1,15 @@
+{
+ "honor_slug": "maestria-en-acuatica",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aquatic_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Aquatic Master Award",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aquatic_Master_Award",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": []
+}

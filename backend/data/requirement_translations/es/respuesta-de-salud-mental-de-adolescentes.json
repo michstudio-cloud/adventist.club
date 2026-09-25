@@ -1,0 +1,58 @@
+{
+ "honor_slug": "respuesta-de-salud-mental-de-adolescentes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Adolescent_Mental_Health_Response/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Participar en una conversación grupal acerca de qué es la salud mental y por qué es importante.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Describir los problemas comunes de salud mental que suelen enfrentar los adolescentes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Investigar individualmente las estadísticas de salud mental entre los adolescentes, tanto a nivel mundial como en su propio país. Elaborar un gráfico con los datos disponibles de un periodo de diez años para comparar los indicadores de salud mental por grupos de edad. Analizar las tendencias y los cambios que muestran las estadísticas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Cuáles son algunos de los factores que afectan negativamente la salud mental de los adolescentes? ¿Qué puede hacer usted para reducir al mínimo el impacto negativo en su salud mental? ¿Cuáles son algunos de los factores que afectan positivamente la salud mental de los adolescentes y cómo puede incorporarlos a su vida diaria? Según sus hallazgos, reflexionar acerca de las siguientes opciones y elegir a dos personas para hacer con usted un juego de roles en su grupo pequeño o clase:\n  ¿Qué le hace sentir feliz, triste, asustado o intimidado?\n  ¿Cómo le afecta la presión de grupo y qué puede hacer cuando se siente presionado?\n  ¿Cómo impactan a los jóvenes las redes sociales, el acoso por internet y el intercambio inapropiado de contenido en internet? ¿Le ha afectado a usted?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "En general, ¿cuáles son algunas señales de advertencia comunes de problemas de salud mental en los adolescentes? ¿Cuáles son algunos pasos apropiados para buscar ayuda? Investigar los recursos disponibles.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Los adolescentes que enfrentan problemas de salud mental muchas veces sufren acoso y actitudes negativas (también llamadas «estigma») por parte de los demás.\n  a. Definir «estigma» y analizar algunos ejemplos reales de personas que han sido estigmatizadas.\n  b. Encontrar dos historias bíblicas, una en el Antiguo Testamento y otra en el Nuevo Testamento, en las que alguien fue estigmatizado.\n  c. Analizar una historia que muestre cómo trató Jesús a quienes habían sido estigmatizados.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Aprender algunas formas prácticas de mejorar y mantener una buena salud mental. Elegir una de estas formas y practicar esa actividad durante tres semanas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Leer las historias de cuatro personajes bíblicos que pasaron por periodos de profundo desánimo o depresión. Analizar cómo Dios los animó y los sostuvo en su momento de necesidad. Debatir si nosotros, como seguidores de Cristo, estamos libres de la ansiedad y la depresión. Memorizar 2 Corintios 4:8, 9, 18.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dios nos ha dado muchas promesas maravillosas. Marcar o subrayar las siguientes promesas bíblicas:\n  Mateo 6:34\n  Filipenses 4:6-7\n  2 Timoteo 1:7\n  Isaías 41:10\n  Josué 1:9\n  Juan 14:27\n  Salmo 55:22\n  1 Pedro 5:6-7\n  Proverbios 12:25\n  Proverbios 17:22\n  Otras\n  Usando al menos tres de estas promesas bíblicas, crear un separador de libros, un volante, un clip multimedia u otro obsequio para dar ánimo a otra persona.",
+   "instructions": null
+  }
+ ]
+}

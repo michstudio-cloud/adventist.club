@@ -1,0 +1,78 @@
+{
+ "honor_slug": "arte-callejero",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Street_Art/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arte urbana",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o que há em um nome de “tag”. Cada um escolhe seu nome de tag.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Resumir o que Deus “pintou” nos seis dias da Criação e o que Ele fez no sétimo dia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a história do grafite dentro da cultura hip-hop.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são três fatos sobre o grafite?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os seguintes termos:\n  a. Tagger/writer (grafiteiro)\n  b. Nome de tag\n  c. Grafite\n  d. Controle da lata\n  e. Tag (assinatura)\n  f. Throw-up/throwie\n  g. Piece/burner (peça)\n  h. Mural\n  i. Going over (atropelo)\n  j. Cap/bico\n  k. Crew/krew/cru (grupo)\n  l. Buff (cobertura)\n  m. Wild style\n  n. Bomb (bombardeio)\n  o. Arte urbana",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar os seguintes materiais:\n  a. Lata de spray\n  b. Blackbook (caderno de esboços)\n  c. Caps/bicos\n  d. Luvas\n  e. Máscara\n  f. Tinta de cobertura (buff)\n  g. Rolos\n  h. Esponjas\n  i. Lápis\n  j. Canetas marcadoras\n  k. Parede\n  l. Filme plástico",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar e explicar (com imagens) as diferentes formas de:\n  a. Grafite privado\n  b. Grafite público",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever três diferenças entre grafite e arte urbana. Explicar a diferença entre grafite e arte urbana e as consequências de pintar sem permissão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Desenhar:\n  a. Praticar seu nome/tag (no papel)\n  b. Desenhar seu nome em letras de bloco ou letras bolha\n  c. Desenhar e depois construir um R\n  d. Juntar-se a outro artista e fazer um desenho com uma mensagem positiva em uma única folha de papel",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Pintar:\n  a. Praticar diferentes jatos de spray\n  b. Usar um cap grosso e um fino (se houver) para demonstrar e experimentar traços de diferentes espessuras\n  c. Praticar seu nome/tag (em uma parede)\n  d. Pintar e depois construir um R\n  e. Cobrir a parede com tinta (buff)",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Colaborar com um grupo de artistas para pintar um mural com uma mensagem positiva.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Ler 1 Pedro 2:9 e Romanos 13:1 e conversar sobre como esses dois versículos se relacionam com a arte urbana.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Compartilhar como essa forma artística de comunicação pode ser usada como ferramenta de evangelismo.",
+   "instructions": null
+  }
+ ]
+}

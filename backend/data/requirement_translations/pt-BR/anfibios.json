@@ -1,0 +1,68 @@
+{
+ "honor_slug": "anfibios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Amphibians/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quais são as características dos anfíbios?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as três principais ordens de anfíbios e dizer como distingui-las.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Distinguir entre sapos e rãs.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os anfíbios se protegem?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista dos anfíbios que podem ser encontrados em sua região. Identificar cinco e dizer onde os encontrou. OU Reunir figuras ou fazer esboços de cinco anfíbios diferentes que você consiga identificar e dizer onde são encontrados.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever o ciclo de vida de alguns anfíbios.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar o valor econômico dos anfíbios.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Onde os sapos passam o inverno ou a estação seca?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar duas espécies de rãs pelo som ou imitar o som de duas espécies diferentes de rãs.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Como as rãs e os sapos cantam? O que torna o som tão alto?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Observar um sapo em seu quintal ou vizinhança para descobrir:\n  (1) Onde e quando ele dorme,\n  (2) Quando sai de seu abrigo para buscar alimento,\n  (3) Com que velocidade consegue se deslocar,\n  (4) A que distância consegue saltar, e todas as outras coisas interessantes que você puder descobrir sobre ele; e escrever uma redação abordando os detalhes pedidos na primeira parte desta questão.\n  b. Fazer eclodir alguns ovos de anfíbio, acompanhar seu ciclo de crescimento e escrever uma redação com os detalhes.",
+   "instructions": null
+  }
+ ]
+}

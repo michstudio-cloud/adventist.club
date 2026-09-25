@@ -1,0 +1,53 @@
+{
+ "honor_slug": "arte-en-plastico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Plastics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista dos materiais e equipamentos usados na confecção de pequenas peças fundidas em moldes plásticos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber como limpar e cuidar adequadamente dos moldes plásticos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que precauções de segurança devem ser tomadas ao trabalhar com plásticos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dizer como preparar a resina para a moldagem e para as camadas coloridas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Por que são usados os seguintes produtos?\n  a. Catalisador\n  b. Endurecedor de superfície\n  c. Pigmentos",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que se entende por polimerização?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar e incrustar dois elementos da natureza adequados para inclusão. Os elementos da natureza podem ser incrustados em uma ou mais peças moldadas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer três peças moldadas com pelo menos um elemento incrustado em cada uma.",
+   "instructions": null
+  }
+ ]
+}

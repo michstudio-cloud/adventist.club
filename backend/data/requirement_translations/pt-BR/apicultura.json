@@ -1,0 +1,88 @@
+{
+ "honor_slug": "apicultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Beekeeping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer um breve histórico da criação de abelhas para a produção de mel.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de pelo menos cinco usos de cada um dos seguintes produtos:\n  a. Mel\n  b. Cera de abelha\n  c. Própolis",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar dez alimentos que seriam muito difíceis de cultivar se não houvesse abelhas melíferas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista das funções do zangão, da operária e da abelha-rainha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever como as abelhas constroem os favos. Por que o favo escurece com o tempo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que significam os seguintes termos:\n  a. Colmeia de quadros móveis\n  b. Favo cruzado\n  c. Espaço abelha\n  d. Enxameação",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que é um fumigador? Que materiais são bons combustíveis para um fumigador?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "O que deve ser levado em consideração ao escolher o local de uma colmeia?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como as doenças das abelhas se espalham de uma colmeia para outra?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é pilhagem? Descrever uma abelha saqueadora.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar quatro maneiras de ajudar a prevenir a enxameação. Por que a enxameação deve ser evitada?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Quais três requisitos devem ser atendidos para que a colônia sobreviva ao inverno com sucesso?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Qual é a vantagem de usar um sistema de dupla câmara de cria?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Executar as seguintes tarefas de uma apicultura bem-sucedida:\n  a. Alimentação de primavera para estimular a produção de cria\n  b. Colocação de melgueiras e outras técnicas de prevenção da enxameação\n  c. Extrair o mel e colocá-lo em potes\n  d. Alimentação de outono e “desmontagem da colmeia” para prepará-la para os meses de inverno",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Como saber quando um quadro está pronto para ser retirado da colmeia para a extração?",
+   "instructions": null
+  }
+ ]
+}

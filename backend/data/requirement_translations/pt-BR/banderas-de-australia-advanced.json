@@ -1,0 +1,48 @@
+{
+ "honor_slug": "banderas-de-australia-advanced",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags_of_Australia_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bandeiras da Austrália - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar a especialidade de Bandeiras da Austrália.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Relatar a história das bandeiras mais populares hasteadas antes da Federação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever o desenho e a história dos pavilhões australianos (Australian Ensigns).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o desenho e a história das bandeiras real e vice-reais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são os protocolos e as regras para ter a “bandeira” de Cristo sobre nós?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar os dias em que a bandeira nacional australiana deve ser hasteada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar uma linha do tempo da história das bandeiras na Austrália desde 1800.",
+   "instructions": null
+  }
+ ]
+}

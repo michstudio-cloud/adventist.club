@@ -1,0 +1,23 @@
+{
+ "honor_slug": "botemodelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Model_Boats/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer duas das seguintes atividades:\n  a. Comprar e montar um kit de veleiro de 10 a 15 polegadas (25,4 a 38,1 cm) de comprimento e cerca de quatro a cinco polegadas (10 a 13 cm) de largura, e navegar com o barco na água por pelo menos dois minutos.\n  b. Construir um modelo de barco com motor elétrico, a partir de seus próprios planos ou de um kit, com 10 a 18 polegadas (25,4 a 45,7 cm), e operar o barco por três a cinco minutos.\n  c. Construir um modelo de barco de 18 a 30 polegadas (45,7 a 76,2 cm) de comprimento, a partir de seus próprios planos ou de um kit. Instalar um pequeno motor de combustão interna .029 ou .049 e fazer pelo menos duas corridas bem-sucedidas de três a cinco minutos cada uma. Registrar por escrito as características de funcionamento do modelo e explicar o que você fez para melhorar seu desempenho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar e definir estas palavras:\n  a. Deslocamento\n  b. Centro de gravidade\n  c. Passo da hélice\n  d. Empuxo e sustentação\n  e. Monocasco\n  f. Hidroplano\n  g. Proa\n  h. Quilha\n  i. Espelho de popa\n  j. Cavitação\n  k. Adernamento\n  l. Planeio\n  m. Arrasto",
+   "instructions": null
+  }
+ ]
+}

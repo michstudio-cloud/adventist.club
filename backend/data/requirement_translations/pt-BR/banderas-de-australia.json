@@ -1,0 +1,58 @@
+{
+ "honor_slug": "banderas-de-australia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags_of_Australia/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bandeiras da Austrália",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever a evolução da bandeira nacional.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como a bandeira nacional australiana foi escolhida?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os elementos da bandeira nacional australiana?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é o significado emocional, ético e moral da bandeira nacional australiana?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o desenho e a história das bandeiras dos estados, dos territórios e dos povos indígenas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que são as bandeiras institucionais (house flags)?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar as regras de uso da bandeira nacional.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é o método correto de descarte da bandeira nacional?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever em detalhes o modelo oficial da bandeira nacional australiana e as partes de uma bandeira.",
+   "instructions": null
+  }
+ ]
+}

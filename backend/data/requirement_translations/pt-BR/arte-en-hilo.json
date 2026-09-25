@@ -1,0 +1,38 @@
+{
+ "honor_slug": "arte-en-hilo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/String_Art/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arte com linhas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o seguinte: artesanato com linhas (string craft), simografia, bordado geométrico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar e costurar em papelão, em pontos igualmente espaçados:\n  a. Um ângulo reto\n  b. Um ângulo agudo\n  c. Um ângulo obtuso",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar três maneiras de preparar a madeira para arte com linhas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usar técnicas de passar linha sobre madeira para fazer quatro dos seguintes itens:\n  a. Círculo preenchido\n  b. Círculo vazado\n  c. Estrela\n  d. Borda\n  e. Curva interna\n  f. Curva externa\n  g. Preenchimento\n  h. Trama em asa",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um quadro original de arte com linhas em madeira, para ser exposto.",
+   "instructions": null
+  }
+ ]
+}

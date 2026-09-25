@@ -1,0 +1,63 @@
+{
+ "honor_slug": "banderas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o que é uma bandeira e citar três usos das bandeiras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e localizar as seguintes partes de uma bandeira:\n  a. Cantão\n  b. Campo\n  c. Ponteira\n  d. Mastro\n  e. Batente\n  f. Extremidade do batente\n  g. Adriça\n  h. Lado da tralha\n  i. Roldana do mastro",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer três orientações importantes para o cuidado e o manuseio da bandeira de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender a dobrar a bandeira de seu país e praticar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Praticar a etiqueta correta ao saudar a bandeira de seu país:\n  a. De uniforme, parado.\n  b. De uniforme, em marcha.\n  c. Com uniforme de campo.\n  d. Usando boné ou chapéu.\n  e. Sem uniforme.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Desenhar a bandeira dos Desbravadores com o emblema.\n  a. Saber quem desenhou a bandeira dos Desbravadores e quem costurou a primeira bandeira dos Desbravadores.\n  b. Colorir o desenho com as cores apropriadas.\n  c. Conhecer o significado do emblema dos Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Desenhar a Bandeira Cristã.\n  a. Explicar o que as cores representam.\n  b. Saber o que o emblema representa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender a posicionar as bandeiras (Nacional/Estadual/Provincial, Cristã, JA, Desbravadores) e praticar em cada uma das seguintes ocasiões:\n  a. Área do acampamento.\n  b. Plataforma para cerimônias especiais.\n  c. Culto de admissão, investidura e/ou Sábado dos Desbravadores.\n  d. Estande em feira.\n  e. Reunião do Clube de Desbravadores/JA.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer a história da bandeira de seu país/ilha e o que suas cores e símbolos representam, e compartilhar com seu grupo.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Identificar as bandeiras de sua Divisão e saber quais países elas representam.",
+   "instructions": null
+  }
+ ]
+}

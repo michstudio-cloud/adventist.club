@@ -1,0 +1,63 @@
+{
+ "honor_slug": "arte-en-bambu",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bamboo_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Trabalhos em bambu",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Como o bambu é classificado cientificamente?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as partes de uma planta de bambu.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que condições a planta de bambu cresce melhor?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que altura a planta de bambu pode atingir?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Com que frequência a planta de bambu floresce?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são as qualidades especiais da planta de bambu que inspiraram muitos artistas e poetas em suas obras de arte?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são os diferentes usos do bambu?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Quais são algumas das ferramentas necessárias para trabalhar com bambu?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são os riscos envolvidos no trabalho com bambu?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer quatro objetos artesanais de bambu diferentes, de quatro das seguintes categorias (os quatro objetos NÃO devem ser da mesma categoria):\n  Um objeto decorativo. Exemplo: castiçal, porta-retratos, cachepô, roda-d’água, sino dos ventos\n  Um utensílio de cozinha. Exemplo: copo, concha, colher, faca de manteiga, cesto, xícara de chá, caneca, jogo americano, bandeja, pegador de panela, hashis, tampa para alimentos\n  Um artigo de papelaria. Exemplo: abridor de cartas, porta-lápis, porta-moedas\n  Um instrumento musical. Exemplo: flauta, apito, chocalho, xilofone, instrumento de percussão\n  Um móvel. Exemplo: cadeira, banqueta, mesa, divisória, conjunto de bar\n  Um objeto utilitário. Exemplo: coçador de costas, cabide, prendedor de roupa, cúpula de abajur, escada de corda, cesto, chapéu, etiqueta de identificação\n  Um brinquedo. Exemplo: móveis em miniatura, animais, avião, carro",
+   "instructions": null
+  }
+ ]
+}

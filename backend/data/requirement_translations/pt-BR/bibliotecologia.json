@@ -1,0 +1,78 @@
+{
+ "honor_slug": "bibliotecologia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Librarianship/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Biblioteconomia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é biblioteconomia?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a função do bibliotecário profissional?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes processos:\n  a. Empréstimo\n  b. Devolução\n  c. Renovação",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as partes básicas de um livro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber quais critérios são usados para classificar os livros em uma biblioteca.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Visitar duas ou mais bibliotecas e descobrir o seguinte:\n  a. Como se faz uma pesquisa de livros por assunto?\n  b. Como são desenvolvidos os processos de organização dos livros?\n  c. Como as pesquisas são complementadas com a ajuda da internet ou de revistas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber onde conseguir livros novos e usados.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Apresentar uma lista com 5 sugestões de livros em cada uma das seguintes categorias e escrever informações detalhadas sobre esses livros:\n  a. Literatura religiosa\n  b. Literatura infantil\n  c. Literatura juvenil\n  d. Literatura científica",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "De acordo com as normas técnicas do país (ou normas internacionais), citar as referências bibliográficas de dois exemplos de cada um dos seguintes tipos de publicação:\n  a. Livros\n  b. Revistas\n  c. Páginas da internet\n  d. Dicionário",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O que é uma biblioteca digital?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O que é uma biblioteca do futuro?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Planejar e implementar um projeto de leitura em seu clube/unidade e avaliar os resultados.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Iniciar uma campanha de doação de livros e ajudar a criar ou ampliar o acervo da biblioteca do clube. Essa biblioteca deve conter pelo menos:\n  a. Dez livros científicos ou de conhecimentos gerais\n  b. Quinze revistas\n  c. Cinco manuais dos Desbravadores\n  d. Quinze livros do Espírito de Profecia\n  e. Cinco livros úteis para cumprir os requisitos de classes ou especialidades\n  f. Dez livros sobre outros assuntos interessantes",
+   "instructions": null
+  }
+ ]
+}

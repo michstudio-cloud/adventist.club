@@ -1,0 +1,63 @@
+{
+ "honor_slug": "antilopes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Antelopes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar as características gerais dos antílopes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três grupos de tamanho desses animais, com dois exemplos de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser capaz de identificar pelo menos 15 antílopes diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que eles comem? Como digerem o alimento?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três maneiras pelas quais as pessoas se beneficiam por ter esses animais no país onde vivem.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que são “falsos cascos”? Quais membros desta família não os possuem?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais antílopes são classificados atualmente como animais raros da África do Sul? Onde eles podem ser vistos, fora do zoológico e do museu?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que inimigos naturais os antílopes têm? Como os antílopes protegem a si mesmos e a seus filhotes?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é:\n  a. O maior antílope?\n  b. O corredor mais veloz?\n  c. Um bom lutador?\n  d. Um bom saltador?\n  e. Principalmente noturno?\n  f. Chamado de “camurça africana”?\n  g. O animal nacional da União Sul-Africana?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Dizer qual antílope você mais gosta de observar. Citar cinco de seus hábitos.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "ciclismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cycling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conocer el nombre y explicar la función de las diferentes partes de una bicicleta.\n  a. Caja del pedalier\n  b. Cable del freno\n  c. Palanca del freno\n  d. Casete\n  e. Cadena\n  f. Plato\n  g. Vaina inferior\n  h. Biela\n  i. Desviador\n  j. Tubo diagonal\n  k. Puntera\n  l. Rueda libre\n  m. Freno delantero\n  n. Amortiguador delantero\n  o. Manubrio\n  p. Juego de dirección\n  q. Tubo de dirección\n  r. Maza (buje)\n  s. Polea tensora\n  t. Niple (tuerca del rayo)\n  u. Pedal\n  v. Freno trasero\n  w. Amortiguador trasero\n  x. Rin (aro)\n  y. Sillín (asiento)\n  z. Tija del sillín\n  aa. Vaina superior\n  bb. Tubo del sillín\n  cc. Palanca de cambios delantera\n  dd. Palanca de cambios trasera\n  ee. Cierre rápido\n  ff. Eje del pedalier\n  gg. Rayos\n  hh. Potencia (poste del manubrio)\n  ii. Basculante\n  jj. Llanta (neumático)\n  kk. Tubo superior\n  ll. Válvula\n  mm. Maza de la rueda",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Reparar una llanta de bicicleta ponchada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desarmar, limpiar y volver a armar correctamente una bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ajustar correctamente los frenos y los desviadores delantero y trasero.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conocer y practicar las reglas de cortesía y de seguridad al andar en bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "¿Cuál es la ventaja de usar casco de ciclismo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tener el siguiente registro de recorridos:\n  a. Hacer tres recorridos separados de 10 millas (16.1 km) en diferentes lugares.\n  b. Hacer un recorrido de 50 millas (80.6 km) en diez horas o menos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber leer un mapa de carreteras trazando en él su ruta de 50 millas (80.6 km) y siguiéndola con precisión en un recorrido real.",
+   "instructions": null
+  }
+ ]
+}

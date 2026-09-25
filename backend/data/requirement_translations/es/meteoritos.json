@@ -1,0 +1,58 @@
+{
+ "honor_slug": "meteoritos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Meteorites/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Prerrequisito: tener la especialidad de Mineralogía.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Qué es un meteorito?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar la diferencia entre una caída y un hallazgo de meteorito.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar cómo se nombran los meteoritos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describir un cráter de hipervelocidad.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar a partir de imágenes, dibujar o fotografiar los siguientes tipos de meteoritos. Describir la forma, el tamaño, la composición y el modo de formación habituales de cada tipo de meteorito.\n  a. Condritas/acondritas\n  b. Acondritas\n  c. Meteoritos metálicos (de hierro)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar y clasificar tres meteoritos notables, incluido uno encontrado en su país. Pueden ser meteoritos conocidos por su nombre, como Hoba, Willamette y Allende. ¿Qué hace notable a cada uno de los meteoritos que eligió?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar 7 menciones bíblicas de un meteorito o de una roca ardiente que cae del cielo («estrellas», «grandes piedras», «granizo» y «azufre» son términos bíblicos comunes para referirse a los meteoritos). Comentar o describir por qué cree que la Biblia menciona los meteoritos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Hacer dos de los siguientes:\n  a. Visitar un museo local e identificar meteoritos que se hayan recolectado en distintos lugares del mundo.\n  b. Invitar a un aficionado a las rocas o coleccionista de meteoritos de su localidad a visitar su grupo y presentar los meteoritos que ha recolectado.\n  c. Crear una exhibición de 10 fotos con información sobre los meteoritos, incluyendo datos importantes aprendidos en esta especialidad.\n  d. Crear un juego de mesa que ayude a otros a aprender sobre los meteoritos. Puede basar el juego en juegos de cartas o de tablero populares.",
+   "instructions": null
+  }
+ ]
+}

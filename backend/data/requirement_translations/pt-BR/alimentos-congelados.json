@@ -1,0 +1,63 @@
+{
+ "honor_slug": "alimentos-congelados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Food_-_Freezing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Branqueamento\n  b. Congelamento rápido\n  c. Queimadura de congelador",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipos de recipientes podem ser usados para congelar alimentos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os pontos essenciais a considerar ao escolher hortaliças ou frutas para congelar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como descongelar hortaliças congeladas para servir à mesa? Como descongelar frutas congeladas para servir à mesa?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Congelar duas hortaliças (milho e outra de sua escolha) e depois prepará-las e servi-las para degustação.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Congelar rapidamente uma hortaliça de modo que os pedaços fiquem soltos e fáceis de despejar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Por que não se coloca sal nas hortaliças que serão congeladas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Congelar alguns pêssegos em calda leve e outros em suco de laranja ou de abacaxi. Por que se usa ácido ascórbico na calda e não no suco de fruta? Por que se usa ácido ascórbico no congelamento de pêssegos?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Congelar um tipo de fruta vermelha sem adição de adoçantes.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um tipo de geleia para congelar.",
+   "instructions": null
+  }
+ ]
+}

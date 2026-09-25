@@ -1,0 +1,38 @@
+{
+ "honor_slug": "alerta-roja",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Red_Alert/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Dizer o que você deve fazer para evitar ferimentos e/ou possível perda de vidas nas seguintes situações:\n  a. Um incêndio em sua casa, na casa de um vizinho e em um edifício público\n  b. Se você ficar preso em um carro durante uma nevasca ou no deserto\n  c. Acidente de trânsito\n  d. Terremoto\n  e. Enchente\n  f. Tornado\n  g. Furacão\n  h. Tempestade com raios e trovões\n  i. Emergência atômica\n  j. Avalanche de rochas ou de neve\n  k. Seu barco ou canoa vira em águas abertas",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ao telefonar pedindo ajuda em uma situação de emergência, que informações essenciais devem ser dadas e quem deve desligar o telefone por último?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar que medidas de primeiros socorros de emergência você deve tomar nas seguintes situações:\n  a. As roupas de alguém pegam fogo\n  b. Um ferimento com sangramento intenso\n  c. Alguém está engasgado\n  d. Alguém engoliu veneno",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte:\n  a. Desenhar uma rota de fuga para sua família em caso de incêndio em sua casa quando as saídas normais estiverem bloqueadas.\n  b. Praticar com sua família um simulado de incêndio em casa.\n  c. Conversar com seu examinador sobre os procedimentos para retirar as pessoas com segurança de sua igreja e de sua escola em caso de incêndio. Deve-se levar em conta como evitar o pânico.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que você e seus pais devem fazer para evitar o sequestro de crianças em sua família? O que você deve fazer se for sequestrado?",
+   "instructions": null
+  }
+ ]
+}

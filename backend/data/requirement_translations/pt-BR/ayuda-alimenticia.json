@@ -1,0 +1,38 @@
+{
+ "honor_slug": "ayuda-alimenticia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hunger_Relief/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Combate à fome",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar uma reportagem sobre o tema da fome no mundo e conversar com sua unidade do Clube de Desbravadores sobre as medidas que estão sendo tomadas para reduzir a fome na região mostrada na reportagem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ouvir uma pessoa que dirige a distribuição de alimentos na sua região, seja numa igreja, num centro comunitário, numa cozinha comunitária etc. Informar-se sobre as pessoas atendidas, algumas causas da falta de alimentos na comunidade e como essas necessidades são supridas. Compartilhar suas descobertas com seu instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever as causas da fome no seu país. Isso pode ser feito por meio de uma breve redação, uma apresentação, uma encenação ou a produção de um vídeo de um minuto. Apresentar o trabalho na sua escola, em um grupo cívico, no Clube de Desbravadores ou na igreja.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Arrecadar alimentos para o banco de alimentos ou o centro de distribuição de alimentos da comunidade local ou, se isso não for possível, escolher uma família que precise de ajuda e levar os alimentos até ela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Visitar um banco de alimentos, um centro de distribuição de alimentos ou uma cozinha comunitária e oferecer-se como voluntário para ajudar a equipe. Isso pode ser feito com seu grupo ou unidade de Desbravadores. Conversar com a equipe para descobrir como os alimentos são arrecadados e quais são alguns dos desafios para conseguir alimentos para distribuir.",
+   "instructions": null
+  }
+ ]
+}

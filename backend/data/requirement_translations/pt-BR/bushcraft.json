@@ -1,0 +1,53 @@
+{
+ "honor_slug": "bushcraft",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bushcraft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bushcraft",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Pesquisar e descrever o significado do termo Bushcraft.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Preparar uma lista de espécies silvestres comestíveis da sua região.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que não devemos consumir vegetais ou cogumelos encontrados na natureza sem conhecê-los.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender métodos para encontrar os pontos cardeais em diferentes situações, como à noite, de dia e com céu nublado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de um acampamento no estilo Bushcraft.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Montar e usar um kit de sobrevivência com pelo menos 10 itens durante um acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte durante o acampamento:\n  a. Coletar, armazenar e purificar água para consumo no acampamento.\n  b. Usar dois tipos diferentes de fogueira para preparar alimentos.\n  c. Usar três dos seguintes métodos para acender uma das fogueiras: arco, broca de mão, pederneira e aço, lupa ou pedaço de vidro, saco de água, palha de aço e bateria.\n  d. Usar um fogareiro para preparar uma das refeições.\n  e. Coletar e preparar alimentos encontrados na natureza.\n  f. Improvisar utensílios de cozinha e usá-los durante um dia de acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Cumprir três dos seguintes requisitos:\n  a. Construir uma cama elevada.\n  b. Preparar um abrigo natural e usá-lo durante uma noite no acampamento.\n  c. Fazer uma corda com materiais naturais.\n  d. Construir uma mesa de pioneiria.\n  e. Fazer tochas e usá-las à noite.\n  f. Construir um chuveiro improvisado.",
+   "instructions": null
+  }
+ ]
+}

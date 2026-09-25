@@ -1,0 +1,48 @@
+{
+ "honor_slug": "acolchado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Quilting/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué es una colcha acolchada? ¿Para qué se usa?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Cuáles son las tres fibras principales que se usan en la entretela (capa intermedia) de una colcha acolchada?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Cuáles son dos métodos comunes de diseño en una colcha acolchada? Definir qué es una «colcha loca» (crazy quilt).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Cuál es la diferencia entre anudar con hilo de lana y acolchar?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Cuáles son los pasos para hacer una colcha acolchada?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Confeccionar y terminar una colcha acolchada, ya sea como proyecto individual o de grupo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar un archivo de por lo menos seis patrones de colchas acolchadas, incluyendo dos de retazos (patchwork) y uno con tema patriótico.",
+   "instructions": null
+  }
+ ]
+}

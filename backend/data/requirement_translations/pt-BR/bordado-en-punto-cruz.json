@@ -1,0 +1,43 @@
+{
+ "honor_slug": "bordado-en-punto-cruz",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Counted_Cross_Stitch/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter uma bolsa com materiais para ponto cruz, incluindo pelo menos um bastidor, fita crepe ou Fra-check, agulhas e tesoura.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre ponto cruz, ponto cruz contado e bordado?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer pelo menos quatro pontos usados no ponto cruz contado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Bordar em ponto cruz um objeto simples em três tamanhos diferentes de tecido aida. Montar os trabalhos e etiquetá-los com o tamanho e o nome do tecido aida usado, indicando quantos fios da meada devem ser usados em cada um.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer em ponto cruz contado uma frase com borda e emoldurá-la para pendurar, usando pelo menos três pontos diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer em ponto cruz contado, sobre tecido aida 14, uma cena da natureza de pelo menos 5 x 7 polegadas (12,7 x 17,8 cm).",
+   "instructions": null
+  }
+ ]
+}

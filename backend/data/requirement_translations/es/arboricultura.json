@@ -1,0 +1,103 @@
+{
+ "honor_slug": "arboricultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Arboriculture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir los siguientes términos:\n  a. Arboricultura\n  b. Arbolista\n  c. Industria de la arboricultura",
+   "instructions": "Sección: (Debe impartirla un arbolista certificado o alguien con una certificación equivalente)"
+  },
+  {
+   "position": 2,
+   "description": "Dibujar e identificar los componentes de lo siguiente:\n  a. Sección transversal del tronco\n    i. Corteza exterior\n    ii. Floema\n    iii. Cámbium\n    iv. Albura (xilema)\n    v. Duramen\n  b. Anatomía de la ramita\n    i. Yema terminal\n    ii. Escamas de la yema\n    iii. Yema lateral\n    iv. Lenticelas\n    v. Cicatriz foliar\n    vi. Anillo de cicatrices de las escamas de la yema\n    vii. Entrenudo\n    viii. Nudo\n    ix. Traza del haz vascular\n    x. Médula",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nombrar cinco características de las plantas que se usan para identificar los árboles.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar los beneficios del acolchado (mantillo) y cómo aplicarlo correctamente alrededor de árboles y arbustos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describir los principios de la conservación del agua y de la planificación por hidrozonas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Los tres componentes principales del fertilizante son: nitrógeno (N), fósforo (P) y potasio (K). Explicar por qué se necesitarían diferentes proporciones de estos componentes básicos en distintas situaciones.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Hacer una lista de cinco características que se deben considerar al seleccionar árboles de un vivero y para un sitio de plantación.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar a un arbolista certificado o a un experto en árboles de su localidad acerca de las diferentes técnicas de plantación que se usan en su área.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "En el siguiente diagrama, usar dos colores diferentes para identificar qué ramas se deben eliminar con «cortes de aclareo» o con «cortes de reducción», y ser capaz de explicar la diferencia entre ambos cortes y cuándo se debe usar cada uno.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Nombrar dos tipos de sistemas de soporte para árboles que instalan los arbolistas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Hacer una lista de las enfermedades, los problemas de insectos y las especies invasoras más comunes en su región. Clasificarlos por gravedad.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Comprender la filosofía del Cuidado de la Salud de las Plantas (PHC, por sus siglas en inglés). Elaborar un plan de PHC para un árbol maduro y de alto valor en su área.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Practicar con su instructor cómo llenar un formulario de evaluación de riesgo de árboles de uso común para un árbol maduro. Como proyecto de servicio, usar sus conocimientos para llenar un formulario para un segundo árbol en su escuela, iglesia o parque local.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Investigar cómo los árboles pueden lesionarse o destruirse como consecuencia directa o indirecta de los daños causados por la construcción, y presentar sus hallazgos a un grupo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Dar una presentación acerca de la importancia de la silvicultura urbana en su área local o en el área urbana más cercana de su región. Ser creativo.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Hacer una lista completa del equipo de protección personal (EPP) necesario para realizar los siguientes tipos de trabajo: silvicultura urbana, arboricultura.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Ser capaz de identificar tres tipos de cuerdas y hacer tres nudos que usan los trabajadores del cuidado de árboles.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Discutir la aplicación espiritual de Juan 15:2 teniendo en cuenta lo que aprendió en esta especialidad.",
+   "instructions": null
+  }
+ ]
+}

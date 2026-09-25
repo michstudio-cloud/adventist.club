@@ -1,0 +1,98 @@
+{
+ "honor_slug": "natacion-iii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demostrar la carrera de aproximación y el salto de impulso en el trampolín.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demostrar un salto agrupado desde el trampolín.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nadar crol: 100 yardas (91 m).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Nadar crol de espalda: 100 yardas (91 m).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nadar estilo pecho: 25 yardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar estilo lateral: 25 yardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nadar estilo mariposa: 10 yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar con la brazada de aproximación: 25 yardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demostrar el viraje de pecho.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demostrar el viraje rápido y la brazada subacuática de salida en estilo pecho.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Demostrar el viraje rápido en crol.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demostrar el viraje con voltereta en crol.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demostrar la inmersión de superficie en posición de carpa.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demostrar la inmersión de superficie en posición agrupada.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Mantenerse a flote en posición vertical durante tres minutos (un minuto sin usar las manos).",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demostrar un rescate por lanzamiento.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demostrar cómo voltear boca arriba a una víctima con lesión de columna.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "memorizar-la-biblia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Alive_Bible/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué significa el término «Biblia viva»?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conocer cuatro atajos para aprender de memoria.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demostrar una manera ingeniosa de «calentar» el cerebro (por ejemplo, el método «Sparky»).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explorar una de las siguientes aventuras bíblicas, usando sus habilidades y lo que entiende sobre cómo memorizan las personas:\n  a. Aventura bíblica: Dios frustra la trampa malvada de los abusivos\n    i. Leer en voz alta la historia de Daniel 6:1-23.\n    ii. Con sus propias palabras, preparar una breve introducción a la historia principal. Consultar Daniel 6:1-13.\n    iii. Aprender de memoria la parte principal de la historia en Daniel 6:13-23.\n  b. Aventura bíblica: El «fantasma» sobre el agua\n    i. Leer en voz alta la historia de Mateo 14:13-33.\n    ii. Con sus propias palabras, preparar una breve introducción a la historia principal. Consultar Mateo 14:13-21.\n    iii. Aprender de memoria la parte principal de la historia en Mateo 14:22-33.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "a. Como una Biblia viva, compartir su aventura bíblica por lo menos dos veces. Una de las veces debe hacerlo usted solo. Incluir su introducción y «dar vida» a la parte principal de la historia. Sugerencia: si lo desea, sea creativo y use tecnología moderna, como video, etc.\n  b. Llenar su registro de presentaciones de Biblia viva, que requiere la firma de un oyente «adulto».",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer una lista de tres posibles efectos de que un joven cristiano aprenda de memoria la Palabra de Dios y se convierta en una Biblia viva.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartir algunas experiencias de lo que ha significado para usted hacer esta especialidad:\n  a. ¿Qué fue lo más difícil de hacer esta especialidad? Explicar por qué.\n  b. ¿Qué parte o partes de la aventura le hablaron más al corazón? Explicar por qué.\n  c. ¿Cómo le ayudó esta especialidad a convertirse en un «amigo para siempre» de Jesús?",
+   "instructions": null
+  }
+ ]
+}

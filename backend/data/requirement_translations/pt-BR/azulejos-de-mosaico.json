@@ -1,0 +1,58 @@
+{
+ "honor_slug": "azulejos-de-mosaico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mosaic_Tile/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um breve histórico dos azulejos.\n  a. Quando foram usados pela primeira vez?\n  b. Quais foram dois usos comuns ao longo da história?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que tipo de material os azulejos costumam ser feitos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a diferença entre azulejo esmaltado e não esmaltado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a diferença entre rejunte com areia e sem areia? Em que aplicações cada tipo é usado?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três ferramentas comumente usadas na instalação de azulejos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte:\n  a. Citar duas ferramentas comumente usadas para cortar azulejos.\n  b. Demonstrar a habilidade de cortar azulejos usando uma dessas ferramentas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Descrever como aplicar corretamente o rejunte.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descrever como selar e dar o acabamento corretamente a um trabalho com azulejos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Concluir um trabalho com azulejos, como um descanso de panela, um pegador de panela ou outro objeto doméstico. O objeto deve medir pelo menos 6” x 6” (15,25 cm x 15,25 cm).",
+   "instructions": null
+  }
+ ]
+}

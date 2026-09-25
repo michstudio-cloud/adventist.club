@@ -1,0 +1,38 @@
+{
+ "honor_slug": "cactus",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cacti/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar as principais características de um cacto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três usos dos cactos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que lugares os cactos são mais abundantes? Por quê?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e identificar, ao vivo ou por meio de fotos, 15 espécies de cactos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fotografar, observar ou desenhar pelo menos 10 espécies de cactos e classificá-las, ou cultivar pelo menos 3 espécies diferentes de cactos.",
+   "instructions": null
+  }
+ ]
+}

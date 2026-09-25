@@ -1,0 +1,28 @@
+{
+ "honor_slug": "clavado-en-trampolin",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Springboard_Diving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demostrar los siguientes clavados:\n  a. Salto del ángel\n  b. Salto mortal al frente (agrupado)\n  c. Medio tirabuzón",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escoger dos clavados opcionales de los siguientes: medio inverso (agrupado, carpado o extendido), clavado hacia adentro, salto mortal y medio al frente, clavado de marinero, medio tirabuzón, clavado de espaldas, navaja de espaldas, carpado de espaldas.\n  a. Medio tirabuzón\n  b. Clavado hacia adentro\n  c. Salto mortal y medio al frente\n  d. Clavado de espaldas\n  e. Navaja de espaldas\n  f. Medio inverso (agrupado, carpado o extendido)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Indicar las profundidades de agua seguras debajo de un trampolín de un metro, de un trampolín de tres metros y de una plataforma. ¿Cuánto debe sobresalir el trampolín sobre la piscina? ¿Qué trampolines se recomiendan?",
+   "instructions": null
+  }
+ ]
+}

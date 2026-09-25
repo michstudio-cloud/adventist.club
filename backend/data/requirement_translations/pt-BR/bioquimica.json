@@ -1,0 +1,98 @@
+{
+ "honor_slug": "bioquimica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biochemistry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bioquímica",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Carboidratos\n  b. Lipídio\n  c. Ácido graxo\n  d. Proteína\n  e. Peptídeo\n  f. Enzima\n  g. Aminoácido\n  h. Ácido nucleico\n  i. Hidrofílico e hidrofóbico\n  j. Triglicerídeo\n  k. Monossacarídeo",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a importância da água nos organismos? Quais são as principais características físicas e químicas da molécula de água?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que significa metabolismo?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Do ponto de vista bioquímico, por que sentimos fome?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como ocorre a via glicolítica.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais células humanas dependem apenas dessa via para obter energia?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual molécula liga a via glicolítica ao Ciclo de Krebs?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a importância do Ciclo de Krebs?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a função dos lipídios?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que os lipídios são insolúveis em água?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Por que os lipídios, e não a glicose, são usados para armazenar energia?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "O que é a betaoxidação? Por que essa via recebe esse nome?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "O que são aminoácidos essenciais e não essenciais?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "O que são corpos cetônicos, onde são produzidos e quais são as consequências de sua produção em excesso?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Quais compostos são formados pela ligação de aminoácidos? Quais são as principais funções desses compostos?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Qual é a importância dos ácidos nucleicos? Como é sua estrutura e quais são seus componentes?",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Desenhar uma molécula de DNA, com quatro nucleotídeos, identificando seus componentes.",
+   "instructions": null
+  }
+ ]
+}

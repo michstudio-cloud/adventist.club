@@ -1,0 +1,48 @@
+{
+ "honor_slug": "herencia-cultural",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Cultural_Heritage/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a grandes rasgos por qué es importante conocer nuestra herencia cultural.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer una lista de las ceremonias especiales para:\n  a. El nacimiento de un niño.\n  b. El paso a la edad adulta.\n  c. La muerte y la sepultura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "a. Hacer una lista de las formas tradicionales de vestir para la vida diaria y para dos ocasiones especiales.\n  3. b. Dibujar, explicar o presentar en imágenes estas vestimentas tradicionales.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Cuáles son o eran las costumbres prematrimoniales de los jóvenes de su región? ¿Cómo se concierta (o se concertaba) el matrimonio?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer una lista de las ventajas de los matrimonios tradicionales sobre el noviazgo y el matrimonio al estilo occidental.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar lo siguiente:\n  a. Explicar brevemente el significado del término «precio de la novia».\n  b. ¿Cuáles son las ventajas del precio de la novia?\n  c. Explicar las desventajas del precio de la novia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar la estructura de liderazgo de la zona de su aldea. (Incluir el sistema de jefaturas y la familia extendida.)",
+   "instructions": null
+  }
+ ]
+}

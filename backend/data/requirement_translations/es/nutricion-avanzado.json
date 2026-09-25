@@ -1,0 +1,68 @@
+{
+ "honor_slug": "nutricion-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Nutrition_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Nutrición.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Leer un libro sobre nutrición.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Hacer lo siguiente:\n  a. Llevar un diario de su propia alimentación durante una semana.\n  b. Calcular para cada día el total de los siguientes nutrientes: calorías, proteínas, hierro, calcio, vitamina A, tiamina, riboflavina, niacina y vitamina C o ácido ascórbico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Cómo se compara esto con la tabla de ingestas diarias recomendadas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar por qué es importante una dieta rica en fibra y decir cómo se puede lograr.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nombrar tres enfermedades causadas por la desnutrición y describir los síntomas de cada una.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Cuáles son los síntomas de la deficiencia de vitamina B12?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "¿Qué consejo le daría a una persona que decidió ser vegetariana estricta?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "¿Cuál es la diferencia entre las grasas saturadas y las insaturadas? ¿Cuáles son más saludables y por qué?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "¿Por qué es aconsejable usar menos azúcar en nuestra alimentación? Sugerir varias maneras de lograrlo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Usando el libro Consejos sobre el régimen alimenticio, de Elena G. de White, escribir un párrafo sobre los beneficios de una dieta ovolactovegetariana.",
+   "instructions": null
+  }
+ ]
+}

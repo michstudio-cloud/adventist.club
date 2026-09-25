@@ -1,0 +1,93 @@
+{
+ "honor_slug": "aves-australianas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Australian_Birds/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Aves australianas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o seguinte:\n  a. Qual é a maior ave da Austrália?\n  b. Descrever seu ninho, incluindo o número, o tamanho e a cor dos ovos, e como são incubados.\n  c. A que velocidade essa ave consegue correr?\n  d. Qual é a ave \"voadora\" mais alta?\n  e. Você sabe citar a única cegonha nativa da Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Há pinguins em estado natural na Austrália? Em caso afirmativo, aonde você iria para observá-los?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar o seguinte:\n  a. Qual ave é conhecida como \"Laughing Jackass\" (burro risonho)?\n  b. A que espécie ela pertence?\n  c. O que há de incomum na composição familiar dessa ave?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o seguinte:\n  a. Citar pelo menos 2 aves que incubam seus ovos no solo.\n  b. Descrever, para uma dessas aves, como o ninho é construído e como os ovos são postos e incubados.\n  c. Qual é o termo que descreve esse tipo de ave?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o seguinte:\n  a. Para que o pássaro-caramanchão usa seu caramanchão, e que cor o pássaro-cetim costuma \"roubar\" para decorá-lo?\n  b. Você sabe citar um pássaro-caramanchão que vive no seu estado?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De onde vem o nome do pássaro-lira e o que há de especial em seu canto?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar o seguinte:\n  a. Qual é a maior ave de rapina da Austrália e qual é sua envergadura? Você sabe citar outra ave com a mesma envergadura?\n  b. O que a visão das aves de rapina tem de diferente em comparação com a das outras aves?\n  c. Qual é a ave de rapina mais rápida? A que velocidade ela é capaz de voar (em mergulho)?\n  d. Citar outra ave, que não seja de rapina, conhecida por seu voo rápido.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual cisne é nativo (não introduzido) da Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "De onde vêm os nomes das seguintes aves:\n  a. O wattlebird (ave-de-barbela)?\n  b. O catbird (pássaro-gato)?\n  c. O butcherbird (pássaro-açougueiro)?\n  d. O whipbird (pássaro-chicote)?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "O tesourão-grande (macho) tem uma bolsa na garganta. De que cor ela é e para que serve?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual ave é conhecida como \"ave de Cristo\" (Christbird) e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Citar as aves usadas nos emblemas australianos.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Qual ave é famosa por suas danças?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Além de chocar os ovos ou construir um monte, há outro método pelo qual as aves incubam seus ovos. Como se chama esse método? Citar uma ave que o utiliza.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Como o cormorão consegue mergulhar em busca de alimento?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "A Austrália tem uma grande variedade de tentilhões nativos. Citar 5, incluindo pelo menos um do seu estado. Descrever o seu preferido e dizer aonde você iria para procurá-lo.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "artes-y-trabajos-indigenas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Native_American_Lore/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar cinco usos que os indígenas do Noroeste da América do Norte faziam de materiais naturais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco usos que os indígenas do Sudoeste da América do Norte faziam da iúca.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco usos que os indígenas das florestas do Leste da América do Norte faziam da bétula.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer 15 alimentos de origem vegetal que os indígenas nos apresentaram. Incluir quatro nomes de plantas usados ainda hoje.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever as técnicas indígenas de aproximação furtiva e de rastreamento.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar cinco rochas e/ou minerais e os usos que os indígenas faziam deles.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar uma das maneiras como os indígenas faziam pontas de flecha.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Definir pictograma. O que são petróglifos indígenas e onde podem ser encontrados?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever o uso que os indígenas faziam das conchas marinhas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar pelo menos dez materiais usados na arte e no artesanato indígenas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma peça de artesanato usando qualquer um dos materiais citados no requisito 10.",
+   "instructions": null
+  }
+ ]
+}

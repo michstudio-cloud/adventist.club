@@ -1,0 +1,33 @@
+{
+ "honor_slug": "aventuro-para-cristo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Adventurer_for_Christ/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher duas das seguintes atividades e fazê-las com constância durante pelo menos seis meses.\n  a. Ler diariamente o livro de meditações matinais juvenis.\n  b. Estudar fielmente a lição da Escola Sabatina toda semana.\n  c. Seguir fielmente o plano de leitura do Ano Bíblico Juvenil.\n  d. Fazer um diário pessoal de oração, com a lista das pessoas e dos pedidos pelos quais você está orando e as respostas às orações.\n  e. Planejar e dirigir pelo menos um culto familiar por semana.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher três das seguintes atividades.\n  a. Enviar cinco cartões feitos em casa, com mensagens pessoais, poemas ou versículos bíblicos, a pessoas que precisem de ânimo.\n  b. Visitar dez ou mais pessoas e convidá-las para um evento especial da igreja ou dos Desbravadores.\n  c. Escolher um amigo e visitar alguém que faltou à Escola Sabatina ou à igreja. Levar-lhe um cartão e um lanche caseiro. Compartilhar essa experiência com sua família e orar por essa pessoa.\n  d. Durante um mês, manter seu quarto arrumado e sua cama feita, e fazer pelo menos três gestos de bondade para cada um de seus pais que mostrem que você os ama.\n  e. Juntar quinze exemplares da revista Guide que sobraram e distribuí-los a membros ausentes da Escola Sabatina, crianças em hospitais, lavanderias etc.\n  f. Durante três semanas, levar a uma pessoa que não pode sair de casa uma gravação em fita cassete do sermão de seu pastor e da música especial.\n  g. Ligar para seu pastor, ancião ou diácono da igreja e se oferecer como voluntário para ajudá-lo em qualquer tarefa que ele queira, durante duas horas por semana, por três semanas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher uma das seguintes atividades e fazê-la com um grupo.\n  a. Procurar quintais que precisem ter as folhas varridas, varrê-las e ensacá-las. No inverno, remover a neve com pá ou rachar lenha. Deixar um bilhete e um exemplar de Caminho a Cristo. Não aceitar dinheiro.\n  b. Planejar uma festa de aniversário com jogos, presentes e guloseimas em uma casa de repouso para um paciente que faça aniversário perto da data do seu.\n  c. Envolver toda a família em um projeto missionário, como dar estudos bíblicos, distribuir Caminho a Cristo em hotéis, adotar uma família carente ou fazer um trabalho para uma pessoa idosa.\n  d. Ler Mateus 25:35-40, depois dar uma volta pela vizinhança e fazer uma lista das necessidades de seus vizinhos. (Solidão, grama para cortar, mato para arrancar etc.) Procurar atender ao maior número possível dessas necessidades.\n  e. Diante de uma tragédia em sua comunidade, envolver-se pessoalmente na ajuda às pessoas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Criar sua própria aventura, que deve envolver três ocasiões diferentes de duas horas cada.",
+   "instructions": null
+  }
+ ]
+}

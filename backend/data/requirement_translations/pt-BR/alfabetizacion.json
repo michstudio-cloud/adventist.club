@@ -1,0 +1,38 @@
+{
+ "honor_slug": "alfabetizacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Literacy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Alfabetização",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir o termo alfabetização.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar e descrever brevemente como duas ou três organizações de sua comunidade ou de seu país promovem a alfabetização ou oferecem serviços de alfabetização a crianças e adultos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever um parágrafo explicando por que a alfabetização é importante.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer três das seguintes atividades:\n  a. Ajudar alguém a ler um livro pequeno ou uma história curta.\n  b. Ler uma história curta para um grupo de crianças pequenas e depois conversar com elas sobre a história.\n  c. Fazer 10 cartões didáticos com palavras simples e ilustrações ou figuras e entregá-los a alguém que esteja aprendendo a ler.\n  d. Ler vários capítulos da Bíblia para uma pessoa idosa que você conheça e que seja cega ou não saiba ler. Isso pode ser feito em uma única visita ou em várias.\n  e. Fazer uma apresentação de cinco minutos em sua escola, na Escola Sabatina ou na igreja sobre o que você aprendeu a respeito da alfabetização.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher três palavras e explicar ao seu instrutor como você ensinaria a alguém o significado dessas palavras e como escrevê-las corretamente.",
+   "instructions": null
+  }
+ ]
+}

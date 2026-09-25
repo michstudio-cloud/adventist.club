@@ -1,0 +1,63 @@
+{
+ "honor_slug": "braille",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Braille/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um sistema de leitura tátil?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Discutir quem precisa de um sistema de leitura tátil e o que é necessário para lê-lo.\n  a. Encontrar uma tabela de exame de vista e seguir as instruções para testar sua visão. O que caracteriza uma boa visão, em oposição à cegueira legal?\n  b. Usando uma atividade multissensorial, avaliar sua sensibilidade epicrítica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Discutir brevemente a história dos sistemas de leitura tátil, incluindo os seguintes pontos:\n  a. Quem foi Louis Braille?\n  b. Fazer uma lista de alguns dos sistemas de leitura tátil que competiram com o braille na “Guerra dos Pontos”.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como os sistemas braille são adaptados a diferentes idiomas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar que você compreende a cela braille escrevendo seu nome em braille com um trabalho manual, peças de LEGO ou outro método criativo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descobrir como o braille é escrito.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Discutir quais materiais seriam mais úteis se fossem transcritos para o braille e o que você gostaria que estivesse disponível em braille caso ficasse cego.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar as disposições legais e culturais do seu país que tornam o braille mais acessível.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quem foi o pioneiro adventista Austin O. Wilson e o que ele fez?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Discutir maneiras de conhecer e interagir com uma pessoa cega. Fazer uma das seguintes atividades:\n  a. Visitar uma instituição que atende pessoas cegas. Antes da visita, pedir aos alunos que escrevam suas previsões sobre a percepção que têm das pessoas cegas. Recolher e guardar as respostas para revisá-las depois da visita.\n  b. Convidar uma pessoa cega para falar ao seu grupo sobre as experiências dela. Antes da visita, pedir aos alunos que escrevam suas previsões sobre a percepção que têm das pessoas cegas. Recolher e guardar as respostas para revisá-las depois da visita.",
+   "instructions": null
+  }
+ ]
+}

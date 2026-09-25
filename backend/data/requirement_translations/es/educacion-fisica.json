@@ -1,0 +1,48 @@
+{
+ "honor_slug": "educacion-fisica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Physical_Fitness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Hacer una lista de diez beneficios de estar en buena condición física.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber cómo ayuda lo siguiente a lograr el equilibrio de su cuerpo:\n  a. Ejercicio\n  b. Alimentación adecuada\n  c. Estabilidad emocional",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir los siguientes tipos de ejercicio:\n  a. Isométrico:\n  b. Isotónico:\n  c. Isocinético:\n  d. Anaeróbico:\n  e. Aeróbico:",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conocer el significado de los principios que intervienen en el siguiente programa de ejercicios:\n  a. Calentamiento\n  b. Ejercicios aeróbicos\n  c. Enfriamiento (vuelta a la calma)\n  d. Calistenia",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Saber cómo determinar su frecuencia cardíaca en reposo y después del ejercicio.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber cómo determinar la frecuencia mínima a la que debe latir su corazón para obtener el mejor efecto de acondicionamiento aeróbico.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Siguiendo los cuatro pasos del requisito 4, hacer un programa regular de ejercicios por lo menos cuatro veces por semana durante tres meses. En cada sesión de ejercicio, mantener durante por lo menos 20 minutos la frecuencia cardíaca mínima determinada en el requisito 6. Llevar un registro de lo siguiente:\n  a. Tipo de ejercicios de calentamiento realizados\n  b. Tipo de ejercicios aeróbicos realizados\n  c. Duración de los ejercicios aeróbicos\n  d. Tipo de calistenia realizada",
+   "instructions": null
+  }
+ ]
+}

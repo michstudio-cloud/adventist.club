@@ -1,0 +1,58 @@
+{
+ "honor_slug": "aves-de-rapina",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Raptors/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué significa la palabra «rapiña»?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Clasificación:\n  a. Identificar los 2 grupos principales de aves de rapiña.\n  b. Hacer una lista de los nombres científicos de los órdenes y las familias que en conjunto se denominan «rapaces» o «aves de presa».\n  c. Identificar las características distintivas de las aves de rapiña.\n  d. Dar un ejemplo de un ave de rapiña que ilustre cada una de las familias representadas en estos dos grupos principales (7 familias).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "A partir de un diagrama, identificar o rotular las siguientes partes del ave de rapiña:\n  a. Ojos\n  b. Patas y garras\n  c. Pecho\n  d. Cuerpo\n  e. Pico\n  f. Oídos\n  g. Alas\n  h. Plumas",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Investigar la siguiente información acerca de las aves de rapiña. Usar esta información para comparar y contrastar las aves de rapiña con otra familia de aves, como los patos y gansos (Anatidae) o los loros (Psittaciformes).\n  a. El ave de rapiña diurna y la nocturna más pequeñas\n  b. El ave de rapiña diurna y la nocturna más grandes\n  c. Las clases de nidos que construyen las aves de rapiña\n  d. La esperanza de vida promedio de las aves de rapiña grandes y pequeñas\n  e. El alimento más común de las aves de rapiña\n  f. ¿Cómo comen su alimento las aves de rapiña?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer uno de los siguientes:\n  a. Ver una demostración con aves de rapiña vivas\n  b. Leer un libro acerca de las aves de rapiña\n  c. Ver un documental acerca de las aves de rapiña",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer dos de los siguientes:\n  a. Crear un espectáculo de títeres acerca de las aves de rapiña.\n  b. Disecar una egagrópila de búho, preferiblemente en línea, y anotar lo que encuentre.\n  c. Hacer una tabla de las envergaduras y las formas de las alas de las aves de rapiña.\n  d. Hacer un archivo de por lo menos 10 ideas de manualidades de aves de rapiña y completar 5 de ellas.\n  e. Hacer un cuaderno, una exhibición artística, una presentación multimedia o un collage con imágenes e información acerca de las aves de rapiña.\n  f. Crear un juego de mesa acerca de las aves de rapiña.\n  g. Fotografiar por lo menos 5 aves de rapiña vivas en la naturaleza o en cautiverio. Rotular sus fotografías.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conocer de cerca las aves de rapiña de una de las siguientes maneras:\n  a. Visitar un zoológico o un aviario. Pedir a un guía que le hable de las aves de rapiña que cuidan.\n  b. Invitar a un especialista a visitar al grupo para que comparta lo que hace con las aves de rapiña.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Observar aves de rapiña en la naturaleza durante la anidación o la migración. Si es posible, trabajar con un centro de naturaleza, un parque o un área de manejo de vida silvestre de la zona.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar dos pasajes bíblicos acerca de las aves de rapiña y resumir una lección moral de cada uno.",
+   "instructions": null
+  }
+ ]
+}

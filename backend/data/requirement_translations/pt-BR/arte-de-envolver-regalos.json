@@ -1,0 +1,38 @@
+{
+ "honor_slug": "arte-de-envolver-regalos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gift_Wrapping/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista de cinco regras de cortesia para dar e receber presentes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer o seguinte:\n  a. Colecionar diferentes tipos de papel de presente, pelo menos dez variedades, no tamanho de cinco por sete centímetros (2 x 3 polegadas).\n  b. Escolher uma estampa de papel de presente adequada para embrulhar um presente para uma criança, um adulto, uma irmã, um irmão etc.\n  c. Demonstrar como embrulhar cuidadosamente em papel uma caixa retangular simples.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Embrulhar os seguintes tipos de presentes com complemento decorativo:\n  a. em forma de cubo\n  b. em forma de cilindro\n  c. com várias faces\n  d. extraordinário (à sua escolha)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Saber fazer um laço para presente (3 tipos).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Embalar um presente de forma correta e cuidadosa. Dar o presente embrulhado a alguém de sua família, igreja ou comunidade.",
+   "instructions": null
+  }
+ ]
+}

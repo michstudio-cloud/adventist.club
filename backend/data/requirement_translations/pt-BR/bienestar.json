@@ -1,0 +1,38 @@
+{
+ "honor_slug": "bienestar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wellness/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bem-estar",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir bem-estar. Discutir.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como meu bem-estar afeta minha capacidade de servir a Deus com fidelidade?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as 7 Dimensões do Bem-estar?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Para cada dimensão:\n  a. Definir e explicar a dimensão.\n  b. Fazer uma lista do que pode ser feito para melhorar o bem-estar nessa dimensão. Escrever uma frase sobre o que você pode fazer pessoalmente para melhorar seu bem-estar nessa dimensão.\n  c. Ler 2 versículos bíblicos que lembrem você dessa dimensão. Discutir e anotar 1 versículo bíblico.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de uma Feira de Saúde Infantil.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "honor_slug": "arrecifes-de-coral-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coral_Reefs_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Recifes de coral - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Recifes de coral.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Praticar snorkel ou mergulho autônomo (SCUBA, se tiver certificação) em uma comunidade de recife. Escrever um relatório ou fazer uma apresentação sobre os seguintes itens (incluir mapas, fotografias ou desenhos pode ajudar):\n  a. A localização do recife.\n  b. A data e a duração da visita.\n  c. O que você fez lá?\n  d. Que informações novas você aprendeu sobre esse tipo de habitat, além do que foi aprendido no nível básico da especialidade?\n  e. Fornecer informações sobre o recife específico que você visitou, observando quaisquer sinais de branqueamento.\n  f. Que medidas foram tomadas para sua segurança e para a segurança do recife?\n  g. O que você aprendeu sobre Deus durante a visita ao recife?",
+   "instructions": null
+  }
+ ]
+}

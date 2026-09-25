@@ -1,0 +1,53 @@
+{
+ "honor_slug": "tutoria",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/tutora.pdf",
+ "license": null,
+ "name": "Tutoring",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Be at least in the 8th grade.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Read the story of Philip tutoring the Ethiopian eunuch in Acts 8:26-40.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Describe the social conditions that make it more difficult for underprivileged children to acquire basic reading and math skills during elementary school.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explain the main types of community-based tutoring programs:\n  a) In-school, cross-age tutoring.\n  b) After-school or weekend program.\n  c) Community homework center.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explain the difference between one-on-one tutoring and small-group classes, and list the pros and cons of each approach.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "List the basic duties included in the job description of a volunteer tutor in a community-based tutoring program.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Describe the resources or tools a volunteer tutor uses in a community-based tutoring program.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Complete at least 10 tutoring sessions with a younger child.",
+   "instructions": null
+  }
+ ]
+}

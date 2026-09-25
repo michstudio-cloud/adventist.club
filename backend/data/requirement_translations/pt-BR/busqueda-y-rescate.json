@@ -1,0 +1,83 @@
+{
+ "honor_slug": "busqueda-y-rescate",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Search_and_Rescue/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Busca e resgate",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir busca e resgate e conhecer a história da busca e resgate em sua região, incluindo datas, acontecimentos e pessoas importantes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Pesquisar os requisitos para alguém participar de atividades de busca e resgate em sua região. Que idade é preciso ter? Que habilidades, treinamento ou certificações são exigidos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que organização(ões) participa(m) de missões de busca e resgate? Quem as supervisiona?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever as semelhanças e diferenças de uma missão de busca e resgate nos seguintes terrenos:\n  a. Água\n  b. Montanhas\n  c. Deserto\n  d. Mata\n  e. Neve\n  f. Caverna\n  g. Área urbana",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "A busca e resgate muitas vezes depende de equipes especializadas para lidar com missões de resgate complicadas ou técnicas. Que tipos de equipes poderiam ser chamados a participar de uma missão?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que tipos de animais são úteis durante as missões de busca e resgate e que funções eles desempenham?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Muitas funções vitais em uma missão de busca e resgate não envolvem procurar a vítima pessoalmente. Que funções de apoio poderiam ser necessárias para o sucesso de uma missão?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "A que tipos de perigos e riscos um integrante de uma equipe de busca e resgate está exposto durante uma missão?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Escrever, desenhar, observar ou dramatizar o processo de uma missão de busca e resgate, desde o chamado inicial até o resgate bem-sucedido da vítima.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Descrever, explicar e dramatizar os passos que você deve seguir se precisar ser resgatado. Compartilhar e demonstrar vários métodos para se manter em segurança e atrair a atenção dos socorristas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Escolher um dos seguintes cenários de missão de busca e resgate e escrever uma lista do equipamento que poderia ser necessário, incluindo ferramentas, veículos e tecnologia:\n  a. Um trilheiro ficou desorientado e está vagando em algum lugar no interior de uma floresta nacional.\n  b. Uma família de quatro pessoas viajava de carro em algum lugar nas montanhas quando ficou presa em uma nevasca.\n  c. Um escalador caiu e quebrou a perna. Ele está em uma saliência da rocha, na metade de um penhasco de 100 pés (30 m).\n  d. Um barco virou em mar aberto, a mais de uma milha (1,6 km) da costa, no meio da noite. Os quatro ocupantes ficaram na água por várias horas e foram levados pela correnteza para longe do barco.\n  e. Uma avalanche é provocada acidentalmente e desce por uma área de esqui muito frequentada. Vários esquiadores ainda não voltaram.\n  f. Um prédio desabou e há pessoas presas sob os escombros.\n  g. Um avô com problemas de memória saiu de casa sem rumo e está perdido na cidade.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar uma instalação ligada à busca e resgate e compartilhar com seu grupo o que você aprendeu.\n  b. Participar de uma simulação de busca e resgate conduzida por um voluntário de busca e resgate.\n  c. Planejar ou participar de um projeto para arrecadar fundos e divulgar o órgão local de busca e resgate.\n    d. Entrevistar alguém envolvido com busca e resgate e fazer as seguintes perguntas:\n    Qual é a parte do seu trabalho de que você mais gosta? E de qual gosta menos?\n    Em que tipos de terreno você já fez buscas?\n    Qual é a sua história favorita de um resgate bem-sucedido?\n    Como posso me manter em segurança ao ar livre, para que não seja preciso acionar a busca e resgate para me encontrar?\n    O que alguém como eu pode fazer para apoiar a busca e resgate ou se envolver com ela?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Participar de um cenário de treinamento de busca e resgate conduzido por uma equipe qualificada e experiente e compartilhar sua experiência com seu instrutor. Como as habilidades que você já tem poderiam ser aplicadas em situações de busca e resgate?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Em que a busca e resgate moderna se parece com a “busca e resgate” espiritual mencionada na Bíblia? Encontrar passagens bíblicas relevantes e escrever, ilustrar ou compartilhar uma meditação sobre uma delas.",
+   "instructions": null
+  }
+ ]
+}

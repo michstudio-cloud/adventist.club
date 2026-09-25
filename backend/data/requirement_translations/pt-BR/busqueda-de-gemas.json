@@ -1,0 +1,53 @@
+{
+ "honor_slug": "busqueda-de-gemas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Gem_Fossicking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Busca de gemas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir a busca de gemas: Explicar o que é a busca de gemas e por que é uma atividade importante e agradável. Contar brevemente a história da busca de gemas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar o equipamento: Criar uma lista do equipamento usado na busca de gemas. Descrever cada item e dizer para que ele serve. A lista deve incluir pelo menos o seguinte:\n  Pá pequena ou pá de jardinagem\n  Peneira ou classificador\n  Sacos ou recipientes de coleta\n  Lupa\n  Guia de campo de gemas\n  Caderno e lápis",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificação de gemas:\n  a. Aprender a identificar pelo menos cinco tipos diferentes de gemas comuns em sua região. Descrever suas características e como distingui-las de outras rochas e minerais.\n  b. Fazer uma lista dos tipos de pedras preciosas e semipreciosas que você poderia procurar e dos locais onde poderia encontrá-las em cada estado da Austrália. Descrever suas características e como distingui-las de outras rochas e minerais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Gemas na Bíblia: Procurar e discutir pelo menos dois versículos bíblicos que mencionem gemas ou pedras preciosas. Refletir sobre o significado delas e o que podem nos ensinar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Limpeza e conservação de gemas: Aprender a limpar e conservar as gemas que você encontrar. Descrever os métodos usados para limpar diferentes tipos de gemas e como armazená-las adequadamente.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usos das gemas: Pesquisar e apresentar à classe os diversos usos das gemas ao longo da história e nos tempos modernos. Incluir informações sobre como as gemas são usadas em joalheria, na indústria e como objetos de coleção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Segurança e cuidados ambientais: Discutir as medidas de segurança que devem ser tomadas durante a busca de gemas e a importância de respeitar o meio ambiente. Explicar os princípios de “não deixar rastros” e como minimizar seu impacto no ambiente natural.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Trabalho de campo: Participar de uma excursão de busca de gemas. Passar pelo menos duas horas no campo procurando gemas. Registrar suas descobertas em seu caderno de trabalho ou de anotações, incluindo os tipos de gemas encontradas e os locais onde foram encontradas.",
+   "instructions": null
+  }
+ ]
+}

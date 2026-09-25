@@ -1,0 +1,53 @@
+{
+ "honor_slug": "arena",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sand/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Areia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma coleção de 30 areias de cores variadas. Etiquetar corretamente cada uma com o nome e o local onde foi obtida.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa o termo “areia”? Citar dois tipos de areia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a origem da areia e seu conteúdo mineral.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a diferença entre areia e solo?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que se entende por forma, superfície, fratura do grão e tamanho do grão?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Definir os seguintes tipos e citar o uso de cada um:\n  a. Glacial\n  b. Calcária\n  c. Areia movediça\n  d. Areia para vidro\n  e. Areia de moldagem\n  f. Areia de polimento\n  g. Areia de construção\n  h. Areia de filtro\n  i. Areia para fornos\n  j. Areia de margem de lago",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Examinar com lente de aumento cinco tipos de amostras de areia e observar suas diversas características.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Memorizar e comentar Gênesis 22:17, Provérbios 27:3 e Salmos 139:17-18.",
+   "instructions": null
+  }
+ ]
+}

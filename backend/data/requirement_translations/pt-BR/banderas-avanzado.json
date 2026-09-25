@@ -1,0 +1,68 @@
+{
+ "honor_slug": "banderas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Flags_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Bandeiras.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como se chama o estudo das bandeiras?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e identificar os seguintes tipos básicos de bandeiras e citar uma bandeira de cada tipo:\n  a. Emblema\n  b. Bicolor\n  c. Galhardete\n  d. Cantão\n  e. Cruz recortada\n  f. Cruz\n  g. Flâmula\n  h. Esquartelada\n  i. Serrilhada\n  j. Triângulo\n  k. Tribanda\n  l. Guião",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher três bandeiras nacionais, incluindo a de seu país, que juntas tenham todas as cores abaixo. Nessas bandeiras, o que as cores representam?\n  a. Vermelho\n  b. Azul\n  c. Preto\n  d. Verde\n  e. Branco\n  f. Amarelo",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender a hastear e a arriar corretamente as seguintes bandeiras:\n  a. Bandeira nacional\n  b. Estadual/Provincial\n  c. Desbravadores/JA\n  d. Cristã/Regional (distrito ou município)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Saber quando e por que uma bandeira é hasteada a meio mastro.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são as condições que exigem que uma bandeira nacional seja iluminada?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ensinar as técnicas corretas para dobrar e guardar bandeiras:\n  a. Bandeira nacional\n  b. Bandeira estadual/provincial\n  c. Bandeira Cristã\n  d. Bandeiras JA/Desbravadores",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Aprender a exibir corretamente a bandeira de seu país:\n  a. Desfile – sozinha, com outra ou em uma fileira de bandeiras (a bandeira dos EUA nunca é abaixada em saudação)\n  b. Em uma plataforma\n  c. Na vertical ou na horizontal em uma parede\n  d. Sobre um caixão\n  e. Em um grupo de bandeiras na mesma adriça\n  f. Bandeiras de dois ou mais países",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Carregar corretamente uma das bandeiras do nº 8 como parte de uma guarda de bandeiras dos Desbravadores em um evento especial (desfile, evento cívico, Sábado dos Desbravadores).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Aprender a descartar de forma correta e respeitosa uma bandeira nacional rasgada/desgastada. Participar de uma cerimônia de descarte correto de uma bandeira nacional.",
+   "instructions": null
+  }
+ ]
+}

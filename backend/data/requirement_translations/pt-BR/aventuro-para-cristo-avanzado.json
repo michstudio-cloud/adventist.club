@@ -1,0 +1,43 @@
+{
+ "honor_slug": "aventuro-para-cristo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Adventurer_for_Christ_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Aventuras com Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Concluir esta especialidade em um prazo de nove meses a um ano. Escolher uma data para começar.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher três atividades do requisito 1 da especialidade de Aventuras com Cristo e fazê-las com constância durante pelo menos nove meses, além dos seis meses exigidos para a especialidade básica de Aventuras com Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escolher e fazer uma atividade (não escolhida anteriormente) do requisito 2 da especialidade básica de Aventuras com Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher e fazer duas atividades (não escolhidas anteriormente) do requisito 3 da especialidade básica de Aventuras com Cristo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar e fazer três novas aventuras (não escolhidas anteriormente) conforme o requisito 4 da especialidade de Aventuras com Cristo. As três devem envolver três períodos diferentes de duas horas cada.",
+   "instructions": null
+  }
+ ]
+}

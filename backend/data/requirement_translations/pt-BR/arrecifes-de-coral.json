@@ -1,0 +1,83 @@
+{
+ "honor_slug": "arrecifes-de-coral",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coral_Reefs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um recife? Identificar dois tipos de “blocos de construção” dos recifes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Responder às seguintes perguntas:\n  a. O coral é planta ou animal?\n  b. Em que filo o coral é classificado?\n  c. Que parte de um recife de coral é viva?\n  d. Diferenciar corais moles de corais duros.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Onde são encontrados os recifes de coral? Descrever as condições necessárias para o crescimento saudável dos corais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever e/ou desenhar um diagrama que mostre pelo menos três tipos diferentes de recifes de coral.\n  a. Recifes de franja\n  b. Recifes de barreira\n  c. Atóis\n  d. Recife em manchas",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir zooxantelas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Responder às seguintes perguntas sobre como os corais obtêm seu alimento:\n  a. Que tipo de alimentação ocorre principalmente à noite e por que isso resulta em água límpida?\n  b. Que tipo de alimentação ocorre principalmente durante o dia?\n  c. Por que os recifes de coral são encontrados em águas límpidas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar cinco corais que podem ser encontrados em um recife.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Identificar dez peixes que vivem em um recife de coral.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Identificar cinco espécies de invertebrados não coralinos que podem viver em um recife.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Definir “branqueamento” em relação aos corais e investigar o impacto que ele causa no recife.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Identificar pelo menos uma espécie invasora e como ela afeta os recifes.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Por que os recifes são uma comunidade importante? Fazer uma lista de pelo menos três maneiras pelas quais você pode ajudar a proteger um recife.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Preparar uma lição objetiva sobre um animal que vive no recife. Apresentar essa lição em um culto do clube ou em uma ocasião semelhante. Incluir um texto bíblico na apresentação.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Visitar um aquário que exiba espécies de recife.\n  b. Fazer uma coleção de pelo menos cinco espécies de corais mortos trazidos pelo mar até a praia, ou de corais fósseis. Respeitar as leis locais sobre coleta.\n  c. Assistir a uma apresentação sobre recifes. Resumir o que você aprendeu sobre os recifes de coral.\n  d. Desenhar ou pintar uma comunidade de recife com pelo menos dez espécies.\n  e. Em grupo, fazer um vídeo curto sobre um projeto de conservação de recifes. Explicar por que esse habitat específico deve ser preservado.\n  f. Criar um diorama 3D de uma comunidade de corais.\n  g. Um projeto semelhante aprovado pelo seu instrutor.",
+   "instructions": null
+  }
+ ]
+}

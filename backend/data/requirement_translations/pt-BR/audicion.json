@@ -1,0 +1,93 @@
+{
+ "honor_slug": "audicion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hearing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Audição",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Quantas partes tem a orelha externa? Como elas funcionam?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Atividade 1 – Fazer um modelo de tímpano (também conhecido como membrana timpânica). Não deixar de registrar o resultado final com uma câmera.\n  FAZER UM MODELO DE TÍMPANO (também conhecido como membrana timpânica)\n  Você vai precisar de: filme plástico (de PVC), recipiente de boca larga, arroz cru (ou qualquer outro grão pequeno), assadeira de metal. Esta atividade vai ajudar você a entender como o som se propaga pelo ar. Basta esticar o pedaço de filme plástico sobre o recipiente grande ou a panela. Verifique se o filme plástico está bem esticado sobre o recipiente. O plástico representa o tímpano. Coloque cerca de 20-30 grãos de arroz cru, ou de outro grão, sobre o filme plástico. Agora você precisa de algo que faça barulho; uma assadeira de metal funciona bem. Segure a assadeira perto do filme plástico, produza com ela um “GRANDE ESTRONDO” e observe os grãos de arroz pularem. O “grande estrondo” produz ondas sonoras (variações na pressão do ar) que fazem o filme plástico vibrar, e isso faz os grãos de arroz se moverem. As ondas sonoras fazem o tímpano vibrar de maneira muito parecida.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que são os ‘ossículos da audição’? Citar suas partes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Qual é a função da orelha média?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "A tuba auditiva (trompa de Eustáquio) faz parte da orelha média? Qual é sua função?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual das afirmações é verdadeira sobre a orelha interna e o equilíbrio?\n  a. Os canais semicirculares detectam o movimento linear\n  b. O utrículo e o sáculo detectam o movimento linear\n  c. A cóclea detecta o movimento linear\n  d. O utrículo e o sáculo detectam o movimento rotatório",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Selecionar as afirmações VERDADEIRAS sobre a cóclea.\n  a. Fica na orelha externa\n  b. Produz vibrações\n  c. Transforma vibrações em sinais elétricos\n  d. Os sinais são enviados da cóclea para o nervo auditivo\n  e. C e D",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar os passos para uma boa higiene dos ouvidos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são algumas maneiras de proteger seus ouvidos contra lesões ou perda auditiva?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Por que a audição é tão importante na vida? Os seres humanos ouvem melhor ou pior à medida que envelhecem?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Atividade 2 – Medir distâncias do som.\n  Não deixe de registrar seus resultados na folha de atividades.\n  Você vai precisar de: fita métrica/metro, folha de papel, caneta/lápis, um campo/área aberta.\n  Como jogar: Uma pessoa fica em uma extremidade de uma área aberta (de preferência ao ar livre), e outra pessoa diz uma palavra em voz alta (sem gritar) e vai se afastando cada vez mais, até que a primeira não consiga mais ouvir a palavra. Conte a quantos metros de distância a pessoa estava quando a outra deixou de ouvir. Anote o resultado em uma folha de papel e faça o mesmo com cada membro da família; no final, veja quem tem a melhor audição.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Selecionar todas as afirmações que se aplicam a uma ‘fonte sonora’.\n  a. Um objeto vibra\n  b. As vibrações fazem vibrar as partículas do ar\n  c. O cérebro\n  d. Um tambor\n  e. A, B e D\n  f. A, C e D",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "O que causa uma onda sonora?\n  a. Um fluxo de elétrons em movimento\n  b. A altura do som\n  c. O volume\n  d. A vibração das partículas do ar\n  e. Todas as anteriores\n  f. A e C",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Atividade 3 – Observar diferenças entre sons.\n  Anote abaixo suas observações, explicando as diferenças entre os sons.\n  Você vai precisar de: lápis e papel.\n  Reúna objetos que você tenha em casa e que ajudem a diferenciar sons. Por exemplo, um copo com água. Pegue 3 copos: coloque pouca água em um, água até a metade em outro e encha o terceiro. Pegue uma colher, ou qualquer objeto que ajude a ouvir o som de cada copo, e bata levemente na lateral de cada um. Observe as diferenças no som que sai de cada copo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Encontrar pelo menos quatro textos bíblicos que mencionem especificamente a audição ou o ouvido.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Resumir com suas próprias palavras uma história bíblica que se refira ao sentido da audição.",
+   "instructions": null
+  }
+ ]
+}

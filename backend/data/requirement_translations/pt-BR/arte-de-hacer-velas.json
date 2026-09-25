@@ -1,0 +1,38 @@
+{
+ "honor_slug": "arte-de-hacer-velas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Candle_Making/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer pelo menos cinco dos seguintes itens:\n  a. Vela de areia de forma livre\n  b. Vela em camadas coloridas\n  c. Vela feita em molde\n  d. Vela de gelo\n  e. Vela mergulhada\n  f. Vela de cera escorrida\n  g. Vela perfumada\n  h. Par de velas de cera de abelha\n  i. Vela flutuante\n  j. Vela em recipiente/pote\n  k. Vela decorada",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer os dois tipos de cera usados na fabricação de velas e seus usos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer os tamanhos de pavio e qual deles queimará adequadamente em cada vela específica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quando se deve usar um pavio com núcleo de metal?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as técnicas de segurança na fabricação de velas.",
+   "instructions": null
+  }
+ ]
+}

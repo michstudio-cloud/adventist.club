@@ -1,0 +1,63 @@
+{
+ "honor_slug": "album-de-recortes",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scrapbooking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Álbum de recortes",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o propósito de fazer um álbum de recortes?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que escrever anotações no álbum?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é recortar fotos e por que isso é feito?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os quatro (4) principais tipos de álbuns de recortes usados?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é o propósito de usar produtos livres de ácido?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são os quatro (4) tipos diferentes de cola livre de ácido?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que “ferramenta” é usada para afiar tesouras e furadores quando perdem o corte?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar cinco (5) tipos diferentes de papel livre de ácido usados em álbuns de recortes.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer um álbum de recortes de pelo menos 12 páginas (8 1/2 x 11 polegadas [21,6 x 27,9 cm] ou maior) sobre um dos seguintes temas, incorporando o uso de papel colorido, adesivos, tesouras decorativas, molduras de papel e anotações escritas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Memorizar Joel 1:3.",
+   "instructions": null
+  }
+ ]
+}

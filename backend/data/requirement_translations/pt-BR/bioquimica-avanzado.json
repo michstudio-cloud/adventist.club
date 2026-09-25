@@ -1,0 +1,128 @@
+{
+ "honor_slug": "bioquimica-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biochemistry_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bioquímica - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Bioquímica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Síntese\n  b. Anabolismo\n  c. Catabolismo\n  d. Redução\n  e. Oxidação\n  f. Fotossíntese\n  g. Hormônio",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Além do fornecimento de energia, que outras funções os carboidratos têm?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os carboidratos são classificados?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as consequências da falta de glicose no organismo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Para manter constantes os níveis de glicose no período de jejum, o organismo é capaz de produzir esse carboidrato. Como ocorre a via da gliconeogênese?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é a importância dos hormônios insulina e glucagon no organismo humano?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como é o metabolismo de um indivíduo em jejum?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como é o metabolismo de um indivíduo bem alimentado?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual doença resulta da falta de produção de insulina? Quais são as principais características dessa doença?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O excesso de carboidratos e aminoácidos se acumula no organismo por meio de sua conversão em lipídios. Como os lipídios são sintetizados no organismo? Onde são armazenados?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Quais são os tipos de lipídios existentes nos seres humanos?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Os aminoácidos são produzidos pelos seres vivos. Os chamados produtores são capazes de sintetizar os 20 aminoácidos essenciais; os mamíferos conseguem sintetizar apenas alguns. Quais são os precursores usados na síntese de aminoácidos?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Como os mamíferos obtêm os aminoácidos que não são capazes de sintetizar?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer uma tabela com as famílias biossintéticas dos aminoácidos, de acordo com os precursores metabólicos.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "O grupo amino é muito importante para a síntese de aminoácidos. Como se obtém esse grupamento amino? Explicar o Ciclo do Nitrogênio.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "A fixação do nitrogênio é muito importante e é realizada por certas bactérias. Algumas vivem em simbiose com as leguminosas. Explicar como ocorre a simbiose entre bactérias e leguminosas. Relacionar as leguminosas e a fixação do nitrogênio com a rotação de culturas.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Como ocorre a fotossíntese e qual é sua importância para a vida na Terra?",
+   "instructions": null
+  },
+  {
+   "position": 19,
+   "description": "Que fatores afetam a fotossíntese?",
+   "instructions": null
+  },
+  {
+   "position": 20,
+   "description": "Quais são os organismos capazes de fazer fotossíntese?",
+   "instructions": null
+  },
+  {
+   "position": 21,
+   "description": "O carbono é um átomo muito importante para todas as formas de vida. Explicar o Ciclo do Carbono.",
+   "instructions": null
+  },
+  {
+   "position": 22,
+   "description": "Qual é a relação entre DNA, RNA e proteínas?",
+   "instructions": null
+  },
+  {
+   "position": 23,
+   "description": "Quais são as aplicações dos estudos do DNA?",
+   "instructions": null
+  }
+ ]
+}

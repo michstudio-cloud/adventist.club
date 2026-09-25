@@ -1,0 +1,63 @@
+{
+ "honor_slug": "recaudacion-de-fondos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Fundraising/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Introducción a la recaudación de fondos: Explicar qué es la recaudación de fondos y por qué es importante. Conversar sobre los diferentes propósitos para los que se pueden recaudar fondos, como apoyar una obra de beneficencia, financiar un proyecto comunitario o ayudar a una escuela o a una iglesia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Tipos de recaudación de fondos: Identificar y describir al menos cinco métodos diferentes de recaudación de fondos. Incluir ejemplos como ventas de repostería, lavados de autos, eventos patrocinados, campañas de financiamiento colectivo en internet y colectas de donaciones.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "La recaudación de fondos en la Biblia: Buscar y analizar al menos dos versículos o pasajes bíblicos que hablen de dar o de apoyar a otros. Reflexionar sobre su significado y sobre lo que pueden enseñarnos acerca de la importancia de la generosidad y de ayudar a los necesitados.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Estudio de caso: Investigar y presentar un estudio de caso de una campaña de recaudación de fondos exitosa. Analizar las estrategias utilizadas, los desafíos que se enfrentaron y los resultados obtenidos. Reflexionar sobre qué hizo que la campaña tuviera éxito y qué lecciones se pueden aplicar a futuros esfuerzos de recaudación de fondos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Planificación de un evento para recaudar fondos: Aprender los pasos necesarios para planificar con éxito un evento para recaudar fondos. Elaborar una lista de verificación que incluya fijar metas, elegir un método de recaudación, organizar un equipo, promocionar el evento y administrar las finanzas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Presupuesto y administración financiera: Comprender los fundamentos del presupuesto y de la administración financiera de un evento para recaudar fondos. Aprender a elaborar un presupuesto, llevar el control de los gastos y garantizar la transparencia y la rendición de cuentas en el manejo de los fondos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Mercadeo y promoción: Analizar la importancia del mercadeo y la promoción en la recaudación de fondos. Conocer diferentes formas de promocionar un evento para recaudar fondos, como las redes sociales, los volantes, los carteles y la comunicación de boca en boca. Elaborar un plan de promoción para un evento hipotético de recaudación de fondos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Recaudación de fondos ética: Conocer los principios de la recaudación de fondos ética. Analizar la importancia de la honestidad, la transparencia y el respeto hacia los donantes. Comprender las consideraciones legales y éticas que implican las actividades de recaudación de fondos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participación de la comunidad: Explorar formas de involucrar a su comunidad en los esfuerzos de recaudación de fondos. Analizar los beneficios de hacer participar a los negocios locales, las escuelas y los grupos comunitarios. Aprender a establecer alianzas y a obtener apoyo para su causa.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Proyecto de recaudación de fondos: Planificar y llevar a cabo un pequeño proyecto de recaudación de fondos. Puede ser una venta de repostería, un lavado de autos o cualquier otra actividad para recaudar fondos. Fijar una meta, organizar el evento y llevar el registro de los fondos recaudados. Reflexionar sobre la experiencia y lo que aprendió de ella.",
+   "instructions": null
+  }
+ ]
+}

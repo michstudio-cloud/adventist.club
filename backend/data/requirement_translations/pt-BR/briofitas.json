@@ -1,0 +1,58 @@
+{
+ "honor_slug": "briofitas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bryophytes/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Briófitas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa briófita?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar quatro características desse grupo de plantas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar a olho nu, ou por meio de fotos, os rizoides, os cauloides e os filoides.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar e desenhar o ciclo de vida de uma briófita.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Por que as briófitas dependem tanto da água?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Em que tipo de ambiente as briófitas são encontradas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é o nome popular usado para identificar o grupo?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Como as briófitas absorvem água? Qual é a relação entre o tamanho da planta e a absorção de água?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Fazer as seguintes atividades:\n  a. Observar com uma lupa pelo menos um tipo de briófita em seu habitat. Fazer um relatório do que foi observado.\n  b. Fazer uma coleção de fotos ou imagens de pelo menos dez tipos diferentes de briófitas.",
+   "instructions": null
+  }
+ ]
+}

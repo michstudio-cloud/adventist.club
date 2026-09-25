@@ -1,0 +1,63 @@
+{
+ "honor_slug": "arte-cristiano-de-predicar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Art_of_Preaching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conversar sobre as razões/os benefícios de obter a especialidade de Arte da pregação cristã.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir homilética e citar suas fontes.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir exegese e citar suas fontes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar o significado e a história da oratória.\n  a. Definir oratória\n  b. Pesquisar alguns dos grandes oradores da história adventista, fazendo um breve relatório sobre:\n    Um orador dos nossos primórdios\n    Um orador da nossa história moderna\n    Um orador de destaque em seu país\n  c. Citar suas fontes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever brevemente o seguinte, com relação a um sermão cristão:\n  Características:\n  a. Sermão temático\n  b. Sermão expositivo\n  c. Sermão textual\n  Partes:\n  d. Introdução\n  e. Corpo\n  f. Ilustração\n  g. Apelo\n  h. Conclusão",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar o uso adequado destas ferramentas:\n  a. Dicionário bíblico\n  b. Concordância bíblica\n  c. Bíblias de estudo temáticas\n  d. Fontes on-line (Bíblias, dicionários, concordâncias, auxílios de estudo, ilustrações)",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Preparar e apresentar por escrito um esboço detalhado de um sermão.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma das seguintes atividades:\n  a. Participar de um curso de pregação cristã (obter um certificado)\n  b. Pregar em um culto da igreja (entregar o esboço do sermão)\n  c. Apresentar um breve resumo de um evento do qual o clube ou a igreja participou\n  d. Ter o esboço de pelo menos dez sermões cristãos",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Participar (ou ter participado) da pregação em sua igreja (ou em uma igreja do distrito) pelo menos quatro vezes no período de um ano.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Obter, para sua coleção pessoal, um livro de ilustrações para sermões.",
+   "instructions": null
+  }
+ ]
+}

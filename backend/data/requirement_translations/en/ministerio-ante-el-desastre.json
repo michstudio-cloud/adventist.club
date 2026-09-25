@@ -1,0 +1,53 @@
+{
+ "honor_slug": "ministerio-ante-el-desastre",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/ministerio_ante_el_desastre.pdf",
+ "license": null,
+ "name": "Disaster Ministries",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Read Matthew 24:1-14 and pages 646 to 648 of The Great Controversy (in chapter 43, titled “The Controversy Ended”) by Ellen G. White. Discuss with your unit or class how current events are reflected in these passages.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explain the type of damage most likely to occur to homes and individuals in each of the main types of disaster, and state for each one in which parts of the world it occurs most often.\n  a) Hurricane\n  b) Tornado\n  c) Floods\n  d) Earthquakes\n  e) Wildfire",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identify the disasters most likely to occur in your area.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Briefly describe the types of services that Adventist Community Services (ACS) or ADRA Canada provide to disaster survivors in your country.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Describe at least 5 governmental or voluntary disaster response organizations in your country:",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Read a report published by ACS (www.communityservices.org) or ADRA Canada (www.adra.ca/wp/) about a recent disaster response project.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Complete the “Introduction to Disaster Preparedness” course provided by Adventist Community Services Disaster Response (contact your conference coordinator for information about this training).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Find a Bible text you could use to comfort and encourage someone of your own age and gender who has lost their home completely, and tell why you chose that text.",
+   "instructions": null
+  }
+ ]
+}
