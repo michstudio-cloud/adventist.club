@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-delightful-sabbath",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=357",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Sábado alegre",
+ "description": "Classe sugerida: Abelhinhas Laboriosas.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Êxodo 20:8-11, Isaías 58:13-14 e Isaías 66:22-23 e responder ao seguinte:\n  a. Em que dia da semana é o sábado?\n  b. Qual é a primeira palavra do 4º mandamento?\n  c. Segundo o 4º mandamento, quem criou todas as coisas?\n  d. O sábado vai deixar de existir algum dia? Explicar.\n  e. Com base no que você leu, por que devemos aguardar o sábado com alegria?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Decorar uma caixa do sábado e colocar dentro dela itens que ajudem a tornar seus sábados mais agradáveis. Alguns exemplos:\n  a. Livros de histórias bíblicas\n  b. Lista de atividades para o sábado\n  c. Argila ou massinha para ilustrar histórias bíblicas\n  d. Livros de atividades cristãs\n  e. Ideias suas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer dois ou mais dos seguintes projetos, que podem ser acrescentados à sua caixa do sábado:\n  a. Começar um pequeno álbum de recortes ou de fotos para guardar fotos e lembranças especiais do sábado.\n  b. Decorar um pequeno porta-velas com contas, pedrinhas ou outros enfeites, para ser usado na sexta-feira à noite para receber o sábado.\n  c. Fazer uma faixa decorativa do sábado.\n  d. Começar um caderno de sermões do sábado para registrar anotações e pequenos desenhos de pelo menos 2 sermões a que você assistir.\n  e. Fazer um aviso de porta do sábado para usar como lembrete do sábado.\n  f. Fazer um móbile com o tema do sábado/da Criação, com contas coloridas e itens da natureza",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Contar a um amigo algumas das coisas de que você mais gosta no sábado e mostrar a ele sua caixa do sábado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma reunião de “Boas-vindas ao sábado” na sexta-feira à noite com alguns amigos, famílias de Aventureiros ou com sua própria família em casa.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

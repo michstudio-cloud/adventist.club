@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-country-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=21",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Diversão com países",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher um país que você queira estudar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Em um mapa-múndi, encontrar a localização do país e identificar em que continente ele fica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar, desenhar ou decalcar um mapa e a bandeira do seu país.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender seis curiosidades sobre o país, como as sugeridas abaixo:\n  a. Desenhar ou encontrar uma figura do traje típico.\n  b. Aprender uma música para o sábado ou uma música popular.\n  c. Ouvir o hino nacional.\n  d. Aprender a brincar de um jogo para o sábado ou de um jogo popular.\n  e. Citar a religião predominante.\n  f. Colecionar um selo, um cartão-postal ou uma moeda.\n  g. Ler ou ouvir uma lenda, um mito ou uma história.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um trabalho manual simples ou uma comida típica do país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler na Bíblia como surgiram os idiomas na torre de Babel (Gênesis 11:1-9).",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

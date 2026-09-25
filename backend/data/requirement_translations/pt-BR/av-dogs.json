@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-dogs",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=201",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cães",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Mateus 15:26 e Lucas 16:21 e conversar sobre o significado desses textos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa “O cão é o melhor amigo do homem”?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ouvir uma história sobre como um cão ajudou alguém.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conversar sobre como cuidar de um cão.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os cães podem ajudar as pessoas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que tipos de sons os cães fazem para se comunicar e o que cada som significa? Revezar-se imitando esses sons de cachorro.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um trabalho manual com o tema de cães.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de um jogo com o tema de cães, como “Cachorrinho, cachorrinho, cadê seu osso?”. Você também pode inventar um jogo de memória, como “Prenda o rabo no cachorrinho”.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

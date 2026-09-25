@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-cyclist-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=279",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ciclista I",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber andar de bicicleta sem rodinhas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ser capaz de pedalar três quarteirões em seu bairro.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer três regras de segurança para andar de bicicleta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Colorir uma figura de bicicleta e ser capaz de identificar as seguintes partes:\n  a. guidão\n  b. corrente e protetor da corrente\n  c. raios\n  d. selim\n  e. quadro",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como se enchem os pneus?",
+   "instructions": null
+  }
+ ]
+}
