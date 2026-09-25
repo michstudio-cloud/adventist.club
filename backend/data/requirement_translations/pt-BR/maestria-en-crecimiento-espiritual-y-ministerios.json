@@ -1,0 +1,23 @@
+{
+ "honor_slug": "maestria-en-crecimiento-espiritual-y-ministerios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Spiritual_Growth_and_Ministries_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Crescimento espiritual e ministérios",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Para receber o Mestrado em Crescimento espiritual e ministérios, o Desbravador deve conquistar (SETE especialidades no total, incluindo) três das seguintes especialidades (Crescimento Espiritual):\n  - Aventuras com Cristo\n  - Aventuras com Cristo - Avançado\n  - Memorize a Bíblia\n  - Marcação bíblica\n  - Marcação bíblica - Avançado\n  - Pacificador\n  - Pacificador - Avançado\n  - Oração",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "E conquistar quatro das seguintes (Ministérios):\n  - Evangelismo\n  - Arte da pregação cristã\n  - Arte da pregação cristã - Avançado\n  - Dramatização cristã\n  - Vendas\n  - Arte de contar histórias cristãs\n  - Testemunho juvenil\n  - Colportagem\n  - Evangelismo pessoal\n  - Pregador evangelista\n  - Pregador evangelista - Avançado\n  - Arte em fantoches\n  - Língua de sinais\n  - Língua de sinais - Avançado\n  - Magistério",
+   "instructions": null
+  }
+ ]
+}

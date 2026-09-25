@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-del-medioambiente",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Environment_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Meio ambiente",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar as SETE especialidades a seguir:\n  - Meio ambiente terrestre\n  - Ecologia\n  - Bioconstrução\n  - Agricultura orgânica\n  - Energias renováveis\n  - Coleta seletiva\n  - Meio ambiente aquático",
+   "instructions": null
+  }
+ ]
+}

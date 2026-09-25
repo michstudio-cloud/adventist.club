@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-botanica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Botany_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Botânica",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar SETE das seguintes especialidades:\n  - Briófitas\n  - Cactos\n  - Cactos - Avançado\n  - Plantas carnívoras\n  - Citologia\n  - Samambaias\n  - Flores\n  - Flores - Avançado\n  - Gramíneas\n  - Ervas\n  - Plantas caseiras\n  - Líquenes\n  - Algas\n  - Orquídeas\n  - Orquídeas - Avançado\n  - Palmeiras\n  - Fisiologia vegetal\n  - Sementes\n  - Sementes - Avançado\n  - Arbustos\n  - Arbustos - Avançado\n  - Árvores\n  - Árvores - Avançado",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-de-heroes-de-la-biblia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bible_Heroes_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Heróis da Bíblia",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conquistar as seguintes especialidades:\n  - Abraão: jornada de fé\n  - Davi: um coração para Deus\n  - Ester\n  - Rute e Noemi",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-acuatica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aquatic_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Atividades aquáticas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Atividades aquáticas é conquistado quando o Desbravador conquista SETE especialidades quaisquer da lista a seguir.\n  - Canoagem\n  - Caiaque\n  - Navegação\n  - Barco a motor\n  - Remo\n  - Vela\n  - Mergulho autônomo\n  - Mergulho autônomo - Avançado\n  - Mergulho livre\n  - Saltos ornamentais\n  - Natação intermediário II\n  - Natação intermediário II - Avançado\n  - Natação intermediário I\n  - Esqui aquático\n  - Esqui aquático - Avançado\n  - Windsurfe",
+   "instructions": null
+  }
+ ]
+}
