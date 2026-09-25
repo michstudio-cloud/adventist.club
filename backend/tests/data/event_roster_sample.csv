@@ -1,0 +1,15 @@
+Nombre del Club;Iglesia;Distrito;Ciudad;Director(a);Correo del Director;Teléfono;Código;Ministerio;Observaciones
+{P} Club Nuevo A;{P} Central;{P} Zona Norte;Reynosa;Ana Nueva;{P}-nuevo-a@example.com;899 111 2222;;;primera fila
+{P} Club Nuevo B;{P} Oriente Uno;{P} Zona Oriente;Matamoros;Beto Con Cuenta;{P}-con-cuenta@EXAMPLE.com;;;Aventureros, Conquistadores;
+{P} Club Nuevo C;{P} Oriente Dos;{P} Zona Oriente;;Carla Nueva;{P}-nuevo-c@example.com;;{P}-C01;;
+{P} CLUB EXISTÉNTE;{P} central;{P} zona norte;Reynosa;Diana Nueva;{P}-nuevo-d@example.com;;;;
+{P} Club Con Director;{P} Central;{P} Zona Norte;Reynosa;Director Actual;{P}-d1@example.com;;;;
+{P} Club Sin Correo;{P} Central;{P} Zona Norte;Reynosa;Sin Correo;;;;;
+{P} Club Correo Malo;{P} Central;{P} Zona Norte;Reynosa;Correo Malo;no-es-un-correo;;;;
+{P} Club Doble Uno;{P} Central;{P} Zona Norte;Reynosa;Doble;{P}-doble@example.com;;;;
+{P} Club Doble Dos;{P} Central;{P} Zona Norte;Reynosa;Doble;{P}-doble@example.com;;;;
+{P} Club Nuevo A;{P} Central;{P} Zona Norte;Reynosa;Ana Nueva;{P}-nuevo-a@example.com;899 111 2222;;;fila repetida
+{P} Club Iglesia Ajena;{P} Sur Uno;{P} Zona Norte;Reynosa;Iglesia Ajena;{P}-ajena@example.com;;;;
+{P} Club Director Ocupado;{P} Central;{P} Zona Norte;Reynosa;Ocupado;{P}-d2@example.com;;;;
+{P} Nombre Distinto;{P} Central;{P} Zona Norte;Reynosa;Por Codigo;{P}-por-codigo@example.com;;{P}-COD;;
+{P} Club Ministerio Raro;{P} Central;{P} Zona Norte;Reynosa;Raro;{P}-raro@example.com;;;Ninjas;
