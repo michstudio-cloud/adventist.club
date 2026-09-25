@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-gardener",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=121",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Jardineiro",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o que faz um jardineiro.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três tipos diferentes de jardim ou horta e dizer o que se cultiva em cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar pelo menos dois lugares na Bíblia onde se menciona um jardim.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de pelo menos três ferramentas necessárias para a jardinagem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como usar corretamente as ferramentas de jardinagem e como cuidar delas depois do uso.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma das seguintes atividades:\n  a. Cuidar de um pequeno canteiro: semear, transplantar, plantar e cultivar flores ou hortaliças.\n  b. Plantar e cuidar de três plantas diferentes em uma jardineira, um vaso, uma caixa de leite ou uma lata.\n  c. Fazer um terrário e cuidar dele.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

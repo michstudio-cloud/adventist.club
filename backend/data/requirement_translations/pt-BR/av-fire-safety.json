@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-fire-safety",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=25",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Segurança contra incêndio",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que você deve fazer se sua roupa pegar fogo?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que você deve fazer se houver fumaça em sua casa e for difícil respirar?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Memorizar seu número de telefone e seu endereço.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Para que número de telefone você deve ligar se houver um incêndio? O que você deve dizer à pessoa que atender?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Visitar um quartel do Corpo de Bombeiros.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

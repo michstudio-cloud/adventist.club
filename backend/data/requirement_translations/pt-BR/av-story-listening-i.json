@@ -1,0 +1,29 @@
+{
+ "honor_slug": "av-story-listening-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=173",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ouvir histórias I",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de dois livros apropriados para sua idade, que ainda não tenham sido lidos para você, das seguintes categorias:\n  a) Bíblia\n  b) Missões\n  c) Amigos ou família\n  d) Natureza",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer à pessoa que leu para você do que você mais gostou em cada história.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer “obrigado” à pessoa que leu para você OU fazer um trabalho manual para ela que mostre que você é grato.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (aquí con el número del libro de 2020)"
+}

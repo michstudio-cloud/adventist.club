@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-manners-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=143",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Boas maneiras",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender a Regra de Ouro (Mateus 7:12).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são as cinco palavras (ou expressões) mágicas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar ou recortar e colar figuras para ilustrar uma das palavras mágicas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um jogo usando as cinco palavras (ou expressões) mágicas.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-postcards",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=85",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cartões-postais",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um cartão-postal? Em que ele é diferente de uma carta? Contar sobre o Pony Express. Memorizar a primeira parte de Ester 3:13 (ARA).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender e recitar três ou quatro curiosidades sobre os cartões-postais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quanto custava enviar um cartão-postal quando ele foi lançado? Quanto custa enviar um cartão-postal hoje?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever e enviar quatro cartões-postais a pessoas que você conhece.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer, decorar e enviar um cartão a uma escola ou igreja missionária. No mural de avisos de sua igreja, mostrar para que país ele foi enviado e quanto custou enviá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer pelo menos duas das seguintes atividades:\n  a. Visitar uma agência dos correios\n  b. Convidar um funcionário dos correios para vir fazer uma apresentação\n  c. Fazer sua própria agência dos correios usando caixas de sapatos ou outras divisórias de caixa de correio\n  d. Conversar sobre o que acontece em uma agência dos correios\n  e. Colecionar três cartões-postais antigos\n  f. Uma atividade de sua escolha",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Aprender as histórias das visitas de José Bates e Tiago White à agência dos correios. Ler 1 Timóteo 1:2, Filemom 1:1 e Filipenses 1:2 e conversar sobre como começar uma saudação.",
+   "instructions": null
+  }
+ ]
+}

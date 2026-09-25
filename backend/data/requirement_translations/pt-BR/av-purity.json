@@ -1,0 +1,58 @@
+{
+ "honor_slug": "av-purity",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=397",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Pureza",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar a palavra pureza.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler Filipenses 4:8-9 e modelar com massinha/argila os seguintes itens, dando exemplos de pureza.\n  a. Um olho\n  b. Um ouvido\n  c. Uma boca\n  d. Roupas",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar uma mulher da Bíblia que decidiu seguir a Deus, não importando o que lhe acontecesse.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar um homem da Bíblia que decidiu seguir a Deus, não importando o que lhe acontecesse.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escrever três versículos bíblicos que mostrem como a força de Deus pode ajudar você a ser puro.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar do jogo “Pilha de biscoitos do caráter” usando o seguinte poema. Quando você semeia um pensamento, colhe um sentimento. Quando você semeia um sentimento, colhe uma ação. Quando você semeia uma ação, colhe um hábito. Quando você semeia um hábito, colhe um caráter. Quando você semeia um caráter, colhe um destino.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler Colossenses 3:12-14. Ilustrar a peça de roupa mais importante: o AMOR. (Ver também Gálatas 5:22-23.)",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ler 1 Timóteo 4:12, Jó 17:9 e os capítulos 1 a 3 de Daniel. Fazer um cartaz que ilustre que você nunca é jovem demais para fazer uma grande diferença. Explicar que você ficará cada vez mais forte à medida que escolher a pureza.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Ler Marcos 2:1-12. Fazer um cartaz que ilustre como quatro amigos puseram o amigo doente em uma maca e o desceram com cordas pelo telhado para que Jesus o curasse. Amigos podem ajudar amigos a permanecer puros.",
+   "instructions": null
+  }
+ ]
+}

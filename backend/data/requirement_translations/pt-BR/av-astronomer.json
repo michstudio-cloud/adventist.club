@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-astronomer",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=189",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Astrônomo",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar vários observadores das estrelas mencionados na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar no céu noturno um planeta, duas estrelas e três constelações e dizer seus nomes corretos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma caixa de constelações para espiar por um furinho.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar a diferença entre um planeta e uma estrela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Observar planetas e estrelas no céu noturno.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Observar dois dos seguintes fenômenos e fazer um desenho com a técnica de giz de cera e aquarela (crayon resist):\n  a. o nascer da lua\n  b. o nascer do sol\n  c. o pôr do sol",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Encontrar na Bíblia três textos que falem dos céus.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

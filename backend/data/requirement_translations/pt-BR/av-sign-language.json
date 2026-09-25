@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-sign-language",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=91",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Língua de sinais",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender o alfabeto manual usado pelos surdos e as regras relacionadas a ele.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender a transmitir e a receber palavras usando o alfabeto manual.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Aprender pelo menos cinquenta palavras.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender e apresentar pelo menos uma música cristã simples.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Sempre que possível, levar os Aventureiros a conhecer uma pessoa surda e conversar com ela em língua de sinais.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Sinalizar um versículo bíblico simples.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

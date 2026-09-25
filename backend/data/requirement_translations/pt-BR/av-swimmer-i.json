@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-swimmer-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=313",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Natação I",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber nadar cachorrinho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber nadar com a cabeça debaixo da água.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser capaz de pular na água e nadar até os degraus, a escada ou a borda.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer duas regras de segurança na água. (Estar sempre acompanhado de um adulto, nunca correr em volta da piscina, nunca pular em cima de alguém etc.)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "O que você faria se alguém estivesse em apuros na piscina? Você tentaria salvá-lo? Por que seria melhor chamar seu pai, sua mãe ou um adulto para ajudar?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Qual é o número de emergência da ambulância?",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

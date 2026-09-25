@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-zoo-animals",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=263",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Animais do zoológico",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer um passeio ao zoológico, se possível, ou assistir a um vídeo ou filme sobre um zoológico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que animais você viu?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipo de alimento a maioria deles comia?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Você viu alguma ave? Se viu, quais eram? Dizer o nome delas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar ou colorir duas coisas que você viu no zoológico.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quem fez tudo o que você viu no zoológico? Você consegue encontrar a resposta na Bíblia? Se consegue, onde ela está?",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

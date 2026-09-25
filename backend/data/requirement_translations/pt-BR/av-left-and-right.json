@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-left-and-right",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=293",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Esquerda e direita",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Brincar de “Seu mestre mandou” usando esquerda/direita.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Com que mão você desenha? Escrever seu nome em letra de forma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Colocar adesivos redondos azuis nos dedos de sua mão esquerda. Colocar adesivos redondos vermelhos em sua mão direita.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "De que lado da torneira fica a água quente? De que lado fica a fria?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Calçar os sapatos nos pés certos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Praticar marchar enquanto repete: “Esquerda, direita, esquerda”.",
+   "instructions": null
+  }
+ ]
+}

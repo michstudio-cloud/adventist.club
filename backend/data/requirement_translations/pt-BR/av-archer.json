@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-archer",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=269",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Arqueiro",
+ "description": "Esta especialidade requer um instrutor.\n\nClasse sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar as regras de segurança relacionadas ao tiro com arco.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Enumerar as diferentes partes de uma flecha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar as diferentes partes de um arco.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender a manejar o arco, a corda e a flecha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar domínio do tiro com arco, com disparos precisos em um alvo de 120 cm de diâmetro\n  a. 5 metros (20 flechas)\n  b. 10 metros (30 flechas)\n  c. 20 metros (30 flechas)",
+   "instructions": null
+  }
+ ]
+}

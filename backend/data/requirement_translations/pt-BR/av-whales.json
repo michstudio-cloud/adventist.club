@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-whales",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=257",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Baleias",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher uma baleia para estudar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "A baleia é um mamífero ou um peixe?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o tamanho da baleia quando adulta?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Desenhar a baleia em tamanho real em um estacionamento com giz de calçada.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender cinco curiosidades sobre sua baleia, como as sugeridas abaixo:\n  a. O que ela come\n  b. Onde ela vive ou para onde migra\n  c. Como ela interage com outras baleias\n  d. Quanto tempo ela vive\n  e. Quantos filhotes ela tem e como eles nascem\n  f. Ouvir os sons das baleias",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Esculpir sua baleia em areia úmida ou em argila.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler ou ouvir a história de Jonas e representá-la.",
+   "instructions": null
+  }
+ ]
+}

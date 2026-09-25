@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-parables-of-jesus",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=389",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Parábolas de Jesus",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Mateus 13:44 e conversar sobre esse texto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é uma parábola? Por que e como Jesus usava parábolas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar uma parábola contada por Jesus em cada um dos 4 evangelhos e aprender o seu significado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual ou uma maquete (diorama) que represente uma parábola.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Participar de um jogo de movimento ou de uma atividade ao ar livre que represente uma das parábolas de Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer cartões de “Melhoras” ou “Estou pensando em você” para uma ação missionária. Ler Lucas 10:25-37.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

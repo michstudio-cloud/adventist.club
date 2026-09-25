@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-creation",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=353",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "A Criação",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Cantar uma música sobre a Criação.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ouvir uma história sobre a Criação.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer 3 coisas que você aprendeu sobre a Criação.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um trabalho manual sobre a Criação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma atividade sobre a Criação.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

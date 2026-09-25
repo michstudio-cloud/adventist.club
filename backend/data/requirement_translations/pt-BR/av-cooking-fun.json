@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-cooking-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=115",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Mestre cuca",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar os quatro grupos básicos de alimentos.\n  a. Colecionar figuras de alimentos de cada um desses grupos.\n  b. Usar suas figuras para fazer uma colagem ou um cartaz para expor no clube, na escola ou na igreja.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Montar o cardápio de um jantar completo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ajudar a preparar e servir um jantar completo e a limpar tudo depois.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma fornada de biscoitos de sua escolha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar como fazer uma fogueira ao ar livre e usá-la para preparar uma bebida quente, OU fazer dois tipos diferentes de sanduíche, OU preparar duas saladas diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ajudar a preparar um lanche para piquenique e embalá-lo com cuidado. Compartilhar esse piquenique com a família ou com amigos.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Mestre cuca», son los de Cooking Fun)"
+}

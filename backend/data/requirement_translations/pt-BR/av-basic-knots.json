@@ -1,0 +1,28 @@
+{
+ "honor_slug": "av-basic-knots",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=271",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Nós básicos",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e explicar os diferentes tipos de amarras que existem.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprender a fazer os seguintes nós e explicar sua utilidade:\n  a. Laçada dupla\n  b. Nó corrediço\n  c. Nó de pescador\n  d. Laçada\n  e. Boca de lobo\n  f. Nó direito\n  g. Nó de escota\n  h. Lais de guia\n  i. Nó de pérola\n  j. Nó de cirurgião\n  k. Volta do fiel\n  l. Nó oito",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar um mostruário sobre uma tábua ou papelão com doze nós que você aprendeu a fazer.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-pearly-gates",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=391",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Volta de Jesus",
+ "description": "Esta especialidade tem o objetivo de levar as crianças a conhecer a segunda vinda de Jesus e o Céu e a aguardá-los com alegria.\n\nClasse sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Encontrar e ler na Bíblia uma promessa da segunda vinda de Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Representar uma parábola da Bíblia sobre a segunda vinda de Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar um livro e um capítulo da Bíblia que descrevam os acontecimentos finais.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista dos sinais da segunda vinda de Jesus que estão em Mt 24:3-14.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever a ascensão de Jesus ao Céu e contar em que ela se parece ou não com a maneira como Ele voltará.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar e ler na Bíblia uma descrição da Cidade Santa ou da Nova Terra.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Completar e memorizar João 14:2,3 usando uma das seguintes atividades:\n  a. Preencher as lacunas:\n  b. “Na ____________ de meu Pai há muitas ________________. Se assim não fora, eu vo-lo teria __________. Pois vou _______________ -vos lugar. E, quando eu for e vos ____________ lugar, ______________ e vos receberei para ______________, para que, onde __________, estejais ________________ também.”\n  c. Escrever cada palavra em uma ficha (uma palavra por ficha) e pedir às crianças que coloquem as fichas em ordem.\n  d. Ajudar a fazer um rébus (enigma com figuras) do verso para memorizar.\n  e. Esconder as peças do quebra-cabeça e fazer com elas um jogo da parábola da dracma perdida.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fechar os olhos e imaginar o encontro com Jesus nas portas de pérola; depois, fazer um desenho do que você imaginou ou criar uma representação de como seriam as portas de pérola.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Volta de Jesus», son los de Pearly Gates)"
+}

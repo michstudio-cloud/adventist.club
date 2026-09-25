@@ -1,0 +1,33 @@
+{
+ "honor_slug": "av-trains-and-trucks",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=321",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Trens e caminhões",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre trens ou caminhões.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer três coisas que você aprendeu sobre trens ou caminhões.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um jogo de movimento sobre trens ou caminhões.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fingir que dirige um trem ou um caminhão ou que viaja em um deles.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-safe-water",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=235",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Água potável",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que histórias da Bíblia falam de água para beber?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De que lugares obtemos água potável segura?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista de algumas maneiras de purificar a água e demonstrar uma delas.\n  a. Coar e ferver\n  b. Pastilhas purificadoras\n  c. Bomba de purificação de água (como luz ultravioleta ou bomba mecânica)\n  d. Outra",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por que a água é tão importante?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar sobre a falta de água em algumas regiões. Fazer o seguinte:\n  a. Assistir a um vídeo sobre a necessidade de água em outro país.\n  b. Fazer uma atividade que ajude as crianças a valorizar a importância da água.\n  c. Preparar uma pequena encenação sobre buscar água para ilustrar como muitas pessoas no mundo precisam buscar sua água todos os dias.\n  d. Demonstrar como lavar as mãos corretamente com menos de 1 quarto de galão (0,95 litro) de água.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um projeto missionário para ajudar as pessoas a ter água potável segura.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

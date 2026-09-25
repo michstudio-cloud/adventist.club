@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-alphabet-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=109",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Alfabeto II",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer todas as letras do alfabeto.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber soletrar seu primeiro nome.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dar uma volta pela sala ou ao ar livre e encontrar o maior número possível de objetos que comecem com uma letra diferente do alfabeto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ser capaz de escrever de memória dez letras do alfabeto.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar cinco letras; recortar e colar objetos ou figuras que combinem com cada uma das letras desenhadas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são outras formas de escrita? (hieróglifos etc.)",
+   "instructions": null
+  }
+ ]
+}

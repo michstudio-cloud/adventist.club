@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-rainbow-promise",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=399",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Promessas bíblicas",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Mostrar os dois elementos que formam o arco-íris.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descobrir quem viu o primeiro arco-íris, em Gn 9:8-17.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é uma aliança?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que o arco-íris nos promete?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que cores formam o arco-íris? Criar seu próprio arco-íris com as cores na ordem correta.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Onde encontraremos um arco-íris no Céu?",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Promessas bíblicas», son los de Rainbow Promise)"
+}

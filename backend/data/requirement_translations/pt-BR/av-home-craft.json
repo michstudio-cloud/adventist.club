@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-home-craft",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=133",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Artesanato caseiro",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Usar quaisquer materiais disponíveis em sua casa para fazer uma das seguintes atividades:\n  a. Projetar e construir uma escultura.\n  b. Fazer um quadro com objetos da casa ou alimentos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer três dos seguintes itens:\n  a. Uma peça de tricô\n  b. Uma peça de crochê (pano de prato, tapetinho etc.)\n  c. Uma peça de rede (sacola de barbante, saco para bola etc.)\n  d. Uma peça de ráfia, palha ou plástico (porta-copos, argola de guardanapo etc.)\n  e. Uma peça de costura (roupa de boneca, avental etc.)\n  f. Colocar a linha na agulha e pregar botões.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encapar uma garrafa para ser usada como vaso, OU projetar e fazer um ímã de “geladeira”.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer dois objetos com coisas que normalmente são jogadas fora.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Começar uma coleção de objetos domésticos “descartáveis” que possam ser usados em trabalhos manuais.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Artesanato caseiro», son los de Home Craft)"
+}

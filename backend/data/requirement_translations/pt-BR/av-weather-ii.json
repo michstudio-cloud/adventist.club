@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-weather-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=255",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Clima II",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Observar o tempo real durante um dia. Registrá-lo em um quadro e compará-lo com a previsão do tempo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o seguinte: vento, nuvens, neblina, chuva, sol e atmosfera.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar três instrumentos usados para prever o tempo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender como funciona o ciclo da água e por que ele é tão importante para nós.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever como se mede a temperatura.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar e ler sobre o dia em que Deus criou o ar (firmamento).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler Marcos 4:38-39 e contar o que Jesus fez.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer um cata-vento.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros («Clima», aquí con el número del libro de 2020)"
+}

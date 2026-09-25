@@ -1,0 +1,53 @@
+{
+ "honor_slug": "av-horsemanship",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=291",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Equitação",
+ "description": "Multinível: não está atribuída a uma classe.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos cinco partes de um cavalo a partir de um desenho.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar e descrever as diferentes raças de cavalos e os diferentes usos de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar e demonstrar a maneira correta de montar um cavalo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar e demonstrar a maneira correta de trotar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a maneira correta de galopar.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como lidar com um cavalo nas seguintes situações:\n  a. Se o cavalo estiver assustado\n  b. Se o cavalo se recusar a obedecer\n  c. Se ele disparar",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar em detalhes como controlar um cavalo pelas rédeas. Este é um dos pontos-chave da equitação.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar quatro regras preventivas que devem ser seguidas, em ordem de execução, para evitar que o cavalo fique superaquecido depois de um exercício prolongado.",
+   "instructions": null
+  }
+ ]
+}

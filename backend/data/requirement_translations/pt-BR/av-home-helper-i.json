@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-home-helper-i",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=135",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ajudante do lar I",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Que partes do corpo você usa para ajudar em casa?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três maneiras de ajudar em casa.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Do item 2, escolher uma das maneiras de ajudar em casa e ajudar durante uma semana. (Tarefas como “Arrumar a cama”, “Ajudar a varrer”, “Tirar o pó”, “Ajudar a limpar o quarto” e “Separar os materiais recicláveis” podem estar na lista. Adaptar esta lista à família da criança!)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender uma música sobre ajudantes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar um personagem bíblico que foi um ajudante.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros («Ajudante do lar», aquí con el número del libro de 2020)"
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-my-friend-jesus",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=385",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Meu amigo Jesus",
+ "description": "Classe sugerida: Cordeirinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ouvir a leitura de um livro sobre Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Cantar uma música sobre Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Brincar de um jogo sobre Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender como Jesus cresceu ajudando e obedecendo aos pais.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender a ser amigo das outras crianças, como Jesus era.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um trabalho manual sobre amizade.",
+   "instructions": null
+  }
+ ]
+}

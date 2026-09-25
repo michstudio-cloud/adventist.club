@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-prayer",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=393",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Oração",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar por que oramos, pelo que oramos e como oramos. Ler Isaías 40:31.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler Mateus 6:5-15, o Pai-Nosso.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Orar a Deus e a Jesus três vezes por dia durante uma semana. Ler 1 Tessalonicenses 5:17.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ensinar alguém que você conhece sobre a oração e fazer uma oração com ele/ela.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer três ou mais das seguintes atividades:\n  a. Fazer um quadro de pedidos de oração, perguntar às pessoas se têm algum pedido de oração e orar por elas.\n  b. Fazer a oração de abertura ou de encerramento de uma reunião do clube.\n  c. Fazer um cartão com uma oração e dá-lo a alguém.\n  d. Conversar com o pastor sobre a oração.\n  e. Fazer um café da manhã de oração para crianças e pais.\n  f. Fazer um diário de oração e ver como Deus responde às orações.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

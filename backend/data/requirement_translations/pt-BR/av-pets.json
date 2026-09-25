@@ -1,0 +1,43 @@
+{
+ "honor_slug": "av-pets",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=231",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Animais de estimação",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Desenhar e colorir ou recortar de uma revista figuras de seus animais de estimação preferidos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que come o seu animal de estimação preferido?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Onde dorme o seu animal de estimação?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ajudar a alimentar seu animal de estimação durante uma semana.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Cuidar de seu animal de estimação durante uma semana.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Contar uma história sobre seu animal de estimação.",
+   "instructions": null
+  }
+ ]
+}

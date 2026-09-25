@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-tabernacle",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=403",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Tabernáculo",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler 1 Coríntios 6:19 e conversar sobre esse texto; ler Êxodo 25:8 e 29:44-46 e conversar sobre eles.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa tabernáculo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista das três áreas principais do tabernáculo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Encontrar e ler João 14:6, João 10:9 e Mateus 7:13-14. Usando os versículos bíblicos que você leu, conversar sobre o que a porta simboliza. (A porta é uma representação de Cristo.)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar sobre o tabernáculo e todas as suas partes e identificá-las.\n  a. Altar de bronze\n  b. Sacrifícios do tabernáculo\n  c. Pia (bacia)\n  d. Menorá (candelabro)\n  e. Mesa dos pães da proposição\n  f. Altar de ouro do incenso\n  g. Santo dos Santos e o véu\n  h. Arca da Aliança e os objetos",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar ou construir seu próprio tabernáculo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Cantar uma música sobre o santuário.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Participar de um dos seguintes jogos:\n  a. Jogo da memória do tabernáculo.\n  b. “Salada de frutas” usando os nomes das partes do tabernáculo.\n  c. Fazer cartões com os móveis; misturar os cartões e, à medida que forem tirando um cartão, colocá-lo no lugar certo do diagrama.\n  d. Cada Aventureiro tira de um chapéu um cartão com o nome de um móvel/uma parte do tabernáculo e depois se coloca no lugar correto da sala.\n  e. Outro jogo",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

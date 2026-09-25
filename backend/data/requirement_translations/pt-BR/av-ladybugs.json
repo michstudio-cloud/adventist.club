@@ -1,0 +1,34 @@
+{
+ "honor_slug": "av-ladybugs",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=225",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Joaninhas",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender sobre a joaninha. Quais são as características da joaninha?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever o ciclo de vida da joaninha. Fazer um cartaz.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Todas as joaninhas são vermelhas? Explicar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer duas pedras de estimação em forma de joaninha. Dar uma de presente.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

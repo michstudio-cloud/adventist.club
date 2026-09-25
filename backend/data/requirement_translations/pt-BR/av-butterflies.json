@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-butterflies",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=199",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Borboletas",
+ "description": "Classe sugerida: Abelhinhas Laboriosas.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Aprender como as borboletas vivem e se alimentam.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Colecionar figuras, adesivos ou fotos de borboletas que vivem em seu estado.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conversar sobre o ciclo de vida da borboleta e desenhá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Memorizar João 3:7 e conversar sobre a história de Nicodemos em João\n  a. Fazer um dos seguintes trabalhos manuais:\n  b. Uma borboleta desenhada com giz na calçada.\n  c. Uma figura de borboleta com papel-cartão rasgado.\n  d. Uma borboleta na areia ou na neve.\n  e. Um móbile de borboletas.\n  f. Um ímã de borboleta.\n  g. Uma borboleta feita com contas.\n  h. Uma borboleta feita de papel de seda colorido preso com um pregador de roupa.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender uma música sobre borboletas.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

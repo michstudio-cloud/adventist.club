@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-bible-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=341",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Bíblia II",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter uma Bíblia ou poder usar uma.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as duas grandes partes da Bíblia e os quatro evangelhos. Mostrar onde os evangelhos estão localizados na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler ou ouvir três ou mais histórias sobre Jesus que estão nos evangelhos. Algumas sugestões:\n  a. Jesus nasce - Lucas 2:1-20 e Mateus 2:1-12\n  b. Jesus é batizado - Mateus 3:13-17\n  c. Jesus conta histórias (como a ovelha perdida, a moeda perdida e o filho perdido, em Lucas 15) ou\n  d. Jesus cura pessoas\n  e. Jesus morre e ressuscita",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar dois versículos bíblicos sobre ser salvo por Jesus, como:\n  a. Mateus 22:37-39\n  b. 1 João 1:9\n  c. Isaías 1:18\n  d. Romanos 6:23\n  e. João 3:16",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Contar uma história sobre Jesus a um familiar ou amigo. Dizer a ele por que Jesus é especial para você.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

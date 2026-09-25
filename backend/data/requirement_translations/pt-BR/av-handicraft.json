@@ -1,0 +1,24 @@
+{
+ "honor_slug": "av-handicraft",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=69",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Artes manuais",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer seis dos seguintes itens:\n  a. Um cartão de melhoras\n  b. Um arranjo de flores secas ou de seda\n  c. Uma figura de massa de pão ou de argila\n  d. Um quadro de conchas\n  e. Uma escultura de barbante\n  f. Um móbile\n  g. Um objeto de papel machê\n  h. Um quadro com cascas de ovo, sementes ou conchas do mar\n  i. Uma capa para um álbum de autógrafos ou de fotos\n  j. Uma colagem com seis materiais diferentes\n  k. Um cartaz convidando as pessoas para um evento\n  l. Um objeto de sua escolha, bem-feito",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dar pelo menos dois dos itens acima a:\n  a. Um familiar ou amigo\n  b. Uma pessoa idosa de sua igreja ou comunidade",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Artes manuais», son los de Handicraft)"
+}

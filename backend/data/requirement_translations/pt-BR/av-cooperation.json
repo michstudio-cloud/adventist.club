@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-cooperation",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=17",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cooperação",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Atos 4:32-37 e Êxodo 35:20-29; 36:2-7 e conversar sobre esses textos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é cooperação?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Por que a cooperação é importante na sua família, na escola e na igreja?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Representar uma história bíblica sobre cooperação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Cantar uma música sobre cooperação.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de um jogo cooperativo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um trabalho manual cooperativo com seu grupo.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}
