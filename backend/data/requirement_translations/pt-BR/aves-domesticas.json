@@ -1,0 +1,43 @@
+{
+ "honor_slug": "aves-domesticas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Poultry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Aves domésticas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar pela descrição e por imagens pelo menos cinco raças de galinhas, como:\n  a. Plymouth Rock (qualquer cor)\n  b. Wyandotte (qualquer cor)\n  c. Rhode Island Red\n  d. Orpington (qualquer cor)\n  e. Leghorn (qualquer cor)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer oralmente ou escrever um parágrafo curto sobre as qualidades de postura ou de produção de carne de cada raça.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar pela descrição um pato-de-pequim.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar pela descrição e por imagens três raças de aves domésticas de grande porte, como os seguintes perus:\n  a. Peru Bronze Gigante (Mammoth Bronze)\n  b. Peru Branco Holandês (White Holland)\n  c. Peru Bourbon Red",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar pela descrição e por imagens duas raças de gansos domésticos, como:\n  a. Ganso de Toulouse\n  b. Emden\n  c. Ganso-chinês\n  d. Ganso Sebastopol\n  e. Ganso-de-cabo-barren (Cape Barren)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Visitar uma granja avícola ou uma feira agropecuária e escrever um breve relatório sobre os vários tipos de aves domésticas observados.",
+   "instructions": null
+  }
+ ]
+}

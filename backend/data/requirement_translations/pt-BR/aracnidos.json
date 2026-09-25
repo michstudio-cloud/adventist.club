@@ -1,0 +1,68 @@
+{
+ "honor_slug": "aracnidos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Spiders/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma das seguintes atividades:\n  a. Coletar, identificar e preservar pelo menos 16 espécies de aranhas. Colocar em cada frasco de espécime uma etiqueta com o local e a data de captura e o nome popular ou científico da aranha.\n  b. Fazer desenhos ou pinturas coloridos de pelo menos 16 espécies de aranhas, em tamanho natural ou maior e com as cores naturais. Identificar cada um com o nome popular ou científico.\n  c. Tirar fotos coloridas de pelo menos 16 espécies de aranhas. Identificar cada foto com o local, a data em que foi tirada e o nome popular ou científico da aranha.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é o maior membro da família das aranhas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever ou apresentar oralmente uma descrição (de quarenta palavras ou mais) de uma aranha que tenha se tornado conhecida em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar três diferenças entre as aranhas e os insetos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um desenho cuidadoso de uma teia orbicular.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que outros tipos de teia existem além da teia orbicular?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que as aranhas comem? Fazer uma lista das vítimas encontradas em teias de aranha.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Para que serve uma teia de aranha?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar na Bíblia duas referências a aranhas e suas teias.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais são os principais inimigos das aranhas?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "De que maneira as aranhas:\n  a. Nos ajudam?\n  b. Prejudicam a nós e a nossas propriedades?",
+   "instructions": null
+  }
+ ]
+}

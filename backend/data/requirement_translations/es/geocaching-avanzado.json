@@ -1,0 +1,48 @@
+{
+ "honor_slug": "geocaching-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geocaching_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Geocaching (Búsqueda por GPS).",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Describir brevemente el origen de los satélites del sistema de posicionamiento global. ¿Cuál es su historia: cuándo y cómo llegaron allí? ¿Quién los puso?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir latitud y longitud. ¿Qué se entiende por grados, minutos y segundos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Hacer dos o más de los siguientes:\n  a. Establecer y mantener un nuevo geocaché en su zona durante por lo menos 6 meses.\n  b. Enviar y seguir un TB (travel bug) durante 6 meses.\n  c. Encontrar 2 travel bugs y seguirlos durante 6 meses.\n  d. Participar (asistir) en una reunión o evento de geocaching en su zona.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Cuáles son las leyes, normas o pautas para colocar cachés en los siguientes lugares?\n  a. Parques estatales y Servicio de Parques Nacionales\n  b. Derechos de vía de carreteras y ferrocarriles\n  c. Colocación de cachés durante un viaje\n  d. Áreas silvestres dentro de bosques nacionales\n  e. Servicio Forestal del USDA",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar y registrar por lo menos 18 geocachés, que incluyan:\n  a. Un caché tradicional con dificultad de 3 estrellas\n  b. Uno multietapa\n  c. Uno virtual\n  d. Uno micro",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escribir sobre su hallazgo en el libro de registro (logbook) del geocaché en el sitio web de geocaching.",
+   "instructions": null
+  }
+ ]
+}

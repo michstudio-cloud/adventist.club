@@ -1,0 +1,78 @@
+{
+ "honor_slug": "azucar-de-arce",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Maple_Sugar/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que parte do mundo e em que época do ano funciona a indústria do açúcar de bordo, e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar como a seiva doce é produzida pelo bordo e como é armazenada durante o inverno.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar o bordo-açucareiro pela casca e pela folha.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "A que profundidade se deve perfurar um bordo para obter os melhores resultados?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quanto tempo leva para cicatrizar o furo de extração de um bordo saudável?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "A que distância de um furo de extração antigo pode ser feito um novo?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quantos furos de extração podem ser feitos em um bordo saudável sem prejudicá-lo?\n  a. Árvore de 10 polegadas (25,4 cm) de diâmetro\n  b. Árvore de 12 polegadas (30,5 cm) de diâmetro\n  c. Árvore de 24 polegadas (61,0 cm) de diâmetro\n  d. Árvore de 36 polegadas (91,4 cm) de diâmetro",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar como o açúcar de bordo é feito a partir do xarope de bordo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é o clima ideal para o fluxo da seiva?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "A copa de um bordo (área de galhos e folhas) influencia o fluxo e a doçura da seiva?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Em média, quanta seiva é necessária para produzir um galão (3,8 L) de xarope?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Provar xarope de bordo puro ou açúcar de bordo.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Observar e explicar para que serve o seguinte equipamento usado na produção de açúcar de bordo:\n  a. Furadeira\n  b. Broca\n  c. Bica\n  d. Balde\n  e. Tampa do balde\n  f. Evaporador",
+   "instructions": null
+  }
+ ]
+}

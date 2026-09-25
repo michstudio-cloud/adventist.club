@@ -1,0 +1,63 @@
+{
+ "honor_slug": "arbustos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Shrubs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar três características dos arbustos que os distinguem das árvores e das ervas. Por que a videira às vezes é considerada um arbusto?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três arbustos alimentícios importantes, silvestres ou cultivados, de sua localidade. Citar um arbusto que produz nozes comestíveis.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar dois arbustos cultivados e dois arbustos silvestres de sua localidade que produzem flores vistosas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "A maioria dos arbustos floresce na primavera, no verão ou no outono? Citar um arbusto cujas flores se abrem antes do aparecimento das folhas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Que arbusto parasita, frequentemente usado na decoração de interiores, cresce nos galhos altos de diferentes tipos de árvores?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar um exemplo de arbusto cujas folhas, no outono, passam do verde para tons brilhantes de amarelo, laranja ou vermelho.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Observar algum arbusto em floração e fazer uma lista de tantos tipos de insetos quanto puder (pelo menos três) que visitam suas flores em busca de pólen ou néctar.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "De quais arbustos as aves preferem comer os frutos ou as sementes? Citar um arbusto cujas flores atraem aves.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Em quais arbustos as aves preferem construir seus ninhos?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Coletar, preservar e identificar corretamente as flores, folhas, sementes, vagens ou ramos com gemas de dez arbustos silvestres.",
+   "instructions": null
+  }
+ ]
+}

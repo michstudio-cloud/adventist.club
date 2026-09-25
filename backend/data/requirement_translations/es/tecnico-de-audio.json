@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tecnico-de-audio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Audio_Technician/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir los siguientes términos:\n  a. Altavoz\n  b. Mezclador de audio\n  c. Amplificador\n  d. Micrófono\n  e. Impedancia\n  f. Ganancia\n  g. Retroalimentación de audio\n  h. Respuesta en frecuencia\n  i. Ecualizador\n  j. Entrada/salida balanceada\n  k. Entrada/salida no balanceada\n  l. Monoaural\n  m. Estéreo\n  n. Cardioide\n  o. Hipercardioide\n  p. Unidireccional\n  q. Prueba de sonido\n  r. Alimentación fantasma\n  s. Decibelio",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Describir y dar los usos principales de cuatro tipos diferentes de micrófonos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Describir por qué es importante la colocación de los micrófonos:\n  a. En relación con las personas que hablan/cantan\n  b. En relación con los altavoces",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Elegir un sistema de audio con el que aprenderá y demostrará las habilidades descritas en la siguiente sección de esta especialidad. Este sistema de audio puede ser el sistema de sonido de su iglesia/escuela local, un sistema de sonido que use su asociación para los eventos de Conquistadores o un sistema que tenga el instructor. Debe contar como mínimo con: varios micrófonos, un mezclador, un amplificador, una fuente de audio auxiliar y altavoces.\n  a. Saber instalar correctamente este sistema de sonido, teniendo en cuenta los principios de colocación de los micrófonos, y hacer una prueba de sonido.\n  b. Saber desmontar correctamente este sistema de sonido.\n  c. Dibujar un diagrama de bloques de cómo se conectan entre sí los elementos del sistema de sonido, mostrando las rutas de las señales.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Analizar y demostrar en este sistema las siguientes técnicas básicas de mezcla de audio:\n  a. Volumen\n  b. Paneo (si tiene un sistema compatible con estéreo)\n  c. Ecualización\n  d. Dinámica",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Describir y demostrar cómo resolver en este sistema las siguientes situaciones:\n  a. Retroalimentación de audio\n  b. Una línea o un micrófono que no funciona\n  c. Un mezclador que ha sido manipulado por alguien que no es técnico de audio",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demostrar su competencia operando un sistema de sonido en al menos cuatro ocasiones diferentes para un culto u otro evento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar a una persona que sirva como técnico de audio. Conversar sobre las siguientes preguntas:\n  a. ¿Cómo comenzó en este campo?\n  b. ¿Cómo ve este trabajo como un ministerio?\n  c. ¿Qué disfruta de lo que hace?\n  d. ¿Qué no disfruta de lo que hace?\n  e. ¿Qué aspectos de este trabajo le parecen desafiantes?\n  f. ¿Qué hace para mantenerse al día con la tecnología de este campo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Leer Romanos 10:17 y conversar con su grupo sobre cómo podría relacionarse este versículo con la función del técnico de audio.",
+   "instructions": null
+  }
+ ]
+}

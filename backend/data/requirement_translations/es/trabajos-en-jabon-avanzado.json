@@ -1,0 +1,63 @@
+{
+ "honor_slug": "trabajos-en-jabon-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soap_Craft_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Tener la especialidad de Trabajos en jabón.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Qué tipos de grasas se pueden usar para hacer jabón?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Qué se usa para que el jabón sea transparente?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "¿Cuáles son las ventajas y las desventajas del jabón y del detergente?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "¿Cuáles son algunos de los agentes limpiadores que se agregan a las mezclas de jabón?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "¿Qué hace que el jabón flote?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Qué hace que el jabón sea duro?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender los siguientes versículos: Jeremías 2:22, Malaquías 3:2.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Explicar dos métodos para hacer jabón. Hacer una tanda de jabón con uno de estos métodos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Hacer uno de los siguientes:\n  a. Visitar un establecimiento donde se fabrique jabón, comercial o no comercial.\n  b. Obtener información de una empresa fabricante de jabón sobre cómo se hace el jabón.\n  c. Estudiar una enciclopedia u otra fuente y preparar un informe de una a dos páginas que explique cómo se hace el jabón.",
+   "instructions": null
+  }
+ ]
+}

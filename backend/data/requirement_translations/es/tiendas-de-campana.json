@@ -1,0 +1,58 @@
+{
+ "honor_slug": "tiendas-de-campana",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tents/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Clasificar tres tipos de tiendas de campaña y explicar cómo se arman. Hacer una lista de sus ventajas y desventajas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Describir los materiales que se usan en la fabricación de tiendas de campaña.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar las clases de tiendas de campaña según el uso al que están destinadas y los fabricantes de tiendas de campaña más conocidos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Elegir un modelo específico de tienda de campaña que le gustaría comprar y justificar su elección.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demostrar cómo preparar una tienda de campaña para la lluvia y el viento. Hacer una lista de las reglas para elegir el lugar donde armar una tienda de campaña. (Arte de acampar, requisitos 2 y 3)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Armar y luego desarmar una tienda de campaña en las siguientes situaciones:\n  a. Con viento fuerte\n  b. De noche",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar las reglas de seguridad para vivir en una tienda de campaña.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demostrar cómo reparar una tienda de campaña en las siguientes situaciones:\n  a. Rasgadura o agujero quemado en la pared de la tienda\n  b. Varilla o arco roto\n  c. Cierre (cremallera) u ojal metálico roto\n  d. Costura descosida",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber guardar y cuidar correctamente las tiendas de campaña.",
+   "instructions": null
+  }
+ ]
+}

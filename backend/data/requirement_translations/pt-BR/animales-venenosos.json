@@ -1,0 +1,73 @@
+{
+ "honor_slug": "animales-venenosos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Venomous_Animals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Animais peçonhentos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são animais peçonhentos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descobrir o número de acidentes causados por animais peçonhentos em seu país ou região no último ano (caso esse dado não esteja disponível, consultar o do último ano disponível).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher e apresentar as seguintes características de dois animais peçonhentos:\n  a. Habitat\n  b. Alimentação\n  c. Danos causados ao ser humano\n  d. Formas de prevenção",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar pelo menos três animais peçonhentos de cada um dos seguintes grupos:\n  a. Répteis\n  b. Insetos\n  c. Aracnídeos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar por que os animais peçonhentos são importantes para o equilíbrio do ecossistema.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Aprender quatro maneiras de se proteger de animais peçonhentos encontrados em casas, empresas ou acampamentos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Os animais peçonhentos geralmente atacam por serem maus ou para se defender?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender os primeiros socorros prestados às vítimas de picadas de animais peçonhentos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "O que é soroterapia?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber para a picada de qual animal serve cada um dos seguintes tipos de soro:\n  a. Antibotrópico\n  b. Anticrotálico\n  c. Antibotrópico polivalente\n  d. Antielapídico\n  e. Antiaracnídico\n  f. Antiescorpiônico",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer pelo menos uma das seguintes atividades:\n  a. Visitar um zoológico ou centro de pesquisa onde seja possível observar animais peçonhentos e apresentar um relatório.\n  b. Com a orientação de seu líder, identificar pelo menos dez animais peçonhentos e apresentar uma lista com: nome científico, nome popular, foto e local de origem.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Descobrir pelo menos dois animais peçonhentos na Bíblia.",
+   "instructions": null
+  }
+ ]
+}

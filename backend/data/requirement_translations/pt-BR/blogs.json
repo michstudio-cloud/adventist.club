@@ -1,0 +1,48 @@
+{
+ "honor_slug": "blogs",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Blogs/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Blogs",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Internet.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a diferença entre um site e um blog.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são os principais sistemas gratuitos de blogs disponíveis e quais são as diferenças entre eles?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os seguintes termos:\n  a. Domínio\n  b. Diferença entre .org, .com, .net, .edu, .gov, .info ou a sigla do país .pe, .ar, .cl, .br, .bo, .uy, .py\n  c. Hospedagem\n  d. Código HTML\n  e. Incorporar (embed)\n  f. Servidor\n  g. Upload\n  h. Download",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Criar um blog (pode ser da unidade, do clube, da igreja ou pessoal, com relatos sobre os Desbravadores e a IASD) e atualizá-lo pelo menos 2 vezes por semana durante pelo menos 3 meses. Um instrutor deve revisar as postagens para certificar que estão de acordo com a filosofia da IASD.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar em um blog as maneiras de carregar imagens e documentos, incorporar vídeos e adicionar links para 3 sites com material importante para os Desbravadores ou da IASD.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que cuidados (em relação aos direitos autorais e a sites não confiáveis) devem ser tomados ao copiar informações da internet para um blog?",
+   "instructions": null
+  }
+ ]
+}

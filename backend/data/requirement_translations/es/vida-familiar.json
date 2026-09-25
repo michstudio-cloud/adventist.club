@@ -1,0 +1,68 @@
+{
+ "honor_slug": "vida-familiar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Family_Life/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar las funciones del padre, la madre, la hermana y el hermano según la Biblia y el Espíritu de Profecía.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Cuál es la diferencia entre el respeto propio y el orgullo? Escribir un párrafo sobre algunas de las cosas que le hacen sentirse bien con respecto a su familia. Incluir las cosas de las que se siente orgulloso y las buenas cualidades y los logros de su familia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Hacer una de las siguientes tareas en su hogar durante una semana:\n  a. Quitar el polvo y mantener limpios los pisos\n  b. Lavar la ropa\n  c. Lavar los platos\n  d. Desechar la basura correctamente",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Cuidar a los miembros más pequeños de su familia o de la familia de un vecino durante por lo menos un par de horas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer una lista de algunas de las cosas en las que su familia gasta dinero. Explicar cuál es su responsabilidad con respecto a las finanzas de su familia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer una lista de actividades familiares que usted crea que su familia disfrutaría.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "¿Cómo haría que un culto familiar fuera significativo para preescolares, menores y adolescentes? Planificar y dirigir un culto familiar para uno de estos grupos de edad.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber qué hacer en las siguientes circunstancias en su hogar:\n  a. Accidente\n  b. Tormenta fuerte\n  c. Crisis económica\n  d. Incendio\n  e. Pérdida de un familiar",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Planificar y llevar a cabo un simulacro de incendio en su hogar.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Hacer una lista de cinco maneras en que puede mostrar preocupación o interés por sus vecinos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Estudiar las actividades recreativas de su familia. ¿Qué mejoras se podrían hacer, si hace falta alguna?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "baloncesto",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Basketball/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras básicas do basquete.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa “espírito esportivo”?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Air ball\n  b. Tabela\n  c. Quadra de defesa\n  d. Quadra de ataque\n  e. Linha de fundo\n  f. Toco\n  g. Passe quicado\n  h. Drible duplo\n  i. Drible\n  j. Finta\n  k. Contra-ataque\n  l. Cesta de quadra\n  m. Eliminação por faltas\n  n. Passar e cortar\n  o. Reposição de bola\n  p. Falta intencional\n  q. Bola ao alto\n  r. Garrafão\n  s. Falta com bola solta\n  t. Marcação individual\n  u. Um e um\n  v. Perímetro\n  w. Corta-luz\n  x. Marcação pressão\n  y. Rebote\n  z. Relógio de arremesso\n  aa. Roubo de bola\n  bb. Faltas coletivas\n  cc. Armadilha\n  dd. Andada\n  ee. Perda de posse de bola\n  ff. Defesa por zona\n  gg. Pivô\n  hh. Alas\n  ii. Armadores\n  jj. Arremesso com salto\n  kk. Bandeja\n  ll. Arremesso de tabela\n  mm. Enterrada\n  nn. Gancho\n  oo. Lance livre\n  pp. Falta pessoal\n  qq. Falta de ataque (carga)\n  rr. Falta de bloqueio\n  ss. Falta técnica\n  tt. Violação de três segundos\n  uu. Regra dos cinco segundos\n  vv. Regra dos dez segundos\n  ww. Violação de retorno à quadra de defesa\n  xx. Violação na reposição de bola\n  yy. Liga\n  zz. Arremesso de três pontos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar compreensão das diferentes habilidades exigidas em cada posição.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar habilidade razoável nas seguintes áreas:\n  a. Arremesso da linha de lance livre\n  b. Arremesso de diferentes posições ao redor da cesta\n  c. Drible\n  d. Passe",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Passar pelo menos 4 horas ajudando um jogador menos habilidoso ou mais novo a melhorar suas habilidades.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Jogar pelo menos 5 partidas com a família ou amigos. Demonstrar espírito esportivo durante os treinos e os jogos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever um relatório de uma página sobre um jogador de basquete famoso. Discutir por que ele é ou não é um bom exemplo cristão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conversar com seu líder de Desbravadores, pastor ou professor sobre os problemas que um jovem adventista do sétimo dia enfrenta ao considerar a prática de esportes nos anos finais do ensino fundamental, no ensino médio e na faculdade. Que alternativas existem para permitir a prática contínua de esportes?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer um desenho em escala de uma quadra de basquete com a demarcação correta.",
+   "instructions": null
+  }
+ ]
+}

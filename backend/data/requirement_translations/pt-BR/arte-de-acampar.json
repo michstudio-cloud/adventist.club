@@ -1,0 +1,63 @@
+{
+ "honor_slug": "arte-de-acampar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Camp_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar como e por que o clima, a estação do ano e o abastecimento de água são levados em conta na escolha de um local de acampamento. Explicar que cuidados tomar com relação à água potável, às instalações sanitárias e às emergências.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Preparar uma lista das roupas de que você precisaria para um acampamento com pernoite em clima quente e em clima frio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e praticar as regras de segurança no acampamento.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Mostrar sua habilidade no uso de uma faca de acampamento, demonstrando ou explicando as regras de segurança para seu uso e fazendo aparas para acendalha.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Preparar-se para um acampamento com pernoite em grupo, fazendo uma lista dos itens pessoais e dos itens coletivos que serão necessários.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Preparar cardápios balanceados, com comida cozida, para um café da manhã, um almoço e um jantar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer o seguinte durante um acampamento com pernoite:\n  a. Preparar o terreno adequadamente para dormir com conforto.\n  b. Armar e desmontar corretamente uma barraca.\n  c. Preparar uma área adequada e segura para uma fogueira. Demonstrar o uso correto de ferramentas para madeira ao obter e preparar a lenha para o fogo.\n  d. Mostrar como proteger seu acampamento contra animais, insetos e tempo chuvoso ou ruim.\n  e. Mostrar como cuidar adequadamente do meio ambiente enquanto acampa e deixar o local sem nenhum vestígio de que esteve ali.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber oito coisas que se devem fazer quando se está perdido.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Acampar por três dias e duas noites seguidos, dormindo todas as noites sob as estrelas ou em uma barraca. Participar ativamente do preparo de pelo menos duas das refeições.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Considerando o que aprendeu nesta especialidade e no acampamento realizado, qual é o significado e o motivo do Código de Acampamento do Desbravador?",
+   "instructions": null
+  }
+ ]
+}

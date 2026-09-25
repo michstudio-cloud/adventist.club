@@ -1,0 +1,103 @@
+{
+ "honor_slug": "arboricultura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Arboriculture/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arboricultura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Arboricultura\n  b. Arborista\n  c. Setor de arboricultura",
+   "instructions": "Seção: (A ser ministrada por um arborista certificado ou com certificação equivalente)"
+  },
+  {
+   "position": 2,
+   "description": "Desenhar e identificar os componentes dos seguintes itens:\n  a. Corte transversal do tronco\n    i. Casca externa\n    ii. Floema\n    iii. Câmbio\n    iv. Alburno (xilema)\n    v. Cerne\n  b. Anatomia do ramo\n    i. Gema terminal\n    ii. Escamas da gema\n    iii. Gema lateral\n    iv. Lenticelas\n    v. Cicatriz foliar\n    vi. Anel de cicatrizes das escamas da gema\n    vii. Entrenó\n    viii. Nó\n    ix. Traços dos feixes vasculares\n    x. Medula",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar cinco características das plantas usadas para identificar árvores.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os benefícios da cobertura morta e como aplicá-la corretamente ao redor de árvores e arbustos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever os princípios da conservação da água e do planejamento por hidrozonas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Os três principais componentes dos fertilizantes são: nitrogênio (N), fósforo (P) e potássio (K). Explicar por que diferentes proporções desses componentes básicos seriam necessárias em diferentes situações.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de cinco características a considerar ao escolher árvores em um viveiro e ao escolher um local de plantio.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar um arborista certificado local ou um especialista em árvores sobre as diferentes técnicas de plantio usadas em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "No diagrama a seguir, usar duas cores diferentes para identificar quais galhos devem ser removidos com “cortes de desbaste” ou com “cortes de redução”, e ser capaz de explicar a diferença entre esses cortes e quando cada um deve ser usado.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar dois tipos de sistemas de sustentação de árvores instalados por arboristas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma lista das doenças, dos problemas com insetos e das espécies invasoras mais comuns em sua região. Classificá-los por gravidade.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Compreender a filosofia do Cuidado com a Saúde das Plantas (PHC). Elaborar um plano de PHC para uma árvore adulta e de grande valor em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Praticar com seu instrutor o preenchimento de um formulário de avaliação de risco de árvores de uso comum, para uma árvore adulta. Como projeto de serviço, usar seus conhecimentos para preencher um formulário para uma segunda árvore em sua escola, igreja ou parque local.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Pesquisar como as árvores podem ser danificadas ou destruídas como resultado direto ou indireto de danos causados por obras de construção e apresentar suas descobertas a um grupo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Fazer uma apresentação sobre a importância da silvicultura urbana em sua área ou na área urbana mais próxima de sua região. Usar a criatividade.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Fazer uma lista completa dos Equipamentos de Proteção Individual (EPI) necessários para realizar os seguintes tipos de trabalho: silvicultura urbana, arboricultura.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Ser capaz de identificar três tipos de cordas e dar três nós usados por profissionais que cuidam de árvores.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Conversar sobre a aplicação espiritual de João 15:2, considerando o que você aprendeu nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}

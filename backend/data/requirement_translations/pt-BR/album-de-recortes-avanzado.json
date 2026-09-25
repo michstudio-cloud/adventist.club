@@ -1,0 +1,48 @@
+{
+ "honor_slug": "album-de-recortes-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scrapbooking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Álbum de recortes - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Álbum de recortes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que é lignina?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que plástico é seguro para usar em álbuns de recortes?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Que plástico não é seguro e por quê?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever o valor dos álbuns de recortes para as gerações futuras.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como se corrige um erro nas anotações escritas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Completar um álbum de pelo menos 24 páginas, de tamanho não inferior a 8 1/2 x 11 polegadas (21,6 x 27,9 cm), usando técnicas que incluam pelo menos 10 dos seguintes recursos:\n  Moldura de papel\n  Moldura dupla\n  Desenhos de bordas\n  Caixas para anotações\n  Papel colorido\n  Papel estampado\n  Composições em 2 páginas\n  Formas recortadas prontas\n  Formas recortadas criadas por você\n  Adesivos\n  Furadores\n  Bolsos para lembranças\n  Tesouras decorativas\n  Gabaritos\n  Fotos recortadas em círculos ou ovais",
+   "instructions": null
+  }
+ ]
+}

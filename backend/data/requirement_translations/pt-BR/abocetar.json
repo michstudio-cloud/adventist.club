@@ -1,0 +1,63 @@
+{
+ "honor_slug": "abocetar",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sketching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Esboço",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer três tipos de canetas que podem ser usadas para fazer um esboço a “bico de pena”.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber por que a textura do papel é importante na escolha do papel para esboço.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Preparar seu próprio quadro mostrando os cinco traços básicos do esboço.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando a caneta de sua escolha, esboçar um mourão de cerca com um buraco de nó na madeira.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Esboçar um portão de cerca observando um portão de verdade, usando os cinco traços que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Criar uma cena original com uma árvore com folhas, uma estrada, uma cerca e algo especial para você. Que seja a sua impressão, e não uma tentativa de reproduzir a cena com perfeição fotográfica.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Saber como um esboço terminado deve ser protegido.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Saber limpar corretamente suas canetas de esboço.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos duas regras de segurança sobre o uso e o manuseio dos materiais de bico de pena.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber como guardar o papel vegetal e o papel-carbono para mantê-los em ordem e limpos.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "honor_slug": "anfibios-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Amphibians_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Anfíbios.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Planejar e realizar um projeto de estudo baseado na observação, na natureza ou em cativeiro, de um ou mais anfíbios escolhidos e escrever um trabalho sobre as conclusões a que chegou durante o estudo. O estudo deve envolver no mínimo 25 horas de observação efetiva e ter duração total máxima de uma estação do ano. Não é permitido causar dano ou morte intencional ao animal estudado.",
+   "instructions": null
+  }
+ ]
+}

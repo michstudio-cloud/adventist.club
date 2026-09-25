@@ -1,0 +1,15 @@
+{
+ "honor_slug": "huracanes",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hurricanes",
+ "license": "CC BY-SA 3.0",
+ "name": "Hurricanes",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hurricanes",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": []
+}

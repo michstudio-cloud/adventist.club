@@ -1,0 +1,48 @@
+{
+ "honor_slug": "mecanica-de-automoviles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Automobile_Mechanics/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Arrancar correctamente el motor de un automóvil o de una camioneta con transmisión automática y el de uno con transmisión estándar. Explicar por qué, para que el motor funcione correctamente, es necesario que tenga las presiones y los niveles adecuados de aceite, agua, combustible y batería.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quitar y volver a colocar correctamente un neumático (o una rueda) y demostrar cómo reparar una pinchadura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar los principios de los motores de cuatro y de dos tiempos, y la diferencia entre los motores de gasolina y los diésel. Explicar las principales diferencias entre los sistemas de alimentación por carburador y los de inyección de combustible.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Describir la construcción de un motor de gasolina típico y explicar brevemente la función de estas unidades:\n  a. Motor: cigüeñal, bielas, pistones, árbol de levas, válvulas, bomba de aceite, carburador, inyectores de combustible, distribuidor de encendido, distribuidor de combustible, sistema eléctrico, incluidos el alternador, la batería y el regulador\n  b. Diferencia entre la transmisión estándar y la automática, y cómo se transmite el par del motor a ambos tipos de transmisión; propósito de la sobremarcha (overdrive)\n  c. Diferencia entre la tracción trasera y la tracción delantera\n  d. Diferencia entre los frenos de tambor y los de disco, entre los frenos convencionales y los servofrenos, y el freno de estacionamiento",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer el mantenimiento típico de un automóvil, como se indica a continuación:\n  a. Revisar los niveles de aceite del motor y de la transmisión.\n  b. Revisar el nivel de agua/anticongelante. Cambiar el refrigerante y lavar el sistema de enfriamiento.\n  c. Cambiar el aceite y el filtro del motor.\n  d. Cambiar un conjunto de neumático y rueda, siguiendo los procedimientos de seguridad adecuados.\n  e. Lubricar el chasis según el manual de servicio del vehículo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "¿Con qué frecuencia se deben cambiar el aceite del motor, el aceite de la transmisión y el líquido refrigerante?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dar algunas recomendaciones sobre el cuidado adecuado del vehículo y de su acabado, tanto interior como exterior.",
+   "instructions": null
+  }
+ ]
+}

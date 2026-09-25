@@ -1,0 +1,48 @@
+{
+ "honor_slug": "aves",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Birds/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar duas características que distinguem as aves de todas as outras criaturas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três aves que não voam, dizer em que consiste sua alimentação e indicar o país ou continente onde cada uma vive.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dizer em que dia da semana as aves foram criadas. Encontrar na Bíblia os nomes de cinco aves e ser capaz de citá-los de memória.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever ou dizer oralmente três maneiras pelas quais o amor e o propósito de Deus se revelam na criação das aves.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de trinta espécies de aves silvestres, incluindo aves de pelo menos cinco ordens diferentes, que você tenha observado pessoalmente e identificado com segurança pela visão, ao ar livre.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de cinco espécies de aves silvestres que você tenha identificado pessoalmente e com segurança pelo som, ao ar livre.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades:\n  a. Montar um comedouro e relatar as aves visitantes observadas durante um período de sete dias.\n  b. Encontrar um ninho de ave, durante a época de nidificação, identificar a espécie de ave que o construiu, descrever o ninho em detalhes, observá-lo durante cinco dias e relatar o que aconteceu no ninho em cada um desses dias.\n  c. No Hemisfério Ocidental: manter um bebedouro para beija-flores durante 2 meses.\n    i. De que é feito o néctar artificial?\n    ii. Por que não se deve usar corante alimentício nem mel?\n    iii. Quando o líquido do bebedouro deve ser trocado?\n    iv. Como deve ser feita a manutenção do bebedouro?\n  d. Em outras regiões do mundo: escolher pelo menos três habitats diferentes da sua região e fazer listas comparativas das aves de cada um, indicando as diferenças entre as aves esperadas e as encontradas.",
+   "instructions": null
+  }
+ ]
+}

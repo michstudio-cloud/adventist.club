@@ -1,0 +1,83 @@
+{
+ "honor_slug": "natacion-i-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Beginner_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Inmersiones rítmicas. Practicar inmersiones rítmicas en agua a la altura del cuello antes de entrar en agua profunda. Demostrar inmersiones rítmicas en agua profunda con un ritmo definido, inhalando cuando la boca sale del agua y exhalando cuando la cabeza se hunde.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Control de la respiración. De pie en agua a la altura del pecho, demostrar la respiración rítmica a razón de 24 a 26 veces en dos minutos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Nadar en el mismo lugar. Mantenerse a flote en un espacio reducido (dentro de un círculo de ocho pies [2,4 m]) usando una brazada humana modificada durante un minuto.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Cambio de posición. Pasar de una posición de nado boca abajo a una posición vertical y luego a una posición boca arriba. Pasar de la posición boca arriba a la vertical y luego a la posición boca abajo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Espalda elemental. Nadar 25 yardas (22,9 metros) de espalda elemental.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Crol. Nadar 25 yardas (22,9 metros) estilo crol.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Brazada de supervivencia. Nadar 25 yardas (22,9 metros) con la brazada de supervivencia.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Uso del dispositivo personal de flotación. Saltar al agua desde el borde de la piscina o desde un muelle llevando puesto un dispositivo personal de flotación. Mostrar cómo mantenerse cómodo en las posiciones boca abajo, vertical y boca arriba. Cada posición debe mantenerse por lo menos un minuto. Usar un cojín de asiento para sostener correctamente el cuerpo en el agua.*",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Flotación de supervivencia. En agua profunda, más alta que su cabeza, hacer la flotación de supervivencia durante dos minutos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Saber cómo aliviar un calambre estando en agua profunda.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Técnica de rescate. Demostrar un rescate con una pértiga de alcance y otro con una prenda de vestir.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Prueba combinada. Zambullirse en agua profunda desde el borde de la piscina o desde un muelle, nadar bajo la superficie una distancia mínima de tres veces la longitud de su cuerpo, salir a la superficie y mantenerse a flote en un espacio reducido de 20 yardas (18,3 metros) nadando espalda elemental o crol.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Conocer las causas de los accidentes que pueden ocurrir en el agua o cerca de ella y los métodos para prevenirlos.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Demostrar la respiración artificial.",
+   "instructions": null
+  }
+ ]
+}

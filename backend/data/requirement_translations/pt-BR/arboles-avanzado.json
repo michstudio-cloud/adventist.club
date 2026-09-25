@@ -1,0 +1,63 @@
+{
+ "honor_slug": "arboles-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trees_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Árvores.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Coletar, identificar, prensar e montar folhas de 35 espécies diferentes de árvores.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Coletar separadamente, prensar, montar e etiquetar exemplares que demonstrem os seguintes termos:\n  a. Serreada\n  b. Duplamente serreada\n  c. Inteira\n  d. Crenada\n  e. Denteada\n  f. Lobada\n  g. Incisa\n  h. Verticilada\n  i. Oposta\n  j. Alternada\n  k. Composta pinada\n  l. Triplamente composta (se possível)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer o seguinte:\n  a. Descrever as vantagens de usar os nomes latinos ou científicos.\n  b. Para que servem as duas partes de um nome científico?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar seis famílias de árvores da classe das angiospermas e três famílias da classe das gimnospermas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer e descrever a função das folhas na vida de uma árvore.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar as famílias de árvores de sua região que têm folhas opostas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Definir os seguintes termos:\n  a. Estípula\n  b. Pecíolo\n  c. Limbo\n  d. Resina\n  e. Cerne\n  f. Alburno\n  g. Lenho de primavera\n  h. Lenho de verão\n  i. Anel anual\n  j. Câmbio\n  k. Xilema\n  l. Floema",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que famílias de árvores têm:\n  a. Espinhos\n  b. Amentos\n  c. Sementes aladas\n  d. Bolotas\n  e. Vagens\n  f. Cápsulas\n  g. Nozes\n  h. Bagas",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Identificar dez árvores caducifólias por suas características de “inverno” (outras que não as folhas), como ramos e gemas, forma característica e hábitos de crescimento.",
+   "instructions": null
+  }
+ ]
+}

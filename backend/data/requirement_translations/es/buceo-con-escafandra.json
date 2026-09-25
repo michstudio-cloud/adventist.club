@@ -1,0 +1,28 @@
+{
+ "honor_slug": "buceo-con-escafandra",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Scuba_Diving/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Se requiere un instructor.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Aprobar satisfactoriamente un curso estándar de buceo con escafandra autónoma (SCUBA) impartido por un instructor certificado de buceo SCUBA.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "NOTA: Los siguientes son requisitos previos. Tener por lo menos 15 años de edad. Tener la especialidad de Buceo. Ser capaz de nadar 50 pies (15 m) bajo el agua. Ser capaz de nadar y flotar de forma continua durante 30 minutos, recorriendo un mínimo de 330 yardas (300 m) en ese tiempo.",
+   "instructions": null
+  }
+ ]
+}

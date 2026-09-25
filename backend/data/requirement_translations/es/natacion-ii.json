@@ -1,0 +1,103 @@
+{
+ "honor_slug": "natacion-ii",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Intermediate/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Demostrar la respiración alterna.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demostrar la entrada al agua con salto de zancada.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demostrar una zambullida de pie desde el trampolín.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demostrar una zambullida larga y poco profunda.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nadar estilo pecho: diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar estilo lateral: diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Nadar bajo el agua: 15 yardas (14 m).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Nadar espalda elemental: 25 yardas (23 m).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demostrar la patada de delfín: 10 yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Nadar crol: 50 yardas (46 m).",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Nadar crol de espalda: 10 yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Demostrar el viraje abierto nadando boca abajo.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Demostrar el viraje abierto nadando boca arriba.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Comentar las reglas de seguridad para zambullirse desde un trampolín.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Comentar cómo reconocer una lesión de columna.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Demostrar la sujeción por la cadera y el hombro.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Demostrar la inmersión de superficie con los pies primero.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Mantenerse a flote en posición vertical durante dos minutos en total, con dos patadas diferentes.",
+   "instructions": null
+  }
+ ]
+}

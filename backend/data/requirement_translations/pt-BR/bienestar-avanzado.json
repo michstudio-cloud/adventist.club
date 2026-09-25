@@ -1,0 +1,43 @@
+{
+ "honor_slug": "bienestar-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wellness_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Bem-estar - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar a especialidade de Bem-estar.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que o bem-estar é importante?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler os seguintes trechos de Parábolas de Jesus (Christ’s Object Lessons, COL), p. 325-365, “Talentos”.\n  a. Faculdades mentais (COL 333.2-335.1)\n  b. Saúde (COL 346.2-348.2)\n  c. Força (COL 348.3-350.5)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Preencher o questionário das 7 Dimensões do Bem-estar ou fazer uma autoavaliação de como você está em cada uma das 7 dimensões do bem-estar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Elaborar um plano básico daquilo em que você precisa trabalhar. Definir um prazo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ajudar a planejar e dirigir uma estação em uma Feira de Saúde Infantil em sua comunidade.",
+   "instructions": null
+  }
+ ]
+}

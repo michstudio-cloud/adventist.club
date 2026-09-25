@@ -1,0 +1,43 @@
+{
+ "honor_slug": "aves-de-jaula",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bird_Pets/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Criar uma ave ou um casal de aves durante pelo menos seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Mostrar que você cumpriu uma das seguintes atividades:\n  a. Se você tem uma ave de gaiola, manter um registro dos cuidados com ela durante pelo menos um mês. Incluir hábitos alimentares, necessidade de água, limpeza da gaiola etc.\n  b. Se você não tem uma ave de gaiola atualmente, mas cumpriu o requisito nº 1 no passado, cuidar da ave de outra pessoa durante pelo menos uma semana enquanto ela estiver de férias etc., e manter um registro dos cuidados necessários.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Canários\n  a. Citar os nomes de quatro variedades de canários.\n  b. Fazer um breve histórico da origem e do desenvolvimento dos canários.\n  c. Citar e distinguir cinco sementes usadas na alimentação dos canários.\n  d. Descrever brevemente os cuidados gerais com os canários.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Periquitos ou agapórnis\n  a. De que país os periquitos ou agapórnis são nativos?\n  b. Descrever brevemente seus hábitos de alimentação, de nidificação e seu comportamento geral.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pombos\n  a. Citar e identificar seis variedades de pombos.\n  b. Descrever o tipo de alimentação e o manejo geral.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são as leis do seu estado ou país referentes à captura, reprodução, venda e/ou exportação de aves de gaiola? Certificar-se de que você as está cumprindo ao realizar os requisitos desta especialidade.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "honor_slug": "agrimensura",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Land_Surveying/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Agrimensura",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é agrimensura?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar e ter uma noção básica da finalidade dos seguintes equipamentos de agrimensura:\n  a. Tripé\n  b. Níveis e trânsitos\n  c. Teodolito\n  d. Prumo\n  e. Piquetes e pregos\n  f. Balizas\n  g. Trenas\n  h. Cadernetas de campo\n  i. Estação total\n  j. Fitas de sinalização, marcos topográficos e tinta de marcação",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer o básico sobre como manter uma caderneta de campo e fazer os registros.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar a conversão de unidades de medida de agrimensura em outras unidades:\n  a. Comprimento: corrente de engenheiro, pé, furlong, corrente de Gunter, quilômetro, elo, metro, milha, vara (perch ou rod) e jarda\n  b. Área: acre, hectare e milha quadrada",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar sua capacidade de estimar distâncias a passos, percorrendo uma distância de mais de 100 pés (30 m) com precisão de 5%.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar o sistema de agrimensura ou a adaptação predominante em sua região. Fazer uma das seguintes atividades:\n  a. Demonstrar sua compreensão do sistema de agrimensura ou da adaptação predominante em sua região lendo a descrição legal de um imóvel de sua região e desenhando esse imóvel em escala.\n    b. Ser capaz de responder e completar o seguinte sobre o Sistema Público de Levantamento de Terras (PLSS):\n    O que são as linhas de meridiano principal e as linhas de base?\n    O que são as linhas de township e as linhas de range?\n    O que é um township?\n    O que é uma seção? Quantas há em cada township? Conhecer o método usado para identificar uma seção.\n    Esboçar a numeração das seções em uma grade do PLSS (ou na adaptação usada em sua localidade).\n    Demonstrar sua capacidade de localizar qualquer lote dentro de uma seção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades para conhecer o papel do agrimensor profissional e ser capaz de responder por que é necessário ter habilitação para esse trabalho:\n  a. Entrevistar um agrimensor habilitado e conhecer o papel do agrimensor, os tipos de projetos em que trabalha, os tipos de equipamento que usa e o que foi necessário para obter a habilitação.\n  b. Pesquisar as normas e leis de sua região para determinar o processo para se tornar agrimensor profissional habilitado. Que atividades exigem que a pessoa seja agrimensor profissional habilitado?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar sua capacidade de usar equipamentos de agrimensura, fazer boas anotações de campo e determinar uma cota, trabalhando em uma equipe de levantamento de 2 a 4 pessoas para implantar 5 referências de nível a uma distância mínima de 50 pés (15 m) entre si, e fechar o circuito com erro de no máximo +/- 1 polegada (2,5 cm).",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "A Bíblia contém muitas referências à agrimensura. Responder às seguintes perguntas sobre a “agrimensura espiritual”:\n  a. Todo levantamento começa com uma boa referência de nível como ponto de partida ou ponto inicial. Quem é o nosso ponto inicial / ponto de partida? Discutir como nós, cristãos, estamos todos ligados ao “ponto inicial”.\n  b. Encontrar na Bíblia um versículo que fale de uma pedra angular como “ponto inicial”.\n  c. O prumo é mencionado várias vezes na Bíblia. Encontrar dois exemplos e discutir por que essa menção é importante.\n  d. Encontrar dois versículos na Bíblia que mencionem limites de terras e discutir a importância dos limites nos tempos bíblicos e em nossa vida hoje.",
+   "instructions": null
+  }
+ ]
+}

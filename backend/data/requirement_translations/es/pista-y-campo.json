@@ -1,0 +1,58 @@
+{
+ "honor_slug": "pista-y-campo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Track_%26_Field/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conocer las reglas básicas, las medidas de seguridad y los ejercicios de calentamiento para las seis pruebas de pista y campo que se indican a continuación.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Correr la carrera de velocidad de 50 yardas (45,7 metros) en el tiempo (en segundos) que corresponda a su sexo y edad, según se indica a continuación:",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "En las carreras de velocidad, ¿qué parte del pie debe tocar primero el suelo durante la zancada? ¿Cuáles son las posiciones correctas de los brazos y de la cabeza?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Hacer el recorrido de 600 yardas (548,6 metros), corriendo y caminando, en el tiempo (en minutos/segundos) que corresponda a su sexo y edad, según se indica a continuación:",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Responder las siguientes preguntas acerca de las carreras de larga distancia:\n  a. Encontrar dos historias bíblicas que mencionen a corredores de larga distancia.\n  b. ¿Cuál es la ropa adecuada, incluido el calzado, para correr largas distancias en su región?\n  c. ¿Cuál es la longitud promedio de una pista?\n  d. ¿Qué distancia tiene una carrera de maratón?\n  e. ¿Qué parte del pie debe tocar primero el suelo durante la zancada?\n  f. ¿Cuáles son las posiciones correctas de los brazos y de la cabeza al correr largas distancias?\n  g. ¿Cuál es la forma correcta de respirar?\n  h. ¿En qué se diferencia la carrera a campo traviesa de la carrera en pista?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Correr por lo menos dos veces una de las siguientes pruebas y registrar el mejor tiempo:\n  a. Carrera de 50 yardas (45,7 metros) con cuatro vallas.\n  b. Carrera de 70 yardas (64,0 metros) con seis vallas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Hacer el salto de altura con buena técnica por lo menos cinco veces y registrar el salto más alto.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Hacer tres veces el salto de longitud con carrera de impulso y registrar la mejor marca.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Correr los siguientes relevos:\n  a. Relevo con pase visual\n  b. Relevo con pase ciego",
+   "instructions": null
+  }
+ ]
+}

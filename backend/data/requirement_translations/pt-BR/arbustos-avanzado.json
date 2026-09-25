@@ -1,0 +1,48 @@
+{
+ "honor_slug": "arbustos-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Shrubs_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arbustos - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arbustos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber o que são arbustos ornamentais e descobrir pelo menos uma técnica para decorar arbustos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Cuidar de um arbusto durante pelo menos um mês e relatar os diferentes métodos de cuidado.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dar três exemplos dos seguintes tipos de arbustos:\n  a. Arbustos floríferos\n  b. Arbustos frutíferos",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Observar um arbusto durante pelo menos um mês e relatar o maior número possível de insetos (pelo menos três) que vêm buscar pólen ou néctar em suas flores.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três alimentos importantes, silvestres ou cultivados, encontrados em arbustos de sua região.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de pelo menos 60 tipos diferentes de arbustos e coletar, preservar e identificar corretamente flores, folhas, sementes, vagens ou ramos com gemas de 20 arbustos mencionados em sua lista.",
+   "instructions": null
+  }
+ ]
+}

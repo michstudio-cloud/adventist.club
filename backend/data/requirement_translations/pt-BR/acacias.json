@@ -1,0 +1,73 @@
+{
+ "honor_slug": "acacias",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wattles/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o número aproximado de variedades catalogadas de acácias na Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "a. O que são filódios?\n  b. Que função eles desempenham na planta?\n  c. Por que os filódios são tão importantes no estudo das acácias?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como as acácias são classificadas em dois grandes grupos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como o formato da vagem e a disposição das sementes dentro dela ajudam na identificação?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quantas acácias do seu estado têm folhas verdadeiras (bipinadas) na fase adulta?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "a. Nas mudas de acácia, o que aparece primeiro: as folhas verdadeiras ou os filódios?\n  6. b. Quantas têm folhas verdadeiras?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que precisa acontecer com uma semente de acácia antes que ela germine e cresça?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Os filódios de quais acácias são usados para alimentar o gado em tempos de seca?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Para que é usada a casca de algumas acácias na Austrália?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quais espécies de acácias são usadas na fabricação de móveis?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como as acácias ajudam e beneficiam o ser humano, os animais, os insetos e as aves?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma coleção de 10 ou mais acácias secas e prensadas, com flores e filódios e, quando possível, vagens e sementes. Indicar datas, local de coleta, nomes populares e científicos. Algumas devem ter flores em espiga, outras em racemo ou em capítulos globosos isolados, e algumas devem ter folhas bipinadas.\n  OU\n  20 ou mais fotografias de perto, tiradas por você, de acácias mostrando os detalhes acima.",
+   "instructions": null
+  }
+ ]
+}

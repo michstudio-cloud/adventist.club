@@ -1,0 +1,83 @@
+{
+ "honor_slug": "artesania",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Folk_Art/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Arte folclórica",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é arte folclórica?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um breve histórico da arte folclórica.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer uma lista dos materiais básicos necessários para a arte folclórica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer e seguir todas as normas de segurança ao praticar a arte folclórica.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar como cuidar dos pincéis.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar como preparar vários tipos de superfície para pintura.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar como decalcar e transferir desenhos para o projeto.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar e demonstrar efeitos especiais usados na aplicação da camada de base.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar o seguinte:\n  a. As pinceladas básicas com pincel redondo, além do carregamento do pincel, do carregamento da ponta e do carregamento lateral.\n  b. As pinceladas básicas com pincel chato, além do carregamento do pincel e da ponta, da mesclagem, do carregamento duplo e do flutuado.\n  c. Como usar pontos para flores de preenchimento e rendas.\n  d. Como usar um pincel de pontilhar para miolos de flores e ursinhos de pelúcia.\n  e. Como usar as pinceladas básicas para criar flores e folhas.\n  f. Como finalizar o projeto usando seladores.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Concluir pelo menos dois projetos de arte folclórica.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "A quem Deus deu sabedoria especial em todo trabalho artístico para a construção do santuário no deserto? Dar a referência bíblica. Descrever brevemente sua construção.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Fazer uma lista de cinco (5) símbolos ou motivos bíblicos que poderiam ser incorporados à arte folclórica.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Como a arte folclórica pode ser usada como testemunho da bondade de Deus?",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "O que é o Livro de Kells? Que relação ele tem com a arte folclórica?",
+   "instructions": null
+  }
+ ]
+}

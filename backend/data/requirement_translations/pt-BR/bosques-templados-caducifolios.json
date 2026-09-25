@@ -1,0 +1,68 @@
+{
+ "honor_slug": "bosques-templados-caducifolios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Temperate_Deciduous_Forests/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Florestas temperadas decíduas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever ou explicar as seguintes informações sobre as florestas temperadas decíduas:\n  a. Em termos simples, descrever uma floresta temperada decídua.\n  b. Fazer uma lista de várias características das florestas temperadas decíduas.\n  c. Citar outros nomes usados para a floresta temperada decídua.\n  d. Em um mapa, mostrar os continentes onde se encontram florestas temperadas decíduas.\n  e. Definir bioma. O que geralmente se encontra ao norte da floresta temperada decídua?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, por meio de fotos ou na natureza, quatro tipos de árvores comuns nas florestas temperadas decíduas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar por que as folhas mudam de cor no outono.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ler Gênesis 1:11-13. Descobrir quando, segundo Gênesis 1, as árvores foram criadas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar, por meio de fotos ou na natureza, pelo menos cinco espécies de plantas com flores comuns em uma floresta temperada decídua. Por que geralmente elas só são encontradas na primavera?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar, por meio de fotos ou na natureza, pelo menos cinco espécies de mamíferos comuns nas florestas temperadas decíduas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar, por meio de fotos ou na natureza, pelo menos cinco tipos de aves comuns nas florestas temperadas decíduas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma lista dos recursos importantes que as florestas temperadas decíduas fornecem à sua região.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Aprender sobre uma espécie invasora que afeta as florestas temperadas decíduas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Preparar uma lição objetiva sobre uma planta, um animal ou uma ave que vive nas florestas temperadas decíduas. Apresentar essa lição em grupo, por exemplo, em um culto do clube ou da unidade, em uma história infantil na igreja, ao redor da fogueira ou em um culto de pôr do sol.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer pelo menos três das seguintes atividades:\n  a. Visitar uma exposição ou estufa de espécies de árvores decíduas.\n  b. Fazer uma coleção de pelo menos cinco tipos de folhas de árvores das florestas temperadas decíduas.\n  c. Visitar um zoológico ou centro de natureza onde haja animais típicos do bioma das florestas temperadas decíduas.\n  d. Assistir a um vídeo sobre as florestas temperadas decíduas ou sobre plantas ou animais que vivem nelas.\n  e. Desenhar ou pintar algo que você gostou de aprender ao estudar as florestas temperadas decíduas.\n  f. Em grupo, fazer um vídeo curto sobre um projeto real de conservação de uma floresta temperada decídua. Explicar por que esse habitat específico deve ser preservado.\n  g. Visitar uma madeireira e aprender a identificar, pela textura dos veios da madeira, pelo menos três espécies de árvores decíduas.",
+   "instructions": null
+  }
+ ]
+}

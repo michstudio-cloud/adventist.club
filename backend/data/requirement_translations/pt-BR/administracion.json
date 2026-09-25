@@ -1,0 +1,63 @@
+{
+ "honor_slug": "administracion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Administration/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Administração",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir administração e qual é sua importância nos diferentes aspectos da vida diária.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos da administração:\n  a. Planejar\n  b. Organizar\n  c. Comandar\n  d. Coordenar\n  e. Controlar",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar a diferença entre eficiente e eficaz.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Segundo a teoria da motivação de Maslow, as necessidades humanas estão organizadas e dispostas em uma hierarquia de níveis de importância e influência. Explicar essas necessidades, também conhecidas como pirâmide de Maslow.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "A liderança está presente em muitos momentos da vida. Escrever uma redação (de 20 a 40 linhas) descrevendo a importância da liderança na administração.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um organograma da organização do Clube de Desbravadores em todos os seus níveis (mundial e nacional), destacando o clube ao qual você pertence.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Definir planejamento e sua importância no Clube de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Elaborar um plano anual de atividades do Clube de Desbravadores, incluindo o planejamento das classes regulares e avançadas, com metas, estratégias, planos de ação e formas de controle de cada etapa. Executar esse plano durante pelo menos 6 meses.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Definir o método MASP (Método de Análise e Solução de Problemas) e discutir a importância de analisar os problemas que o clube enfrenta e de encontrar soluções.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Encontrar uma história bíblica que mostre a importância da administração.",
+   "instructions": null
+  }
+ ]
+}

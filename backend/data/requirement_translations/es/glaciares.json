@@ -1,0 +1,83 @@
+{
+ "honor_slug": "glaciares",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Glaciers/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué es un glaciar? ¿Por qué es importante el estudio de los glaciares y cómo se estudian hoy en día?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Crear un juego (como un juego de emparejar, un juego de mesa, un juego de preguntas y respuestas, etc.) que explore y defina los siguientes términos en relación con los glaciares:\n  a. Grieta\n  b. Neviza (firn)\n  c. Deriva glaciar\n  d. Bloque errático\n  e. Lago glaciar\n  f. Cascada de hielo\n  g. Lago de marmita (kettle)\n  h. Nevé\n  i. Lagos en rosario (paternóster)\n  j. Arranque glaciar\n  k. Serac\n  l. Corriente subglacial\n  m. Lago de circo (tarn)\n  n. Frente glaciar",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Cómo se forman los glaciares? ¿Dónde se pueden encontrar? En un mapa, resaltar los lugares donde se pueden encontrar glaciares hoy en día.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Nombrar los dos tipos principales de glaciares y dos subtipos de cada uno.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "En un diagrama de un glaciar, rotular las siguientes partes y explicar cómo interactúan para producir el movimiento glaciar:\n  a. Zona de acumulación\n  b. Zona de ablación\n  c. Línea de equilibrio",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar cómo avanza y retrocede un glaciar.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conocer la diferencia entre los valles formados por ríos y arroyos y los valles formados por glaciares.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Describir las dos formas principales en que se pueden mover los glaciares.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Dibujar, fotografiar, hacer un modelo o describir las siguientes formas de relieve creadas por los glaciares:\n  a. Arista\n  b. Circo\n  c. Collado\n  d. Drumlin\n  e. Esker\n  f. Fiordo\n  g. Horn (pico piramidal)\n  h. Kame\n  i. Nunatak\n  j. Abanico fluvioglaciar (sandur)\n  k. Roca aborregada (roche moutonnée)\n  l. Estría glaciar\n  m. Línea de desbaste (trimline)",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "¿Qué es una morrena? Nombrar y describir tres tipos de morrenas.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Con su clase, analizar las medidas de seguridad al estar sobre un glaciar o en sus alrededores.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "En todo el mundo todavía se pueden ver evidencias de glaciares que ya han desaparecido. Desde un punto de vista bíblico, analizar con su clase cómo podrían haberse formado.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Cuando algo queda atrapado en un glaciar, a menudo se conserva como una cápsula del tiempo durante décadas o incluso cientos de años, lo que nos brinda grandes oportunidades para estudiar el pasado. Presentar creativamente uno de estos descubrimientos a su grupo.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Hacer dos de los siguientes:\n  a. Visitar un glaciar o un lugar donde haya habido glaciación y comentar con su grupo lo que vio o escribir un informe de 200 palabras al respecto. Incluir las formas de relieve que haya visto.\n  b. Mirar un video sobre glaciares y comentar con su grupo lo que vio o escribir un informe de 200 palabras al respecto.\n  c. Dibujar o pintar algo que le haya resultado divertido aprender mientras estudiaba los glaciares.\n  d. Conversar con su grupo, escribir o hacer un video corto sobre un estudio real de glaciares o un proyecto real de conservación de glaciares.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "honor_slug": "aviadores",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Aviators/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar, com aeronaves reais, as cinco categorias de aeronaves e as diferentes classes dentro de cada categoria.\n  a. Aviões\n    i. Monomotor terrestre\n    ii. Multimotor terrestre\n    iii. Monomotor aquático\n    iv. Multimotor aquático\n  b. Aeronaves de asas rotativas\n    i. Helicóptero\n    ii. Autogiro\n  c. Planador\n  d. Sustentação motorizada (powered lift)\n  e. Mais leve que o ar\n    i. Balão\n    ii. Dirigível",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Participar de uma discussão interativa que aborde o seguinte:\n  a. O princípio de Bernoulli e como ele se aplica aos aviões\n  b. As quatro forças do voo e como cada uma afeta o voo de um avião.\n  c. Três tipos de aeronaves e seus usos na aviação atual.\n  d. Os três eixos principais de um avião. Demonstrar o tipo de movimento que a aeronave faz em cada eixo e o que controla esse movimento.\n  e. Diferentes tipos de motores, asas e outros equipamentos, e sua aplicação/uso.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar corretamente em um avião real as seguintes partes externas:\n  a. Carenagem do motor ou nacele\n  b. Hélice\n  c. Trem de pouso\n  d. Asa\n  e. Flape\n  f. Aileron direito\n  g. Aileron esquerdo\n  h. Fuselagem\n  i. Empenagem\n  j. Estabilizador horizontal\n  k. Estabilizador vertical\n  l. Profundor\n  m. Leme de direção",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar corretamente em um avião real as seguintes partes do interior:\n  a. Altímetro\n  b. Indicador de atitude (horizonte artificial)\n  c. Indicador de velocidade do ar (velocímetro)\n  d. Bússola magnética\n  e. Indicador de proa (giro direcional)\n  f. Coordenador de curva\n  g. Indicador de velocidade vertical (variômetro)\n  h. Manche\n  i. Freios\n  j. Pedais do leme\n  k. Manete de potência\n  l. Controle do compensador",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher 3 personagens históricos que tenham influenciado a história da aviação. Detalhar o papel e a importância de cada um na história da aviação. Algumas opções: Leonardo da Vinci, Daniel Bernoulli, Sir George Cayley, Otto Lilienthal, Gustave Whitehead, Octave Chanute, Orville e Wilbur Wright[1], Glen Hammond Curtiss ou Amelia Earhart.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma das seguintes atividades:\n  a. PREFERENCIAL: Fazer um voo introdutório em um avião e observar os diferentes movimentos produzidos por três superfícies de controle diferentes. Registrar suas observações.\n  b. (Se não for possível fazer um voo introdutório) Demonstrar e explicar em solo os diferentes movimentos produzidos por três superfícies de controle diferentes. Esta demonstração pode ser feita em uma aeronave real ou em um simulador de voo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma das seguintes atividades:\n  a. Entrevistar um piloto missionário ou um missionário que tenha usado aviões para ajudar a falar de Jesus às pessoas. Com base na entrevista, ser capaz de:\n    i. Citar três maneiras pelas quais Deus usa a aviação missionária para espalhar o evangelho, com base na Grande Comissão de Mateus 28:18-20\n    ii. Citar três maneiras pelas quais você, como Desbravador, pode ajudar nossos pilotos missionários\n  b. Entrevistar um piloto comercial de tempo integral. Com base na entrevista, ser capaz de:\n    i. Citar três maneiras pelas quais os pilotos podem compartilhar Jesus no ambiente de trabalho, com base na Grande Comissão de Mateus 28:18-20\n    ii. Citar três maneiras pelas quais você, como Desbravador, pode compartilhar Jesus fora do ambiente da igreja.\n  ↑ Os irmãos Wright contam como um único personagem histórico.",
+   "instructions": null
+  }
+ ]
+}

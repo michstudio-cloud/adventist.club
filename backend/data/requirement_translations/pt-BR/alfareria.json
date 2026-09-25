@@ -1,0 +1,33 @@
+{
+ "honor_slug": "alfareria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pottery/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Olaria",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever ou explicar oralmente os diferentes tipos e usos da cerâmica e os materiais usados para fazê-la.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a finalidade do esmalte cerâmico? Descrever os perigos específicos que devem ser evitados.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Projetar e desenhar duas peças de cerâmica, uma das quais deve ser decorada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer três dos seguintes itens. Cada projeto deve ser decorado, por exemplo, pintado, esmaltado ou marcado com incisões:\n  a. Usando a técnica de rolinhos, fazer um pote ou um vaso.\n  b. Usando a técnica de placas, fazer uma caixa.\n  c. Usando a técnica de modelagem com os dedos (beliscão), fazer um objeto.\n  d. Projetar e fazer quatro ladrilhos diferentes.\n  e. Fazer uma bandeja ou um prato.\n  f. Tornear um vaso simples em um torno de oleiro.",
+   "instructions": null
+  }
+ ]
+}

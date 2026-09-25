@@ -1,0 +1,48 @@
+{
+ "honor_slug": "natacion-iii-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Swimming_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Nadar de forma continua, con brazadas coordinadas y eficaces, los siguientes estilos y distancias:\n  a. Espalda elemental, 50 yardas (45,7 metros)\n  b. Pecho, 100 yardas (91,4 metros)\n  c. Pecho invertido, 50 yardas (45,7 metros)\n  d. Lateral, 100 yardas (91,4 metros)\n  e. Lateral con recobro del brazo por encima del agua, 100 yardas (91,4 metros)\n  f. Estilo Trudgen, 50 yardas (45,7 metros)\n  g. Crol de espalda, 100 yardas (91,4 metros)\n  h. Crol, 100 yardas (91,4 metros)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Hacer las siguientes zambullidas con buena técnica:\n  a. Zambullida de frente desde posición de pie\n  b. Zambullida de frente con carrera\n  c. Inmersión de superficie en posición de carpa\n  d. Inmersión de superficie en posición agrupada",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Hacer la flotación de supervivencia durante diez minutos completamente vestido.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Nadar con la brazada de supervivencia durante diez minutos completamente vestido.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer una inmersión de superficie y nadar bajo el agua diez yardas (9 m).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Nadar sin parar durante 30 minutos usando uno o más estilos de natación. No se permite sujetarse de los bordes (descansar) ni tocar el fondo con los pies.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conocer las causas de los accidentes que pueden ocurrir en el agua o cerca de ella y cómo prevenirlos.",
+   "instructions": null
+  }
+ ]
+}

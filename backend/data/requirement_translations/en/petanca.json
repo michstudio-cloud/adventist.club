@@ -1,0 +1,15 @@
+{
+ "honor_slug": "petanca",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/P%C3%A9tanque",
+ "license": "CC BY-SA 3.0",
+ "name": "Pétanque",
+ "description": null,
+ "name_source": "pathfinder-wiki",
+ "name_source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/P%C3%A9tanque",
+ "name_license": "CC BY-SA 3.0",
+ "requirements": []
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "artes-y-trabajos-indigenas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Native_American_Lore_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Cultura indígena.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e ter uma lista de pelo menos 40 alimentos que os indígenas da América do Norte e da América do Sul nos apresentaram.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de uma refeição em que se use o maior número possível de alimentos e métodos de cozimento indígenas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar cinco remédios ou plantas medicinais usados pelos indígenas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Discutir sobre os indígenas de sua região quanto a:\n  a. Tribos que viviam ali\n  b. Moradias e vestuário\n  c. Artesanato nativo praticado, como cestaria, cerâmica, esteiras etc.\n  d. Práticas religiosas\n  e. Forma de governo\n  Se não morar na América do Norte, escolher para estudo qualquer uma das seguintes regiões: Nordeste, Sudeste, Noroeste, Sudoeste",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar dez objetos usados pelos indígenas em suas cerimônias religiosas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar dois métodos de montar e expor pontas de flecha.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar um método para restaurar e consertar pontas de flecha, potes de barro, mantas e cestos danificados.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar e localizar pelo menos dez tribos diferentes da atualidade e dizer pelo que cada uma é conhecida.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer experiências com corantes vegetais como os usados pelos indígenas e tentar obter pelo menos duas tonalidades de cor.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Visitar um museu indígena\n  b. Visitar ruínas ou montículos indígenas\n  c. Fazer uma visita pessoal a um indígena\n  d. Visitar uma aldeia ou reserva indígena",
+   "instructions": null
+  }
+ ]
+}

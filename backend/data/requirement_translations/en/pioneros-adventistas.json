@@ -1,0 +1,58 @@
+{
+ "honor_slug": "pioneros-adventistas",
+ "ministry": "pathfinders",
+ "source_locale": "es",
+ "target_locale": "en",
+ "source": "traduccion-no-oficial-guiasmayores.com",
+ "source_url": "https://www.guiasmayores.com/uploads/1/1/3/1/1131412/pioneros_adventistas.pdf",
+ "license": null,
+ "name": "Adventist Pioneers",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Find out what the Millerite Movement was and its fundamental role in the beginning of the Seventh-day Adventist Church.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explain the Great Disappointment on the basis of the prophecy of Daniel 8.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Study the life of Ellen G. White and the role her teachings have played in the Seventh-day Adventist Church.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Know the organizational structure of the Adventist Church. Prepare a church organizational chart.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Present a short biography of the following leaders:\n  - William Miller\n  - James White\n  - Ellen White\n  - Joseph Bates\n  - John N. Andrews\n  - Harry Fenner\n  - Luther Warren\n  - Another Adventist pioneer of your choice",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Which leaders can be considered the pioneers of Pathfindering in the world, in your division and in your country? Prepare an audiovisual presentation about them and present it to your club or on another suitable occasion agreed on by you and your instructor.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Choose another department of the Adventist Church and find information about its founding. Give special attention to the part played by the pioneers of that department.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Research how the Adventist movement began in your country. Give special attention to the part played by the pioneers in the process.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Know the 28 Fundamental Beliefs of the Seventh-day Adventist Church and present a report on their importance. Write down 2 Bible texts for each of the fundamental beliefs.",
+   "instructions": null
+  }
+ ]
+}

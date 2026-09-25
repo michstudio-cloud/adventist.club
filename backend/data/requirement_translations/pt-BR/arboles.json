@@ -1,0 +1,48 @@
+{
+ "honor_slug": "arboles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Trees/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever as diferenças entre árvores e arbustos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Coletar e identificar folhas típicas de 15 espécies diferentes de árvores. Estendê-las com cuidado, prensá-las até secar, montá-las e etiquetá-las em um caderno adequado ou em folhas de papel de tamanho uniforme.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar dois exemplos de árvores cujo nome se refere a cada um dos seguintes aspectos:\n  a. Seu uso\n  b. O entorno ou ambiente em que crescem\n  c. Alguma característica marcante\n  d. A região geográfica em que vivem\n  e. As pessoas que primeiro as encontraram e descreveram",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar o nome comum das duas grandes classes de árvores e explicar a diferença entre elas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever a importância da conservação das florestas em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar vários exemplos dos tipos de madeira usados em cada um dos seguintes casos:\n  a. Pisos de casas\n  b. Compensado comum\n  c. Móveis\n  d. Cabos de machado\n  e. Mourões de cerca\n  f. Dormentes de ferrovia\n  g. Vigas de sustentação em construções\n  h. Arcos e flechas\n  i. Madeira ideal para acender o fogo\n  j. Madeira que queima lentamente e deixa um leito de brasas",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar dois exemplos de árvores que:\n  a. Crescem melhor em terrenos úmidos\n  b. Crescem melhor em grandes altitudes nas montanhas",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "honor_slug": "animales-nocivos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Harmful_Animals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Animais nocivos",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são animais nocivos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a diferença entre animais nocivos e animais peçonhentos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber como alguns animais nocivos podem estar diretamente relacionados a algumas epidemias e pandemias.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer pelo menos 4 tipos de doenças transmitidas por animais nocivos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os animais podem prejudicar as plantas e a vida de outros animais?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher e apresentar as seguintes características de dois animais nocivos:\n  a. Habitat\n  b. Tipo de reprodução sexuada\n  c. Hábitos alimentares\n  d. Doenças e danos ao ser humano\n  e. Prevenção",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Citar pelo menos três animais nocivos das seguintes classes:\n  a. Mamíferos\n  b. Insetos\n  c. Répteis\n  d. Anfíbios",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Descobrir por que alguns animais nocivos são importantes para o equilíbrio de seu ecossistema.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Aprender quatro maneiras de se proteger de animais nocivos que podem ser encontrados em casas ou empresas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer pelo menos uma das seguintes atividades:\n  a. Visitar um zoológico ou centro de pesquisa onde seja possível observar animais nocivos e apresentar um relatório.\n  b. Com a ajuda de um líder, identificar pelo menos 10 animais nocivos e apresentar uma lista com o nome científico, o nome popular, uma foto e o local onde cada um foi encontrado.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Descobrir três animais nocivos na Bíblia.",
+   "instructions": null
+  }
+ ]
+}

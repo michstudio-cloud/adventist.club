@@ -1,0 +1,58 @@
+{
+ "honor_slug": "trabajos-en-jabon",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Soap_Craft/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué ingredientes se usan para hacer jabón?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "¿Cuál es la diferencia entre el jabón y el detergente?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿A qué se debe la acción limpiadora del jabón?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escribir o contar un relato sobre la historia y el origen del jabón.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Nombrar siete formas en que se presenta el jabón.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "¿Qué es la nata o residuo del jabón?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tallar un objeto en una barra de jabón.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Decorar una barra de jabón para regalar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Hacer una escena con jabón batido, usando al menos tres colores.",
+   "instructions": null
+  }
+ ]
+}

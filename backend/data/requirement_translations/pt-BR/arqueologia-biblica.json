@@ -1,0 +1,68 @@
+{
+ "honor_slug": "arqueologia-biblica",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Biblical_Archaeology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir arqueologia e diferenciá-la de paleontologia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir os seguintes termos:\n  a. Papirologia\n  b. Egiptólogo\n  c. Assiriologia\n  d. Orientalista\n  e. Escrita cuneiforme\n  f. Hieroglífico\n  g. Paleografia\n  h. Antiquário\n  i. Sítio arqueológico\n  j. Estratigrafia\n  k. Tel, tell e khirbet\n  l. Réplica",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir maximalismo e minimalismo.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever ou ilustrar dez ferramentas usadas em uma escavação arqueológica. Se possível, demonstrar como várias delas são usadas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Descrever as principais técnicas de datação de um artefato arqueológico.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Citar três benefícios que a arqueologia bíblica pode oferecer a um estudante da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Apresentar um relatório sobre a história da arqueologia (no mínimo 20 acontecimentos significativos) por meio de:\n  a. Um trabalho de pesquisa escrito de duas páginas\n  b. Uma linha do tempo detalhada e ilustrada\n  c. Uma apresentação eletrônica\n  d. Outro método de apresentação aprovado pelo seu instrutor",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Compartilhar com um grupo ou com o instrutor a importância de cada um dos seguintes arqueólogos famosos (ou de outros arqueólogos relevantes para sua região, país ou Divisão). Ser detalhado e específico.\n  a. Jean-François Champollion\n  b. Edward Robinson\n  c. William Foxwell Albright",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Montar uma pasta com dez descobertas arqueológicas relacionadas à história bíblica do Antigo e do Novo Testamento. A pasta deve ter as seguintes características:\n  a. Ordem cronológica ou geográfica\n  b. Organização por Antigo e Novo Testamento\n  c. Fotos\n  d. Textos\n  e. Fontes bibliográficas\n  f. Comentário pessoal sobre cada artefato ou descoberta",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Buscar informações em recursos disponíveis (vídeos, livros, revistas, periódicos etc.) sobre cinco escavações que estejam em andamento atualmente, em qualquer parte do mundo, e que sejam relevantes para a compreensão dos acontecimentos da Bíblia. Explicar por que cada escavação é relevante para a compreensão do texto bíblico.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer uma das seguintes atividades:\n  a. Montar uma maquete simples de Jerusalém, observando o seguinte:\n    i. Relevo\n    ii. Os diferentes perímetros da cidade na época do Primeiro Templo (Davi e Salomão), do Segundo Templo (Herodes e Jesus Cristo) e da Jerusalém atual\n    iii. Os principais sítios arqueológicos\n    iv. Os principais pontos de visitação religiosa\n  b. Simular uma escavação arqueológica (na internet, costuma aparecer em inglês como “schoolyard dig”). Organizar a escavação OU participar de maneira significativa de todas as etapas do processo, incluindo:\n    i. Reunir as ferramentas\n    ii. Demarcar a quadrícula/área de escavação\n    iii. Escavar\n    iv. Identificar artefatos\n    v. Identificar o contexto dos artefatos\n    vi. Registrar os dados\n    vii. Avaliar a importância do processo de escavação",
+   "instructions": null
+  }
+ ]
+}

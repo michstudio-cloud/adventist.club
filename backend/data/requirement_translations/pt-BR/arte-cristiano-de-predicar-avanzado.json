@@ -1,0 +1,53 @@
+{
+ "honor_slug": "arte-cristiano-de-predicar-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Art_of_Preaching_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Arte da pregação cristã.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Examinar duas ou mais versões da Bíblia populares em seu idioma ou região. Incluir:\n  a. Determinar se são traduções/versões formais, dinâmicas ou paráfrases.\n  b. Descobrir se essas Bíblias foram traduzidas por uma comissão ou por uma só pessoa.\n  c. Avaliar sua exatidão, confiabilidade e legibilidade.\n  d. Responder: descobrir quais são os idiomas originais da Bíblia. Qual versão você considera mais fiel à Bíblia original? Por quê?\n  e. Citar pelo menos três versículos cujo sentido difere muito entre as versões mencionadas no item número dois. Saber qual tradução está mais próxima do texto bíblico original.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Criar uma pequena coleção de 25 sermões cristãos, organizada em formato de livreto:\n  a. Dez deles devem ser de sua autoria.\n  b. Os outros quinze podem ser de outro autor.\n  c. Os sermões devem ser agrupados nas seguintes categorias:\n  Salvação\n  Vida cristã/Santificação\n  Volta de Jesus\n  Lei de Deus/Mandamentos",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pregar pelo menos cinco dos sermões (compilados no item anterior), usando recursos audiovisuais ou suas próprias ideias criativas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Montar uma coleção de pelo menos 15 meditações bíblicas curtas (5-10 minutos) e usar no mínimo cinco delas em locais públicos (igreja, pequeno grupo de estudo da Bíblia no meio da semana, Escola Sabatina, reunião do clube etc.).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cumprir um dos seguintes itens:\n  a. Apresentar uma série de estudos bíblicos (pelo menos dez apresentações) a um grupo de pessoas reunidas na igreja, em uma classe bíblica ou em uma série evangelística.\n  b. Fazer parte da escala de pregação de uma igreja durante o ano e pregar pelo menos dez vezes, tendo participado de todos os tipos de culto: sexta-feira, sábado e meio de semana.\n  c. Ser responsável, por um período de pelo menos seis meses, pela pregação bíblica em um pequeno grupo.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher duas das seguintes áreas e ler um livro sobre cada uma. Citar a bibliografia para seu instrutor:\n  a. Arte da pregação bíblica\n  b. Uso de ilustrações em sermões cristãos\n  c. Biografia de um grande evangelista ou pregador\n  d. Uso da concordância e das referências bíblicas",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ter uma Bíblia com referências e uma concordância (de preferência anotada). Demonstrar a um instrutor ou orientador que você sabe manuseá-las corretamente.",
+   "instructions": null
+  }
+ ]
+}

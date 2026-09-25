@@ -1,0 +1,63 @@
+{
+ "honor_slug": "balonmano",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Handball/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Handebol",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer as regras atualizadas da Federação Internacional de Handebol (IHF) e consultar as 18 regras principais do handebol.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "O que significa a expressão “fair play”?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir os seguintes termos:\n  a. Arremesso em apoio\n  b. Arremesso em suspensão\n  c. Arremesso com queda\n  d. Arremesso com rolamento\n  e. Passe de ombro\n  f. Passe em pronação\n  g. Passe por cima da cabeça\n  h. Passe por trás do corpo\n  i. Passe para trás\n  j. Passe indireto\n  k. Vaselina\n  l. Rosca\n  m. Bloqueio\n  n. Condução\n  o. Contra-ataque\n  p. Cruzamento\n  q. Gol\n  r. Flutuações\n  s. Infiltrações\n  t. Rebote\n  u. Defesa por zona\n  v. Defesa mista\n  w. Interseção\n  x. Defesa individual\n  y. Oito\n  z. Assistência\n  aa. Desqualificação\n  bb. Dois minutos\n  cc. Exclusão\n  dd. Linha de 4 metros\n  ee. Linha de 6 metros\n  ff. Linha de 7 metros\n  gg. Tiro de 7 metros\n  hh. Tiro livre",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar e compreender as diferentes habilidades necessárias nas posições de ataque e de defesa do handebol.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar habilidade razoável nas seguintes áreas:\n  a. Empunhadura\n  b. Recepção\n  c. Passe\n  d. Arremesso\n  e. Drible\n  f. Ritmo trifásico\n  g. Duplo ritmo trifásico\n  h. Progressão\n  i. Finta",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Passar pelo menos quatro horas ajudando uma pessoa menos habilidosa ou mais nova a melhorar suas habilidades no handebol.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Jogar pelo menos cinco partidas de handebol com a família ou amigos. Demonstrar “fair play” durante os treinos e os jogos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever um relatório de uma página sobre um jogador de handebol famoso. Discutir por que esse jogador é um bom exemplo cristão.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conversar com seu líder, pastor ou instrutor sobre os problemas que os jovens adventistas do sétimo dia enfrentam na escola e na universidade. Que alternativas existem para permitir a prática esportiva contínua?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Desenhar em escala uma quadra de handebol com os limites devidamente demarcados. Informar as dimensões do travessão.",
+   "instructions": null
+  }
+ ]
+}

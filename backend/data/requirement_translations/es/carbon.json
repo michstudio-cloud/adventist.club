@@ -1,0 +1,83 @@
+{
+ "honor_slug": "carbon",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "es",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Coal/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "¿Qué es el carbón?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Leer la historia del diluvio en Génesis 6-8 y relacionar los acontecimientos que se describen en ella con la manera en que se formó el carbón. ¿Cómo se compara el relato del diluvio de Génesis con otras teorías sobre la formación del carbón? Discutir en grupos pequeños las suposiciones que cada teoría necesita hacer y su opinión acerca de las teorías.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "¿Por qué se dice que el carbón es un combustible fósil? ¿Cuáles son otros combustibles fósiles y por qué es importante conservarlos y explorar combustibles o fuentes de energía renovables? ¿En qué medida depende de los combustibles fósiles su compañía eléctrica local?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir las siguientes unidades de calor:\n  a. Unidad térmica británica (BTU) (unidad de calor del sistema imperial)\n  b. Kilojulio (kJ) (unidad de calor del sistema métrico)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Hacer una lista de tres de los principales usos actuales del carbón y tres de sus principales usos históricos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Hacer una lista de tres ventajas y tres desventajas del uso del carbón como combustible.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Hacer una lista de cuatro impactos ambientales importantes del uso del carbón. ¿Qué métodos se pueden usar para mitigarlos?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Describir por lo menos tres métodos de minería a cielo abierto y tres métodos de minería subterránea que se usan para extraer carbón. Investigar e identificar el método de extracción de carbón que se usa más cerca de su hogar.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Discutir tres peligros principales de la minería subterránea del carbón y lo que se hace para reducirlos.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Reunir fotografías o muestras y ser capaz de identificar los cuatro tipos principales de carbón:\n  a. Lignito\n  b. Antracita\n  c. Carbón subbituminoso\n  d. Carbón bituminoso",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Conocer las características de cada uno de los cuatro tipos principales de carbón, incluyendo: porcentaje de carbono; gama de colores y rasgos de apariencia; usos principales; contenido de BTU (kJ); zonas donde se extrae; y otros datos de interés.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Obtener por lo menos una muestra de carbón.\n  a. Estudiar y anotar tantas observaciones como pueda acerca de la muestra o las muestras que tenga, incluyendo el color, la dureza, la tendencia a desprenderse en láminas, etc.\n  b. Usando el conocimiento adquirido en esta especialidad, identificar el tipo de carbón.\n  c. Intentar encender un trozo de carbón con un encendedor o un fósforo. ¿Con qué facilidad se encienden las muestras en comparación con otros materiales combustibles?\n  d. Moler el material hasta convertirlo en polvo y repetir el experimento. ¿Cuáles fueron los resultados?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Hacer uno de los siguientes:\n  a. Recorrer una mina de carbón y tener una conversación en grupo acerca de lo que aprendió.\n  b. Visitar un museo de la minería del carbón y tener una conversación en grupo acerca de lo que aprendió.\n  c. Si no hay una mina de carbón o un museo cerca, ver un video acerca de la extracción del carbón y tener una conversación en grupo acerca de lo que aprendió.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Memorizar Romanos 8:28. Discutir cómo los acontecimientos malos de su vida, o de la vida de alguien que conoce, han servido de combustible para cosas mejores, de manera muy parecida a como el diluvio de Génesis creó el carbón.",
+   "instructions": null
+  }
+ ]
+}

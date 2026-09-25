@@ -1,0 +1,88 @@
+{
+ "honor_slug": "algas-marinas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marine_Algae/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que são algas marinhas?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Onde são encontradas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Como se chama o órgão de fixação ao substrato? Em que ele difere de uma raiz verdadeira?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como varia o tamanho das algas marinhas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar os quatro grupos de algas marinhas, indicando ao lado do nome de cada grupo se é unicelular, multicelular ou ambos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "A maioria das algas verdes é encontrada em água doce ou salgada?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "O que são diatomáceas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Onde as algas crescem: na zona polar, temperada ou tropical?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Onde as algas pardas são quase invariavelmente encontradas: em água doce ou salgada?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é a maior profundidade em que as algas crescem no oceano? Por que não conseguem crescer em águas mais profundas?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Citar as três partes de uma grande alga parda (kelp). Como elas se comparam com a folha, o caule e a raiz de uma planta?",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Descrever as duas formas de reprodução das algas.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Quais são alguns dos valores comerciais das algas? Dar pelo menos um exemplo para cada grupo.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Fazer uma coleção de pelo menos vinte exemplares de algas marinhas devidamente identificados, montados e etiquetados. Deve haver pelo menos quatro exemplares do grupo das verdes, oito do grupo das pardas e oito do grupo das vermelhas.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Ser capaz de identificar pelo nome do gênero pelo menos dez tipos de algas marinhas.",
+   "instructions": null
+  }
+ ]
+}

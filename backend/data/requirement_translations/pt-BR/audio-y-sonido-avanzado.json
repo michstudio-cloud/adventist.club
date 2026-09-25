@@ -1,0 +1,68 @@
+{
+ "honor_slug": "audio-y-sonido-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Audio_and_Sound_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Áudio e som - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Áudio e som.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter um certificado de curso de áudio e som de pelo menos quatro horas, ministrado por um profissional, obtido nos últimos dois anos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Atuar como operador de áudio de sua igreja durante pelo menos 6 meses.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que significa observar a compatibilidade de potência entre os componentes do sistema de som, e qual é a importância disso?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de dez cuidados de segurança que devem ser seguidos para manter o sistema de som em bom estado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar a causa da microfonia e como é possível evitá-la.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Explicar a importância de usar música adequada a cada situação. Em seguida, fazer uma lista de pelo menos cinco hinos congregacionais apropriados para as seguintes ocasiões (para cada hino, dizer o motivo da escolha, o título original e o nome do autor):\n  a. Programa do Clube de Desbravadores\n  b. Batismo\n  c. Doxologia\n  d. Funeral\n  e. Ação de graças",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pesquisar e fazer uma lista das vantagens de um sistema ligado a um computador que utilize um programa de mixagem digital.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Saber conectar e desconectar todo o equipamento de som (mesa, amplificador, aparelho de DVD etc.). Em seguida, ligar o sistema de som e demonstrar seu funcionamento.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Operar sozinho a mesa de som da igreja, identificando e explicando a função dos seguintes itens:\n  a. Canais de entrada\n  b. Canais de saída\n  c. Volume (geral e dos canais individuais)\n  d. Ganho\n  e. Graves, médios e agudos\n  f. Efeito",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar como usar corretamente os diferentes tipos de microfone. Que cuidados se devem ter com eles durante o uso e ao guardá-los?",
+   "instructions": null
+  }
+ ]
+}

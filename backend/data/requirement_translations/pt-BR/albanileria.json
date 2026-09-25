@@ -1,0 +1,53 @@
+{
+ "honor_slug": "albanileria",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Masonry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Citar pelo menos seis materiais comumente usados por pedreiros na construção de paredes ou edifícios.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar habilidade no uso correto dos seguintes itens:\n  a. Prumo\n  b. Esticador de linha (“pé de galinha”)\n  c. Nível\n  d. Colher de pedreiro\n  e. Frisador de juntas\n  f. Martelo de pedreiro",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar conhecimento das características do cimento de construção (saber como evitar exsudação, fissuras, retração, esfarelamento e perda de resistência).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma argamassa utilizável e indicar as proporções corretas dos ingredientes (cal, areia etc.).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Assentar uma parede reta de alvenaria de pedra, tijolo ou bloco com pelo menos quatro pés (1,2 metro) de altura e dez pés (3,0 metros) de comprimento, incluindo um canto interno ou externo (a superfície deve ser frisada e escovada).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Concretar uma sapata nivelada, usando cimento misturado à mão e a armadura adequada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Montar as fôrmas e fazer um trecho de calçada ou de piso de concreto, usando concreto usinado. Dar-lhe acabamento e riscar as juntas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever um parágrafo descrevendo o comportamento do cimento, isto é, sua reação à água, suas propriedades adesivas, quanto tempo leva para dar pega etc.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "honor_slug": "animales-migratorios",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Migratory_Animals/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Animais migratórios",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre migração, imigração e emigração?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são os motivos pelos quais os animais migram?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que perigos são enfrentados durante a migração?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Dar um exemplo de animal migratório para cada uma das seguintes classes:\n  a. Mamíferos\n  b. Insetos\n  c. Peixes\n  d. Aves",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Para cada animal do requisito 4, descrever todo o processo de migração, o motivo da migração, os perigos enfrentados etc.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Quais são as maiores e as menores espécies de animais migratórios?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual espécie percorre a maior distância durante a migração?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer um breve estudo sobre o animal que migra em maior número de indivíduos.",
+   "instructions": null
+  }
+ ]
+}

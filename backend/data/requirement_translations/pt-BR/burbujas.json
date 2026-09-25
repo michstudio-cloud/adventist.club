@@ -1,0 +1,53 @@
+{
+ "honor_slug": "burbujas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bubbles/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Bolha de sabão\n  b. Hidrofílico\n  c. Hidrofóbico\n  d. Tensão superficial\n  e. Energia mínima\n  f. Superfície mínima",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Como os seguintes fatores do tempo afetam a vida de uma bolha?\n  a. Umidade\n  b. Temperatura\n  c. Vento\n  d. Precipitação",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um modelo ou desenho de uma molécula de sabão. Mostrar por que a molécula é hidrofílica ou hidrofóbica.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de regras de segurança para soprar bolhas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Tensão superficial\n  a. Explicar o que causa a tensão superficial.\n  b. Fazer um experimento para determinar se a água com sabão tem tensão superficial maior ou menor.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Varinhas:\n  a. Explicar que tipos de material funcionam melhor para o aro de varinhas de bolhas grandes.\n  b. Construir uma varinha para fazer bolhas grandes.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Componentes:\n  a. Que qualidade de água funciona melhor para as bolhas? Que impurezas afetam negativamente a qualidade das bolhas?\n  b. Quais sabões são melhores para a solução de bolhas?\n  c. Qual é a finalidade da glicerina ou do xarope de milho em uma solução?\n  d. Aprender uma fórmula de solução para bolhas e preparar uma porção dessa solução.\n  e. Avaliar sua solução para bolhas e criar uma receita melhor, se necessário.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Experimentos:\n  a. Mostrar o que acontece quando bolhas se encontram com outras bolhas. Como isso ilustra a energia mínima e a superfície mínima?\n  b. O que causa as cores de uma bolha? Demonstrar a interferência construtiva e a destrutiva.\n  c. Que forma têm as bolhas e por quê? Fazer um experimento para ilustrar a resposta.",
+   "instructions": null
+  }
+ ]
+}

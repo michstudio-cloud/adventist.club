@@ -1,0 +1,28 @@
+{
+ "honor_slug": "automodelismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Model_Cars/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Montar pelo menos um modelo de carro de plástico com as peças fornecidas em um kit. O carro deve ser original de fábrica em todos os aspectos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Montar um segundo carro usando acessórios extras incluídos no kit ou criando modificações com massa plástica e/ou peças de outros kits. (Decalques não contam.) Incluir a pintura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escrever ou apresentar oralmente um relatório sobre a história dos automóveis. Não deixar de incluir etapas interessantes do processo de desenvolvimento, como observações sobre tamanhos de motor, câmbio automático, direção hidráulica, controles computadorizados etc.",
+   "instructions": null
+  }
+ ]
+}
