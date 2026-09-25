@@ -1,0 +1,68 @@
+{
+ "honor_slug": "cria-de-ovejas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Sheep_Husbandry/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Criação de ovelhas",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que tipos de regiões as ovelhas vivem naturalmente?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Que tipo de vegetação fornece o alimento mais adequado para as ovelhas?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Que tipo de abrigo ou aprisco deve ser providenciado para as ovelhas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quanto espaço é necessário para cada animal nas seguintes condições:\n  a. Espaço livre no aprisco para ovelhas adultas\n  b. Espaço no cercado externo para ovelhas adultas\n  c. Espaço livre no aprisco para cordeiros grandes\n  d. Espaço livre no aprisco para cordeiros pequenos\n  e. Pasto necessário para uma ovelha\n  f. Espaço no cocho para ovelhas adultas\n  g. Espaço no cocho para cordeiros\n  h. Parição",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as épocas do ano mais favoráveis para começar a criar ovelhas?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Que considerações devem ser levadas em conta na escolha da raça do rebanho?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Qual é o tamanho ideal de rebanho para iniciantes sem experiência na criação de ovelhas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Que alimento de inverno é mais adequado para as ovelhas?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Que tipo de cuidado deve ser dado aos cordeiros?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Castração\n  b. Comercial\n  c. Concentrado\n  d. Mestiço\n  e. Mãe (matriz)\n  f. Corte da cauda\n  g. Vermifugação oral\n  h. Ovelha\n  i. Flushing (suplementação pré-cobertura)\n  j. Forragens ou volumosos\n  k. Ganho de peso\n  l. Gestação\n  m. Peso da lã suja\n  n. Cio\n  o. Lactação\n  p. Mocho (sem chifres)\n  q. Raça pura\n  r. Carneiro\n  s. Ração\n  t. Registrado\n  u. Diarreia\n  v. Com chifres rudimentares\n  w. Reprodutor (pai)\n  x. Carneiro castrado",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cuidar de dois ou mais cordeiros até serem vendidos ou até completarem três meses de idade.",
+   "instructions": null
+  }
+ ]
+}

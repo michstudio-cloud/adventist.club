@@ -1,0 +1,68 @@
+{
+ "honor_slug": "creacionismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Creationism/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir modelo científico e teoria científica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três diferenças principais entre o modelo criacionista e o modelo evolucionista.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ler e responder o seguinte:\n  a. 1 Timóteo 6:20, 21. Que relação pode existir entre essa passagem e o evolucionismo?\n  b. Gênesis 1, 2. Alguém pode discordar desses textos e continuar sendo membro do remanescente? Justificar a resposta.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Compartilhar pelo menos cinco passagens dos escritos de Ellen White no livro Patriarcas e Profetas que mencionem a idade \"jovem\" da Terra.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Pesquisar a crença fundamental \"A Criação\" da Igreja Adventista do Sétimo Dia. Demonstrar a base dessa crença fundamental na Bíblia, encontrando de memória pelo menos cinco passagens que falem dessa ideia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ler os capítulos seis a nove de Gênesis. Depois, fazer uma das seguintes atividades:\n  a. Pesquisar e elaborar uma cronologia detalhada de uma teoria aceita pelos cientistas criacionistas sobre como os acontecimentos ocorreram.\n  b. Fazer uma lista com pelo menos cinco menções bíblicas do dilúvio e dar pelo menos cinco evidências históricas e científicas de um dilúvio global.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Assistir a um encontro sobre criacionismo promovido pela escola, faculdade, clube, igreja, distrito ou região.\n  a. Antes de participar, escrever algumas das dúvidas que as pessoas possam ter sobre uma apresentação científica de um ponto de vista criacionista. Se possível, apresentá-las a um palestrante ou participante para que ele esclareça as respostas com base bíblica e/ou científica.\n  b. Ao fazer o balanço do encontro, compartilhar pelo menos quinze objeções que os evolucionistas podem fazer ao ponto de vista criacionista. Compartilhar algumas das maneiras bíblicas e científicas de refutar essas objeções.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Pesquisar e demonstrar como argumentar em favor do criacionismo usando três das seguintes questões:\n  a. Do ponto de vista biológico, o que são os sistemas de complexidade irredutível?\n  b. Do ponto de vista geológico, pesquisar e desenhar uma coluna geológica do criacionismo e compará-la com o modelo evolucionista. Explicar como as lacunas dos dois modelos são preenchidas com bases filosóficas (não verificadas cientificamente).\n  c. Do ponto de vista oceanográfico, como podemos saber, pela sedimentação oceânica, que os oceanos são \"jovens\"?\n  d. Do ponto de vista astronômico, como o afastamento progressivo da Lua em relação ao centro gravitacional da Terra (levando em conta o \"limite de Roche\") indica uma Terra e uma Lua \"jovens\"?\n  e. Do ponto de vista arqueológico, o que são os fósseis de transição? Como sua ausência é um argumento em favor do criacionismo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com base no que aprendeu nesta especialidade e em outras fontes, apresentar um projeto intitulado \"Por que ser criacionista?\" por meio de um dos seguintes:\n  a. Apresentação eletrônica\n  b. Trabalho escrito\n  c. Vídeo\n  d. Storyboard / cartaz",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Com o instrutor como mediador, fazer um debate sobre como é possível ter ciência e fé em harmonia.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Visitar um dos seguintes lugares e apresentar ao diretor do clube um relatório sobre a diversidade e a maravilha das coisas da criação de Deus que você viu:\n  a. Zoológico\n  b. Aquário\n  c. Parque nacional/estadual/provincial\n  d. Viveiro de plantas\n  e. Jardins\n  f. Local equivalente",
+   "instructions": null
+  }
+ ]
+}

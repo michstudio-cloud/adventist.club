@@ -1,0 +1,48 @@
+{
+ "honor_slug": "crecer-en-cristo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/11_-_Growing_in_Christ/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Crescer em Cristo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber o que Cristo realizou por meio de Sua morte e ressurreição. (1 Coríntios 15:20-21)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender o que acontece na vida daqueles que mantêm comunhão com Jesus. (1 João 1:5-7)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber qual é o plano de Deus para nossa vida, seguindo o exemplo do que se cumpriu na vida de Jesus. (Lucas 2:52)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar os resultados que aparecem na vida daqueles que seguem a Jesus e recebem o Espírito Santo. (Gálatas 5:22-25)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir a importância de manter comunhão com Deus por meio da oração. (Efésios 6:18)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Salmo 1:1-2 e Lucas 2:52.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo como a vida de uma pessoa é transformada quando ela aceita Jesus como Senhor. (2 Coríntios 5:17)",
+   "instructions": null
+  }
+ ]
+}

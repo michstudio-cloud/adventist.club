@@ -1,0 +1,43 @@
+{
+ "honor_slug": "corte-y-confeccion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Dressmaking/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter e revisar a especialidade de Costura básica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter uma caixa de costura prática para seus materiais de costura. Incluir nela uma almofada para alfinetes, fita métrica, alfinetes, agulhas, linha, tesoura, medidor de costura e descosedor.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber como e quando alinhavar, chulear, fazer ziguezague e fazer bainha invisível.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar (a) 5 tecidos naturais, como algodão, linho, lã, seda etc., e (b) tecidos sintéticos, como raiom, náilon, dácron e poliéster.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar e demonstrar como endireitar o tecido antes de usá-lo.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Escolher um molde para uma peça como camisa, blusa, saia ou avental de oficina. Colocar corretamente o molde sobre o tecido, cortá-lo e costurar a peça até terminá-la.",
+   "instructions": null
+  }
+ ]
+}
