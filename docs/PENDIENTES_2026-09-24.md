@@ -76,7 +76,7 @@ Decisiones tomadas hoy (ya aplicadas): firma guardada en bucket público; «uno 
 - Suite backend: `TZ=UTC TEST_DATABASE_URL=postgresql://test@127.0.0.1:55432/etl_hontr python -m pytest -q`.
 - Frontend: `npx tsc --noEmit && npx eslint . --ignore-pattern '.claude/**' && rm -rf .next && npm run build && npm test`.
 - e2e: `scripts/e2e/run.mjs` (ver cabecera del archivo).
-- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **025**; la 024 `programs.kind` + `users.active_ministry_id` ya está aplicada).
+- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (la 025 y la 026 están reservadas por el módulo de eventos y las asignaciones de rol, en otra sesión: siguiente número libre **027**; la 024 `programs.kind` + `users.active_ministry_id` ya está aplicada).
 
 ## 6. Especialidades de Aventureros (awards) — pendiente, documentado
 
