@@ -1,0 +1,68 @@
+{
+ "honor_slug": "lombrices",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Worms/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um verme?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Onde os vermes vivem?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que os vermes comem?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em que reino os vermes se encontram?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar os 3 principais filos (a categoria de classificação imediatamente superior) que contêm vermes e descrevê-los.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que significam \"de vida livre\" e \"parasita\"?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais filos mencionados na questão 5 são de vida livre ou parasitas?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Responder às seguintes perguntas sobre as minhocas.\n  a. Onde vivem?\n  b. O que comem?\n  c. Como são úteis para o ser humano?\n  d. Qual é o menor e o maior tamanho que atingem?\n  e. Quantas existem em um metro quadrado de solo?\n  f. Quantas espécies existem?\n  g. O que é o clitelo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Encontrar uma minhoca ao ar livre e fazer o seguinte:\n  a. Saber distinguir as seguintes partes: extremidade da cabeça, extremidade da cauda e clitelo.\n  b. Observar e descrever como ela se move.\n  c. Quanto tempo sua minhoca leva para percorrer um pé (30 cm)?\n  d. Fazer uma corrida de minhocas!",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Responder às seguintes perguntas sobre as sanguessugas.\n  a. Onde vivem?\n  b. O que comem?\n  c. Como são prejudiciais ao ser humano?\n  d. Como são úteis para o ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar um versículo da Bíblia em que os vermes são mencionados e apresentar a história (por meio de música, poema ou dramatização).",
+   "instructions": null
+  }
+ ]
+}

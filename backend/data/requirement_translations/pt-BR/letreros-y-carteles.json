@@ -1,0 +1,43 @@
+{
+ "honor_slug": "letreros-y-carteles",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Lettering_%26_Poster_Making/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escrever de memória o alfabeto completo em letras minúsculas em dois dos seguintes estilos: gótico, romano ou itálico.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Demonstrar quando devem ser usados os diferentes tamanhos e tipos de pena.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar pelo menos quatro princípios para fazer um cartaz atraente e marcante. Saber fazer as margens corretas para o tamanho do papel que está usando.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer três cartazes de tamanhos variados para serem usados por qualquer um dos seguintes grupos: Escola Sabatina, igreja, escola, Clube de Desbravadores ou Sociedade de JA. Usar pelo menos dois tipos diferentes de letras nesses cartazes.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer mais cinco cartazes sobre temas de sua escolha. Esses cartazes serão avaliados para aprovação com base nas três condições a seguir:\n  a. Disposição\n  b. Capricho\n  c. Escolha do tipo de letra usado.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Praticar todos os traços até conseguir fazê-los com suavidade e precisão.",
+   "instructions": null
+  }
+ ]
+}

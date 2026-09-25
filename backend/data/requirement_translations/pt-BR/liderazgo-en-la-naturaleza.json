@@ -1,0 +1,58 @@
+{
+ "honor_slug": "liderazgo-en-la-naturaleza",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wilderness_Leadership/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter as seguintes especialidades:\n  a. Excursionismo pedestre com mochila\n  b. Acampamento I-IV\n  c. Fogueiras e cozinha ao ar livre\n  d. Primeiros socorros\n  e. Excursionismo pedestre\n  f. Mapa e bússola",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e praticar os princípios de saúde, segurança e as regras de conduta a serem usados em áreas selvagens com um grupo de jovens.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer e demonstrar os princípios de sinalização e resgate.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Ajudar a planejar e participar com um grupo de uma simulação do que fazer se estiver perdido, isolado ou ferido em uma área selvagem. Ajudar a planejar e participar como líder de uma operação de busca e resgate de uma pessoa \"ferida\" escondida.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar algumas habilidades necessárias para a liderança em áreas selvagens em uma das seguintes áreas:\n  a. Tropical\n  b. Deserto\n  c. Pântano\n  d. Montanha (rochas, gelo, grande altitude)\n  e. Floresta temperada\n  f. Planície e tundra",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entender e demonstrar a etiqueta em áreas selvagens e em acampamentos no que se refere à preservação da natureza.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Identificar na natureza, preparar e comer dez variedades de plantas silvestres.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Aprender algumas das qualidades de liderança em áreas selvagens de dois dos seguintes personagens:\n  a. Moisés\n  b. Davi\n  c. Elias\n  d. Josué\n  e. João Batista",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Liderar um grupo em um acampamento de fim de semana em área selvagem, aplicando os princípios e as habilidades aprendidos nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}
