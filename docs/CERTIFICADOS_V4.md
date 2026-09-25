@@ -55,8 +55,8 @@ y exige archivos idénticos.
 
 | Slug | Diseño | Tipo | Ministerio | Idiomas |
 |---|---|---|---|---|
-| `especialidad-editorial-rojo` | 01 Editorial rojo | honor | pathfinders | es, en, pt, fr |
-| `especialidad-modular-azul` | 02 Modular azul | honor | pathfinders | es, en, pt, fr |
+| `especialidad-editorial-rojo` | Editorial rosa y rojo (`replica-especialidad-editorial/`, 24 sep 2026; antes 01 Editorial rojo) | honor | pathfinders | es, en, pt, fr |
+| `especialidad-modular-azul` | Bloques azules (`replica-especialidad-azul/`, 24 sep 2026; antes 02 Modular azul) | honor | pathfinders | es, en, pt, fr |
 | `especialidad-reticula-verde` | 03 Retícula verde | honor | pathfinders | es, en, pt, fr |
 | `especialidad-academico` | 04 Académico | honor | pathfinders | es, en, pt, fr |
 | `especialidad-dorada` | Especialidad dorada (`replica-especialidad/`, 24 sep 2026) | honor | pathfinders | es, en, pt, fr |
@@ -389,8 +389,8 @@ las descargas no mandan nada: el servidor rellena desde el registro.
 - Las traducciones del paquete son de prueba (lo dice el propio LEEME): validar la terminología local
   (p. ej. «EXPLORATEURS», «Honor completion») antes de emitir en masa; al cambiar `traducciones.json`
   se recompila.
-- En `01-editorial-rojo` un nombre de especialidad a dos líneas deja la segunda a ~30 unidades de la
-  fecha: es la geometría del diseño (el renderizador de referencia hace lo mismo).
+- (Histórico, el v4 `01-editorial-rojo` ya no está instalado) un nombre de especialidad a dos líneas
+  dejaba la segunda a ~30 unidades de la fecha: era la geometría de aquel diseño.
 
 ## Especialidad · Marco multicolor (`replica-especialidad-color`)
 
@@ -444,4 +444,54 @@ Instalada el 2026-09-24 **sobre el mismo slug** `especialidad-modular-azul` (los
 re-renderizan con el diseño nuevo). Mismo contrato que dorada/color: página 1600×1237, Poppins/Lato/Advent Sans,
 fondo aplanado `background.webp` (~70 KB), `association_name` desde la jerarquía, fecha numérica, frases editables.
 Regenerar: `python tools/compile_element_template.py ~/Documents/DEEL/certificados-diseno/replica-especialidad-azul --slug especialidad-modular-azul --install`.
-Tests: `tests/test_certificate_azul.py`; los tests genéricos del v4 usan ahora `editorial-rojo`/`color` como representante.
+Tests: `tests/test_certificate_azul.py`; los tests genéricos del v4 (`test_certificates_v4.py`) usan `reticula-verde` y
+`academico`, los dos v4 que siguen instalados. Desde el soporte de `text_transform` (abajo) la asociación y «OTORGA EL
+PRESENTE CERTIFICADO A:» salen en mayúsculas como en su `muestra.png` (antes se imprimían tal cual llegaban).
+
+## Especialidad · Editorial rosa y rojo (`replica-especialidad-editorial`) — sustituye al «Editorial rojo» v4
+
+Instalada el 2026-09-24 **sobre el mismo slug** `especialidad-editorial-rojo` (los certificados ya emitidos con el v4 se
+re-renderizan con el diseño nuevo). Página 1600×1237, Poppins 300/700, Lato, Advent Sans; papel, franjas rosa/roja y logo
+aplanados en `background.webp`; `association_name` desde la jerarquía y en mayúsculas; fecha numérica; frases editables
+(`awarded` en mayúsculas también si se reescribe). Es el primer diseño que usa `wrap_then_shrink_or_error` con
+`wrap_strategy: "balanced"` y `flow_rules` (sección siguiente): el nombre largo va a dos líneas equilibradas de 105 y
+empuja hacia abajo la línea divisoria, «por haber cumplido…» y el nombre de la especialidad; QR, fecha y firmas no se mueven.
+Regenerar: `python tools/compile_element_template.py ~/Documents/DEEL/certificados-diseno/replica-especialidad-editorial --slug especialidad-editorial-rojo --install`.
+Tests: `tests/test_certificate_editorial.py`.
+
+Verificación (24 sep 2026): es/en/pt/fr a 110 dpi, nombre largo («María Fernanda López Hernández») y corto, frente a
+`vistas/*.svg` rasterizadas con Brave sin interfaz al mismo tamaño: superpuestas, posiciones, fuentes, corte de líneas y
+desplazamiento coinciden (diferencias sólo de antialiasing, < 1 px).
+
+## flow_rules y wrap_then_shrink (contrato 1.0)
+
+**Ajuste de texto.** `renderizador.js` (`fit`) usa el mismo bucle para `shrink_then_wrap_or_error` y
+`wrap_then_shrink_or_error`: de `font_size` a `min_font_size` en pasos de 1, a cada tamaño una línea, si no la envoltura
+en `max_lines`, y sólo si tampoco cabe el tamaño siguiente; si nada cabe, error. Es lo que ya hacía `fit_lines`, así que
+el modo `overflow` no necesita atributo (el compilador sólo rechaza valores desconocidos). Lo que cambia es la
+**estrategia de corte**:
+
+- `wrap_strategy: "balanced"` (sólo con `max_lines: 2`; otro valor → `CompileError`) → `data-wrap="balanced"`. En vez de
+  llenar la primera línea (voraz: «José Luis Martínez / Gómez»), se prueba cada corte entre palabras y se queda el de
+  menor diferencia de ancho entre las dos líneas con ambas dentro de `max_width` («José Luis / Martínez Gómez»; el
+  primero en caso de empate, como el JS). Si ningún corte cabe se baja un punto. `render.balanced_split` + `fit_lines(balanced=True)`.
+- `text_transform: "uppercase"` → `data-text-transform="uppercase"`. El motor pasa a mayúsculas lo que imprime —traducción,
+  dato (la asociación) o frase reescrita— antes de medirlo (`_transform_text` en `_apply_fit_wrap`); el compilador pone
+  el texto de muestra del SVG en mayúsculas. `strings.<locale>.json` conserva el texto original (es lo que ve el formulario
+  de frases editables).
+
+**Flujo.** `flow_rules: [{"trigger": "recipient_name", "shift_elements": [...], "offset": "extra_line_height"}]`: los
+elementos listados bajan `(líneas − 1) × tamaño × line_height` del disparador ya ajustado (dos líneas a 105 × 1.06 →
+111,3 unidades del diseño; a 73 → 77,38). Depende del dato, así que lo resuelve el motor en cada render:
+
+- Compilador (`flow_triggers`): valida disparador (un texto), elementos (existen, no el propio disparador, no en dos reglas)
+  y `offset` (sólo `extra_line_height`), y marca cada elemento desplazable con `data-flow-trigger="<id del texto en
+  template.svg>"` (p. ej. `recipient_name`; una traducción sería `t_<id>`). Si es un recorte SVG, también su `clipPath`;
+  si es el nombre de un firmante, también su hueco de firma. Un elemento que se mueve **nunca se aplana** en
+  `background.webp`: la tira de capas fijas del fondo se corta ahí (por eso `recipient_line` es ahora una `<line>` viva).
+- Motor (`_apply_flow`, al final de `fill_svg`, cuando todos los textos tienen tamaño y líneas): cuenta los `<tspan>` del
+  disparador y desplaza `y` / `y1` / `y2` (`<text>`, `<line>`, `<rect>`, `<image>`), como el JS; un elemento con
+  `transform` o sin esas coordenadas (un `<path>`) recibe `translate(0 Δ)` delante. Un disparador opcional ausente → Δ = 0.
+- Sin `flow_rules` ni los atributos nuevos no cambia nada: academico, color, dorada y reticula-verde recompilan byte a byte
+  igual; modular-azul cambia sólo por `data-text-transform` (su diseño lo pide).
+

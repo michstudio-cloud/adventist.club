@@ -19,7 +19,6 @@ from compile_element_template import compile_package  # noqa: E402
 
 # «modular-azul» se recompila desde replica-especialidad-azul (2026-09-24): ver test_certificate_azul.py.
 V4 = {
-    "especialidad-editorial-rojo": "01-editorial-rojo",
     "especialidad-reticula-verde": "03-reticula-verde",
     "especialidad-academico": "04-academico",
 }
@@ -93,7 +92,7 @@ def test_dates_are_written_in_the_certificate_language():
 
 
 def test_long_names_shrink_then_wrap_and_never_truncate():
-    template = load_template("especialidad-editorial-rojo")
+    template = load_template("especialidad-reticula-verde")
     long_name = "María Fernanda de los Ángeles López Hernández Villarreal"
     two_lines = "Liderazgo al aire libre y técnicas avanzadas de campamento en montaña"
     svg = fill_svg(template, _data("es", recipient_name=long_name, honor_name=two_lines), {}, "es")
@@ -101,7 +100,7 @@ def test_long_names_shrink_then_wrap_and_never_truncate():
     assert 22 <= size < 39 and lines == [long_name]                          # max_lines 1: shrinks
     size, lines = _field(svg, "honor_name")
     assert 20 <= size <= 36 and len(lines) == 2 and " ".join(lines) == two_lines
-    assert re.search(r'<tspan x="210" dy="0">', svg) and re.search(rf'dy="{size * 1.25:g}"', svg)
+    assert re.search(r'<tspan x="196" dy="0">', svg) and re.search(rf'dy="{size * 1.25:g}"', svg)
 
     with pytest.raises(TemplateError, match="recipient_name"):
         fill_svg(template, _data("es", recipient_name="Wolfeschlegelsteinhausenbergerdorff " * 4), {}, "es")
@@ -111,7 +110,7 @@ def test_long_names_shrink_then_wrap_and_never_truncate():
 
 
 def test_missing_language_data_and_translations_are_errors():
-    template = load_template("especialidad-editorial-rojo")
+    template = load_template("especialidad-reticula-verde")
     with pytest.raises(TemplateError, match="traducción"):
         fill_svg(template, _data("es"), {}, "de")                              # no silent Spanish
     with pytest.raises(TemplateError, match="recipient_name"):
@@ -172,7 +171,7 @@ async def test_api_lists_and_renders_the_v4_templates(client, monkeypatch):
     assert not set(V4) & {t["slug"] for t in (await client.get(
         "/api/v1/certificates/templates", params={"kind": "program"})).json()}
 
-    body = {"template": "especialidad-editorial-rojo", "locale": "fr", "dpi": 72, "data": _data("fr")}
+    body = {"template": "especialidad-reticula-verde", "locale": "fr", "dpi": 72, "data": _data("fr")}
     for fmt, mime in (("png", "image/png"), ("pdf", "application/pdf"), ("svg", "image/svg+xml")):
         response = await client.post("/api/v1/certificates/render", json={**body, "format": fmt})
         assert response.status_code == 200 and response.headers["content-type"] == mime, response.text
@@ -214,7 +213,7 @@ async def test_an_issued_certificate_prints_its_own_record(client, factory, monk
         await db.commit()
 
     response = await client.post("/api/v1/certificates/render", json={
-        "template": "especialidad-editorial-rojo", "locale": "en", "format": "svg", "certificate_no": certificate_no,
+        "template": "especialidad-reticula-verde", "locale": "en", "format": "svg", "certificate_no": certificate_no,
         "data": {"recipient_name": "Someone Else", "honor_name": honor_name, "issued_date": "2026-01-01"}})
     assert response.status_code == 200, response.text
     printed = _texts(response.text)
@@ -225,5 +224,5 @@ async def test_an_issued_certificate_prints_its_own_record(client, factory, monk
     assert "Juan Pérez" in joined and "Ana Ruiz" in joined and "QR" not in printed
     assert re.search(r'id="qr"[^>]*href="data:image/png', response.text)
     spanish = await client.post("/api/v1/certificates/render", json={
-        "template": "especialidad-editorial-rojo", "locale": "es", "format": "svg", "certificate_no": certificate_no})
+        "template": "especialidad-reticula-verde", "locale": "es", "format": "svg", "certificate_no": certificate_no})
     assert spanish.status_code == 200 and honor_name in _texts(spanish.text)         # no translation: Spanish

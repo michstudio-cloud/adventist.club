@@ -185,6 +185,7 @@ def _phrase_budget(el: ET.Element, sample: str) -> int:
     lines = max(1, int(el.get("data-max-lines") or 1))
     size = float(el.get("data-min-size") or el.get("font-size") or 12)
     family = (el.get("font-family") or "sans-serif").split(",")[0].strip().strip("'\"")
+    sample = _transform_text(el, sample)
     advance = measure_pt(sample, family, el.get("font-weight") or "400", size) / len(sample)
     if advance <= 0:
         return MAX_OVERRIDE_LENGTH
@@ -360,7 +361,9 @@ def fit_text(el: ET.Element, text: str) -> None:
 # Their <text> fields carry the fitting contract of the package: data-fit="shrink-wrap",
 # data-max-width, data-min-size, data-max-lines, data-line-height. Fixed texts carry
 # data-string="<key>" (strings.<locale>.json) and a missing translation is an error, never
-# Spanish in disguise. Everything below only acts on those attributes: the older templates
+# Spanish in disguise. Optional, only where the design asks for them: data-wrap="balanced",
+# data-text-transform="uppercase" and data-flow-trigger (flow_rules, see `_apply_flow`).
+# Everything below only acts on those attributes: the older templates
 # (data-fit="shrink", t_* ids) render exactly as before.
 
 # v4 data keys -> the engine's own names, so both vocabularies work in POST /render
@@ -445,18 +448,39 @@ def format_numeric_date(value: str, locale: str) -> str:
     return f"{day:02d}/{month:02d}/{year}"
 
 
+def balanced_split(text: str, max_width: float, measure) -> list[str] | None:
+    """The two lines of «wrap_strategy: balanced» (renderizador.js `fit`): of every cut between
+    words, the one whose two lines differ least in width, both within `max_width` (first one on a
+    tie). None when no cut fits."""
+    words = text.split()
+    best: tuple[float, list[str]] | None = None
+    for i in range(1, len(words)):
+        lines = [" ".join(words[:i]), " ".join(words[i:])]
+        widths = [measure(line) for line in lines]
+        score = abs(widths[0] - widths[1])
+        if max(widths) <= max_width and (best is None or score < best[0]):
+            best = (score, lines)
+    return best[1] if best else None
+
+
 def fit_lines(text: str, *, family: str, weight: str, size: float, min_size: float, max_width: float,
-              max_lines: int, field: str, step: float = 1.0) -> tuple[float, list[str]]:
-    """«Shrink, then wrap up to max_lines, then error» — the algorithm of the design's reference
-    renderer: at each size from `size` down to `min_size` try one line, then greedy word wrapping
-    into at most `max_lines` lines that all fit. Nothing is ever truncated: if no size fits, the
-    certificate is not produced and the error names the field."""
+              max_lines: int, field: str, step: float = 1.0, balanced: bool = False) -> tuple[float, list[str]]:
+    """«Wrap, then shrink, then error» — the loop of the design's reference renderer (the same for
+    `shrink_then_wrap_or_error` and `wrap_then_shrink_or_error`): at each size from `size` down to
+    `min_size` try one line, then word wrapping into at most `max_lines` lines that all fit, and only
+    then the next size down. Wrapping is greedy, or with `balanced` (`wrap_strategy: "balanced"`,
+    two lines) the cut that leaves both lines closest in width. Nothing is ever truncated: if no
+    size fits, the certificate is not produced and the error names the field."""
     measure = lambda s, at: measure_pt(s, family, weight, at)  # noqa: E731
     current = size
     while current >= min_size - 1e-9:
         if measure(text, current) <= max_width:
             return current, [text]
-        if max_lines > 1:
+        if balanced and max_lines == 2:
+            split = balanced_split(text, max_width, lambda s: measure(s, current))
+            if split:
+                return current, split
+        elif max_lines > 1:
             lines: list[str] = []
             for word in text.split():
                 candidate = f"{lines[-1]} {word}" if lines else word
@@ -471,13 +495,20 @@ def fit_lines(text: str, *, family: str, weight: str, size: float, min_size: flo
                         f"({min_size:g}) en {max_lines} línea(s).")
 
 
+def _transform_text(el: ET.Element, text: str) -> str:
+    """`text_transform: "uppercase"` of the design package (data-text-transform), applied to whatever
+    the field prints — translation, data or a reworded phrase — before it is measured."""
+    return text.upper() if el.get("data-text-transform") == "uppercase" else text
+
+
 def _apply_fit_wrap(el: ET.Element, text: str, field: str) -> None:
     family = (el.get("font-family") or "sans-serif").split(",")[0].strip().strip("'\"")
+    text = _transform_text(el, text)
     size, lines = fit_lines(
         text, family=family, weight=el.get("font-weight") or "400",
         size=float(el.get("font-size") or 12), min_size=float(el.get("data-min-size") or el.get("font-size") or 12),
         max_width=float(el.get("data-max-width") or 0) or float("inf"),
-        max_lines=int(el.get("data-max-lines") or 1), field=field)
+        max_lines=int(el.get("data-max-lines") or 1), field=field, balanced=el.get("data-wrap") == "balanced")
     el.set("font-size", f"{size:g}")
     for child in list(el):
         el.remove(child)
@@ -618,6 +649,7 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
                 el.set(f"{{{XLINK_NS}}}href", "")
             if "data-placeholder-href" in el.attrib:
                 del el.attrib["data-placeholder-href"]
+    _apply_flow(root, set(drop))
     for el in drop:
         parents[el].remove(el)
     if rtl:
@@ -627,6 +659,43 @@ def fill_svg(template: Template, data: dict[str, str], images: dict[str, str], l
     root.set("width", f"{template.width_pt:g}")
     root.set("height", f"{template.height_pt:g}")
     return ET.tostring(root, encoding="unicode")
+
+
+def _extra_line_height(trigger: ET.Element | None) -> float:
+    """What a fitted text grew beyond its first line: (lines - 1) × size × line height."""
+    if trigger is None:
+        return 0.0
+    lines = len(trigger.findall(f"{{{SVG_NS}}}tspan"))
+    size = float(trigger.get("font-size") or 0)
+    return max(0, lines - 1) * size * float(trigger.get("data-line-height") or 1.25)
+
+
+def _shift(el: ET.Element, delta: float) -> None:
+    """Move an element `delta` design units down: y / y1 / y2 as the reference renderer does
+    (<text>, <line>, <rect>, <image>); anything placed otherwise (a <path>, a rotated text) gets
+    a translate in front of its own transform."""
+    if el.get("transform") or not any(el.get(key) is not None for key in ("y", "y1", "y2")):
+        el.set("transform", f"translate(0 {delta:g}) {el.get('transform') or ''}".strip())
+        return
+    for key in ("y", "y1", "y2"):
+        if el.get(key) is not None:
+            el.set(key, f"{float(el.get(key)) + delta:g}")
+
+
+def _apply_flow(root: ET.Element, dropped: set[ET.Element]) -> None:
+    """`flow_rules` of the design package (docs/CERTIFICADOS_V4.md «flow_rules y wrap_then_shrink»):
+    an element with data-flow-trigger="<text id>" moves down by the extra line height of that text
+    once it is fitted — the name that takes two lines pushes the rule, the phrase and the honor
+    under it. Depends on the data, so it is done here, after every text has its size and lines."""
+    moving = [el for el in root.iter() if el.get("data-flow-trigger")]
+    if not moving:
+        return
+    texts = {el.get("id"): el for el in root.iter(f"{{{SVG_NS}}}text") if el.get("id")}
+    for el in moving:
+        trigger = texts.get(el.get("data-flow-trigger"))
+        delta = _extra_line_height(None if trigger in dropped else trigger)
+        if delta:
+            _shift(el, delta)
 
 
 def output_size_pt(template: Template, width_in: float | None) -> tuple[float, float]:

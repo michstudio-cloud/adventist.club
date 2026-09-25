@@ -17,7 +17,9 @@ What comes out (templates/certificates/<slug>/ with --install, else --out DIR):
                           <g transform="scale(0.72)"> (or translate+scale when the design's page is
                           not exactly 11:8.5 — fitted like a browser does, `meet`). Shapes stay vector;
                           every text is a live field with the package's fitting contract
-                          (data-fit="shrink-wrap").
+                          (data-fit="shrink-wrap"; data-wrap="balanced", data-text-transform and
+                          data-flow-trigger only when the package uses wrap_strategy, text_transform
+                          or flow_rules).
   background.webp         only when the first layers (paper, frame, fixed artwork) carry raster: they
                           are flattened once, here, into one page at the package's raster size
                           (300 dpi) — the engine pastes it with Pillow instead of resampling
@@ -79,6 +81,13 @@ SIGNATURE_SLOT = {"director_name": "signature_director", "instructor_name": "sig
 SIGNATURE_BODIES = 2.2
 CAP_HEIGHT = 0.75            # Noto Sans capitals are ~0.71 em: the box stops just above them
 HLINE_RE = re.compile(r"^\s*M\s*(-?[\d.]+)[\s,]+(-?[\d.]+)\s*h\s*(-?[\d.]+)\s*$")
+# Fitting contract of a text (docs «flow_rules y wrap_then_shrink»). Both overflow modes are the
+# reference renderer's loop (one line → wrap → next size down → error), so neither needs an
+# attribute; the balanced cut and the uppercase do, and only appear when the design asks for them.
+OVERFLOWS = {None, "shrink_then_wrap_or_error", "wrap_then_shrink_or_error"}
+WRAP_STRATEGIES = {None, "greedy", "balanced"}
+TEXT_TRANSFORMS = {None, "none", "uppercase"}
+FLOW_OFFSETS = {"extra_line_height"}
 
 
 class CompileError(ValueError):
@@ -175,14 +184,43 @@ def _has_raster(asset: Path) -> bool:
         asset.suffix.lower() == ".svg" and bool(RASTER_IN_SVG.search(asset.read_bytes())))
 
 
-def _leading_fixed_layers(elements: list[dict], folder: Path, emblem: Path) -> list[dict]:
+def _text_field_id(e: dict) -> str:
+    """The id a text element of the package gets in template.svg."""
+    source = e["source"]
+    return f"t_{e['id']}" if source["kind"] == "translation" else DATA_FIELD.get(source["key"], source["key"])
+
+
+def flow_triggers(spec: dict) -> dict[str, str]:
+    """`flow_rules` -> {package id of a moving element: template.svg id of the text that pushes it}.
+    Only `offset: "extra_line_height"` exists: the element moves down by what the trigger grows
+    beyond its first line ((lines - 1) × size × line_height), decided by the engine at render time."""
+    by_id = {e["id"]: e for e in spec["elements"]}
+    moving: dict[str, str] = {}
+    for rule in spec.get("flow_rules") or []:
+        trigger = by_id.get(rule.get("trigger"))
+        if not trigger or trigger["type"] != "text":
+            raise CompileError(f"flow_rules: el disparador {rule.get('trigger')!r} no es un texto del diseño.")
+        if rule.get("offset") not in FLOW_OFFSETS:
+            raise CompileError(f"flow_rules: desplazamiento no soportado {rule.get('offset')!r}.")
+        for element_id in rule.get("shift_elements") or []:
+            if element_id not in by_id or element_id == trigger["id"]:
+                raise CompileError(f"flow_rules: no se puede desplazar {element_id!r}.")
+            if element_id in moving:
+                raise CompileError(f"flow_rules: {element_id!r} está en dos reglas.")
+            moving[element_id] = _text_field_id(trigger)
+    return moving
+
+
+def _leading_fixed_layers(elements: list[dict], folder: Path, emblem: Path,
+                          moving: dict[str, str] | None = None) -> list[dict]:
     """The run of fixed layers at the bottom of the page: shapes and asset images (not the emblem
-    slot). Nothing dynamic is under them, so drawing them once changes nothing on the page."""
+    slot, nor anything a flow rule moves). Nothing dynamic is under them, so drawing them once
+    changes nothing on the page."""
     run = []
     for e in elements:
         fixed_image = e["type"] == "image" and e["source"]["kind"] == "asset" and \
             not _same_file(folder / e["source"]["path"], emblem)
-        if e["type"] != "shape" and not fixed_image:
+        if (e["type"] != "shape" and not fixed_image) or e["id"] in (moving or {}):
             break
         run.append(e)
     return run
@@ -257,16 +295,18 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
         ids.add(field_id)
         return field_id
 
-    leading = _leading_fixed_layers(spec["elements"], folder, emblem)
+    moving = flow_triggers(spec)
+    leading = _leading_fixed_layers(spec["elements"], folder, emblem, moving)
     flatten = any(_has_raster(folder / e["source"]["path"]) for e in leading if e["type"] == "image")
     lines = _horizontal_lines(spec["elements"])
     for index, e in enumerate(spec["elements"]):
         kind = e["type"]
         target = flat if flatten and index < len(leading) else body
+        flow = {"data-flow-trigger": moving.get(e["id"])}      # None (no attribute) unless a flow rule moves it
         if kind == "shape":
             if e["shape"] not in SHAPES:
                 raise CompileError(f"Forma no soportada: {e['shape']} ({e['id']})")
-            target.append(f"<{e['shape']} {_attrs({'id': claim(e['id']), **e['attributes']})}/>")
+            target.append(f"<{e['shape']} {_attrs({'id': claim(e['id']), **e['attributes'], **flow})}/>")
         elif kind == "image":
             if e.get("fit", "contain") != "contain" or e.get("crop"):
                 raise CompileError(f"Sólo se admite fit=contain sin recorte ({e['id']}).")
@@ -279,7 +319,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                     raise CompileError(f"Falta el recurso {source['path']}")
                 if _same_file(asset, emblem):
                     # the official emblem: the engine's `emblem` slot (default = the ministry emblem)
-                    body.append(f"<image {_attrs({'id': claim('emblem'), **box})} href=\"\"/>")
+                    body.append(f"<image {_attrs({'id': claim('emblem'), **box, **flow})} href=\"\"/>")
                 else:
                     clip = {}
                     if asset.suffix.lower() == ".svg":
@@ -287,9 +327,9 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                         # artwork files of «Especialidad dorada» are crops of one full page. Browsers
                         # clip an <image> to its box; resvg does not, so the box is clipped explicitly.
                         clip_id = f"clip-{e['id']}"
-                        target.append(f'<clipPath id="{escape(clip_id)}"><rect {_attrs({k: box[k] for k in ("x", "y", "width", "height")})}/></clipPath>')
+                        target.append(f'<clipPath id="{escape(clip_id)}"><rect {_attrs({**{k: box[k] for k in ("x", "y", "width", "height")}, **flow})}/></clipPath>')
                         clip = {"clip-path": f"url(#{clip_id})"}
-                    target.append(f"<image {_attrs({'id': claim(e['id']), **box, **clip})} href={quoteattr(_data_url(asset))}/>")
+                    target.append(f"<image {_attrs({'id': claim(e['id']), **box, **clip, **flow})} href={quoteattr(_data_url(asset))}/>")
             elif source["kind"] == "data":
                 slot = IMAGE_SLOT.get(source["key"])
                 if not slot:
@@ -297,7 +337,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                 extra = {}
                 if e.get("placeholder_asset"):
                     extra["data-placeholder-href"] = _data_url(folder / e["placeholder_asset"])
-                body.append(f"<image {_attrs({'id': claim(slot), **box, **extra})} href=\"\"/>")
+                body.append(f"<image {_attrs({'id': claim(slot), **box, **extra, **flow})} href=\"\"/>")
             else:
                 raise CompileError(f"Fuente de imagen desconocida: {source['kind']}")
         elif kind == "text":
@@ -325,7 +365,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
             if source["kind"] == "data" and field_id in SIGNATURE_SLOT:
                 # drawn before the name: a signature that reaches down never covers the printed name
                 box = {k: _num(round(v, 3)) for k, v in signature_box(e, lines).items()}
-                body.append(f"<image {_attrs({'id': claim(SIGNATURE_SLOT[field_id]), **box, 'preserveAspectRatio': signature_align(e)})} href=\"\"/>")
+                body.append(f"<image {_attrs({'id': claim(SIGNATURE_SLOT[field_id]), **box, 'preserveAspectRatio': signature_align(e), **flow})} href=\"\"/>")
             anchor = e.get("anchor") or e.get("align") or "start"
             anchor = {"left": "start", "center": "middle", "right": "end"}.get(anchor, anchor)
             visible = e.get("visible_if")
@@ -333,6 +373,19 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                 if not visible.get("is_null") or visible.get("data_key") not in IMAGE_SLOT:
                     raise CompileError(f"visible_if no soportado en {e['id']}: {visible}")
                 attrs["data-hide-if-image"] = IMAGE_SLOT[visible["data_key"]]
+            if e.get("overflow") not in OVERFLOWS:
+                raise CompileError(f"overflow no soportado en {e['id']}: {e.get('overflow')}")
+            if e.get("wrap_strategy") not in WRAP_STRATEGIES:
+                raise CompileError(f"wrap_strategy no soportado en {e['id']}: {e.get('wrap_strategy')}")
+            if e.get("wrap_strategy") == "balanced":
+                if int(e.get("max_lines", 1)) != 2:
+                    raise CompileError(f"wrap_strategy balanced sólo con max_lines 2 ({e['id']}).")
+                attrs["data-wrap"] = "balanced"
+            if e.get("text_transform") not in TEXT_TRANSFORMS:
+                raise CompileError(f"text_transform no soportado en {e['id']}: {e.get('text_transform')}")
+            if e.get("text_transform") == "uppercase":
+                attrs["data-text-transform"] = "uppercase"          # the engine uppercases what it prints
+                sample_text = sample_text.upper()
             weight = int(e["font_weight"])
             if (e["font_family"], weight) not in supplied:
                 # The package does not ship this weight: its previews (and any browser) draw a
@@ -352,7 +405,7 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                 "data-fit": "shrink-wrap", "data-max-width": _num(e["max_width"]),
                 "data-min-size": _num(e.get("min_font_size", e["font_size"])),
                 "data-max-lines": str(int(e.get("max_lines", 1))),
-                "data-line-height": _num(e.get("line_height", 1.25)), **attrs,
+                "data-line-height": _num(e.get("line_height", 1.25)), **attrs, **flow,
             }
             body.append(f"<text {_attrs(text_attrs)}>{escape(sample_text)}</text>")
         else:

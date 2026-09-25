@@ -60,3 +60,10 @@ def test_installed_files_are_exactly_what_the_compiler_makes():
     for name, content in files.items():
         expected = content if isinstance(content, bytes) else content.encode("utf-8")
         assert (installed / name).read_bytes() == expected, name
+
+
+def test_uppercase_texts_of_the_design_print_in_capitals():
+    """`text_transform: uppercase` (association and award phrase), as in the design's muestra.png."""
+    svg = fill_svg(load_template(SLUG), _data("en"), {}, "en")
+    texts = re.findall(r"<tspan[^>]*>([^<]*)</tspan>", svg)
+    assert "ASOCIACIÓN NORTE DE TAMAULIPAS" in texts and "AWARDS THIS CERTIFICATE TO:" in texts
