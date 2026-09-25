@@ -166,6 +166,9 @@ async def issue_certificate(
     program_id: uuid.UUID | None = None,
     # 016: the language it is issued in; outside the hash.
     locale: str = "es",
+    # 023: reworded phrases ({key: text}, already checked against the template). Outside the
+    # hash; the `issued` event records which keys changed, never the text.
+    text_overrides: dict[str, str] | None = None,
 ) -> Certificate:
     """Stage one issued certificate with its hash and `issued` event (flushed, not committed)."""
     certificate = Certificate(
@@ -191,6 +194,7 @@ async def issue_certificate(
         issued_role=issued_by.role if issued_by else None,
         program_id=program_id,
         locale=locale,
+        text_overrides=dict(text_overrides) if text_overrides else None,
     )
     certificate.certificate_hash = hash_cert(certificate)
     db.add(certificate)
@@ -201,7 +205,9 @@ async def issue_certificate(
             certificate_id=certificate.id,
             event_type="issued",
             actor_id=issued_by.id if issued_by else None,
-            metadata_json={"hash": certificate.certificate_hash, **(event_metadata or {})},
+            metadata_json={"hash": certificate.certificate_hash,
+                           **({"text_overrides": sorted(text_overrides)} if text_overrides else {}),
+                           **(event_metadata or {})},
         )
     )
     # Bloque G: the holder's cached XP is stale from this moment on.
@@ -215,6 +221,17 @@ async def stored_locale(db: AsyncSession, certificate_no: str) -> str | None:
     """The language certificate `certificate_no` was issued in, or None when there is none."""
     stmt = select(Certificate.locale).where(Certificate.certificate_no == certificate_no)
     return (await db.execute(stmt)).scalar_one_or_none()
+
+
+async def stored_text_overrides(db: AsyncSession, certificate_no: str) -> dict[str, str] | None:
+    """023 — the phrases certificate `certificate_no` was issued with: None when there is no such
+    certificate (the caller's stand, as for data), `{}` when it kept the template's own."""
+    stmt = select(Certificate.id, Certificate.text_overrides).where(Certificate.certificate_no == certificate_no)
+    row = (await db.execute(stmt)).first()
+    if row is None:
+        return None
+    kept = row.text_overrides
+    return {str(k): str(v) for k, v in kept.items()} if isinstance(kept, dict) else {}
 
 
 async def template_slug(db: AsyncSession, template_id: uuid.UUID) -> str | None:

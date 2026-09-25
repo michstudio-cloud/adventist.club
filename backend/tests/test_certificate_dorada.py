@@ -53,7 +53,8 @@ def test_installed_as_a_pathfinder_honor_template_in_four_languages():
     template = load_template(SLUG)
     assert (template.width_pt, template.height_pt) == (792.0, 612.0)
     assert template.meta == {"title": "Especialidad dorada", "kinds": ["honor"], "ministries": ["pathfinders"],
-                             "engine": "elements", "source": "replica-especialidad", "locales": list(LOCALES)}
+                             "engine": "elements", "source": "replica-especialidad", "locales": list(LOCALES),
+                             "editable_strings": ["awarded", "completion"]}
     assert template.serves("pathfinders", "honor") and not template.serves("pathfinders", "program")
     assert set(LOCALES) <= set(template.locales)
     assert {"recipient_name", "honor_name", "issued_date", "certificate_no", "honor_patch", "qr",

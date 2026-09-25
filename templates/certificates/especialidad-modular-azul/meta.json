@@ -13,5 +13,9 @@
     "en",
     "pt",
     "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
   ]
 }

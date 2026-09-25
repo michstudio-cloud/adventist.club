@@ -181,6 +181,9 @@ class InvestIn(BaseModel):
     # director's own saved signature when there is one; it is prepared once for the batch.
     signature_director: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
     signature_instructor: str | None = Field(default=None, max_length=SIGNATURE_MAX_LENGTH)
+    # 023: as on the single certificate — the investiture template's reworded phrases, the same
+    # for every certificate of the batch.
+    strings: dict[str, str] | None = Field(default=None, max_length=8)
 
     _clean = field_validator("place", "instructor_name", "signature_director", "signature_instructor",
                              mode="before")(_blank_to_none)

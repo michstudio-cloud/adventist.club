@@ -683,6 +683,27 @@ async def test_the_default_issued_date_is_today(client, world, factory, issuer):
     assert certificate["issued_date"] == date.today()
 
 
+async def test_the_investiture_keeps_its_reworded_phrases(client, world, factory, issuer):
+    """023 «Frases editables»: the investiture template's two phrases (t_awarded_to, t_for_completing)
+    reworded once for the whole investiture; a key the template does not offer invests nobody."""
+    program = await _program(factory, "frases", sections=(("a", 1),))
+    enrolled = (await _enroll(client, world, program, membership_ids=[world["s3"]["membership_id"]])).json()
+    enrollment_id = enrolled["enrolled"][0]["enrollment_id"]
+    await _sign(client, world, program, [{"enrollment_id": enrollment_id,
+                                          "requirement_id": program["requirements"][0]}])
+    refused = await client.post(_url(world, program, "/invest"),
+                                json={"enrollment_ids": [enrollment_id], "strings": {"awarded": "Otorgado a"}},
+                                headers=world["director"]["headers"])
+    assert refused.status_code == 422 and refused.json()["detail"]["code"] == "string_not_editable"
+    body = (await client.post(_url(world, program, "/invest"),
+                              json={"enrollment_ids": [enrollment_id],
+                                    "strings": {"t_awarded_to": "Con alegría investimos a:", "t_for_completing": ""}},
+                              headers=world["director"]["headers"])).json()
+    number = body["invested"][0]["certificate_no"]
+    row = await fetch_one("SELECT text_overrides FROM certificates WHERE certificate_no = :n", n=number)
+    assert row["text_overrides"] == {"t_awarded_to": "Con alegría investimos a:"}
+
+
 async def test_the_investiture_keeps_the_directors_saved_signature(client, world, factory, issuer, r2):
     """021: the club screen sends the director's saved signature; it is read once and every
     certificate of the investiture keeps its own copy. Nobody else's saved signature is taken."""

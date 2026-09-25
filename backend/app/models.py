@@ -226,6 +226,10 @@ class Certificate(Base):
     # account's own `users.signature_url`, never deleted, outside `canonical()`.
     signature_director_url: Mapped[str|None]=mapped_column(Text)
     signature_instructor_url: Mapped[str|None]=mapped_column(Text)
+    # 023_certificate_text_overrides.sql — the fixed phrases reworded at issuance by someone with
+    # an account ({phrase key: text}, keys from the template's `editable_strings`). NULL = the
+    # template's own. Outside `canonical()`; every later render by folio prints these.
+    text_overrides: Mapped[dict|None]=mapped_column(JSONB)
 
 class CertificateEvent(Base):
     __tablename__="certificate_events"
