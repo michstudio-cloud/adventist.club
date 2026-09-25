@@ -1,0 +1,78 @@
+{
+ "honor_slug": "civismo-cristiano",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Christian_Citizenship/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever as bandeiras nacional, estadual ou provincial, JA, dos Desbravadores e cristã.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber como exibir a bandeira nacional com duas outras bandeiras nas seguintes situações:\n  a. Acampamento/campori\n  b. Feira\n  c. Programa do Dia do Desbravador\n  d. Desfile",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como dobrar e saudar a bandeira de seu país. Dizer quando e como ela deve ser exibida.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar o significado e a razão de ser do hino nacional e recitar a letra de memória.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar os direitos e deveres de um cidadão de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Entrevistar uma autoridade local, regional ou nacional de seu país e conhecer as funções dela.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever uma redação de uma página ou fazer um relatório oral de dois minutos sobre uma pessoa famosa de seu país. Dizer o que essa pessoa fez para obter reconhecimento.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma das seguintes atividades:\n  a. Fazer uma lista de dez citações famosas de líderes de seu país.\n  b. Fazer uma lista de dez lugares históricos famosos de seu país.\n  c. Fazer uma lista de dez acontecimentos históricos famosos de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Descrever o que você pode fazer como cidadão para ajudar sua igreja e seu país.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Percorrer as etapas pelas quais uma pessoa obtém a cidadania no país e aprender como isso é feito.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Saber explicar o funcionamento do governo de seu país.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Explicar o significado desta declaração de Jesus em Mateus 22:21: \"Dai, pois, a César o que é de César e a Deus o que é de Deus.\"",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Explicar por que as leis são estabelecidas em seu país.",
+   "instructions": null
+  }
+ ]
+}

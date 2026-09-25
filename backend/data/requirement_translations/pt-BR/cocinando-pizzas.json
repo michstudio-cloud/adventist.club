@@ -1,0 +1,58 @@
+{
+ "honor_slug": "cocinando-pizzas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Pizza_Maker/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma breve pesquisa sobre a história da pizza.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista dos ingredientes básicos da massa de pizza.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar pelo menos um texto bíblico sobre cada um dos ingredientes. Explicar pelo menos quatro desses textos e seu significado simbólico.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever o processo de fermentação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Qual é a diferença entre a pizza ao estilo napolitano e a pizza ao estilo romano?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "De acordo com o formato e o tamanho, quantos tipos de pizza você conhece?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são três maneiras diferentes de assar uma pizza? Descrever as diferenças em detalhes.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a temperatura ideal para assar pizza em forno a lenha? Qual é a temperatura ideal se usar um forno elétrico?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Preparar uma pizza margherita.",
+   "instructions": null
+  }
+ ]
+}

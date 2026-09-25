@@ -1,0 +1,48 @@
+{
+ "honor_slug": "cohetemodelismo-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Model_Rocketry_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Espaçomodelismo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "A partir de um kit, construir, lançar com sucesso e recuperar um planador-foguete (boost glider).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Projetar, construir (sem usar kit), dar acabamento e pintar um foguete de um estágio. Verificar sua estabilidade e lançar e recuperar com sucesso esse foguete.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma das seguintes atividades:\n  a. A partir de um kit, construir, dar acabamento e pintar um foguete de dois estágios. Lançar e recuperar com sucesso esse foguete.\n  b. A partir de um kit, construir, dar acabamento e pintar um foguete de um estágio com três motores agrupados. Lançar e recuperar com sucesso esse foguete.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Projetar um sistema elétrico de lançamento. Depois que for aprovado por seu instrutor, construir esse sistema e usá-lo para lançar foguetes pelo menos cinco vezes.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever e demonstrar o rastreamento de altitude a partir de uma única estação. Com a ajuda de um auxiliar, rastrear o mesmo foguete três vezes usando três tamanhos diferentes de motor e comparar as altitudes com um medidor de altitude.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Comparar a velocidade e a altitude de foguetes de dois pesos diferentes usando motores do mesmo tamanho.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "codigo-de-semaforo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Semaphore_Code/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Código semáforo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em uma redação de pelo menos 300 palavras, contar a história do código semáforo e citar suas diferenças e semelhanças com outros códigos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Individualmente ou com a unidade, realizar uma das seguintes atividades:\n  a. Fazer um par de bandeiras de tamanho padrão (45 cm x 45 cm) com duas cores predominantes.\n  b. Fazer um par de cones para lanternas.\n  c. Fazer um par de sinalizadores com materiais naturais.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Transmitir um dos seguintes itens, usando no máximo três segundos para cada caractere ou letra, com uma distância mínima de 300 a 500 m entre um grupo e outro:\n  a. Dois versículos bíblicos.\n  b. Um dos ideais do Clube de Desbravadores.\n  c. Um texto (diálogo) \"surpresa\" (sem aviso prévio) definido pelo instrutor.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Repetir o requisito 3 nas seguintes situações:\n  a. Em um acampamento durante o dia.\n  b. Em um acampamento durante a noite.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir os seguintes sinais:\n  a. Atenção\n  b. Erro\n  c. Numeral\n  d. Alfabeto\n  e. Pausa\n  f. Fim de frase\n  g. Fim da mensagem",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Individualmente ou com a unidade, fazer uma tabela criativa que mostre todos os caracteres numéricos, alfabéticos e de sinalização.",
+   "instructions": null
+  }
+ ]
+}

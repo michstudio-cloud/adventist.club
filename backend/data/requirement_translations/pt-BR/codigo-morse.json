@@ -1,0 +1,43 @@
+{
+ "honor_slug": "codigo-morse",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Morse_Code/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Código Morse",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Em que o código Morse é diferente de outros códigos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são os instrumentos usados para se comunicar em código Morse?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em uma linha do tempo e em um relatório de pelo menos 300 palavras, contar a história da criação do código Morse. Quem o usou inicialmente? Qual foi o motivo de sua criação e de seu uso?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever a transmissão dos seguintes sinais:\n  a. Ponto (.)\n  b. Traço (—)\n  c. Espaço ( )\n  d. SOS\n  e. Fim da mensagem",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Enviar e receber, pelo código Morse internacional, uma palavra ou um versículo bíblico a uma velocidade mínima de uma letra a cada cinco segundos, usando manipulador, lanterna, apito, espelho ou alto-falante (palavras de aproximadamente cinco letras, no mínimo 20 palavras).",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer um quadro criativo que represente o código Morse e seus respectivos caracteres; deve incluir números, alfabeto e pontuação.",
+   "instructions": null
+  }
+ ]
+}
