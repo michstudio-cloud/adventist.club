@@ -1,0 +1,48 @@
+{
+ "honor_slug": "encuadernacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bookbinding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ser capaz de identificar os seguintes termos:\n  a. Corte dianteiro\n  b. Medianiz\n  c. Guarda\n  d. Folha de guarda solta\n  e. Caderno\n  f. Gaze (entretela)\n  g. Lombada\n  h. Cabeça\n  i. Pé\n  j. Borda irregular (deckle edge)\n  k. Folhas de proteção\n  l. Requife (cabeceado)\n  m. Encapamento (casing-in)\n  n. Buckram (tecido encorpado)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever a diferença entre os seguintes métodos de encadernação:\n  a. Brochura colada (lombada quadrada)\n  b. Capa dura\n  c. Caderno único\n  d. Espiral (metálico e plástico)\n  e. Grampeado (canoa)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer o seguinte:\n  a. Encadernar à mão um \"manuscrito\" de caderno único.\n  b. Encadernar um livro em branco com pelo menos quatro cadernos e uma capa dura permanente revestida de tecido, usando o método de \"capa separada\" (case).\n  c. A maneira correta de \"amaciar\" uma encadernação nova.\n  d. Fazer uma \"caixa-luva\" para seu livro em branco de pelo menos quatro cadernos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Identificar e descrever os usos das seguintes ferramentas do encadernador:\n  a. Dobradeira de osso\n  b. Prensa de pedal\n  c. Agulha de dobrar\n  d. Furadores\n  e. Tear de costura\n  f. Cartão esquadrejado\n  g. Perfurador",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir a diferença de gramatura do papel em relação a uma resma de papel.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descrever a cor e as propriedades de três tipos de adesivos usados no processo de encadernação e onde são usados:\n  a. Cola animal aplicada a quente\n  b. Pasta para encapamento\n  c. Colas de resina",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer e citar as cinco etapas principais da encadernação manual:\n  a. Preparação dos cadernos\n  b. Costura dos cadernos\n  c. Colagem da lombada\n  d. Fixação das capas\n  e. Acabamento",
+   "instructions": null
+  }
+ ]
+}

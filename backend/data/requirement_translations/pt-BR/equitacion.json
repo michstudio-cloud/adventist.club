@@ -1,0 +1,68 @@
+{
+ "honor_slug": "equitacion",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Horsemanship/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Identificar, em um desenho do contorno de um cavalo ou em um cavalo vivo, no mínimo 15 partes diferentes do cavalo.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar, em um desenho ou em uma sela e um freio reais: estilo western — no mínimo 10 partes da sela e 6 partes do freio; estilo inglês — no mínimo 9 partes da sela e 7 partes do freio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar e explicar a finalidade do equipamento de segurança ao montar e trabalhar com cavalos: capacete de equitação e botas (ou calçado de sola dura com salto).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar e explicar no mínimo 5 regras para se aproximar de um cavalo e conduzi-lo com segurança.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Demonstrar e explicar no mínimo 5 regras de segurança para trabalhar com cavalos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Demonstrar e explicar como escovar um cavalo com segurança usando as 4 ferramentas básicas: pente para crina e cauda, rasqueadeira, escova dura e escova macia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar uma montagem segura (incluindo a verificação dos arreios) e a desmontagem.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Demonstrar uma posição equilibrada na sela ao montar ao passo, incluindo círculos e mudanças de direção.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar e explicar a partida, a parada, os círculos e as mudanças de direção usando as 4 ajudas naturais: pernas, mãos, voz e peso.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar e explicar 5 regras de segurança em trilhas, incluindo as seguintes:\n  a. Estar atento ao líder e alerta ao perigo.\n  b. Manter o espaçamento correto.\n  c. Não deixar o cavalo comer ao longo da trilha.\n  d. Nunca andar mais rápido que o passo em superfícies pavimentadas.\n  e. Sempre andar ao passo ao se aproximar de um grupo de cavaleiros ou se afastar dele.\n  f. Usar a posição correta em subidas, descidas e obstáculos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Cavalgar em trilha durante no mínimo 3 horas acumuladas, seguindo todas as regras de segurança e usando a posição correta.",
+   "instructions": null
+  }
+ ]
+}

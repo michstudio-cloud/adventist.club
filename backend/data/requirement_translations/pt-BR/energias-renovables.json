@@ -1,0 +1,23 @@
+{
+ "honor_slug": "energias-renovables",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Renewable_Energies/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Energia renovável",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o que é energia renovável.\n  Citar exemplos.\n  Quais são os seus usos?\n  Que interesse elas têm para o planeta?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Escolher uma energia renovável e apresentar diante do clube um relatório explicando como ela funciona.",
+   "instructions": null
+  }
+ ]
+}

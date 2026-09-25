@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-remanente-y-su-mision",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/13_-_The_Remnant_and_its_Mission/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O remanescente e sua missão",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer a profecia em que o apóstolo Paulo anuncia a apostasia da igreja. (2 Tessalonicenses 2:3-4)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender que fatores levaram a igreja a se afastar das verdades sobre Deus. (Apocalipse 2:4; 2 Tessalonicenses 2:9-12)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conhecer as características dos cristãos fiéis à verdade em todas as épocas. (Apocalipse 12:17; 14:12)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar a missão do povo remanescente de Deus nos últimos dias. (Mateus 24:14; Apocalipse 14:6)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Definir o sinal ou selo de Deus que identifica a igreja verdadeira nos últimos dias. (Apocalipse 7:2; Ezequiel 20:20)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar Mateus 28:19.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo a missão de todos os que creem em Jesus. (Marcos 16:15-16)",
+   "instructions": null
+  }
+ ]
+}

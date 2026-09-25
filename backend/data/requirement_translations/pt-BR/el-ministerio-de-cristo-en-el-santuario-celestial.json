@@ -1,0 +1,48 @@
+{
+ "honor_slug": "el-ministerio-de-cristo-en-el-santuario-celestial",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/24_-_Christ's_Ministry_in_the_Heavenly_Sanctuary/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "O ministério de Cristo no santuário celestial",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer a ordem de Deus a Moisés para construir o santuário terrestre e identificar o modelo a ser seguido. (Êxodo 25:8-9, 40; Hebreus 9:24)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Compreender o ministério de Jesus no Céu depois de Sua morte e ressurreição. (Hebreus 8:1-2)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber como Jesus foi identificado durante Seu ministério na Terra. (João 1:29; Isaías 53:4-7)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Relacionar o trabalho do sacerdote no santuário terrestre com o ministério de Cristo no santuário celestial. (Levítico 16:9, 15; Hebreus 9:1-28)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar a ordem dos principais acontecimentos do ministério de Cristo para a salvação dos seres humanos. (1 Coríntios 15:3; Romanos 6:9; 1 Timóteo 2:5; Mateus 25:31-32; 1 Tessalonicenses 4:16-17; Apocalipse 20:12-15)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Memorizar e recitar 1 Timóteo 2:5.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Compartilhar com um amigo o que Jesus está fazendo no Céu hoje e como isso se relaciona com nossa salvação e nosso futuro. (Hebreus 4:14-16)",
+   "instructions": null
+  }
+ ]
+}

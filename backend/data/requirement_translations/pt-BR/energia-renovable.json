@@ -1,0 +1,68 @@
+{
+ "honor_slug": "energia-renovable",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Renewable_Energy/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é energia renovável?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Por que a energia renovável é importante?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como cada uma das seguintes fontes é usada como fonte renovável de energia. Fazer uma ilustração que mostre o uso de pelo menos 3 dessas fontes renováveis de energia.\n  a. Energia eólica\n  b. Bioenergia\n  c. Energia geotérmica\n  d. Energia hidrelétrica\n  e. Energia oceânica\n  f. Energia solar",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Individualmente ou em grupo, discutir algumas das primeiras formas de energia renovável. Há formas de energia que podem ter sido usadas antes do pecado? Por Noé? Pelos patriarcas?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Individualmente ou em grupo, mostrar pelo menos cinco acontecimentos importantes da história da energia renovável por meio de:\n  a. Apresentação\n  b. Vídeo\n  c. Jogo interativo\n  d. Discurso\n  e. Exposição",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Descobrir a fonte da maior parte da energia renovável.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são alguns usos comerciais e industriais da energia renovável?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Por que muitos governos têm investido em fontes de energia renovável? Ser capaz de citar pelo menos dois exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Quais são alguns dos problemas enfrentados pelo uso da energia renovável? Quais são algumas das vantagens e possíveis desvantagens de deixar as fontes de energia fósseis e passar para a energia renovável?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Individualmente ou em grupo, construir, sem usar kit, um dispositivo para aproveitar alguma forma de energia renovável. Esses dispositivos podem incluir:\n  a. Relógio movido a batata\n  b. Motor movido a energia solar ou eólica\n  c. Elevador hidráulico movido a água\n  d. De sua escolha",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Fazer um brainstorming de uma lista de pelo menos quatro textos/histórias bíblicas que ilustrem o uso da energia renovável.",
+   "instructions": null
+  }
+ ]
+}
