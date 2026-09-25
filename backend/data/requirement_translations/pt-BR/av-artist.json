@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-artist",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=39",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Artista",
+ "description": "Classe sugerida: Abelhinhas Laboriosas.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever o que faz um artista.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar as cores primárias.\n  a. Misturar essas cores para obter três cores novas.\n  b. Usar essas seis cores para fazer um desenho.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Demonstrar como apontar lápis e limpar pincéis.\n  a. Apontar dois lápis.\n  b. Limpar seu pincel usando água.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer desenhos separados usando pelo menos dois dos seguintes materiais:\n  a. Tinta para pintura a dedo\n  b. Lápis de cor, giz de cera ou giz\n  c. Canetas hidrográficas\n  d. Caneta, lápis ou carvão",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender uma técnica artística e demonstrar duas das seguintes:\n  a. Carimbo de batata sobre batique\n  b. Estêncil\n  c. Papel machê\n  d. Arte com massa de pão ou modelagem em argila\n  e. Mapa em relevo ou maquete em escala",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer dois dos seguintes itens:\n  a. Um convite\n  b. Um marcador de páginas\n  c. Um cartão de felicitações\n  d. Um cartaz",
+   "instructions": null
+  }
+ ],
+ "notes": "nome: o usado pela DSA para esta especialidade de Aventureiros"
+}

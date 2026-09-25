@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-animal-homes",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=187",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Casas dos animais",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um lar?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Falar sobre sua casa. Fazer um desenho de sua casa e colori-lo.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Os animais também têm casa. Citar cinco animais diferentes e dizer onde eles vivem.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Como os animais sabem o que fazer para construir sua casa?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Escolher um animal e fazer o seguinte:\n  • Observar o animal (pode ser em um zoológico ou em um vídeo).\n  • Desenhar ou colorir uma figura do animal.\n  • Fazer uma maquete da casa dele.\n  • Mostrar seu desenho e sua maquete na noite das famílias do seu clube.\n  • Contar às pessoas o que você aprendeu sobre o animal e sua casa.",
+   "instructions": null
+  }
+ ]
+}

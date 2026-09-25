@@ -1,0 +1,39 @@
+{
+ "honor_slug": "av-bible-friends-ii",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=337",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigos da Bíblia II",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que significa ser amigo?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três amigos da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quem é seu amigo da Bíblia preferido? Contar uma história sobre essa pessoa.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fantasiar-se e representar uma história sobre um amigo da Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dizer três coisas que você pode fazer para ser amigo de Jesus.",
+   "instructions": null
+  }
+ ],
+ "notes": "nome: o usado pela DSA para esta especialidade de Aventureiros"
+}

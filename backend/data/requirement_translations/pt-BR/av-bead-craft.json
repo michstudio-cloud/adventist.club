@@ -1,0 +1,48 @@
+{
+ "honor_slug": "av-bead-craft",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=43",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Artesanato com contas",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é uma conta (miçanga)?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "De onde vem a palavra “conta”?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar alguns dos materiais usados para fazer contas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Contar pelo menos duas curiosidades sobre a história das contas.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar pelo menos três coisas que você pode fazer com contas.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer quatro ou mais objetos diferentes com contas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Dar um de seus trabalhos com contas a alguém, por exemplo, a uma pessoa idosa. Contar a ela o que você aprendeu sobre as contas e explicar o que o presente que você fez tem de especial.",
+   "instructions": null
+  }
+ ]
+}
