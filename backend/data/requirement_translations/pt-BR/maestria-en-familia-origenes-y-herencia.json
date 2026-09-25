@@ -1,0 +1,23 @@
+{
+ "honor_slug": "maestria-en-familia-origenes-y-herencia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Family,_Origins_and_Heritage_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Família, origens e herança",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Para receber o Mestrado em Família, origens e herança, o Desbravador deve conquistar SETE especialidades, incluindo duas destas:\n  - Herança dos pioneiros adventistas\n  - Mensageira de Deus\n  - Introdução à herança dos pioneiros adventistas",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "E conquistar cinco das seguintes:\n  - Arqueologia bíblica\n  - Cidadania cristã\n  - Melhoria da comunidade\n  - Criacionismo\n  - Criacionismo - Avançado\n  - Etnologia missionária\n  - Escatologia\n  - Vida familiar\n  - Bandeiras\n  - Bandeiras - Avançado\n  - Genealogia\n  - Estudo de línguas",
+   "instructions": null
+  }
+ ]
+}

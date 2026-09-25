@@ -1,0 +1,18 @@
+{
+ "honor_slug": "maestria-en-habilidades-vocacionales",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Technician_Master_Award",
+ "license": "CC BY-SA 3.0",
+ "name": "Mestrado em Habilidades profissionais",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O Mestrado em Habilidades profissionais é conquistado quando o Desbravador conquista SETE especialidades quaisquer da categoria Atividades Profissionais desta lista.\n  - Contabilidade II\n  - Mecânica automotiva\n  - Mecânica automotiva - Avançado\n  - Barbearia\n  - Evangelismo\n  - Encadernação\n  - Contabilidade\n  - Carpintaria\n  - Vendas\n  - Comunicações\n  - Comunicações - Avançado\n  - Eletricidade\n  - Segurança contra incêndios\n  - Silvicultura\n  - Pintura de paredes exteriores\n  - Pintura de paredes interiores\n  - Jornalismo\n  - Alvenaria\n  - Colocação de papel de parede\n  - Hidráulica\n  - Tipografia\n  - Radioamadorismo\n  - Radioamadorismo - Avançado\n  - Radioeletrônica\n  - Conserto de sapatos\n  - Taquigrafia\n  - Mecânica de pequenos motores\n  - Magistério\n  - Datilografia\n  - Estofaria\n  - Soldagem\n  - Soldagem\n  - Marcenaria\n  - Processamento de texto",
+   "instructions": null
+  }
+ ]
+}

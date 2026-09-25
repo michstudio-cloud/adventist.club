@@ -1,0 +1,58 @@
+{
+ "honor_slug": "malabarismo",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Juggling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar o seguinte:\n  a. A diferença entre um flash e um malabarismo\n  b. A diferença entre uma cascata e uma fonte",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Segurança:\n  a. Que objetos são adequados para fazer malabarismo?\n  b. Que objetos não são adequados para fazer malabarismo?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Saber o que é a notação siteswap e saber explicar os seguintes padrões:\n  a. 3 (malabarismo com 3 bolas)\n  b. 4 (malabarismo com 4 bolas)\n  c. 441 (3 bolas em forma de U)\n  d. 53 (meio chuveiro com 4 bolas)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Conhecer estas outras notações siteswap:\n  a. 55500 (3 para cima)\n  b. 52512 (padrão baby juggling)\n  c. 531\n  d. 0123456\n  e. 51 (chuveiro com 3 bolas)",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar o seguinte:\n  a. Como saber quantas bolas há em um padrão siteswap?\n  b. Por que 352 é um padrão inválido?\n  c. Por que 351 é um padrão inválido?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Assistir a um vídeo de três malabaristas profissionais praticando sua arte.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Teoria e prática de passes:\n  a. O que é um padrão de contagem 3? Por que é um padrão comum para iniciantes?\n  b. O que é um início lento?\n  c. O que é um início rápido?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer dois dos quatro itens a seguir:\n  a. Fazer malabarismo com 3 bolas por pelo menos 15 recepções\n  b. Fazer malabarismo com 2 bolas em 1 mão\n  c. Fazer um flash com 4 bolas\n  d. Trocar passes com outra pessoa por pelo menos 12 recepções",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como o malabarismo pode ser usado no evangelismo ou no ministério?",
+   "instructions": null
+  }
+ ]
+}
