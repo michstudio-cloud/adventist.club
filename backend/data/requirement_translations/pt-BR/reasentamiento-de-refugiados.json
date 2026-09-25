@@ -1,0 +1,43 @@
+{
+ "honor_slug": "reasentamiento-de-refugiados",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Refugee_Resettlement/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Reassentamento de refugiados",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever algumas causas gerais pelas quais os refugiados se mudam para outros países. Definir também os termos refugiado, deslocado interno (PDI) e imigrante e explicar em que essas palavras são semelhantes ou diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista das necessidades imediatas que um refugiado pode ter ao chegar a seu novo país. Descrever como você se sentiria se de repente tivesse que enfrentar uma nova língua, cultura e ambiente.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descobrir que organizações de sua comunidade, de seu país ou do mundo ajudam refugiados e deslocados internos.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever num parágrafo curto como você ajudaria um refugiado ou deslocado interno em sua comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Perguntar a uma pessoa de outro país que mora em sua comunidade como ela se adaptou ao novo ambiente. Pedir que ela descreva os desafios e os contrastes que viveu no processo de se estabelecer na comunidade.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar um breve relatório em seu Clube de Desbravadores, igreja, escola ou grupo cívico sobre o que você aprendeu a respeito dos refugiados e deslocados internos e dos desafios que eles enfrentam. Isso pode ser feito por meio de uma apresentação, dramatização, vídeo curto ou qualquer método que transmita melhor suas descobertas. Discutir por que é importante estar atento à situação dos refugiados e procurar soluções para essa questão.",
+   "instructions": null
+  }
+ ]
+}

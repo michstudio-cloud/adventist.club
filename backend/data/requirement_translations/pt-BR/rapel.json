@@ -1,0 +1,63 @@
+{
+ "honor_slug": "rapel",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Abseiling/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar o seguinte:\n  a. Fazer uma lista das regras de segurança e explicá-las\n  b. Explicar a tabela dos “perigos de queda”.",
+   "instructions": "Seção: Segurança"
+  },
+  {
+   "position": 2,
+   "description": "Explicar o uso dos seguintes nós:\n  a. Nó de fita\n  b. Borboleta alpina\n  c. Oito em alça\n  d. Pescador duplo\n  e. Prusik\n  f. Lais de guia",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenhar os diagramas de montagem das seguintes descidas de rapel:\n  a. Técnica de corda simples\n  b. Montagem para canionismo",
+   "instructions": "Seção: Montagem"
+  },
+  {
+   "position": 4,
+   "description": "Conhecer as maneiras de identificar ancoragens seguras em diversas circunstâncias, por exemplo, árvores, rochas, cabeços de amarração.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Explicar os diversos comandos verbais.",
+   "instructions": "Seção: Segurança na corda (belay)"
+  },
+  {
+   "position": 6,
+   "description": "Explicar o princípio da segurança na corda (belay) e os três métodos usados, e indicar as vantagens e desvantagens de cada método:\n  a. Segurança pelo corpo\n  b. Segurança mecânica\n  c. Segurança pela base",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista das regras de cuidado com as cordas.",
+   "instructions": "Seção: Cuidado com o equipamento"
+  },
+  {
+   "position": 8,
+   "description": "Explicar a diferença entre corda dinâmica e corda estática.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer o tipo certo de equipamento necessário para o rapel.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Conhecer a melhor maneira de guardar suas cordas, por exemplo, enrolando-as e fazendo corrente.\n  11 a. Saber que aparelho de descida usar em diferentes rapéis.\n  11 b. Dar os motivos pelos quais você escolheu esse aparelho, por exemplo, tempo para colocar/tirar, segurança, calor, versatilidade etc.\n  12. Saber como tratar uma vítima das seguintes lesões:\n  a. Entorses\n  b. Concussão\n  c. Hipotermia\n  d. Fratura\n  e. Estado de choque\n  13. Explicar como realizar os seguintes resgates:\n  a. O sistema de polias\n  b. O método de transferência (change-over)\n  1. Ser aprovado no exame de rapel com nota mínima de 60%. O exame pode ser obtido no departamento de ministérios jovens da Associação ou com o instrutor.\n  2. Responder às perguntas sobre os seguintes temas:\n  a. Usos dos seis nós de rapel\n  b. Quais são os comandos padrão de escalada e qual é o significado de cada um\n  c. Usos de vários aparelhos de descida\n  d. Citar sete regras de cuidado com a corda\n  e. Citar sete regras de segurança\n  f. Conhecer primeiros socorros e como tratar as vítimas\n  g. Citar cinco maneiras de detectar defeitos nas cordas\n  3. Realizar as seguintes tarefas:\n  a. Dar os seis nós\n  b. Montar o sistema de corda simples e o sistema para canionismo\n  c. Assistir a um resgate em penhasco demonstrado pelo instrutor\n  d. Enrolar uma corda e fazer corrente\n  e. Montar os métodos de segurança na corda\n  4. De uma altura mínima de 10 metros, fazer duas descidas de rapel com cada um dos seguintes aparelhos e saber prendê-los à corda:\n  a. Rabo de baleia (whale tail)\n  b. Robot\n  c. Arpão (acesso fácil)\n  d. Oito\n  e. Barra de freio com piton\n  f. Rack de rapel\n  g. Arpão (convencional)\n  h. Mosquetões cruzados\n  5. Explicar como fazer o rapel clássico e o rapel sobre o ombro, para uso em emergências.\n  6. Ser capaz de subir com Prusik um penhasco de dez metros.",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "honor_slug": "reanimacion-cardiopulmonar-rcp",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/CPR/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Completar com êxito um curso oferecido pela American Heart Association, pela Cruz Vermelha Americana ou por uma instituição equivalente, com um instrutor certificado, a fim de aprender e demonstrar corretamente a RCP feita por um socorrista. Isso deve ter ocorrido nos últimos 12 meses.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conhecer e compreender a localização e a função do coração e dos pulmões.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir RCP e citar cinco situações em que ela seria usada.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Compreender o conceito de vida prudente para o coração. Fazer uma lista de cinco coisas que uma pessoa pode fazer para manter o coração saudável.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Elaborar, seguir e registrar durante um mês um programa personalizado de exercícios, saúde e hábitos alimentares.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Aprender o significado das cores e do desenho usados no distintivo desta especialidade, conforme segue:\n  a. A pessoa que precisa de RCP é branca, o que significa ausência de circulação.\n  b. A pessoa que faz a RCP é vermelha, o que significa uma pessoa bem viva.\n  c. O fundo roxo significa lealdade ou compromisso.\n  d. A borda dourada fala do valor da vida humana.\n  e. A cabeça, os ombros e os braços da pessoa que faz a RCP formam um coração, o que significa compaixão pelo próximo.",
+   "instructions": null
+  }
+ ]
+}
