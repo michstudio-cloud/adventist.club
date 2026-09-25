@@ -1,0 +1,58 @@
+{
+ "honor_slug": "haystacks",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Haystacks/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Haystacks",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever brevemente a história dos Haystacks.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever como o prato possivelmente recebeu o nome \"Haystacks\" (medas de feno).",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever como os Haystacks combinam com o estilo de vida adventista.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista dos ingredientes básicos dos Haystacks.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de sete ingredientes para a mistura de feijão.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma lista de sete coberturas adicionais.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Tirar uma lição objetiva espiritual do almoço de sábado compartilhado como comunidade cristã da igreja.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Planejar, preparar e servir uma refeição de Haystacks para pelo menos sete pessoas de uma só vez.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Com os colegas de classe do Clube de Desbravadores, fazer um debate sobre o melhor lugar para o queijo no prato.",
+   "instructions": null
+  }
+ ]
+}

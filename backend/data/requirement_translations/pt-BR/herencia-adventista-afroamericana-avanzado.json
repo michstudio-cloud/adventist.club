@@ -1,0 +1,23 @@
+{
+ "honor_slug": "herencia-adventista-afroamericana-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/African_American_Adventist_Heritage_in_the_NAD_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Herança adventista afro-americana em DNA.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Preparar apresentações com base em sua pesquisa sobre dois dos seguintes temas. A apresentação pode ser em qualquer um dos formatos a seguir, citando todas as fontes usadas:\n  Apresentação eletrônica\n  Mural/painel de exposição\n  Apresentação oral\n  Relatório escrito (mínimo de uma página)\n  a. Traçar a trajetória do Morning Star desde seu lançamento em Allegan, Michigan, em 1894, até ser encalhado nos anos 1900. Incluir uma linha do tempo.\n  b. A história da formação de uma das Associações Regionais e a localização de sua sede administrativa atual e de seus administradores executivos. Incluir fotos, datas e boletins, quando houver.\n  c. Um dos seguintes líderes e suas contribuições para a Igreja Adventista do Sétimo Dia.\n    i. E. E. Cleveland\n    ii. W. H. Green\n    iii. Delbert Baker\n    iv. Calvin B. Rock\n    v. Calvin E. Moseley\n    vi. Hyveth Williams\n    vii. Daniel Davis",
+   "instructions": null
+  }
+ ]
+}

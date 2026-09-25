@@ -1,0 +1,68 @@
+{
+ "honor_slug": "habilidad-matematica-iv",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Math_Skills_IV/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Habilidades matemáticas IV",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Habilidades matemáticas III.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Apresentar um relatório bibliográfico sobre pelo menos cinco pessoas que contribuíram para o desenvolvimento da matemática ao longo da história da humanidade.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Desenvolver e apresentar os cálculos das seguintes equações:\n  a. 5x² - 3x - 2 = 0\n  b. 3x² + 55 = 0\n  c. x² - 10x + 25 = 0",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar e desenvolver os cálculos de porcentagem dos seguintes problemas:\n  a. 3% de 450\n  b. 25% de 1440\n  c. 30% de 2500",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar por escrito três situações práticas em que usamos porcentagens no dia a dia.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar e desenvolver três situações práticas de problemas do cotidiano em que usamos a equação do segundo grau.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Resolver e apresentar o desenvolvimento das seguintes funções, considerando que f(x) = x - 3 e g(x) = -3x + 4.\n  a. f(f(0))\n  b. f(f(1)) + g(f(3))",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Representar as seguintes funções em um gráfico cartesiano:\n  a. y = 3x-1\n  b. f(x) = 2x + 3",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Demonstrar habilidade para resolver problemas com círculos: como calcular o comprimento da circunferência e a área usando a fórmula de cada um. Apresentar dois exemplos de cada.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Demonstrar habilidade para calcular a área de polígonos regulares, como um hexágono inscrito em uma circunferência, a área da superfície de um cilindro, o volume de um prisma e o volume de uma pirâmide.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "No dia a dia, lidamos com todo tipo de taxas de juros. Demonstrar habilidade para resolver as duas situações de juros mais comuns.\n  a. Luciana fez um investimento de $100 a juros simples de 2% ao mês. Quanto ela terá no total depois de 8 meses de investimento?\n  b. Davi pediu um empréstimo bancário de $3000 e vai pagar em 6 meses, com juros compostos de 1,5% ao mês. Calcular o total a ser pago ao banco depois de 6 meses.",
+   "instructions": null
+  }
+ ]
+}
