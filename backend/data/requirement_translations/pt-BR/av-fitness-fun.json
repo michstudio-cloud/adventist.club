@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-fitness-fun",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=285",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Cultura física",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista de pelo menos quatro coisas que contribuem para a boa forma física.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Correr ou trotar 800 metros (aproximadamente meia milha), OU correr cinquenta metros em dez segundos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Fazer um salto em altura. (Registrar o mais alto de quatro saltos.)",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pular corda durante três minutos.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer três alongamentos diferentes. Manter cada um por no mínimo dez segundos.\n  a. Pernas\n  b. Costas\n  c. Braços/ombros",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar de uma pista de obstáculos.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Demonstrar sua capacidade de fazer o seguinte:\n  a. Dez abdominais\n  b. Subir em um poste, uma corda ou uma árvore\n  c. Ficar pendurado em uma barra com as mãos e os joelhos",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Com seu grupo, participar de um jogo organizado que exija boa forma física, por exemplo, jogo de bola, corrida de revezamento, pula-sela etc.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Cultura física», son los de Fitness Fun)"
+}

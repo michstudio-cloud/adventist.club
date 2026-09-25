@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-friend-of-jesus",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=363",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigo de Jesus",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Falar de Jesus a um amigo e contar como Ele é bom para você.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Convidar um amigo para uma reunião em sua igreja.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Com seu conselheiro ou outro adulto que ajude, preparar uma meditação ou uma oração para ser apresentada na Escola Sabatina, em uma reunião do clube ou na escola.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de uma atividade missionária (evangelismo ou testemunho).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Assistir a um batismo e conversar sobre o que ele significa.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Explicar o que significa ser amigo de Jesus e citar cinco amigos de Jesus mencionados na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Falar com bondade com sua família e seus amigos. Conversar sobre como ser bondoso e cortês também é ser amigo de Jesus.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Ser capaz de orar na hora das refeições e na hora de dormir.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

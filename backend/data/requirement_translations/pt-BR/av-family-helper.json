@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-family-helper",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=119",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Ajudante da família",
+ "description": "Classe sugerida: Edificadores.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler os seguintes versículos bíblicos e conversar sobre eles:\n  a. Filipenses 2:14\n  b. João 15:12\n  c. Salmo 118:7\n  d. Gálatas 6:9",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quem é um ajudante da família?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conversar sobre coisas que eu posso fazer para ser um ajudante.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um registro durante 3 semanas anotando como você foi um ajudante.\n  a. A cada semana, conversar com seu orientador sobre o progresso daquela semana.\n  b. Conversar sobre as formas como você ajudou e de qual gostou mais.\n  c. Conversar sobre outras formas como você poderia ter ajudado.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um cartão/bilhete de agradecimento para seu pai, sua mãe ou responsável, agradecendo por tudo o que fazem por você.",
+   "instructions": null
+  }
+ ]
+}

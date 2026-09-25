@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-friend-of-nature",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=213",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigo da natureza",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Explicar:\n  a. Como se tornar amigo da natureza\n  b. Como colher uma flor e quando é permitido\n  c. Como proteger árvores, ninhos etc.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista com os nomes de três árvores diferentes e fazer um decalque da casca de cada uma.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Colecionar quatro tipos diferentes de folhas e compará-las.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma das seguintes atividades:\n  a. Explorar (ou observar com uma lupa) tudo o que você consegue ver em uma área de dez pés quadrados (cerca de 1 m²).\n  b. Explorar um quintal ou um parque e conversar sobre o que você vê.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades:\n  a. Fazer uma caminhada na natureza e recolher itens interessantes.\n    i. Mostrar os itens que você encontrou ou falar sobre eles.\n    ii. Fazer com eles uma colagem ou um cartaz.\n  b. Visitar um dos seguintes lugares e contar o que você viu:\n    iii. Zoológico\n    iv. Parque\n    v. Área de vida silvestre",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Cultivar uma planta ou um bulbo e fazer desenhos dela em três fases diferentes de seu crescimento.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}

@@ -1,0 +1,38 @@
+{
+ "honor_slug": "av-gadgets-and-sand",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=63",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Utensílios e areia",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Usando xícaras e colheres medidoras de plástico, medir, despejar e recolher diferentes quantidades de areia e colocá-las em um balde ou em outro recipiente. Conversar sobre as diferentes medidas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um quadro com areia, usando cola para fixar a areia.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando funis e pás, encher garrafas (garrafas plásticas de leite, frascos de xarope etc.) com areia. Usar funis de dois tamanhos diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Colocar feijões secos em um balde com areia. Misturar tudo. Usando uma peneira, separar os feijões da areia e colocá-los em outro recipiente.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer um desenho dos feijões no balde de areia ou montar uma figura com feijões.",
+   "instructions": null
+  }
+ ]
+}

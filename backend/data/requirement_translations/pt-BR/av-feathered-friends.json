@@ -1,0 +1,54 @@
+{
+ "honor_slug": "av-feathered-friends",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=205",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Amigo das aves",
+ "description": "Classe sugerida: Luminares.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Contar como Deus cuida das aves.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer um comedouro simples para aves ou um comedouro com pinha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Ser capaz de reconhecer dez aves diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Participar de um jogo sobre aves.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Desenhar e/ou colorir figuras dos seguintes:\n  a. duas aves aquáticas\n  b. duas aves que comem sementes\n  c. uma ave predadora",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ser capaz de imitar o canto de cinco aves.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma árvore de Natal ou uma cesta de Páscoa para as aves.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Observar algumas aves vivas, imitar seus movimentos e recolher penas sempre que possível. Lembre-se de que guardar penas de aves migratórias é ilegal em alguns estados dos Estados Unidos, se não em todos.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros (sus requisitos, «Amigo das aves», son los de Feathered Friends)"
+}

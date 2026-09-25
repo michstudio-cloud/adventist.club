@@ -1,0 +1,49 @@
+{
+ "honor_slug": "av-fruits-of-the-spirit",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=365",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Fruto do Espírito",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Escolher um aspecto do “fruto do Espírito” de Gl 5:22 e 23 e memorizar os versículos.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Encontrar um versículo bíblico que explique o aspecto do “fruto do Espírito” que você escolheu.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Encontrar uma história da Bíblia que mostre o aspecto do “fruto do Espírito” que você escolheu. Representar a história.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer um desenho que mostre o aspecto do “fruto do Espírito” que você escolheu em ação.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Aprender ou inventar uma música que mostre o aspecto do “fruto do Espírito” que você escolheu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Contar uma ocasião em que você demonstrou ou praticou o aspecto do “fruto do Espírito” que você escolheu sem que ninguém mandasse.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um trabalho manual que represente o aspecto do “fruto do Espírito” que você escolheu ou ajude você a entender seu significado.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}
