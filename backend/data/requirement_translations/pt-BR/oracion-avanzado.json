@@ -1,0 +1,68 @@
+{
+ "honor_slug": "oracion-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Prayer_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter conquistado antes a especialidade de Oração.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ler e conversar em grupo sobre o propósito da oração conforme apresentado em Tiago 1:2-9.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Examinar orações respondidas na Bíblia de vários personagens bíblicos e depois apresentar uma esquete sobre duas dessas histórias de oração e as respostas às orações (Sansão, Davi, Ezequias, Moisés, Eliseu, Daniel etc.).",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Em 1 Tessalonicenses 5:17 lemos que devemos \"orar sem cessar\". Conversar sobre o que isso significa e como pode ser feito.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Ler ou ouvir o capítulo de Caminho a Cristo, de Ellen G. White, intitulado \"O privilégio da oração\" e conversar com um grupo sobre o que você aprendeu.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Ellen White escreve em O Grande Conflito: \"Faz parte do plano de Deus conceder-nos, em resposta à oração da fé, aquilo que Ele não concederia se assim não pedíssemos.\"\n  a. Conversar sobre o significado dessa passagem para um cristão.\n  b. Na conversa, perguntar: \"Por que você acha que Deus faz algo em resposta à oração que de outro modo não faria?\"",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Memorizar seis versículos diferentes sobre oração. Para cada passagem memorizada, saber dizer (conforme o caso):\n  a. Pelo que a pessoa orou\n  b. O local da oração\n  c. O momento em que a pessoa orou\n  d. A posição da pessoa ao orar",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar três pessoas sobre orações respondidas e compartilhar as histórias com seu clube, unidade, igreja ou família.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar um plano para orar em público.\n  a. Praticar sua oração antes de orar com outras pessoas\n  b. Ao orar a Deus, falar com Ele como um amigo",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Orar em voz alta em duas das seguintes ocasiões:\n  a. Reunião de Desbravadores/JA\n  b. Reunião escolar\n  c. Almoço comunitário\n  d. Escola Sabatina\n  e. Culto da igreja\n  f. Reunião de oração/pequeno grupo",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Manter um diário de oração durante seis semanas, registrando suas orações e as respostas percebidas.",
+   "instructions": null
+  }
+ ]
+}
