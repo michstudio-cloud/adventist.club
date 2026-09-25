@@ -1,0 +1,53 @@
+{
+ "honor_slug": "av-playing-with-friends",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=299",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Brincando com amigos",
+ "description": "Classe sugerida: Passarinhos.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "O que é um amigo?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar três maneiras de fazer amigos.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Citar quatro assuntos sobre os quais você pode conversar para ser simpático com alguém.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Citar quatro coisas que você precisa levar em conta ao escolher um amigo.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar três maneiras de saber se uma pessoa é um bom amigo para você.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Jesus tinha amigos? Pedir a um adulto que ajude você a encontrar na Bíblia uma história sobre alguns dos amigos Dele.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um trabalho manual para dar ao seu amigo.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma das seguintes atividades, à sua escolha:\n  a. Aprender uma música sobre amigos.\n  b. Fazer um álbum de recortes sobre um novo amigo.\n  c. Escrever uma história sobre um amigo.\n  d. Escrever um poema sobre um amigo.\n  e. Contar uma história sobre um amigo.",
+   "instructions": null
+  }
+ ]
+}

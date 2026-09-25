@@ -1,0 +1,44 @@
+{
+ "honor_slug": "av-prayer-warrior",
+ "ministry": "adventurers",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-gc-award-book-2020",
+ "source_url": "https://www.gcyouthministries.org/ministries/adventurers/#page=395",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "name": "Guerreiro de oração",
+ "description": "Classe sugerida: Mãos Ajudadoras.",
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler o que Paulo disse sobre a armadura de Deus (Efésios 6:11-18) e fazer um cartaz ou um trabalho manual que mostre a armadura de Deus.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Citar cinco guerreiros de oração do Antigo Testamento e ler na Bíblia a história de um deles. Como a vida deles foi transformada por conversar com Deus?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Conversar sobre como e onde orar.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Aprender por quem devemos orar e escrever uma oração sua. Ler essa oração no Clube de Aventureiros, na classe da Escola Sabatina ou durante o culto.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conversar sobre por que você ora.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer uma caminhada de oração com os Aventureiros ou com sua família. Conversar sobre como você se sentiu durante a caminhada.",
+   "instructions": null
+  }
+ ],
+ "notes": "nombre: el que usa la DSA (Divisão Sul-Americana) para esta especialidad de Aventureiros"
+}
