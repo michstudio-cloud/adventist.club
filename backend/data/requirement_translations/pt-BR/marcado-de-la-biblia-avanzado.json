@@ -1,0 +1,38 @@
+{
+ "honor_slug": "marcado-de-la-biblia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bible_Marking_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Marcação bíblica.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Marcar mais dois estudos bíblicos, usando no mínimo vinte textos em cada um.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Usando uma concordância, marcar dez textos para estudo devocional.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Por escrito:\n  a. Apresentar as diretrizes seguidas para manter um procedimento de marcação claro.\n  b. Fornecer uma legenda para entender suas marcações na Bíblia.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Dar um estudo bíblico a partir de um roteiro que você marcou.",
+   "instructions": null
+  }
+ ]
+}
