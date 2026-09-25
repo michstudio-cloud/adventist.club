@@ -1,7 +1,7 @@
 # Pendientes al cierre del 2026-09-24
 
 Estado de la plataforma al terminar la jornada y lo que queda por hacer, en orden de prioridad.
-Producción: backend `api.adventist.club` (Render), frontend `conquistadores.app` / `admin.adventist.club` (Vercel), base Neon con migraciones **001–022 aplicadas**. Backend 1018 pruebas; frontend 24 tests + tsc/eslint/build; e2e 12/12 jornadas.
+Producción: backend `api.adventist.club` (Render), frontend `conquistadores.app` / `admin.adventist.club` (Vercel), base Neon con migraciones **001–024 aplicadas**. Backend 1108 pruebas; frontend 40 tests + tsc/eslint/build; e2e 12/12 jornadas.
 
 ## 1. En producción desde hoy
 
@@ -32,7 +32,13 @@ Si alguno no terminó, su worktree está en el scratchpad de la sesión (`wt-des
 
 **Fusionada y publicada (2026-09-24, noche):** las tres ramas se unieron en `feat/desktop-fase2` y llegaron a `main` del frontend en `81b942e` (gates verdes, 33 tests, e2e 01/04/08/10). Verificado en producción a 1440: `/categories` con riel de filtros (ministerio, categoría, nivel), `/honors/<id>` a dos columnas con parche sin caja y migas; 375/768 idénticos. Worktrees de escritorio eliminados. Pendiente de la fase 2: contraste de `cq-segmented` (4,18:1) en `primitives.css`.
 
-**En curso (agente `feat/ministry-switcher`, ambos repos):** selector de ministerio en el armazón (Conquistadores / Aventureros / Guías Mayores, solo con sesión) con cambio de club; Aventureros carga los 164 awards y 6 clases (borradores visibles solo a MASTER/admin hasta publicar); Guías Mayores usa las especialidades de Conquistadores más un catálogo nuevo de medallones, maestrías y certificaciones de entrenamiento del Ministerio de Clubes (migración **024**, importador del EMC en borrador). Sin sesión nada cambia.
+**Publicado más tarde (2026-09-24, noche):**
+- Catálogo de escritorio: las categorías son píldoras dentro del riel de filtros (`FilterPills`), sin la fila repetida sobre la retícula (`346d1b5`). Contraste AA de `cq-segmented` con el token `--segment-foreground`.
+- Asistente en escritorio: sin barra ancha; «Atrás»/«Continuar» como círculos con flecha al pie derecho (`cq-actionbar--float`, `2c1d557`). Móvil intacto.
+- Miniaturas de los diseños (backend `3c09672`): al arrancar, el servidor pre-renderiza en R2 las que falten (un deploy que toca el motor las invalidaba todas y el primero en abrir el asistente esperaba decenas de renders); con `?v=` vigente la respuesta se cachea un año (`THUMBNAIL_WARMUP`, `THUMBNAIL_WARMUP_DELAY`). Verificado: 78 variantes en R2.
+- **Selector de ministerio y club** (backend `04bcec0`, frontend `2f9f928`; migración **024 aplicada en Neon**): con sesión, el armazón ofrece Conquistadores / Aventureros / Guías Mayores (Jóvenes si el club lo tiene) y el club activo; `GET /auth/me` y `/users/me` traen `ministries_available`, `active_ministry`, `clubs_available`, `active_club_id`; `PATCH /users/me/preferences`. Aventureros: los 164 awards y 6 clases (borradores solo para MASTER_GC; el miembro ve «en revisión» hasta publicar). Guías Mayores: especialidades de Conquistadores + pestaña «Certificaciones» (`/categories?vista=certificaciones`, ficha `/certificaciones/[id]`) y `/clases` con el currículo. Sin sesión nada cambia. Cargado en Neon en BORRADOR: 5 certificaciones EMC (`TRAINING`) + 1 maestría y 1 medallón de ejemplo («sustituir»). Certificados de Aventureros: solo con Editorial, Académico y Retícula verde (Marco multicolor, Dorada y Bloques azules llevan el escudo de Conquistadores pintado en el fondo: falta arte de Aventureros). Decisiones del propietario: lista oficial de medallones; si la maestría es especialidad (mundoja lista 17 como especialidades de Conquistadores) o programa de Guías Mayores; EMC para el personal de Aventureros; publicar el EMC (`import_master_guide_catalog.py --commit --publish`). Detalle: la hoja del teléfono se pinta fuera del armazón y la marca de selección sale naranja en vez del color del ministerio. El e2e 02 tiene un paso obsoleto (el directorio de clubes ya exige sesión): actualizar el guion.
+
+**En curso (agentes, frontend):** `feat/desktop-fase3` (panel del director 04 + asistente a dos columnas 05) y `feat/desktop-fase4` (admin de clubes 06). Al terminar: fusionar por separado, gates, 375/768 idénticos, publicar; luego fase 5 (regresión, AA, teclado).
 
 ## 3. Siguiente plan (fases 3–5 de escritorio)
 
@@ -66,11 +72,11 @@ Decisiones tomadas hoy (ya aplicadas): firma guardada en bucket público; «uno 
 
 ## 5. Entorno local (para retomar)
 
-- Postgres de pruebas: cluster en el scratchpad de la sesión (`pgdata-main`, puerto 55432, rol `test`, bases `etl_hontr` y `etl_e2e`, migraciones hasta 022 y semillas). Vive bajo `/private/tmp`: la limpieza nocturna de macOS puede borrarlo; receta de reconstrucción en la memoria del asistente (`local-verification-setup`).
+- Postgres de pruebas: cluster en el scratchpad de la sesión (`pgdata-main`, puerto 55432, rol `test`, bases `etl_hontr` y `etl_e2e`, migraciones hasta 024 y semillas). Vive bajo `/private/tmp`: la limpieza nocturna de macOS puede borrarlo; receta de reconstrucción en la memoria del asistente (`local-verification-setup`).
 - Suite backend: `TZ=UTC TEST_DATABASE_URL=postgresql://test@127.0.0.1:55432/etl_hontr python -m pytest -q`.
 - Frontend: `npx tsc --noEmit && npx eslint . --ignore-pattern '.claude/**' && rm -rf .next && npm run build && npm test`.
 - e2e: `scripts/e2e/run.mjs` (ver cabecera del archivo).
-- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **024**; la 023 `certificates.text_overrides` ya está aplicada).
+- Publicar: push a `main` de cada repo (Render y Vercel despliegan solos); aplicar antes en Neon cualquier migración nueva (siguiente número libre: **025**; la 024 `programs.kind` + `users.active_ministry_id` ya está aplicada).
 
 ## 6. Especialidades de Aventureros (awards) — pendiente, documentado
 
