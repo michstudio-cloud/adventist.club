@@ -1,0 +1,48 @@
+{
+ "honor_slug": "pacificador-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Peace_Maker_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pacificador.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir mediação e arbitragem e discutir as semelhanças e diferenças entre elas.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Identificar e demonstrar o papel e as responsabilidades de um mediador e de um árbitro eficazes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir a diferença entre litígio (uma relação de adversários) e conciliação cristã.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar que tipos de conflitos devem ser:\n  a. Mediados\n  b. Arbitrados\n  c. Levados à Justiça\n  d. Negociados",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Participar da mediação de um conflito (por exemplo, uma dramatização) entre duas pessoas ou grupos e discutir o processo, identificando o que funcionou, o que não funcionou e por quê.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Participar da arbitragem de um conflito (por exemplo, uma dramatização) entre duas pessoas ou grupos e discutir o processo, identificando o que funcionou, o que não funcionou e por quê.",
+   "instructions": null
+  }
+ ]
+}

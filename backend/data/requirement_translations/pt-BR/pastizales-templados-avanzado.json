@@ -1,0 +1,33 @@
+{
+ "honor_slug": "pastizales-templados-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Temperate_Grasslands_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Pradarias temperadas - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Pradarias temperadas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Visitar uma pradaria durante pelo menos um dia. Escrever um relatório sobre os seguintes pontos (incluir mapas, fotografias ou desenhos pode ajudar):\n  Onde ficava a pradaria que você visitou?\n  Quando você a visitou?\n  O que você fez lá?\n  Que novas informações você aprendeu sobre esse tipo de hábitat, além do que aprendeu na especialidade básica?\n  Apresentar informações sobre a pradaria específica que você visitou.\n  O que você aprendeu sobre si mesmo durante a visita à pradaria?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Participar de um projeto de conservação voltado para a proteção desse hábitat.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Apresentar a um grupo uma lição espiritual baseada em seus esforços de conservação.",
+   "instructions": null
+  }
+ ]
+}
