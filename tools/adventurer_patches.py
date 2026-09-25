@@ -68,7 +68,7 @@ CLASS_ES = {
     "Early Bird": "Aves Madrugadoras",
     "Busy Bee": "Abejas Industriosas",
     "Sunbeam": "Rayos de Sol",
-    "Builder": "Constructores",
+    "Builder": "Constructor",  # mundoja.org (DIA) names the class in singular
     "Helping Hand": "Manos Ayudadoras",
     "Helping Hands": "Manos Ayudadoras",
     "Multi-level": "Multinivel",

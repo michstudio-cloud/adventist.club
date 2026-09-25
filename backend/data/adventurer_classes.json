@@ -1,0 +1,4508 @@
+{
+ "source": "mundoja.org",
+ "source_url": "https://mundoja.org/clubes/aventureros",
+ "author": "Mundo J.A (voluntarios)",
+ "license": "© GC Youth Ministries, permiso pendiente",
+ "retrieved": "2026-09-24",
+ "generated_by": "migrations/catalog_tools/build_adventurer_classes.py",
+ "manual": {
+  "title": "GC Adventurer Director's Manual (GC Youth Ministries, 2020)",
+  "url": "https://www.gcyouthministries.org/ministries/adventurers/",
+  "local_file": "~/Documents/DEEL/aventureros/directors-manual.pdf"
+ },
+ "note": "Spanish = mundoja.org «Nuevo currículo» (DIA, = GC curriculum), verbatim except ES_FIXES. English = UNOFFICIAL translation of that Spanish (the GC manual does not print the requirements; they are in the GC activity books), except the section names My God / My Self / My Family / My World (manual p. 10) and the award names (Award Book 2020).",
+ "es_fixes": {
+  "dÍa": "día",
+  "(además de Jesús} y por qué": "(además de Jesús) y por qué",
+  "Lectura l.": "Lectura I."
+ },
+ "programs": [
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "corderitos",
+   "code": "CORDERITOS",
+   "sort_order": 1,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 4,
+   "names": {
+    "es": "Corderitos",
+    "en": "Little Lamb"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 4 años. Descubre el amor de Jesús.",
+    "en": "Adventurer class for children aged 4. Discover the love of Jesus."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/corderitos",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/corderitos.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-corderos.png"
+   },
+   "awards": {
+    "required": [
+     "av-story-listening-i",
+     "av-wooly-lamb",
+     "av-my-friend-jesus",
+     "av-little-boy-jesus",
+     "av-bible-friends-i",
+     "av-finger-play",
+     "av-sharing",
+     "av-healthy-foods",
+     "av-my-family",
+     "av-special-helper",
+     "av-healthy-me",
+     "av-creation",
+     "av-community-helpers"
+    ],
+    "optional_mundoja": [
+     "av-alphabet-i",
+     "av-colors",
+     "av-music-i",
+     "av-numbers",
+     "av-trains-and-trucks",
+     "av-trikes-and-bikes"
+    ],
+    "optional_mundoja_es": [
+     "Alfabeto I",
+     "Colores",
+     "Música I",
+     "Números",
+     "Camiones y Trenes",
+     "Triciclos y bicicletas"
+    ],
+    "optional_note": null,
+    "optional_notes": {},
+    "mundoja_class_page": [
+     "av-alphabet-i",
+     "av-healthy-foods",
+     "av-bible-friends-i",
+     "av-zoo-animals",
+     "av-special-helper",
+     "av-community-helpers",
+     "av-bible-i",
+     "av-colors",
+     "av-sharing",
+     "av-wooly-lamb",
+     "av-creation",
+     "av-bodies-of-water",
+     "av-story-listening-i",
+     "av-stars",
+     "av-insects",
+     "av-my-family",
+     "av-music-i",
+     "av-numbers",
+     "av-healthy-me",
+     "av-weather-i",
+     "av-trains-and-trucks",
+     "av-trikes-and-bikes",
+     "av-finger-play"
+    ],
+    "award_book_class": [
+     "av-community-helpers",
+     "av-colors",
+     "av-finger-play",
+     "av-music-i",
+     "av-alphabet-i",
+     "av-healthy-foods",
+     "av-healthy-me",
+     "av-my-family",
+     "av-numbers",
+     "av-sharing",
+     "av-special-helper",
+     "av-story-listening-i",
+     "av-bodies-of-water",
+     "av-insects",
+     "av-stars",
+     "av-weather-i",
+     "av-wooly-lamb",
+     "av-zoo-animals",
+     "av-trains-and-trucks",
+     "av-trikes-and-bikes",
+     "av-bible-friends-i",
+     "av-creation",
+     "av-little-boy-jesus",
+     "av-my-friend-jesus"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {
+     "av-bible-i": "Busy Bee"
+    }
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/corderitos",
+      "en": "https://mundoja.org/clubes/aventureros/corderitos"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "text": {
+        "es": "Repite y aprende de memoria el Voto de los Aventureros.",
+        "en": "Say and learn by heart the Adventurer Pledge."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-story-listening-i",
+       "text": {
+        "es": "Completa la especialidad Escuchando la Historia I",
+        "en": "Complete the Story Listening I award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-wooly-lamb",
+       "text": {
+        "es": "Completa la especialidad Corderito Lanudo",
+        "en": "Complete the Wooly Lamb award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/corderitos",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 4,
+       "label": "II.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Colorea el número de cada día de la creación.",
+        "en": "Color the number of each day of Creation."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 5,
+       "label": "II.1b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Cuéntale a un adulto alguna de las historias de la creación: la creación de los animales, la creación del hombre, la creación del Sábado.",
+        "en": "Tell an adult one of the Creation stories: the creation of the animals, the creation of man, the creation of the Sabbath."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.2a",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-my-friend-jesus",
+       "text": {
+        "es": "Completa la especialidad Mi amigo Jesús",
+        "en": "Complete the My Friend Jesus award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.2b",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-little-boy-jesus",
+       "text": {
+        "es": "Completa la especialidad El Niño Jesús",
+        "en": "Complete the Little Boy Jesus award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 8,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Celebra el culto familiar regularmente. Mantén un registro.",
+        "en": "Take part in family worship regularly. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 9,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Pregunta a tus padres o tutores cuál es su día favorito de la creación.",
+        "en": "Ask your parents or guardians which is their favorite day of Creation."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 10,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-bible-friends-i",
+       "text": {
+        "es": "Completa la especialidad Amigos de la Biblia I",
+        "en": "Complete the Bible Friends I award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/corderitos",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 11,
+       "label": "III.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "target_honor_slug": "av-finger-play",
+       "text": {
+        "es": "Completa la especialidad Usar los Dedos",
+        "en": "Complete the Finger Play award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 12,
+       "label": "III.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "target_honor_slug": "av-sharing",
+       "text": {
+        "es": "Completa la especialidad Compartir",
+        "en": "Complete the Sharing award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 13,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-healthy-foods",
+       "text": {
+        "es": "Completa la especialidad Alimentos Sanos",
+        "en": "Complete the Healthy Foods award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/corderitos",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 14,
+       "label": "IV.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "target_honor_slug": "av-my-family",
+       "text": {
+        "es": "Completa la especialidad Mi Familia",
+        "en": "Complete the My Family award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 15,
+       "label": "IV.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "target_honor_slug": "av-special-helper",
+       "text": {
+        "es": "Completa la especialidad Ayudante Especial",
+        "en": "Complete the Special Helper award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 16,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-healthy-me",
+       "text": {
+        "es": "Completa la especialidad Sano y Fuerte",
+        "en": "Complete the Healthy Me award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/corderitos",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 17,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-creation",
+       "text": {
+        "es": "Completa la especialidad Creación",
+        "en": "Complete the Creation award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 18,
+       "label": "V.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "target_honor_slug": "av-community-helpers",
+       "text": {
+        "es": "Completa la especialidad Ayudante en la comunidad",
+        "en": "Complete the Community Helpers award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      },
+      {
+       "position": 19,
+       "label": "V.3",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "text": {
+        "es": "Completa por lo menos dos de las siguientes especialidades de la clase de Corderitos:",
+        "en": "Complete at least two of the following Little Lamb awards:"
+       },
+       "sub_items": {
+        "es": [
+         "Cuerpos de agua",
+         "Insectos",
+         "Estrellas",
+         "Clima I",
+         "Animales de Zoológico"
+        ],
+        "en": [
+         "Bodies of Water",
+         "Insects",
+         "Stars",
+         "Weather I",
+         "Zoo Animals"
+        ]
+       },
+       "options": [
+        "av-bodies-of-water",
+        "av-insects",
+        "av-stars",
+        "av-weather-i",
+        "av-zoo-animals"
+       ],
+       "choose": 2,
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/corderitos",
+        "en": "https://mundoja.org/clubes/aventureros/corderitos"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "aves-madrugadoras",
+   "code": "AVES",
+   "sort_order": 2,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 5,
+   "names": {
+    "es": "Aves Madrugadoras",
+    "en": "Early Bird"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 5 años. Aprendemos a amar y obedecer.",
+    "en": "Adventurer class for children aged 5. We learn to love and obey."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/aves-madrugadoras.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-aves.png"
+   },
+   "awards": {
+    "required": [
+     "av-story-listening-ii",
+     "av-birds",
+     "av-jesus-star",
+     "av-bible-friends-ii",
+     "av-gods-world",
+     "av-left-and-right",
+     "av-manners-fun",
+     "av-know-your-body",
+     "av-home-helper-i",
+     "av-fire-safety",
+     "av-my-community-friends",
+     "av-playing-with-friends",
+     "av-scavenger-hunt"
+    ],
+    "optional_mundoja": [
+     "av-alphabet-ii",
+     "av-animal-homes",
+     "av-animals",
+     "av-cyclist-i",
+     "av-swimmer-i",
+     "av-crayons-and-markers",
+     "av-gadgets-and-sand",
+     "av-jigsaw-puzzles",
+     "av-pets",
+     "av-shapes-and-sizes",
+     "av-sponge-art",
+     "av-stamping-fun-i",
+     "av-toys"
+    ],
+    "optional_mundoja_es": [
+     "Alfabeto II",
+     "Hogares de Animales",
+     "Animales*",
+     "Ciclismo I",
+     "Nadador I",
+     "Crayones y Marcadores*",
+     "Medidas y Arena",
+     "Rompecabezas*",
+     "Mascotas",
+     "Tamaños y Formas*",
+     "Arte de Esponja*",
+     "Diversión con Sellos",
+     "Juguetes*"
+    ],
+    "optional_note": {
+     "es": "* Especialidades sugeridas para incluirlas en el plan anual, aunque no son requeridas para obtener el botón de investidura.",
+     "en": "* Awards suggested for the yearly plan, although they are not required for the investiture pin."
+    },
+    "optional_notes": {},
+    "mundoja_class_page": [
+     "av-alphabet-ii",
+     "av-bible-friends-ii",
+     "av-animals",
+     "av-sponge-art",
+     "av-birds",
+     "av-home-helper-i",
+     "av-cyclist-i",
+     "av-know-your-body",
+     "av-crayons-and-markers",
+     "av-manners-fun",
+     "av-gods-world",
+     "av-story-listening-ii",
+     "av-stamping-fun-i",
+     "av-jesus-star",
+     "av-shapes-and-sizes",
+     "av-gadgets-and-sand",
+     "av-animal-homes",
+     "av-left-and-right",
+     "av-playing-with-friends",
+     "av-toys",
+     "av-jesus-special-supper",
+     "av-pets",
+     "av-my-community-friends",
+     "av-swimmer-i",
+     "av-swimmer-ii",
+     "av-jigsaw-puzzles",
+     "av-fire-safety",
+     "av-scavenger-hunt"
+    ],
+    "award_book_class": [
+     "av-fire-safety",
+     "av-my-community-friends",
+     "av-crayons-and-markers",
+     "av-gadgets-and-sand",
+     "av-jigsaw-puzzles",
+     "av-shapes-and-sizes",
+     "av-sponge-art",
+     "av-stamping-fun-i",
+     "av-alphabet-ii",
+     "av-home-helper-i",
+     "av-know-your-body",
+     "av-manners-fun",
+     "av-story-listening-ii",
+     "av-animals",
+     "av-animal-homes",
+     "av-birds",
+     "av-pets",
+     "av-scavenger-hunt",
+     "av-cyclist-i",
+     "av-left-and-right",
+     "av-playing-with-friends",
+     "av-swimmer-i",
+     "av-toys",
+     "av-bible-friends-ii",
+     "av-gods-world",
+     "av-jesus-special-supper",
+     "av-jesus-star"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {
+     "av-swimmer-ii": "Busy Bee"
+    }
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+      "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "text": {
+        "es": "Repite de memoria la Ley de los Aventureros",
+        "en": "Say the Adventurer Law by heart."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-story-listening-ii",
+       "text": {
+        "es": "Completa la especialidad Escuchando la Historia II",
+        "en": "Complete the Story Listening II award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-birds",
+       "text": {
+        "es": "Completa la especialidad Aves Madrugadoras",
+        "en": "Complete the Birds award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       },
+       "note": "Inferido: el Award Book no tiene un award «Early Bird»; el award de aves de la clase es Birds, que mundoja llama «Pajaritos» (ficha 627-pajaritos-av, en su lista de Aves Madrugadoras). Cotejar con el libro de actividades."
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 4,
+       "label": "II.1a",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "target_honor_slug": "av-jesus-star",
+       "text": {
+        "es": "Completa los requisitos de la especialidad La Estrella de Jesús",
+        "en": "Complete the requirements of the Jesus' Star award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 5,
+       "label": "II.1b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Colorea los cuadros de personajes bíblicos que oraron: Samuel, Daniel, Jonás, David.",
+        "en": "Color the pictures of Bible characters who prayed: Samuel, Daniel, Jonah, David."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.1c",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Aprende a orar de forma independiente.",
+        "en": "Learn to pray on your own."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-bible-friends-ii",
+       "text": {
+        "es": "Completa la especialidad Amigos de la Biblia II",
+        "en": "Complete the Bible Friends II award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 8,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Celebra el culto familiar regularmente. Lleva un registro.",
+        "en": "Take part in family worship regularly. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 9,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Pregunta a alguien que conozcas por qué ora.",
+        "en": "Ask someone you know why they pray."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 10,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-gods-world",
+       "text": {
+        "es": "Completa la especialidad El mundo de Dios",
+        "en": "Complete the God’s World award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 11,
+       "label": "III.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "target_honor_slug": "av-left-and-right",
+       "text": {
+        "es": "Completa la especialidad Izquierda y Derecha",
+        "en": "Complete the Left and Right award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 12,
+       "label": "III.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "target_honor_slug": "av-manners-fun",
+       "text": {
+        "es": "Completa la especialidad Diversión con Modales",
+        "en": "Complete the Manners Fun award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 13,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-know-your-body",
+       "text": {
+        "es": "Completa la especialidad Conoce tu Cuerpo",
+        "en": "Complete the Know Your Body award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 14,
+       "label": "IV.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Di el quinto mandamiento: \"Honra a tu padre y a tu madre\" (Éxodo 20:12).",
+        "en": "Say the fifth commandment: \"Honor your father and your mother\" (Exodus 20:12)."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 15,
+       "label": "IV.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "target_honor_slug": "av-home-helper-i",
+       "text": {
+        "es": "Completa la especialidad Ayudante en el Hogar I",
+        "en": "Complete the Home Helper I award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 16,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-fire-safety",
+       "text": {
+        "es": "Completa la especialidad Seguridad contra Incendios",
+        "en": "Complete the Fire Safety award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 17,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-my-community-friends",
+       "text": {
+        "es": "Completa la especialidad Mis Amigos de la Comunidad",
+        "en": "Complete the My Community Friends award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 18,
+       "label": "V.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "target_honor_slug": "av-playing-with-friends",
+       "text": {
+        "es": "Completa la especialidad Jugando con Amigos",
+        "en": "Complete the Playing with Friends award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      },
+      {
+       "position": 19,
+       "label": "V.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "target_honor_slug": "av-scavenger-hunt",
+       "text": {
+        "es": "Completa la especialidad Tesoro Escondido",
+        "en": "Complete the Scavenger Hunt award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/castorcitos2",
+        "en": "https://mundoja.org/clubes/aventureros/castorcitos2"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "abejas-industriosas",
+   "code": "ABEJAS",
+   "sort_order": 3,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 6,
+   "names": {
+    "es": "Abejas Industriosas",
+    "en": "Busy Bee"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 6 años. Trabajamos y compartimos.",
+    "en": "Adventurer class for children aged 6. We work and share."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/abejas",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/abejas-industriosas.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-abejas.png"
+   },
+   "awards": {
+    "required": [
+     "av-reading-i",
+     "av-flowers",
+     "av-bible-i",
+     "av-delightful-sabbath",
+     "av-health-specialist",
+     "av-home-helper-ii",
+     "av-safety-specialist",
+     "av-listening",
+     "av-friend-of-animals"
+    ],
+    "optional_mundoja": [
+     "av-artist",
+     "av-butterflies",
+     "av-buttons",
+     "av-fish",
+     "av-guide",
+     "av-music-ii",
+     "av-potatoes",
+     "av-sand-art",
+     "av-spotter",
+     "av-swimmer-ii"
+    ],
+    "optional_mundoja_es": [
+     "Artista",
+     "Mariposas",
+     "Botones",
+     "Peces",
+     "Guía",
+     "Música II",
+     "Papas",
+     "Arte con Arena",
+     "Observador",
+     "Nadador II"
+    ],
+    "optional_note": null,
+    "optional_notes": {},
+    "mundoja_class_page": [
+     "av-friend-of-animals",
+     "av-sand-art",
+     "av-artist",
+     "av-home-helper-ii",
+     "av-bible-i",
+     "av-buttons",
+     "av-listening",
+     "av-health-specialist",
+     "av-safety-specialist",
+     "av-flowers",
+     "av-guide",
+     "av-reading-i",
+     "av-butterflies",
+     "av-honey",
+     "av-music-ii",
+     "av-spotter",
+     "av-potatoes",
+     "av-fish",
+     "av-delightful-sabbath"
+    ],
+    "award_book_class": [
+     "av-artist",
+     "av-buttons",
+     "av-music-ii",
+     "av-health-specialist",
+     "av-home-helper-ii",
+     "av-reading-i",
+     "av-safety-specialist",
+     "av-butterflies",
+     "av-fish",
+     "av-flowers",
+     "av-friend-of-animals",
+     "av-honey",
+     "av-potatoes",
+     "av-sand-art",
+     "av-guide",
+     "av-spotter",
+     "av-swimmer-ii",
+     "av-bible-i",
+     "av-delightful-sabbath",
+     "av-listening"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {}
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/abejas",
+      "en": "https://mundoja.org/clubes/aventureros/abejas"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "text": {
+        "es": "Repetir de memoria y aceptar el Voto de los Aventureros.",
+        "en": "Say by heart and accept the Adventurer Pledge."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-reading-i",
+       "text": {
+        "es": "Completa la especialidad Lectura I.",
+        "en": "Complete the Reading I award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-flowers",
+       "text": {
+        "es": "Completa la especialidad Flores.",
+        "en": "Complete the Flowers award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/abejas",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 4,
+       "label": "II.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Crea un gráfico de historias o un cuaderno que muestre el orden en que ocurrieron los eventos (escribe o pídele a alguien que escriba los números en el orden en que estos sucedieron o sucederán).",
+        "en": "Make a story chart or a notebook that shows the order in which the events happened (write, or ask someone to write, the numbers in the order in which they happened or will happen)."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 5,
+       "label": "II.1b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Haz un dibujo o cuenta una de las historias anteriores para mostrar cuánto Jesús se preocupa por ti.",
+        "en": "Draw a picture of, or tell, one of the stories above to show how much Jesus cares for you."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-bible-i",
+       "text": {
+        "es": "Completa la especialidad Biblia I",
+        "en": "Complete the Bible I award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Emplea un tiempo regular en quietud con Jesús para hablar con Él y aprender acerca de Él. Mantén un registro.",
+        "en": "Spend regular quiet time with Jesus to talk with Him and learn about Him. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 8,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Pregunta a dos personas cómo muestran a otros que Jesús se preocupa por ellos.",
+        "en": "Ask two people how they show others that Jesus cares for them."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 9,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-delightful-sabbath",
+       "text": {
+        "es": "Completa la especialidad Sábado de Delicia",
+        "en": "Complete the Delightful Sabbath award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/abejas",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 10,
+       "label": "III.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "text": {
+        "es": "Haz un folleto donde aparezcan todas las personas que se preocupan por ti como Jesús lo haría.",
+        "en": "Make a booklet of all the people who care for you as Jesus would."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 11,
+       "label": "III.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "text": {
+        "es": "Nombra al menos 4 sentimientos",
+        "en": "Name at least four feelings."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 12,
+       "label": "III.2b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "text": {
+        "es": "Juega un juego de los sentimientos.",
+        "en": "Play a feelings game."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 13,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-health-specialist",
+       "text": {
+        "es": "Completa la especialidad Especialista en Salud",
+        "en": "Complete the Health Specialist award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/abejas",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 14,
+       "label": "IV.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Haz un dibujo o un recorte de algo especial sobre cada miembro de tu familia",
+        "en": "Draw a picture of, or cut out, something special about each member of your family."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 15,
+       "label": "IV.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "text": {
+        "es": "Descubre lo que el quinto mandamiento (Éxodo 20:12) dice sobre las familias.",
+        "en": "Find out what the fifth commandment (Exodus 20:12) says about families."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 16,
+       "label": "IV.2b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "text": {
+        "es": "Representa tres maneras en las que puedes honrar a tu familia.",
+        "en": "Act out three ways in which you can honor your family."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 17,
+       "label": "IV.2c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "target_honor_slug": "av-home-helper-ii",
+       "text": {
+        "es": "Completa la especialidad Ayudante en el Hogar II",
+        "en": "Complete the Home Helper II award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 18,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-safety-specialist",
+       "text": {
+        "es": "Completa la especialidad Especialista en Seguridad",
+        "en": "Complete the Safety Specialist award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/abejas",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 19,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-listening",
+       "text": {
+        "es": "Completa la especialidad Escuchar",
+        "en": "Complete the Listening award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 20,
+       "label": "V.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "Habla sobre el voluntariado que hacen las personas en tu iglesia.",
+        "en": "Talk about the volunteer work people do in your church."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 21,
+       "label": "V.2b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "Encuentra una forma de ayudar.",
+        "en": "Find a way to help."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      },
+      {
+       "position": 22,
+       "label": "V.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "target_honor_slug": "av-friend-of-animals",
+       "text": {
+        "es": "Completa la especialidad Amigo de los Animales",
+        "en": "Complete the Friend of Animals award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/abejas",
+        "en": "https://mundoja.org/clubes/aventureros/abejas"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "rayos-de-sol",
+   "code": "RAYOS",
+   "sort_order": 4,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 7,
+   "names": {
+    "es": "Rayos de Sol",
+    "en": "Sunbeam"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 7 años. Brillamos para Jesús.",
+    "en": "Adventurer class for children aged 7. We shine for Jesus."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/rayos-de-sol.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-rayos.png"
+   },
+   "awards": {
+    "required": [
+     "av-reading-ii",
+     "av-seasons",
+     "av-bible-ii",
+     "av-parables-of-jesus",
+     "av-fitness-fun",
+     "av-acts-of-kindness",
+     "av-road-safety",
+     "av-courtesy",
+     "av-friend-of-nature"
+    ],
+    "optional_mundoja": [
+     "av-feathered-friends",
+     "av-ladybugs",
+     "av-seeds",
+     "av-trees",
+     "av-whales"
+    ],
+    "optional_mundoja_es": [
+     "Aves",
+     "Mariquita",
+     "Semillas",
+     "Árboles",
+     "Ballenas"
+    ],
+    "optional_note": null,
+    "optional_notes": {},
+    "mundoja_class_page": [
+     "av-camper",
+     "av-acts-of-kindness",
+     "av-friend-of-jesus",
+     "av-friend-of-nature",
+     "av-trees",
+     "av-handicraft",
+     "av-whales",
+     "av-bible-ii",
+     "av-cooking-fun",
+     "av-collector",
+     "av-courtesy",
+     "av-fitness-fun",
+     "av-glue-right",
+     "av-skier",
+     "av-seasons",
+     "av-baking",
+     "av-gardener",
+     "av-reading-ii",
+     "av-ladybugs",
+     "av-feathered-friends",
+     "av-road-safety",
+     "av-seeds"
+    ],
+    "award_book_class": [
+     "av-road-safety",
+     "av-glue-right",
+     "av-handicraft",
+     "av-baking",
+     "av-collector",
+     "av-cooking-fun",
+     "av-courtesy",
+     "av-gardener",
+     "av-reading-ii",
+     "av-feathered-friends",
+     "av-friend-of-nature",
+     "av-ladybugs",
+     "av-seasons",
+     "av-seeds",
+     "av-trees",
+     "av-whales",
+     "av-camper",
+     "av-fitness-fun",
+     "av-skier",
+     "av-acts-of-kindness",
+     "av-bible-ii",
+     "av-friend-of-jesus",
+     "av-parables-of-jesus"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {}
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+      "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "text": {
+        "es": "Repite de memoria y acepta la Ley de los Aventureros.",
+        "en": "Say by heart and accept the Adventurer Law."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-reading-ii",
+       "text": {
+        "es": "Completa la Especialidad Lectura II",
+        "en": "Complete the Reading II award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-seasons",
+       "text": {
+        "es": "Completa la especialidad Estaciones",
+        "en": "Complete the Seasons award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 4,
+       "label": "II.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Crea un libro de historia que muestre la vida de Jesús: nacimiento, bautismo, milagros, parábolas, muerte, resurrección y su retorno al cielo.",
+        "en": "Make a story book that shows the life of Jesus: birth, baptism, miracles, parables, death, resurrection and His return to heaven."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 5,
+       "label": "II.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-bible-ii",
+       "text": {
+        "es": "Completa la especialidad Biblia II",
+        "en": "Complete the Bible II award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Emplea un tiempo regular en quietud con Jesús para hablar con Él y aprender acerca de Él. Mantén un registro.",
+        "en": "Spend regular quiet time with Jesus to talk with Him and learn about Him. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Pregunta a tres personas cuál es su historia favorita de la vida de Jesús (encontrada en los evangelios).",
+        "en": "Ask three people which is their favorite story of the life of Jesus (found in the Gospels)."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 8,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-parables-of-jesus",
+       "text": {
+        "es": "Completa la especialidad Parábolas de Jesús",
+        "en": "Complete the Parables of Jesus award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 9,
+       "label": "III.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "text": {
+        "es": "Haz un trazo de ti mismo. Decóralo con imágenes y palabras que digan buenas cosas sobre ti. Comparte tu dibujo con tu grupo. Felicita los dibujos de los demás. Di a los otros algo que los haga especiales.",
+        "en": "Make an outline of yourself. Decorate it with pictures and words that say good things about you. Share your drawing with your group. Compliment the others' drawings. Tell the others something that makes them special."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 10,
+       "label": "III.2",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "text": {
+        "es": "Participa en un juego o actividad sobre decisiones.",
+        "en": "Take part in a game or activity about choices."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 11,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-fitness-fun",
+       "text": {
+        "es": "Completa la especialidad Cultura Física",
+        "en": "Complete the Fitness Fun award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 12,
+       "label": "IV.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Pide a cada miembro de tu familia que te cuente algunos de sus recuerdos favoritos",
+        "en": "Ask each member of your family to tell you some of their favorite memories."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 13,
+       "label": "IV.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "text": {
+        "es": "Muestra cómo Jesús puede ayudarte a lidiar con los desacuerdos. Usa: títeres, dramatización, juego de roles, etc.",
+        "en": "Show how Jesus can help you deal with disagreements. Use puppets, drama, role play, etc."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 14,
+       "label": "IV.2b",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "target_honor_slug": "av-acts-of-kindness",
+       "text": {
+        "es": "Completa la especialidad Actos de Bondad",
+        "en": "Complete the Acts of Kindness award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 15,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-road-safety",
+       "text": {
+        "es": "Completa la especialidad Seguridad en la Carretera",
+        "en": "Complete the Road Safety award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 16,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-courtesy",
+       "text": {
+        "es": "Completa la especialidad Cortesía",
+        "en": "Complete the Courtesy award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 17,
+       "label": "V.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "Explora tu vecindario. Haz una lista de cosas buenas y cosas que puedes ayudar a mejorar.",
+        "en": "Explore your neighborhood. Make a list of good things and of things you can help to improve."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 18,
+       "label": "V.2b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "De tu lista de opciones, escoge una forma de mejorar tu vecindario y dedica tiempo realizándola.",
+        "en": "From your list, choose one way to improve your neighborhood and spend time doing it."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      },
+      {
+       "position": 19,
+       "label": "V.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "target_honor_slug": "av-friend-of-nature",
+       "text": {
+        "es": "Completa la especialidad Amigo de la Naturaleza",
+        "en": "Complete the Friend of Nature award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/rayos-de-sol",
+        "en": "https://mundoja.org/clubes/aventureros/rayos-de-sol"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "constructor",
+   "code": "CONSTRUCTOR",
+   "sort_order": 5,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 8,
+   "names": {
+    "es": "Constructor",
+    "en": "Builder"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 8 años. Construimos sobre la Roca.",
+    "en": "Adventurer class for children aged 8. We build on the Rock."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/constructor",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/constructor.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-constructor.png"
+   },
+   "awards": {
+    "required": [
+     "av-reading-iii",
+     "av-building-blocks",
+     "av-bible-iii",
+     "av-prayer",
+     "av-media-critic",
+     "av-wise-steward",
+     "av-temperance",
+     "av-family-helper",
+     "av-first-aid-helper",
+     "av-caring-friend"
+    ],
+    "optional_mundoja": [],
+    "optional_mundoja_es": [],
+    "optional_note": null,
+    "optional_notes": {},
+    "mundoja_class_page": [
+     "av-caring-friend",
+     "av-build-and-fly",
+     "av-home-craft",
+     "av-bead-craft",
+     "av-astronomer",
+     "av-family-helper",
+     "av-first-aid-helper",
+     "av-bible-iii",
+     "av-building-blocks",
+     "av-canoer",
+     "av-cyclist-ii",
+     "av-sewing-fun",
+     "av-media-critic",
+     "av-disciples",
+     "av-tin-can-fun",
+     "av-gymnast",
+     "av-magnet-fun-i",
+     "av-magnet-fun-ii",
+     "av-lizards",
+     "av-reading-iii",
+     "av-swimmer-iii",
+     "av-olympics",
+     "av-saving-animals",
+     "av-hand-shadows",
+     "av-postcards",
+     "av-troubadour"
+    ],
+    "award_book_class": [
+     "av-bead-craft",
+     "av-build-and-fly",
+     "av-building-blocks",
+     "av-hand-shadows",
+     "av-magnet-fun-i",
+     "av-magnet-fun-ii",
+     "av-media-critic",
+     "av-postcards",
+     "av-tin-can-fun",
+     "av-family-helper",
+     "av-home-craft",
+     "av-reading-iii",
+     "av-sewing-fun",
+     "av-troubadour",
+     "av-astronomer",
+     "av-lizards",
+     "av-saving-animals",
+     "av-canoer",
+     "av-caring-friend",
+     "av-cyclist-ii",
+     "av-first-aid-helper",
+     "av-gymnast",
+     "av-olympics",
+     "av-swimmer-iii",
+     "av-bible-iii",
+     "av-disciples",
+     "av-prayer",
+     "av-temperance",
+     "av-wise-steward"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {}
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/constructor",
+      "en": "https://mundoja.org/clubes/aventureros/constructor"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "I.",
+       "text": {
+        "es": "Recitar de memoria el Voto de los Aventureros y la Ley.",
+        "en": "Say by heart the Adventurer Pledge and Law."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "II.",
+       "text": {
+        "es": "Explicar el Voto y la Ley a través de arte o un drama.",
+        "en": "Explain the Pledge and the Law through art or drama."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "III.",
+       "target_honor_slug": "av-reading-iii",
+       "text": {
+        "es": "Desarrollar la especialidad de Lectura III",
+        "en": "Complete the Reading III award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 4,
+       "label": "I.4",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "IV.",
+       "target_honor_slug": "av-building-blocks",
+       "text": {
+        "es": "Desarrollar la especialidad de Bloques",
+        "en": "Complete the Building Blocks award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/constructor",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 5,
+       "label": "II.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Crear un cuadro histórico o un lapbook que muestre en orden cuándo las siguientes historias tomaron lugar. Noé, Abraham, Moisés, Rut, David, Daniel, Ester.",
+        "en": "Make a history chart or a lapbook that shows in order when the following stories took place: Noah, Abraham, Moses, Ruth, David, Daniel, Esther."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.1b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Hacer un diorama, un poema o una canción acerca de una de las historias anteriores para mostrarle a alguien cómo vivir para Dios.",
+        "en": "Make a diorama, a poem or a song about one of the stories above to show someone how to live for God."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-bible-iii",
+       "text": {
+        "es": "Completa la especialidad Biblia III",
+        "en": "Complete the Bible III award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 8,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Acostumbrarse a tener regularmente un momento tranquilo para hablar con Jesús y aprender de él. Mantener un registro.",
+        "en": "Get used to having a regular quiet time to talk with Jesus and learn from Him. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 9,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Preguntarle a tres personas quién es su héroe bíblico favorito (además de Jesús) y por qué.",
+        "en": "Ask three people who their favorite Bible hero is (besides Jesus) and why."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 10,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "c.",
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-prayer",
+       "text": {
+        "es": "Completa la especialidad Oración",
+        "en": "Complete the Prayer award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/constructor",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 11,
+       "label": "III.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "text": {
+        "es": "Crear un álbum de recortes, cartel o collage de cosas que muestren lo que puede hacer para servir a Dios y a los demás.",
+        "en": "Make a scrapbook, poster or collage of things that show what you can do to serve God and others."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 12,
+       "label": "III.2a",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "target_honor_slug": "av-media-critic",
+       "text": {
+        "es": "Desarrollar la especialidad de Analista de comunicación",
+        "en": "Complete the Media Critic award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 13,
+       "label": "III.2b",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "3.",
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "target_honor_slug": "av-wise-steward",
+       "text": {
+        "es": "Desarrollar la especialidad de Mayordomo sabio",
+        "en": "Complete the Wise Steward award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 14,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "4.",
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-temperance",
+       "text": {
+        "es": "Completa la especialidad de Temperancia",
+        "en": "Complete the Temperance award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/constructor",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 15,
+       "label": "IV.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Compartir una forma en que su familia ha cambiado con el tiempo. Compartir cómo le hacen sentir estos cambios.",
+        "en": "Share one way in which your family has changed over time. Share how these changes make you feel."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 16,
+       "label": "IV.1b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Buscar en la Biblia una historia de una familia como la suya.",
+        "en": "Find in the Bible a story of a family like yours."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 17,
+       "label": "IV.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "text": {
+        "es": "Jugar un juego para que cada miembro de su familia muestre su aprecio a cada uno de los otros miembros de la familia.",
+        "en": "Play a game in which each member of your family shows appreciation for each of the other family members."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 18,
+       "label": "IV.2b",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "target_honor_slug": "av-family-helper",
+       "text": {
+        "es": "Completa la especialidad Ayudante de la familia",
+        "en": "Complete the Family Helper award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 19,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-first-aid-helper",
+       "text": {
+        "es": "Completa la especialidad Ayudante de primeros auxilios",
+        "en": "Complete the First Aid Helper award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/constructor",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 20,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-caring-friend",
+       "text": {
+        "es": "Completa la especialidad de Amigo cariñoso",
+        "en": "Complete the Caring Friend award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 21,
+       "label": "V.2a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "Conocer y explicar el himno nacional y la bandera de su país.",
+        "en": "Know and explain the national anthem and the flag of your country."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 22,
+       "label": "V.2b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "text": {
+        "es": "Nombrar la capital y el líder de su país.",
+        "en": "Name the capital and the leader of your country."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      },
+      {
+       "position": 23,
+       "label": "V.3",
+       "kind": "HONOR_FROM_CATEGORY",
+       "evidence_required": true,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "target_category_slug": "av-naturaleza",
+       "text": {
+        "es": "Desarrollar una especialidad de la naturaleza que aún no haya obtenido antes.",
+        "en": "Complete a Nature award you have not earned before."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/constructor",
+        "en": "https://mundoja.org/clubes/aventureros/constructor"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "CLASS",
+   "ministry": "adventurers",
+   "slug": "manos-ayudadoras",
+   "code": "MANOS",
+   "sort_order": 6,
+   "authority": "GC",
+   "issuer_level": "CLUB",
+   "age": 9,
+   "names": {
+    "es": "Manos Ayudadoras",
+    "en": "Helping Hands"
+   },
+   "description": {
+    "es": "Clase de Aventureros para niños de 9 años. Servimos a Dios y a los demás.",
+    "en": "Adventurer class for children aged 9. We serve God and others."
+   },
+   "source_url": {
+    "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+    "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=24"
+   },
+   "emblem": {
+    "file": "adventurer_classes/manos-ayudadoras.webp",
+    "url": null,
+    "source_url": "https://mundoja.org/images/2022/04/20/img-nuevo-logo-manos.png"
+   },
+   "awards": {
+    "required": [
+     "av-reading-iv",
+     "av-hands-of-service",
+     "av-bible-iv",
+     "av-my-church",
+     "av-hygiene",
+     "av-my-picture-book",
+     "av-cooperation",
+     "av-early-adventist-pioneers",
+     "av-country-fun"
+    ],
+    "optional_mundoja": [
+     "av-safe-water",
+     "av-basket-maker",
+     "av-carpenter",
+     "av-stamping-fun-ii",
+     "av-environmentalist",
+     "av-outdoor-explorer",
+     "av-fruits-of-the-spirit",
+     "av-geologist",
+     "av-habitats",
+     "av-sign-language",
+     "av-honeybees",
+     "av-prayer-warrior",
+     "av-rainbow-promise",
+     "av-pearly-gates",
+     "av-reporter",
+     "av-skater",
+     "av-steps-to-jesus",
+     "av-bible-royalty",
+     "av-tabernacle",
+     "av-technology"
+    ],
+    "optional_mundoja_es": [
+     "Agua potable",
+     "Canastero",
+     "Carpintero",
+     "Diversión con sellos",
+     "Ecólogo",
+     "Explorador",
+     "Fruto del Espíritu",
+     "Geólogo",
+     "Hábitat",
+     "Lenguaje de signos",
+     "Miel",
+     "Paladín de oración",
+     "Promesa del arco iris",
+     "Puertas de perla",
+     "Reportero",
+     "Patinador",
+     "Pasos a Jesús",
+     "Realeza bíblica",
+     "Tabernáculo",
+     "Tecnología"
+    ],
+    "optional_note": null,
+    "optional_notes": {
+     "av-honeybees": "«Miel» en la lista de Manos Ayudadoras: la página de awards de la clase muestra Abejas (Honeybees, 533-abejas); Honey es de Abejas Industriosas. Inferido."
+    },
+    "mundoja_class_page": [
+     "av-honeybees",
+     "av-safe-water",
+     "av-my-picture-book",
+     "av-bible-iv",
+     "av-basket-maker",
+     "av-carpenter",
+     "av-cooperation",
+     "av-country-fun",
+     "av-environmentalist",
+     "av-stamping-fun-ii",
+     "av-outdoor-explorer",
+     "av-fruits-of-the-spirit",
+     "av-geologist",
+     "av-habitats",
+     "av-hygiene",
+     "av-reading-iv",
+     "av-sign-language",
+     "av-hands-of-service",
+     "av-basic-knots",
+     "av-skater",
+     "av-early-adventist-pioneers",
+     "av-bible-royalty",
+     "av-reporter",
+     "av-technology",
+     "av-weather-ii",
+     "av-archer"
+    ],
+    "award_book_class": [
+     "av-cooperation",
+     "av-country-fun",
+     "av-hands-of-service",
+     "av-basket-maker",
+     "av-carpenter",
+     "av-my-picture-book",
+     "av-reporter",
+     "av-sign-language",
+     "av-stamping-fun-ii",
+     "av-hygiene",
+     "av-reading-iv",
+     "av-technology",
+     "av-environmentalist",
+     "av-geologist",
+     "av-habitats",
+     "av-honeybees",
+     "av-outdoor-explorer",
+     "av-safe-water",
+     "av-weather-ii",
+     "av-archer",
+     "av-basic-knots",
+     "av-skater",
+     "av-bible-iv",
+     "av-bible-royalty",
+     "av-early-adventist-pioneers",
+     "av-fruits-of-the-spirit",
+     "av-my-church",
+     "av-pearly-gates",
+     "av-prayer-warrior",
+     "av-rainbow-promise",
+     "av-steps-to-jesus",
+     "av-tabernacle"
+    ],
+    "award_book_class_not_listed_by_mundoja": [],
+    "listed_by_mundoja_other_book_class": {}
+   },
+   "sections": [
+    {
+     "slug": "requisitos-basicos",
+     "position": 1,
+     "names": {
+      "es": "Requisitos básicos",
+      "en": "Basic Requirements"
+     },
+     "en_official": false,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+      "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+     },
+     "requirements": [
+      {
+       "position": 1,
+       "label": "I.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "text": {
+        "es": "Repite de memoria y acepta el Voto y la Ley de los Aventureros.",
+        "en": "Say by heart and accept the Adventurer Pledge and Law."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 2,
+       "label": "I.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-reading-iv",
+       "text": {
+        "es": "Completa la Especialidad Lectura IV",
+        "en": "Complete the Reading IV award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 3,
+       "label": "I.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "target_honor_slug": "av-hands-of-service",
+       "text": {
+        "es": "Completa la especialidad Manos de servicio",
+        "en": "Complete the Hands of Service award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-dios",
+     "position": 2,
+     "names": {
+      "es": "Mi Dios",
+      "en": "My God"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 4,
+       "label": "II.1",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "plan",
+        "es": "El plan de Dios para salvarme",
+        "en": "God's Plan to Save Me"
+       },
+       "text": {
+        "es": "Crear un dibujo o diagrama que muestre en orden cuándo estos eventos tomaron lugar.",
+        "en": "Make a drawing or a chart that shows in order when these events took place."
+       },
+       "sub_items": {
+        "es": [
+         "Pablo, Martín Lutero, Elena de White, usted mismo"
+        ],
+        "en": [
+         "Paul, Martin Luther, Ellen White, yourself"
+        ]
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 5,
+       "label": "II.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "mensaje",
+        "es": "El mensaje de Dios para mí",
+        "en": "God's Message to Me"
+       },
+       "target_honor_slug": "av-bible-iv",
+       "text": {
+        "es": "Completa la especialidad Biblia IV",
+        "en": "Complete the Bible IV award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 6,
+       "label": "II.3a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Acostumbrarse a tener regularmente un momento tranquilo para hablar con Jesús y aprender de él. Mantener un registro.",
+        "en": "Get used to having a regular quiet time to talk with Jesus and learn from Him. Keep a record."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 7,
+       "label": "II.3b",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "text": {
+        "es": "Preguntarle a tres personas (además de los de su familia) por qué decidieron dar sus vidas a Jesús O desarrollar la especialidad de Pasos a Jesús.",
+        "en": "Ask three people (outside your family) why they decided to give their lives to Jesus OR complete the Steps to Jesus award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "options": [
+        "av-steps-to-jesus"
+       ],
+       "choose": 1,
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       },
+       "note": "Alternativa: texto libre o el award Pasos a Jesús; queda como TEXT (el recomendador lo lee del texto cuando el award esté publicado)."
+      },
+      {
+       "position": 8,
+       "label": "II.3c",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "poder",
+        "es": "El poder de Dios en mi vida",
+        "en": "God's Power in My Life"
+       },
+       "target_honor_slug": "av-my-church",
+       "text": {
+        "es": "Completa la especialidad Mi iglesia",
+        "en": "Complete the My Church award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "yo-mismo",
+     "position": 3,
+     "names": {
+      "es": "Yo mismo",
+      "en": "My Self"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 9,
+       "label": "III.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "text": {
+        "es": "Hacer una lista de intereses y habilidades especiales que Dios le haya dado.",
+        "en": "Make a list of the special interests and abilities God has given you."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 10,
+       "label": "III.1b",
+       "kind": "HONOR_ANY",
+       "evidence_required": true,
+       "topic": {
+        "key": "especial",
+        "es": "Soy especial",
+        "en": "I Am Special"
+       },
+       "text": {
+        "es": "Demostrar y compartir su talento al desarrollar una de las especialidades de Aventureros que permite la expresión de talentos personales.",
+        "en": "Show and share your talent by completing one of the Adventurer awards that allows the expression of personal talents."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 11,
+       "label": "III.2",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "decisiones",
+        "es": "Puedo tomar buenas decisiones",
+        "en": "I Can Make Good Choices"
+       },
+       "text": {
+        "es": "Aprender los pasos de tomar buenas decisiones. Demostrar o explicar cómo usarlos para resolver dos problemas de la vida real.",
+        "en": "Learn the steps of making good choices. Show or explain how to use them to solve two real-life problems."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 12,
+       "label": "III.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "cuerpo",
+        "es": "Puedo cuidar mi cuerpo",
+        "en": "I Can Care for My Body"
+       },
+       "target_honor_slug": "av-hygiene",
+       "text": {
+        "es": "Completa la especialidad Higiene",
+        "en": "Complete the Hygiene award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-familia",
+     "position": 4,
+     "names": {
+      "es": "Mi familia",
+      "en": "My Family"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 13,
+       "label": "IV.1a",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "1.",
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "text": {
+        "es": "Hacer un banderín o estandarte de familia",
+        "en": "Make a family pennant or banner."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 14,
+       "label": "IV.1b",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "2.",
+       "topic": {
+        "key": "familia",
+        "es": "Tengo una familia",
+        "en": "I Have a Family"
+       },
+       "target_honor_slug": "av-my-picture-book",
+       "text": {
+        "es": "Desarrollar la especialidad de Álbum de fotos, usando fotos de la historia de su familia.",
+        "en": "Complete the My Picture Book award, using photos of your family's history."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       },
+       "note": "«Álbum de fotos» de mundoja (ficha 520-album-de-fotos) es My Picture Book del Award Book (mismos requisitos: libro de al menos 6 páginas, Joel 1:3)."
+      },
+      {
+       "position": 15,
+       "label": "IV.2",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "mundoja_label": "3.",
+       "topic": {
+        "key": "cuidan",
+        "es": "En las familias se cuidan unos a otros",
+        "en": "Families Care for Each Other"
+       },
+       "text": {
+        "es": "Ayudar a planificar un culto especial con su familia, una noche familiar o una salida con toda la familia. Reportar sobre qué hicieron con su grupo",
+        "en": "Help plan a special worship with your family, a family night or an outing with the whole family. Report to your group on what you did."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 16,
+       "label": "IV.3",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "mundoja_label": "4.",
+       "topic": {
+        "key": "ayuda",
+        "es": "Mi familia me ayuda a cuidarme",
+        "en": "My Family Helps Me Care for Myself"
+       },
+       "target_honor_slug": "av-cooperation",
+       "text": {
+        "es": "Completa la especialidad Cooperación",
+        "en": "Complete the Cooperation award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      }
+     ]
+    },
+    {
+     "slug": "mi-mundo",
+     "position": 5,
+     "names": {
+      "es": "Mi mundo",
+      "en": "My World"
+     },
+     "en_official": true,
+     "source_url": {
+      "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+      "en": "https://www.gcyouthministries.org/ministries/adventurers/#page=10"
+     },
+     "requirements": [
+      {
+       "position": 17,
+       "label": "V.1",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "amigos",
+        "es": "El mundo de los amigos",
+        "en": "The World of Friends"
+       },
+       "target_honor_slug": "av-early-adventist-pioneers",
+       "text": {
+        "es": "Completa la especialidad Pioneros adventistas",
+        "en": "Complete the Early Adventist Pioneers award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       }
+      },
+      {
+       "position": 18,
+       "label": "V.2",
+       "kind": "HONOR",
+       "evidence_required": true,
+       "topic": {
+        "key": "demas",
+        "es": "El mundo de los demás",
+        "en": "The World of Other People"
+       },
+       "target_honor_slug": "av-country-fun",
+       "text": {
+        "es": "Desarrollar la especialidad de Diversión con naciones",
+        "en": "Complete the Country Fun award."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       },
+       "note": "«Diversión con naciones» (mundoja, imagen diversion-campestre) es Country Fun."
+      },
+      {
+       "position": 19,
+       "label": "V.3",
+       "kind": "TEXT",
+       "evidence_required": false,
+       "topic": {
+        "key": "naturaleza",
+        "es": "El mundo de la naturaleza",
+        "en": "The World of Nature"
+       },
+       "text": {
+        "es": "Completar dos especialidades de naturaleza no obtenidas anteriormente",
+        "en": "Complete two Nature awards you have not earned before."
+       },
+       "sub_items": {
+        "es": [],
+        "en": []
+       },
+       "translation": {
+        "es": "mundoja",
+        "en": "unofficial"
+       },
+       "source_url": {
+        "es": "https://mundoja.org/clubes/aventureros/manos-ayudadoras",
+        "en": "https://mundoja.org/clubes/aventureros/manos-ayudadoras"
+       },
+       "note": "Dos awards: queda como TEXT (HONOR_FROM_CATEGORY se cumple con uno solo)."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

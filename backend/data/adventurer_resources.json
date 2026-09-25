@@ -1,0 +1,112 @@
+{
+ "source": "mundoja.org",
+ "author": "Mundo J.A (voluntarios)",
+ "retrieved": "2026-09-24",
+ "note": "Resúmenes propios (2–3 líneas) y estructura de apartados de páginas de mundoja.org; el texto completo NO se copia: cada recurso enlaza a su página (autoría). No existe todavía un mecanismo de recursos por ministerio o programa (honor_resources y courses cuelgan de una especialidad): este JSON no se carga en la base; ver docs/AVENTUREROS_CLASES.md §Recursos para la propuesta de dónde mostrarlo.",
+ "ministry": "adventurers",
+ "resources": [
+  {
+   "slug": "soy-padre-o-madre",
+   "kind": "PARENTS",
+   "audience": "padres",
+   "title": "Soy padre o madre",
+   "summary": "Portal para las familias de Aventureros: cómo funciona el club y cómo acompañar en casa el crecimiento espiritual, emocional y personal del niño. Reúne seis temas de orientación y accesos rápidos a reglamento, uniforme, calendario, formularios y preguntas frecuentes.",
+   "source_url": "https://mundoja.org/aventureros/soy-padre-o-madre",
+   "author": "Mundo J.A (voluntarios)",
+   "sections": [
+    {"title": "Entendiendo el Club de Aventureros", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/entendiendo-el-club"},
+    {"title": "Acompañamiento espiritual en casa", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/acompanamiento-espiritual-en-casa"},
+    {"title": "Apoyo emocional y motivacional", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/apoyo-emocional-y-motivacional"},
+    {"title": "Participación de los padres", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/participacion-de-los-padres"},
+    {"title": "Seguridad y valores", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/seguridad-y-valores"},
+    {"title": "Recursos para el hogar", "url": "https://mundoja.org/aventureros/soy-padre-o-madre/recursos-para-el-hogar"},
+    {"title": "Enlaces rápidos: reglamento y uniforme, calendario de actividades, documentos y formularios, preguntas frecuentes"}
+   ]
+  },
+  {
+   "slug": "programa-anual",
+   "kind": "PLANNING",
+   "audience": "directores",
+   "title": "Programa anual del Club de Aventureros",
+   "summary": "Guía para planificar el año del club con propósito: qué elementos debe equilibrar (reuniones, clases y especialidades, actividades especiales, familias y vida espiritual) y cómo organizarlo en cuatro pasos. Propone meses temáticos (naturaleza, servicio, familia, habilidades) y evaluar durante el año.",
+   "source_url": "https://mundoja.org/component/content/article/1457-programa-anual-del-club-de-aventureros",
+   "author": "Mundo J.A (voluntarios)",
+   "sections": [
+    {"title": "¿Por qué es importante tener un programa anual?"},
+    {"title": "Elementos de un programa anual", "items": ["Reuniones regulares del club", "Clases y especialidades", "Actividades especiales", "Participación de las familias", "Momentos espirituales"]},
+    {"title": "Cómo organizar un programa anual", "items": ["1. Definir objetivos del club", "2. Crear un calendario general", "3. Distribuir actividades", "4. Preparar materiales con anticipación"]},
+    {"title": "Involucra al equipo de líderes"},
+    {"title": "Evalúa durante el año"},
+    {"title": "Ideas para complementar el programa anual", "items": ["Mes de la naturaleza", "Mes del servicio", "Mes de la familia", "Mes de habilidades"]},
+    {"title": "Evita planificar solamente actividades"},
+    {"title": "En pocas palabras"}
+   ]
+  },
+  {
+   "slug": "ideas-para-reuniones",
+   "kind": "MEETINGS",
+   "audience": "directores y consejeros",
+   "title": "Ideas para reuniones del Club de Aventureros",
+   "summary": "Cómo preparar reuniones con un objetivo claro que combinen aprendizaje, juego, participación y momento espiritual. Da ideas de actividades (naturaleza, habilidades prácticas, servicio, creatividad), recursos para mantener la atención de niños de 4 a 9 años y para abrir y cerrar cada encuentro.",
+   "source_url": "https://mundoja.org/component/content/article/1458-ideas-para-reuniones-del-club-de-aventureros",
+   "author": "Mundo J.A (voluntarios)",
+   "sections": [
+    {"title": "La importancia de planificar cada reunión"},
+    {"title": "Elementos de una buena reunión de Aventureros", "items": ["Bienvenida e integración", "Momento espiritual", "Actividades de aprendizaje", "Juegos con propósito"]},
+    {"title": "Ideas de actividades para reuniones", "items": ["Actividades de naturaleza", "Actividades de habilidades prácticas", "Actividades de servicio", "Actividades creativas"]},
+    {"title": "Cómo mantener la atención de los Aventureros", "items": ["Cambia los ritmos", "Hazlos protagonistas", "Adapta las actividades a la edad"]},
+    {"title": "Ideas para iniciar o cerrar una reunión", "items": ["Para comenzar", "Para cerrar"]},
+    {"title": "Involucra a los niños en la reunión"},
+    {"title": "Trabaja en equipo como líderes"},
+    {"title": "Evalúa después de cada reunión"},
+    {"title": "La reunión como experiencia de crecimiento"}
+   ]
+  },
+  {
+   "slug": "ceremonias-y-eventos",
+   "kind": "CEREMONIES",
+   "audience": "directores",
+   "title": "Ceremonias y eventos del Club de Aventureros",
+   "summary": "Orientaciones para que las ceremonias celebren el proceso vivido y no sean solo actos formales: iniciación, investidura, eventos familiares y de servicio. Explica cómo prepararlas (propósito, participación de los niños, detalles, familias), ideas de eventos especiales y por qué evitar convertirlas en competencias.",
+   "source_url": "https://mundoja.org/component/content/article/1459-ceremonias-y-eventos-del-club-de-aventureros",
+   "author": "Mundo J.A (voluntarios)",
+   "sections": [
+    {"title": "El propósito de las ceremonias"},
+    {"title": "Tipos de ceremonias y eventos", "items": ["Ceremonia de iniciación", "Ceremonia de investidura", "Eventos familiares", "Actividades de servicio"]},
+    {"title": "Cómo preparar una buena ceremonia", "items": ["Definir el propósito", "Preparar la participación de los niños", "Cuidar los detalles", "Involucrar a las familias"]},
+    {"title": "Ideas para eventos especiales", "items": ["Día del Aventurero", "Campamentos y salidas", "Celebraciones de cierre"]},
+    {"title": "La importancia del ambiente espiritual"},
+    {"title": "Evita convertir las ceremonias en competencias"},
+    {"title": "Después del evento"},
+    {"title": "En pocas palabras"}
+   ]
+  }
+ ],
+ "gc_manual": {
+  "title": "GC Adventurer Director's Manual",
+  "author": "General Conference Youth Ministries Department",
+  "summary": "Manual oficial (inglés, 2020) para directores: filosofía y objetivos, voto, ley, canto y uniformes, planificación del año, personal y protección infantil, reuniones, eventos públicos (inducción, Sábado del Aventurero, revista, investidura), servicio, campamentos y papel de iglesia y Asociación.",
+  "source_url": "https://www.gcyouthministries.org/ministries/adventurers/",
+  "local_file": "~/Documents/DEEL/aventureros/directors-manual.pdf",
+  "sections": [
+   {"title": "Section 1: The Basics", "page": 7}, {"title": "Section 2: Standards (Pledge and Law, Song, Uniform, Awards)", "page": 17},
+   {"title": "Section 3: Planning the Year", "page": 27}, {"title": "Section 4: Beginning the Year", "page": 33},
+   {"title": "Section 5: Staffing the Club (incl. Safety Standards)", "page": 35}, {"title": "Section 6: Registration & Membership", "page": 49},
+   {"title": "Section 7: Getting to Know Your Adventurers and Their Families", "page": 51}, {"title": "Section 8: The Meetings", "page": 53},
+   {"title": "Section 9: The Special (Public) Events", "page": 57}, {"title": "Section 10: Service Events", "page": 61},
+   {"title": "Section 11: Campouts", "page": 63}, {"title": "Section 12: Ending the Year", "page": 65},
+   {"title": "Section 13: Church's Role in the Club", "page": 67}, {"title": "Section 14: Conference's Role in the Club", "page": 69}
+  ]
+ },
+ "class_materials": {
+  "note": "Materiales de cada clase enlazados desde su página de mundoja (NO descargados): cartilla de actividades DIA (zip), libro de actividades de la Asociación General (PDF) y manual de ayuda del instructor (PDF, aporte de guiasmayores.com). mundoja avisa que la guía es con fines didácticos y que la cartilla oficial se adquiere en la librería del campo local.",
+  "classes": {
+   "corderitos": {"page": "https://mundoja.org/clubes/aventureros/corderitos#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/corderitos_libro_de_actividades-nvo.zip", "libro_gc": "https://mundoja.org/uploads/manuales/corderitos-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/corderos-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/component/content/article/597-corderitos"},
+   "aves-madrugadoras": {"page": "https://mundoja.org/clubes/aventureros/castorcitos2#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/aves-madrugadoras-libro-de-actividades.zip", "libro_gc": "https://mundoja.org/uploads/manuales/aves-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/aves-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/clubes/aventureros/castorcitos2/598-castorcitos"},
+   "abejas-industriosas": {"page": "https://mundoja.org/clubes/aventureros/abejas#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/abejas_libro_actividades-nvo.zip", "libro_gc": "https://mundoja.org/uploads/manuales/abejas-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/abejas-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/component/content/article/599-abejas"},
+   "rayos-de-sol": {"page": "https://mundoja.org/clubes/aventureros/rayos-de-sol#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/rayos_libro_actividades-nvo.zip", "libro_gc": "https://mundoja.org/uploads/manuales/rayos-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/rayos-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/component/content/article/600-rayos-de-sol"},
+   "constructor": {"page": "https://mundoja.org/clubes/aventureros/constructor#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/constructor-libro-actividades-nvo.zip", "libro_gc": "https://mundoja.org/uploads/manuales/constructor-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/constructor-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/component/content/article/601-constructor"},
+   "manos-ayudadoras": {"page": "https://mundoja.org/clubes/aventureros/manos-ayudadoras#recursos", "cartilla_dia": "https://mundoja.org/uploads/manuales/manos-libro-actividades-nvo.zip", "libro_gc": "https://mundoja.org/uploads/manuales/manos-libro-actividades-asoc-gral.pdf", "ayuda": "https://mundoja.org/uploads/manuales/manos-manual-de-ayuda.pdf", "cartilla_anterior": "https://mundoja.org/component/content/article/602-manos-ayudadoras"}
+  }
+ }
+}

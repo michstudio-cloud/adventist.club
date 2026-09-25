@@ -99,8 +99,9 @@ No trae imágenes de los parches.
 3. Traducción al español: buscar la edición DIA/IAD del Award Book (o traducir con revisión); igual para pt.
 4. Parches: conseguir el set oficial (AdventSource / DIA) y subirlos a R2 como los 809 de Conquistadores
    (`tools/` de catálogo); sin parche se usa la inicial sobre el color del ministerio.
-5. Clases de Aventureros (`programs`, kind CLASS, ministerio `adventurers`): Little Lamb, Early Bird, Busy Bee, Sunbeam,
-   Builder, Helping Hand; recomendaciones de awards por clase a partir de la columna «clase» del índice.
+5. ~~Clases de Aventureros~~ **Hecho en rama `feat/adventurer-classes`** (sin aplicar a producción): 6 clases con
+   requisitos es (mundoja) + en (traducción no oficial) y 63 awards como destino → recomendaciones; ver
+   `docs/AVENTUREROS_CLASES.md` (marca: `docs/AVENTUREROS_MARCA.md`; EMC: `docs/GUIAS_MAYORES_CATALOGO.md`).
 6. Certificado de award: reutilizar los diseños por elementos con textos «Certificado de Award / Aventureros» (nuevas
    claves en `strings.*.json`) y el emblema de Aventureros (`public/brand/aventureros.svg`).
 7. Licencia: el libro es © GC Youth Ministries; confirmar permiso de uso de los textos antes de publicarlos
