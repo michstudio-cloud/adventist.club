@@ -1,0 +1,43 @@
+{
+ "honor_slug": "tabla-de-esqui-acuatico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Wakeboarding/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Conhecer e praticar as seguintes regras de segurança:\n  a. Nunca praticar wakeboard à noite.\n  b. Nunca praticar wakeboard durante tempestades com raios.\n  c. Sempre usar colete salva-vidas ao praticar wakeboard.\n  d. Verificar se a corda de wakeboard está em boas condições.\n  e. Verificar se as botas (fixações) do wakeboard estão em boas condições.\n  f. Sempre ter um observador e uma bandeira no barco.\n  g. Manter distância de obstáculos, como outros esquiadores, nadadores, pessoas em boias, píeres ou objetos flutuantes.\n  h. Se cair, soltar a corda.\n  i. Depois de uma queda, levantar a mão para indicar que está bem.\n  j. Não ficar em pé no barco enquanto ele estiver em movimento.",
+   "instructions": "Seção: Prólogo: Ter a especialidade de Natação principiante II."
+  },
+  {
+   "position": 2,
+   "description": "Conhecer os seguintes sinais com as mãos:\n  a. Mais devagar\n  b. A velocidade está boa\n  c. Mais rápido\n  d. Voltar ao píer\n  e. Parar\n  f. Virar",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Calçar o wakeboard sozinho. Saber tirar o wakeboard sozinho em águas profundas.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma saída em águas profundas no wakeboard com a corda totalmente estendida.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Atravessar com êxito as duas esteiras e voltar ao centro sem cair.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Dar um pequeno salto na esteira e aterrissar sem cair.",
+   "instructions": null
+  }
+ ]
+}

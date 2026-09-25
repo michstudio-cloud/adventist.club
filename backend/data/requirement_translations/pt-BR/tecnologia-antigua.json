@@ -1,0 +1,73 @@
+{
+ "honor_slug": "tecnologia-antigua",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Ancient_Technology/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Tecnologia antiga",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ler Gênesis 4:22. Qual é o intervalo de tempo entre Tubalcaim e o Dilúvio em comparação com o que vai da Revolução Industrial até hoje?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Estudar três OOPArts (artefatos fora de lugar). Explicar por que você acha que são descobertas reais do passado ou falsificações. Explicar como você acha que eles contribuem para o argumento de que o ser humano era muito avançado antes e depois do Dilúvio.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Você acha que o ser humano antigo tinha máquinas voadoras? Apresentar três evidências de por que você acredita que isso seja verdade.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma lista de três OOPArts e contar como e onde foram encontrados. Explicar por que você acredita que eles são evidências de que o ser humano tinha um alto nível de tecnologia antes do Dilúvio.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de três civilizações antigas que usaram materiais de construção pesados e indicar o peso dos materiais mais pesados. Indicar a que distância os materiais foram transportados até o local e as teorias sobre como foram movidos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Há alguma evidência de que foram usadas máquinas para cortar as pedras dessas construções (em referência à pergunta 6)? Em caso afirmativo, fazer uma lista de três locais e do tipo de evidência encontrada.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Você acredita que a arca construída por Noé foi um exemplo de tecnologia antiga? Há outros exemplos de grandes navios de madeira em nossa história antiga?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Estudar a pesquisa feita pela National Geographic com Lidar na América do Sul. Qual é o tamanho das cidades que estão sendo encontradas sob o dossel da floresta?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Pesquisar e fazer uma lista de três lugares para onde o ser humano antigo levou água a áreas secas. Explicar que tipo de sistema foi usado, onde ficam e quem se acredita que os construiu.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Há evidências de que o ser humano antigo tinha práticas médicas avançadas? Dar exemplos.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Há evidências de que o ser humano antigo pode ter descoberto o segredo da energia nuclear? Apresentar evidências físicas ou manuscritos que apoiem esse tipo de tecnologia.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Ler Gênesis 6 e Patriarcas e Profetas, capítulos 7 e 10. Apresentar um relatório ao seu diretor, clube ou igreja contando o que você aprendeu nesta especialidade. Explicar que tipo de tecnologia eles podem ter tido antes ou logo depois do Dilúvio que talvez tenhamos hoje. Explicar por que você acredita que o avanço do ser humano pode ter sido um dos motivos pelos quais Deus sentiu necessidade de trazer o juízo do Dilúvio.",
+   "instructions": null
+  }
+ ]
+}
