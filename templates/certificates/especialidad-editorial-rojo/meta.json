@@ -1,5 +1,5 @@
 {
-  "title": "Editorial rojo",
+  "title": "Especialidad · Editorial rosa y rojo",
   "kinds": [
     "honor"
   ],
@@ -7,7 +7,7 @@
     "pathfinders"
   ],
   "engine": "elements",
-  "source": "especialidades-v4/01-editorial-rojo",
+  "source": "replica-especialidad-editorial",
   "locales": [
     "es",
     "en",

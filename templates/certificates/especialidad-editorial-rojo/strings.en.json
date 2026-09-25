@@ -1,12 +1,11 @@
 {
-  "certificate": "CERTIFICATE OF",
-  "specialty": "Honor completion",
-  "awarded": "This certificate is awarded to",
-  "completion": "For successfully completing the requirements for",
+  "church": "Seventh-day Adventist Church",
+  "awarded": "This certificate is awarded to:",
+  "completion": "for successfully completing the requirements of the honor:",
+  "date": "Date:",
   "director": "DIRECTOR",
   "instructor": "INSTRUCTOR",
-  "motto": "Learn to serve.",
-  "qr": "QR",
-  "conquistadores": "PATHFINDERS",
+  "title_0": "CERTIFICATE OF",
+  "title_1": "HONOR",
   "church_name": "Seventh-day Adventist Church"
 }

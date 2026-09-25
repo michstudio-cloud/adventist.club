@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from compile_element_template import signature_align, signature_box  # noqa: E402
 
-V4 = ("especialidad-editorial-rojo", "especialidad-reticula-verde", "especialidad-academico")  # modular-azul: réplica 2026-09-24, otra geometría (test_certificate_azul)
+V4 = ("especialidad-reticula-verde", "especialidad-academico")  # modular-azul: réplica 2026-09-24, otra geometría (test_certificate_azul)
 SLOTS = ("signature_director", "signature_instructor")
 RENDER = "/api/v1/certificates/render"
 SIGNATURE = "/api/v1/users/me/signature"
@@ -102,7 +102,7 @@ def test_the_compiler_derives_the_box_from_the_name_and_its_line():
 
 
 def test_without_a_signature_nothing_is_drawn_and_with_one_it_is():
-    template = load_template("especialidad-editorial-rojo")
+    template = load_template("especialidad-reticula-verde")
     data = {"recipient_name": "Ana", "honor_name": "Nudos", "issued_date": "2026-09-21", "director_name": "Juan Pérez"}
     empty = fill_svg(template, data, {})
     assert re.search(r'<image[^>]*id="signature_director"[^>]*opacity="0"', empty)
@@ -116,8 +116,8 @@ def test_without_a_signature_nothing_is_drawn_and_with_one_it_is():
         region = page.crop((int(210 * scale), int(667 * scale), int(445 * scale), int(698 * scale)))
         return sum(1 for value in region.getdata() if value < 90)
 
-    plain, _ = render_certificate("especialidad-editorial-rojo", data, {}, dpi=100)
-    inked, _ = render_certificate("especialidad-editorial-rojo", data, {"signature_director": signature}, dpi=100)
+    plain, _ = render_certificate("especialidad-reticula-verde", data, {}, dpi=100)
+    inked, _ = render_certificate("especialidad-reticula-verde", data, {"signature_director": signature}, dpi=100)
     assert ink(plain) == 0 and ink(inked) > 50
 
 
@@ -142,7 +142,7 @@ def test_signature_rules():
 @pytest.mark.asyncio
 async def test_render_endpoint_accepts_a_signature_and_refuses_the_rest(client, monkeypatch):
     monkeypatch.setattr("app.routers.render.fonts_installed", lambda: True)
-    body = {"template": "especialidad-editorial-rojo", "format": "svg",
+    body = {"template": "especialidad-reticula-verde", "format": "svg",
             "data": {"recipient_name": "Ana", "honor_name": "Nudos", "issued_date": "2026-09-21"}}
     signature = _data_url(_signature_png())
     ok = await client.post(RENDER, json={**body, "images": {"signature_director": signature, "signature_instructor": signature}})

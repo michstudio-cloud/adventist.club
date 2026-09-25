@@ -1,12 +1,11 @@
 {
-  "certificate": "CERTIFICAT DE",
-  "specialty": "Spécialité",
-  "awarded": "Ce certificat est décerné à",
-  "completion": "Pour avoir satisfait aux exigences de la spécialité",
-  "director": "DIRECTEUR / DIRECTRICE",
-  "instructor": "INSTRUCTEUR / INSTRUCTRICE",
-  "motto": "Apprendre pour servir.",
-  "qr": "QR",
-  "conquistadores": "EXPLORATEURS",
+  "church": "Église adventiste du septième jour",
+  "awarded": "Ce certificat est décerné à :",
+  "completion": "pour avoir satisfait aux exigences de la spécialité :",
+  "date": "Date :",
+  "director": "DIRECTEUR",
+  "instructor": "INSTRUCTEUR",
+  "title_0": "CERTIFICAT DE",
+  "title_1": "SPÉCIALITÉ",
   "church_name": "Église adventiste du septième jour"
 }
