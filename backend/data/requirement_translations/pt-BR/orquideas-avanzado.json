@@ -1,0 +1,83 @@
+{
+ "honor_slug": "orquideas-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Orchids_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Orquídeas - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Orquídeas.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Desenhar ou prensar uma orquídea e identificar as seguintes partes:\n  a. Sépala\n  b. Pétala\n  c. Coluna\n  d. Antera\n  e. Estame\n  f. Labelo\n  g. Estigma",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a principal diferença entre as orquídeas monopodiais e as simpodiais?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "O que são “cultivares”?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como funciona a multiplicação por meristema? Com que finalidade é praticada?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que são keikis?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de três usos das orquídeas para o ser humano.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer os elementos essenciais para o crescimento das orquídeas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar pelo menos duas espécies de orquídeas que possam crescer nas seguintes condições, na região onde você mora:\n  a. Ao ar livre, num jardim comum ou numa pedra\n  b. Na sombra ou na meia-luz\n  c. Numa estufa sem climatização\n  d. Numa estufa climatizada",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Citar alguns fatores que podem contribuir para que uma espécie de orquídea fique ameaçada de extinção.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Explicar as exigências de quarentena de seu país quanto à importação de orquídeas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Explicar o processo de crescimento das sementes de orquídea em condições de cultivo em frasco de vidro.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Descrever a distribuição mundial das orquídeas e analisar por que o conhecimento da altitude e do hábitat nativo de uma orquídea é importante para quem as cultiva.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Cultivar uma pequena coleção de orquídeas (de pelo menos dois gêneros) até que floresçam (pelo menos quatro orquídeas diferentes). Depois, apresentar um histórico fotográfico mensal, acompanhado de anotações sobre o desenvolvimento e os cuidados necessários em cada mês, com o crescimento de cada planta.",
+   "instructions": null
+  }
+ ]
+}

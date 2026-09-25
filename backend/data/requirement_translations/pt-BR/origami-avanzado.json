@@ -1,0 +1,38 @@
+{
+ "honor_slug": "origami-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Origami_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Origami - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Origami.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir quais são os principais tipos de origami e a diferença entre eles.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Dobrar dois origamis diferentes de cada uma das seguintes categorias:\n  a. Origami modular\n  b. Kusudama\n  c. Dobradura em blocos (block folding)\n  d. Tesselações",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Definir o que é um padrão de vincos (crease pattern) e como se dobra um origami a partir dele.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Organizar uma exposição de seus origamis e oferecer uma oficina básica de origami para seu clube ou igreja.",
+   "instructions": null
+  }
+ ]
+}

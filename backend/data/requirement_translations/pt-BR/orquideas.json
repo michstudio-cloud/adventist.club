@@ -1,0 +1,53 @@
+{
+ "honor_slug": "orquideas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Orchids/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir as características de uma orquídea.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Quais são os dois principais grupos de orquídeas? Citar e mostrar exemplos de cada um com uma planta viva ou uma figura.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Quais são as diferenças entre as orquídeas epífitas, parasitas e saprófitas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Discutir a distribuição das orquídeas, com referência especial à sua ocorrência em sua região.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar os principais gêneros de orquídeas cultivados. Identificar três por meio de plantas ou figuras. O que é um cultivar?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Discutir os principais cuidados essenciais no cultivo de orquídeas. Cultivar pelo menos uma orquídea durante pelo menos seis meses.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Quais são os principais usos das orquídeas? Que orquídea é usada comercialmente?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conhecer as leis de sua região (se houver) que protegem as orquídeas silvestres.",
+   "instructions": null
+  }
+ ]
+}
