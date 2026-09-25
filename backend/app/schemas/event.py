@@ -290,7 +290,21 @@ class RegistrationCreate(_Body):
 
 
 class RegistrationUpdate(_Body):
-    finalist_flags: dict[str, bool]
+    finalist_flags: dict[str, bool] | None = None
+    # Manual tiebreak: lower first among equal totals; null clears it. Needs `reason`.
+    tiebreak_rank: int | None = Field(default=None, ge=1, le=10000)
+    reason: str | None = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def _what(self):
+        fields = self.model_fields_set
+        if "finalist_flags" not in fields and "tiebreak_rank" not in fields:
+            raise ValueError("Indica finalist_flags y/o tiebreak_rank")
+        if "finalist_flags" in fields and self.finalist_flags is None:
+            raise ValueError("finalist_flags no puede ser nulo")
+        if "tiebreak_rank" in fields and not " ".join((self.reason or "").split()):
+            raise ValueError("Cambiar el desempate requiere motivo")
+        return self
 
 
 class ResolvePass(_Body):
@@ -311,6 +325,8 @@ class RegistrationOut(BaseModel):
     has_pass: bool
     finalist_flags: dict[str, bool]
     created_at: datetime | None
+    # Coordination only: absent from the response for judges and directors.
+    tiebreak_rank: int | None = None
     # Only right after creating or regenerating it; never stored in clear.
     pass_token: str | None = None
 

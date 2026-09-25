@@ -104,9 +104,13 @@ async def get_registration(db: AsyncSession, event: Event, registration_id: uuid
 
 async def registration_out(db: AsyncSession, row: EventRegistration,
                            pass_token: str | None = None,
-                           club: Organization | None = None) -> RegistrationOut:
+                           club: Organization | None = None,
+                           *, coordination: bool = False) -> RegistrationOut:
+    """`coordination=True` adds `tiebreak_rank`; the routes answer with exclude_unset, so for
+    judges and directors the key is not even present."""
     club = club or await db.get(Organization, row.club_id)
-    return RegistrationOut(
+    extra = {"tiebreak_rank": row.tiebreak_rank} if coordination else {}
+    return RegistrationOut(**extra,
         id=str(row.id), event_id=str(row.event_id),
         club=ClubBrief(id=str(club.id), name=club.name, city=club.city),
         status=row.status, has_pass=row.pass_token_hash is not None,
@@ -207,6 +211,18 @@ async def resolve_pass(db: AsyncSession, event: Event, token: str) -> EventRegis
         EventRegistration.pass_token_hash == sha256_hex(token.strip())))).scalar_one_or_none()
     if row is None or row.status != REGISTERED:
         raise _http(status.HTTP_404_NOT_FOUND, PASS_NOT_FOUND)
+    return row
+
+
+async def set_tiebreak(db: AsyncSession, actor: User, event: Event, row: EventRegistration,
+                       rank: int | None, reason: str, request: Request | None) -> EventRegistration:
+    event_service.require_editable(event)
+    previous = row.tiebreak_rank
+    row.tiebreak_rank = rank
+    row.updated_at = utcnow()
+    record_audit(db, action="EVENT_TIEBREAK", entity_type=ENTITY_REGISTRATION, entity_id=row.id,
+                 actor=actor, details=" ".join(reason.split()),
+                 metadata={"event_id": str(event.id), "from": previous, "to": rank}, request=request)
     return row
 
 
@@ -754,12 +770,16 @@ async def standings(db: AsyncSession, event: Event) -> list[dict]:
             continue
         item = breakdown(snap, registration, show_honor=True)
         rows.append({"registration_id": item["registration_id"],
+                     "tiebreak_rank": registration.tiebreak_rank,
                      "club": {"id": str(club.id), "name": club.name, "city": club.city},
                      "total": item["total"], "raw_total": item["raw_total"],
                      "floored": item["floored"], "bonus": item["bonus"], "penalty": item["penalty"],
                      "progress": item["progress"], "honor": item["honor"],
                      "pending_adjustments": len(item["pending_adjustments"])})
-    rows.sort(key=lambda row: (-row["total"], -row["raw_total"], row["club"]["name"]))
+    # Total, then the coordination's manual tiebreak (NULL last), then raw total, then name.
+    rows.sort(key=lambda row: (-row["total"],
+                               row["tiebreak_rank"] is None, row["tiebreak_rank"] or 0,
+                               -row["raw_total"], row["club"]["name"]))
     for index, row in enumerate(rows, start=1):
         row["position"] = index
     return rows

@@ -139,11 +139,15 @@ CREATE TABLE IF NOT EXISTS event_registrations (
   pass_token_hash varchar(64) UNIQUE,
   -- {"<activity_id>": true}: finalistas elegidos a mano por la coordinación.
   finalist_flags jsonb NOT NULL DEFAULT '{}'::jsonb CHECK (jsonb_typeof(finalist_flags) = 'object'),
+  -- Desempate manual de la coordinación: entre totales iguales, menor rango primero (NULL al final).
+  tiebreak_rank integer CHECK (tiebreak_rank IS NULL OR tiebreak_rank >= 1),
   registered_by_id uuid REFERENCES users(id) ON DELETE SET NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT event_registrations_uq UNIQUE (event_id, club_id)
 );
+ALTER TABLE event_registrations
+  ADD COLUMN IF NOT EXISTS tiebreak_rank integer CHECK (tiebreak_rank IS NULL OR tiebreak_rank >= 1);
 CREATE INDEX IF NOT EXISTS event_registrations_club_idx ON event_registrations (club_id);
 
 CREATE TABLE IF NOT EXISTS evaluations (

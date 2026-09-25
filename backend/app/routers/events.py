@@ -287,7 +287,7 @@ async def end_staff(event_id: uuid.UUID, staff_id: uuid.UUID, request: Request,
 # ----------------------------------------------------------------------------
 # Inscripciones
 # ----------------------------------------------------------------------------
-@router.get("/{event_id}/registrations", response_model=list[RegistrationOut])
+@router.get("/{event_id}/registrations", response_model=list[RegistrationOut], response_model_exclude_unset=True)
 async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(get_current_user),
                              db: AsyncSession = Depends(get_db)):
     """Coordination and judges (manual search when the camera fails) see every club; a
@@ -295,11 +295,11 @@ async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(g
     event = await event_service.get_event(db, event_id)
     roles = await event_service.require_access(db, current_user, event)
     club_ids = None if (roles.coordination or roles.judge) else roles.director_club_ids
-    return [await scores.registration_out(db, row, club=club)
+    return [await scores.registration_out(db, row, club=club, coordination=roles.coordination)
             for row, club in await scores.list_registrations(db, event, club_ids=club_ids)]
 
 
-@router.post("/{event_id}/registrations", response_model=RegistrationOut,
+@router.post("/{event_id}/registrations", response_model=RegistrationOut, response_model_exclude_unset=True,
              status_code=status.HTTP_201_CREATED)
 async def register_club(event_id: uuid.UUID, payload: RegistrationCreate, request: Request,
                         current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
@@ -308,25 +308,29 @@ async def register_club(event_id: uuid.UUID, payload: RegistrationCreate, reques
     row, token = await scores.register_club(db, current_user, event, payload.club_id, request)
     await db.commit()
     await db.refresh(row)
-    return await scores.registration_out(db, row, pass_token=token)
+    return await scores.registration_out(db, row, pass_token=token, coordination=True)
 
 
-@router.patch("/{event_id}/registrations/{registration_id}", response_model=RegistrationOut)
+@router.patch("/{event_id}/registrations/{registration_id}", response_model=RegistrationOut, response_model_exclude_unset=True)
 async def update_registration(event_id: uuid.UUID, registration_id: uuid.UUID,
                               payload: RegistrationUpdate, request: Request,
                               current_user: User = Depends(get_current_user),
                               db: AsyncSession = Depends(get_db)):
-    """Finalists, chosen by hand by the coordination (spec §3.4)."""
+    """Finalists and the manual tiebreak, both chosen by hand by the coordination (spec §3.4).
+    Changing `tiebreak_rank` needs a `reason` (audited)."""
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     row = await scores.get_registration(db, event, registration_id)
-    await scores.set_finalists(db, current_user, event, row, payload.finalist_flags, request)
+    if "finalist_flags" in payload.model_fields_set:
+        await scores.set_finalists(db, current_user, event, row, payload.finalist_flags, request)
+    if "tiebreak_rank" in payload.model_fields_set:
+        await scores.set_tiebreak(db, current_user, event, row, payload.tiebreak_rank, payload.reason, request)
     await db.commit()
     await db.refresh(row)
-    return await scores.registration_out(db, row)
+    return await scores.registration_out(db, row, coordination=True)
 
 
-@router.post("/{event_id}/registrations/{registration_id}/withdraw", response_model=RegistrationOut)
+@router.post("/{event_id}/registrations/{registration_id}/withdraw", response_model=RegistrationOut, response_model_exclude_unset=True)
 async def withdraw(event_id: uuid.UUID, registration_id: uuid.UUID, request: Request,
                    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     event = await event_service.get_event(db, event_id)
@@ -335,10 +339,10 @@ async def withdraw(event_id: uuid.UUID, registration_id: uuid.UUID, request: Req
     await scores.withdraw(db, current_user, event, row, request)
     await db.commit()
     await db.refresh(row)
-    return await scores.registration_out(db, row)
+    return await scores.registration_out(db, row, coordination=True)
 
 
-@router.post("/{event_id}/registrations/{registration_id}/pass", response_model=RegistrationOut)
+@router.post("/{event_id}/registrations/{registration_id}/pass", response_model=RegistrationOut, response_model_exclude_unset=True)
 async def regenerate_pass(event_id: uuid.UUID, registration_id: uuid.UUID, request: Request,
                           current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     """A new pass (the old one stops working). Coordination, or the director of that club —
@@ -351,10 +355,10 @@ async def regenerate_pass(event_id: uuid.UUID, registration_id: uuid.UUID, reque
     token = await scores.regenerate_pass(db, current_user, event, row, request)
     await db.commit()
     await db.refresh(row)
-    return await scores.registration_out(db, row, pass_token=token)
+    return await scores.registration_out(db, row, pass_token=token, coordination=roles.coordination)
 
 
-@router.post("/{event_id}/resolve-pass", response_model=RegistrationOut)
+@router.post("/{event_id}/resolve-pass", response_model=RegistrationOut, response_model_exclude_unset=True)
 @limiter.limit("120/minute")
 async def resolve_pass(event_id: uuid.UUID, payload: ResolvePass, request: Request,
                        current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
@@ -364,7 +368,7 @@ async def resolve_pass(event_id: uuid.UUID, payload: ResolvePass, request: Reque
     if not (roles.coordination or roles.judge):
         raise HTTPException(status.HTTP_403_FORBIDDEN, event_service.FORBIDDEN)
     row = await scores.resolve_pass(db, event, payload.token)
-    return await scores.registration_out(db, row)
+    return await scores.registration_out(db, row, coordination=roles.coordination)
 
 
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")

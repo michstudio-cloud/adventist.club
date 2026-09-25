@@ -1337,6 +1337,8 @@ class EventRegistration(Base):
     status: Mapped[str] = mapped_column(String(10), server_default="REGISTERED")
     pass_token_hash: Mapped[str | None] = mapped_column(String(64), unique=True)
     finalist_flags: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    # Manual tiebreak (coordination only): lower first among equal totals, NULL last.
+    tiebreak_rank: Mapped[int | None] = mapped_column(Integer)
     registered_by_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
     )

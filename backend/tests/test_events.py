@@ -497,6 +497,57 @@ async def test_director_sees_only_their_club(client, w):
     assert standings["rows"][0]["total"] == 120 and standings["rows"][1]["total"] == 90
 
 
+async def test_manual_tiebreak_is_coordinations_and_hidden_from_others(client, w):
+    event_id = w["s"]["event"]
+    reg_url = f"{API}/{event_id}/registrations/{w['s']['reg2']}"
+    standings_url = f"{API}/{event_id}/standings"
+    # Tie the two clubs at 120 (raw totals equal too): without a rank, the name decides.
+    bonus = await client.post(f"{API}/{event_id}/adjustments", json={
+        "registration_id": w["s"]["reg2"], "kind": "BONUS", "points": 30, "reason": "Empate de prueba"},
+        headers=w["coordinator"]["headers"])
+    assert bonus.status_code == 201
+    rows = (await client.get(standings_url, headers=w["coordinator"]["headers"])).json()["rows"]
+    assert [r["registration_id"] for r in rows] == [w["s"]["reg"], w["s"]["reg2"]]
+    assert rows[0]["total"] == rows[1]["total"] == 120 and rows[1]["tiebreak_rank"] is None
+    # A reason is mandatory; judges and directors never set it.
+    assert (await client.patch(reg_url, json={"tiebreak_rank": 1}, headers=w["coordinator"]["headers"])).status_code == 422
+    assert (await client.patch(reg_url, json={"tiebreak_rank": 0, "reason": "x"},
+                               headers=w["coordinator"]["headers"])).status_code == 422
+    for who in ("judge", "director2"):
+        assert (await client.patch(reg_url, json={"tiebreak_rank": 1, "reason": "yo"},
+                                   headers=w[who]["headers"])).status_code == 403
+    ranked = await client.patch(reg_url, json={"tiebreak_rank": 1, "reason": "Mejor en la final"},
+                                headers=w["coordinator"]["headers"])
+    assert ranked.status_code == 200 and ranked.json()["tiebreak_rank"] == 1
+    assert ranked.json()["finalist_flags"] == {}  # untouched
+    rows = (await client.get(standings_url, headers=w["admin"]["headers"])).json()["rows"]
+    assert [(r["registration_id"], r["tiebreak_rank"], r["position"]) for r in rows] == [
+        (w["s"]["reg2"], 1, 1), (w["s"]["reg"], None, 2)]
+    audit = await fetch_one("SELECT details, metadata_json FROM audit_log WHERE action = 'EVENT_TIEBREAK'"
+                            " AND entity_id = :id", id=w["s"]["reg2"])
+    assert audit["details"] == "Mejor en la final" and audit["metadata_json"]["to"] == 1
+    # Coordination reads it; judges and directors do not even get the key.
+    listing = f"{API}/{event_id}/registrations"
+    coord = {r["id"]: r for r in (await client.get(listing, headers=w["coordinator"]["headers"])).json()}
+    assert coord[w["s"]["reg2"]]["tiebreak_rank"] == 1 and coord[w["s"]["reg"]]["tiebreak_rank"] is None
+    for who in ("judge", "director2"):
+        for row in (await client.get(listing, headers=w[who]["headers"])).json():
+            assert "tiebreak_rank" not in row
+    passed = await client.post(f"{reg_url}/pass", headers=w["director2"]["headers"])
+    assert passed.status_code == 200 and "tiebreak_rank" not in passed.json()
+    resolved = await client.post(f"{API}/{event_id}/resolve-pass", json={"token": passed.json()["pass_token"]},
+                                 headers=w["judge"]["headers"])
+    assert "tiebreak_rank" not in resolved.json()
+    director = (await client.get(f"{reg_url}/breakdown", headers=w["director2"]["headers"])).json()
+    assert "tiebreak_rank" not in director
+    # Cleared again, and the tie undone so the rest of the module keeps its numbers.
+    cleared = await client.patch(reg_url, json={"tiebreak_rank": None, "reason": "Se deshace"},
+                                 headers=w["coordinator"]["headers"])
+    assert cleared.status_code == 200 and cleared.json()["tiebreak_rank"] is None
+    assert (await client.post(f"{API}/{event_id}/adjustments/{bonus.json()['id']}/void",
+                              json={"reason": "Fin de prueba"}, headers=w["admin"]["headers"])).status_code == 200
+
+
 async def test_coordination_may_enter_the_first_evaluation(client, w):
     """Owner decision: when a judge is missing, coordination (COORDINATOR staff or an event admin)
     enters the first evaluation, with the same gates, validation and idempotency, recorded."""
@@ -546,6 +597,7 @@ async def test_closed_event_blocks_everything(client, w):
         ("post", "/staff", {"user_id": w["stranger"]["id"], "role": "JUDGE"}),
         ("post", "/adjustments", {"registration_id": w["s"]["reg"], "kind": "BONUS", "points": 1, "reason": "x"}),
         ("patch", "", {"name": "Cambio tardío"}),
+        ("patch", f"/registrations/{w['s']['reg']}", {"tiebreak_rank": 1, "reason": "tarde"}),
     ):
         response = await getattr(client, method)(f"{API}/{event_id}{path}", json=body, headers=w["admin"]["headers"])
         assert response.status_code == 409, (path, response.text)
