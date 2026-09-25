@@ -1,0 +1,58 @@
+{
+ "honor_slug": "mercadotecnia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Marketing_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Marketing - Avançado",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Marketing.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar as seguintes fases do processo criativo:\n  a. Percepção do problema\n  b. Teorização do problema\n  c. Produção da solução",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O que é \"brainstorming\" (tempestade de ideias)? Como ele pode ser usado no Clube de Desbravadores?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Pesquisar e fazer um relatório sobre os quatro \"Ps\" que compõem as técnicas de marketing e explicar como eles podem ser adaptados para uso no Clube de Desbravadores.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer algumas técnicas de posicionamento e de estratégia de marketing, como:\n  a. Análise SWOT (FOFA)\n  b. As forças de Porter\n  c. Matriz BCG\n  d. Outras que você considere interessantes",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Usar a criatividade para produzir uma apresentação do clube para seu bairro ou escola. Nessa apresentação, usar pelo menos 2 dos seguintes recursos:\n  a. Vídeo\n  b. Página na internet\n  c. Música ou poema\n  d. Faixas, folhetos, cartazes etc.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer um plano para divulgar o clube em pelo menos 3 redes sociais.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Fazer uma consultoria completa de marketing em pelo menos 2 dos seguintes departamentos e descobrir como aplicar os recursos de marketing para pregar o evangelho no bairro.\n  a. Ministério Jovem\n  b. Desbravadores\n  c. Aventureiros\n  d. Música\n  e. Evangelismo\n  f. Publicações\n  g. Mordomia Cristã\n  h. Temperança\n  i. Ministério da Mulher\n  j. Ministério da Criança\n  k. Ministério do Adolescente\n  l. Escola Sabatina\n  m. Ministério Pessoal\n  n. Ministério da Família\n  o. Ação Solidária Adventista (ASA)\n  p. Ministério da Saúde\n  q. Missão Global\n  r. Educação",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Como o texto de Filipenses 4:8 pode influenciar e orientar as práticas, as estratégias e a ética do marketing?",
+   "instructions": null
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "honor_slug": "metodologia-de-estudio",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Methods_of_Study/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Métodos de estudo",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Descrever por escrito ou oralmente como os seguintes pontos contribuem para o estudo:\n  a. Escolha do local e ambiente ideal\n  b. Uso de dicionários e enciclopédias\n  c. Domínio do tempo de estudo\n  d. Pesquisa bibliográfica como complemento do estudo\n  e. Técnicas de compreensão e memorização",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma ficha com sua programação de estudo e segui-la durante um mês. (A ficha deve conter os dias do mês e ser dividida por semanas. Preencher a ficha com o tempo que você vai dedicar às seguintes atividades):\n  a. Sono\n  b. Escola\n  c. Transporte\n  d. Alimentação",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Descrever por escrito ou oralmente maneiras que ajudam o estudante a se concentrar durante o tempo de estudo:\n  a. Em casa\n  b. Na biblioteca\n  c. Na escola",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar qual é a melhor postura para estudar e fazer uma lista das posições que os estudantes devem evitar ao estudar.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Apresentar cinco ideias para o estudante que quer tirar as melhores notas nas avaliações e nos trabalhos.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar cinco ideias que os estudantes podem pôr em prática para reduzir o tempo de leitura e compreender melhor o material estudado.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que atividades ajudam os estudantes a melhorar sua capacidade de aprender?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Escrever de 25 a 30 linhas sobre um dos seguintes temas:\n  a. Onde vou estar e o que vou estar fazendo daqui a sete anos?\n  b. Como vou alcançar a profissão que escolhi?\n  c. O que ainda quero aprender e como vou alcançar esse objetivo?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Conhecer a diferença entre resumo e resenha, apresentando ambos em forma de esquema.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Ler um livro de sua escolha sobre técnicas e métodos de estudo e apresentar um esquema com no mínimo 50 linhas.",
+   "instructions": null
+  }
+ ]
+}
