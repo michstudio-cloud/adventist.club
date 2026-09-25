@@ -21,6 +21,7 @@ from app.db import SessionLocal
 from app.rate_limit import limiter
 from app.models import Certificate
 from app.services import certificate_signatures, storage
+from app.routers.template_thumbnails import thumbnail_version
 from app.services.certificates import RECORD_FIELDS, render_data, stored_locale, stored_text_overrides
 
 router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
@@ -123,7 +124,7 @@ async def templates(
     # (awarded | completion: the interface labels it), max_length and the text in each locale.
     return [{"slug": t.slug, "title": t.meta.get("title"), "width_in": round(t.width_pt / 72, 4), "height_in": round(t.height_pt / 72, 4),
              "locales": t.locales, "fields": t.fields, "kinds": t.kinds, "ministries": t.ministries,
-             "editable_strings": editable_strings_out(t)}
+             "editable_strings": editable_strings_out(t), "thumbnail_version": thumbnail_version(t.slug)}
             for t in list_templates() if t.serves(ministry, kind)]
 
 

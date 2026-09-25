@@ -76,7 +76,7 @@ async def test_thumbnail_ok_not_found_and_invalid_width(client, renders):
     assert ok.headers["content-type"] == "image/png"
     assert ok.content.startswith(b"\x89PNG")
     assert int.from_bytes(ok.content[16:20], "big") == 288          # IHDR width: exactly w px
-    assert ok.headers["cache-control"] == "public, max-age=86400"
+    assert ok.headers["cache-control"] == "public, max-age=300"
     assert ok.headers["etag"]
 
     default = await client.get(URL.format(slug="especialidad-color"))          # es, 576 px
@@ -130,7 +130,7 @@ async def test_stored_in_r2_then_redirected(client, renders, r2):
     second = await client.get(URL.format(slug="especialidad-color"), params={"w": 288}, follow_redirects=False)
     assert second.status_code == 302
     assert second.headers["location"] == f"https://media.test/{key}"
-    assert second.headers["cache-control"] == "public, max-age=86400"
+    assert second.headers["cache-control"] == "public, max-age=300"
     assert len(renders) == 1
 
     # A new version of the same variant replaces the old object (purge is per variant)

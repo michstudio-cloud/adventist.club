@@ -46,7 +46,10 @@ router = APIRouter(prefix="/api/v1/certificates", tags=["certificates"])
 THUMB_WIDTHS = (288, 576, 1152)
 THUMBS_FOLDER = "thumbs"
 PNG_TYPE = "image/png"
-CACHE_CONTROL = "public, max-age=86400"
+# The API answer (302 or the PNG itself) is cacheable only briefly: after a template is reinstalled
+# the key changes (the etag is in it) and a browser holding a day-old redirect would keep showing the
+# old design (owner report, 2026-09-24). The R2 object under that key is immutable and cached for a year.
+CACHE_CONTROL = "public, max-age=300"
 SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "honor-patch.webp"
 SAMPLE_DATE = "2026-09-21"
 # The patch above is «Campamento I» (design package replica-especialidad/recursos): the name matches it.
@@ -103,6 +106,12 @@ def _template_hash(slug: str) -> str:
             digest.update(extra.read_bytes())
     digest.update(json.dumps([SAMPLE, SAMPLE_HONOR, SAMPLE_DATE], sort_keys=True).encode())
     return digest.hexdigest()
+
+
+def thumbnail_version(slug: str) -> str:
+    """Short hash of everything a thumbnail depends on: `GET /templates` exposes it so the web app
+    appends `?v=` and never shows a stale thumbnail after a redeploy, whatever the browser cached."""
+    return _template_hash(slug)[:12]
 
 
 def thumb_etag(slug: str, locale: str, width: int) -> str:
