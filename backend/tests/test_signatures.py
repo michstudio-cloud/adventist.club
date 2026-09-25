@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from compile_element_template import signature_align, signature_box  # noqa: E402
 
-V4 = ("especialidad-editorial-rojo", "especialidad-modular-azul", "especialidad-reticula-verde", "especialidad-academico")
+V4 = ("especialidad-editorial-rojo", "especialidad-reticula-verde", "especialidad-academico")  # modular-azul: réplica 2026-09-24, otra geometría (test_certificate_azul)
 SLOTS = ("signature_director", "signature_instructor")
 RENDER = "/api/v1/certificates/render"
 SIGNATURE = "/api/v1/users/me/signature"

@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from compile_element_template import compile_package  # noqa: E402
 
+# «modular-azul» se recompila desde replica-especialidad-azul (2026-09-24): ver test_certificate_azul.py.
 V4 = {
     "especialidad-editorial-rojo": "01-editorial-rojo",
-    "especialidad-modular-azul": "02-modular-azul",
     "especialidad-reticula-verde": "03-reticula-verde",
     "especialidad-academico": "04-academico",
 }
@@ -111,7 +111,7 @@ def test_long_names_shrink_then_wrap_and_never_truncate():
 
 
 def test_missing_language_data_and_translations_are_errors():
-    template = load_template("especialidad-modular-azul")
+    template = load_template("especialidad-editorial-rojo")
     with pytest.raises(TemplateError, match="traducción"):
         fill_svg(template, _data("es"), {}, "de")                              # no silent Spanish
     with pytest.raises(TemplateError, match="recipient_name"):
@@ -214,15 +214,16 @@ async def test_an_issued_certificate_prints_its_own_record(client, factory, monk
         await db.commit()
 
     response = await client.post("/api/v1/certificates/render", json={
-        "template": "especialidad-modular-azul", "locale": "en", "format": "svg", "certificate_no": certificate_no,
+        "template": "especialidad-editorial-rojo", "locale": "en", "format": "svg", "certificate_no": certificate_no,
         "data": {"recipient_name": "Someone Else", "honor_name": honor_name, "issued_date": "2026-01-01"}})
     assert response.status_code == 200, response.text
     printed = _texts(response.text)
-    assert factory.name("Ana") in printed and "Someone Else" not in printed          # the record wins
-    assert f"{honor_name} (EN)" in printed and "September 21, 2026" in printed
-    assert factory.name("asociacion") in printed and certificate_no in printed
-    assert "Juan Pérez" in printed and "Ana Ruiz" in printed and "QR" not in printed
+    joined = " ".join(printed)                                                          # long names may wrap into several tspans
+    assert factory.name("Ana") in joined and "Someone Else" not in joined            # the record wins
+    assert f"{honor_name} (EN)" in joined and "September 21, 2026" in joined
+    assert factory.name("asociacion") in joined and certificate_no in joined
+    assert "Juan Pérez" in joined and "Ana Ruiz" in joined and "QR" not in printed
     assert re.search(r'id="qr"[^>]*href="data:image/png', response.text)
     spanish = await client.post("/api/v1/certificates/render", json={
-        "template": "especialidad-modular-azul", "locale": "es", "format": "svg", "certificate_no": certificate_no})
+        "template": "especialidad-editorial-rojo", "locale": "es", "format": "svg", "certificate_no": certificate_no})
     assert spanish.status_code == 200 and honor_name in _texts(spanish.text)         # no translation: Spanish

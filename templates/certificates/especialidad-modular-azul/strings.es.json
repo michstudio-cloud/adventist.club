@@ -1,12 +1,11 @@
 {
-  "certificate": "CERTIFICADO DE",
-  "specialty": "Especialidad",
-  "awarded": "Se otorga el presente certificado a",
-  "completion": "Por haber cumplido satisfactoriamente los requisitos de",
-  "director": "DIRECTOR/A",
-  "instructor": "INSTRUCTOR/A",
-  "motto": "Aprender para servir.",
-  "qr": "QR",
-  "conquistadores": "CONQUISTADORES",
+  "church": "Iglesia Adventista del Séptimo Día",
+  "awarded": "otorga el presente certificado a:",
+  "completion": "por haber cumplido satisfactoriamente los requisitos de la Especialidad:",
+  "date": "Fecha:",
+  "director": "DIRECTOR",
+  "instructor": "INSTRUCTOR",
+  "title_0": "CERTIFICADO DE",
+  "title_1": "ESPECIALIDAD",
   "church_name": "Iglesia Adventista del Séptimo Día"
 }

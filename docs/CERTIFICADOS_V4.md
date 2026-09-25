@@ -437,3 +437,11 @@ recargar. Además cada visitante repetía los mismos renders.
 (`loading="lazy"`, `srcSet` 288w/576w), sin cola ni caché propia; la vista previa grande del paso 2
 usa la de 1152 px hasta que la persona escribe algún dato, y sólo entonces hace el `POST /render`
 real (debounce de 600 ms, la petición anterior se cancela).
+
+## Especialidad · Bloques azules (`replica-especialidad-azul`) — sustituye al «Modular azul» v4
+
+Instalada el 2026-09-24 **sobre el mismo slug** `especialidad-modular-azul` (los certificados ya emitidos con el v4 se
+re-renderizan con el diseño nuevo). Mismo contrato que dorada/color: página 1600×1237, Poppins/Lato/Advent Sans,
+fondo aplanado `background.webp` (~70 KB), `association_name` desde la jerarquía, fecha numérica, frases editables.
+Regenerar: `python tools/compile_element_template.py ~/Documents/DEEL/certificados-diseno/replica-especialidad-azul --slug especialidad-modular-azul --install`.
+Tests: `tests/test_certificate_azul.py`; los tests genéricos del v4 usan ahora `editorial-rojo`/`color` como representante.

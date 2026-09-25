@@ -31,7 +31,7 @@ EDITABLE = {
     "especialidad-color": ["awarded", "completion"],
     "especialidad-dorada": ["awarded", "completion"],
     "especialidad-editorial-rojo": ["awarded", "completion"],
-    "especialidad-modular-azul": ["awarded", "completion"],
+    "especialidad-modular-azul": ["awarded", "completion"],  # replica azul 2026-09-24: «otorga el presente certificado a:»
     "especialidad-reticula-verde": ["awarded", "completion"],
     "especialidad-academico": ["awarded", "completion"],
     "investidura-clase": ["t_awarded_to", "t_for_completing"],
@@ -59,7 +59,7 @@ def test_each_template_declares_its_two_award_phrases(slug):
         assert set(template.locales) <= set(item.defaults)            # the text in every language
         assert len(item.defaults["es"]) <= item.max_length <= MAX_OVERRIDE_LENGTH
     spanish = {item.role: item.defaults["es"].lower() for item in items}
-    assert spanish["awarded"].startswith("se otorga el presente certificado a")
+    assert "otorga el presente certificado a" in spanish["awarded"]
     assert "satisfactoriamente los requisitos de" in spanish["completion"]
 
 
@@ -82,7 +82,7 @@ def test_a_declared_phrase_that_is_not_in_the_svg_is_an_error(tmp_path):
 
 
 def test_cleaning_keeps_only_real_changes_and_refuses_the_rest():
-    template = load_template("especialidad-editorial-rojo")
+    template = load_template("especialidad-color")
     assert clean_text_overrides(template, {"awarded": "  Con   gratitud a  ", "completion": ""}) == {"awarded": "Con gratitud a"}
     # the template's own text in the certificate's language is not a change
     same = template.editable("awarded").defaults["en"]
@@ -154,10 +154,10 @@ def issuer(world, monkeypatch):
 def _batch(factory, names, **extra) -> dict:
     return {"recipient_names": names, "honor_name": factory.name("Frases"), "club_name": factory.name("club-frases"),
             "issued_date": "2026-09-24", "instructor_name": "I", "director_name": "D", "width_in": 11, "height_in": 8.5,
-            "template": "especialidad-modular-azul", **extra}
+            "template": "especialidad-color", **extra}
 
 
-async def _svg(client, certificate_no=None, strings=None, template="especialidad-modular-azul", locale=None):
+async def _svg(client, certificate_no=None, strings=None, template="especialidad-color", locale=None):
     body = {"template": template, "format": "svg", "data": DATA, "strings": strings or {}}
     if certificate_no:
         body["certificate_no"] = certificate_no
@@ -186,11 +186,11 @@ async def test_the_render_takes_editable_phrases_only(client):
     assert AWARDED in texts and COMPLETION in texts
     for strings, code in (({"title": "Hola"}, "string_not_editable"), ({"awarded": "a\r\nb"}, "string_invalid"),
                           ({"awarded": "x" * 161}, "string_too_long")):
-        response = await client.post(RENDER, json={"template": "especialidad-modular-azul", "format": "svg",
+        response = await client.post(RENDER, json={"template": "especialidad-color", "format": "svg",
                                                    "data": DATA, "strings": strings})
         assert response.status_code == 422, strings
         assert response.json()["detail"]["code"] == code
-    too_wide = await client.post(RENDER, json={"template": "especialidad-modular-azul", "format": "svg",
+    too_wide = await client.post(RENDER, json={"template": "especialidad-color", "format": "svg",
                                                "data": DATA, "strings": {"awarded": "W" * 150}})
     assert too_wide.status_code == 422 and "campo 'awarded' no cabe" in too_wide.json()["detail"]
 
@@ -207,14 +207,14 @@ async def test_without_an_account_the_phrases_are_the_templates(client, factory,
     assert (await fetch_one("SELECT text_overrides FROM certificates WHERE certificate_no = :n", n=number))["text_overrides"] is None
     # an issued folio prints its record: the caller cannot reword it afterwards
     texts = await _svg(client, number, {"awarded": AWARDED})
-    assert AWARDED not in texts and "Se otorga el presente certificado a" in texts
+    assert AWARDED not in texts and "se otorga el presente certificado a" in texts.lower()   # the template's own phrase (color prints it in capitals)
     assert (await client.get(f"/api/v1/certificates/verify/{number}")).json()["text_overrides"] is None
 
 
 @requires_db
 async def test_the_assistant_with_a_session_keeps_the_phrases_of_the_batch(client, factory, world, issuer):
     names = [factory.name("Uno"), factory.name("Dos")]
-    same_as_template = load_template("especialidad-modular-azul").editable("completion").defaults["en"]
+    same_as_template = load_template("especialidad-color").editable("completion").defaults["en"]
     response = await client.post(BATCH, json=_batch(factory, names, locale="en",
                                                      strings={"awarded": AWARDED, "completion": same_as_template}),
                                  headers=world["instructor"]["headers"])

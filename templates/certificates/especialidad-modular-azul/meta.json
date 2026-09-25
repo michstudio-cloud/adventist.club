@@ -1,5 +1,5 @@
 {
-  "title": "Modular azul",
+  "title": "Especialidad · Bloques azules",
   "kinds": [
     "honor"
   ],
@@ -7,7 +7,7 @@
     "pathfinders"
   ],
   "engine": "elements",
-  "source": "especialidades-v4/02-modular-azul",
+  "source": "replica-especialidad-azul",
   "locales": [
     "es",
     "en",

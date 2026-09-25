@@ -102,26 +102,26 @@ def _texts(svg: str) -> list[str]:
 async def test_issuing_stores_the_locale_and_exposes_it(client, factory, world, issuer):
     eid = await _ready_enrollment(client, factory, world, "frances")
     issued = await client.post(f"{ENROLLMENTS}/{eid}/certificate", headers=world["director"]["headers"], json={
-        "template": "especialidad-modular-azul", "locale": "fr", "issued_date": "2026-09-22"})
+        "template": "especialidad-editorial-rojo", "locale": "fr", "issued_date": "2026-09-22"})
     assert issued.status_code == 201, issued.text
     body = issued.json()
-    assert body["locale"] == "fr" and body["template_slug"] == "especialidad-modular-azul"
+    assert body["locale"] == "fr" and body["template_slug"] == "especialidad-editorial-rojo"
     row = await fetch_one("SELECT locale FROM certificates WHERE certificate_no = :no", no=body["certificate_no"])
     assert row["locale"] == "fr"
 
     verified = (await client.get(f"/api/v1/certificates/verify/{body['certificate_no']}")).json()
     assert verified["valid"] is True                                   # the locale is outside the hash
-    assert verified["locale"] == "fr" and verified["template_slug"] == "especialidad-modular-azul"
+    assert verified["locale"] == "fr" and verified["template_slug"] == "especialidad-editorial-rojo"
     mine = (await client.get("/api/v1/portfolio/me", headers=world["member"]["headers"])).json()
     listed = next(c for c in mine["certificates"] if c["certificate_no"] == body["certificate_no"])
-    assert listed["locale"] == "fr" and listed["template_slug"] == "especialidad-modular-azul"
+    assert listed["locale"] == "fr" and listed["template_slug"] == "especialidad-editorial-rojo"
 
 
 async def test_a_locale_the_template_does_not_speak_is_refused(client, factory, world, issuer):
     eid = await _ready_enrollment(client, factory, world, "sin-frances")
     url, headers = f"{ENROLLMENTS}/{eid}/certificate", world["director"]["headers"]
     assert "fr" not in load_template("especialidad-basica").locales
-    for template, locale in (("especialidad-basica", "fr"), ("especialidad-modular-azul", "de")):
+    for template, locale in (("especialidad-basica", "fr"), ("especialidad-editorial-rojo", "de")):
         refused = await client.post(url, headers=headers, json={
             "template": template, "locale": locale, "issued_date": "2026-09-22"})
         assert refused.status_code == 422 and refused.json()["detail"] == "locale_not_supported", refused.text
@@ -138,17 +138,17 @@ async def test_render_prints_in_the_stored_locale_unless_asked_otherwise(client,
     monkeypatch.setattr("app.routers.render.fonts_installed", lambda: True)
     eid = await _ready_enrollment(client, factory, world, "render")
     issued = await client.post(f"{ENROLLMENTS}/{eid}/certificate", headers=world["director"]["headers"], json={
-        "template": "especialidad-modular-azul", "locale": "fr", "issued_date": "2026-09-22"})
+        "template": "especialidad-editorial-rojo", "locale": "fr", "issued_date": "2026-09-22"})
     assert issued.status_code == 201, issued.text
     folio = issued.json()["certificate_no"]
-    french = load_template("especialidad-modular-azul").strings["fr"]["church_name"]
+    french = load_template("especialidad-editorial-rojo").strings["fr"]["church_name"]
 
-    stored = await client.post(RENDER, json={"template": "especialidad-modular-azul", "format": "svg",
+    stored = await client.post(RENDER, json={"template": "especialidad-editorial-rojo", "format": "svg",
                                              "certificate_no": folio})
     assert stored.status_code == 200, stored.text
     assert "22 septembre 2026" in _texts(stored.text) and french in _texts(stored.text)
 
-    english = await client.post(RENDER, json={"template": "especialidad-modular-azul", "format": "svg",
+    english = await client.post(RENDER, json={"template": "especialidad-editorial-rojo", "format": "svg",
                                               "certificate_no": folio, "locale": "en"})
     assert english.status_code == 200, english.text
     assert "September 22, 2026" in _texts(english.text) and french not in _texts(english.text)
@@ -196,16 +196,16 @@ async def test_the_assistant_batch_keeps_the_template_it_rendered(client, factor
     PNG/PDF for these folios; without it, the default template; an unknown one is a 422."""
     from app.services.portfolio import DEFAULT_CERTIFICATE_TEMPLATE
 
-    chosen = await _prototype(client, factory, template="especialidad-modular-azul")
+    chosen = await _prototype(client, factory, template="especialidad-editorial-rojo")
     assert chosen.status_code == 201, chosen.text
     folio = chosen.json()[0]["certificate_no"]
     verified = (await client.get(f"/api/v1/certificates/verify/{folio}")).json()
-    assert verified["valid"] is True and verified["template_slug"] == "especialidad-modular-azul"
+    assert verified["valid"] is True and verified["template_slug"] == "especialidad-editorial-rojo"
     stored = await fetch_one(
         "SELECT t.name, t.supports_svg, t.width, t.height FROM certificates c"
         " JOIN certificate_templates t ON t.id = c.template_id WHERE c.certificate_no = :no", no=folio)
-    template = load_template("especialidad-modular-azul")
-    assert stored["name"] == "especialidad-modular-azul" and stored["supports_svg"] is True
+    template = load_template("especialidad-editorial-rojo")
+    assert stored["name"] == "especialidad-editorial-rojo" and stored["supports_svg"] is True
     assert stored["width"] == round(template.width_pt / 72, 4) and stored["height"] == round(template.height_pt / 72, 4)
     # ...and the folio renders again on its template (what /verify's download does).
     again = await client.post(RENDER, json={"template": verified["template_slug"], "format": "svg",
@@ -218,11 +218,11 @@ async def test_the_assistant_batch_keeps_the_template_it_rendered(client, factor
     assert verified["template_slug"] == DEFAULT_CERTIFICATE_TEMPLATE
 
     # The language it was printed in travels too, so the download by folio matches.
-    english = await _prototype(client, factory, template="especialidad-modular-azul", locale="en")
+    english = await _prototype(client, factory, template="especialidad-editorial-rojo", locale="en")
     assert english.status_code == 201, english.text
     verified = (await client.get(f"/api/v1/certificates/verify/{english.json()[0]['certificate_no']}")).json()
-    assert verified["locale"] == "en" and verified["template_slug"] == "especialidad-modular-azul"
-    unsupported = await _prototype(client, factory, template="especialidad-modular-azul", locale="de")
+    assert verified["locale"] == "en" and verified["template_slug"] == "especialidad-editorial-rojo"
+    unsupported = await _prototype(client, factory, template="especialidad-editorial-rojo", locale="de")
     assert unsupported.status_code == 422 and unsupported.json()["detail"]["code"] == "locale_not_supported"
 
     before = await fetch_one("SELECT count(*) AS n FROM certificates")
