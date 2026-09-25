@@ -1,0 +1,68 @@
+{
+ "honor_slug": "himnos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Hymns/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir \"hino\" e citar sua fonte.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Conversar sobre o contexto bíblico dos seguintes textos, de acordo com a relação de cada um com os hinos e com os motivos apresentados para cantar:\n  a. Juízes 5:3\n  b. Salmo 33:2\n  c. Salmo 40:3\n  d. Salmo 81:1-2\n  e. Salmo 95:1-2\n  f. Salmo 98:4-6\n  g. Salmo 101:1\n  h. Neemias 12:27\n  i. Efésios 5:19\n  j. Colossenses 3:16",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher um versículo ou uma passagem curta da Bíblia e musicá-lo. Você pode usar uma melodia já existente ou compor uma melodia própria. Cantar seu novo hino a cappella ou com acompanhamento musical.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Usando o índice por assuntos de um hinário adventista, identificar pelo menos um hino de cada um dos seguintes temas:\n  a. Sábado\n  b. Segunda Vinda\n  c. Nascimento de Cristo\n  d. Adoração\n  e. Mensagem de saúde\n  f. Ressurreição",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar pelo menos três lugares, além do culto da igreja, onde você pode ouvir hinos sendo apresentados.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Identificar os vários índices de seu hinário e dizer como são úteis no planejamento dos hinos para o culto.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher cinco hinos de que você gosta e conversar brevemente sobre os motivos da escolha de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Usando um hinário adventista, ler a letra de três hinos que você não conhece. Resumir o significado ou fazer um desenho do que os hinos significam para você. Escolher um deles para conversar com o grupo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Criar uma apresentação multimídia sobre dois compositores de hinos, sendo um deles um dos primeiros compositores de hinos adventistas, e fazer uma lista das fontes usadas.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Escolher dois hinos e apresentar a história do que inspirou seus autores a escrevê-los.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Aprender um hino que você não conhece e apresentá-lo em uma das seguintes ocasiões: em sua igreja, em seu grupo de jovens ou de Desbravadores, ou em outro ambiente aprovado por seu líder.",
+   "instructions": null
+  }
+ ]
+}

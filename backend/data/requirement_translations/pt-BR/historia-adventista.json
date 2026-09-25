@@ -1,0 +1,83 @@
+{
+ "honor_slug": "historia-adventista",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/SDA_History/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "História adventista",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual era o nome do homem cuja pregação deu início ao movimento adventista e quais eram três de seus principais ensinos?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Preencher as lacunas:\n  No dia _______ de outubro de 18____, muitos adventistas creram que Jesus iria ____________. Quando Ele ____________, esse dia ficou conhecido por eles como o Grande ________________.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Depois disso, muitos abandonaram a fé adventista. Porém, alguns não abandonaram. O que eles fizeram para tentar descobrir o que tinha dado errado?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Uma dessas adventistas era uma jovem chamada Ellen Harmon (mais tarde White), que se tornou uma líder importante. Por que ela teve tanta influência?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Citar o nome da pessoa que entendeu o que tinha acontecido no Céu e também o que os adventistas tinham entendido de forma errada.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Uma senhora batista do sétimo dia chamada Rachel Oakes tinha ensinado antes a um pastor adventista algo da Bíblia que eles nunca haviam entendido plenamente, e que logo foi aceito prontamente pelos adventistas. O que era?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Pouco tempo depois, tornou-se necessário que os adventistas se organizassem formalmente em uma nova igreja: a Igreja Adventista do Sétimo Dia. Citar o nome dos fundadores e a data em que isso aconteceu.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "No final dos anos 1800, os adventistas do sétimo dia criam firmemente que sua missão era levar ao mundo a Mensagem do Terceiro Anjo (Apocalipse 14:6-12) e, por isso, começaram a fazer missões no exterior. Citar quatro países para onde a igreja enviou missionários e o nome desses missionários.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Havia várias maneiras principais pelas quais esses missionários espalhavam a mensagem adventista. Citar três desses métodos e explicar como cada um funcionava.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "No final dos anos 1800, alguns líderes da igreja estavam ensinando tanto os \"mandamentos de Deus\" (Apocalipse 14:12) que estavam perdendo de vista \"a fé em Jesus\" (Apocalipse 14:12). Por causa disso, alguns adventistas achavam que a salvação vinha por guardar os ______________________ de Deus, em vez de pela ______________ em Jesus, em Seu sacrifício e em Sua justiça. Isso precisava ser corrigido. Citar as três pessoas-chave que lideraram essa renovação durante e depois da Assembleia da Associação Geral de 1888.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Como clube, pesquisar como a mensagem adventista chegou pela primeira vez ao seu país. Com suas palavras, contar muito brevemente como e quando isso aconteceu e o nome de duas pessoas-chave envolvidas.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Como clube, pesquisar como a mensagem adventista chegou pela primeira vez ao seu estado, província ou outra região local. Com suas palavras, contar brevemente como e quando isso aconteceu e o nome de duas pessoas-chave que ajudaram nisso.",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Como clube, conversar com alguns membros mais idosos de sua igreja e conhecer alguém de sua congregação local que fez grandes coisas para Deus. Compartilhar o nome dessa pessoa e o que ela fez.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Todos nós podemos ser heróis de Deus. Ler Apocalipse 14:6. Assim como esses homens e mulheres de Deus que vieram antes de você, explicar com suas palavras como é saber que Jesus chamou você para compartilhar com os outros o Seu amor demonstrado na cruz e as boas-novas de Sua breve volta.",
+   "instructions": null
+  }
+ ]
+}

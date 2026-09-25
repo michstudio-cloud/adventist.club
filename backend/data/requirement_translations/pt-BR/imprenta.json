@@ -1,0 +1,53 @@
+{
+ "honor_slug": "imprenta",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Printing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Saber como funcionam os seguintes equipamentos de impressão:\n  a. Rotativa (impressora de bobina)\n  b. Impressora offset\n  c. Máquina fotocopiadora\n  d. Tipografia (impressão em relevo)",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Saber o que significa a referência em libras para determinar a gramatura do papel. Saber para que são usados os seguintes tipos de papel:\n  a. Offset\n  b. Bond (apergaminhado)\n  c. Papel para capa\n  d. Cartão index",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Visitar uma gráfica ou um jornal. Escrever um relatório de 300 palavras ou fazer um relato oral de três minutos sobre as etapas do processo de impressão que você observou.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer uma pesquisa para aprender sobre a história da impressão. Traçar o desenvolvimento da impressão, aprendendo como as prensas evoluíram até os dias de hoje.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Conhecer as diferentes tintas disponíveis para impressão e suas características.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Conhecer o significado dos seguintes termos:\n  a. Impressão frente e verso (backing up)\n  b. Blanqueta\n  c. Sangria\n  d. Negrito\n  e. Arte-final pronta para reprodução\n  f. Legenda\n  g. Clip-art\n  h. Alcear\n  i. Separação de cores\n  j. Cópia por contato\n  k. Baixo-relevo\n  l. Alto-relevo\n  m. Gravação\n  n. Fonte\n  o. Fantasma (ghosting)\n  p. Talho-doce (intaglio)\n  q. Bater/alinhar o papel\n  r. Fosco\n  s. Negativo\n  t. Paste-up (montagem)\n  u. Registro\n  v. Decalque (repinte)\n  w. Transparência do verso\n  x. Termografia\n  y. Marca-d'água\n  z. Tira e retira",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Conhecer a diferença entre meio-tom, duotone e o processo de quatro cores (quadricromia).",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Entrevistar um profissional gráfico para descobrir o seguinte:\n  a. Que formação é necessária para entrar na área gráfica?\n  b. Que oportunidades de crescimento existem na área gráfica?\n  c. O que o futuro reserva para a indústria gráfica?\n  d. O que você faz em sua empresa para manter os clientes satisfeitos?\n  e. Que oportunidades de carreira relacionadas à impressão existem?",
+   "instructions": null
+  }
+ ]
+}

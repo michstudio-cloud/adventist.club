@@ -1,0 +1,103 @@
+{
+ "honor_slug": "huesos-musculos-y-movimiento",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bones,_Muscles,_and_Movement/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é a diferença entre exoesqueleto e endoesqueleto? Que tipo de esqueleto os seres humanos têm?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fazer uma lista de três funções do sistema esquelético.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "O osso é um tecido vivo? Explicar por que sim ou por que não.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever a estrutura e o desenvolvimento do osso.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Identificar os seguintes ossos do sistema esquelético: carpos, clavícula, cóccix, crânio, fêmur, fíbula, úmero, mandíbula, maxilares, metacarpos, metatarsos, patela, pelve, falanges, rádio, costelas, escápula, esterno, tarsos, tíbia, ulna e vértebras.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "O que é uma articulação?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista de três tipos de articulações encontradas entre os ossos.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Citar e descrever seis tipos de articulações móveis (sinoviais). Saber localizar um exemplo de cada uma em seu corpo.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Usar a criatividade e construir um modelo de uma das seis articulações móveis.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Qual é o outro nome de um osso quebrado? Fazer uma lista de 3 tipos de fraturas que podem ocorrer nos ossos. Descrever como os ossos se regeneram e como os médicos podem ajudar nesse processo.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "O que é osteoporose? Quem pode ter essa doença? Fazer uma lista de pelo menos 5 hábitos de saúde relacionados à manutenção de ossos e músculos saudáveis.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Qual é a função do sistema muscular?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Citar e descrever três tipos de tecido muscular. Dar um exemplo de cada um.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Saber identificar os seguintes músculos em seu corpo: masseter, trapézio, deltoide, peitoral, bíceps, abdominal, quadríceps, tríceps, grande dorsal, glúteo máximo, isquiotibiais, gastrocnêmio e sóleo.",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Descrever o processo que faz um músculo se contrair.",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Descrever a diferença entre músculos voluntários e involuntários.",
+   "instructions": null
+  },
+  {
+   "position": 17,
+   "description": "Usando seu modelo do requisito 9, mostrar como os músculos, os ossos e as articulações trabalham juntos para produzir movimento.",
+   "instructions": null
+  },
+  {
+   "position": 18,
+   "description": "Encontrar 3 textos na Bíblia que mencionem ossos e/ou músculos. Falar sobre cada um com suas palavras.",
+   "instructions": null
+  }
+ ]
+}
