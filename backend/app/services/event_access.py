@@ -25,8 +25,11 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import ClubMembership, Event, EventStaff, Organization, User
-from app.rbac import director_blocked, get_org_path, is_master, org_in_subtree
-from app.security import ADMIN_ASSOCIATION, CLUB_DIRECTOR, ROLE_RANK
+from app.rbac import director_blocked, has_role, is_master
+from app.security import ADMIN_ASSOCIATION, ADMIN_DIVISION, ADMIN_UNION, CLUB_DIRECTOR
+
+# Platform roles that manage the events of the organizations in their scope.
+EVENT_ADMIN_ROLES = (ADMIN_ASSOCIATION, ADMIN_UNION, ADMIN_DIVISION)
 
 COORDINATOR = "COORDINATOR"
 JUDGE = "JUDGE"
@@ -38,15 +41,12 @@ async def can_manage_events_of(
     db: AsyncSession, actor: User | None, organization_id: uuid.UUID | None
 ) -> bool:
     """ADMIN_ASSOCIATION (or higher) whose scope contains `organization_id`; MASTER_GC
-    everywhere. THE seam for `rbac.has_role` (see the module docstring)."""
+    everywhere. Any of the actor's scoped roles counts, not only the principal one."""
     if actor is None or organization_id is None or actor.status != "ACTIVE":
         return False
     if is_master(actor):
         return True
-    if ROLE_RANK.get(actor.role, 0) < ROLE_RANK[ADMIN_ASSOCIATION]:
-        return False
-    scope_path = await get_org_path(db, actor.organization_id)
-    return await org_in_subtree(db, organization_id, scope_path)
+    return await has_role(db, actor, EVENT_ADMIN_ROLES, organization_id)
 
 
 async def director_club_ids(db: AsyncSession, actor: User) -> set[uuid.UUID]:
