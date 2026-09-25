@@ -1,0 +1,68 @@
+{
+ "honor_slug": "genealogia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Genealogy_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Genealogia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Definir fonte primária e fonte secundária de documentação e explicar a diferença.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é a finalidade da documentação?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Demonstrar uma extração de dados de censo para um ramo de sua família em seis dos seguintes censos: (na NAD, descobrir o ano de imigração e anotar o país de onde imigraram) a. 1840; b. 1850; c. 1860; d. 1870; e. 1880; f. 1900; g. 1910; h. 1920",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Mostrar uma árvore genealógica (quadro de ascendência) preenchida por você com 7 gerações. Fazer uma lista das informações que você não conseguiu descobrir e dos esforços que fez para localizá-las.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Mostrar 42 fichas de grupo familiar preenchidas por você e as notas de documentação que acompanham cada ficha.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Encontrar registros militares/de pensão de um de seus familiares. Se sua família não tiver nenhum, mostrar registros militares/de pensão de qualquer pessoa.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Mostrar registros civis que você obteve de uma pessoa do item 5, incluindo:\n  a. nascimento\n  b. casamento\n  c. óbito",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Mostrar uma cópia de 3 obituários de parentes, com a documentação de onde você os encontrou.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma lista de quatro sites ou bibliotecas onde você conseguiu encontrar informações para a pesquisa sobre sua família.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Em que parte da Bíblia se diz para não gastar tempo com fábulas e genealogias intermináveis? Que razão o Comentário Bíblico Adventista do Sétimo Dia apresenta para esse conselho?",
+   "instructions": null
+  }
+ ]
+}

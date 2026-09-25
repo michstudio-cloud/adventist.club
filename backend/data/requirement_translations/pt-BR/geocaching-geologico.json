@@ -1,0 +1,53 @@
+{
+ "honor_slug": "geocaching-geologico",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geological_Geocaching/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Geologia ou de Rochas e minerais.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Ter a especialidade de Geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar brevemente a diferença entre a formação das rochas sedimentares, ígneas e metamórficas. Dar exemplos de tipos de rochas/minerais de cada categoria.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como a água e o vento são as principais influências na transformação da geologia de uma região ou área. Dar exemplos de seu estado ou região.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma das seguintes atividades, individualmente ou com um pequeno grupo.\n  a. Visitar e registrar no Geocaching.com cinco ou mais earthcaches.\n  b. Visitar e registrar no Geocaching.com 3 tipos de earthcache (da lista abaixo).\n  c. Visitar e registrar no Geocaching.com três ou mais earthcaches em dois estados/províncias/países.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Apresentar a um instrutor ou grupo um relatório sobre o que você aprendeu e as experiências que teve ao cumprir os requisitos de atividades desta especialidade. Você pode usar software de apresentação, fotos ou outros meios de apresentação no relatório.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Ler a história da Criação em Gênesis 1:1-2:3.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Conversar com um instrutor, pastor ou líder de jovens qualificado sobre como os cristãos criacionistas entendem a formação da Terra em seis dias literais de criação. Se necessário, você pode comparar essa visão com a visão evolucionista.",
+   "instructions": null
+  }
+ ]
+}

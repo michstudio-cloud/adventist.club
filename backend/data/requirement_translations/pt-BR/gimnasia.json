@@ -1,0 +1,33 @@
+{
+ "honor_slug": "gimnasia",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Tumbling_%26_Balancing/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Acrobacias e equilíbrio",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Fazer uma lista das precauções de segurança que cada executante e cada auxiliar de segurança (spotter) devem seguir.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever as posições básicas:\n  a. Grupada\n  b. Carpada\n  c. Estendida\n  d. Hiperextensão (arco)\n  e. Agachada\n  f. Afastada\n  g. Posição em pé (extensão)",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Executar as seguintes acrobacias individuais com boa técnica e postura:\n  a. Rolamento para a frente grupado, a partir da posição agachada\n  b. Rolamento para a frente carpado, a partir da posição em pé\n  c. Rolamento com mergulho (com comprimento igual à própria altura)\n  d. Rolamento para trás grupado, a partir da posição agachada\n  e. Rolamento para trás a partir da posição em pé\n  f. Rolamento para trás com pernas afastadas, a partir da extensão\n  g. Queda sueca\n  h. Posição de sapo (apoio de joelhos nos cotovelos)\n  i. Parada de cabeça a partir da posição de sapo\n  j. Parada de cabeça\n  k. Parada de mãos\n  l. Estrela",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Executar com boa técnica e postura seis das seguintes acrobacias com um parceiro:\n  a. Apoio sobre o peito\n  b. Apoio sobre as coxas\n  c. Equilíbrio joelho-ombro\n  d. Anjo de frente\n  e. Apoio sobre os ombros\n  f. Apoio baixo sobre os joelhos\n  g. Equilíbrio sobre as coxas\n  h. Anjo de frente alto",
+   "instructions": null
+  }
+ ]
+}

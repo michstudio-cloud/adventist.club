@@ -1,0 +1,33 @@
+{
+ "honor_slug": "geologia-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geology_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Geologia.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Fornecer as seguintes informações:\n  a. Como os terremotos nos mostram como é o interior da Terra?\n  b. Como uma grande quantidade de água (como no dilúvio de Noé) pode fazer em poucos meses o que uma pequena quantidade de água levaria milhares ou milhões de anos para fazer?\n  c. Por que se veem evidências de geleiras em regiões de clima temperado onde hoje não há geleiras?\n  d. Como os criacionistas, que creem em um dilúvio universal e em uma idade recente da Terra desde a criação, entendem e usam a tabela do tempo geológico?\n  e. O que é a teoria da deriva continental (tectônica de placas) e como os criacionistas podem encaixar essa atividade geológica no tempo decorrido desde a criação?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Em que parte do mundo você provavelmente veria:\n  a. Grandes geleiras\n  b. Vulcões ativos\n  c. Dunas de areia\n  d. Dolinas\n  e. Fiordes\n  f. Montanhas de blocos falhados\n  g. Montanhas dobradas\n  h. Falésias de giz\n  i. Icebergs\n  j. Atóis",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Escrever uma redação de 500 palavras sobre um dos seguintes temas:\n  a. Descrever a geologia interessante que você viu em uma viagem recente.\n  b. Descrever a atividade geológica causada por uma chuva forte, enchente ou vendaval que você presenciou.",
+   "instructions": null
+  }
+ ]
+}

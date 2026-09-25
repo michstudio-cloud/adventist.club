@@ -1,0 +1,48 @@
+{
+ "honor_slug": "geocaching-avanzado",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Geocaching_-_Advanced/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Ter a especialidade de Geocaching.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Descrever brevemente a origem dos satélites do sistema de posicionamento global. Qual é a história deles: quando e como chegaram lá? Quem os colocou?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Definir latitude e longitude. O que se entende por graus, minutos e segundos?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Fazer duas ou mais das seguintes atividades:\n  a. Criar e manter um novo geocache em sua região por pelo menos 6 meses.\n  b. Enviar e acompanhar um TB (travel bug) por 6 meses.\n  c. Encontrar 2 travel bugs e acompanhá-los por 6 meses\n  d. Participar de uma reunião ou evento de geocaching em sua região (comparecer).",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quais são as leis/regras/diretrizes para colocar caches nos seguintes locais?\n  a. Parques estaduais e áreas do Serviço Nacional de Parques\n  b. Faixas de domínio de rodovias e ferrovias\n  c. Colocação de caches durante viagens\n  d. Áreas de vida selvagem dentro de florestas nacionais\n  e. Serviço Florestal do USDA (Departamento de Agricultura dos EUA)",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Encontrar e registrar pelo menos 18 geocaches, incluindo:\n  a. Um cache tradicional com dificuldade 3 estrelas\n  b. Um multinível\n  c. Um virtual\n  d. Um micro",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escrever sobre o geocache encontrado no livro de registro (log) do site de geocaching.",
+   "instructions": null
+  }
+ ]
+}
