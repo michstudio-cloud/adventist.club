@@ -1,0 +1,73 @@
+{
+ "honor_slug": "moluscos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Shells/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Qual é o significado do termo \"molusco\"?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Identificar em conchas ou desenhos o seguinte:\n  a. Manto\n  b. Pé\n  c. Dentes\n  d. Costelas\n  e. Valva\n  f. Borda dorsal\n  g. Ápice\n  h. Opérculo\n  i. Canal",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Todas as conchas são encontradas nas praias? Onde mais são encontradas? Que regiões do mundo oferecem a maior variedade de conchas?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Descrever como os moluscos com concha se deslocam de um lugar para outro.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Como os animais com concha se protegem?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Como as conchas são formadas e de que materiais são feitas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer uma lista e explicar cinco usos que o ser humano faz das conchas.",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Explicar os termos \"univalve\" e \"bivalve\" aplicados às conchas.",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Citar em termos comuns cinco classes diferentes de conchas e indicar em sua coleção uma concha de cada classe.",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Fazer uma coleção de 20 conchas diferentes, classificá-las e dizer onde cada uma é encontrada e quando passou a ser sua.",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Qual é a origem das pérolas? Que lições espirituais a pérola nos ensina? Ler e conversar sobre Parábolas de Jesus, de Ellen G. White, páginas 115 a 118.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Relacionar os textos bíblicos que melhor respondem às questões A-J:",
+   "instructions": null
+  }
+ ]
+}

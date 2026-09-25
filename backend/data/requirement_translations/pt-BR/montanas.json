@@ -1,0 +1,53 @@
+{
+ "honor_slug": "montanas",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Mountains/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Definir os seguintes termos:\n  a. Orologia\n  b. Montanha\n  c. Cordilheira\n  d. Magma\n  e. Vulcão",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Dizer três maneiras pelas quais as montanhas se formaram.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Escolher dez montanhas, incluindo 2 perto de onde você mora, e dizer o nome de cada uma, sua altitude, onde fica e de que cordilheira (se houver) faz parte. Procurar escolher montanhas do maior número possível de países diferentes.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Relacionar cada descrição com a resposta correta:",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer uma lista de pelo menos quatro montes mencionados na Bíblia e dizer que acontecimentos importantes ocorreram ali:\n  a. Ararate\n  b. Monte Carmelo\n  c. Monte Sinai\n  d. Monte Nebo",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer a seguinte atividade:\n  a. Visitar uma montanha e contar sua experiência de uma destas maneiras:\n    i. Contar a alguém uma história sobre sua visita\n    ii. Escrever um relato narrativo sobre sua visita\n    iii. Fazer um vídeo ou uma apresentação de PowerPoint sobre sua visita\n    iv. Fazer um álbum de fotos sobre sua visita (pode ser um projeto de grupo)\n  b. Se NÃO houver montanha em seu estado/província, você pode assistir a um vídeo sobre montanhas.\n    i. Resumir o vídeo\n    ii. Criar uma apresentação multimídia sobre o vídeo\n    iii. Criar um modelo 3D de uma montanha/vulcão e demonstrar sua erupção.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Escolher um dos seguintes versículos sobre montanhas e recitá-lo:\n  a. Salmo 90:2\n  b. Isaías 52:7\n  c. Isaías 55:12",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Criar um jogo ou atividade com base na terminologia e nas montanhas estudadas nesta especialidade.",
+   "instructions": null
+  }
+ ]
+}

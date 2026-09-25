@@ -1,0 +1,93 @@
+{
+ "honor_slug": "murcielagos",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Bats/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": null,
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Por que os morcegos são classificados como mamíferos e não como aves?",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Qual é a principal característica que distingue os morcegos de todos os outros mamíferos?",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Qual é o nome da ordem a que os morcegos pertencem e o que ele significa?",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Quais são os maiores e os menores morcegos e onde vivem?",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Quantos tipos diferentes de morcegos existem no mundo?",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Os morcegos são divididos em duas (2) subordens. Quais são os nomes delas?",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Que subordem de morcegos usa a ecolocalização e que subordem usa a visão para encontrar alimento?",
+   "instructions": null
+  },
+  {
+   "position": 8,
+   "description": "Qual é a alimentação dos megamorcegos (Megachiroptera)?",
+   "instructions": null
+  },
+  {
+   "position": 9,
+   "description": "Qual é a alimentação dos micromorcegos (Microchiroptera)?",
+   "instructions": null
+  },
+  {
+   "position": 10,
+   "description": "Quantos filhotes um morcego tem por ano e como os filhotes são chamados?",
+   "instructions": null
+  },
+  {
+   "position": 11,
+   "description": "Encontrar três textos bíblicos que mencionam morcegos.",
+   "instructions": null
+  },
+  {
+   "position": 12,
+   "description": "Os morcegos hibernam ou migram no inverno?",
+   "instructions": null
+  },
+  {
+   "position": 13,
+   "description": "Citar as partes de um morcego.",
+   "instructions": null
+  },
+  {
+   "position": 14,
+   "description": "Quantos insetos um morcego consegue comer em uma hora?",
+   "instructions": null
+  },
+  {
+   "position": 15,
+   "description": "Quais são os dois (2) principais benefícios que os morcegos trazem ao ser humano?",
+   "instructions": null
+  },
+  {
+   "position": 16,
+   "description": "Construir ou comprar uma casinha para morcegos, saber qual é o melhor lugar para colocá-la e instalá-la em uma casa, igreja ou em sua escola. Registrar durante 3 meses que tipo de morcegos e quantos passaram a morar nela.",
+   "instructions": null
+  }
+ ]
+}

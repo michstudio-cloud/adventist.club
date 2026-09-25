@@ -1,0 +1,48 @@
+{
+ "honor_slug": "moluscos-terrestres-y-de-agua-dulce",
+ "ministry": "pathfinders",
+ "source_locale": "en",
+ "target_locale": "pt-BR",
+ "source": "traduccion-no-oficial-pathfinder-wiki",
+ "source_url": "https://wiki.pathfindersonline.org/w/AY_Honors/Land_and_Freshwater_Mollusks/Requirements",
+ "license": "CC BY-SA 3.0",
+ "name": "Moluscos terrestres e de água doce",
+ "description": null,
+ "requirements": [
+  {
+   "position": 1,
+   "description": "Distinguir entre caramujos marinhos, caracóis terrestres, lesmas, caramujos de água doce e bivalves de água doce.",
+   "instructions": null
+  },
+  {
+   "position": 2,
+   "description": "Explicar a estrutura básica e as partes do molusco e de sua concha.",
+   "instructions": null
+  },
+  {
+   "position": 3,
+   "description": "Explicar como o caracol se alimenta, se move e se reproduz.",
+   "instructions": null
+  },
+  {
+   "position": 4,
+   "description": "Explicar como os bivalves de água doce se alimentam e se movem.",
+   "instructions": null
+  },
+  {
+   "position": 5,
+   "description": "Fazer o seguinte:\n  a. Descrever os usos que as pessoas têm feito dos caracóis.\n  b. Descrever as doenças e os problemas de pragas associados a alguns caracóis terrestres e de água doce.",
+   "instructions": null
+  },
+  {
+   "position": 6,
+   "description": "Fazer o seguinte:\n  a. Explicar como os caracóis se inserem no equilíbrio ecológico de uma região.\n  b. Explicar a necessidade de conservar as áreas naturais como hábitat dos caracóis e de outras criaturas.",
+   "instructions": null
+  },
+  {
+   "position": 7,
+   "description": "Fazer a ou b:\n  a. Coletar, fotografar ou desenhar caracóis terrestres, caramujos de água doce e/ou bivalves de água doce da região (apenas conchas vazias).\n  b. Manter e observar caracóis ou lesmas vivos em um recipiente adequado.",
+   "instructions": null
+  }
+ ]
+}
