@@ -4,6 +4,7 @@ Thin: who may act is decided in `app/services/event_access.py` (through
 `events.require_coordination` / `require_access`), the work in `app/services/events.py` and
 `app/services/event_scores.py`, the points in `app/services/event_scoring.py`.
 """
+import asyncio
 import uuid
 
 from fastapi import APIRouter, Body, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
@@ -45,11 +46,13 @@ from app.schemas.event import (
     StaffCreate,
     StaffOut,
 )
-from app.services import event_brand
+from app.services import event_brand, event_pass
 from app.services import event_checkin as checkin
 from app.services import event_history as history
+from app.services import event_passes_pdf as passes_pdf_service
 from app.services import event_scores as scores
 from app.services import events as event_service
+from app.text import slugify
 
 router = APIRouter(prefix="/api/v1/events", tags=["events"])
 
@@ -499,6 +502,57 @@ async def regenerate_pass(event_id: uuid.UUID, registration_id: uuid.UUID, reque
     await db.commit()
     await db.refresh(row)
     return await scores.registration_out(db, row, pass_token=token, coordination=roles.coordination)
+
+
+@router.get("/{event_id}/passes.pdf", response_class=Response,
+            responses={200: {"content": {"application/pdf": {}}}})
+@limiter.limit("20/minute", key_func=account_or_ip)
+async def passes_pdf(event_id: uuid.UUID, request: Request,
+                     registration_id: list[uuid.UUID] | None = Query(default=None, max_length=500),
+                     per_page: int = Query(default=2, ge=1, le=2),
+                     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Printable passes (SPEC_RED_LOCAL §1). Coordination: every registered club, or the ones
+    named with `registration_id` (repeatable); a director: only their own club(s); anybody else
+    403. Prints the pass IN FORCE without rotating it (`current_pass`): a pass from before 028 is
+    regenerated once — `X-Pass-Regenerated: <n>` — which needs the event not to be closed (409).
+    US Letter, two per sheet with a cut line, or `per_page=1` for one large pass."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_access(db, current_user, event)
+    if not (roles.coordination or roles.director_club_ids):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, event_service.FORBIDDEN)
+    own = None if roles.coordination else roles.director_club_ids
+    rows = await scores.list_registrations(db, event, club_ids=own)
+    if registration_id:
+        wanted = set(registration_id)
+        missing = wanted - {row.id for row, _ in rows}
+        if missing:
+            # another club of this event: a director may not; an id of no registration here: 404
+            if own is not None and missing & {row.id for row, _ in await scores.list_registrations(db, event)}:
+                raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
+            raise HTTPException(status.HTTP_404_NOT_FOUND, scores.REGISTRATION_NOT_FOUND)
+        rows = [(row, club) for row, club in rows if row.id in wanted]   # club-name order
+    else:
+        rows = [(row, club) for row, club in rows if row.status == scores.REGISTERED]
+    if not rows:
+        raise HTTPException(status.HTTP_409_CONFLICT, scores.NO_PASSES_TO_PRINT)
+    items, regenerated = [], 0
+    for row, club in rows:
+        token, fresh = await scores.current_pass(db, current_user, event, row, request)
+        regenerated += fresh
+        items.append(passes_pdf_service.ClubPass(club_name=club.name, club_city=club.city, token=token,
+                                                 url=event_pass.pass_url(token)))
+    if regenerated:
+        await db.commit()
+    brand = passes_pdf_service.EventBrand(
+        name=event.name, starts_on=event.starts_on, ends_on=event.ends_on, venue=event.venue, city=event.city,
+        color=event.brand_color, accent=event.brand_accent, logo_url=event.brand_logo_url)
+    # CPU-bound, plus a short logo download: off the event loop.
+    body = await asyncio.to_thread(passes_pdf_service.render_passes_pdf, brand, items, per_page=per_page)
+    name = f"pase-{slugify(rows[0][1].name, 'club')}" if len(items) == 1 else f"pases-{slugify(event.name, 'evento')}"
+    headers = {"Content-Disposition": f'attachment; filename="{name}.pdf"', "Cache-Control": "no-store"}
+    if regenerated:
+        headers["X-Pass-Regenerated"] = str(regenerated)
+    return Response(body, media_type="application/pdf", headers=headers)
 
 
 @router.post("/{event_id}/resolve-pass", response_model=RegistrationOut, response_model_exclude_unset=True)

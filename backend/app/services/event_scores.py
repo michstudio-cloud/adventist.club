@@ -72,6 +72,7 @@ KEY_REUSED = "Esa clave de idempotencia ya se usó con otros datos"
 STALE_REVISION = "La evaluación cambió mientras la corregías: vuelve a cargarla"
 ALREADY_VOID = "La evaluación está anulada"
 DIRECTOR_ONLY_OWN = "Sólo puedes ver la inscripción de tu club"
+NO_PASSES_TO_PRINT = "No hay clubes inscritos con pase para imprimir"
 
 
 def _http(code: int, detail: str) -> HTTPException:
