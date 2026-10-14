@@ -25,13 +25,19 @@ def normalize_database_url(raw: str):
 LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1"}
 
 
-def connect_args_for(url) -> dict:
+def connect_args_for(url, *, raw: str | None = None) -> dict:
     """
     TLS is mandatory for any remote database (Neon). A database on the same
     machine (local development, CI, tests) usually has no TLS at all, and a
     unix-socket URL has no host.
+
+    The one explicit exception is `sslmode=disable` in the ORIGINAL URL (`raw`;
+    normalising drops libpq parameters): the event node (nodo-evento/) reaches its
+    own Postgres as `db` on a private Docker network that has no TLS.
     """
     if url.host is None or url.host in LOCAL_HOSTS:
+        return {}
+    if raw is not None and make_url(raw).query.get("sslmode") == "disable":
         return {}
     return {"ssl": "require"}
 
@@ -42,7 +48,7 @@ engine = create_async_engine(
     database_url,
     pool_pre_ping=True,
     pool_recycle=300,
-    connect_args=connect_args_for(database_url),
+    connect_args=connect_args_for(database_url, raw=settings.DATABASE_URL),
 )
 
 SessionLocal = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)

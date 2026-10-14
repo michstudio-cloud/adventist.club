@@ -37,6 +37,8 @@ from app.schemas.event import (
     EventStatusChange,
     EventUpdate,
     HistoryPage,
+    OfflineLockCreate,
+    OfflineLockRelease,
     RegistrationCreate,
     RegistrationOut,
     RegistrationUpdate,
@@ -48,10 +50,13 @@ from app.schemas.event import (
 from app.services import event_brand
 from app.services import event_checkin as checkin
 from app.services import event_history as history
+from app.services import event_offline as offline
 from app.services import event_scores as scores
 from app.services import events as event_service
 
-router = APIRouter(prefix="/api/v1/events", tags=["events"])
+# 029: every write to an event «en nodo local» answers 423 here (see event_offline).
+router = APIRouter(prefix="/api/v1/events", tags=["events"],
+                   dependencies=[Depends(offline.guard_offline_writes)])
 
 
 # ----------------------------------------------------------------------------
@@ -127,6 +132,42 @@ async def duplicate_event(event_id: uuid.UUID, payload: EventDuplicate, request:
     await db.commit()
     await db.refresh(copy)
     return await event_service.event_out(db, copy, await event_service.roles_for(db, current_user, copy))
+
+
+# ----------------------------------------------------------------------------
+# Nodo local (029)
+# ----------------------------------------------------------------------------
+@router.post("/{event_id}/offline-lock", response_model=EventOut)
+async def lock_offline(event_id: uuid.UUID, payload: OfflineLockCreate, request: Request,
+                       current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Mark the event «en nodo local»: from now on the cloud only READS it (every write 423)
+    until the node's data is imported back. Coordination only; 409 if already locked. The
+    `export` script of nodo-evento/ does this itself; this route is for doing it by hand."""
+    event = await event_service.get_event(db, event_id, lock=True)
+    roles = await event_service.require_coordination(db, current_user, event)
+    await offline.lock(db, current_user, event, payload.reason, payload.node_label, request)
+    await db.commit()
+    await db.refresh(event)
+    return await event_service.event_out(db, event, roles)
+
+
+@router.delete("/{event_id}/offline-lock", response_model=EventOut)
+async def unlock_offline(event_id: uuid.UUID, request: Request,
+                         payload: OfflineLockRelease | None = Body(default=None),
+                         reason: str | None = Query(default=None, max_length=500),
+                         current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Release the lock (normally the `import` script does it). Coordination only, with a
+    reason (JSON body or `?reason=`). Releasing BEFORE importing means the node's captures
+    are not in the cloud yet: the import will then report conflicts. Idempotent."""
+    event = await event_service.get_event(db, event_id, lock=True)
+    roles = await event_service.require_coordination(db, current_user, event)
+    text = payload.reason if payload is not None else " ".join((reason or "").split())
+    if not text:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El motivo es obligatorio")
+    await offline.unlock(db, current_user, event, text, request)
+    await db.commit()
+    await db.refresh(event)
+    return await event_service.event_out(db, event, roles)
 
 
 @router.post("/{event_id}/brand-logo", response_model=EventOut, status_code=status.HTTP_201_CREATED)

@@ -41,7 +41,7 @@ from app.schemas.event import (
     RegistrationOut,
 )
 from app.security import sha256_hex, utcnow
-from app.services import event_pass
+from app.services import event_offline, event_pass
 from app.services import event_scoring as scoring
 from app.services import events as event_service
 from app.services.audit import record_audit
@@ -234,6 +234,8 @@ async def current_pass(db: AsyncSession, actor: User, event: Event, row: EventRe
     token = event_pass.decrypt(locked.pass_token_enc)
     if token is not None and locked.pass_token_hash == sha256_hex(token):
         return token, False  # a twin request regenerated it while we waited
+    # 029: regenerating is a write; with the event «en nodo local» it happens on the node.
+    event_offline.ensure_online(event)
     return await regenerate_pass(db, actor, event, locked, request, reason="legacy"), True
 
 
