@@ -1,0 +1,50 @@
+# Proxy HTTPS del nodo local (README.md). Sirve los MISMOS nombres que producción; el router del
+# evento los resuelve a la IP del nodo. El certificado vive en tls/actual/ (Let's Encrypt por
+# DNS-01, obtenido antes del evento, o la CA local de respaldo). Caddy no pide certificados: sin
+# internet no podría.
+{
+	auto_https disable_certs
+	ocsp_stapling off
+	admin off
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+{$NODO_HOSTS} {
+	tls /certs/fullchain.pem /certs/privkey.pem
+	encode zstd gzip
+
+	# Salud del nodo (para el operador y el monitoreo del router).
+	handle /nodo-salud {
+		respond "ok" 200
+	}
+
+	# Logos del evento copiados por el export (en producción vienen de media.adventist.club).
+	handle_path /nodo-media/* {
+		root * /srv/media
+		file_server
+	}
+
+	@api host api.adventist.club
+	handle @api {
+		reverse_proxy api:8000
+	}
+
+	handle {
+		reverse_proxy web:3000 {
+			# Next lee X-Forwarded-Proto para marcar las cookies como Secure.
+			header_up X-Forwarded-Proto https
+		}
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}
+
+# Quien teclee la IP o http:// llega al sitio del evento.
+:80 {
+	redir https://events.adventist.club{uri} 302
+}
