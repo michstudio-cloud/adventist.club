@@ -16,6 +16,7 @@ role is an adult one. Nothing here commits.
 """
 import urllib.parse
 import uuid
+from urllib.parse import urlsplit
 from datetime import timedelta
 
 from fastapi import BackgroundTasks, HTTPException, Request, status
@@ -75,14 +76,55 @@ def state_of(invitation: OrgInvitation, now=None) -> str:
     return PENDING
 
 
-def join_url(token: str) -> str:
-    return f"{settings.frontend_url}/invitacion?t={token}"
+RETURN_TO_INVALID = "return_to debe ser una ruta «/…» o una dirección de un sitio propio"
 
 
-def whatsapp_url(organization_name: str, token: str) -> str:
+def clean_return_to(value: str | None) -> str | None:
+    """028: a "/path" (resolved on whichever host the invitee is) or an absolute http(s) URL
+    whose host is one of the platform's own (`settings.own_hosts`). Never `//host`, a
+    backslash, credentials, another scheme or a foreign host: an invitation must not become
+    an open redirect. Blank = None."""
+    if value is None:
+        return None
+    value = value.strip()
+    if not value:
+        return None
+    if any(ord(ch) < 32 or ch == "\\" for ch in value):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, RETURN_TO_INVALID)
+    if value.startswith("/"):
+        if value.startswith("//"):
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, RETURN_TO_INVALID)
+        return value
+    try:
+        parts = urlsplit(value)
+        host = (parts.hostname or "").lower()
+        has_credentials = parts.username is not None or parts.password is not None
+        parts.port  # noqa: B018 — raises ValueError on a malformed port
+    except ValueError:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, RETURN_TO_INVALID)
+    if parts.scheme not in ("http", "https") or not host or has_credentials \
+            or host not in settings.own_hosts:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, RETURN_TO_INVALID)
+    return value
+
+
+def _origin(return_to: str | None) -> str | None:
+    if not return_to or return_to.startswith("/"):
+        return None
+    parts = urlsplit(return_to)
+    return f"{parts.scheme}://{parts.netloc}"
+
+
+def join_url(token: str, return_to: str | None = None) -> str:
+    """The link of the invitation. With an absolute `return_to` (028) it opens on that host
+    (e.g. events.adventist.club for a director invited from an event); else FRONTEND_URL."""
+    return f"{_origin(return_to) or settings.frontend_url}/invitacion?t={token}"
+
+
+def whatsapp_url(organization_name: str, token: str, return_to: str | None = None) -> str:
     text = (
         f"Te invito a sumarte al equipo de {organization_name} en Adventist.Club: "
-        f"{join_url(token)}"
+        f"{join_url(token, return_to)}"
     )
     return "https://wa.me/?text=" + urllib.parse.quote(text)
 
@@ -133,9 +175,11 @@ async def create(
     expires_in_days: int | None = None,
     request: Request | None = None,
     audit_action: str = "ORG_INVITATION_CREATE",
+    return_to: str | None = None,
 ) -> tuple[OrgInvitation, str]:
     """Returns the row and the plain token, which the caller shows ONCE."""
     _check_target(role, organization)
+    return_to = clean_return_to(return_to)
     await require_can_invite(db, actor, role, organization)
     email = _normalize(email)
     if "@" not in email:
@@ -174,6 +218,7 @@ async def create(
         expires_at=now + timedelta(days=days),
         created_by_id=actor.id,
         created_at=now,
+        return_to=return_to,
     )
     db.add(invitation)
     record_audit(
@@ -189,6 +234,7 @@ async def create(
             "role": role,
             "expires_in_days": days,
             "invitee_has_account": invitee is not None,
+            "return_to": return_to,
         },
         request=request,
     )
@@ -278,6 +324,7 @@ async def resend(
         email=invitation.email,
         request=request,
         audit_action="ORG_INVITATION_RESEND",
+        return_to=invitation.return_to,
     )
     return renewed, token
 
@@ -415,7 +462,7 @@ def queue_email(
         invitation.email,
         organization.name,
         invitation.role,
-        join_url(token),
+        join_url(token, invitation.return_to),
         inviter.name,
         invitation.expires_at.date().isoformat(),
     )

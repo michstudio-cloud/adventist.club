@@ -11,13 +11,19 @@ Item types:
   EVALUATION_VOIDED     one VOID revision: points = what stopped counting
   ADJUSTMENT_APPLIED    approved_at (created_at while pending)
   ADJUSTMENT_VOIDED     voided_at
+  CHECK_IN              (028) event_check_ins.checked_in_at; no points, no activity
+  CHECK_IN_UNDONE       (028) event_check_ins.undone_at, with its reason
+An EVALUATION_CREATED granted automatically (captured_as AUTO_CHECKIN / AUTO_SCAN) carries
+`auto` = CHECKIN / SCAN, and `actor.as` = the role of whoever checked in / scanned.
 
 Who sees what (the router decides, `Scope` carries it):
   * coordination (COORDINATOR staff, admins in scope): everything, pending included;
   * a judge: the entries of the activities they judge (all of them when assigned to all);
-  * a director: only their own club's registrations, never pending items.
+  * a director: only their own club's registrations, never pending items, and never a
+    person's name: `actor.name` is null, only the role (`Scope.hide_names`, 028).
 Newest first; `before` is an opaque cursor (the last item's position). Item ids are stable:
-`ev:<evaluation>` (capture), `rv:<revision>`, `aa:<adjustment>` (applied), `av:<adjustment>`.
+`ev:<evaluation>` (capture), `rv:<revision>`, `aa:<adjustment>` (applied), `av:<adjustment>`,
+`ci:<check-in>`, `cu:<check-in>` (undone).
 """
 from __future__ import annotations
 
@@ -52,6 +58,8 @@ class Scope:
     activity_ids: set[uuid.UUID] | None = None
     registration_ids: set[uuid.UUID] | None = None
     include_pending: bool = False
+    # Directors: the role only, never who (028, «sin nombre del juez»).
+    hide_names: bool = False
 
 
 def encode_cursor(at: datetime, item_id: str) -> str:
@@ -82,11 +90,22 @@ items AS (
   SELECT 'ev:' || e.id AS item_id, e.created_at AS at, 'EVALUATION_CREATED' AS type,
          e.registration_id, e.activity_id, coalesce(r1.points, e.points) AS points,
          NULL::numeric AS previous_points, NULL::varchar AS kind,
-         coalesce(r1.judge_id, e.judge_id) AS actor_id, e.captured_as AS actor_as,
-         NULL::text AS reason, false AS pending
+         coalesce(r1.judge_id, e.judge_id) AS actor_id,
+         CASE e.captured_as
+           WHEN 'AUTO_CHECKIN' THEN coalesce(ci.checked_in_as, 'COORDINATION')
+           WHEN 'AUTO_SCAN' THEN CASE WHEN EXISTS (
+                SELECT 1 FROM event_staff s JOIN event_activities a ON a.id = e.activity_id
+                WHERE s.event_id = :event_id AND s.user_id = coalesce(r1.judge_id, e.judge_id)
+                  AND s.role = 'JUDGE'
+                  AND (s.activity_id IS NULL OR s.activity_id = a.id OR s.activity_id = a.parent_id))
+              THEN 'JUDGE' ELSE 'COORDINATION' END
+           ELSE e.captured_as END AS actor_as,
+         NULL::text AS reason, false AS pending,
+         CASE e.captured_as WHEN 'AUTO_CHECKIN' THEN 'CHECKIN' WHEN 'AUTO_SCAN' THEN 'SCAN' END AS auto
   FROM evaluations e
   JOIN regs ON regs.id = e.registration_id
   LEFT JOIN evaluation_revisions r1 ON r1.evaluation_id = e.id AND r1.revision = 1
+  LEFT JOIN event_check_ins ci ON ci.id = e.check_in_id
 
   UNION ALL
   SELECT 'rv:' || rv.id, rv.created_at,
@@ -100,7 +119,7 @@ items AS (
                 WHERE s.event_id = :event_id AND s.user_id = rv.changed_by_id AND s.role = 'JUDGE'
                   AND (s.activity_id IS NULL OR s.activity_id = a.id OR s.activity_id = a.parent_id))
               THEN 'JUDGE' ELSE 'COORDINATION' END,
-         rv.reason, false
+         rv.reason, false, NULL
   FROM evaluation_revisions rv
   JOIN evaluations e ON e.id = rv.evaluation_id
   JOIN regs ON regs.id = e.registration_id
@@ -110,19 +129,30 @@ items AS (
   SELECT 'aa:' || j.id, coalesce(j.approved_at, j.created_at), 'ADJUSTMENT_APPLIED',
          j.registration_id, j.activity_id, j.points, NULL, j.kind,
          coalesce(j.approved_by_id, j.created_by_id), 'COORDINATION', j.reason,
-         j.approved_by_id IS NULL
+         j.approved_by_id IS NULL, NULL
   FROM event_adjustments j JOIN regs ON regs.id = j.registration_id
 
   UNION ALL
   SELECT 'av:' || j.id, j.voided_at, 'ADJUSTMENT_VOIDED',
          j.registration_id, j.activity_id, j.points, NULL, j.kind,
-         j.voided_by_id, 'COORDINATION', j.void_reason, j.approved_by_id IS NULL
+         j.voided_by_id, 'COORDINATION', j.void_reason, j.approved_by_id IS NULL, NULL
   FROM event_adjustments j JOIN regs ON regs.id = j.registration_id
   WHERE j.voided_at IS NOT NULL
+
+  UNION ALL
+  SELECT 'ci:' || c.id, c.checked_in_at, 'CHECK_IN', c.registration_id, NULL, NULL, NULL, NULL,
+         c.checked_in_by_id, c.checked_in_as, NULL, false, NULL
+  FROM event_check_ins c JOIN regs ON regs.id = c.registration_id
+
+  UNION ALL
+  SELECT 'cu:' || c.id, c.undone_at, 'CHECK_IN_UNDONE', c.registration_id, NULL, NULL, NULL, NULL,
+         c.undone_by_id, 'COORDINATION', c.undo_reason, false, NULL
+  FROM event_check_ins c JOIN regs ON regs.id = c.registration_id
+  WHERE c.undone_at IS NOT NULL
 )
 SELECT i.item_id, i.at, i.type, i.registration_id, regs.club_name, i.activity_id,
        a.name AS activity_name, i.points, i.previous_points, i.kind, u.name AS actor_name,
-       i.actor_as, i.reason, i.pending
+       i.actor_as, i.reason, i.pending, i.auto
 FROM items i
 JOIN regs ON regs.id = i.registration_id
 LEFT JOIN event_activities a ON a.id = i.activity_id
@@ -164,10 +194,10 @@ async def page(db: AsyncSession, event: Event, scope: Scope, *, registration_id:
             registration=HistoryRegistration(id=str(row["registration_id"]), club_name=row["club_name"]),
             activity=(HistoryActivity(id=str(row["activity_id"]), name=row["activity_name"])
                       if row["activity_id"] is not None else None),
-            points=float(row["points"]),
+            points=None if row["points"] is None else float(row["points"]),
             previous_points=None if row["previous_points"] is None else float(row["previous_points"]),
-            kind=row["kind"],
-            actor=HistoryActor(name=row["actor_name"], as_=row["actor_as"]),
+            kind=row["kind"], auto=row["auto"],
+            actor=HistoryActor(name=None if scope.hide_names else row["actor_name"], as_=row["actor_as"]),
             reason=row["reason"], pending=bool(row["pending"]),
         )
         for row in rows

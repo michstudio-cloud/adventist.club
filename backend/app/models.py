@@ -1189,6 +1189,9 @@ class OrgInvitation(Base):
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
     )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 028: where the invitee goes back to after accepting (an own host or a "/path"); the API
+    # validates it. NULL = the app's default landing.
+    return_to: Mapped[str | None] = mapped_column(Text)
 
 
 class RoleAssignment(Base):
@@ -1349,6 +1352,15 @@ class EventRegistration(Base):
     club_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"))
     status: Mapped[str] = mapped_column(String(10), server_default="REGISTERED")
     pass_token_hash: Mapped[str | None] = mapped_column(String(64), unique=True)
+    # 028: the same pass, encrypted (app/services/event_pass.py), to show it again without
+    # rotating it. NULL on passes from before 028: regenerated once when asked for.
+    pass_token_enc: Mapped[str | None] = mapped_column(Text)
+    # 028: the club's current arrival (mirrors the event_check_ins row with undone_at NULL).
+    checked_in_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    checked_in_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    checked_in_as: Mapped[str | None] = mapped_column(String(12))
     finalist_flags: Mapped[dict] = mapped_column(JSONB, server_default="{}")
     # Manual tiebreak (coordination only): lower first among equal totals, NULL last.
     tiebreak_rank: Mapped[int | None] = mapped_column(Integer)
@@ -1359,6 +1371,29 @@ class EventRegistration(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
+
+
+class EventCheckIn(Base):
+    """028: one arrival of a club at an event, and its undoing (reason required). The row with
+    `undone_at` NULL is the current one; `event_registrations.checked_in_*` mirror it."""
+
+    __tablename__ = "event_check_ins"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    registration_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_registrations.id", ondelete="CASCADE")
+    )
+    checked_in_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    checked_in_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    checked_in_as: Mapped[str] = mapped_column(String(12))
+    method: Mapped[str] = mapped_column(String(8), server_default="PASS")
+    undone_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    undone_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    undo_reason: Mapped[str | None] = mapped_column(Text)
 
 
 class Evaluation(Base):
@@ -1379,8 +1414,13 @@ class Evaluation(Base):
     judge_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
     )
-    # JUDGE, or COORDINATION when coordination captured it (a missing judge).
+    # JUDGE, or COORDINATION when coordination captured it (a missing judge); 028:
+    # AUTO_CHECKIN (granted by the club's check-in) or AUTO_SCAN (a judge scanned the pass).
     captured_as: Mapped[str] = mapped_column(String(12), server_default="JUDGE")
+    # 028: the check-in that granted it (AUTO_CHECKIN); undoing the check-in voids it.
+    check_in_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_check_ins.id", ondelete="SET NULL")
+    )
     idempotency_key: Mapped[str] = mapped_column(String(100), unique=True)
     revision: Mapped[int] = mapped_column(Integer, server_default="1")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

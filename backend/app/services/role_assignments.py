@@ -24,7 +24,16 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import ClubMembership, Organization, RoleAssignment, User
-from app.security import ADMIN_ROLES, CLUB_LEVEL_ROLES, MASTER_GC, ROLE_RANK, STUDENT, utcnow
+from app.security import (
+    ADMIN_ROLES,
+    CLUB_DIRECTOR,
+    CLUB_LEVEL_ROLES,
+    CLUB_SCOPED_ROLES,
+    MASTER_GC,
+    ROLE_RANK,
+    STUDENT,
+    utcnow,
+)
 from app.services.audit import record_audit
 
 ACTIVE, ENDED = "ACTIVE", "ENDED"
@@ -36,6 +45,8 @@ RETIRED = "RETIRED"  # somebody with authority took it away
 MEMBERSHIP_CLOSED = "MEMBERSHIP_CLOSED"  # the club membership it mirrored ended or changed
 
 ROLE_ASSIGNMENT = "ROLE_ASSIGNMENT"
+# Roles that only exist inside a club: without one, and not principal, they are stale (B9).
+CLUB_ONLY_ROLES = (CLUB_DIRECTOR, *CLUB_SCOPED_ROLES)
 
 CLUB_ROLE_DETAIL = (
     "Los roles de club se gestionan desde la membresía del club, no desde el equipo."
@@ -155,6 +166,12 @@ async def recompute(db: AsyncSession, user: User) -> tuple[str, uuid.UUID | None
     for row in rows:
         if row.is_primary and row is not principal:
             row.is_primary = False
+        # B9: a club-only role WITHOUT a club (the mirror of a sign-up as CLUB_DIRECTOR before
+        # having one) means nothing once it is no longer the principal. Left ACTIVE it read as a
+        # second, loose CLUB_DIRECTOR after accepting the invitation to direct a club.
+        if row is not principal and row.organization_id is None and row.role in CLUB_ONLY_ROLES \
+                and row.status == ACTIVE:
+            _close(row, reason=REPLACED, actor=None)
     await db.flush()
     principal.is_primary = True
     if (user.role, user.organization_id) != (principal.role, principal.organization_id):

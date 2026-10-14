@@ -19,6 +19,11 @@ ActivityStatus = Literal["READY", "TO_DEFINE"]
 StaffRole = Literal["COORDINATOR", "JUDGE"]
 AdjustmentKind = Literal["BONUS", "PENALTY"]
 AmountMode = Literal["FIXED", "FREE"]
+# 028: who captured an evaluation. AUTO_CHECKIN = granted by the club's check-in (activities
+# with config.auto_award "on_checkin"); AUTO_SCAN = a judge/coordination scanned the pass at an
+# "on_scan" activity. Both are the activity's maximum and are corrected/voided like any other.
+CapturedAs = Literal["JUDGE", "COORDINATION", "AUTO_CHECKIN", "AUTO_SCAN"]
+AutoAward = Literal["on_checkin", "on_scan"]
 AMOUNT_MODE_RULE = "FIXED usa points (o ninguno: por definir); FREE usa max_points (o ninguno)"
 
 SLUG_PATTERN = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
@@ -222,6 +227,8 @@ class ActivityOut(BaseModel):
     # The config passes the strict validation (READY activities always do).
     config_complete: bool
     config_max: float | None
+    # 028: `config.auto_award` of a participation activity, null otherwise (or when unset).
+    auto_award: AutoAward | None = None
 
 
 # ----------------------------------------------------------------------------
@@ -334,7 +341,37 @@ class RegistrationUpdate(_Body):
 
 
 class ResolvePass(_Body):
-    token: str = Field(min_length=8, max_length=200)
+    # The bare token or the QR's URL (`…/p/<token>`, 028).
+    token: str = Field(min_length=8, max_length=500)
+
+
+class _PassOrRegistration(_Body):
+    """Exactly one: what the camera read (bare token or the QR's URL), or the club picked by
+    hand from the list (manual fallback)."""
+    pass_token: str | None = Field(default=None, min_length=8, max_length=500)
+    registration_id: uuid_module.UUID | None = None
+
+    @model_validator(mode="after")
+    def _one(self):
+        if (self.pass_token is None) == (self.registration_id is None):
+            raise ValueError("Indica pass_token o registration_id (uno de los dos)")
+        return self
+
+
+class CheckInCreate(_PassOrRegistration):
+    """POST /events/{id}/check-in (028)."""
+
+
+class CheckInUndo(_Body):
+    """DELETE /events/{id}/registrations/{rid}/check-in (028): the reason may come in the JSON
+    body or as `?reason=` (some proxies drop DELETE bodies)."""
+    reason: str = Field(max_length=500)
+
+    _reason = field_validator("reason")(_reason)
+
+
+class ScanCreate(_PassOrRegistration):
+    """POST /events/{id}/activities/{aid}/scan (028)."""
 
 
 class ClubBrief(BaseModel):
@@ -353,8 +390,15 @@ class RegistrationOut(BaseModel):
     created_at: datetime | None
     # Coordination only: absent from the response for judges and directors.
     tiebreak_rank: int | None = None
-    # Only right after creating or regenerating it; never stored in clear.
+    # Only in the pass endpoints (GET/POST …/pass) and right after registering.
     pass_token: str | None = None
+    # 028: what the QR encodes, `<EVENT_PASS_URL_BASE>/<token>`; present with `pass_token`.
+    pass_url: str | None = None
+    # 028: the club's current arrival (null = not checked in) and the role that recorded it.
+    checked_in_at: datetime | None = None
+    checked_in_as: Literal["JUDGE", "COORDINATION"] | None = None
+    # Event staff only (coordination, judges): who recorded it. Absent for directors.
+    checked_in_by_name: str | None = None
 
 
 # ----------------------------------------------------------------------------
@@ -395,8 +439,11 @@ class EvaluationOut(BaseModel):
     rules_version: int
     status: Literal["CONFIRMED", "VOID"]
     judge_id: str | None
-    # JUDGE, or COORDINATION when coordination entered it (judge_id is who did).
-    captured_as: Literal["JUDGE", "COORDINATION"]
+    # JUDGE, or COORDINATION when coordination entered it (judge_id is who did); 028 adds
+    # AUTO_CHECKIN / AUTO_SCAN (judge_id = who checked the club in / scanned the pass).
+    captured_as: CapturedAs
+    # 028: the check-in that granted it (AUTO_CHECKIN only).
+    check_in_id: str | None = None
     revision: int
     idempotency_key: str
     created_at: datetime | None
@@ -461,7 +508,7 @@ class AdjustmentOut(BaseModel):
 # Historia de puntos («cada punto tiene historia»)
 # ----------------------------------------------------------------------------
 HistoryType = Literal["EVALUATION_CREATED", "EVALUATION_CORRECTED", "EVALUATION_VOIDED",
-                      "ADJUSTMENT_APPLIED", "ADJUSTMENT_VOIDED"]
+                      "ADJUSTMENT_APPLIED", "ADJUSTMENT_VOIDED", "CHECK_IN", "CHECK_IN_UNDONE"]
 
 
 class HistoryRegistration(BaseModel):
@@ -475,6 +522,7 @@ class HistoryActivity(BaseModel):
 
 
 class HistoryActor(BaseModel):
+    # null for directors (028: they see the role, never the judge's or coordinator's name).
     name: str | None
     # JUDGE for a judge's capture/correction; COORDINATION for everything coordination did.
     as_: Literal["JUDGE", "COORDINATION"] = Field(alias="as", serialization_alias="as")
@@ -491,8 +539,12 @@ class HistoryItem(BaseModel):
     # Never signed; `type` (and `kind`) say the direction. CREATED: the points captured.
     # CORRECTED: the new points (`previous_points` = the old ones). EVALUATION_VOIDED: the
     # points that stopped counting. ADJUSTMENT_*: the amount of the bonus/penalty.
-    points: float
+    # CHECK_IN / CHECK_IN_UNDONE (028): null (no points; `activity` null too).
+    points: float | None
     previous_points: float | None
+    # 028, EVALUATION_CREATED only: "CHECKIN" / "SCAN" when the points were granted
+    # automatically (captured_as AUTO_CHECKIN / AUTO_SCAN); null for a normal capture.
+    auto: Literal["CHECKIN", "SCAN"] | None = None
     # Adjustments only (BONUS adds, PENALTY subtracts); null for evaluations.
     kind: Literal["BONUS", "PENALTY"] | None = None
     # Coordination only: an adjustment still awaiting approval (legacy; it does not count).

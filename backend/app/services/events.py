@@ -26,7 +26,7 @@ from app.models import (
     User,
 )
 from app.people import is_minor_user
-from app.rbac import get_org_path, is_master
+from app.rbac import effective_roles, is_master
 from app.schemas.event import (
     ActivityOut,
     AdjustmentTypeOut,
@@ -177,6 +177,7 @@ def activity_out(activity: EventActivity) -> ActivityOut:
         schedule_at=activity.schedule_at,
         config_complete=activity.kind == scoring.GROUP or scoring.is_complete(activity.kind, activity.config),
         config_max=_num(maximum),
+        auto_award=scoring.auto_award(activity.kind, activity.config),
     )
 
 
@@ -407,11 +408,13 @@ async def list_events_for(db: AsyncSession, actor: User) -> list[tuple[Event, Ev
     conditions = []
     if is_master(actor):
         conditions.append(Event.id.isnot(None))
-    elif ROLE_RANK.get(actor.role, 0) >= ROLE_RANK[ADMIN_ASSOCIATION]:
-        own = await get_org_path(db, actor.organization_id)
-        if own:
-            conditions.append(Event.organization_id.in_(
-                select(Organization.id).where(Organization.path.op("<@")(own))))
+    else:
+        # B10: every scoped role counts (`has_role`, like `can_manage_events_of`), not only the
+        # principal one: an ADMIN_ASSOCIATION held as a second role lists its events too.
+        for scoped in await effective_roles(db, actor):
+            if ROLE_RANK.get(scoped.role, 0) >= ROLE_RANK[ADMIN_ASSOCIATION] and scoped.path:
+                conditions.append(Event.organization_id.in_(
+                    select(Organization.id).where(Organization.path.op("<@")(scoped.path))))
     conditions.append(Event.id.in_(
         select(EventStaff.event_id).where(EventStaff.user_id == actor.id, EventStaff.active)))
     clubs = await director_club_ids(db, actor)
@@ -573,16 +576,18 @@ async def update_activity(db: AsyncSession, actor: User, event: Event, activity:
         raise _http(status.HTTP_409_CONFLICT, "El grupo tiene rondas: muévelas o bórralas primero")
     if parent_id is not None and await _has_children(db, activity):
         raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, "Un grupo no puede ir dentro de otro grupo")
+    # 028: `auto_award` scores nothing, so switching it is allowed over live evaluations; it
+    # still bumps rules_version (below) like every other rule.
     rules_changed = (
         kind != activity.kind
-        or config != (activity.config or {})
+        or scoring.without_auto_award(config) != scoring.without_auto_award(activity.config)
         or (max_points is None) != (activity.max_points is None)
         or (max_points is not None and Decimal(str(max_points)) != Decimal(str(activity.max_points)))
     )
     if rules_changed and await _has_live_evaluations(db, activity):
         raise _http(status.HTTP_409_CONFLICT,
                     "Esta actividad ya tiene evaluaciones vigentes: anúlalas antes de cambiar sus reglas")
-    touched_scoring = rules_changed or any(
+    touched_scoring = rules_changed or config != (activity.config or {}) or any(
         key in changes and changes[key] != getattr(activity, key)
         for key in ("status", "counts_to_total", "parent_id")
     )

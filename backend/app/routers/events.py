@@ -6,13 +6,13 @@ Thin: who may act is decided in `app/services/event_access.py` (through
 """
 import uuid
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
+from fastapi import APIRouter, Body, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
-from app.deps import get_current_user
+from app.deps import get_current_user, get_optional_user
 from app.models import User
-from app.rate_limit import limiter
+from app.rate_limit import account_or_ip, limiter
 from app.schemas.event import (
     ActivityCreate,
     ActivityOut,
@@ -24,6 +24,8 @@ from app.schemas.event import (
     AdjustmentTypeOut,
     AdjustmentTypeUpdate,
     AdjustmentVoid,
+    CheckInCreate,
+    CheckInUndo,
     EvaluationCorrect,
     EvaluationCreate,
     EvaluationOut,
@@ -39,10 +41,12 @@ from app.schemas.event import (
     RegistrationOut,
     RegistrationUpdate,
     ResolvePass,
+    ScanCreate,
     StaffCreate,
     StaffOut,
 )
 from app.services import event_brand
+from app.services import event_checkin as checkin
 from app.services import event_history as history
 from app.services import event_scores as scores
 from app.services import events as event_service
@@ -107,6 +111,8 @@ async def change_status(event_id: uuid.UUID, payload: EventStatusChange, request
     event = await event_service.get_event(db, event_id, lock=True)
     roles = await event_service.require_coordination(db, current_user, event)
     await event_service.change_status(db, current_user, event, payload.status, payload.reason, request)
+    # 028: clubs checked in while OPEN receive their «on_checkin» participation now.
+    await checkin.award_checked_in(db, current_user, event, request)
     await db.commit()
     await db.refresh(event)
     return await event_service.event_out(db, event, roles)
@@ -183,6 +189,8 @@ async def event_history(event_id: uuid.UUID, registration_id: uuid.UUID | None =
             scope.registration_ids = own
         if registration_id is not None and not roles.judge and registration.id not in own:
             raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
+        # 028: a director (who is not also a judge) reads the role, never the person.
+        scope.hide_names = not roles.judge
     return await history.page(db, event, scope, registration_id=registration_id, limit=limit, before=before)
 
 
@@ -209,9 +217,12 @@ async def my_view(event_id: uuid.UUID, current_user: User = Depends(get_current_
             },
         }
     if roles.judge:
-        judged = scores.judged_activity_ids(roles, activities)
-        view["judge"] = {"activities": [event_service.activity_out(a) for a in activities
-                                        if a.id in judged]}
+        judged = [a for a in activities if a.id in scores.judged_activity_ids(roles, activities)]
+        # 028: each activity carries `progress` {registered, checked_in, eligible, scored}
+        # (null for a group).
+        progress = await checkin.progress_counts(db, event, judged)
+        view["judge"] = {"activities": [{**event_service.activity_out(a).model_dump(), "progress": progress[a.id]}
+                                        for a in judged]}
     if roles.director_club_ids:
         snap = await scores.snapshot(db, event)
         closed = event.status in (event_service.CLOSED, event_service.ARCHIVED)
@@ -255,6 +266,8 @@ async def update_activity(event_id: uuid.UUID, activity_id: uuid.UUID, payload: 
     await event_service.require_coordination(db, current_user, event)
     activity = await event_service.get_activity(db, event, activity_id)
     await event_service.update_activity(db, current_user, event, activity, payload, request)
+    # 028: set to «on_checkin» during the event -> the clubs already checked in receive it.
+    await checkin.award_checked_in(db, current_user, event, request, only=[activity])
     await db.commit()
     await db.refresh(activity)
     return event_service.activity_out(activity)
@@ -281,6 +294,45 @@ async def reorder_activities(event_id: uuid.UUID, payload: ActivityReorder, requ
     db.expire_all()
     await db.refresh(event)
     return [event_service.activity_out(a) for a in await event_service.list_activities(db, event)]
+
+
+@router.post("/{event_id}/activities/{activity_id}/scan", status_code=status.HTTP_201_CREATED)
+@limiter.limit("240/minute", key_func=account_or_ip)
+async def scan_at_activity(event_id: uuid.UUID, activity_id: uuid.UUID, payload: ScanCreate,
+                           request: Request, response: Response,
+                           current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """028, «on_scan» participation: the judge of this activity (or coordination) reads a pass
+    and the club gets the maximum (captured_as AUTO_SCAN). 201 when granted now; 200 with the
+    evaluation in force when the club already had one (whoever captured it). Event IN_PROGRESS;
+    409 when the activity is not «on_scan»."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.roles_for(db, current_user, event)
+    activity = await event_service.get_activity(db, event, activity_id)
+    row, registration, created = await checkin.scan(db, current_user, event, roles, activity, payload, request)
+    await db.commit()
+    await db.refresh(row)
+    if not created:
+        response.status_code = status.HTTP_200_OK
+    return {
+        "registration": (await scores.registration_out(db, registration, coordination=roles.coordination,
+                                                       staff=True)).model_dump(exclude_unset=True),
+        "activity": {"id": str(activity.id), "name": activity.name, "max_points": scores._num(activity.max_points)},
+        "evaluation": scores.evaluation_out(row, created=created).model_dump(),
+        "created": created,
+    }
+
+
+@router.get("/{event_id}/activities/{activity_id}/progress")
+async def activity_progress(event_id: uuid.UUID, activity_id: uuid.UUID,
+                            current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """028: club by club, evaluated or not (and the points), checked in or not. The judges of
+    this activity and coordination."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.roles_for(db, current_user, event)
+    activity = await event_service.get_activity(db, event, activity_id)
+    if not (roles.coordination or roles.judges(activity.id, activity.parent_id)):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, scores.NOT_ASSIGNED)
+    return await checkin.activity_progress(db, event, activity)
 
 
 # ----------------------------------------------------------------------------
@@ -364,7 +416,8 @@ async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(g
     event = await event_service.get_event(db, event_id)
     roles = await event_service.require_access(db, current_user, event)
     club_ids = None if (roles.coordination or roles.judge) else roles.director_club_ids
-    return [await scores.registration_out(db, row, club=club, coordination=roles.coordination)
+    staff = roles.coordination or roles.judge
+    return [await scores.registration_out(db, row, club=club, coordination=roles.coordination, staff=staff)
             for row, club in await scores.list_registrations(db, event, club_ids=club_ids)]
 
 
@@ -411,11 +464,32 @@ async def withdraw(event_id: uuid.UUID, registration_id: uuid.UUID, request: Req
     return await scores.registration_out(db, row, coordination=True)
 
 
+@router.get("/{event_id}/registrations/{registration_id}/pass", response_model=RegistrationOut,
+            response_model_exclude_unset=True)
+async def show_pass(event_id: uuid.UUID, registration_id: uuid.UUID, request: Request, response: Response,
+                    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """The pass in force, WITHOUT rotating it (028, bug B1): every screen and every device shows
+    the same QR. Coordination, or the director of that club. A pass from before 028 (stored only
+    hashed) is regenerated ONCE here — header `X-Pass-Regenerated: 1` — and stable afterwards."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_access(db, current_user, event)
+    row = await scores.get_registration(db, event, registration_id)
+    if not (roles.coordination or row.club_id in roles.director_club_ids):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
+    token, regenerated = await scores.current_pass(db, current_user, event, row, request)
+    if regenerated:
+        await db.commit()
+        response.headers["X-Pass-Regenerated"] = "1"
+    await db.refresh(row)
+    response.headers["Cache-Control"] = "no-store"
+    return await scores.registration_out(db, row, pass_token=token, coordination=roles.coordination)
+
+
 @router.post("/{event_id}/registrations/{registration_id}/pass", response_model=RegistrationOut, response_model_exclude_unset=True)
 async def regenerate_pass(event_id: uuid.UUID, registration_id: uuid.UUID, request: Request,
                           current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    """A new pass (the old one stops working). Coordination, or the director of that club —
-    the only way a director ever holds the pass, since it is stored hashed."""
+    """REGENERATE: a new pass, the old one stops working at once (the UI asks to confirm).
+    Coordination, or the director of that club. To just show it, GET."""
     event = await event_service.get_event(db, event_id)
     roles = await event_service.require_access(db, current_user, event)
     row = await scores.get_registration(db, event, registration_id)
@@ -437,7 +511,89 @@ async def resolve_pass(event_id: uuid.UUID, payload: ResolvePass, request: Reque
     if not (roles.coordination or roles.judge):
         raise HTTPException(status.HTTP_403_FORBIDDEN, event_service.FORBIDDEN)
     row = await scores.resolve_pass(db, event, payload.token)
-    return await scores.registration_out(db, row, coordination=roles.coordination)
+    return await scores.registration_out(db, row, coordination=roles.coordination, staff=True)
+
+
+# ----------------------------------------------------------------------------
+# Check-in (028)
+# ----------------------------------------------------------------------------
+async def _check_in_response(db: AsyncSession, result: dict) -> dict:
+    registration = result["registration"]
+    await db.refresh(registration)
+    return {
+        "registration": (await scores.registration_out(db, registration, coordination=False, staff=True)
+                         ).model_dump(exclude_unset=True),
+        "check_in": await checkin.check_in_out(db, result.get("check_in")),
+        "already_checked_in": result.get("already_checked_in", False),
+        "awarded": result.get("awarded", []),
+    }
+
+
+@router.post("/{event_id}/check-in", status_code=status.HTTP_201_CREATED)
+@limiter.limit("240/minute", key_func=account_or_ip)
+async def check_in(event_id: uuid.UUID, payload: CheckInCreate, request: Request, response: Response,
+                   current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """A club arrived: its pass was read (`pass_token`: the token or the QR's URL) or it was
+    picked from the list (`registration_id`). Coordination and every judge of the event; event
+    OPEN or IN_PROGRESS. 201 the first time; 200 with `already_checked_in: true` (when, who)
+    afterwards. `awarded` = the «on_checkin» participations of this check-in (`created` true
+    for those granted by this very call; granted only while IN_PROGRESS)."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.roles_for(db, current_user, event)
+    result, created = await checkin.check_in(db, current_user, event, roles, payload, request)
+    await db.commit()
+    if not created:
+        response.status_code = status.HTTP_200_OK
+    return await _check_in_response(db, result)
+
+
+@router.delete("/{event_id}/registrations/{registration_id}/check-in")
+async def undo_check_in(event_id: uuid.UUID, registration_id: uuid.UUID, request: Request,
+                        payload: CheckInUndo | None = Body(default=None),
+                        reason: str | None = Query(default=None, max_length=500),
+                        current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Undo a check-in: coordination only, with a reason (JSON body `{"reason"}` or
+    `?reason=`). Voids the participations that check-in granted (VOID revision, same reason).
+    Idempotent: `undone: false` when the club was not checked in."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.roles_for(db, current_user, event)
+    if not roles.coordination:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, checkin.UNDO_FORBIDDEN)
+    text = payload.reason if payload is not None else " ".join((reason or "").split())
+    if not text:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El motivo es obligatorio")
+    row = await scores.get_registration(db, event, registration_id)
+    result = await checkin.undo_check_in(db, current_user, event, roles, row, text, request)
+    await db.commit()
+    out = await _check_in_response(db, result)
+    out.pop("awarded")
+    out.pop("already_checked_in")
+    return {**out, "undone": result["undone"], "voided": result["voided"]}
+
+
+@router.post("/pass/resolve")
+@limiter.limit("60/minute", key_func=account_or_ip)
+async def resolve_any_pass(payload: ResolvePass, request: Request,
+                           current_user: User | None = Depends(get_optional_user),
+                           db: AsyncSession = Depends(get_db)):
+    """`/p/<token>` on the events site (028): the QR opened by the phone's own camera. Event
+    staff (coordination or a judge OF THAT EVENT) gets the event and the club; anybody else —
+    a director, another event's staff, an unknown or withdrawn pass — the same neutral 404,
+    with no club data. Anonymous: 401 (whatever the token)."""
+    if current_user is None:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Inicia sesión")
+    row = await scores.find_by_pass(db, payload.token)
+    if row is not None:
+        event = await event_service.get_event(db, row.event_id)
+        roles = await event_service.roles_for(db, current_user, event)
+        if roles.coordination or roles.judge:
+            return {
+                "event": {"id": str(event.id), "name": event.name, "status": event.status},
+                "my_roles": roles.names(),
+                "registration": (await scores.registration_out(
+                    db, row, coordination=roles.coordination, staff=True)).model_dump(exclude_unset=True),
+            }
+    raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
 
 
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")

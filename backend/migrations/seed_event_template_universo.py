@@ -46,8 +46,8 @@ EVENT = {
     "ends_on": "2026-11-22",
     "source_note": (
         "Boletín «Camporee Familiar de Aventureros 2026 — Universo de Dios», Asociación Norte de "
-        "Tamaulipas (15 págs.). Total base 1 000 puntos; extra posible 50 (p. 5). Precargado por "
-        "seed_event_template_universo.py; lo marcado «por definir» lo completa la asociación."
+        "Tamaulipas (15 págs.). Total base 1 000 puntos; extra posible 50 (p. 5). Lo que el "
+        "boletín no cuantifica lo completa la asociación."
     ),
     "honor_bands": [
         {"key": "primeros", "label": "Primeros honores", "min": 950, "max": None},
@@ -113,14 +113,14 @@ ACTIVITIES = [
                             ("disciplina", "Mantener la disciplina", None),
                             ("carpas_limpias", "Área de carpas limpia", None),
                             ("cocina_limpia", "Cocina limpia y con lugar para basura", None))},
-     "TO_DEFINE", "El boletín no reparte los 50 puntos entre criterios (p. 4): por definir."),
+     "TO_DEFINE", "Inspección del sábado (p. 4)."),
     ("insp_domingo", None, "Inspección domingo", "rubric", 50,
      {"criteria": _criteria(("versiculo", "Versículo del devocional memorizado", None),
                             ("carpas_limpias", "Área de carpas limpia", None),
                             ("cocina_limpia", "Cocina limpia y con lugar para basura", None))},
-     "TO_DEFINE", "El boletín no reparte los 50 puntos entre criterios (p. 4): por definir."),
+     "TO_DEFINE", "Inspección del domingo (p. 4)."),
     ("previo", None, "Evento previo", "participation", 50, {"max": 50}, "TO_DEFINE",
-     "Sin rúbrica en el boletín (p. 5): por definir."),
+     "Evento previo al camporee (p. 5)."),
 ]
 
 DISCIPLINE = [

@@ -41,6 +41,7 @@ from app.schemas.event import (
     RegistrationOut,
 )
 from app.security import sha256_hex, utcnow
+from app.services import event_pass
 from app.services import event_scoring as scoring
 from app.services import events as event_service
 from app.services.audit import record_audit
@@ -105,17 +106,24 @@ async def get_registration(db: AsyncSession, event: Event, registration_id: uuid
 async def registration_out(db: AsyncSession, row: EventRegistration,
                            pass_token: str | None = None,
                            club: Organization | None = None,
-                           *, coordination: bool = False) -> RegistrationOut:
-    """`coordination=True` adds `tiebreak_rank`; the routes answer with exclude_unset, so for
-    judges and directors the key is not even present."""
+                           *, coordination: bool = False, staff: bool | None = None) -> RegistrationOut:
+    """`coordination=True` adds `tiebreak_rank`; `staff` (default: = coordination; pass True
+    for judges) adds `checked_in_by_name`. The routes answer with exclude_unset, so for
+    whoever may not read them the keys are not even present."""
     club = club or await db.get(Organization, row.club_id)
-    extra = {"tiebreak_rank": row.tiebreak_rank} if coordination else {}
+    extra: dict = {"tiebreak_rank": row.tiebreak_rank} if coordination else {}
+    if pass_token is not None:
+        extra["pass_url"] = event_pass.pass_url(pass_token)
+    if staff if staff is not None else coordination:
+        who = await db.get(User, row.checked_in_by_id) if row.checked_in_by_id else None
+        extra["checked_in_by_name"] = who.name if who is not None else None
     return RegistrationOut(**extra,
         id=str(row.id), event_id=str(row.event_id),
         club=ClubBrief(id=str(club.id), name=club.name, city=club.city),
         status=row.status, has_pass=row.pass_token_hash is not None,
         finalist_flags={k: bool(v) for k, v in (row.finalist_flags or {}).items()},
         created_at=row.created_at, pass_token=pass_token,
+        checked_in_at=row.checked_in_at, checked_in_as=row.checked_in_as,
     )
 
 
@@ -159,6 +167,7 @@ async def register_club(db: AsyncSession, actor: User, event: Event, club_id: uu
     if row is None:
         row = EventRegistration(id=uuid.uuid4(), event_id=event.id, club_id=club.id,
                                 status=REGISTERED, pass_token_hash=sha256_hex(token),
+                                pass_token_enc=event_pass.encrypt(token),
                                 finalist_flags={}, registered_by_id=actor.id)
         db.add(row)
         try:
@@ -169,6 +178,7 @@ async def register_club(db: AsyncSession, actor: User, event: Event, club_id: uu
     else:
         row.status = REGISTERED
         row.pass_token_hash = sha256_hex(token)
+        row.pass_token_enc = event_pass.encrypt(token)
         row.registered_by_id = actor.id
         row.updated_at = utcnow()
     record_audit(db, action="EVENT_REGISTER", entity_type=ENTITY_REGISTRATION, entity_id=row.id,
@@ -184,6 +194,7 @@ async def withdraw(db: AsyncSession, actor: User, event: Event, row: EventRegist
         return row
     row.status = WITHDRAWN
     row.pass_token_hash = None
+    row.pass_token_enc = None
     row.updated_at = utcnow()
     record_audit(db, action="EVENT_WITHDRAW", entity_type=ENTITY_REGISTRATION, entity_id=row.id,
                  actor=actor, metadata={"event_id": str(event.id), "club_id": str(row.club_id)},
@@ -192,24 +203,53 @@ async def withdraw(db: AsyncSession, actor: User, event: Event, row: EventRegist
 
 
 async def regenerate_pass(db: AsyncSession, actor: User, event: Event, row: EventRegistration,
-                          request: Request | None) -> str:
+                          request: Request | None, *, reason: str = "requested") -> str:
+    """A NEW pass; the old one stops resolving at once. `reason`: "requested" (an explicit
+    POST …/pass) or "legacy" (a pre-028 pass, unreadable, replaced once when first shown)."""
     event_service.require_editable(event)
     if row.status != REGISTERED:
         raise _http(status.HTTP_409_CONFLICT, NOT_REGISTERED)
     token = new_pass_token()
     row.pass_token_hash = sha256_hex(token)
+    row.pass_token_enc = event_pass.encrypt(token)
     row.updated_at = utcnow()
     record_audit(db, action="EVENT_PASS_REGENERATE", entity_type=ENTITY_REGISTRATION,
-                 entity_id=row.id, actor=actor, metadata={"event_id": str(event.id)}, request=request)
+                 entity_id=row.id, actor=actor, metadata={"event_id": str(event.id), "reason": reason},
+                 request=request)
     return token
 
 
-async def resolve_pass(db: AsyncSession, event: Event, token: str) -> EventRegistration:
-    """Identifies a club. It authorizes NOTHING by itself: every capture checks the judge."""
+async def current_pass(db: AsyncSession, actor: User, event: Event, row: EventRegistration,
+                       request: Request | None) -> tuple[str, bool]:
+    """The pass in force, WITHOUT rotating it (bug B1) -> (token, regenerated). A pass that
+    cannot be read back (from before 028, or encrypted under a secret since changed) is
+    regenerated ONCE, under a row lock so two screens asking at once get the same one."""
+    if row.status != REGISTERED:
+        raise _http(status.HTTP_409_CONFLICT, NOT_REGISTERED)
+    token = event_pass.decrypt(row.pass_token_enc)
+    if token is not None and row.pass_token_hash == sha256_hex(token):
+        return token, False
+    locked = (await db.execute(select(EventRegistration).where(EventRegistration.id == row.id)
+                               .with_for_update().execution_options(populate_existing=True))).scalar_one()
+    token = event_pass.decrypt(locked.pass_token_enc)
+    if token is not None and locked.pass_token_hash == sha256_hex(token):
+        return token, False  # a twin request regenerated it while we waited
+    return await regenerate_pass(db, actor, event, locked, request, reason="legacy"), True
+
+
+async def find_by_pass(db: AsyncSession, value: str) -> EventRegistration | None:
+    """Any event's REGISTERED registration holding this pass (bare token or the QR's URL)."""
+    token = event_pass.token_from(value)
     row = (await db.execute(select(EventRegistration).where(
-        EventRegistration.event_id == event.id,
-        EventRegistration.pass_token_hash == sha256_hex(token.strip())))).scalar_one_or_none()
-    if row is None or row.status != REGISTERED:
+        EventRegistration.pass_token_hash == sha256_hex(token)))).scalar_one_or_none()
+    return row if row is not None and row.status == REGISTERED else None
+
+
+async def resolve_pass(db: AsyncSession, event: Event, token: str) -> EventRegistration:
+    """Identifies a club. It authorizes NOTHING by itself: every capture checks the judge.
+    Accepts the bare token or the URL the QR encodes (028)."""
+    row = await find_by_pass(db, token)
+    if row is None or row.event_id != event.id:
         raise _http(status.HTTP_404_NOT_FOUND, PASS_NOT_FOUND)
     return row
 
@@ -258,6 +298,7 @@ def evaluation_out(row: Evaluation, *, created: bool | None = None) -> Evaluatio
         inputs=row.inputs or {}, points=float(row.points), breakdown=row.breakdown or {},
         rules_version=row.rules_version, status=row.status,
         judge_id=str(row.judge_id) if row.judge_id else None, captured_as=row.captured_as,
+        check_in_id=str(row.check_in_id) if row.check_in_id else None,
         revision=row.revision, idempotency_key=row.idempotency_key, created_at=row.created_at, updated_at=row.updated_at,
         created=created,
     )
@@ -727,6 +768,8 @@ def breakdown(snap: Snapshot, registration: EventRegistration, *, show_honor: bo
         "bonus": float(bonus),
         "penalty": float(penalty),
         "progress": {"done": done, "expected": expected, "complete": expected > 0 and done == expected},
+        # 028: the club's arrival (null = not checked in yet).
+        "checked_in_at": registration.checked_in_at.isoformat() if registration.checked_in_at else None,
         "honor": honor,
         "honor_final": snap.event.status in (event_service.CLOSED, event_service.ARCHIVED),
         "activities": tree,
@@ -776,6 +819,7 @@ async def standings(db: AsyncSession, event: Event) -> list[dict]:
                      "total": item["total"], "raw_total": item["raw_total"],
                      "floored": item["floored"], "bonus": item["bonus"], "penalty": item["penalty"],
                      "progress": item["progress"], "honor": item["honor"],
+                     "checked_in_at": item["checked_in_at"],
                      "pending_adjustments": len(item["pending_adjustments"])})
     # Total, then the coordination's manual tiebreak (NULL last), then raw total, then name.
     rows.sort(key=lambda row: (-row["total"],

@@ -3,3 +3,5 @@ pytest==8.4.2
 pytest-asyncio==1.2.0
 httpx==0.28.1
 pypdf==6.19.0
+# tests/test_adventurer_awards_import.py parses the wiki markup (B11)
+beautifulsoup4==4.15.0

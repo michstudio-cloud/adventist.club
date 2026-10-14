@@ -194,7 +194,8 @@ async def test_coordination_sees_every_point_newest_first(client, w, scored):
     bonus = [i for i in by_type["ADJUSTMENT_APPLIED"] if i["reason"] == "Uniforme impecable"][0]
     assert bonus["activity"]["id"] == scored["a2"] and bonus["actor"]["as"] == "COORDINATION"
     assert set(bonus) == {"id", "at", "type", "registration", "activity", "points", "previous_points",
-                          "kind", "actor", "reason", "pending"}
+                          "kind", "actor", "reason", "pending", "auto"}
+    assert bonus["auto"] is None
 
     only_b = await _ok(await _history(client, scored, "admin", w, registration_id=scored["reg_b"]))
     assert {i["registration"]["id"] for i in only_b["items"]} == {scored["reg_b"]}

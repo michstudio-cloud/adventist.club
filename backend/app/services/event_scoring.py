@@ -32,6 +32,13 @@ GROUP = "group"
 KINDS = (PARTICIPATION, RUBRIC, BANDS, PER_CORRECT, STATIONS, GROUP)
 SCORABLE_KINDS = tuple(kind for kind in KINDS if kind != GROUP)
 
+# 028: sólo en `participation`. null (o ausente) = el juez captura como siempre;
+# "on_checkin" = el check-in del club otorga el máximo; "on_scan" = escanear el pase en la
+# actividad (POST …/activities/{id}/scan) otorga el máximo. No cambia ningún puntaje.
+AUTO_AWARD = "auto_award"
+ON_CHECKIN, ON_SCAN = "on_checkin", "on_scan"
+AUTO_AWARD_MODES = (ON_CHECKIN, ON_SCAN)
+
 # Clave común a todo `kind` evaluable: sólo los finalistas marcados por la coordinación
 # (event_registrations.finalist_flags) se capturan; el resto vale 0 en ESA actividad.
 FINALISTS_ONLY = "finalists_only"
@@ -180,11 +187,15 @@ def validate_config(kind: str, config: Any, *, draft: bool = False) -> dict:
         return {}
 
     if kind == PARTICIPATION:
-        _only_keys(config, {"max", FINALISTS_ONLY}, "config")
+        _only_keys(config, {"max", FINALISTS_ONLY, AUTO_AWARD}, "config")
         maximum = to_points(config.get("max"), "config.max", allow_none=draft)
         if maximum is not None and maximum <= 0:
             raise ScoringError("config.max: debe ser mayor que cero", "config.max")
-        return {"max": _num_out(maximum), **common}
+        auto = config.get(AUTO_AWARD)
+        if auto is not None and auto not in AUTO_AWARD_MODES:
+            raise ScoringError('config.auto_award: debe ser null, "on_checkin" u "on_scan"',
+                               "config.auto_award")
+        return {"max": _num_out(maximum), **common, **({AUTO_AWARD: auto} if auto else {})}
 
     if kind == RUBRIC:
         _only_keys(config, {"criteria", FINALISTS_ONLY}, "config")
@@ -261,6 +272,19 @@ def validate_config(kind: str, config: Any, *, draft: bool = False) -> dict:
                          "points": _num_out(points)})
     _unique_keys(stations, "config.stations")
     return {"stations": stations, **common}
+
+
+def auto_award(kind: str, config: Any) -> str | None:
+    """The automatic mode of an activity (028): only `participation` has one."""
+    if kind != PARTICIPATION or not isinstance(config, dict):
+        return None
+    value = config.get(AUTO_AWARD)
+    return value if value in AUTO_AWARD_MODES else None
+
+
+def without_auto_award(config: Any) -> dict:
+    """The config minus `auto_award`: what decides the points (a mode change scores nothing)."""
+    return {k: v for k, v in (config or {}).items() if k != AUTO_AWARD}
 
 
 def is_complete(kind: str, config: Any) -> bool:

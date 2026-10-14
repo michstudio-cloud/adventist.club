@@ -26,6 +26,10 @@ class OrgInvitationCreate(BaseModel):
     # Always nominal: only the account with this address may accept it.
     email: EmailStr
     expires_in_days: int | None = Field(default=None, ge=1, le=30)
+    # 028: where the invitee lands after accepting — e.g. the event the invitation was created
+    # from. A "/path" or an absolute URL on one of the platform's own hosts (422 otherwise).
+    # An absolute one also makes the e-mailed link open on that host.
+    return_to: str | None = Field(default=None, max_length=500)
 
     model_config = {"extra": "forbid"}
 
@@ -44,6 +48,8 @@ class OrgInvitationOut(BaseModel):
     accepted_at: datetime | None = None
     accepted_by: str | None = None
     revoked_at: datetime | None = None
+    # 028: see OrgInvitationCreate.return_to (null = the app's default landing).
+    return_to: str | None = None
 
 
 class OrgInvitationCreated(BaseModel):
@@ -70,6 +76,8 @@ class OrgInvitationPreview(BaseModel):
     email_hint: str
     expires_at: datetime
     matches_session: bool | None = None
+    # 028: where to go after accepting (validated when the invitation was created).
+    return_to: str | None = None
 
 
 class OrgInvitationAccepted(BaseModel):
@@ -78,6 +86,8 @@ class OrgInvitationAccepted(BaseModel):
     # The account's principal role after accepting, and every role in force.
     principal_role: str
     roles: list[ScopedRoleOut]
+    # 028: where the front end takes the person now (null = its default landing).
+    return_to: str | None = None
 
 
 class RoleAssignmentOut(BaseModel):

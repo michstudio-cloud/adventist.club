@@ -58,6 +58,7 @@ def _out(row) -> OrgInvitationOut:
         accepted_at=row.accepted_at,
         accepted_by=str(row.accepted_by_id) if row.accepted_by_id else None,
         revoked_at=row.revoked_at,
+        return_to=row.return_to,
     )
 
 
@@ -65,8 +66,8 @@ def _created(row, token: str, node: Organization) -> OrgInvitationCreated:
     return OrgInvitationCreated(
         invitation=_out(row),
         token=token,
-        url=service.join_url(token),
-        whatsapp_url=service.whatsapp_url(node.name, token),
+        url=service.join_url(token, row.return_to),
+        whatsapp_url=service.whatsapp_url(node.name, token, row.return_to),
     )
 
 
@@ -113,6 +114,7 @@ async def create_org_invitation(
         role=payload.role,
         email=payload.email,
         expires_in_days=payload.expires_in_days,
+        return_to=payload.return_to,
         request=request,
     )
     log = service.stage_email(db, invitation)
@@ -260,6 +262,7 @@ async def preview_org_invitation(
         matches_session=(
             viewer.email.lower() == invitation.email.lower() if viewer is not None else None
         ),
+        return_to=invitation.return_to,
     )
 
 
@@ -284,4 +287,5 @@ async def accept_org_invitation(
         organization=_org_ref(node),
         principal_role=current_user.role,
         roles=await role_assignments.roles_out(db, current_user),
+        return_to=invitation.return_to,
     )

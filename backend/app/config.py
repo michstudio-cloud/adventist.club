@@ -85,6 +85,16 @@ class Settings(BaseSettings):
     # Base URL of the staff links in emails (admin.adventist.club). Falls back to FRONTEND_URL.
     ADMIN_WEB_URL: str | None = None
 
+    # --- Events (028): the QR of a club's pass encodes `<EVENT_PASS_URL_BASE>/<token>`, so the
+    # phone's own camera opens the events site. The pass is also kept ENCRYPTED (to show it again
+    # without rotating it) with a key derived from EVENT_PASS_SECRET, or JWT_SECRET when unset.
+    # Changing that secret only makes the stored passes unreadable: each is regenerated once.
+    EVENT_PASS_URL_BASE: str = "https://events.adventist.club/p"
+    EVENT_PASS_SECRET: str | None = None
+    # Extra hosts an invitation's `return_to` may point at (comma-separated), on top of the
+    # app's own (FRONTEND_URL, PUBLIC_WEB_URL, ADMIN_WEB_URL, CORS_ORIGINS, EVENT_PASS_URL_BASE).
+    RETURN_TO_HOSTS: str = ""
+
     # --- Monitoring (optional: no-op without SENTRY_DSN) ---
     SENTRY_DSN: str | None = None
     SENTRY_DEBUG_MODE: bool = False
@@ -111,6 +121,7 @@ class Settings(BaseSettings):
         "RESEND_API_KEY",
         "FRONTEND_URL",
         "ADMIN_WEB_URL",
+        "EVENT_PASS_SECRET",
         "SENTRY_DSN",
         "SERVER_NAME",
         mode="before",
@@ -130,6 +141,7 @@ class Settings(BaseSettings):
         "R2_PUBLIC_URL",
         "EMAIL_FROM",
         "EMAIL_FROM_NAME",
+        "EVENT_PASS_URL_BASE",
         "RATE_LIMIT_LOGIN",
         "RATE_LIMIT_REGISTER",
         "RATE_LIMIT_FORGOT_PASSWORD",
@@ -212,6 +224,21 @@ class Settings(BaseSettings):
     def admin_url(self) -> str:
         """Base URL of the staff links in emails; the member app serves /admin too."""
         return (self.ADMIN_WEB_URL or self.frontend_url).rstrip("/")
+
+    @property
+    def event_pass_url_base(self) -> str:
+        return self.EVENT_PASS_URL_BASE.strip().rstrip("/")
+
+    @property
+    def own_hosts(self) -> set[str]:
+        """Host names (lower case, without port) this platform serves its web pages from."""
+        from urllib.parse import urlsplit
+
+        urls = [self.FRONTEND_URL, self.PUBLIC_WEB_URL, self.ADMIN_WEB_URL, self.EVENT_PASS_URL_BASE,
+                *self.cors_list]
+        hosts = {urlsplit(url).hostname for url in urls if url}
+        hosts |= {h.strip().lower() for h in self.RETURN_TO_HOSTS.split(",") if h.strip()}
+        return {h.lower() for h in hosts if h}
 
     @property
     def auth_configured(self) -> bool:
