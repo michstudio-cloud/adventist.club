@@ -29,8 +29,11 @@ x-api-env: &api-env
   APPLE_MAPKIT_TEAM_ID: ""
   SENTRY_DSN: ""
   THUMBNAIL_WARMUP: "false"
-  # Todos los jueces inician sesión a la vez desde la misma red: el límite de producción
-  # (5/minuto) se cuenta por la IP del servidor web, así que aquí se amplía.
+  # La IP real de cada teléfono viaja de Next a la API (X-Proxy-Client-IP) sólo con este
+  # secreto, propio del nodo (lo genera init); sin él todos compartirían la IP del contenedor web.
+  PROXY_SHARED_SECRET: ${PROXY_SHARED_SECRET:-}
+  # Todos los jueces inician sesión a la vez y varios pueden salir por la misma IP (un AP con
+  # NAT): el límite por IP se amplía. El límite por cuenta (RATE_LIMIT_LOGIN_ACCOUNT) no cambia.
   RATE_LIMIT_LOGIN: ${RATE_LIMIT_LOGIN:-200/minute}
   TZ: America/Monterrey
 
@@ -98,6 +101,8 @@ services:
     restart: unless-stopped
     environment:
       API_INTERNAL_URL: http://api:8000
+      # El mismo de la API: así Next le pasa la IP real de quien inicia sesión (límites por IP).
+      PROXY_SHARED_SECRET: ${PROXY_SHARED_SECRET:-}
       # Con la CA local (sin certificado público) Node debe confiar en ella para llamar a api.adventist.club.
       NODE_EXTRA_CA_CERTS: /certs/ca-local.pem
     volumes:

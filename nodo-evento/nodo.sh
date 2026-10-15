@@ -43,6 +43,7 @@ cmd_init() {
   set -a; . ./.env; set +a
   [ -n "${POSTGRES_PASSWORD:-}" ] || { set_var POSTGRES_PASSWORD "$(gen)"; echo "POSTGRES_PASSWORD generada"; }
   [ -n "${JWT_SECRET:-}" ] || { set_var JWT_SECRET "$(gen)"; echo "JWT_SECRET propio del nodo generado"; }
+  [ -n "${PROXY_SHARED_SECRET:-}" ] || { set_var PROXY_SHARED_SECRET "$(gen)"; echo "PROXY_SHARED_SECRET propio del nodo generado"; }
   if [ -z "${EVENT_PASS_SECRET:-}" ]; then
     if [ -t 0 ]; then
       printf 'EVENT_PASS_SECRET de producción (no se muestra; Enter para dejarlo para después): '

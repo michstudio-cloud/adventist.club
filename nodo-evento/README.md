@@ -104,6 +104,7 @@ con un nombre) o una **VPN** activa, no verá el nodo: pedirle «Automático/Des
 |---|---|---|
 | `JWT_SECRET` | `.env` del nodo | **Propio del nodo** (lo genera `./nodo.sh init`). Las sesiones de producción no valen en el nodo: cada juez inicia sesión **una vez** en el nodo con **su misma contraseña** (los hashes viajan en el export). Un nodo robado no sirve para firmar sesiones de producción |
 | `EVENT_PASS_SECRET` | `.env` del nodo | **Igual al de producción**: con él se leen los pases guardados. Si no coincide, al mostrarse un pase en el nodo se regeneraría y el QR impreso dejaría de servir. El export lo verifica («pases en el nodo: N legibles, 0 ilegibles») y se detiene si no coincide |
+| `PROXY_SHARED_SECRET` | `.env` del nodo | **Propio del nodo** (lo genera `init`); lo usan la API y Next del nodo para que los límites de inicio de sesión cuenten la IP real de cada teléfono (`docs/RATE_LIMITS.md`). No es el de producción |
 | `POSTGRES_PASSWORD` | `.env` del nodo | La genera `init`; la base sólo existe en la red interna de Docker |
 | `PROD_DATABASE_URL` | **en ningún archivo** | Se teclea cuando `./nodo.sh export/import` la pide (no se muestra ni queda en el historial) |
 | `CF_DNS_API_TOKEN` | **en ningún archivo** | Sólo al sacar el certificado (§5) |
