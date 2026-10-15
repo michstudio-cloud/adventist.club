@@ -13,7 +13,9 @@ every write route is covered without remembering to call anything:
     (a group covers its rounds), arrivals only with the desk, adjustments without activity or
     for its activities, and the event's status (so every node can open/close the day);
   * everything else (event settings, adjustment types, staff, registrations, logo, passes…)
-    answers 403 — never 423, which the phones' outbox would retry forever.
+    answers 403 — never 423, which the phones' outbox would retry forever;
+  * rows received from neighbour nodes («nodos vecinos», nodo_malla_filas) are read-only on any
+    node: correcting / voiding / approving them, or undoing a received check-in, answers 403.
 """
 from __future__ import annotations
 
@@ -46,6 +48,30 @@ def read_only_detail(label: str) -> str:
 
 def out_of_scope_detail(label: str) -> str:
     return f"Esta actividad no se captura en este nodo («{label}»): la captura otro nodo del evento."
+
+
+def mesh_row_detail(label: str) -> str:
+    return (f"Este dato llegó de otro nodo del evento («nodos vecinos»): en «{label}» es sólo lectura; "
+            "se corrige en el nodo que lo capturó.")
+
+
+async def mesh_row(db: AsyncSession, table: str, row_id) -> bool:
+    """A row received from a neighbour node (nodo_malla, node-only table created lazily)."""
+    if not (await db.execute(text("SELECT to_regclass('public.nodo_malla_filas') IS NOT NULL"))).scalar():
+        return False
+    return bool((await db.execute(text(
+        "SELECT 1 FROM nodo_malla_filas WHERE table_name = :t AND row_id::text = :i"),
+        {"t": table, "i": str(row_id)})).first())
+
+
+async def mesh_check_in(db: AsyncSession, registration_id) -> bool:
+    """The club's current check-in came from a neighbour node."""
+    if not (await db.execute(text("SELECT to_regclass('public.nodo_malla_filas') IS NOT NULL"))).scalar():
+        return False
+    return bool((await db.execute(text(
+        "SELECT 1 FROM event_check_ins c JOIN nodo_malla_filas f ON f.table_name = 'event_check_ins'"
+        " AND f.row_id = c.id WHERE c.registration_id::text = :r AND c.undone_at IS NULL"),
+        {"r": str(registration_id)})).first())
 
 
 def no_desk_detail(label: str) -> str:
@@ -105,6 +131,19 @@ async def guard_node_scope(request: Request) -> None:
         return
     async with SessionLocal() as db:
         node = await local_node(db, event_id)
+        if node is not None:
+            # Rows received from neighbour nodes are read-only on every node (also «todo» scope):
+            # an edit here would never reach the cloud (the upload leaves them out).
+            template = _template(request)
+            if template in EVALUATION_ROUTES and await mesh_row(
+                    db, "evaluations", request.path_params.get("evaluation_id")):
+                raise HTTPException(status.HTTP_403_FORBIDDEN, mesh_row_detail(node["label"]))
+            if template in ADJUSTMENT_ROUTES and await mesh_row(
+                    db, "event_adjustments", request.path_params.get("adjustment_id")):
+                raise HTTPException(status.HTTP_403_FORBIDDEN, mesh_row_detail(node["label"]))
+            if template == "/{event_id}/registrations/{registration_id}/check-in" and await mesh_check_in(
+                    db, request.path_params.get("registration_id")):
+                raise HTTPException(status.HTTP_403_FORBIDDEN, mesh_row_detail(node["label"]))
         if node is None or node["all"]:
             if node is not None and _template(request) in CHECK_IN_ROUTES and not node["check_in"]:
                 raise HTTPException(status.HTTP_403_FORBIDDEN, no_desk_detail(node["label"]))

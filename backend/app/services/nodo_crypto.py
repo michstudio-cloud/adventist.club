@@ -197,3 +197,67 @@ def unbox(secret: str, purpose: str, text: str) -> bytes:
         return AESGCM(_box_key(secret, purpose)).decrypt(raw[:12], raw[12:], purpose.encode())
     except (ValueError, InvalidTag) as exc:
         raise CryptoError("no se pudo descifrar (secreto distinto o dato alterado)") from exc
+
+
+# --------------------------------------------------------------------------------------------
+# Mesh («nodos vecinos», nodo-malla/1): cloud vouchers and context-bound signatures
+# --------------------------------------------------------------------------------------------
+# Every node of an event receives, in its sealed bundle, the cloud's «vouch» public key and a
+# voucher: the cloud's Ed25519 signature over that node's registration (event, node, label,
+# scope, signing key). Nodes on the same LAN accept each other by checking vouchers with the
+# vouch key — including a node prepared AFTER them. The vouch key is DERIVED from the server
+# secret (nothing stored in the cloud database).
+MESH_FORMAT = "nodo-malla/1"
+VOUCH_CONTEXT = "nodo-malla-aval/v1"
+_VOUCH_LABEL = b"adventist.club/nodo-malla-aval"
+
+
+def vouch_private(secret: str) -> bytes:
+    """Deterministic Ed25519 seed for the cloud's mesh vouchers: HKDF(secret, own label)."""
+    if not secret:
+        raise CryptoError("falta el secreto del servidor")
+    return HKDF(algorithm=hashes.SHA256(), length=32, salt=None, info=_VOUCH_LABEL).derive(secret.encode())
+
+
+def sign_public_of(private: bytes) -> bytes:
+    return _raw_public(Ed25519PrivateKey.from_private_bytes(private).public_key())
+
+
+def vouch_public(secret: str) -> str:
+    return b64(sign_public_of(vouch_private(secret)))
+
+
+def canonical_json(value) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def context_message(context: str, *parts) -> bytes:
+    return "\n".join([context, *(str(p) for p in parts)]).encode()
+
+
+def sign_context(private: bytes, context: str, *parts) -> str:
+    return b64(Ed25519PrivateKey.from_private_bytes(private).sign(context_message(context, *parts)))
+
+
+def verify_context(public_b64: str, signature_b64: str, context: str, *parts, what: str = "la firma") -> None:
+    try:
+        key = Ed25519PublicKey.from_public_bytes(unb64(public_b64 or "", size=32, what="llave"))
+        key.verify(unb64(signature_b64 or "", size=64, what="firma"), context_message(context, *parts))
+    except InvalidSignature as exc:
+        raise CryptoError(f"{what} no es válida") from exc
+    except ValueError as exc:
+        raise CryptoError(f"{what} no es válida ({exc})") from exc
+
+
+def _voucher_parts(event_id, node_id, label: str, scope: dict, sign_key: str) -> tuple:
+    return (str(event_id), str(node_id), label, canonical_json(scope), sign_key)
+
+
+def sign_voucher(vouch_priv: bytes, event_id, node_id, label: str, scope: dict, sign_key: str) -> str:
+    """The cloud vouches for one node registration (scope as normalized by the cloud)."""
+    return sign_context(vouch_priv, VOUCH_CONTEXT, *_voucher_parts(event_id, node_id, label, scope, sign_key))
+
+
+def verify_voucher(vouch_key: str, voucher: str, event_id, node_id, label: str, scope: dict, sign_key: str) -> None:
+    verify_context(vouch_key, voucher, VOUCH_CONTEXT, *_voucher_parts(event_id, node_id, label, scope, sign_key),
+                   what="el aval de la nube")

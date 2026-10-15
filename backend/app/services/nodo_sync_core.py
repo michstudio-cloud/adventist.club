@@ -693,6 +693,8 @@ async def load_into_node(node, bundle: dict, *, replace: bool, local_logo: str |
             json.dumps(snapshot_of(rows)),
             json.dumps({"prod_export_id": export_id, "counts": counts(rows), "node": node_meta}),
             datetime.fromisoformat(bundle["exported_at"]))
+        # A new copy starts without neighbours' rows (nodo_malla: node-only tables, if present).
+        await clear_mesh(node, event_id)
         if local_node is not None:
             await node.execute("DELETE FROM event_offline_nodes WHERE event_id = $1 AND local", event_id)
             await node.execute(
@@ -714,6 +716,65 @@ async def local_node(conn, event_id: uuid.UUID | None = None) -> dict | None:
 
 
 # --------------------------------------------------------------------------------------------
+# Rows received from neighbour nodes (nodo_malla, node only)
+# --------------------------------------------------------------------------------------------
+# The mesh («nodos vecinos», app/services/nodo_malla.py) copies, read-only, the captures other
+# nodes of the event made, into node-only tables created lazily on the node. The cloud must never
+# see them as THIS node's work: the upload drops every row inserted via the mesh and puts back
+# the original of every base row a neighbour replaced, so the cloud receives exactly what it
+# would have received without the mesh (it remains the source of truth after the event).
+MESH_TABLES = ("nodo_malla_filas", "nodo_malla_pares", "nodo_malla_conf")
+
+
+async def has_mesh(conn) -> bool:
+    return bool(await conn.fetchval("SELECT to_regclass('public.nodo_malla_filas') IS NOT NULL"))
+
+
+async def clear_mesh(conn, event_id: uuid.UUID) -> None:
+    if await has_mesh(conn):
+        for table in MESH_TABLES:
+            await conn.execute(f"DELETE FROM {table} WHERE event_id = $1", event_id)
+
+
+async def mesh_overlay(conn, event_id: uuid.UUID) -> dict[tuple[str, str], dict | None]:
+    """{(table, row id): original row (a replaced base row) or None (inserted via the mesh)}."""
+    if not await has_mesh(conn):
+        return {}
+    return {(r["table_name"], str(r["row_id"])): _j(r["original"]) for r in await conn.fetch(
+        "SELECT table_name, row_id, original FROM nodo_malla_filas WHERE event_id = $1", event_id)}
+
+
+def without_mesh(rows: dict[str, list[dict]], overlay: dict) -> dict[str, list[dict]]:
+    """The event rows as they would be without the mesh (see above). The registration's check-in
+    mirror (COMPARE_IGNORED) is recomputed from the remaining check-ins like `after_merge` does."""
+    if not overlay:
+        return rows
+    out: dict[str, list[dict]] = {}
+    for table, items in rows.items():
+        kept = []
+        for row in items:
+            key = (table, row["id"])
+            if key not in overlay:
+                kept.append(row)
+            elif overlay[key] is not None:
+                kept.append(overlay[key])
+        out[table] = kept
+    touched = {row["registration_id"] for (table, rid), _ in overlay.items() if table == "event_check_ins"
+               for row in rows.get("event_check_ins", []) if row["id"] == rid}
+    if touched and "event_registrations" in out:
+        current = {r["registration_id"]: r for r in out.get("event_check_ins", []) if not r.get("undone_at")}
+        regs = []
+        for reg in out["event_registrations"]:
+            if reg["id"] in touched:
+                c = current.get(reg["id"]) or {}
+                reg = dict(reg, checked_in_at=c.get("checked_in_at"), checked_in_by_id=c.get("checked_in_by_id"),
+                           checked_in_as=c.get("checked_in_as"))
+            regs.append(reg)
+        out["event_registrations"] = regs
+    return out
+
+
+# --------------------------------------------------------------------------------------------
 # The node's changes (node side)
 # --------------------------------------------------------------------------------------------
 async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None) -> dict:
@@ -725,7 +786,7 @@ async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None) -
         raise SyncError("el nodo no tiene una copia de este evento")
     report = _j(copy["report"]) or {}
     me = await local_node(node, event_id)
-    rows = await event_rows(node, event_id)
+    rows = without_mesh(await event_rows(node, event_id), await mesh_overlay(node, event_id))
     if not rows["events"]:
         raise SyncError("el nodo no tiene el evento")
     referenced = {row[col] for table, refs in USER_REFS.items() for row in rows[table] for col in refs

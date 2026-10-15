@@ -34,7 +34,7 @@ from app.db import connect_args_for, database_url, get_db
 from app.deps import get_current_user
 from app.models import User
 from app.security import RECENT_AUTH_SECONDS
-from app.services import event_nodes, event_pass, node_certs, nodo_crypto
+from app.services import event_nodes, event_pass, node_certs, nodo_crypto, nodo_malla
 from app.services import event_scores as scores
 from app.services import events as event_service
 from app.services import nodo_sync_core as core
@@ -160,8 +160,19 @@ async def list_nodes(event_id: uuid.UUID, current_user: User = Depends(get_curre
     lock = await event_service.event_offline.lock_out(db, event)
     conn = await _conn()
     try:
-        nodes = [await core.node_out(conn, r["id"]) for r in await conn.fetch(
-            "SELECT id FROM event_offline_nodes WHERE event_id = $1 AND NOT local ORDER BY prepared_at", event_id)]
+        rows = await conn.fetch("SELECT id, label, scope, sign_key, status FROM event_offline_nodes"
+                                " WHERE event_id = $1 AND NOT local ORDER BY prepared_at", event_id)
+        nodes = [await core.node_out(conn, r["id"]) for r in rows]
+        # «Nodos vecinos» (public, no secrets): signing key, 6-digit fingerprint and cloud voucher
+        # of every open node, to coordinate the Macs (e.g. compare fingerprints when pairing).
+        vouch = nodo_crypto.vouch_private(settings.nodo_sync_secret) if settings.nodo_sync_secret else None
+        for item, r in zip(nodes, rows, strict=True):
+            item["mesh"] = None
+            if r["sign_key"] and r["status"] in core.OPEN_STATUSES and vouch is not None:
+                item["mesh"] = {"sign_key": r["sign_key"], "huella": nodo_malla.huella(r["sign_key"]),
+                                "voucher": nodo_malla.voucher_for(vouch, event_id, {
+                                    "id": str(r["id"]), "label": r["label"], "scope": core._j(r["scope"]),
+                                    "sign_key": r["sign_key"]})}
     finally:
         await conn.close()
     return _jsonable({"offline_lock": lock.model_dump() if lock else None, "nodes": nodes})
@@ -234,8 +245,13 @@ async def export_for_node(event_id: uuid.UUID, payload: ExportIn, request: Reque
                 tokens[row["id"]] = token
         import_key = nodo_crypto.box_public_of(
             nodo_crypto.derived_box_private(settings.nodo_sync_secret, str(export_id)))
+        # «Nodos vecinos»: the cloud vouches for this node and lists the other open nodes, so
+        # nodes on the same LAN accept each other without internet (derived key, nothing stored).
+        mesh = await nodo_malla.cloud_mesh_block(
+            conn, settings.nodo_sync_secret, event_id,
+            {"id": node["id"], "label": node["label"], "scope": node["scope"], "sign_key": payload.sign_key})
         bundle.update(passes=tokens, certificate=certificate, import_key=nodo_crypto.b64(import_key),
-                      legacy_passes_regenerated=regenerated)
+                      legacy_passes_regenerated=regenerated, mesh=mesh)
         size = len(json.dumps(bundle, default=str))
         if size > settings.NODO_BUNDLE_MAX_BYTES:
             async with conn.transaction():

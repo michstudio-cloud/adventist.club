@@ -485,6 +485,18 @@ async def cmd_prepare(args) -> int:
                 "«Preparar» (se reemplaza ese registro).")
             emit_json({"failed_node_id": info["id"]})
             raise
+        mesh = {"peers": 0, "rejected": 0, "stored": False}
+        try:
+            # «Nodos vecinos»: the cloud's vouch key, this node's voucher and the other nodes.
+            from app.services import nodo_malla  # noqa: PLC0415
+
+            mesh.update(await nodo_malla.store_bundle_mesh(node, event_id, bundle.get("mesh")), stored=True)
+            if not bundle.get("mesh"):
+                say("@@aviso La nube no mandó avales para «nodos vecinos»: empareja a mano con las otras Macs")
+            elif mesh["rejected"]:
+                say(f"@@aviso {mesh['rejected']} nodo(s) vecino(s) del paquete con aval inválido: se ignoran")
+        except Exception as exc:  # noqa: BLE001 (the mesh is optional; the event is loaded)
+            say(f"@@aviso No se guardaron los datos de «nodos vecinos» ({type(exc).__name__})")
         checked = await verify_passes(node, event_id)
         media = mirror_media(bundle, args.media_dir)
         step(5, total, "Certificado HTTPS")
@@ -505,6 +517,7 @@ async def cmd_prepare(args) -> int:
             "clubs": len(regs), "accounts": len(bundle["reference"]["users"]),
             "passes": passes.get("ok", 0), "passes_missing": passes.get("missing", 0),
             "passes_readable": checked.get("ok"), "certificate": cert, "media": media,
+            "mesh": mesh,
         }
         say(f"@@ok Evento listo en el nodo: {summary['clubs']} clubes, {summary['accounts']} cuentas, "
             f"{summary['passes']} pases")
