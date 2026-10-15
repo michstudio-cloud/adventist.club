@@ -298,6 +298,14 @@ deshace y deja lo normal):
 
 Nunca por chat, correo, WhatsApp ni captura de pantalla.
 
+**En la nube (una vez, lo hace el propietario):** aplicar la migración `030_event_offline_nodes.sql`
+en Neon antes de desplegar el backend, y en Render (servicio de la API) poner — sólo nombres aquí —
+`CLOUDFLARE_DNS_API_TOKEN` (Zone · DNS · Edit de `adventist.club`) y `LE_EMAIL` para que «Preparar»
+traiga el certificado de Let's Encrypt; opcionales `NODO_SYNC_SECRET` (si no, se deriva de
+`JWT_SECRET`: rotarlo invalida la caché del certificado y las subidas de nodos ya preparados),
+`LE_STAGING` (sólo ensayos), `NODO_HOSTNAMES`, `NODO_BUNDLE_MAX_BYTES`, `NODO_SETTLE_SECONDS`.
+Sin las dos primeras todo funciona igual, pero cada Mac usa su certificado local (plan B).
+
 ---
 
 ## 9. Para técnicos
