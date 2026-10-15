@@ -29,7 +29,7 @@ for arg in "$@"; do
 done
 [ ${#domains[@]} -gt 0 ] || domains=(events.adventist.club admin.adventist.club api.adventist.club)
 : "${CF_DNS_API_TOKEN:?exporta CF_DNS_API_TOKEN (token de Cloudflare, Zone DNS Edit)}"
-: "${LE_EMAIL:?exporta LE_EMAIL (correo para avisos de Let's Encrypt)}"
+: "${LE_EMAIL:?exporta LE_EMAIL (correo para avisos de Let’s Encrypt)}"
 
 args=(--accept-tos --email "$LE_EMAIL" --dns cloudflare --dns.resolvers 1.1.1.1:53 --path /data)
 for d in "${domains[@]}"; do args+=(--domains "$d"); done
@@ -37,7 +37,9 @@ for d in "${domains[@]}"; do args+=(--domains "$d"); done
 if [ "$mode" = renew ]; then args+=(renew --days 30); else args+=(run); fi
 
 mkdir -p letsencrypt actual
-echo "Let's Encrypt (${mode}) para: ${domains[*]}$([ "$staging" = 1 ] && echo ' [STAGING]')"
+suffix=""
+[ "$staging" = 1 ] && suffix=" [STAGING]"
+echo "Let’s Encrypt (${mode}) para: ${domains[*]}${suffix}"
 # -e CF_DNS_API_TOKEN (sin valor): Docker toma el valor del entorno, no de la línea de órdenes.
 docker run --rm -e CF_DNS_API_TOKEN -v "$PWD/letsencrypt:/data" goacme/lego:v4.26.0 "${args[@]}"
 

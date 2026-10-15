@@ -730,6 +730,23 @@ cmd_registros() {
   [ -f "$RUN_DIR/respaldo-usb.log" ] && { printf '===== copia a USB =====\n'; tail -10 "$RUN_DIR/respaldo-usb.log"; }
 }
 
+# ---------------------------------------------------------------------------------------------
+# «Ver sitio local»: abre en ESTA Mac el mismo events.adventist.club que ven los teléfonos, pero
+# servido por el nodo. Navegador Chromium con perfil aparte y resolución de nombres forzada a esta
+# Mac (no toca /etc/hosts ni el navegador de siempre).
+cmd_ver_sitio() {
+  local app="" a perfil="$APP_SUPPORT/navegador-local" ip="127.0.0.1"
+  for a in "Google Chrome" "Brave Browser" "Microsoft Edge" "Chromium"; do
+    if [ -d "/Applications/$a.app" ]; then app="$a"; break; fi
+  done
+  [ -n "$app" ] || fallo "Para ver el sitio local en esta Mac instala Google Chrome o Brave."
+  mkdir -p "$perfil"
+  open -na "$app" --args --user-data-dir="$perfil" --no-first-run --no-default-browser-check \
+    --host-resolver-rules="MAP events.adventist.club $ip,MAP admin.adventist.club $ip,MAP api.adventist.club $ip" \
+    "https://events.adventist.club/"
+  ok "Abriendo el sitio local en $app (ventana aparte que apunta a esta Mac)"
+}
+
 case "${1:-}" in
   estado) cmd_estado ;;
   encender) cmd_encender ;;
@@ -749,5 +766,6 @@ case "${1:-}" in
   autoarranque) shift; cmd_autoarranque "$@" ;;
   config) shift; case "${1:-}" in json) config_json; echo ;; set) config_set "$2" "${3-}"; ok "guardado: $2" ;; *) fallo "uso: config json|set CLAVE VALOR" ;; esac ;;
   registros) shift; cmd_registros "$@" ;;
+  ver-sitio) cmd_ver_sitio ;;
   *) sed -n '2,24p' "$0"; exit 2 ;;
 esac

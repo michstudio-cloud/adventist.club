@@ -414,6 +414,7 @@ struct Principal: View {
             Mosaico(titulo: "Preparar evento", sub: "víspera, con internet", icono: "arrow.down.circle") { hoja = .preparar }
             Mosaico(titulo: "Subir resultados", sub: "al volver internet", icono: "arrow.up.circle") { hoja = .subir }
             Mosaico(titulo: "Configurar router", sub: "una sola vez", icono: "wifi.router") { hoja = .router }
+            Mosaico(titulo: "Ver sitio local", sub: "igual que en los teléfonos", icono: "safari") { motor.correr(["ver-sitio"], titulo: "Abriendo el sitio local") }
             Mosaico(titulo: "Certificado", sub: "antes del viaje", icono: "lock.shield") { hoja = .certificado }
             Mosaico(titulo: "Ajustes", sub: "secretos · registros", icono: "gearshape") { hoja = .ajustes }
         }
