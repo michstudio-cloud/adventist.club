@@ -291,6 +291,65 @@ do {
     check(Comando.correr("/no/existe", []) == "", "Comando: ejecutable inexistente → \"\"")
 }
 
+// MARK: - Depurador (casos compartidos con depurar.pl y el backend: pruebas/depurador/casos.txt)
+do {
+    func repetir(_ s: String, _ n: Int) -> String { String(String(repeating: s, count: n / s.count + 1).prefix(n)) }
+    // Secretos de mentira armados aquí (nunca escritos tal cual en el repo); = probar.pl.
+    let M: [String: String] = [
+        "AIZA": "AI" + "za" + repetir("Xy9_", 35), "AQ": "AQ" + "." + repetir("Ab3-", 40),
+        "YA29": "ya" + "29." + repetir("a0B_", 32), "GHP": "gh" + "p_" + repetir("Z9y8", 36),
+        "GHO": "gh" + "o_" + repetir("K7j6", 36), "GHPAT": "github" + "_pat_" + repetir("11AB", 48),
+        "SK": "sk" + "-ant-" + repetir("q1W2", 32), "XOX": "xo" + "xb-" + repetir("12345-", 24),
+        "JWT": "ey" + "JhbGciOiJIUzI1NiJ9." + "ey" + "JzdWIiOiIxMjM0NTY3ODkwIn0." + repetir("dGVzdA", 30),
+        "B64": repetir("QUJD", 48),
+        "PEM": "-----BEGIN " + "PRIVATE KEY-----\n" + repetir("MIIEvQ", 64) + "\n" + repetir("AbCd", 64) + "\n-----END " + "PRIVATE KEY-----",
+        "AWS": "AK" + "IA" + "ABCDEFGHIJKLMNOP"]
+    func expandir(_ t: String) -> String {
+        var t = t
+        for (k, v) in M { t = t.replacingOccurrences(of: "{{\(k)}}", with: v) }
+        return t
+    }
+    let equipo = Depurador.normalizarIdentidad(["Mac de Prueba Ñandú", "ana-prueba"])
+    let ruta = "\(dir)/../depurador/casos.txt"
+    let texto = (try? String(contentsOfFile: ruta, encoding: .utf8)) ?? ""
+    check(!texto.isEmpty, "Depurador: casos.txt", ruta)
+    var casos: [(nombre: String, partes: [String: String])] = []
+    var seccion: String?
+    for linea in texto.components(separatedBy: "\n").dropLast() {
+        if casos.isEmpty && linea.hasPrefix("#") && !linea.hasPrefix("### ") { continue }
+        if linea.hasPrefix("### ") { casos.append((String(linea.dropFirst(4)), [:])); seccion = nil; continue }
+        if ["--- entrada", "--- esperado", "--- procesos"].contains(linea) { seccion = String(linea.dropFirst(4)); casos[casos.count - 1].partes[seccion!] = ""; continue }
+        if let s = seccion { casos[casos.count - 1].partes[s, default: ""] += linea + "\n" }
+    }
+    check(casos.count >= 12, "Depurador: casos leídos", "\(casos.count)")
+    for c in casos {
+        let entrada = expandir(c.partes["entrada"] ?? "")
+        if let e = c.partes["esperado"] {
+            let o = Depurador.texto(entrada, equipo: equipo)
+            check(o == e, "Depurador: \(c.nombre)", "obtuvo:\n\(o)")
+            check(Depurador.tipos(o).isEmpty, "Depurador: \(c.nombre) queda sin secretos", "\(Depurador.tipos(o))")
+        }
+        if let e = c.partes["procesos"] {
+            let o = Depurador.procesos(entrada, equipo: equipo)
+            check(o == e, "Depurador (procesos): \(c.nombre)", "obtuvo:\n\(o)")
+        }
+    }
+    // El incidente real: la llave no queda ni en modo texto ni en modo procesos.
+    let incidente = "  1 /usr/bin/curl --header X-Goog-Api-Key: \(M["AQ"]!)"
+    check(!Depurador.texto(incidente, equipo: []).contains(M["AQ"]!) && !Depurador.procesos(incidente, equipo: []).contains("X-Goog"),
+          "Depurador: incidente X-Goog-Api-Key")
+    // Un hallazgo nunca guarda en «detalle» lo que el Depurador quita.
+    let h = Hallazgo(id: "x", nivel: .info, titulo: "t", guia: "g", detalle: "proceso con --token \(M["GHP"]!) y MAC 3c:22:fb:1a:2b:3c")
+    check(!h.detalle.contains(M["GHP"]!) && h.detalle.contains("xx:xx:xx:xx:2b:3c"), "Hallazgo: detalle depurado", h.detalle)
+    // ps: sólo columnas sin argumentos.
+    check(Comando.permitido("/bin/ps", ["-axo", "comm="]) && Comando.permitido("/bin/ps", ["-axo", "pid=,comm="]), "ps: comm permitido")
+    for malos in [["-axo", "args="], ["-axo", "pid,command"], ["-ef"], ["aux"], ["-axww", "-o", "comm="], ["-axo", "comm=", "-ww"], []] {
+        check(!Comando.permitido("/bin/ps", malos), "ps: \(malos) rechazado")
+    }
+    check(Comando.correr("/bin/ps", ["-axo", "args="]) == "", "Comando: ps con argumentos no corre")
+    check(Comando.permitido("/usr/sbin/netstat", ["-rn"]), "otras órdenes sin cambio")
+}
+
 print("\nAnalizadores: \(pasadas) pruebas bien, \(fallidas) mal")
 
 if args.contains("--real") {

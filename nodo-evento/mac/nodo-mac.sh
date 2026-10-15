@@ -169,6 +169,15 @@ ok()    { printf '@@ok %s\n' "$*"; }
 aviso() { printf '@@aviso %s\n' "$*"; }
 fallo() { printf '@@error %s\n' "$*"; exit 1; }
 
+# Depurador (depurar.pl junto a este script; docs/EGRESO.md): lo que viene del router, de Docker
+# (registros de la API/Caddy) o de órdenes de la Mac pasa por aquí antes de mostrarse. La app lo
+# vuelve a depurar (app/Depurador.swift). Sin el script no se muestra nada en vez de mostrarlo crudo.
+DEPURAR_PL="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/depurar.pl"
+depurar() {
+  if [ -f "$DEPURAR_PL" ]; then perl "$DEPURAR_PL" "$@"
+  else cat >/dev/null; printf '(salida oculta: falta depurar.pl junto a nodo-mac.sh)\n'; fi
+}
+
 json_str() {  # escapa para JSON (sin jq: el estado se pide cada pocos segundos)
   local s="${1-}"
   s="${s//\\/\\\\}"; s="${s//\"/\\\"}"; s="${s//$'\n'/\\n}"; s="${s//$'\r'/}"; s="${s//$'\t'/ }"
@@ -1163,14 +1172,14 @@ cmd_red_publica() {  # cmd_red_publica plan|aplicar|quitar [--simular] [--tipo �
   fi
   router_alive || fallo "No veo el router en $ROUTER_IP. ¿Esta Mac está conectada por cable?"
   if [ "$modo" = quitar ]; then
-    { if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" quitar; else publica_script_openwrt "$ROUTER_T_IP" quitar; fi; } | router_ssh 2>&1 | sed 's/^/  /'
+    { if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" quitar; else publica_script_openwrt "$ROUTER_T_IP" quitar; fi; } | router_ssh 2>&1 | depurar | sed 's/^/  /'
     [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios."
     ok "Red pública quitada"
     return 0
   fi
   { router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC"
     if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" aplicar; else publica_script_openwrt "$ROUTER_T_IP" aplicar; fi
-  } | router_ssh 2>&1 | sed 's/^/  /'
+  } | router_ssh 2>&1 | depurar | sed 's/^/  /'
   [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios (contraseña o firmware)."
   config_set IP_FIJA "$ROUTER_T_IP"; config_set MAC_FIJA "$ROUTER_T_MAC"
   # Caddy contesta las pruebas de «¿hay internet?» según RED_PORTAL (se aplica al reiniciarlo).
@@ -1287,11 +1296,11 @@ cmd_router() {
   router_alive || fallo "No veo el router en $ROUTER_IP. ¿Esta Mac está conectada a esa red?"
   if [ "$mode" = plan ]; then
     say ""; say "Valores actuales en el router:"
-    router_guion_leer | router_ssh 2>&1 | sed 's/^/  /'
+    router_guion_leer | router_ssh 2>&1 | depurar | sed 's/^/  /'
     [ "${PIPESTATUS[1]}" = 0 ] || fallo "No pude entrar por SSH (¿usuario «$(router_usuario)» y contraseña de administración correctos? ¿SSH activado en el router?)"
     ok "Revisa los cambios y pulsa «Aplicar»"
   else
-    router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC" | router_ssh 2>&1 | sed 's/^/  /'
+    router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC" | router_ssh 2>&1 | depurar | sed 's/^/  /'
     [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios (contraseña o firmware)."
     config_set IP_FIJA "$ROUTER_T_IP"; config_set MAC_FIJA "$ROUTER_T_MAC"
     ok "Router configurado: esta Mac = $ROUTER_T_IP"
@@ -1603,9 +1612,11 @@ cmd_estado() {
 cmd_registros() {
   need_node_dir
   local svc="${1:-}"
-  if [ -n "$svc" ]; then docker logs --tail 150 "$(container "$svc")" 2>&1
-  else for svc in db migrate api web caddy respaldo; do printf '===== %s =====\n' "$svc"; docker logs --tail 25 "$(container "$svc")" 2>&1; done; fi
-  [ -f "$RUN_DIR/respaldo-usb.log" ] && { printf '===== copia a USB =====\n'; tail -10 "$RUN_DIR/respaldo-usb.log"; }
+  {
+    if [ -n "$svc" ]; then docker logs --tail 150 "$(container "$svc")" 2>&1
+    else for svc in db migrate api web caddy respaldo; do printf '===== %s =====\n' "$svc"; docker logs --tail 25 "$(container "$svc")" 2>&1; done; fi
+    [ -f "$RUN_DIR/respaldo-usb.log" ] && { printf '===== copia a USB =====\n'; tail -10 "$RUN_DIR/respaldo-usb.log"; }
+  } | depurar
 }
 
 # ---------------------------------------------------------------------------------------------

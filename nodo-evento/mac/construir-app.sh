@@ -48,6 +48,7 @@ done
 iconutil -c icns "$TMP/AppIcon.iconset" -o "$APP/Contents/Resources/AppIcon.icns"
 
 install -m 755 "$MAC_DIR/nodo-mac.sh" "$APP/Contents/Resources/nodo-mac.sh"
+install -m 755 "$MAC_DIR/depurar.pl" "$APP/Contents/Resources/depurar.pl"
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

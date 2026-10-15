@@ -7,3 +7,5 @@ tls/ca-local/
 dist/
 *.dmg
 *.dmg.sha256
+# Muestras de pruebas (ya depuradas; pruebas/buscar-secretos.sh las revisa antes de cada commit).
+!mac/pruebas/muestras/**/*.log

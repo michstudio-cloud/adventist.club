@@ -1,0 +1,8 @@
+#!/bin/bash
+# Gancho del repo (instalar: nodo-evento/mac/pruebas/buscar-secretos.sh --instalar).
+# Revisa cada archivo de cada commit que se va a subir (docs/EGRESO.md).
+raiz="$(git rev-parse --show-toplevel)"
+script="$raiz/nodo-evento/mac/pruebas/buscar-secretos.sh"
+# Otra rama/worktree sin el script (anterior a oct 2026): avisa y no frena.
+[ -f "$script" ] || { echo "aviso: $script no existe en esta rama; no se revisaron secretos" >&2; exit 0; }
+exec bash "$script" --push

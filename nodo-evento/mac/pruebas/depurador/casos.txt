@@ -1,0 +1,114 @@
+# Casos compartidos del depurador (depurar.pl, app/Depurador.swift, backend nodo_egreso.py).
+# Los secretos NO están escritos aquí (GitHub los bloquearía y buscar-secretos.sh fallaría): cada
+# prueba los arma en tiempo de ejecución a partir de estos marcadores:
+#   {{AIZA}} {{AQ}} {{YA29}} {{GHP}} {{GHO}} {{GHPAT}} {{SK}} {{XOX}} {{JWT}} {{B64}} {{PEM}} {{AWS}}
+# Identidad del equipo de prueba: «Mac de Prueba Ñandú» y el usuario «ana-prueba».
+# Formato: «### nombre», luego «--- entrada» y «--- esperado» (o «--- procesos» para el modo ps).
+### incidente real: curl con --header X-Goog-Api-Key: AQ.… en ps -axo args
+--- entrada
+  812 /usr/bin/curl -sS https://generativelanguage.googleapis.com/v1/models --header X-Goog-Api-Key: {{AQ}} -d @/Users/ana-prueba/consulta.json
+--- esperado
+  812 /usr/bin/curl -sS https://generativelanguage.googleapis.com/v1/models --header X-Goog-Api-Key: [oculto]
+--- procesos
+  812 /usr/bin/curl
+### cabecera entre comillas con -H
+--- entrada
+curl -H 'X-Goog-Api-Key: {{AIZA}}' -H "Authorization: Bearer {{YA29}}" https://example.com
+--- esperado
+curl -H 'X-Goog-Api-Key: [oculto]' -H "Authorization: [oculto]" https://example.com
+### Bearer suelto en un registro
+--- entrada
+GET /api/v1/me 200 Bearer {{JWT}} desde 192.168.8.23
+--- esperado
+GET /api/v1/me 200 Bearer [oculto] desde 192.168.8.23
+### tokens por patrón
+--- entrada
+gh={{GHP}} oauth={{GHO}} pat={{GHPAT}} anthropic={{SK}} slack={{XOX}} aws={{AWS}} jwt={{JWT}}
+--- esperado
+gh=[oculto] oauth=[oculto] pat=[oculto] anthropic=[oculto] slack=[oculto] aws=[oculto] jwt=[oculto]
+### pares KEY=valor de entorno
+--- entrada
+env GOOGLE_API_KEY={{AIZA}} NODO_SYNC_SECRET="frase larga secreta" DB_PASSWORD='x9!x9!x9' PATH=/usr/bin LANG=C python3 app.py
+--- esperado
+env GOOGLE_API_KEY=[oculto] NODO_SYNC_SECRET=[oculto] DB_PASSWORD=[oculto] PATH=/usr/bin LANG=C python3 app.py
+--- procesos
+env
+### banderas con secreto
+--- entrada
+node server.js --api-key=abc123def456 --token zz99zz99zz --password 'otra clave' --port 8080 --keychain-path x
+--- esperado
+node server.js --api-key=[oculto] --token [oculto] --password [oculto] --port 8080 --keychain-path x
+--- procesos
+node server.js
+### credenciales en URL
+--- entrada
+DATABASE=postgresql://nodo:ClaveDelNodo@db:5432/nodo y redis://:otra@cache:6379
+--- esperado
+DATABASE=postgresql://[oculto]@db:5432/nodo y redis://[oculto]@cache:6379
+### base64 largo junto a palabras clave
+--- entrada
+"signature": "{{B64}}", "note": "{{B64}}", secret_key = {{B64}}
+--- esperado
+"signature": "[oculto]", "note": "QUJDQUJDQUJDQUJDQUJDQUJDQUJDQUJDQUJDQUJDQUJDQUJD", secret_key = [oculto]
+### bloque PEM privado
+--- entrada
+antes
+{{PEM}}
+después
+--- esperado
+antes
+-----BEGIN PRIVATE KEY----- [oculto] -----END PRIVATE KEY-----
+después
+### Wi-Fi: uci, MikroTik y QR
+--- entrada
+	option key 'MiClaveWifi2026'
+wireless.default_radio0.key='MiClaveWifi2026'
+/interface wifi security set sec1 passphrase=MiClaveWifi2026 wpa2-pre-shared-key="otra clave"
+WIFI:T:WPA;S:Camporee;P:MiClave\;Wifi;;
+	option encryption 'psk2'
+--- esperado
+	option key '[oculto]'
+wireless.default_radio0.key='[oculto]'
+/interface wifi security set sec1 passphrase=[oculto] wpa2-pre-shared-key=[oculto]
+WIFI:T:WPA;S:Camporee;P:[oculto];;
+	option encryption 'psk2'
+### MAC e IPv6 de enlace local (ifconfig, arp -an)
+--- entrada
+	ether 3c:22:fb:1a:2b:3c
+	inet6 fe80::1c2b:3a4d:5e6f:7081%en0 prefixlen 64 secured scopeid 0xe
+	inet6 2001:db8:0:0:0:0:0:1 prefixlen 64
+? (192.168.8.23) at 8c:77:12:a:b:c on en0 ifscope [ethernet]
+f0-18-98-12-34-56 dinámico
+--- esperado
+	ether xx:xx:xx:xx:2b:3c
+	inet6 fe80::[oculto]%en0 prefixlen 64 secured scopeid 0xe
+	inet6 2001:db8:0:0:0:0:0:1 prefixlen 64
+? (192.168.8.23) at xx:xx:xx:xx:b:c on en0 ifscope [ethernet]
+xx-xx-xx-xx-34-56 dinámico
+### rutas personales y nombre del equipo
+--- entrada
+/Users/ana-prueba/Library/Application Support/Nodo Camporee/run/nodo.env en Mac de Prueba Ñandú (ana-prueba)
+/Users/Shared/x /Users/USUARIO/y /home/pepe/.ssh
+--- esperado
+/Users/USUARIO/Library/Application Support/Nodo Camporee/run/nodo.env en MAC-NODO (MAC-NODO)
+/Users/Shared/x /Users/USUARIO/y /home/USUARIO/.ssh
+### procesos: rutas con espacios y columnas numéricas
+--- entrada
+  77    1 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --lang=es
+/System/Library/CoreServices/launchservicesd
+python3 /Users/ana-prueba/bin/script.py OPENAI_API_KEY={{SK}}
+--- esperado
+  77    1 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --lang=es
+/System/Library/CoreServices/launchservicesd
+python3 /Users/USUARIO/bin/script.py OPENAI_API_KEY=[oculto]
+--- procesos
+  77    1 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome Helper (Renderer)
+/System/Library/CoreServices/launchservicesd
+python3
+### textos normales no cambian
+--- entrada
+Reserva DHCP lista: events.adventist.club → 192.168.8.20 · Token expirado, vuelve a entrar · key mismatch
+Firewall is enabled. (State = 1)
+--- esperado
+Reserva DHCP lista: events.adventist.club → 192.168.8.20 · Token expirado, vuelve a entrar · key mismatch
+Firewall is enabled. (State = 1)

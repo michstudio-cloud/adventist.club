@@ -212,7 +212,10 @@ final class Motor: ObservableObject {
         }
     }
 
-    private func agregar(_ linea: String) {
+    private func agregar(_ cruda: String) {
+        // Todo lo que muestra «Registros» (y se puede copiar) pasa por el Depurador: salidas del
+        // router, de Docker/Caddy/API, de las órdenes de la Mac (docs/EGRESO.md).
+        let linea = cruda.hasPrefix("@@json ") ? cruda : Depurador.texto(cruda)
         if linea.hasPrefix("@@paso ") {
             let t = String(linea.dropFirst(7))
             if let sp = t.firstIndex(of: " ") {

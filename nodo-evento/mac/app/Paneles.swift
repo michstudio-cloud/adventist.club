@@ -384,7 +384,7 @@ struct HojaDispositivos: View {
                     if !mon.bloqueos.isEmpty { bloqueados }
                     Button(verHistorial ? "Ocultar registro de bloqueos" : "Registro de bloqueos (auditoría)") { verHistorial.toggle() }.buttonStyle(.link)
                     if verHistorial {
-                        Text(Bloqueos.historial().joined(separator: "\n")).font(.system(size: 11, design: .monospaced))
+                        Text(Depurador.texto(Bloqueos.historial().joined(separator: "\n"))).font(.system(size: 11, design: .monospaced))
                             .textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }

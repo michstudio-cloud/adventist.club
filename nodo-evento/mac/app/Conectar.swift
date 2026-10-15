@@ -229,9 +229,11 @@ struct FlujoAuto: View {
     func elegir(_ ev: EventoAPI) {
         elegido = ev
         if proposito == .subir { paso = .subir; return }
-        // Valores iniciales: nombre de la Mac, nada elegido; «Todas» sólo si no hay otros nodos abiertos.
+        // Valores iniciales: «Nodo N» (NUNCA el nombre de la Mac: la etiqueta viaja a la nube, a
+        // los nodos vecinos y a Bonjour — docs/EGRESO.md), nada elegido; «Todas» sólo si no hay
+        // otros nodos abiertos.
         let otros = ev.nodos.filter { $0.abierto && $0.id != motor.estado?.nodo?.id }
-        etiqueta = motor.estado?.nodo?.label ?? (Host.current().localizedName ?? "Nodo 1")
+        etiqueta = motor.estado?.nodo?.label ?? "Nodo \(ev.nodos.count + 1)"
         seleccion = []
         todas = otros.isEmpty
         llegadas = true

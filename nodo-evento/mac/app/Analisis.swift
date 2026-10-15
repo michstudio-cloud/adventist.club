@@ -15,8 +15,14 @@ struct Hallazgo: Identifiable, Codable, Equatable {
     let titulo: String
     /// Qué hacer, en palabras sencillas (pasos en Ajustes del Sistema).
     let guia: String
-    /// Datos técnicos (para quien ayuda por teléfono). Sin secretos ni nombres de usuario.
+    /// Datos técnicos (para quien ayuda por teléfono). Sin secretos ni nombres de usuario: pasa
+    /// siempre por el Depurador (se puede seleccionar y copiar en la ventana).
     let detalle: String
+
+    init(id: String, nivel: Nivel, titulo: String, guia: String, detalle: String) {
+        self.id = id; self.nivel = nivel; self.titulo = titulo; self.guia = guia
+        self.detalle = Depurador.texto(detalle)
+    }
 }
 
 enum Comando {
@@ -27,6 +33,7 @@ enum Comando {
     /// los analizadores reconocen los textos en inglés de las herramientas de Apple.
     static func correr(_ path: String, _ args: [String], timeout: Double = 5) -> String {
         guard FileManager.default.isExecutableFile(atPath: path) else { return "" }
+        guard permitido(path, args) else { return "" }
         let tmp = FileManager.default.temporaryDirectory
             .appendingPathComponent("nodo-cmd-\(UUID().uuidString).txt")
         guard FileManager.default.createFile(atPath: tmp.path, contents: nil),
@@ -53,6 +60,30 @@ enum Comando {
         try? fh.synchronize()
         let datos = (try? Data(contentsOf: tmp)) ?? Data()
         return String(decoding: datos, as: UTF8.self)
+    }
+}
+
+extension Comando {
+    /// `ps` sólo con columnas sin argumentos (comm, pid, ppid, user…): los argumentos de otros
+    /// programas pueden traer llaves (incidente oct 2026: `--header X-Goog-Api-Key: …` de una
+    /// muestra de pruebas). `args`, `command`, `-f`/`-ww`… no se piden nunca.
+    static let columnasPS: Set<String> = ["comm", "ucomm", "pid", "ppid", "user", "uid", "state", "stat", "%cpu", "%mem", "rss", "etime"]
+    static func permitido(_ path: String, _ args: [String]) -> Bool {
+        guard (path as NSString).lastPathComponent == "ps" else { return true }
+        var i = 0, columnas = false
+        while i < args.count {
+            let a = args[i]
+            if a.hasPrefix("-") && a.contains("o") && !a.hasPrefix("--") {
+                // -o / -axo / -eo: la lista de columnas va en el siguiente argumento.
+                guard i + 1 < args.count else { return false }
+                let lista = args[i + 1].split(separator: ",").map { String($0.split(separator: "=").first ?? "").lowercased() }
+                guard !lista.isEmpty, lista.allSatisfy({ columnasPS.contains($0) }) else { return false }
+                guard a.dropFirst().allSatisfy({ "axeo".contains($0) }) else { return false }
+                columnas = true; i += 2; continue
+            }
+            return false   // cualquier otra opción (-f, -l, -ww, -j, -u…) puede mostrar argumentos
+        }
+        return columnas
     }
 }
 
