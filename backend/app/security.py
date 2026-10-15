@@ -92,6 +92,9 @@ TEMP_MFA_TOKEN_MINUTES = 5
 # Claim that says "this session was born of a second factor". Absent on every
 # token minted before E1 and on tokens issued by plain password login.
 MFA_CLAIM = "mfa"
+AUTH_TIME_CLAIM = "auth_time"
+# «Recent authentication» for sensitive actions (preparing / uploading an event node, 030).
+RECENT_AUTH_SECONDS = 15 * 60
 
 AUTH_NOT_CONFIGURED_DETAIL = "Auth no configurado"
 
@@ -165,25 +168,33 @@ def require_auth_configured() -> None:
 
 
 def _create_token(
-    subject: str, token_type: str, lifetime: timedelta, *, mfa: bool = False
+    subject: str, token_type: str, lifetime: timedelta, *, mfa: bool = False,
+    auth_time: int | None = None,
 ) -> str:
     require_auth_configured()
-    claims = {"sub": str(subject), "exp": utcnow() + lifetime, "type": token_type}
+    now = utcnow()
+    claims = {"sub": str(subject), "exp": now + lifetime, "type": token_type,
+              # When the person last proved who they are (password / second factor), as unix
+              # seconds. A refreshed token keeps the original one: «recent authentication»
+              # (RECENT_AUTH_SECONDS) cannot be renewed without logging in again (030).
+              AUTH_TIME_CLAIM: int(now.timestamp()) if auth_time is None else int(auth_time)}
     if mfa:
         # Only ever added, never set to False: an old token must stay readable.
         claims[MFA_CLAIM] = True
     return jwt.encode(claims, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
-def create_access_token(user_id, *, mfa: bool = False) -> str:
+def create_access_token(user_id, *, mfa: bool = False, auth_time: int | None = None) -> str:
     return _create_token(
-        user_id, TOKEN_ACCESS, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES), mfa=mfa
+        user_id, TOKEN_ACCESS, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES), mfa=mfa,
+        auth_time=auth_time,
     )
 
 
-def create_refresh_token(user_id, *, mfa: bool = False) -> str:
+def create_refresh_token(user_id, *, mfa: bool = False, auth_time: int | None = None) -> str:
     return _create_token(
-        user_id, TOKEN_REFRESH, timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS), mfa=mfa
+        user_id, TOKEN_REFRESH, timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS), mfa=mfa,
+        auth_time=auth_time,
     )
 
 
@@ -216,6 +227,14 @@ def decode_token(token: str, expected_type: str) -> str | None:
 
 def born_of_mfa(claims: dict | None) -> bool:
     return bool(claims and claims.get(MFA_CLAIM) is True)
+
+
+def auth_time_of(claims: dict | None) -> int:
+    """Unix seconds of the login behind this token; 0 for tokens issued before 030."""
+    try:
+        return int((claims or {}).get(AUTH_TIME_CLAIM) or 0)
+    except (TypeError, ValueError):
+        return 0
 
 
 # --------------------------------------------------------------------------

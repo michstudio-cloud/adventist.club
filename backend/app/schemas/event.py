@@ -174,6 +174,17 @@ class EventOut(BaseModel):
     my_roles: list[str] = []
     # 029: «en nodo local» — null = not locked. While set, every write answers 423 here.
     offline_lock: "OfflineLockOut | None" = None
+    # 030: only on a local node's own API — what THIS node captures (null in the cloud).
+    offline_node: "OfflineNodeOut | None" = None
+
+
+class OfflineNodeOut(BaseModel):
+    """030: this database is the local node «label»; it writes only within its scope."""
+    id: str
+    label: str
+    all: bool
+    activity_ids: list[str]
+    check_in: bool
 
 
 class OfflineLockOut(BaseModel):

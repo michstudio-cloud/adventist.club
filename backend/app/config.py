@@ -107,6 +107,24 @@ class Settings(BaseSettings):
     # app's own (FRONTEND_URL, PUBLIC_WEB_URL, ADMIN_WEB_URL, CORS_ORIGINS, EVENT_PASS_URL_BASE).
     RETURN_TO_HOSTS: str = ""
 
+    # --- Event node, automatic mode (030; CONTRATO_NODO_LOGIN.md). All optional. ---
+    # Let's Encrypt certificate for the node's hostnames by DNS-01 on Cloudflare, obtained on
+    # demand when a node is prepared and cached (private key encrypted) while it has >30 days.
+    # Without both values the bundle says «no_configurado» and the Mac uses its local CA.
+    CLOUDFLARE_DNS_API_TOKEN: str | None = None
+    LE_EMAIL: str | None = None
+    # true = Let's Encrypt STAGING (untrusted certificates; tests and rehearsals only).
+    LE_STAGING: bool = False
+    NODO_HOSTNAMES: str = "events.adventist.club,api.adventist.club,admin.adventist.club,media.adventist.club"
+    # Secret for the cached certificate's private key and for the per-export upload key. Unset
+    # = derived from JWT_SECRET (rotating JWT_SECRET then invalidates the cache and the uploads
+    # of nodes prepared before the rotation: set NODO_SYNC_SECRET to decouple them).
+    NODO_SYNC_SECRET: str | None = None
+    # Largest bundle (uncompressed JSON) the API builds or accepts.
+    NODO_BUNDLE_MAX_BYTES: int = 50_000_000
+    # Seconds the export waits after locking the event (writes already past the guard finish).
+    NODO_SETTLE_SECONDS: float = 2.0
+
     # --- Monitoring (optional: no-op without SENTRY_DSN) ---
     SENTRY_DSN: str | None = None
     SENTRY_DEBUG_MODE: bool = False
@@ -151,6 +169,9 @@ class Settings(BaseSettings):
         "SENTRY_DSN",
         "SERVER_NAME",
         "PROXY_SHARED_SECRET",
+        "CLOUDFLARE_DNS_API_TOKEN",
+        "LE_EMAIL",
+        "NODO_SYNC_SECRET",
         mode="before",
     )
     @classmethod
@@ -169,6 +190,7 @@ class Settings(BaseSettings):
         "EMAIL_FROM",
         "EMAIL_FROM_NAME",
         "EVENT_PASS_URL_BASE",
+        "NODO_HOSTNAMES",
         mode="before",
     )
     @classmethod
@@ -195,7 +217,7 @@ class Settings(BaseSettings):
         return text
 
     @field_validator(
-        "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", "SHOW_SOURCES", mode="before"
+        "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", "SHOW_SOURCES", "LE_STAGING", mode="before"
     )
     @classmethod
     def _lenient_bool(cls, value: Any, info) -> Any:
@@ -265,6 +287,18 @@ class Settings(BaseSettings):
     def admin_url(self) -> str:
         """Base URL of the staff links in emails; the member app serves /admin too."""
         return (self.ADMIN_WEB_URL or self.frontend_url).rstrip("/")
+
+    @property
+    def nodo_hostnames(self) -> list[str]:
+        return sorted({h.strip().lower() for h in self.NODO_HOSTNAMES.split(",") if h.strip()})
+
+    @property
+    def nodo_sync_secret(self) -> str | None:
+        return self.NODO_SYNC_SECRET or self.JWT_SECRET
+
+    @property
+    def nodo_certificates_configured(self) -> bool:
+        return bool(self.CLOUDFLARE_DNS_API_TOKEN and self.LE_EMAIL)
 
     @property
     def event_pass_url_base(self) -> str:

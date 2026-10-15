@@ -31,8 +31,8 @@ _AAD = b"event-pass"
 _TOKEN = re.compile(r"^[A-Za-z0-9_\-]{8,200}$")
 
 
-def _key() -> bytes:
-    secret = settings.EVENT_PASS_SECRET or settings.JWT_SECRET
+def _key(secret: str | None = None) -> bytes:
+    secret = secret or settings.EVENT_PASS_SECRET or settings.JWT_SECRET
     if not secret:
         raise RuntimeError("EVENT_PASS_SECRET/JWT_SECRET is not configured")
     return HKDF(algorithm=hashes.SHA256(), length=32, salt=None, info=_INFO).derive(secret.encode())
@@ -46,13 +46,14 @@ def _unb64(text: str) -> bytes:
     return base64.urlsafe_b64decode(text + "=" * (-len(text) % 4))
 
 
-def encrypt(token: str) -> str:
+def encrypt(token: str, *, secret: str | None = None) -> str:
+    """`secret`: another side's EVENT_PASS_SECRET (the node sync re-encrypts passes, 030)."""
     nonce = os.urandom(12)
-    sealed = AESGCM(_key()).encrypt(nonce, token.encode(), _AAD)
+    sealed = AESGCM(_key(secret)).encrypt(nonce, token.encode(), _AAD)
     return f"{VERSION}.{_b64(nonce + sealed)}"
 
 
-def decrypt(value: str | None) -> str | None:
+def decrypt(value: str | None, *, secret: str | None = None) -> str | None:
     if not value:
         return None
     try:
@@ -60,7 +61,7 @@ def decrypt(value: str | None) -> str | None:
         if version != VERSION:
             return None
         raw = _unb64(payload)
-        return AESGCM(_key()).decrypt(raw[:12], raw[12:], _AAD).decode()
+        return AESGCM(_key(secret)).decrypt(raw[:12], raw[12:], _AAD).decode()
     except (ValueError, InvalidTag, UnicodeDecodeError, RuntimeError):
         return None
 

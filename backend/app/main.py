@@ -44,6 +44,8 @@ from app.routers import club_lookup as club_lookup_router
 from app.routers import org_invitations as org_invitations_router
 # Eventos y puntajes (spec 2026-09-24-eventos §3).
 from app.routers import events as events_router
+# 030: «Nodo Camporee» automatic mode (before the events router: /events/offline/mine).
+from app.routers import nodo as nodo_router
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
@@ -64,6 +66,7 @@ app.include_router(template_thumbnails_router.router)
 app.include_router(club_lookup_router.router)
 app.include_router(org_invitations_router.router)
 app.include_router(org_invitations_router.invitations_router)
+app.include_router(nodo_router.router)
 app.include_router(events_router.router)
 # Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client
 # never runs startup handlers, and without R2 the hook is a no-op.

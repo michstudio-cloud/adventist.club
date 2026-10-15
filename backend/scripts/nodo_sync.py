@@ -1,32 +1,48 @@
 #!/usr/bin/env python3
-"""Copies ONE event between production and the local event node (nodo-evento/README.md).
+"""Copies ONE event between production and a local event node (nodo-evento/README.md).
 
-    export   production -> node, the day before. Copies what the node needs to run the event
-             without internet (ministries, the org tree, the users that take part — with their
-             password hashes, so everybody logs in with the same password —, their roles and
-             memberships, and the event with ALL its event_* rows) and marks the event
-             «en nodo local» in production: from then on the cloud only reads it (423).
-    import   node -> production, when internet is back. Pushes the event's changes (check-ins,
-             evaluations + revisions, adjustments, rules/status changes, registrations, staff)
-             idempotently, detects conflicts against the snapshot taken at export, copies the
-             node's audit trail of the event, records a report and releases the lock.
-    status   what each side holds now (counts, lock, last export/import).
+AUTOMATIC MODE (030, recommended; the Mac app «Nodo Camporee» runs these in the node's `sync`
+container). No database connection string, no Cloudflare token, no production secret: the
+coordinator logs in on the Mac, and the access token travels only in `NODO_API_TOKEN`.
 
-Both directions write in ONE transaction per database. `--dry-run` prints the full report
-and changes nothing. Connection strings come ONLY from the environment or the arguments
+    prepare   asks the API (POST /events/{id}/offline/export) for the event, sealed to a
+              one-time key of this node, and loads it here: the node gets ITS OWN pass
+              encryption (EVENT_PASS_SECRET of the node; the pass hashes do not change, so
+              printed passes keep working), its scope (which activities / arrivals desk it
+              captures) and, when the API has one, the TLS certificate (written to --tls-dir).
+    upload    sends the node's changes, sealed for the API and signed with the key bound at
+              prepare time; `--dry-run` only reports; `--partial` («avance») keeps the node open,
+              `--final` closes it. Conflicts are never applied unless `--prefer node|prod`.
+    node-info this node's scope and state (no network).
+
+MANUAL MODE (029, backup without the API; direct database connections, as before):
+
+    export    production -> node, the day before, and marks the event «en nodo local».
+    import    node -> production, when internet is back (3-way merge, report, lock release).
+    status    what each side holds now (counts, lock, last export/import).
+
+Both manual directions write in ONE transaction per database. `--dry-run` prints the report and
+changes nothing. Connection strings come ONLY from the environment or the arguments
 (`PROD_DATABASE_URL`, `NODE_DATABASE_URL`); they are never printed (host and database only).
+With `PROD_EVENT_PASS_SECRET` in the environment the node keeps its own EVENT_PASS_SECRET (the
+passes are re-encrypted both ways); without it, as in 029, both secrets must be equal.
 
+    python scripts/nodo_sync.py prepare --event <uuid> --node-label "Zona Misión Galáctica"
+           [--all | --activities id,id] [--check-in | --no-check-in] [--replace-node-copy]
+           [--replace-node NODE_ID] [--tls-dir DIR] [--media-dir DIR]
+    python scripts/nodo_sync.py upload --event <uuid> [--dry-run] [--prefer node|prod] [--final | --partial]
+    python scripts/nodo_sync.py node-info [--event <uuid>]
     python scripts/nodo_sync.py export --event <uuid> --actor-email <coordination e-mail>
-           [--node-label "Mini PC La Morita"] [--dry-run] [--replace-node-copy]
-           [--bundle-dir DIR] [--media-dir DIR] [--no-lock]
+           [--node-label "Mini PC La Morita"] [--all | --activities id,id] [--check-in | --no-check-in]
+           [--dry-run] [--replace-node-copy] [--bundle-dir DIR] [--media-dir DIR] [--no-lock]
     python scripts/nodo_sync.py import --event <uuid> --actor-email <e-mail>
-           [--dry-run] [--prefer node|prod] [--keep-lock] [--report FILE]
+           [--dry-run] [--prefer node|prod] [--partial] [--report FILE]
     python scripts/nodo_sync.py status --event <uuid>
 
-Exit codes: 0 ok · 1 error (nothing written) · 2 import found conflicts (nothing applied for
-those rows; lock kept) · 3 schema mismatch between both databases.
-Requires asyncpg (already in requirements.txt). Run it with the API's environment, e.g.
-`docker compose run --rm -e PROD_DATABASE_URL api python scripts/nodo_sync.py …`.
+Output for the Mac app: «@@paso N/M …», «@@ok …», «@@aviso …», «@@error …» and, at the end of
+prepare / upload / node-info, ONE line «@@json {…}».
+Exit codes: 0 ok · 1 error (nothing written) · 2 conflicts (not applied; node stays open) ·
+3 schema mismatch · 4 log in again (401) · 5 no permission / second factor needed (403).
 """
 from __future__ import annotations
 
@@ -37,298 +53,80 @@ import hashlib
 import json
 import os
 import sys
+import time
+import urllib.error
 import urllib.request
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import urlencode, urlsplit
 
 import asyncpg
 
-# --------------------------------------------------------------------------------------------
-# What is copied
-# --------------------------------------------------------------------------------------------
-# The event's own rows, parents first. `where` selects the rows of event $1.
-REGS = "SELECT id FROM event_registrations WHERE event_id = $1"
-EVENT_TABLES: list[tuple[str, str, str]] = [
-    ("events", "id = $1", "id"),
-    # Rounds/stations after their group activity.
-    ("event_activities", "event_id = $1", "(parent_id IS NOT NULL), position, id"),
-    ("event_adjustment_types", "event_id = $1", "position, id"),
-    ("event_staff", "event_id = $1", "created_at, id"),
-    ("event_registrations", "event_id = $1", "created_at, id"),
-    ("event_check_ins", f"registration_id IN ({REGS})", "checked_in_at, id"),
-    ("evaluations", f"registration_id IN ({REGS})", "created_at, id"),
-    ("evaluation_revisions",
-     f"evaluation_id IN (SELECT id FROM evaluations WHERE registration_id IN ({REGS}))", "created_at, id"),
-    ("event_adjustments", f"registration_id IN ({REGS})", "created_at, id"),
-]
-EVENT_TABLE_NAMES = [name for name, _, _ in EVENT_TABLES]
-# Columns that legitimately differ between both sides and are never compared nor imported:
-# the lock lives only in production; the logo is mirrored locally on the node; the template
-# the event was duplicated from is not copied.
-IGNORED = {
-    "events": {"offline_locked_at", "offline_locked_by_id", "offline_lock_reason", "offline_node_label",
-               "brand_logo_url", "template_of_id"},
-}
-# Immutable on both sides (a trigger forbids UPDATE): a difference is always a conflict.
-INSERT_ONLY = {"evaluation_revisions"}
-# The node's audit rows that describe the event (imported if missing in production).
-AUDIT_ENTITIES = ("EVENT", "EVENT_ACTIVITY", "EVENT_ADJUSTMENT", "EVENT_ADJUSTMENT_TYPE", "EVENT_CHECK_IN",
-                  "EVALUATION", "EVENT_REGISTRATION", "EVENT_STAFF")
-# Columns that reference users, per table (to remap a user created on the node).
-USER_REFS = {
-    "events": ["created_by_id"],
-    "event_staff": ["user_id", "created_by_id", "ended_by_id"],
-    "event_registrations": ["registered_by_id", "checked_in_by_id"],
-    "event_check_ins": ["checked_in_by_id", "undone_by_id"],
-    "evaluations": ["judge_id"],
-    "evaluation_revisions": ["judge_id", "changed_by_id"],
-    "event_adjustments": ["created_by_id", "approved_by_id", "voided_by_id"],
-}
-ADMIN_ROLES = ("ADMIN_ASSOCIATION", "ADMIN_UNION", "ADMIN_DIVISION")
+BACKEND = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BACKEND))  # backend/ (the app package)
+os.environ.setdefault("DATABASE_URL", os.environ.get("NODE_DATABASE_URL") or "postgresql://unused@localhost/unused")
 
-# Users that take part in the event: staff, everybody referenced by its rows, the directors of
-# its clubs, the admins whose scope contains its organization, and MASTER_GC. Never minors.
-USERS_SQL = f"""
-WITH ev AS (SELECT * FROM events WHERE id = $1),
-     owner AS (SELECT o.path FROM organizations o JOIN ev ON ev.organization_id = o.id),
-     anc AS (SELECT o.id FROM organizations o, owner WHERE o.path @> owner.path),
-     regs AS (SELECT * FROM event_registrations WHERE event_id = $1),
-     clubs AS (SELECT club_id FROM regs),
-     ids AS (
-       SELECT user_id AS id FROM event_staff WHERE event_id = $1
-       UNION SELECT created_by_id FROM ev UNION SELECT offline_locked_by_id FROM ev
-       UNION SELECT registered_by_id FROM regs UNION SELECT checked_in_by_id FROM regs
-       UNION SELECT created_by_id FROM event_staff WHERE event_id = $1
-       UNION SELECT ended_by_id FROM event_staff WHERE event_id = $1
-       UNION SELECT checked_in_by_id FROM event_check_ins WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT undone_by_id FROM event_check_ins WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT judge_id FROM evaluations WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT r.judge_id FROM evaluation_revisions r JOIN evaluations e ON e.id = r.evaluation_id
-             WHERE e.registration_id IN (SELECT id FROM regs)
-       UNION SELECT r.changed_by_id FROM evaluation_revisions r JOIN evaluations e ON e.id = r.evaluation_id
-             WHERE e.registration_id IN (SELECT id FROM regs)
-       UNION SELECT created_by_id FROM event_adjustments WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT approved_by_id FROM event_adjustments WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT voided_by_id FROM event_adjustments WHERE registration_id IN (SELECT id FROM regs)
-       UNION SELECT user_id FROM club_memberships
-             WHERE club_id IN (SELECT club_id FROM clubs) AND role = 'CLUB_DIRECTOR' AND status = 'ACTIVE'
-       UNION SELECT id FROM users WHERE role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs)
-       UNION SELECT user_id FROM role_assignments WHERE status = 'ACTIVE' AND (
-               (role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs))
-               OR (role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc))
-               OR role = 'MASTER_GC')
-       UNION SELECT id FROM users WHERE role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc)
-       UNION SELECT id FROM users WHERE role = 'MASTER_GC'
-       UNION SELECT id FROM users WHERE lower(email) = lower($2)
-     )
-SELECT to_jsonb(u) AS row FROM users u
-WHERE u.id IN (SELECT id FROM ids WHERE id IS NOT NULL) AND NOT u.is_minor
-ORDER BY u.created_at, u.id
-"""
-ORGS_SQL = """
-WITH RECURSIVE tree AS (
-  SELECT id, 0 AS depth FROM organizations WHERE parent_id IS NULL
-  UNION ALL SELECT o.id, t.depth + 1 FROM organizations o JOIN tree t ON o.parent_id = t.id
+from app.services import nodo_crypto  # noqa: E402
+from app.services import nodo_sync_core as core  # noqa: E402
+from app.services.nodo_sync_core import (  # noqa: E402,F401  (re-exported: tests and older callers)
+    AUDIT_ENTITIES,
+    EVENT_TABLE_NAMES,
+    EVENT_TABLES,
+    IGNORED,
+    INSERT_ONLY,
+    USER_REFS,
+    SchemaMismatch,
+    SyncError,
+    canon,
+    clean_dsn,
+    describe,
+    diff_fields,
+    fingerprint,
+    plan_changes,
+    snapshot_of,
 )
-SELECT to_jsonb(o) AS row FROM organizations o JOIN tree t ON t.id = o.id ORDER BY t.depth, o.id
-"""
+
+DEFAULT_API = "https://api.adventist.club/api/v1"
+NODE_KEY_PURPOSE = "nodo-sign-key"
 
 
-# --------------------------------------------------------------------------------------------
-# Small helpers
-# --------------------------------------------------------------------------------------------
-class SyncError(Exception):
-    pass
+class ApiError(Exception):
+    def __init__(self, status: int, detail: str):
+        super().__init__(detail)
+        self.status = status
 
 
 def say(*parts) -> None:
     print(*parts, flush=True)
 
 
-def describe(dsn: str) -> str:
-    """host:port/db — never the user or the password."""
-    parts = urlsplit(dsn)
-    return f"{parts.hostname or 'socket'}{':' + str(parts.port) if parts.port else ''}{parts.path or ''}"
+def step(n: int, total: int, text: str) -> None:
+    say(f"@@paso {n}/{total} {text}")
 
 
-def clean_dsn(dsn: str) -> str:
-    """libpq URL for asyncpg: no SQLAlchemy driver suffix, no libpq-only parameters."""
-    if not dsn:
-        raise SyncError("falta una cadena de conexión (PROD_DATABASE_URL / NODE_DATABASE_URL)")
-    scheme, rest = dsn.split("://", 1)
-    scheme = "postgresql"
-    parts = urlsplit(f"{scheme}://{rest}")
-    query = [(k, v) for k, v in parse_qsl(parts.query) if k not in {"channel_binding"}]
-    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), ""))
+def emit_json(data: dict) -> None:
+    say("@@json " + json.dumps(data, ensure_ascii=False, default=str, separators=(",", ":")))
 
 
-async def connect(dsn: str) -> asyncpg.Connection:
-    conn = await asyncpg.connect(clean_dsn(dsn), timeout=30)
-    # Same text for the same value on both sides (fingerprints, jsonb timestamps).
-    await conn.execute("SET TIME ZONE 'UTC'")
-    return conn
+def node_secret() -> str:
+    from app.config import settings  # noqa: PLC0415 (needs DATABASE_URL in the environment)
+
+    secret = settings.EVENT_PASS_SECRET or settings.JWT_SECRET
+    if not secret:
+        raise SyncError("el nodo no tiene EVENT_PASS_SECRET / JWT_SECRET")
+    return secret
 
 
-def canon(row: dict, table: str) -> str:
-    skip = IGNORED.get(table, set())
-    return json.dumps({k: v for k, v in row.items() if k not in skip}, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False)
+def pass_codec():
+    from app.services import event_pass  # noqa: PLC0415
 
-
-def fingerprint(row: dict, table: str) -> str:
-    return hashlib.md5(canon(row, table).encode()).hexdigest()
-
-
-async def rows_of(conn: asyncpg.Connection, sql: str, *args) -> list[dict]:
-    return [json.loads(r["row"]) for r in await conn.fetch(sql, *args)]
-
-
-async def event_rows(conn: asyncpg.Connection, event_id: uuid.UUID) -> dict[str, list[dict]]:
-    out = {}
-    for table, where, order in EVENT_TABLES:
-        out[table] = await rows_of(conn, f"SELECT to_jsonb(t) AS row FROM {table} t WHERE {where} ORDER BY {order}",
-                                   event_id)
-    return out
-
-
-async def columns(conn: asyncpg.Connection, table: str) -> list[str]:
-    rows = await conn.fetch(
-        "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = $1"
-        " ORDER BY ordinal_position", table)
-    return [r["column_name"] for r in rows]
-
-
-async def check_schemas(prod, node, tables) -> None:
-    problems = []
-    for table in tables:
-        a, b = set(await columns(prod, table)), set(await columns(node, table))
-        if not a:
-            problems.append(f"{table}: no existe en producción")
-        elif not b:
-            problems.append(f"{table}: no existe en el nodo")
-        elif a != b:
-            problems.append(f"{table}: sólo en producción {sorted(a - b)}; sólo en el nodo {sorted(b - a)}")
-    if problems:
-        raise SchemaMismatch("los esquemas no coinciden (aplica las migraciones que falten):\n  "
-                             + "\n  ".join(problems))
-
-
-class SchemaMismatch(SyncError):
-    pass
-
-
-async def upsert(conn, table: str, rows: list[dict], *, key: str = "id", update: bool = True) -> int:
-    """INSERT … ON CONFLICT (key) DO UPDATE every column (DO NOTHING for update=False)."""
-    if not rows:
-        return 0
-    cols = await columns(conn, table)
-    keys = [c.strip() for c in key.split(",")]
-    sets = ", ".join(f'"{c}" = EXCLUDED."{c}"' for c in cols if c not in keys)
-    action = f"DO UPDATE SET {sets}" if update and sets else "DO NOTHING"
-    await conn.execute(
-        f"INSERT INTO {table} SELECT * FROM jsonb_populate_recordset(NULL::{table}, $1::jsonb)"
-        f" ON CONFLICT ({key}) {action}", json.dumps(rows))
-    return len(rows)
-
-
-async def insert_rows(conn, table: str, rows: list[dict]) -> None:
-    if rows:
-        await conn.execute(f"INSERT INTO {table} SELECT * FROM jsonb_populate_recordset(NULL::{table}, $1::jsonb)",
-                           json.dumps(rows))
-
-
-async def update_row(conn, table: str, row: dict) -> None:
-    cols = [c for c in await columns(conn, table) if c != "id" and c not in IGNORED.get(table, set())]
-    col_list = ", ".join(f'"{c}"' for c in cols)
-    await conn.execute(
-        f"UPDATE {table} SET ({col_list}) = (SELECT {col_list} FROM jsonb_populate_record(NULL::{table}, $1::jsonb))"
-        f" WHERE id = $2", json.dumps(row), uuid.UUID(row["id"]))
-
-
-async def audit(conn, *, action: str, entity_id, actor: dict | None, details: str, metadata: dict) -> None:
-    await conn.execute(
-        "INSERT INTO audit_log (id, action, entity_type, entity_id, user_id, user_email, user_role,"
-        " organization_id, details, metadata_json) VALUES ($1, $2, 'EVENT', $3, $4, $5, $6, $7, $8, $9::jsonb)",
-        uuid.uuid4(), action, str(entity_id),
-        uuid.UUID(actor["id"]) if actor else None, actor["email"] if actor else None,
-        actor["role"] if actor else None,
-        uuid.UUID(actor["organization_id"]) if actor and actor.get("organization_id") else None,
-        details, json.dumps(metadata))
-
-
-async def find_actor(conn, email: str) -> dict:
-    row = await conn.fetchrow("SELECT to_jsonb(u) AS row FROM users u WHERE lower(email) = lower($1)"
-                              " AND status = 'ACTIVE'", email)
-    if row is None:
-        raise SyncError(f"no hay una cuenta activa con el correo indicado en --actor-email ({email})")
-    return json.loads(row["row"])
-
-
-def counts(rows: dict[str, list]) -> dict[str, int]:
-    return {table: len(items) for table, items in rows.items()}
+    return event_pass
 
 
 # --------------------------------------------------------------------------------------------
-# export
+# Logo + passes check (node side)
 # --------------------------------------------------------------------------------------------
-def null_missing(row: dict, cols: list[str], keep: set[str]) -> dict:
-    for col in cols:
-        if row.get(col) and row[col] not in keep:
-            row[col] = None
-    return row
-
-
-async def gather_export(prod, event_id: uuid.UUID, actor_email: str) -> dict:
-    """Everything the node needs, read from ONE consistent snapshot of production."""
-    event = await prod.fetchrow("SELECT id FROM events WHERE id = $1", event_id)
-    if event is None:
-        raise SyncError("el evento no existe en producción")
-    users = await rows_of(prod, USERS_SQL, event_id, actor_email)
-    user_ids = {u["id"] for u in users}
-    for u in users:
-        u["birth_date"] = None  # not needed at the event; less personal data on the node
-    roles = [null_missing(r, ["granted_by_id", "ended_by_id"], user_ids) | {"invitation_id": None}
-             for r in await rows_of(prod, "SELECT to_jsonb(r) AS row FROM role_assignments r"
-                                          " WHERE user_id = ANY($1::uuid[]) ORDER BY granted_at, id",
-                                    list(user_ids))]
-    memberships = [
-        null_missing(m, ["consent_by_id", "decided_by_id", "ended_by_id"], user_ids)
-        | {"invitation_id": None, "unit_id": None, "consent_token_hash": None, "guardian_email": None}
-        for m in await rows_of(prod, "SELECT to_jsonb(m) AS row FROM club_memberships m"
-                                     " WHERE user_id = ANY($1::uuid[]) AND status = 'ACTIVE' ORDER BY created_at, id",
-                               list(user_ids))]
-    rows = await event_rows(prod, event_id)
-    for row in rows["events"]:
-        row["template_of_id"] = None  # the template is not copied (ignored on import)
-    missing = sorted({ref for table, refs in USER_REFS.items() for item in rows[table] for col in refs
-                      if (ref := item.get(col)) and ref not in user_ids})
-    if missing:
-        # Only a minor's account is never copied; an event row pointing at one needs a human.
-        raise SyncError(f"filas del evento apuntan a {len(missing)} cuenta(s) de menores que no se copian: "
-                        f"{', '.join(missing[:5])}")
-    return {
-        "format": "nodo-evento/1",
-        "event_id": str(event_id),
-        "exported_at": datetime.now(timezone.utc).isoformat(),
-        "reference": {
-            "ministries": await rows_of(prod, "SELECT to_jsonb(m) AS row FROM ministries m ORDER BY created_at, id"),
-            "organizations": await rows_of(prod, ORGS_SQL),
-            "organization_ministries": await rows_of(
-                prod, "SELECT to_jsonb(x) AS row FROM organization_ministries x ORDER BY organization_id, ministry_id"),
-            "users": users,
-            "role_assignments": roles,
-            "club_memberships": memberships,
-        },
-        "event": rows,
-    }
-
-
-def snapshot_of(rows: dict[str, list[dict]]) -> dict[str, dict[str, str]]:
-    return {table: {r["id"]: fingerprint(r, table) for r in items} for table, items in rows.items()}
-
-
 def mirror_logo(event_row: dict, media_dir: str | None) -> str | None:
     """Downloads the event's logo so the node serves it without internet. Best effort."""
     url = event_row.get("brand_logo_url")
@@ -341,76 +139,58 @@ def mirror_logo(event_row: dict, media_dir: str | None) -> str | None:
         with urllib.request.urlopen(url, timeout=20) as response:  # noqa: S310 (https only, own bucket)
             target.write_bytes(response.read(5_000_000))
     except Exception as exc:  # noqa: BLE001
-        say(f"  aviso: no se pudo copiar el logo del evento ({type(exc).__name__}); el nodo lo mostrará sin logo")
+        say(f"@@aviso no se pudo copiar el logo del evento ({type(exc).__name__}); el nodo lo mostrará sin logo")
         return None
     return f"/nodo-media/events/{name}"
 
 
-async def rekey(conn, table: str, natural: str, rows: list[dict]) -> int:
-    """The node was bootstrapped on its own, so its seeded rows (ministries) carry other ids
-    than production's. For each production row whose natural key exists on the node under
-    another id, move every reference to production's id, then drop the node's row."""
-    refs = await conn.fetch(
-        "SELECT c.conrelid::regclass::text AS tbl, a.attname AS col FROM pg_constraint c"
-        " JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = ANY(c.conkey)"
-        " WHERE c.contype = 'f' AND c.confrelid = $1::regclass", table)
-    moved = 0
-    for row in rows:
-        old = await conn.fetchval(f"SELECT id FROM {table} WHERE {natural} = $1 AND id <> $2",
-                                  row[natural], uuid.UUID(row["id"]))
-        if old is None:
+def mirror_media(bundle: dict, media_dir: str | None, *, max_bytes: int = 10_000_000,
+                 total_limit: int = 500_000_000) -> dict:
+    """Copies every media.adventist.club file the event shows into <media_dir>/mirror/<path>, so
+    the node serves them offline under the SAME URL (its DNS answers media.adventist.club and
+    Caddy serves the copy). Files already there are kept. Best effort: a failure is a warning."""
+    urls = core.media_urls(bundle)
+    out = {"total": len(urls), "downloaded": 0, "kept": 0, "failed": 0, "bytes": 0}
+    if not media_dir or not urls:
+        return out
+    root = (Path(media_dir) / "mirror").resolve()
+    for url in urls:
+        path = urlsplit(url).path.lstrip("/")
+        target = (root / path).resolve()
+        if root not in target.parents or not path:
+            out["failed"] += 1
             continue
-        await conn.execute(f"UPDATE {table} SET {natural} = {natural} || '~' || left(id::text, 8) WHERE id = $1", old)
-        await upsert(conn, table, [row])
-        for ref in refs:
-            await conn.execute(f'UPDATE {ref["tbl"]} SET "{ref["col"]}" = $1 WHERE "{ref["col"]}" = $2',
-                               uuid.UUID(row["id"]), old)
-        await conn.execute(f"DELETE FROM {table} WHERE id = $1", old)
-        moved += 1
-    return moved
-
-
-async def load_into_node(node, bundle: dict, *, replace: bool, local_logo: str | None, export_id: str) -> None:
-    event_id = uuid.UUID(bundle["event_id"])
-    ref, rows = bundle["reference"], bundle["event"]
-    async with node.transaction():
-        if await node.fetchval("SELECT 1 FROM events WHERE id = $1", event_id):
-            if not replace:
-                raise SyncError("el nodo ya tiene una copia de este evento. Si es de una prueba o de un export "
-                                "anterior SIN capturas que conservar, repite con --replace-node-copy")
-            await node.execute("DELETE FROM events WHERE id = $1", event_id)
-        await rekey(node, "ministries", "slug", ref["ministries"])
-        await upsert(node, "ministries", ref["ministries"])
-        await upsert(node, "organizations", ref["organizations"])
-        await upsert(node, "organization_ministries", ref["organization_ministries"],
-                     key="organization_id, ministry_id", update=False)
-        await upsert(node, "users", ref["users"])
-        await upsert(node, "role_assignments", ref["role_assignments"])
-        await upsert(node, "club_memberships", ref["club_memberships"])
-        for table in EVENT_TABLE_NAMES:
-            await insert_rows(node, table, rows[table])
-        # The node's copy is never locked: there it is the source of truth.
-        await node.execute(
-            "UPDATE events SET offline_locked_at = NULL, offline_locked_by_id = NULL, offline_lock_reason = NULL,"
-            " offline_node_label = NULL, template_of_id = NULL, brand_logo_url = COALESCE($2, brand_logo_url)"
-            " WHERE id = $1", event_id, local_logo)
-        await node.execute(
-            "INSERT INTO event_offline_syncs (id, event_id, kind, export_id, node_label, actor_email, snapshot, report,"
-            " created_at) VALUES ($1, $2, 'NODE_COPY', NULL, $3, $4, $5::jsonb, $6::jsonb, $7)",
-            uuid.uuid4(), event_id, bundle.get("node_label"), bundle.get("actor_email"),
-            json.dumps(snapshot_of(rows)), json.dumps({"prod_export_id": export_id, "counts": counts(rows)}),
-            datetime.fromisoformat(bundle["exported_at"]))
+        if target.exists() and target.stat().st_size > 0:
+            out["kept"] += 1
+            continue
+        if out["bytes"] > total_limit:
+            out["failed"] += 1
+            continue
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "nodo-camporee/1"})
+            with urllib.request.urlopen(req, timeout=20) as response:  # noqa: S310 (fixed media host)
+                data = response.read(max_bytes + 1)
+            if len(data) > max_bytes:
+                raise ValueError("demasiado grande")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            tmp = target.with_name(f".{target.name}.tmp")
+            tmp.write_bytes(data)
+            os.replace(tmp, target)
+            out["downloaded"] += 1
+            out["bytes"] += len(data)
+        except Exception:  # noqa: BLE001
+            out["failed"] += 1
+    if out["failed"]:
+        say(f"@@aviso {out['failed']} imagen(es) no se pudieron copiar al nodo: se verán vacías sin internet")
+    return out
 
 
 async def verify_passes(node, event_id: uuid.UUID) -> dict:
     """With the node's EVENT_PASS_SECRET (this process's settings), every stored pass must open.
     A pass that does not open would be REGENERATED the first time somebody shows it on the node,
-    and the printed QR would stop working. Only runs where the app code is importable."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # backend/ (the app package)
-    os.environ.setdefault("DATABASE_URL", "postgresql://unused@localhost/unused")
+    and the printed QR would stop working."""
     try:
-        from app.services import event_pass  # noqa: PLC0415
-        from app.security import sha256_hex  # noqa: PLC0415
+        event_pass = pass_codec()
     except Exception:  # noqa: BLE001
         return {"checked": False}
     rows = await node.fetch("SELECT pass_token_hash, pass_token_enc FROM event_registrations"
@@ -421,96 +201,121 @@ async def verify_passes(node, event_id: uuid.UUID) -> dict:
             none += 1
             continue
         token = event_pass.decrypt(r["pass_token_enc"])
-        if token is not None and sha256_hex(token) == r["pass_token_hash"]:
+        if token is not None and core.sha256_hex(token) == r["pass_token_hash"]:
             ok += 1
         else:
             bad += 1
     return {"checked": True, "ok": ok, "unreadable": bad, "without_pass": none}
 
 
+def prod_pass_tokens(rows: list[dict], prod_secret: str) -> dict[str, str]:
+    event_pass = pass_codec()
+    tokens = {}
+    for r in rows:
+        token = event_pass.decrypt(r.get("pass_token_enc"), secret=prod_secret)
+        if token and core.sha256_hex(token) == r.get("pass_token_hash"):
+            tokens[r["id"]] = token
+    return tokens
+
+
+def scope_from(args) -> dict:
+    if getattr(args, "activities", None):
+        ids = [x.strip() for x in args.activities.split(",") if x.strip()]
+        return core.normalize_scope({"all": False, "activity_ids": ids, "check_in": args.check_in})
+    return core.normalize_scope({"all": True, "check_in": args.check_in})
+
+
+# --------------------------------------------------------------------------------------------
+# Manual mode: export
+# --------------------------------------------------------------------------------------------
 async def cmd_export(args) -> int:
     event_id = uuid.UUID(args.event)
     prod_dsn, node_dsn = args.prod_url, args.node_url
+    prod_secret = os.environ.get("PROD_EVENT_PASS_SECRET") or None
     say(f"export · evento {event_id}\n  producción: {describe(prod_dsn)}\n  nodo:       {describe(node_dsn)}")
-    prod, node = await connect(prod_dsn), await connect(node_dsn)
+    prod, node = await core.connect(prod_dsn), await core.connect(node_dsn)
     try:
-        await check_schemas(prod, node, ["ministries", "organizations", "organization_ministries", "users",
-                                         "role_assignments", "club_memberships", "event_offline_syncs",
-                                         *EVENT_TABLE_NAMES])
-        actor = await find_actor(prod, args.actor_email)
-        event = await prod.fetchrow("SELECT name, status, offline_locked_at, offline_node_label FROM events"
-                                    " WHERE id = $1", event_id)
+        await core.check_schemas(prod, node, ["ministries", "organizations", "organization_ministries", "users",
+                                              "role_assignments", "club_memberships", "event_offline_syncs",
+                                              "event_offline_nodes", *EVENT_TABLE_NAMES])
+        actor = await core.find_actor(prod, args.actor_email)
+        event = await prod.fetchrow("SELECT name, status, offline_locked_at FROM events WHERE id = $1", event_id)
         if event is None:
             raise SyncError("el evento no existe en producción")
         say(f"  evento: {event['name']} ({event['status']})")
         on_node = await node.fetchval("SELECT 1 FROM events WHERE id = $1", event_id)
         if on_node and not args.replace_node_copy:
             raise SyncError("el nodo ya tiene una copia de este evento (usa --replace-node-copy si es descartable)")
+        scope = scope_from(args)
 
         if args.dry_run:
             async with prod.transaction(isolation="repeatable_read", readonly=True):
-                bundle = await gather_export(prod, event_id, args.actor_email)
+                bundle = await core.gather_export(prod, event_id, args.actor_email)
             report_export(bundle, locked_before=event["offline_locked_at"] is not None, dry=True)
             return 0
 
-        # 1) Lock first, then wait for writes already past the API guard to finish, then read.
-        locked_now = False
-        if not args.no_lock and event["offline_locked_at"] is None:
-            async with prod.transaction():
+        node_row = None
+        if args.no_lock:
+            # Tests only: a copy without registering a node nor locking production.
+            export_id = uuid.uuid4()
+            async with prod.transaction(isolation="repeatable_read"):
+                bundle = await core.gather_export(prod, event_id, args.actor_email)
                 await prod.execute(
-                    "UPDATE events SET offline_locked_at = now(), offline_locked_by_id = $2,"
-                    " offline_lock_reason = $3, offline_node_label = $4 WHERE id = $1",
-                    event_id, uuid.UUID(actor["id"]), args.reason, args.node_label)
-                await audit(prod, action="EVENT_OFFLINE_LOCK", entity_id=event_id, actor=actor, details=args.reason,
-                            metadata={"node_label": args.node_label, "via": "nodo_sync export"})
-            locked_now = True
-            await asyncio.sleep(args.settle_seconds)
-        # 2) One consistent read + the EXPORT record (snapshot for conflict detection on import).
-        export_id = uuid.uuid4()
-        async with prod.transaction(isolation="repeatable_read"):
-            bundle = await gather_export(prod, event_id, args.actor_email)
-            bundle["node_label"], bundle["actor_email"] = args.node_label, actor["email"]
-            await prod.execute(
-                "INSERT INTO event_offline_syncs (id, event_id, kind, node_label, actor_email, snapshot, report)"
-                " VALUES ($1, $2, 'EXPORT', $3, $4, $5::jsonb, $6::jsonb)",
-                export_id, event_id, args.node_label, actor["email"], json.dumps(snapshot_of(bundle["event"])),
-                json.dumps({"counts": counts(bundle["event"]), "users": len(bundle["reference"]["users"])}))
-        # 3) Keep a copy of what was sent (it holds password hashes: owner-only file).
+                    "INSERT INTO event_offline_syncs (id, event_id, kind, node_label, actor_email, snapshot, report)"
+                    " VALUES ($1, $2, 'EXPORT', $3, $4, $5::jsonb, $6::jsonb)",
+                    export_id, event_id, args.node_label, actor["email"],
+                    json.dumps(snapshot_of(bundle["event"])), json.dumps({"counts": core.counts(bundle["event"])}))
+            bundle.update(node_label=args.node_label, actor_email=actor["email"])
+        else:
+            bundle, node_row, export_id = await core.prepare_node(
+                prod, event_id, actor, label=args.node_label, scope=scope, sign_key=None,
+                settle_seconds=args.settle_seconds, via="nodo_sync export")
+        if prod_secret:
+            bundle["passes"] = prod_pass_tokens(bundle["event"]["event_registrations"], prod_secret)
         if args.bundle_dir:
             path = Path(args.bundle_dir) / f"export-{event_id}-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}.json.gz"
             path.parent.mkdir(parents=True, exist_ok=True)
             fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
             with os.fdopen(fd, "wb") as raw, gzip.GzipFile(fileobj=raw, mode="wb") as fh:
-                fh.write(json.dumps(bundle, ensure_ascii=False).encode())
+                fh.write(json.dumps(bundle, ensure_ascii=False, default=str).encode())
             say(f"  copia del export: {path} (contiene hashes de contraseñas: no la compartas)")
-        # 4) Load the node.
         local_logo = mirror_logo(bundle["event"]["events"][0], args.media_dir)
+        local = None
+        if node_row is not None:
+            local = {"id": node_row["id"], "label": node_row["label"], "scope": node_row["scope"]}
         try:
-            await load_into_node(node, bundle, replace=args.replace_node_copy, local_logo=local_logo,
-                                 export_id=str(export_id))
+            passes = await core.load_into_node(
+                node, bundle, replace=args.replace_node_copy, local_logo=local_logo, export_id=str(export_id),
+                pass_encrypt=pass_codec().encrypt if prod_secret else None, local_node=local)
         except Exception:
-            say("  ERROR al cargar el nodo: el nodo quedó sin cambios."
-                + (" Producción quedó BLOQUEADA para este evento: corrige y repite el export, o libera el bloqueo"
-                   " (DELETE /events/{id}/offline-lock)." if locked_now or event["offline_locked_at"] else ""))
+            say("  ERROR al cargar el nodo: el nodo quedó sin cambios. Producción quedó registrada con este nodo:"
+                " repite el export con --replace-node-copy, o pide a un administrador que cierre el nodo"
+                " (POST /events/{id}/offline/nodes/{node}/close).")
             raise
-        report_export(bundle, locked_before=event["offline_locked_at"] is not None, dry=False,
-                      locked_now=locked_now, no_lock=args.no_lock)
-        passes = await verify_passes(node, event_id)
-        if passes.get("checked"):
-            say(f"  pases en el nodo: {passes['ok']} legibles, {passes['unreadable']} ilegibles, "
-                f"{passes['without_pass']} sin pase todavía")
-            if passes["unreadable"]:
-                say("  ¡ATENCIÓN! EVENT_PASS_SECRET del nodo no coincide con el de producción: al mostrarse en el "
-                    "nodo, esos pases se regenerarían y los impresos dejarían de servir. Corrige el secreto.")
+        report_export(bundle, locked_before=event["offline_locked_at"] is not None, dry=False, no_lock=args.no_lock)
+        media = mirror_media(bundle, args.media_dir)
+        say(f"  imágenes para usar sin internet: {media['downloaded'] + media['kept']} de {media['total']}")
+        if passes.get("reencrypted"):
+            say(f"  pases re-cifrados con el secreto propio del nodo: {passes['ok']}"
+                + (f" ({passes['missing']} sin pase legible en producción)" if passes["missing"] else ""))
+        checked = await verify_passes(node, event_id)
+        if checked.get("checked"):
+            say(f"  pases en el nodo: {checked['ok']} legibles, {checked['unreadable']} ilegibles, "
+                f"{checked['without_pass']} sin pase todavía")
+            if checked["unreadable"]:
+                say("  ¡ATENCIÓN! los pases no se pueden leer con el EVENT_PASS_SECRET del nodo: pasa "
+                    "PROD_EVENT_PASS_SECRET (el de producción) para re-cifrarlos, o usa el mismo secreto.")
                 return 1
+        if node_row is not None:
+            say(f"  nodo registrado: «{node_row['label']}» · {', '.join(node_row['activity_names'])}"
+                f" · llegadas: {'sí' if node_row['scope']['check_in'] else 'no'}")
         return 0
     finally:
         await prod.close()
         await node.close()
 
 
-def report_export(bundle: dict, *, locked_before: bool, dry: bool, locked_now: bool = False,
-                  no_lock: bool = False) -> None:
+def report_export(bundle: dict, *, locked_before: bool, dry: bool, no_lock: bool = False) -> None:
     ref, rows = bundle["reference"], bundle["event"]
     say("  " + ("[simulación] se copiaría:" if dry else "copiado al nodo:"))
     for name in ("ministries", "organizations", "users", "role_assignments", "club_memberships"):
@@ -530,256 +335,47 @@ def report_export(bundle: dict, *, locked_before: bool, dry: bool, locked_now: b
     elif no_lock:
         say("  producción NO se bloqueó (--no-lock): sólo para pruebas")
     else:
-        say("  producción: evento bloqueado (en nodo local)" + ("" if locked_now else " — ya lo estaba"))
+        say("  producción: evento bloqueado (en nodo local)" + (" — ya lo estaba" if locked_before else ""))
 
 
 # --------------------------------------------------------------------------------------------
-# import
+# Manual mode: import
 # --------------------------------------------------------------------------------------------
 async def cmd_import(args) -> int:
     event_id = uuid.UUID(args.event)
+    prod_secret = os.environ.get("PROD_EVENT_PASS_SECRET") or None
     say(f"import · evento {event_id}{' · SIMULACIÓN' if args.dry_run else ''}\n"
         f"  nodo:       {describe(args.node_url)}\n  producción: {describe(args.prod_url)}")
-    prod, node = await connect(args.prod_url), await connect(args.node_url)
+    prod, node = await core.connect(args.prod_url), await core.connect(args.node_url)
     try:
-        await check_schemas(prod, node, ["users", "audit_log", "event_offline_syncs", *EVENT_TABLE_NAMES])
-        actor = await find_actor(prod, args.actor_email)
-        export = await prod.fetchrow(
-            "SELECT id, snapshot, created_at FROM event_offline_syncs WHERE event_id = $1 AND kind = 'EXPORT'"
-            " ORDER BY created_at DESC LIMIT 1", event_id)
-        if export is None:
-            raise SyncError("producción no tiene un EXPORT de este evento: no hay contra qué comparar")
-        node_copy = await node.fetchrow(
-            "SELECT created_at, report FROM event_offline_syncs WHERE event_id = $1 AND kind = 'NODE_COPY'"
-            " ORDER BY created_at DESC LIMIT 1", event_id)
-        if node_copy is None:
-            raise SyncError("el nodo no tiene una copia de este evento")
-        copied_from = json.loads(node_copy["report"]).get("prod_export_id")
-        if copied_from and copied_from != str(export["id"]):
-            say(f"  aviso: el nodo se cargó del export {copied_from}, y el último de producción es {export['id']}")
-        snapshot = json.loads(export["snapshot"])
-
-        async with prod.transaction(isolation="repeatable_read"):
-            node_rows = await event_rows(node, event_id)
-            prod_rows = await event_rows(prod, event_id)
-            if not node_rows["events"]:
-                raise SyncError("el nodo no tiene el evento")
-            remap, new_users, user_notes = await plan_users(prod, node, node_rows)
-            for table, refs in USER_REFS.items():
-                for row in node_rows[table]:
-                    for col in refs:
-                        if row.get(col) in remap:
-                            row[col] = remap[row[col]]
-            plan = plan_changes(snapshot, node_rows, prod_rows, prefer=args.prefer)
-            audits = await plan_audit(prod, node, node_copy["created_at"], remap, args.node_label_hint)
-            lock = await prod.fetchrow("SELECT offline_locked_at, offline_node_label FROM events WHERE id = $1",
-                                       event_id)
-            report = build_report(plan, new_users, user_notes, audits, export, lock, args)
-            print_report(report)
-            if args.report:
-                Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str))
-                say(f"  reporte JSON: {args.report}")
-            if args.dry_run:
-                say("  SIMULACIÓN: no se escribió nada.")
-                raise _Rollback()
-            await apply_plan(prod, plan, new_users, audits)
-            release = (lock["offline_locked_at"] is not None and not args.keep_lock and not plan["conflicts"])
-            if release:
-                await prod.execute(
-                    "UPDATE events SET offline_locked_at = NULL, offline_locked_by_id = NULL,"
-                    " offline_lock_reason = NULL, offline_node_label = NULL WHERE id = $1", event_id)
-                await audit(prod, action="EVENT_OFFLINE_UNLOCK", entity_id=event_id, actor=actor,
-                            details="Datos del nodo local importados",
-                            metadata={"node_label": lock["offline_node_label"], "via": "nodo_sync import",
-                                      "export_id": str(export["id"])})
-            report["lock_released"] = release
-            await prod.execute(
-                "INSERT INTO event_offline_syncs (id, event_id, kind, export_id, node_label, actor_email, report)"
-                " VALUES ($1, $2, 'IMPORT', $3, $4, $5, $6::jsonb)",
-                uuid.uuid4(), event_id, export["id"], lock["offline_node_label"], actor["email"],
-                json.dumps(report, default=str))
-        say("  APLICADO en producción." + (" Bloqueo liberado." if report["lock_released"] else
-                                           " El bloqueo SIGUE (conflictos pendientes o --keep-lock)."
-                                           if lock["offline_locked_at"] else ""))
-        return 2 if plan["conflicts"] else 0
-    except _Rollback:
-        return 2 if plan["conflicts"] else 0
+        await core.check_schemas(prod, node, ["users", "audit_log", "event_offline_syncs", "event_offline_nodes",
+                                              *EVENT_TABLE_NAMES])
+        actor = await core.find_actor(prod, args.actor_email)
+        changes = await core.gather_node_changes(
+            node, event_id, pass_decrypt=pass_codec().decrypt if prod_secret else None)
+        node_id = uuid.UUID(changes["node_id"]) if changes.get("node_id") else None
+        if node_id is None:
+            say("  copia preparada sin registro de nodo (029): se compara contra el último EXPORT")
+        report = await core.import_changes(
+            prod, event_id, changes, actor, node_id=node_id, prefer=args.prefer, dry_run=args.dry_run,
+            final=not args.partial,
+            pass_encrypt=(lambda token: pass_codec().encrypt(token, secret=prod_secret)) if prod_secret else None,
+            via="nodo_sync import")
+        print_report(report)
+        if args.report:
+            Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            say(f"  reporte JSON: {args.report}")
+        if args.dry_run:
+            say("  SIMULACIÓN: no se escribió nada.")
+        else:
+            await remember_upload(node, event_id, report)
+            say("  APLICADO en producción." + (" Bloqueo liberado." if report["lock_released"] else
+                                               f" El bloqueo SIGUE ({report.get('open_nodes', 0)} nodo(s) abiertos,"
+                                               " conflictos pendientes o --partial)." if report["locked"] else ""))
+        return 2 if report["conflicts"] else 0
     finally:
         await prod.close()
         await node.close()
-
-
-class _Rollback(Exception):
-    pass
-
-
-async def plan_users(prod, node, node_rows) -> tuple[dict, list[dict], list[str]]:
-    """Users referenced by the node's rows that production does not have: created on the node.
-    Same e-mail in production -> remap to that account; otherwise -> insert it."""
-    referenced = {row[col] for table, refs in USER_REFS.items() for row in node_rows[table] for col in refs
-                  if row.get(col)}
-    if not referenced:
-        return {}, [], []
-    known = {str(r["id"]) for r in await prod.fetch("SELECT id FROM users WHERE id = ANY($1::uuid[])",
-                                                    list(referenced))}
-    remap, new_users, notes = {}, [], []
-    for user in await rows_of(node, "SELECT to_jsonb(u) AS row FROM users u WHERE id = ANY($1::uuid[])",
-                              list(referenced - known)):
-        same = await prod.fetchval("SELECT id FROM users WHERE lower(email) = lower($1)", user["email"])
-        if same:
-            remap[user["id"]] = str(same)
-            notes.append(f"cuenta creada en el nodo {user['email']} -> se usa la de producción")
-        else:
-            new_users.append(user)
-            notes.append(f"cuenta creada en el nodo {user['email']} -> se crea en producción")
-    return remap, new_users, notes
-
-
-def plan_changes(snapshot: dict, node_rows: dict, prod_rows: dict, *, prefer: str | None) -> dict:
-    """Three-way comparison per row: S = fingerprint at export, N = node now, P = production now.
-      N == P                -> unchanged
-      P == S, N != S        -> the node changed it -> apply (insert / update)
-      N == S, P != S        -> only the cloud changed it (should not happen while locked) -> keep, warn
-      N != S, P != S, N!=P  -> CONFLICT (both changed) -> not applied unless --prefer
-      only in node          -> new on the node -> insert
-      in S and P, not in N  -> deleted on the node -> delete if P == S (else conflict)
-      only in P (not in S)  -> created in the cloud after the export -> keep, warn"""
-    plan = {"insert": {}, "update": {}, "delete": {}, "conflicts": [], "cloud_only": [], "unchanged": {}}
-    for table in EVENT_TABLE_NAMES:
-        snap = snapshot.get(table, {})
-        nodes = {r["id"]: r for r in node_rows[table]}
-        prods = {r["id"]: r for r in prod_rows[table]}
-        ins, upd, dele, same = [], [], [], 0
-        for rid, row in nodes.items():
-            n = fingerprint(row, table)
-            if rid not in prods:
-                if rid in snap:  # deleted in the cloud after the export, still alive on the node
-                    item = {"table": table, "id": rid, "what": "borrado en la nube, vivo en el nodo"}
-                    if prefer == "node":
-                        ins.append(row)
-                        item["resolved"] = "node"
-                        plan["cloud_only"].append(item)
-                    else:
-                        plan["conflicts"].append(item)
-                else:
-                    ins.append(row)
-                continue
-            p = fingerprint(prods[rid], table)
-            s = snap.get(rid)
-            if n == p:
-                same += 1
-            elif p == s:
-                if table in INSERT_ONLY:
-                    plan["conflicts"].append({"table": table, "id": rid, "what": "fila inmutable distinta"})
-                else:
-                    upd.append(row)
-            elif n == s:
-                plan["cloud_only"].append({"table": table, "id": rid, "what": "cambiada sólo en la nube (se conserva)"})
-            else:
-                item = {"table": table, "id": rid, "what": "cambiada en la nube y en el nodo",
-                        "fields": diff_fields(prods[rid], row, table)}
-                if prefer == "node" and table not in INSERT_ONLY:
-                    upd.append(row)
-                    item["resolved"] = "node"
-                    plan["cloud_only"].append(item)
-                elif prefer == "prod":
-                    item["resolved"] = "prod"
-                    plan["cloud_only"].append(item)
-                else:
-                    plan["conflicts"].append(item)
-        for rid, row in prods.items():
-            if rid in nodes:
-                continue
-            if rid in snap:
-                if fingerprint(row, table) == snap[rid]:
-                    dele.append(rid)
-                else:
-                    plan["conflicts"].append({"table": table, "id": rid,
-                                              "what": "borrada en el nodo pero cambiada en la nube"})
-            else:
-                plan["cloud_only"].append({"table": table, "id": rid, "what": "creada en la nube tras el export"})
-        plan["insert"][table], plan["update"][table], plan["delete"][table] = ins, upd, dele
-        plan["unchanged"][table] = same
-    # A revision records the values an evaluation had BEFORE a change: while that evaluation is
-    # in conflict (not applied), its new revisions wait too, or the history would contradict it.
-    held = {c["id"] for c in plan["conflicts"] if c["table"] == "evaluations"}
-    if held:
-        waiting = [r for r in plan["insert"]["evaluation_revisions"] if r["evaluation_id"] in held]
-        plan["insert"]["evaluation_revisions"] = [r for r in plan["insert"]["evaluation_revisions"]
-                                                  if r["evaluation_id"] not in held]
-        plan["cloud_only"].extend({"table": "evaluation_revisions", "id": r["id"],
-                                   "what": "espera: su evaluación está en conflicto"} for r in waiting)
-    return plan
-
-
-def diff_fields(a: dict, b: dict, table: str) -> list[str]:
-    skip = IGNORED.get(table, set())
-    return sorted(k for k in set(a) | set(b) if k not in skip and a.get(k) != b.get(k))
-
-
-async def plan_audit(prod, node, since, remap: dict, _hint) -> list[dict]:
-    rows = await rows_of(node, "SELECT to_jsonb(a) AS row FROM audit_log a WHERE created_at >= $1"
-                               " AND entity_type = ANY($2::text[]) ORDER BY created_at, id", since, list(AUDIT_ENTITIES))
-    if not rows:
-        return []
-    have = {str(r["id"]) for r in await prod.fetch("SELECT id FROM audit_log WHERE id = ANY($1::uuid[])",
-                                                   [r["id"] for r in rows])}
-    out = []
-    for row in rows:
-        if row["id"] in have:
-            continue
-        if row.get("user_id") in remap:
-            row["user_id"] = remap[row["user_id"]]
-        row["metadata_json"] = {**(row.get("metadata_json") or {}), "via_nodo_local": True}
-        row["legacy_mongo_id"] = None
-        out.append(row)
-    return out
-
-
-async def apply_plan(prod, plan: dict, new_users: list[dict], audits: list[dict]) -> None:
-    if new_users:
-        await insert_rows(prod, "users", new_users)
-    # Parents first; inside a table, updates before inserts (a void frees the «one current» slot
-    # that the new capture takes).
-    for table in EVENT_TABLE_NAMES:
-        for row in plan["update"][table]:
-            await update_row(prod, table, row)
-        rows = plan["insert"][table]
-        if table == "events" and rows:
-            raise SyncError("el evento no existe en producción")
-        await insert_rows(prod, table, rows)
-    for table in reversed(EVENT_TABLE_NAMES):
-        if plan["delete"][table]:
-            await prod.execute(f"DELETE FROM {table} WHERE id = ANY($1::uuid[])",
-                               [uuid.UUID(i) for i in plan["delete"][table]])
-    if audits:
-        known_users = {str(r["id"]) for r in await prod.fetch(
-            "SELECT id FROM users WHERE id = ANY($1::uuid[])", [a["user_id"] for a in audits if a.get("user_id")])}
-        for a in audits:
-            if a.get("user_id") and a["user_id"] not in known_users:
-                a["user_id"] = None
-        await insert_rows(prod, "audit_log", audits)
-
-
-def build_report(plan, new_users, user_notes, audits, export, lock, args) -> dict:
-    return {
-        "event_id": args.event,
-        "export_id": str(export["id"]),
-        "exported_at": export["created_at"].isoformat(),
-        "dry_run": args.dry_run,
-        "prefer": args.prefer,
-        "insert": {t: len(v) for t, v in plan["insert"].items() if v},
-        "update": {t: len(v) for t, v in plan["update"].items() if v},
-        "delete": {t: len(v) for t, v in plan["delete"].items() if v},
-        "unchanged": {t: v for t, v in plan["unchanged"].items() if v},
-        "conflicts": plan["conflicts"],
-        "warnings": plan["cloud_only"],
-        "users": user_notes,
-        "new_users": len(new_users),
-        "audit_rows": len(audits),
-        "locked": lock["offline_locked_at"] is not None,
-        "lock_released": False,
-    }
 
 
 def print_report(report: dict) -> None:
@@ -787,21 +383,218 @@ def print_report(report: dict) -> None:
         say(f"  {title}:" + ("" if data else " —"))
         for table, n in data.items():
             say(f"    {table:<24} {n:>6}")
+    if report.get("already_applied"):
+        say("  Esta subida ya se había aplicado: nada nuevo.")
     block("nuevas (se insertan)", report["insert"])
     block("cambiadas en el nodo (se actualizan)", report["update"])
     block("borradas en el nodo (se borran)", report["delete"])
     block("sin cambios", report["unchanged"])
     say(f"  bitácora del nodo a copiar: {report['audit_rows']} fila(s)")
-    for note in report["users"]:
+    for note in report.get("users", []):
         say(f"  {note}")
     for w in report["warnings"]:
-        say(f"  aviso: {w['table']} {w['id']}: {w['what']}" + (f" (resuelto: {w['resolved']})" if w.get("resolved") else ""))
+        say(f"  aviso: {w.get('detail') or w['table'] + ' ' + w['id'] + ': ' + w['what']}"
+            + (f" (resuelto: {w['resolved']})" if w.get("resolved") else ""))
     if report["conflicts"]:
         say(f"  CONFLICTOS ({len(report['conflicts'])}): no se aplican; revisa y repite con --prefer node|prod")
         for c in report["conflicts"]:
-            say(f"    {c['table']} {c['id']}: {c['what']}" + (f" · campos {c['fields']}" if c.get("fields") else ""))
+            say(f"    {c.get('detail') or c['table'] + ' ' + c['id'] + ': ' + c['what']}")
     else:
         say("  conflictos: ninguno")
+
+
+async def remember_upload(node, event_id: uuid.UUID, report: dict) -> None:
+    """The node's own row mirrors the cloud's answer (for the Mac app's panel)."""
+    if report.get("dry_run") or not report.get("node_status"):
+        return
+    await node.execute(
+        "UPDATE event_offline_nodes SET status = $2::varchar, uploads = uploads + 1, last_upload_at = now(),"
+        " final_at = CASE WHEN $2::varchar = 'FINAL' THEN now() ELSE final_at END, conflicts = $3,"
+        " last_report = $4::jsonb, updated_at = now() WHERE event_id = $1 AND local",
+        event_id, report["node_status"], len(report["conflicts"]),
+        json.dumps({k: report.get(k) for k in ("insert", "update", "delete", "lock_released", "open_nodes",
+                                                 "node_status", "final")}, default=str))
+
+
+# --------------------------------------------------------------------------------------------
+# Automatic mode (API)
+# --------------------------------------------------------------------------------------------
+def api_base() -> str:
+    base = (os.environ.get("NODO_API_URL") or DEFAULT_API).strip().rstrip("/")
+    return base if base.endswith("/api/v1") else f"{base}/api/v1"
+
+
+def api_call(method: str, path: str, *, body: bytes | None = None, headers: dict | None = None,
+             timeout: float = 600) -> dict:
+    token = os.environ.get("NODO_API_TOKEN")
+    if not token:
+        raise ApiError(401, "Falta la sesión de adventist.club (inicia sesión en la app)")
+    req = urllib.request.Request(f"{api_base()}{path}", data=body, method=method, headers={
+        "Authorization": f"Bearer {token}", "Content-Type": "application/json", "Accept": "application/json",
+        "User-Agent": "nodo-camporee/1", **(headers or {})})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 (fixed API base)
+            return json.loads(resp.read() or b"{}")
+    except urllib.error.HTTPError as exc:
+        try:
+            detail = json.loads(exc.read() or b"{}").get("detail")
+        except ValueError:
+            detail = None
+        if isinstance(detail, list):
+            detail = "; ".join(str(d.get("msg", d)) for d in detail)
+        raise ApiError(exc.code, detail or f"HTTP {exc.code}") from exc
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        raise ApiError(0, f"No hay conexión con {urlsplit(api_base()).hostname} ({type(exc).__name__})") from exc
+
+
+def write_certificate(cert: dict, tls_dir: str | None) -> dict:
+    out = {"status": cert.get("status"), "not_after": cert.get("not_after"), "names": cert.get("names"),
+           "staging": cert.get("staging"), "message": cert.get("message"), "installed": False}
+    if cert.get("status") != "ok" or not tls_dir:
+        return out
+    target = Path(tls_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    for name, value, mode in (("fullchain.pem", cert["fullchain_pem"], 0o644), ("privkey.pem", cert["privkey_pem"], 0o600)):
+        tmp = target / f".{name}.tmp"
+        fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, mode)
+        with os.fdopen(fd, "w") as fh:
+            fh.write(value)
+        os.replace(tmp, target / name)
+    (target / "ca-local.pem").unlink(missing_ok=True)
+    out["installed"] = True
+    return out
+
+
+async def cmd_prepare(args) -> int:
+    event_id = uuid.UUID(args.event)
+    total = 5
+    step(1, total, "Preparando las llaves de este nodo")
+    box_private, box_public = nodo_crypto.new_box_keypair()
+    sign_private, sign_public = nodo_crypto.new_sign_keypair()
+    node = await core.connect(args.node_url)
+    try:
+        await node.fetchval("SELECT 1 FROM event_offline_nodes LIMIT 1")  # the node has 030
+        if await node.fetchval("SELECT 1 FROM events WHERE id = $1", event_id) and not args.replace_node_copy:
+            raise SyncError("Este nodo ya tiene el evento. Si es de una prueba sin capturas que conservar, "
+                            "vuelve a preparar marcando «Reemplazar la copia del nodo».")
+        step(2, total, f"Pidiendo el evento a {urlsplit(api_base()).hostname} (puede tardar si se emite el certificado)")
+        scope = scope_from(args)
+        payload = {"node_label": args.node_label, "recipient_key": nodo_crypto.b64(box_public),
+                   "sign_key": nodo_crypto.b64(sign_public), "scope": scope,
+                   "replace_node_id": args.replace_node}
+        answer = await asyncio.to_thread(api_call, "POST", f"/events/{event_id}/offline/export",
+                                         body=json.dumps(payload).encode())
+        step(3, total, "Abriendo el paquete cifrado")
+        bundle = nodo_crypto.open_sealed(answer, box_private, str(event_id))
+        if bundle.get("event_id") != str(event_id) or (bundle.get("node") or {}).get("id") != answer.get("node_id"):
+            raise SyncError("el paquete no corresponde al evento pedido")
+        info = bundle["node"]
+        step(4, total, "Cargando el evento en el nodo")
+        local_logo = None  # the logo keeps its URL: it is mirrored with the rest of the media
+        local = {"id": info["id"], "label": info["label"], "scope": info["scope"],
+                 "sign_key": nodo_crypto.b64(sign_public), "import_key": bundle["import_key"],
+                 "node_private_enc": nodo_crypto.box(node_secret(), NODE_KEY_PURPOSE, sign_private)}
+        try:
+            passes = await core.load_into_node(node, bundle, replace=args.replace_node_copy, local_logo=local_logo,
+                                               export_id=info["export_id"], pass_encrypt=pass_codec().encrypt,
+                                               local_node=local)
+        except Exception:
+            say(f"@@aviso La nube ya registró este nodo ({info['id']}) pero el nodo no se cargó: vuelve a "
+                "«Preparar» (se reemplaza ese registro).")
+            emit_json({"failed_node_id": info["id"]})
+            raise
+        checked = await verify_passes(node, event_id)
+        media = mirror_media(bundle, args.media_dir)
+        step(5, total, "Certificado HTTPS")
+        cert = write_certificate(bundle.get("certificate") or {}, args.tls_dir)
+        if cert["installed"]:
+            say(f"@@ok Certificado instalado (vence {str(cert['not_after'])[:10]})")
+        elif cert["status"] == "ok":
+            say("@@aviso El paquete trae certificado pero no hay carpeta TLS: no se instaló")
+        else:
+            say(f"@@aviso Sin certificado del API ({cert.get('message') or cert['status']}): usa el certificado local")
+        activities = {a["id"]: a["name"] for a in bundle["event"]["event_activities"]}
+        regs = [r for r in bundle["event"]["event_registrations"] if r.get("status") == "REGISTERED"]
+        summary = {
+            "node_id": info["id"], "label": info["label"], "scope": info["scope"], "event_id": str(event_id),
+            "event_name": bundle["event"]["events"][0]["name"],
+            "activity_names": (["Todas las actividades"] if info["scope"].get("all")
+                               else [activities[i] for i in info["scope"]["activity_ids"] if i in activities]),
+            "clubs": len(regs), "accounts": len(bundle["reference"]["users"]),
+            "passes": passes.get("ok", 0), "passes_missing": passes.get("missing", 0),
+            "passes_readable": checked.get("ok"), "certificate": cert, "media": media,
+        }
+        say(f"@@ok Evento listo en el nodo: {summary['clubs']} clubes, {summary['accounts']} cuentas, "
+            f"{summary['passes']} pases")
+        emit_json(summary)
+        return 0
+    finally:
+        await node.close()
+
+
+async def cmd_upload(args) -> int:
+    event_id = uuid.UUID(args.event)
+    total = 3 if args.dry_run else 4
+    node = await core.connect(args.node_url)
+    try:
+        me = await core.local_node(node, event_id)
+        if me is None:
+            raise SyncError("Este nodo no se preparó con el modo automático para este evento "
+                            "(usa el modo manual o prepara el nodo)")
+        if not me.get("node_private_enc") or not me.get("import_key"):
+            raise SyncError("A este nodo le faltan sus llaves (se preparó en modo manual): usa el modo manual")
+        step(1, total, "Reuniendo las capturas del nodo")
+        changes = await core.gather_node_changes(node, event_id, pass_decrypt=pass_codec().decrypt)
+        sign_private = nodo_crypto.unbox(node_secret(), NODE_KEY_PURPOSE, me["node_private_enc"])
+        envelope = nodo_crypto.seal(changes, nodo_crypto.unb64(me["import_key"], size=32), str(event_id))
+        envelope.update(node_id=me["id"], export_id=changes["export_id"])
+        body = json.dumps(envelope).encode()
+        stamp = int(time.time())
+        signature = nodo_crypto.sign(sign_private, str(event_id), me["id"], stamp, body)
+        step(2, total, "Enviando a adventist.club" + (" (simulación)" if args.dry_run else ""))
+        query = urlencode({"dry_run": str(args.dry_run).lower(), "final": str(not args.partial).lower(),
+                           **({"prefer": args.prefer} if args.prefer else {})})
+        report = await asyncio.to_thread(api_call, "POST", f"/events/{event_id}/offline/import?{query}", body=body,
+                                         headers={"X-Nodo-Timestamp": str(stamp), "X-Nodo-Signature": signature})
+        step(3, total, "Reporte")
+        print_report(report)
+        if not args.dry_run:
+            step(4, total, "Guardando el estado del nodo")
+            await remember_upload(node, event_id, report)
+            if report.get("node_status") == "FINAL":
+                say("@@ok Subida final aplicada: este nodo quedó cerrado"
+                    + (" y la nube ya está libre" if report.get("lock_released")
+                       else f" (quedan {report.get('open_nodes', 0)} nodo(s) por subir)"))
+            else:
+                say("@@ok Avance subido: el nodo sigue abierto")
+        emit_json(report)
+        return 2 if report.get("conflicts") else 0
+    finally:
+        await node.close()
+
+
+async def cmd_node_info(args) -> int:
+    node = await core.connect(args.node_url)
+    try:
+        me = await core.local_node(node, uuid.UUID(args.event) if args.event else None)
+        if me is None:
+            emit_json({"node": None})
+            return 0
+        names = {r["id"]: r["name"] for r in await node.fetch(
+            "SELECT id::text AS id, name FROM event_activities WHERE event_id = $1", uuid.UUID(me["event_id"]))}
+        event = await node.fetchrow("SELECT name, status FROM events WHERE id = $1", uuid.UUID(me["event_id"]))
+        scope = me.get("scope") or {}
+        emit_json({"node": {
+            "id": me["id"], "event_id": me["event_id"], "event_name": event["name"] if event else None,
+            "event_status": event["status"] if event else None, "label": me["label"], "status": me["status"],
+            "status_text": core.NODE_STATUS_ES.get(me["status"], me["status"]), "scope": scope,
+            "activity_names": (["Todas las actividades"] if scope.get("all")
+                               else [names[i] for i in scope.get("activity_ids", []) if i in names]),
+            "prepared_at": me.get("prepared_at"), "last_upload_at": me.get("last_upload_at"),
+            "uploads": me.get("uploads"), "automatic": bool(me.get("node_private_enc"))}})
+        return 0
+    finally:
+        await node.close()
 
 
 # --------------------------------------------------------------------------------------------
@@ -812,7 +605,7 @@ async def cmd_status(args) -> int:
     for label, dsn in (("producción", args.prod_url), ("nodo", args.node_url)):
         if not dsn:
             continue
-        conn = await connect(dsn)
+        conn = await core.connect(dsn)
         try:
             event = await conn.fetchrow("SELECT name, status, offline_locked_at, offline_node_label FROM events"
                                         " WHERE id = $1", event_id)
@@ -823,8 +616,11 @@ async def cmd_status(args) -> int:
             lock = (f"BLOQUEADO desde {event['offline_locked_at']:%Y-%m-%d %H:%M} UTC ({event['offline_node_label']})"
                     if event["offline_locked_at"] else "sin bloqueo")
             say(f"  {event['name']} · {event['status']} · {lock}")
-            for table, n in counts(await event_rows(conn, event_id)).items():
+            for table, n in core.counts(await core.event_rows(conn, event_id)).items():
                 say(f"    {table:<24} {n:>6}")
+            for r in await conn.fetch("SELECT label, status, local FROM event_offline_nodes WHERE event_id = $1"
+                                      " ORDER BY prepared_at", event_id):
+                say(f"  nodo {'(este) ' if r['local'] else ''}«{r['label']}»: {core.NODE_STATUS_ES.get(r['status'])}")
             for r in await conn.fetch("SELECT kind, created_at, actor_email FROM event_offline_syncs"
                                       " WHERE event_id = $1 ORDER BY created_at DESC LIMIT 5", event_id):
                 say(f"  {r['kind']:<9} {r['created_at']:%Y-%m-%d %H:%M} UTC  {r['actor_email'] or ''}")
@@ -837,55 +633,93 @@ async def cmd_status(args) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Sincroniza un evento entre producción y el nodo local.")
     sub = parser.add_subparsers(dest="command", required=True)
+    node_default = os.environ.get("NODE_DATABASE_URL") or os.environ.get("DATABASE_URL")
 
-    def common(p, actor=True):
-        p.add_argument("--event", required=True, help="id (uuid) del evento")
-        p.add_argument("--prod-url", default=os.environ.get("PROD_DATABASE_URL"),
-                       help="por defecto $PROD_DATABASE_URL (mejor por entorno: no queda en el historial)")
-        p.add_argument("--node-url", default=os.environ.get("NODE_DATABASE_URL") or os.environ.get("DATABASE_URL"),
-                       help="por defecto $NODE_DATABASE_URL o $DATABASE_URL")
+    def common(p, actor=True, prod=True, event_required=True):
+        p.add_argument("--event", required=event_required, help="id (uuid) del evento")
+        if prod:
+            p.add_argument("--prod-url", default=os.environ.get("PROD_DATABASE_URL"),
+                           help="por defecto $PROD_DATABASE_URL (mejor por entorno: no queda en el historial)")
+        p.add_argument("--node-url", default=node_default, help="por defecto $NODE_DATABASE_URL o $DATABASE_URL")
         if actor:
             p.add_argument("--actor-email", required=True, help="cuenta de coordinación que firma la bitácora")
 
-    e = sub.add_parser("export", help="producción -> nodo (y bloqueo en producción)")
+    def scope_args(p):
+        group = p.add_mutually_exclusive_group()
+        group.add_argument("--all", action="store_true", help="el nodo captura todas las actividades (por defecto)")
+        group.add_argument("--activities", help="ids de las actividades que captura este nodo, separados por coma")
+        desk = p.add_mutually_exclusive_group()
+        desk.add_argument("--check-in", dest="check_in", action="store_true", default=True,
+                          help="este nodo tiene mesa de llegadas (por defecto)")
+        desk.add_argument("--no-check-in", dest="check_in", action="store_false")
+
+    e = sub.add_parser("export", help="[manual] producción -> nodo (y bloqueo en producción)")
     common(e)
     e.add_argument("--node-label", default="Nodo local del evento")
-    e.add_argument("--reason", default="Evento operado sin internet en el nodo local")
+    scope_args(e)
+    e.add_argument("--reason", default="Evento operado sin internet en el nodo local", help=argparse.SUPPRESS)
     e.add_argument("--dry-run", action="store_true")
     e.add_argument("--replace-node-copy", action="store_true", help="borra antes la copia del nodo (¡sus capturas!)")
-    e.add_argument("--no-lock", action="store_true", help="no bloquear producción (sólo pruebas)")
+    e.add_argument("--no-lock", action="store_true", help="no registrar el nodo ni bloquear producción (sólo pruebas)")
     e.add_argument("--bundle-dir", default=os.environ.get("NODO_BUNDLE_DIR"))
     e.add_argument("--media-dir", default=os.environ.get("NODO_MEDIA_DIR"))
     e.add_argument("--settle-seconds", type=float, default=3.0, help=argparse.SUPPRESS)
 
-    i = sub.add_parser("import", help="nodo -> producción (y libera el bloqueo)")
+    i = sub.add_parser("import", help="[manual] nodo -> producción (y libera el bloqueo)")
     common(i)
     i.add_argument("--dry-run", action="store_true")
     i.add_argument("--prefer", choices=("node", "prod"))
-    i.add_argument("--keep-lock", action="store_true")
+    i.add_argument("--partial", "--keep-lock", dest="partial", action="store_true",
+                   help="avance: el nodo sigue abierto y la nube bloqueada")
     i.add_argument("--report")
-    i.set_defaults(node_label_hint=None)
 
     s = sub.add_parser("status", help="qué tiene cada lado")
     common(s, actor=False)
 
+    p = sub.add_parser("prepare", help="[automático] pide el evento al API y lo carga en este nodo")
+    common(p, actor=False, prod=False)
+    p.add_argument("--node-label", required=True)
+    scope_args(p)
+    p.add_argument("--replace-node-copy", action="store_true")
+    p.add_argument("--replace-node", help="id de un nodo anterior de esta Mac que se reemplaza")
+    p.add_argument("--tls-dir", default=os.environ.get("NODO_TLS_DIR"))
+    p.add_argument("--media-dir", default=os.environ.get("NODO_MEDIA_DIR"))
+
+    u = sub.add_parser("upload", help="[automático] sube las capturas del nodo al API")
+    common(u, actor=False, prod=False)
+    u.add_argument("--dry-run", action="store_true")
+    u.add_argument("--prefer", choices=("node", "prod"))
+    kind = u.add_mutually_exclusive_group()
+    kind.add_argument("--final", dest="partial", action="store_false", default=False)
+    kind.add_argument("--partial", dest="partial", action="store_true")
+
+    n = sub.add_parser("node-info", help="alcance y estado de este nodo")
+    common(n, actor=False, prod=False, event_required=False)
+
     args = parser.parse_args(argv)
-    if args.command != "status" and not (args.prod_url and args.node_url):
-        parser.error("faltan PROD_DATABASE_URL y/o NODE_DATABASE_URL (entorno o --prod-url/--node-url)")
-    if args.command != "status" and clean_dsn(args.prod_url) == clean_dsn(args.node_url):
-        parser.error("producción y nodo apuntan a la misma base")
-    handler = {"export": cmd_export, "import": cmd_import, "status": cmd_status}[args.command]
+    if args.command in ("export", "import"):
+        if not (args.prod_url and args.node_url):
+            parser.error("faltan PROD_DATABASE_URL y/o NODE_DATABASE_URL (entorno o --prod-url/--node-url)")
+        if clean_dsn(args.prod_url) == clean_dsn(args.node_url):
+            parser.error("producción y nodo apuntan a la misma base")
+    elif args.command in ("prepare", "upload", "node-info") and not args.node_url:
+        parser.error("falta NODE_DATABASE_URL")
+    handler = {"export": cmd_export, "import": cmd_import, "status": cmd_status, "prepare": cmd_prepare,
+               "upload": cmd_upload, "node-info": cmd_node_info}[args.command]
     try:
         return asyncio.run(handler(args))
+    except ApiError as exc:
+        say(f"@@error {exc}")
+        return 4 if exc.status == 401 else 5 if exc.status == 403 else 1
     except SchemaMismatch as exc:
-        say(f"ERROR: {exc}")
+        say(f"@@error {exc}")
         return 3
-    except SyncError as exc:
-        say(f"ERROR: {exc}")
+    except (SyncError, nodo_crypto.CryptoError) as exc:
+        say(f"@@error {exc}")
         return 1
     except (OSError, asyncpg.PostgresError) as exc:
         # Never echo a DSN: asyncpg messages do not include the password, but keep it short.
-        say(f"ERROR ({type(exc).__name__}): {str(exc).splitlines()[0][:300]}")
+        say(f"@@error ({type(exc).__name__}): {str(exc).splitlines()[0][:300]}")
         return 1
 
 

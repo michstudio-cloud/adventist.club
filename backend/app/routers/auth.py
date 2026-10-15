@@ -41,6 +41,7 @@ from app.security import (
     STUDENT,
     TOKEN_REFRESH,
     TOKEN_TEMP_MFA,
+    auth_time_of,
     born_of_mfa,
     code_attempts,
     create_access_token,
@@ -321,7 +322,8 @@ async def refresh(payload: RefreshRequest, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "User not found or inactive")
     # The new access token inherits the second factor of the session that
     # produced the refresh token; refreshing is not a way around the policy.
-    return RefreshResponse(access_token=create_access_token(user.id, mfa=born_of_mfa(claims)))
+    return RefreshResponse(access_token=create_access_token(user.id, mfa=born_of_mfa(claims),
+                                                           auth_time=auth_time_of(claims)))
 
 
 @router.get("/me", response_model=MeResponse)

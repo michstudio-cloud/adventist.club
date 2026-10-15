@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import get_db
 from app.models import User
-from app.security import TOKEN_ACCESS, born_of_mfa, decode_claims, require_auth_configured
+from app.security import TOKEN_ACCESS, auth_time_of, born_of_mfa, decode_claims, require_auth_configured
 from app.services import mfa as mfa_service
 
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -64,6 +64,8 @@ async def get_authenticated_user(
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Account is {user.status}")
     # Transient, not a column: whether THIS session passed a second factor.
     user.token_born_of_mfa = born_of_mfa(claims)
+    # Transient too: when this session's login happened (recent-authentication checks, 030).
+    user.token_auth_time = auth_time_of(claims)
     return user
 
 

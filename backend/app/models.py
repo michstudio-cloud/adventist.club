@@ -1293,6 +1293,58 @@ class EventOfflineSync(Base):
     snapshot: Mapped[dict] = mapped_column(JSONB, server_default="{}")
     report: Mapped[dict] = mapped_column(JSONB, server_default="{}")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    # 030: which node made this export / import.
+    node_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_offline_nodes.id", ondelete="SET NULL")
+    )
+
+
+class EventOfflineNode(Base):
+    """030: a local node (Mac + router) that operates an event without internet. In the cloud,
+    one row per prepared node; on a node's own database, its own row with `local = true`.
+    Written through raw SQL by app/services/nodo_sync_core.py (shared with the node script)."""
+    __tablename__ = "event_offline_nodes"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE"))
+    label: Mapped[str] = mapped_column(String(120))
+    coordinator_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"))
+    coordinator_email: Mapped[str | None] = mapped_column(CITEXT)
+    scope: Mapped[dict] = mapped_column(JSONB)
+    status: Mapped[str] = mapped_column(String(10), server_default="PREPARED")
+    sign_key: Mapped[str | None] = mapped_column(Text)
+    export_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_offline_syncs.id", ondelete="SET NULL"))
+    baseline: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    local: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    node_private_enc: Mapped[str | None] = mapped_column(Text)
+    import_key: Mapped[str | None] = mapped_column(Text)
+    prepared_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    uploads: Mapped[int] = mapped_column(Integer, server_default="0")
+    last_upload_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    final_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    conflicts: Mapped[int] = mapped_column(Integer, server_default="0")
+    last_report: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    closed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    closed_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"))
+    close_reason: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class NodeTlsCert(Base):
+    """030: cached Let's Encrypt certificate for the node's hostnames (key encrypted)."""
+    __tablename__ = "node_tls_certs"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    names: Mapped[str] = mapped_column(Text)
+    staging: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    fullchain_pem: Mapped[str] = mapped_column(Text)
+    privkey_enc: Mapped[str] = mapped_column(Text)
+    not_after: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class EventActivity(Base):

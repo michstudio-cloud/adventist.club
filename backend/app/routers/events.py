@@ -48,7 +48,7 @@ from app.schemas.event import (
     StaffCreate,
     StaffOut,
 )
-from app.services import event_brand, event_pass
+from app.services import event_brand, event_nodes, event_pass
 from app.services import event_checkin as checkin
 from app.services import event_history as history
 from app.services import event_offline as offline
@@ -58,8 +58,9 @@ from app.services import events as event_service
 from app.text import slugify
 
 # 029: every write to an event «en nodo local» answers 423 here (see event_offline).
+# 030: on a local node, writes outside the node's scope answer 403 (see event_nodes).
 router = APIRouter(prefix="/api/v1/events", tags=["events"],
-                   dependencies=[Depends(offline.guard_offline_writes)])
+                   dependencies=[Depends(offline.guard_offline_writes), Depends(event_nodes.guard_node_scope)])
 
 
 # ----------------------------------------------------------------------------
