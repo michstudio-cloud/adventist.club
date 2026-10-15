@@ -33,8 +33,18 @@ x-api-env: &api-env
   # secreto, propio del nodo (lo genera init); sin él todos compartirían la IP del contenedor web.
   PROXY_SHARED_SECRET: ${PROXY_SHARED_SECRET:-}
   # Todos los jueces inician sesión a la vez y varios pueden salir por la misma IP (un AP con
-  # NAT): el límite por IP se amplía. El límite por cuenta (RATE_LIMIT_LOGIN_ACCOUNT) no cambia.
+  # NAT): el límite por IP se amplía. El límite por cuenta va por dispositivo (abajo).
   RATE_LIMIT_LOGIN: ${RATE_LIMIT_LOGIN:-200/minute}
+  # Bloqueo por dispositivo (docs/RATE_LIMITS.md): quien prueba contraseñas de un juez desde su
+  # teléfono sólo se bloquea a sí mismo para esa cuenta (5 en 5 min); el techo por cuenta sube a
+  # 60/15 min (contra muchos dispositivos) y un teléfono no puede fallar más de 20 veces en 5 min.
+  LOGIN_LOCKOUT_MODE: device
+  RATE_LIMIT_LOGIN_ACCOUNT: ${RATE_LIMIT_LOGIN_ACCOUNT:-60/15 minutes}
+  RATE_LIMIT_LOGIN_ACCOUNT_DEVICE: ${RATE_LIMIT_LOGIN_ACCOUNT_DEVICE:-5/5 minutes}
+  RATE_LIMIT_LOGIN_DEVICE: ${RATE_LIMIT_LOGIN_DEVICE:-20/5 minutes}
+  # Coordinación (app de Mac, guardado en el Llavero): /api/v1/nodo/operador/* con la cabecera
+  # X-Nodo-Operador. Sin valor esas rutas responden 404.
+  NODO_OPERADOR_TOKEN: ${NODO_OPERADOR_TOKEN:-}
   TZ: America/Monterrey
 
 services:
@@ -121,15 +131,21 @@ services:
   caddy:
     image: caddy:2.10-alpine
     restart: unless-stopped
+    # Con la «puerta» de la app (Mac, por defecto): sólo en 127.0.0.1:8080/8443 y la puerta escucha
+    # en :80/:443 de la red pasando la IP real (protocolo PROXY). Sin ella (NODO_PUERTA=0, o el mini
+    # PC Linux): NODO_PUBLICAR=0.0.0.0 y los puertos 80/443 directos, como antes.
     ports:
-      - "${NODO_IP:-0.0.0.0}:80:80"
-      - "${NODO_IP:-0.0.0.0}:443:443"
+      - "${NODO_PUBLICAR:-${NODO_IP:-0.0.0.0}}:${NODO_PUERTO_HTTP:-80}:80"
+      - "${NODO_PUBLICAR:-${NODO_IP:-0.0.0.0}}:${NODO_PUERTO_HTTPS:-443}:443"
     environment:
       NODO_HOSTS: ${NODO_HOSTS:-events.adventist.club, admin.adventist.club, api.adventist.club, media.adventist.club}
       # Respuesta a las pruebas de «¿hay internet?» de los teléfonos (red pública): ninguno|exito|bienvenida
       NODO_PORTAL: ${NODO_PORTAL:-ninguno}
+      # Orígenes de los que Caddy cree la línea PROXY (la puerta). Por defecto nadie (Caddyfile).
+      NODO_PROXY_PERMITIDOS: ${NODO_PROXY_PERMITIDOS:-192.0.2.1/32}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./bloqueos:/etc/caddy/bloqueos:ro
       - ./portal:/srv/portal:ro
       - ./tls/actual:/certs:ro
       - ${DATOS_DIR:-./datos}/media:/srv/media:ro
@@ -184,6 +200,27 @@ services:
     extra_hosts:
       # Sólo para la prueba en una Mac (colima): la Postgres del anfitrión.
       - "host.docker.internal:host-gateway"
+
+  # «Nodos vecinos»: los nodos del MISMO evento en la misma red se pasan su avance sin la nube
+  # (backend/scripts/nodo_malla.py). La app de Mac escribe en run/malla-vecinos.json los vecinos
+  # que descubre (Bonjour) y lee run/malla-estado.json. Caddy le pasa /nodo-malla/* (puerto 80).
+  # En `lan` porque `interna` no tiene salida a las otras Macs. Emparejar a mano:
+  #   docker compose exec malla python scripts/nodo_malla.py emparejar-codigo | emparejar-aceptar CODIGO
+  malla:
+    image: nodo-evento-api:${NODO_TAG:-local}
+    restart: unless-stopped
+    environment:
+      <<: *api-env
+      NODE_DATABASE_URL: postgresql://nodo:${POSTGRES_PASSWORD}@db:5432/nodo?sslmode=disable
+      NODO_RUN_DIR: /run-nodo
+      MALLA_CADA_SEG: ${MALLA_CADA_SEG:-30}
+    entrypoint: ["python", "scripts/nodo_malla.py"]
+    command: ["servir", "--puerto", "8100"]
+    volumes:
+      - ${NODO_RUN_DIR:-./run}:/run-nodo
+    depends_on:
+      api: {condition: service_healthy}
+    networks: [interna, lan]
 
 networks:
   interna:

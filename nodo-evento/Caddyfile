@@ -5,14 +5,53 @@
 {
 	auto_https disable_certs
 	ocsp_stapling off
-	admin off
+	# Los bloqueos (directiva «error», ver bloqueos_nodo) van antes que cualquier otra respuesta.
+	order error before handle
+	# Sólo dentro del contenedor (no se publica): lo usa «caddy reload» al cambiar los bloqueos.
+	admin localhost:2019
 	servers {
-		trusted_proxies static private_ranges
+		# IP REAL de cada teléfono: la «puerta» de la app (relevo en :80/:443 de la Mac) antepone una
+		# línea del protocolo PROXY. Los puertos de Colima sólo escuchan en 127.0.0.1, así que la línea
+		# sólo puede venir de la puerta. Sin la línea (pruebas, conexiones internas) se usa la IP del
+		# socket. La línea sólo se cree si viene de NODO_PROXY_PERMITIDOS (con la puerta, el motor pone
+		# las redes de loopback/Colima); por defecto NADIE (192.0.2.1 es de documentación, RFC 5737):
+		# sin la puerta (NODO_PUERTA=0, mini PC Linux) los puertos dan a la red y un teléfono podría
+		# inventarse otra IP para saltarse el límite por dispositivo. `ignore` = de cualquier otro
+		# origen la línea se descarta y vale la IP del socket.
+		listener_wrappers {
+			proxy_protocol {
+				timeout 5s
+				allow {$NODO_PROXY_PERMITIDOS:192.0.2.1/32}
+				fallback_policy ignore
+			}
+			tls
+		}
+		# Nadie de la red (teléfonos) es un proxy de confianza: Caddy reemplaza X-Forwarded-For con la
+		# IP real. Sólo los contenedores del nodo (red interna) pueden pasar la suya.
+		trusted_proxies static 172.30.40.0/24
 	}
+}
+
+# Registro de accesos en JSON para «Dispositivos conectados» (se queda en la Mac: datos/caddy/).
+(registro_acceso) {
+	log acceso {
+		output file /data/acceso.log {
+			roll_size 20MiB
+			roll_keep 4
+		}
+		format json
+	}
+}
+
+# Bloqueos «a nivel del nodo» (Dispositivos conectados › Bloquear): la app escribe la lista en
+# bloqueos/bloqueados.caddy y recarga Caddy. Sin bloqueos el archivo sólo trae un comentario.
+(bloqueos_nodo) {
+	import /etc/caddy/bloqueos/*.caddy
 }
 
 {$NODO_HOSTS} {
 	tls /certs/fullchain.pem /certs/privkey.pem
+	import bloqueos_nodo
 	encode zstd gzip
 
 	# Marca de «esto es un nodo, no la nube»: la app de Mac no inicia sesión ni sube resultados si
@@ -22,6 +61,12 @@
 	# Salud del nodo (para el operador y el monitoreo del router).
 	handle /nodo-salud {
 		respond "ok" 200
+	}
+
+	# «Nodos vecinos»: los nodos del mismo evento en esta red intercambian su avance (firmado y
+	# cifrado por la propia app; servicio `malla`).
+	handle /nodo-malla/* {
+		reverse_proxy malla:8100
 	}
 
 	# Logos del evento copiados por el export (en producción vienen de media.adventist.club).
@@ -52,10 +97,11 @@
 		}
 	}
 
-	log {
+	log consola {
 		output stdout
 		format console
 	}
+	import registro_acceso
 }
 
 # «Red pública del evento» (opcional): el router manda las direcciones con que los teléfonos
@@ -97,12 +143,19 @@ http://captive.apple.com, http://www.apple.com, http://www.appleiphonecell.com, 
 # http://<ip-del-nodo>/nodo-ca.crt entrega la CA para instalarla en los teléfonos (sin HTTPS,
 # porque el teléfono todavía no confía en ella). Con Let's Encrypt el archivo no existe (404).
 :80 {
+	import bloqueos_nodo
 	header X-Nodo-Local "1"
+	import registro_acceso
 	@media host media.adventist.club
 	handle @media {
 		root * /srv/media/mirror
 		header Cache-Control "public, max-age=86400"
 		file_server
+	}
+	# «Nodos vecinos»: las otras Macs del evento llaman a http://<ip-de-esta-Mac>/nodo-malla/v1/…
+	# (todo va firmado y cifrado por la app: http basta).
+	handle /nodo-malla/* {
+		reverse_proxy malla:8100
 	}
 	handle /nodo-ca.crt {
 		root * /certs

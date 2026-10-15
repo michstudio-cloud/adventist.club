@@ -287,6 +287,42 @@ Recomendado antes del import: una rama de respaldo de Neon (como en cada migraci
 - `DATABASE_URL` con `?sslmode=disable` desactiva TLS hacia la base (sólo el nodo: Postgres en la
   red interna de Docker). Cualquier otro host remoto sigue exigiendo TLS.
 
+### 11A. Nodos vecinos (varios nodos del mismo evento en una red)
+
+Cuando las Macs de varios coordinadores del **mismo evento** comparten red, cada una ve el avance
+de las otras **sin la nube** (clasificación completa en cada zona). Servicio `malla`
+(`backend/scripts/nodo_malla.py servir`, puerto 8100 detrás de Caddy en `/nodo-malla/*`).
+
+- **Quién es quién.** Al preparar, la nube firma («avala») el registro de cada nodo (evento,
+  nodo, nombre, alcance, llave) con una llave **derivada** de su secreto (nada nuevo en la base de
+  producción) y manda en el paquete: la llave pública de avales, el aval propio y los demás nodos
+  abiertos. Un nodo preparado **después** se presenta con su aval y los anteriores lo aceptan.
+  Sin aval (nodo manual, o preparado sin internet): **emparejar** con un código
+  `NCP1.…` (QR/texto) y una huella de 6 dígitos que se compara en las dos pantallas.
+- **Intercambio.** `GET /nodo-malla/v1/hola` (identidad pública) y `POST /nodo-malla/v1/avance`
+  (petición firmada; respuesta cifrada para quien pidió y firmada por el nodo). Por http: todo va
+  firmado y cifrado por la app.
+- **Qué viaja.** Sólo capturas: llegadas, evaluaciones, revisiones y ajustes — nunca actividades,
+  reglas, personal ni inscripciones (eso cambia en la nube). Sin pases ni contraseñas (las cuentas
+  viajan como «cuenta de otro nodo», inactiva y sin contraseña).
+- **Sólo lectura, sin conflictos.** Se aplica una fila sólo si la captura el vecino (su alcance,
+  con las reglas de la nube) y NO este nodo; si algo choca (la misma captura en los dos, una fila
+  de otro vecino, una fila cambiada aquí) se **reporta como traslape** y no se aplica. Lo recibido
+  queda en tablas propias del nodo (`nodo_malla_*`, se crean solas) y la API del nodo no deja
+  corregirlo ni anularlo («se corrige en el nodo que lo capturó»).
+- **La nube no cambia.** «Subir avance / final» deja fuera lo recibido de los vecinos (y devuelve
+  el original de lo que un vecino reemplazó): la nube recibe exactamente lo mismo que sin vecinos.
+- **Archivos con la app** (carpeta `${NODO_RUN_DIR:-./run}`, en el contenedor `/run-nodo`):
+  `malla-vecinos.json` (lo escribe la app con lo que descubre por Bonjour
+  `_nodocamporee._tcp`: `[{"url": "http://192.168.8.151", "nombre": "…", "visto": 1760000000}]`) y
+  `malla-estado.json` (lo escribe `malla` cada `MALLA_CADA_SEG`, 30 s: `yo`, `vecinos` con sus
+  actividades, filas recibidas, traslapes y error, y `rechazados`).
+- **Comandos:** `docker compose exec malla python scripts/nodo_malla.py identidad | estado |
+  tirar URL | emparejar-codigo | emparejar-aceptar CODIGO | olvidar NODE_ID` (salida `@@ok/@@aviso/
+  @@error` y una línea `@@json`).
+- **Prueba:** `nodo-evento/mac/pruebas/malla-dos-nodos.sh` (dos procesos reales en la Mac, sin
+  Docker) y `backend/tests/test_nodo_malla.py`.
+
 ## 12. Prueba hecha en una Mac (14 oct 2026)
 
 Con datos locales de prueba (nunca producción): «producción» = copia local `prod_sim` de la base
