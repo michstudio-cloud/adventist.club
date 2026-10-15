@@ -72,10 +72,11 @@ def pass_url(token: str) -> str:
 def token_from(value: str) -> str:
     """The token inside what a scanner read: the bare token, or a URL whose path ends in
     `/p/<token>` (any host: the hash lookup is what decides). Unknown shapes come back as they
-    are and simply resolve to nothing."""
+    are and simply resolve to nothing. A typed token may keep the spaces of the printed pass
+    («evp_ AbCd EfGh …», `event_passes_pdf.code_lines`): a token never contains whitespace."""
     value = (value or "").strip()
     if "/" not in value:
-        return value
+        return "".join(value.split())
     try:
         path = urlsplit(value).path if "://" in value else value
     except ValueError:
