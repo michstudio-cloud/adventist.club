@@ -918,7 +918,7 @@ def plan_changes(snapshot: dict, node_rows: dict, prod_rows: dict, *, prefer: st
                 else:
                     change("update", row, rid)
             elif n == s:
-                plan["cloud_only"].append({"table": table, "id": rid, "what": "cambiada sólo en la nube (se conserva)"})
+                plan["cloud_only"].append({"table": table, "id": rid, "what": "cambiada en la nube (otro nodo) y no en este: se conserva"})
             else:
                 if table == "events" and rid in base_rows:
                     merged, fields = _merge_event_row(base_rows[rid], row, prods[rid])
@@ -952,7 +952,7 @@ def plan_changes(snapshot: dict, node_rows: dict, prod_rows: dict, *, prefer: st
                     plan["conflicts"].append({"table": table, "id": rid,
                                               "what": "borrada en el nodo pero cambiada en la nube"})
             else:
-                plan["cloud_only"].append({"table": table, "id": rid, "what": "creada en la nube tras el export"})
+                plan["cloud_only"].append({"table": table, "id": rid, "what": "llegó a la nube después de preparar este nodo (otro nodo): se conserva"})
         plan["insert"][table], plan["update"][table], plan["delete"][table] = ins, upd, dele
         plan["unchanged"][table] = same
 

@@ -31,7 +31,7 @@ from sqlalchemy import text
 from app.config import settings
 from app.db import SessionLocal
 from app.security import create_access_token, create_refresh_token, decode_claims
-from app.services import event_pass, nodo_crypto
+from app.services import nodo_crypto
 from app.services import nodo_sync_core as core
 from tests.conftest import RUN, fetch_all, fetch_one, module_factory, requires_db
 

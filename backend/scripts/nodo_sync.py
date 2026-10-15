@@ -49,7 +49,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import gzip
-import hashlib
 import json
 import os
 import sys
@@ -125,25 +124,8 @@ def pass_codec():
 
 
 # --------------------------------------------------------------------------------------------
-# Logo + passes check (node side)
+# Media + passes check (node side)
 # --------------------------------------------------------------------------------------------
-def mirror_logo(event_row: dict, media_dir: str | None) -> str | None:
-    """Downloads the event's logo so the node serves it without internet. Best effort."""
-    url = event_row.get("brand_logo_url")
-    if not url or not media_dir or not url.startswith("https://"):
-        return None
-    name = f"{event_row['id']}-{hashlib.sha256(url.encode()).hexdigest()[:12]}{Path(urlsplit(url).path).suffix[:6]}"
-    target = Path(media_dir) / "events" / name
-    target.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        with urllib.request.urlopen(url, timeout=20) as response:  # noqa: S310 (https only, own bucket)
-            target.write_bytes(response.read(5_000_000))
-    except Exception as exc:  # noqa: BLE001
-        say(f"@@aviso no se pudo copiar el logo del evento ({type(exc).__name__}); el nodo lo mostrará sin logo")
-        return None
-    return f"/nodo-media/events/{name}"
-
-
 def mirror_media(bundle: dict, media_dir: str | None, *, max_bytes: int = 10_000_000,
                  total_limit: int = 500_000_000) -> dict:
     """Copies every media.adventist.club file the event shows into <media_dir>/mirror/<path>, so
@@ -279,7 +261,7 @@ async def cmd_export(args) -> int:
             with os.fdopen(fd, "wb") as raw, gzip.GzipFile(fileobj=raw, mode="wb") as fh:
                 fh.write(json.dumps(bundle, ensure_ascii=False, default=str).encode())
             say(f"  copia del export: {path} (contiene hashes de contraseñas: no la compartas)")
-        local_logo = mirror_logo(bundle["event"]["events"][0], args.media_dir)
+        local_logo = None  # the logo keeps its URL: mirrored with the rest of media.adventist.club
         local = None
         if node_row is not None:
             local = {"id": node_row["id"], "label": node_row["label"], "scope": node_row["scope"]}
