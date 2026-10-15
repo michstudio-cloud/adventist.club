@@ -35,13 +35,13 @@ if [ -n "$IDENT" ]; then
        && xcrun stapler staple "$APP" >/dev/null; then echo "   notarizada y grapada"
     else echo "   AVISO: no se pudo notarizar (queda firmada; macOS puede pedir «Abrir de todos modos»)"; fi
   else
-    echo "   sin notarizar (no existe el perfil «$NOTARIO»: README §10)"
+    echo "   sin notarizar (no existe el perfil «${NOTARIO}»: README §10)"
   fi
 else
   "$MAC_DIR/firmar-app.sh" "$APP" - >/dev/null; echo "   firma local (ad-hoc): macOS puede rechazarla al abrir; mejor con Developer ID"
 fi
 
-echo "3/3 Instalando en $DEST…"
+echo "3/3 Instalando en ${DEST}…"
 mkdir -p "$DEST"
 if [ -d "$DEST/$APP_NAME.app" ]; then rm -rf "$DEST/$APP_NAME.app.viejo"; mv "$DEST/$APP_NAME.app" "$DEST/$APP_NAME.app.viejo"; fi
 ditto "$APP" "$DEST/$APP_NAME.app"

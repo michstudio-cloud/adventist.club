@@ -76,18 +76,18 @@ WORK="$(mktemp -d "${TMPDIR:-/tmp}/nodo-paquete.XXXXXX")"
 ENCENDI_COLIMA=0
 limpiar() {
   rm -rf "$WORK"
-  if [ "$ENCENDI_COLIMA" = 1 ]; then echo "Apagando Colima «$BUILD_PROFILE» (lo encendió este script)…"; colima stop --profile "$BUILD_PROFILE" >/dev/null 2>&1 || true; fi
+  if [ "$ENCENDI_COLIMA" = 1 ]; then echo "Apagando Colima «${BUILD_PROFILE}» (lo encendió este script)…"; colima stop --profile "$BUILD_PROFILE" >/dev/null 2>&1 || true; fi
 }
 trap limpiar EXIT
 
 # --- 1. Imágenes de Docker ------------------------------------------------------------------------
-paso "1/6 Imágenes de Docker ($PLAT) con Colima «$BUILD_PROFILE»"
+paso "1/6 Imágenes de Docker ($PLAT) con Colima «${BUILD_PROFILE}»"
 if ! colima status --profile "$BUILD_PROFILE" >/dev/null 2>&1; then
-  colima start --profile "$BUILD_PROFILE" >/dev/null 2>&1 || falla "no pude encender Colima «$BUILD_PROFILE»"
+  colima start --profile "$BUILD_PROFILE" >/dev/null 2>&1 || falla "no pude encender Colima «${BUILD_PROFILE}»"
   ENCENDI_COLIMA=1
 fi
 export DOCKER_HOST="unix://$HOME/.colima/$BUILD_PROFILE/docker.sock"
-docker info >/dev/null 2>&1 || falla "Docker de «$BUILD_PROFILE» no responde"
+docker info >/dev/null 2>&1 || falla "Docker de «${BUILD_PROFILE}» no responde"
 IMG="$WORK/imagenes"; mkdir -p "$IMG"
 # Se exportan directo a archivo (type=docker): las etiquetas :local de ese Docker no cambian.
 docker buildx build --builder default --platform "$PLAT" --progress plain \
@@ -177,7 +177,7 @@ CACHED="$HOME/Library/Caches/colima/caches/$VM_CACHE"
 if [ -s "$CACHED" ] && [ "$(shasum -a 512 "$CACHED" | cut -d' ' -f1)" = "$VM_SHA512" ]; then
   cp "$CACHED" "$HERR/vm/$VM_FILE"
 else
-  echo "   descargando $VM_FILE…"; curl -fL --retry 3 -o "$HERR/vm/$VM_FILE" "$VM_URL"
+  echo "   descargando ${VM_FILE}…"; curl -fL --retry 3 -o "$HERR/vm/$VM_FILE" "$VM_URL"
   [ "$(shasum -a 512 "$HERR/vm/$VM_FILE" | cut -d' ' -f1)" = "$VM_SHA512" ] || falla "sha512 de la imagen de la máquina virtual no coincide"
 fi
 du -sh "$HERR"/bin/* "$HERR/vm/$VM_FILE" | awk '{print "   " $1 "  " $2}' | sed "s#$WORK/##"
@@ -254,7 +254,7 @@ if [ "$NOTARIZAR" = 1 ] && xcrun notarytool history --keychain-profile "$NOTARIO
   NOTARIZADO="sí (grapada)"
 else
   NOTARIZADO="NO"
-  motivo="no existe el perfil «$NOTARIO» en el Llavero"; [ "$NOTARIZAR" = 1 ] || motivo="se pidió --sin-notarizar"
+  motivo="no existe el perfil «${NOTARIO}» en el Llavero"; [ "$NOTARIZAR" = 1 ] || motivo="se pidió --sin-notarizar"
   cat <<TXT
 Sin notarizar ($motivo).
 El propietario lo crea UNA vez en su Terminal (pide la contraseña específica de app de su Apple ID;

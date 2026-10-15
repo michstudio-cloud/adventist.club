@@ -47,7 +47,7 @@ if docker image inspect openwrt/rootfs:armsr-armv8 >/dev/null 2>&1; then
   docker exec nodo-v3-openwrt sh -c 'touch /etc/config/wireless; uci set wireless.ap0=wifi-iface; uci set wireless.ap0.mode=ap; uci set wireless.ap0.network=lan; uci set wireless.sta=wifi-iface; uci set wireless.sta.mode=sta; uci commit wireless; printf "#!/bin/sh\nexit 0\n" > /sbin/wifi; chmod +x /sbin/wifi' 
   for i in 1 2; do "$M" router-bloquear --mac AA:BB:CC:11:22:33 --simular --tipo openwrt | docker exec -i nodo-v3-openwrt sh -s >/dev/null; done
   lst="$(docker exec nodo-v3-openwrt uci -q get wireless.ap0.maclist)"; f="$(docker exec nodo-v3-openwrt uci -q get wireless.ap0.macfilter)"
-  [ "$lst" = "aa:bb:cc:11:22:33" ] && [ "$f" = deny ] && ok "uci: maclist una sola vez (idempotente) y macfilter=deny" || mal "uci tras bloquear: «$lst» «$f»"
+  [ "$lst" = "aa:bb:cc:11:22:33" ] && [ "$f" = deny ] && ok "uci: maclist una sola vez (idempotente) y macfilter=deny" || mal "uci tras bloquear: «${lst}» «${f}»"
   [ -z "$(docker exec nodo-v3-openwrt uci -q get wireless.sta.maclist)" ] && ok "no toca la interfaz cliente (sta)" || mal "tocó sta"
   "$M" router-bloquear --mac AA:BB:CC:11:22:33 --quitar --simular --tipo openwrt | docker exec -i nodo-v3-openwrt sh -s >/dev/null
   [ -z "$(docker exec nodo-v3-openwrt uci -q get wireless.ap0.maclist)" ] && [ -z "$(docker exec nodo-v3-openwrt uci -q get wireless.ap0.macfilter)" ] && ok "quitar deja el Wi-Fi como estaba" || mal "quitar"
