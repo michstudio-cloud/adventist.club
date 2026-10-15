@@ -673,3 +673,27 @@ contenido/impresoras apagados, inicio de sesión automático apagado, bloqueo de
 directores (no abierto). **Cambiar contraseña del Wi-Fi** (GL.iNet/OpenWrt/MikroTik, con la
 contraseña del router, que no se guarda): «Ver qué cambiará» y luego cambiar; la nueva queda en el
 Llavero y el QR «Conéctate al Wi-Fi» la usa. Google Wifi: desde Google Home.
+
+## 16. Qué sale de la Mac y muestras de pruebas (sin secretos)
+
+De una Mac nodo **sólo salen datos del evento**: la subida a la nube y los avances entre nodos vecinos
+se arman desde una lista blanca (`backend/app/services/nodo_egreso.py`) y quien los recibe rechaza
+cualquier otra cosa. Lo que la app muestra de órdenes del sistema (Registros, detalle de Interferencias/
+Seguridad/Dispositivos, salida del router) pasa antes por el **depurador** (`depurar.pl` y
+`app/Depurador.swift`). Inventario completo, lista blanca y revisión de secretos en reposo:
+**`../docs/EGRESO.md`**.
+
+**Cómo capturar muestras (agentes y técnicos):**
+
+1. Nunca `ps -axo …args`/`command`, `env`, `launchctl print` completo ni salidas copiadas a mano: los
+   argumentos de otros programas pueden traer llaves (así se filtró una de Google en oct 2026).
+2. Usar `pruebas/capturar-muestras.sh GRUPO` (o `--salida DIR` para revisarlas antes). Depura siempre,
+   `ps` sólo con `-axo comm=`, MAC → `02:00:5e:00:00:00`, y si queda algo con forma de secreto no guarda nada.
+3. Una salida escrita a mano o de otra Mac: pasarla por `perl depurar.pl [--procesos] archivo`.
+4. Antes del commit: `pruebas/buscar-secretos.sh` (o instalar los ganchos una vez:
+   `pruebas/buscar-secretos.sh --instalar` → pre-commit y pre-push). Nunca muestra el valor.
+5. Los secretos de prueba en código se arman en tiempo de ejecución (`"AI" + "za" + …`), nunca literales.
+6. Si una llave real llegó a un commit: rotarla en su servicio aunque se borre de la historia.
+
+Pruebas: `pruebas/probar-analizadores.sh` (analizadores + `Depurador.swift` + `depurar.pl` con los casos
+compartidos de `pruebas/depurador/casos.txt`) y `backend/tests/test_nodo_egreso.py`.

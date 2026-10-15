@@ -76,7 +76,7 @@ final class Actualizador: NSObject, ObservableObject, SPUUpdaterDelegate {
     nonisolated static func registrar(_ s: String) {
         let ruta = carpetaRun + "/actualizaciones.log"
         let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let linea = "\(f.string(from: Date())) \(s)\n"
+        let linea = "\(f.string(from: Date())) \(Depurador.texto(s))\n"
         if !FileManager.default.fileExists(atPath: ruta) { FileManager.default.createFile(atPath: ruta, contents: nil) }
         if let h = FileHandle(forWritingAtPath: ruta) { h.seekToEndOfFile(); h.write(Data(linea.utf8)); try? h.close() }
     }

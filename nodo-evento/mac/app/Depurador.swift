@@ -47,6 +47,7 @@ enum Depurador {
         Regla(tipo: "llave sk-", re: re("\\bsk-[0-9A-Za-z_\\-]{16,}"), reemplazo: { _ in oculto }),
         Regla(tipo: "token de Slack", re: re("\\bxox[abposr]-[0-9A-Za-z\\-]{10,}"), reemplazo: { _ in oculto }),
         Regla(tipo: "llave de AWS", re: re("\\b(?:AKIA|ASIA)[0-9A-Z]{16}\\b"), reemplazo: { _ in oculto }),
+        Regla(tipo: "pase del evento (evp_)", re: re("\\bevp_[A-Za-z0-9_\\-]{16,}"), reemplazo: { _ in oculto }),
         Regla(tipo: "JWT", re: re("\\beyJ[0-9A-Za-z_\\-]{8,}(?:\\.[0-9A-Za-z_\\-]+){0,2}"), reemplazo: { _ in oculto }),
         Regla(tipo: "contraseña del Wi-Fi (QR)", re: re("(WIFI:[^\\n]*?\\bP:)((?:\\\\;|[^;\\n])+)"),
               reemplazo: { "\($0[1])\(oculto)" }),

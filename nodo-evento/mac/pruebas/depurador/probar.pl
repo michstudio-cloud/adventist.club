@@ -29,6 +29,7 @@ my %M = (
     B64   => repetir('QUJD', 48),
     PEM   => "-----BEGIN " . "PRIVATE KEY-----\n" . repetir('MIIEvQ', 64) . "\n" . repetir('AbCd', 64) . "\n-----END " . "PRIVATE KEY-----",
     AWS   => 'AK' . 'IA' . 'ABCDEFGHIJKLMNOP',
+    EVP   => 'evp' . '_' . repetir('Pq7-', 43),
 );
 sub expandir { my ($t) = @_; $t =~ s/\{\{([A-Z0-9]+)\}\}/exists $M{$1} ? $M{$1} : die "marcador $1"/ge; $t }
 

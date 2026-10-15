@@ -1,7 +1,7 @@
 # Casos compartidos del depurador (depurar.pl, app/Depurador.swift, backend nodo_egreso.py).
 # Los secretos NO están escritos aquí (GitHub los bloquearía y buscar-secretos.sh fallaría): cada
 # prueba los arma en tiempo de ejecución a partir de estos marcadores:
-#   {{AIZA}} {{AQ}} {{YA29}} {{GHP}} {{GHO}} {{GHPAT}} {{SK}} {{XOX}} {{JWT}} {{B64}} {{PEM}} {{AWS}}
+#   {{AIZA}} {{AQ}} {{YA29}} {{GHP}} {{GHO}} {{GHPAT}} {{SK}} {{XOX}} {{JWT}} {{B64}} {{PEM}} {{AWS}} {{EVP}}
 # Identidad del equipo de prueba: «Mac de Prueba Ñandú» y el usuario «ana-prueba».
 # Formato: «### nombre», luego «--- entrada» y «--- esperado» (o «--- procesos» para el modo ps).
 ### incidente real: curl con --header X-Goog-Api-Key: AQ.… en ps -axo args
@@ -16,6 +16,11 @@
 curl -H 'X-Goog-Api-Key: {{AIZA}}' -H "Authorization: Bearer {{YA29}}" https://example.com
 --- esperado
 curl -H 'X-Goog-Api-Key: [oculto]' -H "Authorization: [oculto]" https://example.com
+### pase del evento en el registro de Caddy (la URL del QR)
+--- entrada
+{"request":{"remote_ip":"192.168.8.23","uri":"/p/{{EVP}}","headers":{"Authorization":["REDACTED"]}}}
+--- esperado
+{"request":{"remote_ip":"192.168.8.23","uri":"/p/[oculto]","headers":{"Authorization":["REDACTED"]}}}
 ### Bearer suelto en un registro
 --- entrada
 GET /api/v1/me 200 Bearer {{JWT}} desde 192.168.8.23

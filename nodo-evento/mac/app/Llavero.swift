@@ -79,6 +79,10 @@ enum Llavero {
     }
 
     static func leer(_ s: Secreto) -> String? {
+        // Con `--prueba` (ventana manejada por scripts: capturas, «motor:<orden>») los secretos que
+        // puso el dueño (Wi-Fi, Cloudflare, producción) no se leen del Llavero real: una captura del
+        // QR o una orden de prueba no puede sacarlos. Las pruebas usan otro NODO_LLAVERO_SERVICIO.
+        if Prueba.activo && !s.generado && ProcessInfo.processInfo.environment["NODO_LLAVERO_SERVICIO"] == nil { return nil }
         let (rc, data) = security(["find-generic-password", "-s", servicio, "-a", s.rawValue, "-w"])
         guard rc == 0, let v = String(data: data, encoding: .utf8) else { return nil }
         let t = v.trimmingCharacters(in: .newlines)

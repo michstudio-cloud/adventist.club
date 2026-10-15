@@ -68,6 +68,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>SUScheduledCheckInterval</key><integer>86400</integer>
   <key>SUAutomaticallyUpdate</key><false/>
   <key>SUEnableInstallerLauncherService</key><false/>
+  <!-- Sparkle sólo pide el appcast: sin perfil del sistema (modelo, CPU, idioma…; docs/EGRESO.md). -->
+  <key>SUEnableSystemProfiling</key><false/>
   <key>NSBonjourServices</key><array><string>_nodocamporee._tcp</string></array>
   <key>LSMinimumSystemVersion</key><string>13.0</string>
   <key>LSApplicationCategoryType</key><string>public.app-category.utilities</string>

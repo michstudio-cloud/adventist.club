@@ -1,5 +1,11 @@
 Muestras para pruebas/probar-analizadores.sh (Interferencias, SeguridadMac, Dispositivos).
 
+CÓMO SE CAPTURAN (desde oct 2026; ver ../../README.md §16 y ../../../docs/EGRESO.md):
+  pruebas/capturar-muestras.sh GRUPO   → depura siempre (llaves, tokens, KEY=valor, Wi-Fi, IPv6 de enlace
+  local, /Users/<nombre>, nombre de la Mac), `ps` sólo con -axo comm= (nunca args/command), MAC →
+  02:00:5e:00:00:00, y no guarda nada si queda algo con forma de secreto. pruebas/buscar-secretos.sh
+  revisa esta carpeta antes de cada commit. Una muestra escrita a mano también pasa por depurar.pl.
+
 CAPTURADAS (salidas reales, 15 oct 2026, macOS 26.6.2, Apple Silicon; sólo órdenes de lectura):
   mac-real/   ifconfig, netstat -rn -f inet, netstat -anv -p tcp (sólo LISTEN), scutil --dns,
               scutil --nc list, systemextensionsctl list, ps -axo comm=, socketfilterfw --get*/--listapps,
@@ -9,7 +15,7 @@ CAPTURADAS (salidas reales, 15 oct 2026, macOS 26.6.2, Apple Silicon; sólo órd
               networksetup -getdnsservers Wi-Fi.
               Redactado: usuario → USUARIO, nombre → NOMBRE, nombre del equipo → MAC-NODO, todas las MAC →
               02:00:5e:00:xx:xx, IPv6 del proveedor → 2001:db8:… (rango de documentación), rutas temporales →
-              /private/tmp/PRUEBAS. Estado real: NordVPN abierto sin conectar (extensión Shield activa),
+              /private/tmp/PRUEBAS, IPv6 de enlace local → fe80::[oculto] (una era EUI-64 con la MAC). Estado real: NordVPN abierto sin conectar (extensión Shield activa),
               Little Snitch activo, Proton VPN instalado, Colima/limactl, firewall encendido sin limactl.
 
 ESCRITAS A MANO según documentación pública (no se pueden reproducir aquí sin cambiar la Mac):

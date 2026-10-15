@@ -4,3 +4,10 @@ tests
 data
 .env
 .pytest_cache
+# Nada personal ni secreto en la imagen (va en el DMG y en media.adventist.club; docs/EGRESO.md).
+**/.env*
+**/*.pem
+**/*.key
+**/*.log
+.claude
+.DS_Store

@@ -303,7 +303,7 @@ do {
         "JWT": "ey" + "JhbGciOiJIUzI1NiJ9." + "ey" + "JzdWIiOiIxMjM0NTY3ODkwIn0." + repetir("dGVzdA", 30),
         "B64": repetir("QUJD", 48),
         "PEM": "-----BEGIN " + "PRIVATE KEY-----\n" + repetir("MIIEvQ", 64) + "\n" + repetir("AbCd", 64) + "\n-----END " + "PRIVATE KEY-----",
-        "AWS": "AK" + "IA" + "ABCDEFGHIJKLMNOP"]
+        "AWS": "AK" + "IA" + "ABCDEFGHIJKLMNOP", "EVP": "evp" + "_" + repetir("Pq7-", 43)]
     func expandir(_ t: String) -> String {
         var t = t
         for (k, v) in M { t = t.replacingOccurrences(of: "{{\(k)}}", with: v) }

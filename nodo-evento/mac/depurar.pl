@@ -68,6 +68,7 @@ my @SECRETOS = (
     ['llave sk-', qr{\bsk-[0-9A-Za-z_\-]{16,}}, sub { $O }],
     ['token de Slack', qr{\bxox[abposr]-[0-9A-Za-z\-]{10,}}, sub { $O }],
     ['llave de AWS', qr{\b(?:AKIA|ASIA)[0-9A-Z]{16}\b}, sub { $O }],
+    ['pase del evento (evp_)', qr{\bevp_[A-Za-z0-9_\-]{16,}}, sub { $O }],
     ['JWT', qr{\beyJ[0-9A-Za-z_\-]{8,}(?:\.[0-9A-Za-z_\-]+){0,2}}, sub { $O }],
     ['contraseña del Wi-Fi (QR)', qr{(WIFI:[^\n]*?\bP:)((?:\\;|[^;\n])+)}, sub { "$_[0]$O" }],
     ['contraseña del Wi-Fi (uci)', qr{(\boption[ \t]+(?:key|password|sae_password|wpa_passphrase)[ \t]+|\.(?:key|password|sae_password|wpa_passphrase)=)('[^'\n]*'|"[^"\n]*"|[^\s'"]+)},

@@ -123,8 +123,18 @@ final class Motor: ObservableObject {
         }
     }
 
+    /// Variables heredadas que parecen secretos (p. ej. la app abierta desde una Terminal con
+    /// GOOGLE_API_KEY=… en el entorno) no pasan al motor ni a lo que éste corre (docs/EGRESO.md).
+    /// Los secretos del nodo llegan aparte, desde el Llavero; las variables NODO_* son explícitas.
+    nonisolated static func entornoHeredado(_ base: [String: String]) -> [String: String] {
+        let patron = try! NSRegularExpression(pattern: "KEY|TOKEN|SECRET|PASSW|PASS$|_PASS_|PWD|CREDENTIAL|AUTH|DSN|PRIVATE|COOKIE|SESSION|DATABASE_URL", options: [.caseInsensitive])
+        return base.filter { k, _ in
+            k.hasPrefix("NODO_") || patron.firstMatch(in: k, range: NSRange(location: 0, length: (k as NSString).length)) == nil
+        }
+    }
+
     nonisolated static func entorno(para args: [String], extra: [String: String] = [:]) -> [String: String] {
-        var env = ProcessInfo.processInfo.environment
+        var env = entornoHeredado(ProcessInfo.processInfo.environment)
         env["PATH"] = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
         env["NODO_APP_BUNDLE"] = Bundle.main.bundlePath
         for s in secretosPara(args.first ?? "") {

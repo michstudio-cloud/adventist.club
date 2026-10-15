@@ -135,7 +135,10 @@ enum Prueba {
     static let interno = Notification.Name("nodo.prueba")
     /// «red:<opción>» con la hoja de red cerrada: se abre y entra directo a esa opción.
     static var redPendiente: String?
+    /// Ventana abierta con `--prueba` (ver Llavero.leer).
+    private(set) static var activo = false
     static func activar() {
+        activo = true
         DistributedNotificationCenter.default().addObserver(forName: Notification.Name("club.adventist.nodo-camporee.prueba"),
                                                             object: nil, queue: .main) { n in
             guard let accion = n.object as? String else { return }

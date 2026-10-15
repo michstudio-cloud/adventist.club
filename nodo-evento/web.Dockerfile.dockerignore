@@ -5,3 +5,15 @@ tests
 docs
 *.log
 .env*
+# Nada personal ni secreto en la imagen (va en el DMG y en media.adventist.club; docs/EGRESO.md).
+**/.env*
+**/*.pem
+**/*.key
+**/*.p12
+**/.npmrc
+**/*.log
+.vercel
+.claude
+.DS_Store
+test-results
+playwright-report
