@@ -314,12 +314,14 @@ def _draw_pass(c: canvas.Canvas, box: _Box, brand: EventBrand, item: ClubPass, l
             c.setFont(regular, 13)
             y -= 16
             c.drawCentredString(box.x + box.w / 2, y, item.club_city)
-        y -= 18
-        footer = 12 + 8 + 2 * 22 + 10 + 13 + 18 + 16   # note + code + hint + instructions
-        qr = min(box.w - 2 * pad - 40, y - inner_bottom - footer)
+        # The QR keeps its quiet zone (4 modules) clear of any text above and below it.
+        modules = len(qr_matrix(item.url))
+        footer = 15 + 26 + 24 + 24 + 22   # instructions, hint, two code lines, note
+        qr = min(box.w - 2 * pad - 40, (y - inner_bottom - footer) / (1 + 8 / modules))
+        quiet = 4 * qr / modules
         qx = box.x + (box.w - qr) / 2
-        draw_qr(c, item.url, qx, y - qr, qr)
-        y -= qr + 22
+        draw_qr(c, item.url, qx, y - quiet - qr, qr)
+        y -= quiet + qr + quiet + 15
         c.setFillColor(TEXT)
         c.setFont(bold, 15)
         c.drawCentredString(box.x + box.w / 2, y, INSTRUCTIONS)
@@ -339,12 +341,16 @@ def _draw_pass(c: canvas.Canvas, box: _Box, brand: EventBrand, item: ClubPass, l
         return
 
     # Two per sheet: QR on the right, words on the left.
-    qr = min(inner_top - inner_bottom - 6, box.w * 0.44)
-    qx = box.x + box.w - pad - qr
-    qy = inner_bottom + (inner_top - inner_bottom - qr) / 2 + 3
+    # The QR with its quiet zone (4 modules) clear of the band, the words and the card's edge.
+    modules = len(qr_matrix(item.url))
+    area = box.h - head
+    qr = min(area / (1 + 8 / modules), box.w * 0.44)
+    quiet = 4 * qr / modules
+    qx = box.x + box.w - quiet - qr
+    qy = box.y + (area - qr) / 2
     draw_qr(c, item.url, qx, qy, qr)
     left = box.x + pad
-    width = qx - left - 24
+    width = qx - quiet - left
     y = inner_top
     c.setFillColor(accent)
     c.setFont(bold, 9)
