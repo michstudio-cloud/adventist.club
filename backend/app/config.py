@@ -12,6 +12,8 @@ _FALSE_VALUES = {"0", "false", "no", "off", "n", "f"}
 RATE_LIMIT_FIELDS = (
     "RATE_LIMIT_LOGIN",
     "RATE_LIMIT_LOGIN_ACCOUNT",
+    "RATE_LIMIT_LOGIN_ACCOUNT_DEVICE",
+    "RATE_LIMIT_LOGIN_DEVICE",
     "RATE_LIMIT_REGISTER",
     "RATE_LIMIT_REGISTER_ACCOUNT",
     "RATE_LIMIT_FORGOT_PASSWORD",
@@ -21,6 +23,8 @@ RATE_LIMIT_FIELDS = (
 )
 # Shorter shared secrets are ignored (with a warning): the header they unlock decides rate limits.
 PROXY_SECRET_MIN_LENGTH = 32
+OPERATOR_TOKEN_MIN_LENGTH = 32
+LOGIN_LOCKOUT_MODES = ("account", "device")
 
 
 class Settings(BaseSettings):
@@ -138,6 +142,15 @@ class Settings(BaseSettings):
     RATE_LIMIT_LOGIN: str = "60/minute"
     # Per normalized e-mail address (login), on top of the per-address limit.
     RATE_LIMIT_LOGIN_ACCOUNT: str = "10/15 minutes"
+    # Who a run of wrong passwords locks out (docs/RATE_LIMITS.md, «Nodo del evento»):
+    #   account (default, production): the per-account limit above, whoever tries;
+    #   device (event node): first per e-mail + client address (RATE_LIMIT_LOGIN_ACCOUNT_DEVICE),
+    #     so a stranger on the venue Wi-Fi only locks himself out of that account, with
+    #     RATE_LIMIT_LOGIN_ACCOUNT (raised on the node) as the ceiling against many addresses, and
+    #     RATE_LIMIT_LOGIN_DEVICE capping failed logins from one address across all accounts.
+    LOGIN_LOCKOUT_MODE: str = "account"
+    RATE_LIMIT_LOGIN_ACCOUNT_DEVICE: str = "5/5 minutes"
+    RATE_LIMIT_LOGIN_DEVICE: str = "20/5 minutes"
     RATE_LIMIT_REGISTER: str = "20/hour"
     RATE_LIMIT_REGISTER_ACCOUNT: str = "5/hour"
     RATE_LIMIT_FORGOT_PASSWORD: str = "20/hour"
@@ -149,6 +162,9 @@ class Settings(BaseSettings):
     # carrying it in `X-Proxy-Auth` may name the real client address in `X-Proxy-Client-IP`;
     # unset (the default, e.g. on a local event node) means that header is never trusted.
     PROXY_SHARED_SECRET: str | None = None
+    # Event node only: coordination's token for /api/v1/nodo/operador/* (header X-Nodo-Operador,
+    # >= 32 characters). Unset (production) = those routes answer 404.
+    NODO_OPERADOR_TOKEN: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -172,6 +188,7 @@ class Settings(BaseSettings):
         "CLOUDFLARE_DNS_API_TOKEN",
         "LE_EMAIL",
         "NODO_SYNC_SECRET",
+        "NODO_OPERADOR_TOKEN",
         mode="before",
     )
     @classmethod
@@ -215,6 +232,17 @@ class Settings(BaseSettings):
             logger.warning("Invalid rate limit for %s; using default %s", info.field_name, default)
             return default
         return text
+
+    @field_validator("LOGIN_LOCKOUT_MODE", mode="before")
+    @classmethod
+    def _valid_lockout_mode(cls, value: Any) -> Any:
+        """Anything unreadable keeps production's behaviour (per account)."""
+        text = str(value or "").strip().lower()
+        if text in LOGIN_LOCKOUT_MODES:
+            return text
+        if text:
+            logger.warning("Invalid LOGIN_LOCKOUT_MODE; using account")
+        return "account"
 
     @field_validator(
         "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", "SHOW_SOURCES", "LE_STAGING", mode="before"
@@ -324,6 +352,18 @@ class Settings(BaseSettings):
         return secret
 
     @property
+    def login_lockout_by_device(self) -> bool:
+        return self.LOGIN_LOCKOUT_MODE == "device"
+
+    @property
+    def nodo_operador_token(self) -> str | None:
+        """The usable operator token of the event node, or None (operator routes answer 404)."""
+        token = self.NODO_OPERADOR_TOKEN
+        if token and len(token) < OPERATOR_TOKEN_MIN_LENGTH:
+            return None
+        return token
+
+    @property
     def auth_configured(self) -> bool:
         return bool(self.JWT_SECRET)
 
@@ -345,4 +385,9 @@ if settings.PROXY_SHARED_SECRET and settings.proxy_shared_secret is None:
     logger.warning(
         "PROXY_SHARED_SECRET is shorter than %s characters; ignoring it (X-Proxy-Client-IP is not trusted)",
         PROXY_SECRET_MIN_LENGTH,
+    )
+if settings.NODO_OPERADOR_TOKEN and settings.nodo_operador_token is None:
+    logger.warning(
+        "NODO_OPERADOR_TOKEN is shorter than %s characters; ignoring it (operator routes answer 404)",
+        OPERATOR_TOKEN_MIN_LENGTH,
     )

@@ -13,7 +13,17 @@ from app.config import settings
 from app.db import SessionLocal, get_db, violated_constraint
 from app.deps import get_authenticated_user, get_current_user, load_user_by_subject
 from app.models import EmailVerification, Organization, User
-from app.rate_limit import AccountLimit, account_or_ip, limiter
+from app.rate_limit import (
+    LOGIN_ACCOUNT_LIMIT,  # noqa: F401 - importable from here as before
+    AccountLimit,
+    account_or_ip,
+    client_ip,
+    limiter,
+    login_attempt,
+    login_failed,
+    login_succeeded,
+    normalize_email,
+)
 from app.schemas.auth import (
     ForgotPasswordRequest,
     LoginRequest,
@@ -66,7 +76,7 @@ from app.services import ministries as ministry_service
 from app.services import ministry_context
 from app.services import notifications
 from app.services import mfa as mfa_service
-from app.services import verification
+from app.services import device_tracker, verification
 from app.services.audit import record_audit
 
 logger = logging.getLogger(__name__)
@@ -86,8 +96,8 @@ router = APIRouter(
     dependencies=[Depends(require_auth_configured)],
 )
 
-# Per normalized e-mail, on top of the per-address decorators (docs/RATE_LIMITS.md).
-LOGIN_ACCOUNT_LIMIT = AccountLimit("login", settings.RATE_LIMIT_LOGIN_ACCOUNT)
+# Per normalized e-mail, on top of the per-address decorators (docs/RATE_LIMITS.md). The login
+# limits (LOGIN_ACCOUNT_LIMIT and, on the event node, per device) live in app.rate_limit.
 REGISTER_ACCOUNT_LIMIT = AccountLimit("register", settings.RATE_LIMIT_REGISTER_ACCOUNT)
 FORGOT_PASSWORD_ACCOUNT_LIMIT = AccountLimit("forgot-password", settings.RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT)
 
@@ -276,23 +286,40 @@ async def register(
 @limiter.limit(settings.RATE_LIMIT_LOGIN)
 async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depends(get_db)):
     # Every attempt counts (race-free); the right password forgets them. Keyed by the address
-    # typed, whether or not it is registered, so a 429 never tells which accounts exist.
-    LOGIN_ACCOUNT_LIMIT.hit(payload.email)
-    stmt = select(User).where(User.email == payload.email.strip().lower())
+    # typed, whether or not it is registered, so a 429 never tells which accounts exist. On the
+    # event node (LOGIN_LOCKOUT_MODE=device) also per e-mail + device and per device.
+    ip = client_ip(request)
+    email = normalize_email(payload.email)
+    login_attempt(email, ip)
+    stmt = select(User).where(User.email == email)
     user = (await db.execute(stmt)).scalar_one_or_none()
 
     # Always run bcrypt, even for unknown emails, so timing reveals nothing.
     password_ok = await verify_password(payload.password, user.password_hash if user else None)
     if user is None or not password_ok:
+        login_failed(email, ip)
+        device_tracker.record_login_failure(ip, email)
+        if settings.login_lockout_by_device:
+            # Event node: who tried which account from where (never the password typed).
+            record_audit(
+                db,
+                action="AUTH_LOGIN_FAILED",
+                entity_type="USER",
+                entity_id=user.id if user else email,
+                metadata={"email": email, "cuenta_existe": user is not None},
+                request=request,
+            )
+            await db.commit()
         raise HTTPException(
             status.HTTP_401_UNAUTHORIZED,
             "Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    LOGIN_ACCOUNT_LIMIT.clear(payload.email)
+    login_succeeded(email, ip)
 
     if user.status != "ACTIVE":
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Account is {user.status}")
+    device_tracker.record_login_success(ip, email, user.name)
 
     if user.mfa_enabled:
         return LoginResponse(

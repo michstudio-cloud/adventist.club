@@ -46,12 +46,16 @@ from app.routers import org_invitations as org_invitations_router
 from app.routers import events as events_router
 # 030: «Nodo Camporee» automatic mode (before the events router: /events/offline/mine).
 from app.routers import nodo as nodo_router
+# Event node operator (coordination on the node's Mac): unlock accounts, connected devices. 404 without NODO_OPERADOR_TOKEN.
+from app.routers import nodo_operador as nodo_operador_router
+from app.services.device_tracker import DeviceTrackerMiddleware
 # Issuance lives in the service so the portfolio issues the very same certificate; the names stay importable from here.
 from app.services.certificates import REVOKED_STATUS, course_context, get_or_create_club, get_or_create_template, hash_cert, issue_certificate, resolve_issuer_organization, template_slug
 
 init_sentry()  # no-op unless SENTRY_DSN is set
 app=FastAPI(title=settings.APP_NAME,version="0.3.0")
 app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],expose_headers=["X-Total-Count"])
+app.add_middleware(DeviceTrackerMiddleware)  # no-op unless on the event node (docs/RATE_LIMITS.md)
 app.state.limiter=limiter
 app.add_exception_handler(RateLimitExceeded,rate_limit_exceeded_handler)
 # GET /api/v1/honors (public catalogue) now lives in app/routers/honors.py with the rest of the honors workflow.
@@ -67,6 +71,7 @@ app.include_router(club_lookup_router.router)
 app.include_router(org_invitations_router.router)
 app.include_router(org_invitations_router.invitations_router)
 app.include_router(nodo_router.router)
+app.include_router(nodo_operador_router.router)
 app.include_router(events_router.router)
 # Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client
 # never runs startup handlers, and without R2 the hook is a no-op.
