@@ -13,7 +13,7 @@ from app.config import settings
 from app.db import SessionLocal, get_db, violated_constraint
 from app.deps import get_authenticated_user, get_current_user, load_user_by_subject
 from app.models import EmailVerification, Organization, User
-from app.rate_limit import limiter
+from app.rate_limit import AccountLimit, account_or_ip, limiter
 from app.schemas.auth import (
     ForgotPasswordRequest,
     LoginRequest,
@@ -85,6 +85,11 @@ router = APIRouter(
     dependencies=[Depends(require_auth_configured)],
 )
 
+# Per normalized e-mail, on top of the per-address decorators (docs/RATE_LIMITS.md).
+LOGIN_ACCOUNT_LIMIT = AccountLimit("login", settings.RATE_LIMIT_LOGIN_ACCOUNT)
+REGISTER_ACCOUNT_LIMIT = AccountLimit("register", settings.RATE_LIMIT_REGISTER_ACCOUNT)
+FORGOT_PASSWORD_ACCOUNT_LIMIT = AccountLimit("forgot-password", settings.RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT)
+
 FORGOT_PASSWORD_MESSAGE = "If the email exists, a password reset code has been sent"
 INVALID_RESET_MESSAGE = "Invalid or expired reset code"
 
@@ -100,6 +105,7 @@ async def register(
     background: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
 ):
+    REGISTER_ACCOUNT_LIMIT.hit(payload.email)
     validate_password_strength(payload.password)
 
     if payload.birth_date and payload.birth_date > utcnow().date():
@@ -268,6 +274,9 @@ async def register(
 @router.post("/login", response_model=LoginResponse)
 @limiter.limit(settings.RATE_LIMIT_LOGIN)
 async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depends(get_db)):
+    # Every attempt counts (race-free); the right password forgets them. Keyed by the address
+    # typed, whether or not it is registered, so a 429 never tells which accounts exist.
+    LOGIN_ACCOUNT_LIMIT.hit(payload.email)
     stmt = select(User).where(User.email == payload.email.strip().lower())
     user = (await db.execute(stmt)).scalar_one_or_none()
 
@@ -279,6 +288,7 @@ async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depe
             "Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    LOGIN_ACCOUNT_LIMIT.clear(payload.email)
 
     if user.status != "ACTIVE":
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Account is {user.status}")
@@ -528,7 +538,7 @@ async def _mark_verified(db: AsyncSession, user_id: uuid.UUID) -> User | None:
 
 
 @router.post("/verify-email")
-@limiter.limit("10/minute")
+@limiter.limit("10/minute", key_func=account_or_ip)
 async def verify_email_with_code(
     request: Request,
     payload: VerifyEmailCodeRequest,
@@ -640,12 +650,13 @@ async def _process_forgot_password(email: str) -> None:
 async def forgot_password(
     request: Request, payload: ForgotPasswordRequest, background: BackgroundTasks
 ):
+    FORGOT_PASSWORD_ACCOUNT_LIMIT.hit(payload.email)
     background.add_task(_process_forgot_password, payload.email.strip().lower())
     return MessageResponse(message=FORGOT_PASSWORD_MESSAGE)
 
 
 @router.post("/reset-password", response_model=MessageResponse)
-@limiter.limit("10/minute")
+@limiter.limit(settings.RATE_LIMIT_RESET_PASSWORD)
 async def reset_password(
     request: Request, payload: ResetPasswordRequest, db: AsyncSession = Depends(get_db)
 ):
