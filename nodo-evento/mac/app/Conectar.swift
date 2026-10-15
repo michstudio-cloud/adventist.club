@@ -566,8 +566,9 @@ struct ReporteSubida: View {
     let j: [String: Any]
     @Binding var preferir: String
     static let tablas: [String: String] = [
-        "event_checkins": "llegadas", "event_evaluations": "evaluaciones", "event_evaluation_reviews": "revisiones",
-        "event_adjustments": "ajustes", "event_scores": "puntajes", "event_activity_results": "resultados",
+        "event_check_ins": "llegadas", "evaluations": "evaluaciones", "evaluation_revisions": "correcciones",
+        "event_adjustments": "ajustes", "event_registrations": "inscripciones", "event_activities": "reglas de actividades",
+        "event_staff": "personal", "event_adjustment_types": "tipos de ajuste", "events": "datos del evento",
         "audit_log": "bitácora",
     ]
     func lista(_ k: String) -> String {
@@ -587,7 +588,7 @@ struct ReporteSubida: View {
             Text("Nuevos: \(nuevos.isEmpty ? "nada" : nuevos)").font(.system(size: 14))
             Text("Cambios: \(cambios.isEmpty ? "nada" : cambios)").font(.system(size: 14))
             if !conflictos.isEmpty {
-                Aviso(texto: "\(conflictos.count) conflicto\(conflictos.count == 1 ? "" : "s"): algo cambió en la nube Y en este nodo. " + conflictos.prefix(3).map { c in [c["what"] as? String, c["detail"] as? String].compactMap { $0 }.joined(separator: ": ") }.joined(separator: " · "), luz: .ambar)
+                Aviso(texto: "\(conflictos.count) conflicto\(conflictos.count == 1 ? "" : "s") (no se sube hasta que elijas): " + conflictos.prefix(3).map { c in (c["detail"] as? String) ?? (c["what"] as? String) ?? "" }.joined(separator: " · ") + (conflictos.count > 3 ? " · …" : ""), luz: .ambar)
                 Picker("Con los conflictos:", selection: $preferir) {
                     Text("Dejar pendientes").tag("")
                     Text("Gana el nodo (lo capturado aquí)").tag("node")

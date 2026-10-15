@@ -1178,6 +1178,8 @@ def build_report(plan: dict, *, event_id, node: dict | None, export_id, prefer, 
     }
 
 
+FIELD_ES = {"points": "puntos", "inputs": "captura", "status": "estado", "name": "nombre", "config": "reglas",
+            "max_points": "puntaje máximo", "reason": "motivo", "rules_version": "versión de reglas"}
 TABLE_ES = {"events": "evento", "event_activities": "actividad", "event_adjustment_types": "tipo de ajuste",
             "event_staff": "personal", "event_registrations": "inscripción", "event_check_ins": "llegada",
             "evaluations": "evaluación", "evaluation_revisions": "revisión", "event_adjustments": "ajuste"}
@@ -1211,8 +1213,9 @@ async def describe_items(prod, event_id: uuid.UUID, items: list[dict], node_rows
         if reg and reg in clubs:
             parts.append(f"· {clubs[reg]}")
         item["detail"] = " ".join(parts) + f": {item['what']}"
-        if item.get("fields"):
-            item["detail"] += f" ({', '.join(item['fields'])})"
+        shown = [f for f in item.get("fields") or [] if f not in ("updated_at", "breakdown", "revision")]
+        if shown:
+            item["detail"] += f" ({', '.join(FIELD_ES.get(f, f) for f in shown)})"
 
 
 async def import_changes(prod, event_id: uuid.UUID, changes: dict, actor: dict, *, node_id: uuid.UUID | None,
