@@ -172,6 +172,32 @@ class EventOut(BaseModel):
     updated_at: datetime | None
     # What the reader is in this event (ADMIN, COORDINATOR, JUDGE, DIRECTOR).
     my_roles: list[str] = []
+    # 029: «en nodo local» — null = not locked. While set, every write answers 423 here.
+    offline_lock: "OfflineLockOut | None" = None
+
+
+class OfflineLockOut(BaseModel):
+    """029: the event runs on the local event node; the cloud only reads it."""
+    locked_at: datetime
+    locked_by_name: str | None
+    reason: str
+    node_label: str | None
+
+
+class OfflineLockCreate(_Body):
+    """POST /events/{id}/offline-lock (029)."""
+    reason: str = Field(max_length=500)
+    node_label: str | None = Field(default=None, max_length=120)
+
+    _reason = field_validator("reason")(_reason)
+    _label = field_validator("node_label")(_squeeze)
+
+
+class OfflineLockRelease(_Body):
+    """DELETE /events/{id}/offline-lock (029): reason in the body or as `?reason=`."""
+    reason: str = Field(max_length=500)
+
+    _reason = field_validator("reason")(_reason)
 
 
 # ----------------------------------------------------------------------------
@@ -558,3 +584,6 @@ class HistoryPage(BaseModel):
     items: list[HistoryItem]
     # Pass as `before` for the next (older) page; null = no more.
     next_cursor: str | None
+
+
+EventOut.model_rebuild()

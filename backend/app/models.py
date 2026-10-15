@@ -1255,6 +1255,14 @@ class Event(Base):
     brand_logo_url: Mapped[str | None] = mapped_column(Text)
     brand_color: Mapped[str | None] = mapped_column(String(7))
     brand_accent: Mapped[str | None] = mapped_column(String(7))
+    # 029: «en nodo local». While offline_locked_at is set, the cloud only READS this event
+    # (every write answers 423); the local node is the source of truth until `import`.
+    offline_locked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    offline_locked_by_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL")
+    )
+    offline_lock_reason: Mapped[str | None] = mapped_column(Text)
+    offline_node_label: Mapped[str | None] = mapped_column(String(120))
     template_of_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("events.id", ondelete="SET NULL")
     )
@@ -1265,6 +1273,26 @@ class Event(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
+
+
+class EventOfflineSync(Base):
+    """029: one export (prod -> node), its copy on the node, or one import (node -> prod).
+    `snapshot` = {table: {id: md5(row)}} at export time, to detect conflicts on import."""
+    __tablename__ = "event_offline_syncs"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE")
+    )
+    kind: Mapped[str] = mapped_column(String(10))
+    export_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("event_offline_syncs.id", ondelete="SET NULL")
+    )
+    node_label: Mapped[str | None] = mapped_column(String(120))
+    actor_email: Mapped[str | None] = mapped_column(CITEXT)
+    snapshot: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    report: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class EventActivity(Base):

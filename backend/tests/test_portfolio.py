@@ -45,7 +45,7 @@ pytestmark = [
     requires_db,
     pytest.mark.skipif(
         not _portfolio_tables_exist(),
-        reason="apply tests/sql/base_certificates.sql and migrations/007_portfolio.sql to the test database",
+        reason="apply db/base/010_certificates_base.sql and migrations/007_portfolio.sql to the test database",
     ),
 ]
 factory = module_factory("portfolio")

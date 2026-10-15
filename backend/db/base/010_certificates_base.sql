@@ -1,7 +1,7 @@
--- TEST DATABASES ONLY. The certificate tables pre-date the numbered migrations: in
--- production (Neon) they already exist and no file in migrations/ creates them.
--- This is their shape as mapped in app/models.py, so a local Postgres can run the
--- certificate and portfolio tests. Apply it BEFORE migrations/007_portfolio.sql.
+-- NEW DATABASES ONLY (tests, the event node): never run against production. The certificate
+-- tables pre-date the numbered migrations: in production (Neon) they already exist and no file
+-- in migrations/ creates them. This is their shape as mapped in app/models.py.
+-- Applied by scripts/db_bootstrap.sh right after 000_legacy_base.sql (before migrations/001).
 -- Idempotent (IF NOT EXISTS); it never touches an existing table.
 
 CREATE TABLE IF NOT EXISTS applications (

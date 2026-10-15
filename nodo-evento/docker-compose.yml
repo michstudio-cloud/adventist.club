@@ -1,0 +1,179 @@
+# Nodo local del evento: la plataforma completa en un mini PC, sin internet (README.md).
+#
+#   db       PostgreSQL 16 (UTF8, orden alfabético en español). Sólo en la red interna.
+#   migrate  una vez al arrancar: esquema base + migraciones + datos mínimos (db_bootstrap.sh).
+#   api      FastAPI (la misma app que en Render) con su propio JWT_SECRET; correo y mapas apagados.
+#   web      Next en build de producción; habla con la API por la red interna.
+#   caddy    HTTPS en :443 para events/admin/api.adventist.club con el certificado de tls/actual/.
+#   respaldo pg_dump cada RESPALDO_CADA_MIN minutos a RESPALDO_DIR (USB / segunda unidad).
+#   sync     (perfil «sync») export/import con producción; es lo ÚNICO que sale a internet.
+#
+# La red `interna` NO tiene salida a internet: db, api, web y respaldo no pueden depender de
+# nada externo aunque el nodo tenga internet. Caddy además está en `lan` para publicar 80/443.
+name: nodo-evento
+
+x-api-env: &api-env
+  ENV: production
+  DATABASE_URL: postgresql://nodo:${POSTGRES_PASSWORD:?falta POSTGRES_PASSWORD en .env}@db:5432/nodo?sslmode=disable
+  JWT_SECRET: ${JWT_SECRET:?falta JWT_SECRET en .env (propio del nodo)}
+  EVENT_PASS_SECRET: ${EVENT_PASS_SECRET:?falta EVENT_PASS_SECRET en .env (igual al de producción)}
+  EVENT_PASS_URL_BASE: https://events.adventist.club/p
+  PUBLIC_BASE_URL: https://api.adventist.club
+  PUBLIC_WEB_URL: https://events.adventist.club
+  FRONTEND_URL: https://events.adventist.club
+  ADMIN_WEB_URL: https://admin.adventist.club
+  CORS_ORIGINS: https://events.adventist.club,https://admin.adventist.club,https://adventist.club,https://conquistadores.app
+  # Apagados a propósito: sin correo (RESEND), sin R2, sin mapas, sin Sentry, sin miniaturas.
+  RESEND_API_KEY: ""
+  R2_ACCOUNT_ID: ""
+  APPLE_MAPKIT_TEAM_ID: ""
+  SENTRY_DSN: ""
+  THUMBNAIL_WARMUP: "false"
+  # Todos los jueces inician sesión a la vez desde la misma red: el límite de producción
+  # (5/minuto) se cuenta por la IP del servidor web, así que aquí se amplía.
+  RATE_LIMIT_LOGIN: ${RATE_LIMIT_LOGIN:-200/minute}
+  TZ: America/Monterrey
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nodo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: nodo
+      # UTF8 siempre (con SQL_ASCII los datos con acentos fallan) y orden en español (Águilas).
+      POSTGRES_INITDB_ARGS: --encoding=UTF8 --locale=C.UTF-8 --locale-provider=icu --icu-locale=es-MX
+    command: ["postgres", "-c", "shared_buffers=256MB", "-c", "max_connections=100",
+              "-c", "synchronous_commit=on", "-c", "full_page_writes=on"]
+    volumes:
+      - ${DATOS_DIR:-./datos}/postgres:/var/lib/postgresql/data
+    networks: [interna]
+    healthcheck:
+      # Por TCP: durante la inicialización Postgres sólo escucha en el socket.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U nodo -d nodo"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  migrate:
+    build: &api-build
+      context: ${BACKEND_DIR:-../backend}
+      dockerfile: ${NODO_DIR:-../nodo-evento}/api.Dockerfile
+    image: nodo-evento-api:${NODO_TAG:-local}
+    environment: *api-env
+    command: ["sh", "-c", "./scripts/db_bootstrap.sh \"$$DATABASE_URL\""]
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [interna]
+    restart: "no"
+
+  api:
+    image: nodo-evento-api:${NODO_TAG:-local}
+    restart: unless-stopped
+    environment: *api-env
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    networks:
+      interna:
+        aliases: [api]
+    extra_hosts: &own-hosts
+      # Cualquier llamada interna a los dominios propios va a ESTE nodo, nunca a producción.
+      - "events.adventist.club:172.30.40.10"
+      - "admin.adventist.club:172.30.40.10"
+      - "api.adventist.club:172.30.40.10"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health',timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build:
+      context: ${FRONTEND_DIR:-../../frontend}
+      dockerfile: ${NODO_DIR_ABS:-${PWD}}/web.Dockerfile
+      args:
+        BUILD_ID: ${WEB_BUILD_ID:-nodo-local}
+    image: nodo-evento-web:${NODO_TAG:-local}
+    restart: unless-stopped
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      # Con la CA local (sin certificado público) Node debe confiar en ella para llamar a api.adventist.club.
+      NODE_EXTRA_CA_CERTS: /certs/ca-local.pem
+    volumes:
+      - ./tls/actual:/certs:ro
+    depends_on:
+      api: {condition: service_healthy}
+    networks: [interna]
+    extra_hosts: *own-hosts
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/auth/login').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports:
+      - "${NODO_IP:-0.0.0.0}:80:80"
+      - "${NODO_IP:-0.0.0.0}:443:443"
+    environment:
+      NODO_HOSTS: ${NODO_HOSTS:-events.adventist.club, admin.adventist.club, api.adventist.club}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./tls/actual:/certs:ro
+      - ${DATOS_DIR:-./datos}/media:/srv/media:ro
+      - ${DATOS_DIR:-./datos}/caddy:/data
+    depends_on:
+      web: {condition: service_healthy}
+    networks:
+      interna:
+        ipv4_address: 172.30.40.10
+      lan: {}
+
+  respaldo:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGUSER: nodo
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: nodo
+      RESPALDO_CADA_MIN: ${RESPALDO_CADA_MIN:-10}
+      RESPALDO_CONSERVAR: ${RESPALDO_CONSERVAR:-200}
+      TZ: America/Monterrey
+    entrypoint: ["sh", "/respaldo.sh"]
+    volumes:
+      - ./respaldo/respaldo.sh:/respaldo.sh:ro
+      - ${RESPALDO_DIR:-./respaldos}:/respaldos
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [interna]
+
+  # docker compose --profile sync run --rm -e PROD_DATABASE_URL sync <export|import|status> …
+  # (o ./nodo.sh export|import|status). Único servicio con salida a internet.
+  sync:
+    profiles: ["sync"]
+    image: nodo-evento-api:${NODO_TAG:-local}
+    environment:
+      <<: *api-env
+      NODE_DATABASE_URL: postgresql://nodo:${POSTGRES_PASSWORD}@db:5432/nodo?sslmode=disable
+      NODO_BUNDLE_DIR: /exports
+      NODO_MEDIA_DIR: /media
+    entrypoint: ["python", "scripts/nodo_sync.py"]
+    volumes:
+      - ${DATOS_DIR:-./datos}/exports:/exports
+      - ${DATOS_DIR:-./datos}/media:/media
+    networks: [interna, lan]
+    extra_hosts:
+      # Sólo para la prueba en una Mac (colima): la Postgres del anfitrión.
+      - "host.docker.internal:host-gateway"
+
+networks:
+  interna:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.30.40.0/24
+  lan: {}

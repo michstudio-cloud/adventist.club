@@ -112,7 +112,7 @@ evidencias privadas, dictamen del club, «listo para certificar» automático y 
 - `migrations/purge_removed_evidence.py [--days 30] [--commit]`: borra del bucket lo `REMOVED` / `PENDING_UPLOAD` viejo y lo
   marca con `evidences.purged_at`. Simulacro por defecto.
 - Tests: 159 (`tests/test_portfolio.py`, `tests/test_private_storage.py`). El Postgres local necesita antes
-  `backend/tests/sql/base_certificates.sql` (las tablas de certificados son anteriores a las migraciones numeradas; **sólo
+  `backend/db/base/010_certificates_base.sql` (las tablas de certificados son anteriores a las migraciones numeradas; **sólo
   para bases de prueba**) y después `007`. Con eso también corre por fin una prueba real de `prototype-batch`.
 - **Orden de despliegue**: 1) `007_portfolio.sql` en Neon; 2) bucket privado + CORS + `R2_PRIVATE_BUCKET_NAME` en Render;
   3) backend; 4) frontend. Nada destructivo.

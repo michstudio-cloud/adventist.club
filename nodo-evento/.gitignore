@@ -1,0 +1,6 @@
+.env
+datos/
+respaldos/
+tls/actual/
+tls/letsencrypt/
+tls/ca-local/

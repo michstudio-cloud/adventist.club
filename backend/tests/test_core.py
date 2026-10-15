@@ -147,6 +147,12 @@ def test_ssl_only_for_remote_hosts():
         "ssl": "require"
     }
     assert connect_args_for(make_url("postgresql+asyncpg://u@10.0.0.5/db")) == {"ssl": "require"}
+    # nodo-evento: only an explicit sslmode=disable in the original URL turns TLS off.
+    raw = "postgresql://nodo:pw@db:5432/nodo?sslmode=disable"
+    assert connect_args_for(normalize_database_url(raw), raw=raw) == {}
+    raw = "postgresql://u:pw@ep-x.neon.tech/neondb?sslmode=require"
+    assert connect_args_for(normalize_database_url(raw), raw=raw) == {"ssl": "require"}
+    assert connect_args_for(make_url("postgresql+asyncpg://u@db/x"), raw="postgresql://u@db/x") == {"ssl": "require"}
 
 
 # ---------------------------------------------------------------------------

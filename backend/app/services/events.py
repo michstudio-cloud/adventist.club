@@ -35,6 +35,7 @@ from app.schemas.event import (
     StaffOut,
 )
 from app.security import ADMIN_ASSOCIATION, ROLE_RANK, utcnow
+from app.services import event_offline
 from app.services import event_scoring as scoring
 from app.services import ministries as ministry_service
 from app.services.audit import record_audit
@@ -153,6 +154,7 @@ async def event_out(db: AsyncSession, event: Event, roles: EventRoles | None = N
         created_at=event.created_at,
         updated_at=event.updated_at,
         my_roles=roles.names() if roles else [],
+        offline_lock=await event_offline.lock_out(db, event),
     )
 
 
