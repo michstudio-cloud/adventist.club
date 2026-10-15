@@ -98,10 +98,19 @@ struct NodoApp: App {
     }
 }
 
+/// ¿La app corre desde el DMG o desde una copia aislada por macOS (App Translocation)? Entonces
+/// no debe instalar: las rutas cambian en cada apertura. Hay que arrastrarla a Aplicaciones.
+enum Ubicacion {
+    static var provisional: Bool {
+        let p = Bundle.main.bundlePath
+        return p.contains("/AppTranslocation/") || p.hasPrefix("/Volumes/")
+    }
+}
+
 /// Modo de prueba (sólo con `--prueba`): un script puede abrir hojas, pulsar Encender/Apagar y
 /// guardar capturas de la ventana sin permisos de grabación de pantalla.
-///   aviso: club.adventist.nodo-camporee.prueba  {"accion": "hoja:qr" | "cerrar" | "encender" |
-///          "apagar" | "captura:/ruta/nombre"}
+///   aviso: club.adventist.nodo-camporee.prueba  {"accion": "hoja:qr" | "cerrar" | "instalar" |
+///          "encender" | "apagar" | "captura:/ruta/nombre"}
 enum Prueba {
     static let interno = Notification.Name("nodo.prueba")
     static func activar() {

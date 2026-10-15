@@ -40,6 +40,9 @@ instalación de la primera vez, que puede hacer alguien técnico).
 
 ### 2.1 Instalar (lo hace alguien técnico, 20–30 min)
 
+> **¿Otra Mac (la de respaldo o la del operador)?** No hace falta nada de esto: usa el DMG
+> portátil «Nodo Camporee.dmg» (§10). Sin repos, sin Homebrew y sin internet al instalar.
+
 ```sh
 xcode-select --install                       # herramientas de Apple (si no están)
 brew install colima docker docker-compose    # Docker sin Docker Desktop (https://brew.sh)
@@ -221,6 +224,141 @@ Nunca por chat, correo, WhatsApp ni captura de pantalla.
   `--secreto-guardar NOMBRE` (valor por stdin), `--secreto-existe NOMBRE`, `--secreto-borrar NOMBRE`,
   `--secreto-prueba`, `--prueba` (abre la ventana con ganchos para pruebas automáticas:
   `swift pruebas/avisar.swift "hoja:qr"`, `"captura:/ruta/nombre"`, `encender`, `apagar`).
+- **Versión portátil (DMG):** `empaquetar.sh` (§10). La app lleva `Contents/Resources/paquete.env`;
+  con él aparece «Instalar» (`nodo-mac.sh instalar`) y «Construir» sólo si la configuración tiene
+  `BACKEND_DIR`/`FRONTEND_DIR` válidos. Herramientas: `HERRAMIENTAS=sistema|app` en `config.env`
+  (las de la app viven en `Application Support/Nodo Camporee/herramientas/`, con su propio
+  `DOCKER_CONFIG` en `…/docker/`). Para pruebas: `NODO_HERRAMIENTAS=app`, `NODO_APP_SUPPORT`,
+  `NODO_LLAVERO_SERVICIO`, `NODO_AGENT_PREFIX` (otro Llavero y otros LaunchAgents) y
+  `NODO_COLIMA_EXTRA` (argumentos extra al crear la máquina de Colima).
+- **Firma:** `instalar.sh` y `empaquetar.sh` firman con el Developer ID del propietario si está en
+  el Llavero (runtime endurecido + sello de tiempo; macOS reciente rechaza una app ad-hoc
+  reinstalada) y notarizan si existe el perfil `nodo-camporee` de notarytool.
 - **Pruebas sin router:** `pruebas/router-openwrt.sh` corre el guion del router dos veces en un
   OpenWrt real (imagen `openwrt/rootfs`, uci de verdad) y comprueba reserva, DNS, Wi-Fi, que no
   toca lo demás y que repetirlo no cambia nada.
+
+---
+
+## 10. Otra Mac: el DMG portátil (sin repos, sin internet al instalar)
+
+Para tener una **Mac de respaldo** (o que el nodo lo opere otra persona en su Mac) no hace falta
+clonar repos, instalar Homebrew ni tener internet: todo viaja en **un archivo**,
+`Nodo Camporee.dmg` (~0.9 GB).
+
+### 10.1 Qué trae el DMG
+
+La app «Nodo Camporee» y, dentro de ella:
+
+| Qué | Para qué |
+|---|---|
+| Los archivos del nodo (compose, Caddyfile, scripts de respaldo y certificado) | Lo mismo que copiaba `instalar.sh` |
+| Las imágenes de Docker ya construidas: API, sitio web, Postgres, Caddy y lego | El sistema completo, del mismo commit que producción (`docker load`, sin internet) |
+| Colima, Lima, Docker y Docker Compose (+ sus licencias) | Docker sin Homebrew ni Docker Desktop |
+| La imagen de la máquina virtual de Colima | Para crearla la primera vez sin descargar nada |
+
+**Sólo Macs con chip Apple (M1 o más nueva).** Una Mac **Intel** necesitaría otro paquete: imágenes
+`linux/amd64`, Colima/Lima/Docker para Intel y la imagen de máquina virtual amd64. `empaquetar.sh`
+hoy se niega a hacerlo (no hay una Mac Intel para probarlo); si se necesita, avisar al técnico.
+
+### 10.2 Hacer el DMG (técnico, en la Mac con los repos, con internet)
+
+```sh
+cd backend-repo                                   # en el MISMO commit que producción
+FRONTEND_DIR=../frontend ./nodo-evento/mac/empaquetar.sh --salida ~/Desktop
+```
+
+Construye las imágenes (exportándolas a archivo: no cambia las del nodo de esa Mac), copia las
+herramientas, firma todo con el Developer ID del propietario y, si existe el perfil
+`nodo-camporee`, lo **notariza** y lo grapa. Si no existe, avisa y deja el DMG firmado pero sin
+notarizar. Para crear el perfil (una sola vez, lo hace el propietario en su Terminal; pide la
+«contraseña específica de app» de su Apple ID, nadie más la ve):
+
+```sh
+xcrun notarytool store-credentials "nodo-camporee" --apple-id <correo-del-Apple-ID> --team-id K8KM5TV738
+```
+
+Rehacer el DMG cada vez que cambie la plataforma (como «Construir»).
+
+### 10.3 Pasarlo a la otra Mac
+
+- **AirDrop:** clic derecho sobre el DMG › Compartir › AirDrop. (Tarda unos minutos.)
+- **Memoria USB:** copiar el DMG a la memoria y de ahí al Escritorio de la otra Mac. Sirve la
+  `NODO-RESPALDO` (formato APFS o exFAT; en FAT32 no cabe un archivo de más de 4 GB, el DMG sí cabe).
+
+### 10.4 Instalar en la otra Mac (sin internet)
+
+1. Doble clic en `Nodo Camporee.dmg`. Se abre una ventana: **arrastra «Nodo Camporee» a
+   «Aplicaciones»**. Expulsa el DMG.
+2. Abre **Aplicaciones › Nodo Camporee** (no desde la ventana del DMG: ahí el botón «Instalar»
+   queda gris y la app lo dice).
+   - Si el DMG está **notarizado**, macOS sólo pregunta «¿Abrir?» → **Abrir**.
+   - Si **no** está notarizado, macOS dice que no puede verificarla: Ajustes del Sistema ›
+     **Privacidad y seguridad** › abajo, «Nodo Camporee» › **Abrir de todos modos** (una vez).
+3. Pulsa **Instalar** (2–5 min, sin internet). Copia los archivos del nodo a
+   `~/Library/Application Support/Nodo Camporee/`, deja Colima y Docker listos (si la Mac ya
+   tiene Colima de Homebrew, usa ése), crea la máquina de Docker «nodo» y carga el sistema.
+4. **Ajustes › Secretos** (§10.5) y **Certificado** (§10.6).
+5. **Encender**, y lo demás igual que en la Mac principal (§2.2 a §7). «Construir» no aparece
+   (no hay repos): para actualizar, se instala un DMG nuevo y se pulsa **Instalar** otra vez (los
+   datos, el certificado y los secretos se conservan).
+
+Si macOS pregunta por «conexiones entrantes» de **limactl** al encender, **Permitir** (§7).
+
+### 10.5 Secretos que hay que poner en la otra Mac
+
+Cada Mac guarda los suyos en su propio Llavero; no viajan en el DMG.
+
+| Secreto | ¿Hace falta? |
+|---|---|
+| **Secreto de los pases** (`EVENT_PASS_SECRET`) | **Sí, siempre.** El mismo de producción (del gestor de contraseñas del propietario). Sin él, los pases impresos no se leen |
+| **Conexión de producción** (`postgresql://…`) | Sólo si ESA Mac hará «Preparar evento» o «Subir resultados». Si es sólo de respaldo, **no** |
+| **Token de Cloudflare** | Sólo si en esa Mac se va a **sacar o renovar** el certificado. Si se copia de la Mac principal (§10.6), no |
+| Contraseña del Wi-Fi del evento | Opcional (QR «Conéctate al Wi-Fi», configurar router) |
+| Firma de sesiones, web↔API, base del nodo | Nada: la app los genera sola |
+
+Nunca por chat, correo, WhatsApp ni captura de pantalla: se teclean en la app desde el gestor de
+contraseñas.
+
+> Cada Mac tiene su propia firma de sesiones: si a mitad del evento se cambia de Mac, los jueces
+> vuelven a iniciar sesión (misma contraseña). Los datos capturados se pasan con el último respaldo
+> (`ultimo.dump` de la USB) y los restaura el técnico; las capturas en cola de los teléfonos se
+> reenvían solas.
+
+### 10.6 Copiar el certificado en vez de pedir otro
+
+El certificado de Let's Encrypt vale para cualquier Mac del nodo: **cópialo** de la Mac principal
+(no hace falta internet ni el token de Cloudflare, y no gasta solicitudes a Let's Encrypt).
+
+En la Mac principal, Finder › Ir › **Ir a la carpeta…** (⇧⌘G):
+`~/Library/Application Support/Nodo Camporee/nodo/tls/actual/` → copia `fullchain.pem` y
+`privkey.pem` (y `ca-local.pem` si se usa el plan B) a la memoria USB.
+
+En la otra Mac (después de «Instalar»), la misma carpeta con ⇧⌘G → pega los archivos. O en la
+Terminal:
+
+```sh
+D=~/Library/Application\ Support/Nodo\ Camporee/nodo/tls/actual
+mkdir -p "$D" && cp /Volumes/NODO-RESPALDO/fullchain.pem /Volumes/NODO-RESPALDO/privkey.pem "$D"/
+chmod 600 "$D/privkey.pem"
+```
+
+Luego **borra los `.pem` de la memoria USB**: `privkey.pem` es la llave del certificado. La tarjeta
+«Certificado» de la app se pone verde con la misma fecha de vencimiento que en la Mac principal.
+Con el plan B (CA local) copia también la carpeta `…/nodo/tls/ca-local/` si quieres emitir más
+certificados con la misma CA (los teléfonos ya confían en ella).
+
+### 10.7 Prueba hecha (15 oct 2026)
+
+En la Mac del propietario, simulando una Mac nueva: otra carpeta personal (`HOME` aparte, sin
+Colima, sin caché ni repos), el DMG marcado como descargado (cuarentena) e instalado en su propia
+carpeta de Aplicaciones; herramientas forzadas a «las de la app»; Llavero y LaunchAgents de prueba
+aparte. «Instalar» desde la app: copió el nodo y las herramientas, sembró la imagen de la máquina
+virtual (las descargas del lado de la Mac apuntaban a un proxy muerto) y cargó las 5 imágenes.
+Luego, con la máquina virtual **sin salida a internet** (iptables: sin DNS ni tráfico fuera de la
+red interna) se borraron las imágenes y se repitió «Instalar» (las volvió a cargar), certificado
+local, **Encender** → base, API, sitio y HTTPS sanos (`/nodo-salud`, `/auth/login`,
+`/api/v1/health` = 200, ENCENDIDO en verde) y **Apagar** (con su último respaldo). La
+configuración no tenía ninguna ruta de repos y «Construir» no apareció. `spctl`: firma válida,
+«Unnotarized Developer ID» (falta el perfil de notarización). No se probó en una Mac Intel ni con
+el router real.

@@ -16,6 +16,8 @@
 #   nodo-mac.sh autoarranque on|off
 #   nodo-mac.sh config json | config set CLAVE VALOR
 #   nodo-mac.sh registros [servicio]    últimas líneas de los registros
+#   nodo-mac.sh instalar                versión portátil (DMG): copia el nodo, las herramientas y
+#                                       carga las imágenes que trae la app (SIN internet)
 #
 # Secretos: NUNCA se leen de disco ni se escriben. La app los saca del Llavero de macOS y los pasa
 # por el entorno sólo a las órdenes que los necesitan (POSTGRES_PASSWORD, JWT_SECRET,
@@ -35,9 +37,20 @@ export BUILDX_BAKE_ENTITLEMENTS_FS=0
 APP_SUPPORT="${NODO_APP_SUPPORT:-$HOME/Library/Application Support/Nodo Camporee}"
 CONFIG="$APP_SUPPORT/config.env"
 VOLUMES_DIR="${NODO_VOLUMES_DIR:-/Volumes}"   # las pruebas pueden apuntar a otra carpeta
-AGENT_PREFIX="club.adventist.nodo-camporee"
+AGENT_PREFIX="${NODO_AGENT_PREFIX:-club.adventist.nodo-camporee}"   # las pruebas usan otro prefijo
 SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+RES_DIR="$(cd "$(dirname "$0")" && pwd)"   # Contents/Resources de la app (o mac/ del repo)
 mkdir -p "$APP_SUPPORT" && chmod 700 "$APP_SUPPORT"
+
+# Versión portátil (DMG, empaquetar.sh): la app trae dentro los archivos del nodo (nodo/), las
+# imágenes de Docker (imagenes/*.tar), Colima + Lima + Docker (herramientas/) y la imagen de la
+# máquina virtual. paquete.env (sin secretos) dice qué versión es. Sin él: instalación desde el repo.
+PAQUETE=0
+PAQUETE_VERSION=""; PAQUETE_ARCH=""; PAQUETE_BACKEND=""; PAQUETE_FRONTEND=""; PAQUETE_COLIMA=""
+PAQUETE_VM_CACHE=""; PAQUETE_VM_FILE=""; PAQUETE_IMAGENES=""
+# shellcheck disable=SC1091
+[ -f "$RES_DIR/paquete.env" ] && . "$RES_DIR/paquete.env" && PAQUETE=1
+HERR_DIR="$APP_SUPPORT/herramientas"   # copia de las herramientas de la app (rutas estables)
 
 # ---------------------------------------------------------------------------------------------
 # Configuración (sin secretos). Valores por defecto; config.env los sobreescribe.
@@ -68,9 +81,29 @@ RESPALDO_CADA_MIN="10"
 RESPALDO_LOCAL="$HOME/Nodo Camporee/Respaldos"
 USB_LABEL="NODO-RESPALDO"
 WEB_BUILD_ID="nodo-local"
+HERRAMIENTAS=""             # sistema (Homebrew u otro) | app (las que trae la app); lo fija «instalar»
 # shellcheck disable=SC1090
 [ -f "$CONFIG" ] && . "$CONFIG"
 RUN_DIR="$APP_SUPPORT/run"; mkdir -p "$RUN_DIR"
+
+# Herramientas: las del sistema si están completas; si no, las que trae la app (copiadas por
+# «instalar» a Application Support: así no dependen de dónde esté la app ni del DMG montado).
+sistema_completo() {
+  command -v colima >/dev/null 2>&1 && command -v limactl >/dev/null 2>&1 \
+    && command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1
+}
+usar_herramientas_app() {
+  export PATH="$HERR_DIR/bin:$PATH"
+  # Configuración de Docker propia: el plugin compose de la app y sus contextos, sin tocar ~/.docker.
+  export DOCKER_CONFIG="$APP_SUPPORT/docker"
+}
+HERR_EN_USO="faltan"
+case "${NODO_HERRAMIENTAS:-$HERRAMIENTAS}" in
+  app) [ -x "$HERR_DIR/bin/colima" ] && { usar_herramientas_app; HERR_EN_USO=app; } ;;
+  sistema) sistema_completo && HERR_EN_USO=sistema ;;
+  *) if sistema_completo; then HERR_EN_USO=sistema
+     elif [ -x "$HERR_DIR/bin/colima" ]; then usar_herramientas_app; HERR_EN_USO=app; fi ;;
+esac
 
 DOCKER_SOCK="$HOME/.colima/${COLIMA_PROFILE}/docker.sock"
 export DOCKER_HOST="unix://$DOCKER_SOCK"
@@ -92,7 +125,7 @@ jb() { [ "${1:-0}" = 1 ] && printf true || printf false; }
 config_set() {
   local key="$1" value="$2" tmp
   case "$key" in
-    NODO_DIR|FRONTEND_DIR|BACKEND_DIR|EVENTO_ID|ACTOR_EMAIL|NODO_LABEL|EVENTO_FIN|ROUTER_IP|IP_FIJA|MAC_FIJA|DOMINIOS|WIFI_SSID|LE_EMAIL|COLIMA_PROFILE|COLIMA_CPU|COLIMA_MEM|COLIMA_DISK|RESPALDO_CADA_MIN|RESPALDO_LOCAL|USB_LABEL|WEB_BUILD_ID) ;;
+    NODO_DIR|FRONTEND_DIR|BACKEND_DIR|EVENTO_ID|ACTOR_EMAIL|NODO_LABEL|EVENTO_FIN|ROUTER_IP|IP_FIJA|MAC_FIJA|DOMINIOS|WIFI_SSID|LE_EMAIL|COLIMA_PROFILE|COLIMA_CPU|COLIMA_MEM|COLIMA_DISK|RESPALDO_CADA_MIN|RESPALDO_LOCAL|USB_LABEL|WEB_BUILD_ID|HERRAMIENTAS) ;;
     *) fallo "clave de configuración desconocida: $key" ;;
   esac
   tmp="$(mktemp "$APP_SUPPORT/.config.XXXXXX")"
@@ -118,7 +151,10 @@ colima_running() { colima status --profile "$COLIMA_PROFILE" >/dev/null 2>&1; }
 
 start_colima() {
   if colima_running && docker_ok; then ok "Docker (Colima) ya estaba encendido"; return 0; fi
-  command -v colima >/dev/null || fallo "Falta Colima. Instálalo una vez con internet: brew install colima docker docker-compose"
+  if ! command -v colima >/dev/null; then
+    [ "$PAQUETE" = 1 ] && fallo "Faltan Colima y Docker: pulsa «Instalar» (vienen dentro de la app)."
+    fallo "Falta Colima. Instálalo una vez con internet: brew install colima docker docker-compose"
+  fi
   # colima cambia el «contexto» global de docker al perfil que arranca: se devuelve el anterior
   # para no alterar otros proyectos de esta Mac (el nodo usa DOCKER_HOST explícito).
   local prev_ctx; prev_ctx="$(DOCKER_HOST= docker context show 2>/dev/null || true)"
@@ -127,8 +163,11 @@ start_colima() {
     colima start --profile "$COLIMA_PROFILE" 2>&1 | sed 's/^/  /' | tail -5
   else
     say "Creando la máquina de Docker: ${COLIMA_CPU} CPU, ${COLIMA_MEM} GB, ${COLIMA_DISK} GB de disco…"
+    sembrar_imagen_vm
+    # NODO_COLIMA_EXTRA: sólo pruebas (p. ej. «--dns 192.0.2.1» para una máquina sin internet).
+    # shellcheck disable=SC2086
     colima start --profile "$COLIMA_PROFILE" --cpu "$COLIMA_CPU" --memory "$COLIMA_MEM" --disk "$COLIMA_DISK" \
-      --vm-type vz --mount-type virtiofs 2>&1 | sed 's/^/  /' | tail -5
+      --vm-type vz --mount-type virtiofs ${NODO_COLIMA_EXTRA:-} 2>&1 | sed 's/^/  /' | tail -5
   fi
   [ -n "$prev_ctx" ] && DOCKER_HOST= docker context use "$prev_ctx" >/dev/null 2>&1 || true
   local i; for i in $(seq 1 60); do docker_ok && break; sleep 2; done
@@ -167,8 +206,9 @@ dc_nosecrets() {
 }
 
 need_node_dir() {
-  [ -n "$NODO_DIR" ] && [ -f "$NODO_DIR/docker-compose.yml" ] \
-    || fallo "No encuentro la carpeta del nodo (nodo-evento/). Vuelve a correr instalar.sh."
+  [ -n "$NODO_DIR" ] && [ -f "$NODO_DIR/docker-compose.yml" ] && return 0
+  [ "$PAQUETE" = 1 ] && fallo "Falta instalar el nodo en esta Mac: pulsa «Instalar»."
+  fallo "No encuentro la carpeta del nodo (nodo-evento/). Vuelve a correr instalar.sh."
 }
 
 need_secrets() {
@@ -337,6 +377,8 @@ write_plist() {  # write_plist nombre <<< cuerpo (dentro de <dict>)
     printf '<?xml version="1.0" encoding="UTF-8"?>\n'
     printf '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n'
     printf '<plist version="1.0"><dict>\n<key>Label</key><string>%s.%s</string>\n' "$AGENT_PREFIX" "$1"
+    # La carpeta de datos y el prefijo viajan al agente (las pruebas usan otros, aparte del real).
+    printf '<key>EnvironmentVariables</key><dict><key>NODO_APP_SUPPORT</key><string>%s</string><key>NODO_AGENT_PREFIX</key><string>%s</string></dict>\n' "$(xml "$APP_SUPPORT")" "$(xml "$AGENT_PREFIX")"
     cat
     printf '</dict></plist>\n'
   } > "$(agent_plist "$1")"
@@ -388,7 +430,110 @@ EOF
 }
 
 # ---------------------------------------------------------------------------------------------
+# Versión portátil: «Instalar» (sin internet, sin los repos)
+imagenes_completas() {  # ¿están todas las imágenes que necesita el nodo?
+  local lista="${PAQUETE_IMAGENES:-nodo-evento-api:local nodo-evento-web:local postgres:16-alpine caddy:2.10-alpine}"
+  # shellcheck disable=SC2086
+  docker image inspect $lista >/dev/null 2>&1
+}
+
+instalacion_pendiente() {  # imprime el motivo y devuelve 0 si falta «Instalar»
+  [ "$PAQUETE" = 1 ] || return 1
+  if [ -z "$NODO_DIR" ] || [ ! -f "$NODO_DIR/docker-compose.yml" ]; then printf 'primera vez'; return 0; fi
+  if [ "$HERR_EN_USO" = faltan ]; then printf 'faltan Colima y Docker'; return 0; fi
+  local inst=""; [ -f "$APP_SUPPORT/instalado" ] && inst="$(cat "$APP_SUPPORT/instalado")"
+  if [ "$inst" != "$PAQUETE_VERSION" ]; then printf 'versión nueva de la app'; return 0; fi
+  return 1
+}
+
+sembrar_imagen_vm() {
+  # Colima descarga la imagen de su máquina virtual la primera vez. La app trae esa misma imagen:
+  # se deja en la caché de Colima con el nombre que Colima busca y así no hace falta internet.
+  [ "$PAQUETE" = 1 ] && [ -n "$PAQUETE_VM_CACHE" ] || return 0
+  local src="$RES_DIR/herramientas/vm/$PAQUETE_VM_FILE" cache="$HOME/Library/Caches/colima/caches"
+  [ -s "$src" ] || return 0
+  local ver; ver="$(colima version 2>/dev/null | awk '/^colima version/{print $3}')"
+  if [ -n "$PAQUETE_COLIMA" ] && [ "$ver" != "$PAQUETE_COLIMA" ]; then
+    aviso "Colima $ver no es la versión de la app ($PAQUETE_COLIMA): la primera vez puede necesitar internet"
+    return 0
+  fi
+  [ -s "$cache/$PAQUETE_VM_CACHE" ] && return 0
+  if mkdir -p "$cache" && cp "$src" "$cache/.$PAQUETE_VM_CACHE.tmp" && mv "$cache/.$PAQUETE_VM_CACHE.tmp" "$cache/$PAQUETE_VM_CACHE"; then
+    say "Imagen de la máquina virtual lista (copiada de la app, sin descargar)"
+  else
+    aviso "No pude copiar la imagen de la máquina virtual"
+  fi
+}
+
+cargar_imagenes() {  # docker load de las imágenes que trae la app (local: no usa internet)
+  local d="$RES_DIR/imagenes" f out n=0
+  [ -d "$d" ] || fallo "Esta app no trae las imágenes del sistema."
+  if [ "$(cat "$RUN_DIR/imagenes-cargadas" 2>/dev/null)" = "$PAQUETE_VERSION" ] && imagenes_completas; then
+    ok "Las imágenes de esta versión ya estaban cargadas"; return 0
+  fi
+  for f in "$d"/*.tar; do
+    [ -f "$f" ] || continue
+    say "Cargando $(basename "$f" .tar) ($(du -h "$f" | cut -f1 | tr -d ' '))…"
+    out="$(docker load -i "$f" 2>&1)" || { printf '%s\n' "$out" | tail -5; fallo "No se pudo cargar $(basename "$f")"; }
+    printf '%s\n' "$out" | grep -E '^Loaded image' | sed 's/^/  /'
+    n=$((n + 1))
+  done
+  imagenes_completas || fallo "Después de cargar faltan imágenes (${PAQUETE_IMAGENES})"
+  printf '%s' "$PAQUETE_VERSION" > "$RUN_DIR/imagenes-cargadas"
+  ok "Sistema cargado ($n archivos; web ${PAQUETE_FRONTEND:-?} · API ${PAQUETE_BACKEND:-?})"
+}
+
+cmd_instalar() {
+  [ "$PAQUETE" = 1 ] || fallo "Esta app no trae el paquete portátil (se instaló desde el repo con instalar.sh)."
+  if [ "$(uname -m)" != "${PAQUETE_ARCH:-arm64}" ]; then
+    fallo "Esta app es para Macs ${PAQUETE_ARCH:-arm64} y esta Mac es $(uname -m) (ver README: Macs Intel)."
+  fi
+  local total=5 runtime="$APP_SUPPORT/nodo"
+  paso "1/$total Copiando los archivos del nodo"
+  # ditto mezcla: actualiza compose, Caddyfile y scripts; NO toca datos/, tls/actual ni tls/letsencrypt.
+  mkdir -p "$runtime" && ditto "$RES_DIR/nodo" "$runtime" || fallo "No pude copiar los archivos del nodo a $runtime"
+  chmod 755 "$runtime/nodo.sh" "$runtime/respaldo/respaldo.sh" "$runtime"/tls/*.sh 2>/dev/null
+  config_set NODO_DIR "$runtime"; NODO_DIR="$runtime"
+  ok "Archivos del nodo en $runtime"
+
+  paso "2/$total Herramientas (Colima y Docker)"
+  if [ "${NODO_HERRAMIENTAS:-$HERRAMIENTAS}" != app ] && sistema_completo; then
+    config_set HERRAMIENTAS sistema; HERR_EN_USO=sistema
+    ok "Se usan Colima y Docker que ya tiene esta Mac (Colima $(colima version 2>/dev/null | awk '/^colima version/{print $3}'))"
+  else
+    [ -x "$RES_DIR/herramientas/bin/colima" ] || fallo "La app no trae Colima/Docker y esta Mac no los tiene. Con internet: brew install colima docker docker-compose"
+    rm -rf "$HERR_DIR.nuevo" && mkdir -p "$HERR_DIR.nuevo" \
+      && ditto "$RES_DIR/herramientas/bin" "$HERR_DIR.nuevo/bin" \
+      && ditto "$RES_DIR/herramientas/share" "$HERR_DIR.nuevo/share" \
+      && ditto "$RES_DIR/herramientas/licencias" "$HERR_DIR.nuevo/licencias" \
+      || fallo "No pude copiar las herramientas a $HERR_DIR"
+    # Copiadas por la app (que macOS ya verificó al abrirla): sin la marca de «descargado».
+    xattr -dr com.apple.quarantine "$HERR_DIR.nuevo" 2>/dev/null || true
+    rm -rf "$HERR_DIR" && mv "$HERR_DIR.nuevo" "$HERR_DIR"
+    mkdir -p "$APP_SUPPORT/docker/cli-plugins"
+    ln -sfn "$HERR_DIR/bin/docker-compose" "$APP_SUPPORT/docker/cli-plugins/docker-compose"
+    [ -f "$APP_SUPPORT/docker/config.json" ] || printf '{}\n' > "$APP_SUPPORT/docker/config.json"
+    config_set HERRAMIENTAS app; HERR_EN_USO=app
+    usar_herramientas_app
+    docker compose version >/dev/null 2>&1 || fallo "Docker Compose de la app no responde"
+    ok "Colima $(colima version 2>/dev/null | awk '/^colima version/{print $3}') y Docker de la app listos (sin Homebrew)"
+  fi
+
+  paso "3/$total Encendiendo Docker (la primera vez crea la máquina virtual: 1–3 min)"
+  start_colima
+
+  paso "4/$total Cargando el sistema (sin internet; 1–3 min)"
+  cargar_imagenes
+
+  paso "5/$total Terminando"
+  mkdir -p "$RESPALDO_LOCAL" 2>/dev/null || true
+  printf '%s' "$PAQUETE_VERSION" > "$APP_SUPPORT/instalado"
+  ok "Instalado (versión $PAQUETE_VERSION). Siguiente: Secretos, certificado y «Encender»."
+}
+
+# ---------------------------------------------------------------------------------------------
 cmd_encender() {
+  local motivo; motivo="$(instalacion_pendiente)" && fallo "Falta instalar ($motivo): pulsa «Instalar»."
   need_node_dir
   need_secrets
   local total=7 free_gb
@@ -400,8 +545,11 @@ cmd_encender() {
   paso "2/$total Encendiendo Docker"
   start_colima
   paso "3/$total Revisando el sistema instalado"
-  docker image inspect "nodo-evento-api:local" "nodo-evento-web:local" >/dev/null 2>&1 \
-    || fallo "Falta construir el sistema (Ajustes › «Construir», con internet, una sola vez)."
+  if ! docker image inspect "nodo-evento-api:local" "nodo-evento-web:local" >/dev/null 2>&1; then
+    # Versión portátil: las imágenes vienen en la app (p. ej. si se borró la máquina de Docker).
+    if [ "$PAQUETE" = 1 ]; then cargar_imagenes
+    else fallo "Falta construir el sistema (Ajustes › «Construir», con internet, una sola vez)."; fi
+  fi
   [ -s "$NODO_DIR/tls/actual/fullchain.pem" ] && [ -s "$NODO_DIR/tls/actual/privkey.pem" ] \
     || fallo "Falta el certificado HTTPS (botón «Certificado»)."
   mkdir -p "$NODO_DIR/datos/media" "$NODO_DIR/datos/exports" "$RESPALDO_LOCAL" || fallo "No puedo crear $RESPALDO_LOCAL"
@@ -451,8 +599,13 @@ cmd_apagar() {
   ok "Nodo apagado"
 }
 
+puede_construir() {
+  [ -n "$BACKEND_DIR" ] && [ -f "$BACKEND_DIR/requirements.txt" ] && [ -n "$FRONTEND_DIR" ] && [ -f "$FRONTEND_DIR/package.json" ]
+}
+
 cmd_construir() {
   need_node_dir
+  puede_construir || fallo "«Construir» necesita los repos (backend y frontend) en esta Mac. La versión portátil ya trae el sistema: usa «Instalar»."
   [ -d "$BACKEND_DIR" ] || fallo "No encuentro el backend en $BACKEND_DIR"
   [ -d "$FRONTEND_DIR" ] || fallo "No encuentro el frontend en $FRONTEND_DIR (FRONTEND_DIR en la configuración)"
   paso "1/3 Encendiendo Docker"
@@ -718,6 +871,13 @@ cmd_estado() {
   printf '"telefonos":{"ips_10min":%s,"peticiones_10min":%s},' "$phones" "$reqs"
   printf '"energia":{"bateria":%s,"porcentaje":%s,"despierto":%s},' "$(jb $on_batt)" "${pct:-null}" "$(jb $awake)"
   printf '"disco_libre_gb":%s,"firewall":%s,"autoarranque":%s,' "${free_gb:-0}" "$(jb "$fw")" "$(jb $autostart)"
+  local pend=0 motivo="" inst="" constr=0
+  motivo="$(instalacion_pendiente)" && pend=1
+  if [ "$PAQUETE" = 1 ] && [ $docker_up = 1 ] && [ $imgs = 0 ]; then pend=1; motivo="${motivo:-faltan las imágenes}"; fi
+  [ -f "$APP_SUPPORT/instalado" ] && inst="$(cat "$APP_SUPPORT/instalado")"
+  puede_construir && constr=1
+  printf '"instalacion":{"paquete":%s,"pendiente":%s,"motivo":%s,"version_paquete":%s,"version_instalada":%s,"herramientas":%s,"puede_construir":%s},' \
+    "$(jb $PAQUETE)" "$(jb $pend)" "$(json_str "$motivo")" "$(json_str "$PAQUETE_VERSION")" "$(json_str "$inst")" "$(json_str "$HERR_EN_USO")" "$(jb $constr)"
   printf '"config":%s' "$(config_json)"
   printf '}\n'
 }
@@ -767,5 +927,6 @@ case "${1:-}" in
   config) shift; case "${1:-}" in json) config_json; echo ;; set) config_set "$2" "${3-}"; ok "guardado: $2" ;; *) fallo "uso: config json|set CLAVE VALOR" ;; esac ;;
   registros) shift; cmd_registros "$@" ;;
   ver-sitio) cmd_ver_sitio ;;
-  *) sed -n '2,24p' "$0"; exit 2 ;;
+  instalar) cmd_instalar ;;
+  *) sed -n '2,26p' "$0"; exit 2 ;;
 esac

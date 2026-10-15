@@ -232,6 +232,7 @@ struct Principal: View {
             guard let a = n.object as? String else { return }
             if a.hasPrefix("hoja:"), let h = Hoja(rawValue: String(a.dropFirst(5))) { hoja = h }
             else if a == "cerrar" { hoja = nil }
+            else if a == "instalar" { motor.correr(["instalar"], titulo: "Instalando el nodo") }
             else if a == "encender" { motor.correr(["encender"], titulo: "Encendiendo el nodo") }
             else if a == "apagar" { motor.correr(["apagar"], titulo: "Apagando el nodo") }
             else if a.hasPrefix("motor:") { motor.correr(a.dropFirst(6).split(separator: " ").map(String.init), titulo: "Prueba: \(a.dropFirst(6))") }
@@ -278,9 +279,16 @@ struct Principal: View {
         return (.gris, "APAGADO")
     }
 
+    var porInstalar: Bool { e?.instalacion?.pendiente ?? false }
+
     var botones: some View {
         HStack(spacing: 16) {
-            if encendido {
+            if porInstalar && !encendido {
+                BotonGrande(titulo: "Instalar", icono: "shippingbox.fill", color: Color(red: 0.16, green: 0.33, blue: 0.62),
+                            deshabilitado: motor.ocupado || Ubicacion.provisional) {
+                    motor.correr(["instalar"], titulo: "Instalando el nodo")
+                }
+            } else if encendido {
                 BotonGrande(titulo: "Apagar", icono: "stop.circle.fill", color: Luz.rojo.color, deshabilitado: motor.ocupado) {
                     confirmarApagar = true
                 }
@@ -332,6 +340,12 @@ struct Principal: View {
         guard let e else { return Tarjeta(luz: .gris, titulo: "Nodo", detalle: "…") }
         let s = e.servicios
         let det = "Base \(trad(s.db)) · API \(trad(s.api)) · Sitio \(trad(s.web)) · HTTPS \(trad(s.caddy))"
+        if let i = e.instalacion, i.pendiente {
+            return Tarjeta(luz: .rojo, titulo: "Falta instalar",
+                           detalle: Ubicacion.provisional
+                               ? "Primero arrastra «Nodo Camporee» a la carpeta Aplicaciones y ábrela desde ahí."
+                               : "Pulsa «Instalar» (\(i.motivo)). No necesita internet: todo viene dentro de la app.")
+        }
         if !e.docker { return Tarjeta(luz: .gris, titulo: "Nodo apagado", detalle: "Docker (Colima) apagado. Pulsa «Encender».") }
         if !e.imagenes { return Tarjeta(luz: .rojo, titulo: "Falta construir", detalle: "Ajustes › Construir (con internet, una vez).", accion: ("Abrir ajustes", { hoja = .ajustes })) }
         if e.nodoSano { return Tarjeta(luz: .verde, titulo: "Sitio, API y base funcionando", detalle: det) }
@@ -771,11 +785,22 @@ struct HojaAjustes: View {
             }
             GroupBox("Mantenimiento") {
                 HStack(spacing: 10) {
-                    Button("Construir / actualizar (con internet)") { motor.correr(["construir"], titulo: "Construyendo el sistema") }
+                    // «Construir» sólo si esta Mac tiene los repos; la versión portátil se reinstala desde la app.
+                    if motor.estado?.instalacion?.puede_construir ?? true {
+                        Button("Construir / actualizar (con internet)") { motor.correr(["construir"], titulo: "Construyendo el sistema") }
+                    }
+                    if motor.estado?.instalacion?.paquete == true {
+                        Button("Volver a instalar (sin internet)") { motor.correr(["instalar"], titulo: "Instalando el nodo") }
+                            .disabled(Ubicacion.provisional)
+                    }
                     Button("Registros") { motor.correr(["registros"], titulo: "Registros") }
                     Button("Carpeta de respaldos") { NSWorkspace.shared.open(URL(fileURLWithPath: motor.cfg("RESPALDO_LOCAL"))) }
                     Button("Revisar DNS") { motor.correr(["router-revisar"], titulo: "Revisando el DNS del router") }
                 }.disabled(motor.ocupado).padding(6)
+            }
+            if let i = motor.estado?.instalacion, i.paquete {
+                Text("Versión portátil \(i.version_paquete) · instalada: \(i.version_instalada.isEmpty ? "—" : i.version_instalada) · Colima y Docker: \(i.herramientas == "app" ? "los de la app" : (i.herramientas == "sistema" ? "los de esta Mac" : "faltan"))")
+                    .font(.system(size: 12)).foregroundStyle(.secondary)
             }
             if motor.estado?.firewall == true {
                 Text("Firewall de macOS activo. Si al encender macOS pregunta «¿Permitir conexiones entrantes?» para limactl/ssh, elige «Permitir». Si un teléfono no entra: Ajustes del Sistema › Red › Firewall › Opciones… y deja «limactl» en «Permitir conexiones entrantes».")

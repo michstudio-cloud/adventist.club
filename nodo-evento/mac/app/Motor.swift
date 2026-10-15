@@ -20,6 +20,12 @@ struct Estado: Decodable {
     }
     struct Telefonos: Decodable { let ips_10min, peticiones_10min: Int }
     struct Energia: Decodable { let bateria: Bool; let porcentaje: Int?; let despierto: Bool }
+    /// Versión portátil (DMG): si falta «Instalar» y si «Construir» tiene sentido (repos presentes).
+    struct Instalacion: Decodable {
+        let paquete, pendiente: Bool
+        let motivo, version_paquete, version_instalada, herramientas: String
+        let puede_construir: Bool
+    }
 
     let ahora: Double
     let docker, colima, imagenes: Bool
@@ -33,6 +39,7 @@ struct Estado: Decodable {
     let energia: Energia
     let disco_libre_gb: Int
     let firewall, autoarranque: Bool
+    let instalacion: Instalacion?
     let config: [String: String]
 
     var nodoArriba: Bool { ["healthy", "running"].contains(servicios.caddy) && ["healthy"].contains(servicios.db) }

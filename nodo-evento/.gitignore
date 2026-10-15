@@ -4,3 +4,6 @@ respaldos/
 tls/actual/
 tls/letsencrypt/
 tls/ca-local/
+dist/
+*.dmg
+*.dmg.sha256

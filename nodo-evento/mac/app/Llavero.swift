@@ -48,7 +48,8 @@ enum Secreto: String, CaseIterable, Identifiable {
 /// la firma de esta app y sobrevive a reinstalaciones sin que macOS vuelva a preguntar. Los valores
 /// viajan por tuberías (stdin/stdout), nunca como argumentos (no aparecen en `ps`).
 enum Llavero {
-    static let servicio = "club.adventist.nodo-camporee"
+    // NODO_LLAVERO_SERVICIO: sólo pruebas (secretos aparte de los reales de esta Mac).
+    static let servicio = ProcessInfo.processInfo.environment["NODO_LLAVERO_SERVICIO"] ?? "club.adventist.nodo-camporee"
 
     @discardableResult
     private static func security(_ args: [String], entrada: String? = nil) -> (Int32, Data) {
