@@ -1,0 +1,7 @@
+Total number of apps = 2 
+
+1 : /Users/USUARIO/Applications/Nodo Camporee.app 
+ 			 (Allow incoming connections) 
+
+2 : /opt/homebrew/Cellar/lima/2.2.0/bin/limactl 
+ 			 (Allow incoming connections) 

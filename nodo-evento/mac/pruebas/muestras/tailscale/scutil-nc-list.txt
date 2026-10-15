@@ -1,0 +1,2 @@
+Available network connection services in the current set (*=enabled):
+* (Connected)      0E3C2D1B-AAAA-BBBB-CCCC-DDDDEEEEFFFF VPN (io.tailscale.ipn.macsys) "Tailscale"                   [VPN/io.tailscale.ipn.macsys]

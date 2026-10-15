@@ -7,6 +7,15 @@
 #   herramientas/  colima + limactl + docker + docker-compose (sin Homebrew), share/lima, licencias
 #                  y la imagen de la máquina virtual de Colima (vm/), para crearla sin descargar
 #   paquete.env    versión del paquete (sin secretos)
+#   imagenes.json  v3: manifiesto de las imágenes (una por archivo .tar.gz, con su Id y sha256): la
+#                  app sólo carga las que cambiaron y la actualización «ligera» las baja de internet
+#
+# Además (v3, actualizaciones con Sparkle) deja en <salida>/actualizaciones/:
+#   Nodo-Camporee-<build>.zip   la app LIGERA (sin imágenes ni herramientas), firmada y notarizada
+#   appcast.xml                 firmado con la llave EdDSA del Llavero (generate_appcast, cuenta
+#                               «nodo-camporee»), con deltas si hay versiones anteriores en la carpeta
+#   imagenes/<versión>/         los .tar.gz de las imágenes (sólo se suben si esa versión es nueva)
+# y publicar-actualizacion.sh los sube (cuando el propietario da las credenciales).
 #
 # Uso (en la Mac del propietario, CON internet, con Colima/Docker de Homebrew):
 #   FRONTEND_DIR=/ruta/al/frontend ./nodo-evento/mac/empaquetar.sh [--salida DIR] [--sin-notarizar]
@@ -30,6 +39,7 @@ NOTARIO="${NODO_NOTARIO:-nodo-camporee}"
 BUILD_PROFILE="${NODO_BUILD_PROFILE:-nodo}"
 SALIDA="$REPO/dist"
 NOTARIZAR=1
+BASE_URL="${NODO_ACTUALIZACIONES_URL:-https://media.adventist.club/nodo}"
 while [ $# -gt 0 ]; do
   case "$1" in
     --salida) SALIDA="$2"; shift 2 ;;
@@ -57,6 +67,9 @@ FE_SHA="$(git -C "$FRONTEND_DIR" rev-parse --short HEAD)"
 [ -z "$(git -C "$REPO" status --porcelain -- backend nodo-evento)" ] || echo "AVISO: el backend tiene cambios sin commit (se empaqueta tal cual)"
 [ -z "$(git -C "$FRONTEND_DIR" status --porcelain)" ] || echo "AVISO: el frontend tiene cambios sin commit (se empaqueta tal cual)"
 VERSION="$(date +%Y%m%d.%H%M)-${BE_SHA}-${FE_SHA}"
+# Sparkle compara CFBundleVersion: un número que siempre crece (commits del repo).
+BUILD="${NODO_BUILD:-$(git -C "$REPO" rev-list --count HEAD)}"
+CORTA="${NODO_VERSION_CORTA:-3.0.$BUILD}"
 echo "Paquete $VERSION · backend $BE_SHA · frontend $FE_SHA · $ARCH"
 
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/nodo-paquete.XXXXXX")"
@@ -88,13 +101,39 @@ docker buildx build --builder default --platform "$PLAT" --progress plain \
   --output "type=docker,dest=$IMG/3-web.tar" "$FRONTEND_DIR" 2>&1 | grep -E '^#[0-9]+ (DONE|ERROR|CACHED)|ERROR' | tail -3
 [ -s "$IMG/3-web.tar" ] || falla "no se construyó la imagen web"
 BASES="postgres:16-alpine caddy:2.10-alpine goacme/lego:v4.26.0"
+n=1
 for b in $BASES; do
   docker image inspect "$b" >/dev/null 2>&1 || docker pull -q --platform "$PLAT" "$b" >/dev/null || falla "no pude descargar $b"
+  # Una imagen por archivo: si sólo cambia una, la actualización baja sólo ésa.
+  docker save --platform "$PLAT" -o "$IMG/1-$n-$(printf '%s' "${b%%:*}" | tr '/' '-').tar" "$b" || falla "docker save de $b"
+  n=$((n + 1))
 done
-# shellcheck disable=SC2086
-docker save --platform "$PLAT" -o "$IMG/1-base.tar" $BASES || falla "docker save de las imágenes base"
-chmod 644 "$IMG"/*.tar
+# Manifiesto: Id de cada imagen (lo que decide si hay que cargarla) y sha256 del .tar.gz.
+# Id que tendrá la imagen al cargarla: con el almacén de containerd (Docker reciente) es el digest
+# de index.json; con el almacén clásico, el de la configuración. Se guardan los dos.
+id_en_tar() { tar -xOf "$1" index.json 2>/dev/null | python3 -c 'import json,sys;print(json.load(sys.stdin)["manifests"][0]["digest"])' 2>/dev/null || echo ""; }
+config_en_tar() { tar -xOf "$1" manifest.json | python3 -c 'import json,sys;print(json.load(sys.stdin)[0]["Config"].split("/")[-1].replace(".json",""))'; }
+tag_en_tar() { tar -xOf "$1" manifest.json | python3 -c 'import json,sys;print(json.load(sys.stdin)[0]["RepoTags"][0])'; }
+LINEAS=""
+for f in "$IMG"/*.tar; do
+  cfg="sha256:$(config_en_tar "$f")"; id="$(id_en_tar "$f")"; [ -n "$id" ] || id="$cfg"; tag="$(tag_en_tar "$f")"
+  gzip -n -6 "$f"
+  LINEAS="$LINEAS$(basename "$f").gz|$tag|$id|$(shasum -a 256 "$f.gz" | cut -d' ' -f1)|$(stat -f %z "$f.gz")|$cfg"$'\n'
+done
+IMG_VER="$(printf '%s' "$LINEAS" | awk -F'|' 'NF{print $2 "=" $3}' | sort | shasum -a 256 | cut -c1-12)"
+printf '%s' "$LINEAS" | python3 -c '
+import json, sys
+ver = sys.argv[1]
+arch = []
+for l in sys.stdin.read().splitlines():
+    if not l.strip(): continue
+    n, img, i, sha, tam, cfg = l.split("|")
+    arch.append({"nombre": n, "imagen": img, "id": i, "config": cfg, "sha256": sha, "tam": int(tam)})
+json.dump({"version": ver, "archivos": arch}, open(sys.argv[2], "w"), indent=1)
+' "$IMG_VER" "$WORK/imagenes.json"
+chmod 644 "$IMG"/*.tar.gz
 ls -lh "$IMG" | awk 'NR>1{print "   " $5 "  " $9}'
+echo "   versión de las imágenes: $IMG_VER"
 
 # --- 2. Herramientas (Colima, Lima, Docker) -------------------------------------------------------
 paso "2/6 Colima, Lima y Docker (sin Homebrew en la otra Mac)"
@@ -147,7 +186,7 @@ du -sh "$HERR"/bin/* "$HERR/vm/$VM_FILE" | awk '{print "   " $1 "  " $2}' | sed 
 paso "3/6 App"
 STAGE="$WORK/dmg"; mkdir -p "$STAGE"
 APP="$STAGE/$APP_NAME.app"
-"$MAC_DIR/construir-app.sh" "$APP" "1.1" "$VERSION"
+"$MAC_DIR/construir-app.sh" "$APP" "$CORTA" "$BUILD"
 RES="$APP/Contents/Resources"
 mkdir -p "$RES/nodo/respaldo" "$RES/nodo/tls"
 for f in docker-compose.yml Caddyfile nodo.sh .env.example api.Dockerfile api.Dockerfile.dockerignore web.Dockerfile web.Dockerfile.dockerignore; do
@@ -156,6 +195,8 @@ done
 chmod 755 "$RES/nodo/nodo.sh"
 install -m 755 "$NODO_SRC/respaldo/respaldo.sh" "$RES/nodo/respaldo/respaldo.sh"
 install -m 755 "$NODO_SRC/tls/ca-local.sh" "$NODO_SRC/tls/certificado-letsencrypt.sh" "$RES/nodo/tls/"
+mkdir -p "$RES/nodo/bloqueos" && install -m 644 "$NODO_SRC/bloqueos/bloqueados.caddy" "$RES/nodo/bloqueos/"
+install -m 644 "$WORK/imagenes.json" "$RES/imagenes.json"
 mkdir -p "$RES/nodo/portal" && install -m 644 "$NODO_SRC/portal/bienvenida.html" "$RES/nodo/portal/"
 mv "$IMG" "$RES/imagenes"
 mv "$HERR" "$RES/herramientas"
@@ -168,24 +209,18 @@ mv "$HERR" "$RES/herramientas"
   printf 'PAQUETE_VM_CACHE=%q\n' "$VM_CACHE"
   printf 'PAQUETE_VM_FILE=%q\n' "$VM_FILE"
   printf 'PAQUETE_IMAGENES=%q\n' "nodo-evento-api:local nodo-evento-web:local $BASES"
+  printf 'PAQUETE_IMAGENES_VERSION=%q\n' "$IMG_VER"
 } > "$RES/paquete.env"
 
-# --- 4. Firma (de adentro hacia afuera) ----------------------------------------------------------
+# --- 4. Firma (de adentro hacia afuera) + app LIGERA para las actualizaciones --------------------
 paso "4/6 Firma: $IDENT"
-ENT="$WORK/limactl.entitlements"
-# Mínimo: limactl crea la máquina virtual con Virtualization.framework.
-cat > "$ENT" <<'XML'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-  <key>com.apple.security.virtualization</key><true/>
-</dict></plist>
-XML
-firmar() { codesign --force --options runtime --timestamp -s "$IDENT" "$@"; }
-for b in colima docker docker-compose; do firmar "$RES/herramientas/bin/$b"; done
-firmar --entitlements "$ENT" "$RES/herramientas/bin/limactl"
-firmar "$APP"
-codesign --verify --strict --deep -v "$APP" 2>&1 | tail -2
+# La app ligera (actualización de Sparkle): la misma, SIN imágenes ni herramientas (unos MB). Las
+# imágenes se cargan de la caché de la Mac o se bajan por versión (imagenes.json).
+LIGERA_DIR="$WORK/ligera"; mkdir -p "$LIGERA_DIR"
+ditto "$APP" "$LIGERA_DIR/$APP_NAME.app"
+rm -rf "$LIGERA_DIR/$APP_NAME.app/Contents/Resources/imagenes" "$LIGERA_DIR/$APP_NAME.app/Contents/Resources/herramientas"
+"$MAC_DIR/firmar-app.sh" "$APP" "$IDENT"
+"$MAC_DIR/firmar-app.sh" "$LIGERA_DIR/$APP_NAME.app" "$IDENT"
 codesign -d --entitlements - "$RES/herramientas/bin/limactl" 2>/dev/null | grep -q virtualization || falla "limactl sin el permiso de virtualización"
 
 # --- 5. DMG ----------------------------------------------------------------------------------------
@@ -232,6 +267,30 @@ y después vuelve a correr este script (o sólo notariza el DMG ya hecho):
   xcrun notarytool submit "$DMG" --keychain-profile "$NOTARIO" --wait && xcrun stapler staple "$DMG"
 TXT
 fi
+# --- 7. Actualización (Sparkle): app ligera notarizada + appcast firmado ---------------------------
+ACT="$SALIDA/actualizaciones"; mkdir -p "$ACT/imagenes/$IMG_VER"
+ZIP="$ACT/Nodo-Camporee-$BUILD.zip"
+if [ "$NOTARIZADO" != "NO" ]; then
+  ditto -c -k --keepParent "$LIGERA_DIR/$APP_NAME.app" "$WORK/ligera.zip"
+  xcrun notarytool submit "$WORK/ligera.zip" --keychain-profile "$NOTARIO" --wait >/dev/null || falla "no se pudo notarizar la app ligera"
+  xcrun stapler staple "$LIGERA_DIR/$APP_NAME.app" >/dev/null
+fi
+rm -f "$ZIP"; ditto -c -k --sequesterRsrc --keepParent "$LIGERA_DIR/$APP_NAME.app" "$ZIP"
+for f in "$RES"/imagenes/*.tar.gz; do cp -c "$f" "$ACT/imagenes/$IMG_VER/" 2>/dev/null || cp "$f" "$ACT/imagenes/$IMG_VER/"; done
+cp "$WORK/imagenes.json" "$ACT/imagenes/$IMG_VER/imagenes.json"
+SPARKLE="$("$MAC_DIR/obtener-sparkle.sh")"
+# La llave privada EdDSA vive en el Llavero (cuenta «nodo-camporee»): la primera vez macOS pregunta
+# si generate_appcast puede usarla → «Permitir siempre» (lo pulsa el propietario). O bien
+# NODO_ED_CLAVE_ARCHIVO=<archivo exportado con generate_keys -x> (borrarlo después).
+CLAVE_ARGS=(--account nodo-camporee); [ -n "${NODO_ED_CLAVE_ARCHIVO:-}" ] && CLAVE_ARGS=(--ed-key-file "$NODO_ED_CLAVE_ARCHIVO")
+APPCAST=(perl -e 'alarm 180; exec @ARGV' "$SPARKLE/bin/generate_appcast" "${CLAVE_ARGS[@]}" --download-url-prefix "$BASE_URL/" \
+  --maximum-deltas 3 -o "$ACT/appcast.xml" "$ACT")
+if ! "${APPCAST[@]}" >/dev/null 2>&1; then
+  echo "AVISO: no se pudo firmar el appcast (¿macOS pidió permiso para la llave y nadie lo dio?)."
+  echo "       El propietario lo genera con:  $SPARKLE/bin/generate_appcast --account nodo-camporee --download-url-prefix $BASE_URL/ -o \"$ACT/appcast.xml\" \"$ACT\""
+fi
+echo "   actualización: $(basename "$ZIP") ($(du -h "$ZIP" | cut -f1 | tr -d ' ')) · imágenes $IMG_VER · appcast: $([ -s "$ACT/appcast.xml" ] && echo "$ACT/appcast.xml" || echo FALTA)"
+
 shasum -a 256 "$DMG" | awk '{print $1}' > "$DMG.sha256"
 echo
 echo "Listo: $DMG ($(du -h "$DMG" | cut -f1 | tr -d ' ')) · versión $VERSION · notarizado: $NOTARIZADO"

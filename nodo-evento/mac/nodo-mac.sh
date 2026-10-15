@@ -115,6 +115,14 @@ USB_LABEL="NODO-RESPALDO"
 WEB_BUILD_ID="nodo-local"
 HERRAMIENTAS=""             # sistema (Homebrew u otro) | app (las que trae la app); lo fija «instalar»
 ROUTER_IP_OTRO=""          # IP del router en «Otro router» (OpenWrt/MikroTik); vacío = la puerta de enlace
+# «Puerta» (v3): la app escucha en :80/:443 y pasa a Caddy la IP REAL de cada teléfono (protocolo
+# PROXY); Colima publica sólo en 127.0.0.1:PUERTO_INTERNO_*. PUERTA=0 = como antes (Colima publica
+# 80/443 en toda la red y todos los teléfonos se ven con una sola IP).
+PUERTA="1"
+PUERTO_INTERNO_HTTP="8080"
+PUERTO_INTERNO_HTTPS="8443"
+# Actualizaciones (Sparkle): las imágenes de Docker se versionan aparte (sólo se descargan si cambian).
+IMAGENES_URL="https://media.adventist.club/nodo/imagenes"
 # shellcheck disable=SC1090
 [ -f "$CONFIG" ] && . "$CONFIG"
 # media.adventist.club (logos e imágenes copiados al preparar) siempre va al nodo, también con
@@ -235,6 +243,16 @@ compose_env_file() {
     printf 'RESPALDO_CADA_MIN=%s\n' "$RESPALDO_CADA_MIN"
     printf 'RESPALDO_CONSERVAR=%s\n' 300
     printf 'NODO_IP=\n'
+    if puerta_activa; then
+      printf 'NODO_PUBLICAR=127.0.0.1\nNODO_PUERTO_HTTP=%s\nNODO_PUERTO_HTTPS=%s\n' "$PUERTO_INTERNO_HTTP" "$PUERTO_INTERNO_HTTPS"
+      # Sólo la puerta llega a Caddy (127.0.0.1 → reenviador de Colima → red de Docker): sólo de ahí
+      # se cree la línea PROXY con la IP real.
+      printf 'NODO_PROXY_PERMITIDOS="127.0.0.0/8 ::1/128 10.0.0.0/8 172.16.0.0/12"\n'
+    else
+      printf 'NODO_PUBLICAR=0.0.0.0\nNODO_PUERTO_HTTP=80\nNODO_PUERTO_HTTPS=443\n'
+    fi
+    # Carpeta compartida con la app: vecinos (Bonjour) y estado de la malla.
+    printf 'NODO_RUN_DIR=%s\n' "$RUN_DIR"
     printf 'NODO_HOSTS="events.adventist.club, admin.adventist.club, api.adventist.club, media.adventist.club"\n'
     printf 'WEB_BUILD_ID=%s\n' "$WEB_BUILD_ID"
     # Las respuestas de portal sólo valen con la red pública (si no, esos nombres ni llegan al nodo).
@@ -331,11 +349,13 @@ router_is_glinet() {
 
 # ---------------------------------------------------------------------------------------------
 # Salud por HTTPS (siempre contra esta Mac; --resolve evita depender del DNS)
-https_get() {  # https_get host path ip
-  local ca=()
+https_get() {  # https_get host path ip [puerto]
+  local ca=() port="${4:-443}"
   [ -s "$NODO_DIR/tls/actual/ca-local.pem" ] && ca=(--cacert "$NODO_DIR/tls/actual/ca-local.pem")
-  curl -fsS -o /dev/null --max-time 4 ${ca[@]+"${ca[@]}"} --resolve "$1:443:$3" "https://$1$2" 2>/dev/null
+  curl -fsS -o /dev/null --max-time 4 ${ca[@]+"${ca[@]}"} --resolve "$1:$port:$3" "https://$1:$port$2" 2>/dev/null
 }
+# Caddy por dentro (sin pasar por la puerta): con la puerta, 127.0.0.1:PUERTO_INTERNO_HTTPS.
+https_local() { if puerta_activa; then https_get "$1" "$2" 127.0.0.1 "$PUERTO_INTERNO_HTTPS"; else https_get "$1" "$2" 127.0.0.1; fi; }
 
 # ---------------------------------------------------------------------------------------------
 # Certificado
@@ -517,6 +537,9 @@ sembrar_imagen_vm() {
 }
 
 cargar_imagenes() {  # docker load de las imágenes que trae la app (local: no usa internet)
+  # v3: con manifiesto (imagenes.json) sólo se carga lo que cambió; la app «ligera» de una
+  # actualización no trae los archivos y los toma de la caché o de internet.
+  if [ -s "$RES_DIR/imagenes.json" ]; then cmd_imagenes_actualizar; return; fi
   local d="$RES_DIR/imagenes" f out n=0
   [ -d "$d" ] || fallo "Esta app no trae las imágenes del sistema."
   if [ "$(cat "$RUN_DIR/imagenes-cargadas" 2>/dev/null)" = "$PAQUETE_VERSION" ] && imagenes_completas; then
@@ -552,7 +575,12 @@ cmd_instalar() {
     config_set HERRAMIENTAS sistema; HERR_EN_USO=sistema
     ok "Se usan Colima y Docker que ya tiene esta Mac (Colima $(colima version 2>/dev/null | awk '/^colima version/{print $3}'))"
   else
-    [ -x "$RES_DIR/herramientas/bin/colima" ] || fallo "La app no trae Colima/Docker y esta Mac no los tiene. Con internet: brew install colima docker docker-compose"
+    if [ ! -x "$RES_DIR/herramientas/bin/colima" ] && [ -x "$HERR_DIR/bin/colima" ]; then
+      # Actualización «ligera» (sin herramientas dentro): se conservan las que ya se instalaron.
+      config_set HERRAMIENTAS app; HERR_EN_USO=app; usar_herramientas_app
+      ok "Se conservan Colima y Docker ya instalados (Colima $(colima version 2>/dev/null | awk '/^colima version/{print $3}'))"
+    else
+    [ -x "$RES_DIR/herramientas/bin/colima" ] || fallo "La app no trae Colima/Docker y esta Mac no los tiene. Usa el DMG completo (o con internet: brew install colima docker docker-compose)"
     rm -rf "$HERR_DIR.nuevo" && mkdir -p "$HERR_DIR.nuevo" \
       && ditto "$RES_DIR/herramientas/bin" "$HERR_DIR.nuevo/bin" \
       && ditto "$RES_DIR/herramientas/share" "$HERR_DIR.nuevo/share" \
@@ -568,12 +596,13 @@ cmd_instalar() {
     usar_herramientas_app
     docker compose version >/dev/null 2>&1 || fallo "Docker Compose de la app no responde"
     ok "Colima $(colima version 2>/dev/null | awk '/^colima version/{print $3}') y Docker de la app listos (sin Homebrew)"
+    fi
   fi
 
   paso "3/$total Encendiendo Docker (la primera vez crea la máquina virtual: 1–3 min)"
   start_colima
 
-  paso "4/$total Cargando el sistema (sin internet; 1–3 min)"
+  paso "4/$total Cargando el sistema (sin internet si viene en la app o ya estaba; 1–3 min)"
   cargar_imagenes
 
   paso "5/$total Terminando"
@@ -600,6 +629,10 @@ cmd_encender() {
     # Versión portátil: las imágenes vienen en la app (p. ej. si se borró la máquina de Docker).
     if [ "$PAQUETE" = 1 ]; then cargar_imagenes
     else fallo "Falta construir el sistema (Ajustes › «Construir», con internet, una sola vez)."; fi
+  elif [ "$PAQUETE" = 1 ] && [ -s "$RES_DIR/imagenes.json" ] && ! cmd_imagenes_estado | grep -q '"faltan":0'; then
+    # Una actualización de la app pide imágenes nuevas: se cargan si se pueden conseguir; si no
+    # (sin internet y sin la caché), se sigue con las anteriores y se avisa.
+    ( cmd_imagenes_actualizar ) || aviso "Faltan las imágenes nuevas de esta versión: sigo con las anteriores. Con internet: Ajustes › Actualizaciones › «Descargar imágenes» (o instala el DMG completo)."
   fi
   if ! { [ -s "$NODO_DIR/tls/actual/fullchain.pem" ] && [ -s "$NODO_DIR/tls/actual/privkey.pem" ]; }; then
     # Modo automático: el certificado viene al «Preparar»; si aún no hay, uno local para poder
@@ -612,7 +645,18 @@ cmd_encender() {
   ok "Sistema listo"
   paso "4/$total Arrancando base de datos, API, sitio y respaldos (1–2 min)"
   local out
-  if ! out="$(dc up -d --wait --wait-timeout 300 db migrate api web caddy respaldo 2>&1)"; then
+  preparar_bloqueos
+  local servicios="db migrate api web caddy respaldo"
+  # Nodos vecinos (v3): el servicio «malla» si el compose lo trae.
+  # Sólo si la imagen ya trae scripts/nodo_malla.py (con imágenes viejas, sin «Construir», se omite).
+  if dc_nosecrets config --services 2>/dev/null | grep -qx malla \
+     && docker run --rm --entrypoint test "nodo-evento-api:${NODO_TAG:-local}" -f scripts/nodo_malla.py >/dev/null 2>&1; then
+    servicios="$servicios malla"
+  else
+    aviso "Nodos vecinos: el sistema instalado aún no lo trae (falta «Construir»/«Instalar» de esta versión)"
+  fi
+  # shellcheck disable=SC2086
+  if ! out="$(dc up -d --wait --wait-timeout 300 $servicios 2>&1)"; then
     printf '%s\n' "$out" | grep -v '^ *$' | tail -15
     fallo "El nodo no arrancó completo. Botón «Registros» para ver el detalle."
   fi
@@ -620,13 +664,15 @@ cmd_encender() {
   paso "5/$total Comprobando el sitio por HTTPS"
   local i good=0
   for i in $(seq 1 20); do
-    if https_get events.adventist.club /nodo-salud 127.0.0.1 && https_get api.adventist.club /api/v1/health 127.0.0.1; then good=1; break; fi
+    if https_local events.adventist.club /nodo-salud && https_local api.adventist.club /api/v1/health; then good=1; break; fi
     sleep 2
   done
   [ $good = 1 ] && ok "https://events.adventist.club responde en esta Mac" || aviso "HTTPS todavía no responde; espera un minuto y mira el estado"
-  paso "6/$total Evitando que la Mac se duerma y activando respaldos"
+  paso "6/$total Evitando que la Mac se duerma, respaldos, puerta y nodos vecinos"
   start_awake
   start_mirror
+  start_puerta
+  start_malla_bonjour
   date '+%Y-%m-%d %H:%M:%S' > "$RUN_DIR/encendido"
   paso "7/$total Red"
   detect_net
@@ -653,7 +699,9 @@ cmd_apagar() {
   paso "3/3 La Mac ya puede dormir"
   agent_unload despierto
   agent_unload respaldo-usb
-  rm -f "$RUN_DIR/encendido"
+  agent_unload puerta
+  agent_unload malla
+  rm -f "$RUN_DIR/encendido" "$RUN_DIR/puerta.json"
   ok "Nodo apagado"
 }
 
@@ -1474,9 +1522,9 @@ cmd_estado() {
   local router_ok=0 glinet=0
   if router_alive; then router_ok=1; [ "$NET_EN_ROUTER" = 1 ] && router_is_glinet && glinet=1; fi
   if [ "$st_caddy" = running ] || [ "$st_caddy" = healthy ]; then
-    https_get events.adventist.club /nodo-salud 127.0.0.1 && https_local=1
-    [ $https_local = 1 ] && https_get events.adventist.club /auth/login 127.0.0.1 && web_ok=1
-    [ $https_local = 1 ] && https_get api.adventist.club /api/v1/health 127.0.0.1 && api_ok=1
+    https_local events.adventist.club /nodo-salud && https_local=1
+    [ $https_local = 1 ] && https_local events.adventist.club /auth/login && web_ok=1
+    [ $https_local = 1 ] && https_local api.adventist.club /api/v1/health && api_ok=1
     [ -n "$NET_IP" ] && https_get events.adventist.club /nodo-salud "$NET_IP" && https_lan=1
   fi
   cert_info
@@ -1492,7 +1540,12 @@ cmd_estado() {
     phones="$(arp -an -i "$NET_IFACE" 2>/dev/null | grep -v incomplete | grep -oE '\(([0-9.]+)\)' | tr -d '()' \
       | grep -vxF "$ROUTER_IP" | grep -vxF "$NET_IP" | grep -E "^$(router_prefix | sed 's/\./\\./g')" | grep -vE '\.255$' | sort -u | wc -l | tr -d ' ')"
   fi
-  if [ "$st_caddy" = running ] || [ "$st_caddy" = healthy ]; then
+  if [ -s "$NODO_DIR/datos/caddy/acceso.log" ]; then
+    # Con la puerta, el registro JSON de Caddy trae la IP real de cada teléfono.
+    local ips; ips="$(acceso_ips 600)"
+    reqs="$(printf '%s\n' "$ips" | grep -c . | tr -d ' ')"
+    if puerta_activa; then phones="$(printf '%s\n' "$ips" | grep . | sort -u | wc -l | tr -d ' ')"; fi
+  elif [ "$st_caddy" = running ] || [ "$st_caddy" = healthy ]; then
     reqs="$(docker logs --since 10m "$(container caddy)" 2>&1 | grep 'handled request' | grep -vc '"curl/' | tr -d ' ')"
   fi
   # Energía
@@ -1539,6 +1592,10 @@ cmd_estado() {
   puede_construir && constr=1
   printf '"instalacion":{"paquete":%s,"pendiente":%s,"motivo":%s,"version_paquete":%s,"version_instalada":%s,"herramientas":%s,"puede_construir":%s},' \
     "$(jb $PAQUETE)" "$(jb $pend)" "$(json_str "$motivo")" "$(json_str "$PAQUETE_VERSION")" "$(json_str "$inst")" "$(json_str "$HERR_EN_USO")" "$(jb $constr)"
+  local puerta_on=0; agent_loaded puerta && puerta_on=1
+  local malla_on=0; agent_loaded malla && malla_on=1
+  printf '"puerta":{"activa":%s,"configurada":%s,"interno_https":%s},"malla":{"activa":%s},' "$(jb $puerta_on)" "$(jb "$( puerta_activa && echo 1 || echo 0)")" "$PUERTO_INTERNO_HTTPS" "$(jb $malla_on)"
+  printf '"imagenes_version":{"requerida":%s,"cargada":%s},' "$(json_str "${PAQUETE_IMAGENES_VERSION:-}")" "$(json_str "$(cat "$RUN_DIR/imagenes-version" 2>/dev/null)")"
   printf '"config":%s' "$(config_json)"
   printf '}\n'
 }
@@ -1566,6 +1623,354 @@ cmd_ver_sitio() {
     --host-resolver-rules="MAP events.adventist.club $ip,MAP admin.adventist.club $ip,MAP api.adventist.club $ip,MAP media.adventist.club $ip" \
     "https://events.adventist.club/"
   ok "Abriendo el sitio local en $app (ventana aparte que apunta a esta Mac)"
+}
+
+# ---------------------------------------------------------------------------------------------
+# v3 · Puerta (IP real), dispositivos, bloqueos, cuentas, Wi-Fi, nodos vecinos e imágenes
+puerta_activa() { [ "$PUERTA" = 1 ] && [ -x "$APP_EXE" ]; }
+
+# IPs de los clientes en el registro JSON de Caddy (últimos N segundos; sin la Mac ni Docker).
+acceso_ips() {  # acceso_ips segundos
+  local desde=$(( $(date +%s) - ${1:-600} ))
+  tail -n 40000 "$NODO_DIR/datos/caddy/acceso.log" 2>/dev/null | awk -v t="$desde" '
+    match($0, /"ts":[0-9.]+/) { ts = substr($0, RSTART + 5, RLENGTH - 5) + 0 }
+    ts >= t && match($0, /"remote_ip":"[^"]+"/) { print substr($0, RSTART + 13, RLENGTH - 14) }' \
+    | grep -vE '^(127\.|172\.(1[6-9]|2[0-9]|3[01])\.|::1$)' || true
+}
+
+preparar_bloqueos() {
+  mkdir -p "$NODO_DIR/bloqueos" "$NODO_DIR/datos/caddy"
+  [ -f "$NODO_DIR/bloqueos/bloqueados.caddy" ] || printf '# Sin bloqueos (la app «Nodo Camporee» reescribe este archivo).\n' > "$NODO_DIR/bloqueos/bloqueados.caddy"
+  [ -f "$RUN_DIR/bloqueados.json" ] || printf '[]\n' > "$RUN_DIR/bloqueados.json"
+}
+
+start_puerta() {
+  if [ "$PUERTA" != 1 ]; then agent_unload puerta; say "Puerta apagada en la configuración: los teléfonos se ven con una sola IP"; return 0; fi
+  [ -x "$APP_EXE" ] || { aviso "No encuentro la app ($APP_BUNDLE): sin la puerta, los teléfonos se ven con una sola IP"; return 0; }
+  local pares="${NODO_PUERTA_PARES:-80:$PUERTO_INTERNO_HTTP 443:$PUERTO_INTERNO_HTTPS}" args="" par
+  for par in $pares; do args="$args<string>--par</string><string>$par</string>"; done
+  write_plist puerta <<PL
+<key>ProgramArguments</key><array><string>$(xml "$APP_EXE")</string><string>--puerta</string>$args<string>--bloqueados</string><string>$(xml "$RUN_DIR/bloqueados.json")</string><string>--estado</string><string>$(xml "$RUN_DIR/puerta.json")</string></array>
+<key>RunAtLoad</key><true/><key>KeepAlive</key><true/>
+<key>StandardOutPath</key><string>$(xml "$RUN_DIR/puerta.log")</string>
+<key>StandardErrorPath</key><string>$(xml "$RUN_DIR/puerta.log")</string>
+PL
+  agent_load puerta || { aviso "No se pudo arrancar la puerta (puertos 80/443)"; return 0; }
+  local i ip; detect_net; ip="${NET_IP:-127.0.0.1}"
+  for i in $(seq 1 10); do https_get events.adventist.club /nodo-salud "$ip" && break; sleep 1; done
+  if https_get events.adventist.club /nodo-salud "$ip"; then ok "Puerta abierta en $ip: Caddy ve la IP real de cada teléfono"
+  else aviso "La puerta no contesta en $ip:443. Si macOS o Little Snitch preguntan por «Nodo Camporee», pulsa Permitir («Revisar interferencias»)."; fi
+}
+
+# Bonjour de los nodos vecinos: lo hace la app (`--malla`), que anuncia este nodo en la red y escribe
+# los vecinos encontrados en run/malla-vecinos.json (los lee el servicio «malla» del compose).
+start_malla_bonjour() {
+  [ -x "$APP_EXE" ] || return 0
+  write_plist malla <<PL
+<key>ProgramArguments</key><array><string>$(xml "$APP_EXE")</string><string>--malla</string><string>--run</string><string>$(xml "$RUN_DIR")</string></array>
+<key>RunAtLoad</key><true/><key>KeepAlive</key><true/>
+<key>StandardOutPath</key><string>$(xml "$RUN_DIR/malla-bonjour.log")</string>
+<key>StandardErrorPath</key><string>$(xml "$RUN_DIR/malla-bonjour.log")</string>
+PL
+  agent_load malla && ok "Nodos vecinos: este nodo se anuncia en la red (Bonjour)" || aviso "No se pudo anunciar el nodo en la red (nodos vecinos)"
+}
+
+contenedor_arriba() { [ "$(service_state "$1")" = healthy ] || [ "$(service_state "$1")" = running ]; }
+
+cmd_caddy_recargar() {
+  need_node_dir
+  contenedor_arriba caddy || { ok "Caddy apagado: los bloqueos se aplican al encender"; return 0; }
+  if docker exec "$(container caddy)" caddy reload --config /etc/caddy/Caddyfile --address localhost:2019 >/dev/null 2>&1; then
+    ok "Bloqueos aplicados en el nodo"
+  else
+    # Instalaciones con el Caddyfile viejo (sin admin): reinicio corto.
+    docker restart "$(container caddy)" >/dev/null 2>&1 && ok "Bloqueos aplicados (Caddy reiniciado)" || fallo "No pude aplicar los bloqueos en Caddy"
+  fi
+}
+
+# Llamadas del operador a la API del nodo (dentro del contenedor: el token nunca sale de ahí).
+api_operador() {  # api_operador METODO RUTA [json]
+  contenedor_arriba api || fallo "La API del nodo está apagada"
+  docker exec -i "$(container api)" python - "$1" "$2" "${3:-}" <<'PY'
+import json, os, sys, urllib.request, urllib.error
+metodo, ruta, cuerpo = sys.argv[1], sys.argv[2], sys.argv[3]
+tok = os.environ.get("NODO_OPERADOR_TOKEN", "")
+if not tok:
+    print(json.dumps({"error": "La API del nodo no tiene NODO_OPERADOR_TOKEN (apaga y enciende el nodo)"})); sys.exit(3)
+req = urllib.request.Request("http://127.0.0.1:8000/api/v1/nodo/operador" + ruta, method=metodo,
+                             data=cuerpo.encode() if cuerpo else None,
+                             headers={"X-Nodo-Operador": tok, "Content-Type": "application/json"})
+try:
+    print(urllib.request.urlopen(req, timeout=8).read().decode())
+except urllib.error.HTTPError as e:
+    print(json.dumps({"error": f"HTTP {e.code}", "detalle": e.read().decode()[:300]})); sys.exit(1)
+PY
+}
+
+cmd_dispositivos() {  # JSON: API (cuentas, fallidos) + ARP (MAC) — Caddy lo lee la app directo
+  need_node_dir
+  detect_net
+  local api='{"dispositivos":[]}' arp
+  contenedor_arriba api && api="$(api_operador GET /dispositivos 2>/dev/null | tail -1)"
+  printf '%s' "$api" | grep -q '^{' || api='{"dispositivos":[]}'
+  arp="$(arp -an ${NET_IFACE:+-i "$NET_IFACE"} 2>/dev/null)"
+  printf '{"api":%s,"arp":%s,"acceso":%s,"mi_ip":%s,"router":%s,"gateway":%s}\n' "$api" "$(json_str "$arp")" \
+    "$(json_str "$NODO_DIR/datos/caddy/acceso.log")" "$(json_str "$NET_IP")" "$(json_str "$ROUTER_IP")" "$(json_str "$GATEWAY")"
+}
+
+cmd_cuentas() {  # cuentas bloqueadas | cuentas desbloquear CORREO
+  need_node_dir
+  case "${1:-}" in
+    bloqueadas) api_operador GET /cuentas/bloqueadas ;;
+    desbloquear)
+      local correo="${2:-}"; [ -n "$correo" ] || fallo "uso: cuentas desbloquear CORREO"
+      local cuerpo; cuerpo="$(printf '{"email":%s}' "$(json_str "$correo")")"
+      if api_operador POST /cuentas/desbloquear "$cuerpo" >/dev/null; then ok "Cuenta desbloqueada: $correo"; else fallo "No se pudo desbloquear $correo"; fi ;;
+    *) fallo "uso: cuentas bloqueadas | cuentas desbloquear CORREO" ;;
+  esac
+}
+
+# Clientes que conoce el router (DHCP): nombre del equipo y MAC. Necesita la contraseña del router
+# (sólo en memoria). GL.iNet/OpenWrt: /tmp/dhcp.leases · MikroTik: lease print terse.
+cmd_router_clientes() {
+  case "$ROUTER_TIPO" in
+    mikrotik) printf '%s\n' '/ip dhcp-server lease print terse' | router_ssh ;;
+    *) printf '%s\n' 'cat /tmp/dhcp.leases 2>/dev/null; true' | router_ssh ;;
+  esac
+}
+
+mac_valida() { printf '%s' "$1" | grep -qiE '^([0-9a-f]{2}:){5}[0-9a-f]{2}$'; }
+
+# Bloqueo en el router por MAC (además del bloqueo del nodo, que siempre se hace en la app):
+#   GL.iNet/OpenWrt: lista negra del Wi-Fi (uci, persistente) + expulsión inmediata con ban (ubus
+#   hostapd) SIN reiniciar el Wi-Fi de los demás. Quitar un bloqueo sí recarga el Wi-Fi (unos segundos).
+#   MikroTik: access-list (RouterOS 7 «wifi» y 6 «wireless») con comentario «nodo-bloqueo».
+router_bloqueo_guion() {  # router_bloqueo_guion MAC poner|quitar
+  local mac; mac="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  if [ "$ROUTER_TIPO" = mikrotik ]; then
+    local M; M="$(printf '%s' "$mac" | tr '[:lower:]' '[:upper:]')"
+    if [ "$2" = poner ]; then
+      printf '%s\n' \
+        ":do { /interface wifi access-list remove [find comment=\"nodo-bloqueo\" mac-address=\"$M\"] } on-error={}" \
+        ":do { /interface wifi access-list add mac-address=$M action=reject comment=\"nodo-bloqueo\" place-before=0 } on-error={}" \
+        ":do { /interface wifi registration-table remove [find mac-address=\"$M\"] } on-error={}" \
+        ":do { /interface wireless access-list remove [find comment=\"nodo-bloqueo\" mac-address=\"$M\"] } on-error={}" \
+        ":do { /interface wireless access-list add mac-address=$M authentication=no forwarding=no comment=\"nodo-bloqueo\" place-before=0 } on-error={}" \
+        ":do { /interface wireless registration-table remove [find mac-address=\"$M\"] } on-error={}" \
+        ":put \"router: $M bloqueado\""
+    else
+      printf '%s\n' \
+        ":do { /interface wifi access-list remove [find comment=\"nodo-bloqueo\" mac-address=\"$M\"] } on-error={}" \
+        ":do { /interface wireless access-list remove [find comment=\"nodo-bloqueo\" mac-address=\"$M\"] } on-error={}" \
+        ":put \"router: $M desbloqueado\""
+    fi
+    return
+  fi
+  cat <<SH
+set -e
+MAC=$(sq "$mac"); n=0
+for s in \$(uci -X show wireless | sed -n "s/^wireless\\.\\([^.=]*\\)=wifi-iface\$/\\1/p"); do
+  [ "\$(uci -q get wireless.\$s.mode)" = ap ] || continue
+  f="\$(uci -q get wireless.\$s.macfilter || true)"
+  if [ "\$f" = allow ]; then echo "AVISO: \$s usa lista PERMITIDA (macfilter=allow): no la cambio"; continue; fi
+  for v in \$(uci -q get wireless.\$s.maclist || true); do [ "\$(echo "\$v" | tr A-Z a-z)" = "\$MAC" ] && uci del_list wireless.\$s.maclist="\$v"; done
+SH
+  if [ "$2" = poner ]; then
+    cat <<'SH'
+  uci set wireless.$s.macfilter='deny'
+  uci add_list wireless.$s.maclist="$MAC"
+  n=$((n+1))
+done
+uci commit wireless
+for o in $(ubus list 'hostapd.*' 2>/dev/null); do
+  ubus call "$o" del_client "{\"addr\":\"$MAC\",\"reason\":5,\"deauth\":true,\"ban_time\":86400000}" >/dev/null 2>&1 || true
+done
+echo "router: $MAC bloqueado en $n redes Wi-Fi (expulsado ya; los demás no se desconectan)"
+SH
+  else
+    cat <<'SH'
+  [ -z "$(uci -q get wireless.$s.maclist || true)" ] && uci -q delete wireless.$s.macfilter || true
+  n=$((n+1))
+done
+uci commit wireless
+echo "router: $MAC desbloqueado (el Wi-Fi se recarga en 3 s; los teléfonos se reconectan solos)"
+( sleep 3; wifi reload ) >/dev/null 2>&1 &
+SH
+  fi
+}
+
+cmd_router_bloqueo() {  # router-bloquear --mac MAC [--quitar] [--simular] [--tipo …]
+  local mac="" modo=poner simular=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --mac) mac="$2"; shift ;;
+      --quitar) modo=quitar ;;
+      --simular) simular=1 ;;
+      --tipo) ROUTER_TIPO="$2"; shift ;;
+    esac
+    shift
+  done
+  mac_valida "$mac" || fallo "MAC inválida: $mac"
+  case "$ROUTER_TIPO" in glinet|openwrt|mikrotik) ;; *) fallo "Este router no se bloquea desde la app (Google Wifi: pausa el dispositivo en Google Home)." ;; esac
+  if [ $simular = 1 ]; then router_bloqueo_guion "$mac" "$modo"; return 0; fi
+  router_bloqueo_guion "$mac" "$modo" | router_ssh || fallo "El router no aceptó el cambio (¿contraseña?)"
+}
+
+# Contraseña del Wi-Fi (WPA2) en GL.iNet/OpenWrt/MikroTik. La nueva llega en WIFI_PASSWORD (la app
+# la guarda en el Llavero para el QR). 8–63 caracteres imprimibles, sin comillas ni «\».
+wifi_clave_valida() {
+  local k="${WIFI_PASSWORD:-}"
+  [ ${#k} -ge 8 ] && [ ${#k} -le 63 ] || return 1
+  printf '%s' "$k" | LC_ALL=C grep -q '^[ -~]*$' || return 1
+  case "$k" in *\"*|*\'*|*\\*|*\$*|*\`*) return 1 ;; esac
+}
+
+wifi_clave_guion() {
+  if [ "$ROUTER_TIPO" = mikrotik ]; then
+    printf '%s\n' \
+      ":do { /interface wifi set [find] security.authentication-types=wpa2-psk,wpa3-psk security.passphrase=\"$WIFI_PASSWORD\" } on-error={}" \
+      ":do { /interface wireless security-profiles set [find default=yes] mode=dynamic-keys authentication-types=wpa2-psk wpa2-pre-shared-key=\"$WIFI_PASSWORD\" } on-error={}" \
+      ':put "router: contraseña del Wi-Fi cambiada (WPA2)"'
+    return
+  fi
+  cat <<SH
+set -e
+KEY=$(sq "$WIFI_PASSWORD"); SSID=$(sq "${WIFI_SSID:-}"); n=0
+for s in \$(uci -X show wireless | sed -n "s/^wireless\\.\\([^.=]*\\)=wifi-iface\$/\\1/p"); do
+  [ "\$(uci -q get wireless.\$s.mode)" = ap ] || continue
+  [ "\$(uci -q get wireless.\$s.network)" = lan ] || continue
+  uci set wireless.\$s.encryption='psk2'
+  uci set wireless.\$s.key="\$KEY"
+  [ -n "\$SSID" ] && uci set wireless.\$s.ssid="\$SSID"
+  n=\$((n+1))
+done
+uci commit wireless
+echo "router: contraseña WPA2 puesta en \$n redes Wi-Fi (se recarga en 3 s: los teléfonos piden la clave nueva)"
+( sleep 3; wifi reload ) >/dev/null 2>&1 &
+SH
+}
+
+cmd_wifi_clave() {  # wifi-clave [--ssid S] [--simular] [--tipo …]   (WIFI_PASSWORD = la nueva)
+  local simular=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --ssid) WIFI_SSID="$2"; shift ;;
+      --simular) simular=1 ;;
+      --tipo) ROUTER_TIPO="$2"; shift ;;
+    esac
+    shift
+  done
+  wifi_clave_valida || fallo "La contraseña debe tener de 8 a 63 caracteres, sin comillas, «\\», «\$» ni acentos."
+  case "$ROUTER_TIPO" in glinet|openwrt|mikrotik) ;; *) fallo "En este router cámbiala en su app o panel (Google Home › Wi-Fi › Configuración de red)." ;; esac
+  if [ $simular = 1 ]; then wifi_clave_guion | sed "s/$(printf '%s' "$WIFI_PASSWORD" | sed 's/[][\.*^$/]/\\&/g')/••••••••/g"; return 0; fi
+  wifi_clave_guion | router_ssh || fallo "El router no aceptó el cambio (¿contraseña de administración?)"
+  [ "$RED_MODO" = publica ] && config_set PUBLICA_ABIERTA 0 >/dev/null
+  ok "Contraseña del Wi-Fi cambiada. El QR «Conéctate al Wi-Fi» ya usa la nueva."
+}
+
+# Nodos vecinos: órdenes del servicio «malla» (scripts/nodo_malla.py dentro del contenedor).
+cmd_malla() {
+  need_node_dir
+  contenedor_arriba malla || fallo "Nodos vecinos: enciende el nodo primero."
+  docker exec -i "$(container malla)" python scripts/nodo_malla.py "$@"
+}
+
+# ---------------------------------------------------------------------------------------------
+# Imágenes de Docker versionadas aparte de la app (actualizaciones chicas):
+#   imagenes.json (en la app completa o publicado junto a las actualizaciones) =
+#   {"version": V, "archivos": [{"nombre", "imagen", "id", "sha256", "tam"}]}
+#   Sólo se cargan las que faltan (docker image inspect → Id). Orden: caché local
+#   (Application Support/imagenes/, se llena al «Instalar» del DMG) → la app (DMG) → internet
+#   (IMAGENES_URL/V/, manifiesto firmado con la llave EdDSA de las actualizaciones).
+IMG_CACHE="$APP_SUPPORT/imagenes"
+
+imagen_id_local() { docker image inspect --format '{{.Id}}' "$1" 2>/dev/null; }
+# ¿La imagen local es la del manifiesto? (Id del almacén de containerd o, en el clásico, la configuración.)
+imagen_al_dia() {  # imagen id config
+  local l; l="$(imagen_id_local "$1")"; [ -n "$l" ] && { [ "$l" = "$2" ] || [ "$l" = "${3:-}" ]; }
+}
+
+manifiesto_campos() {  # manifiesto_campos archivo.json → «nombre imagen id sha256 tam config» por línea (sin jq)
+  /usr/bin/plutil -convert json -o - "$1" >/dev/null 2>&1 || return 1
+  local n i
+  n="$(/usr/bin/plutil -extract archivos raw -o - "$1" 2>/dev/null)" || return 1
+  for i in $(seq 0 $((n - 1))); do
+    printf '%s %s %s %s %s %s\n' \
+      "$(/usr/bin/plutil -extract "archivos.$i.nombre" raw -o - "$1")" "$(/usr/bin/plutil -extract "archivos.$i.imagen" raw -o - "$1")" \
+      "$(/usr/bin/plutil -extract "archivos.$i.id" raw -o - "$1")" "$(/usr/bin/plutil -extract "archivos.$i.sha256" raw -o - "$1")" \
+      "$(/usr/bin/plutil -extract "archivos.$i.tam" raw -o - "$1" 2>/dev/null || echo 0)" \
+      "$(/usr/bin/plutil -extract "archivos.$i.config" raw -o - "$1" 2>/dev/null || echo -)"
+  done
+}
+
+cmd_imagenes_estado() {  # qué falta según un manifiesto (por defecto el de la app)
+  local man="${1:-$RES_DIR/imagenes.json}"
+  [ -s "$man" ] || { printf '{"manifiesto":false}\n'; return 0; }
+  local ver faltan=0 bytes=0 nombre imagen id sha tam lista=""
+  ver="$(/usr/bin/plutil -extract version raw -o - "$man" 2>/dev/null)"
+  local cfg
+  while read -r nombre imagen id sha tam cfg; do
+    [ -n "$nombre" ] || continue
+    if ! imagen_al_dia "$imagen" "$id" "$cfg"; then
+      faltan=$((faltan + 1)); bytes=$((bytes + tam)); lista="$lista${lista:+,}$(json_str "$nombre")"
+    fi
+  done < <(manifiesto_campos "$man")
+  printf '{"manifiesto":true,"version":%s,"faltan":%s,"bytes":%s,"archivos":[%s]}\n' "$(json_str "$ver")" "$faltan" "$bytes" "$lista"
+}
+
+sha256_de() { shasum -a 256 "$1" | cut -d' ' -f1; }
+
+# Busca el archivo (por sha256) en la caché, en la app o lo descarga; lo deja en la caché.
+obtener_archivo_imagen() {  # nombre sha256 tam version base_url
+  local nombre="$1" sha="$2" ver="$4" base="$5" dest="$IMG_CACHE/$2-$1"
+  mkdir -p "$IMG_CACHE"
+  [ -s "$dest" ] && [ "$(sha256_de "$dest")" = "$sha" ] && { printf '%s' "$dest"; return 0; }
+  local f
+  for f in "$RES_DIR/imagenes/$nombre" "$RES_DIR/imagenes/${nombre%.gz}"; do
+    if [ -s "$f" ] && [ "$(sha256_de "$f")" = "$sha" ]; then
+      cp -c "$f" "$dest" 2>/dev/null || cp "$f" "$dest"; printf '%s' "$dest"; return 0
+    fi
+  done
+  [ -n "$base" ] || return 1
+  say "Descargando $nombre ($(( $3 / 1048576 )) MB)…" >&2
+  curl -fL --retry 3 --connect-timeout 10 -C - -o "$dest.parcial" "$base/$ver/$nombre" >&2 || return 1
+  [ "$(sha256_de "$dest.parcial")" = "$sha" ] || { rm -f "$dest.parcial"; aviso "El archivo $nombre llegó dañado (sha256)" >&2; return 1; }
+  mv "$dest.parcial" "$dest"; printf '%s' "$dest"
+}
+
+# imagenes-actualizar [--manifiesto RUTA] [--base URL] [--simular]
+#   El manifiesto viene DENTRO de la app (firmada por Apple y por Sparkle): los archivos se aceptan
+#   sólo si su sha256 coincide, vengan de la caché, de la app o de internet (BASE/VERSIÓN/nombre).
+cmd_imagenes_actualizar() {
+  local man="$RES_DIR/imagenes.json" base="${NODO_IMAGENES_URL:-$IMAGENES_URL}" simular=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --manifiesto) man="$2"; shift ;;
+      --base) base="$2"; shift ;;
+      --simular) simular=1 ;;
+    esac
+    shift
+  done
+  [ -s "$man" ] || fallo "No hay manifiesto de imágenes"
+  docker_ok || fallo "Docker apagado: pulsa «Encender» o «Instalar» primero"
+  local ver; ver="$(/usr/bin/plutil -extract version raw -o - "$man" 2>/dev/null)"
+  local nombre imagen id sha tam cfg n=0 f
+  while read -r nombre imagen id sha tam cfg; do
+    [ -n "$nombre" ] || continue
+    if imagen_al_dia "$imagen" "$id" "$cfg"; then say "  $imagen: al día"; continue; fi
+    if [ $simular = 1 ]; then say "  $imagen: falta ($nombre, $(( tam / 1048576 )) MB)"; n=$((n + 1)); continue; fi
+    f="$(obtener_archivo_imagen "$nombre" "$sha" "$tam" "$ver" "$base")" || fallo "Falta $nombre y no hay de dónde sacarlo (sin internet: usa el DMG completo)"
+    say "Cargando ${imagen}…"
+    docker load -i "$f" 2>&1 | grep -E '^Loaded image' | sed 's/^/  /'
+    imagen_al_dia "$imagen" "$id" "$cfg" || fallo "Después de cargar $nombre la imagen no coincide"
+    n=$((n + 1))
+  done < <(manifiesto_campos "$man")
+  [ $simular = 1 ] && { ok "Simulación: $n imagen(es) por cargar (versión $ver)"; return 0; }
+  printf '%s' "$ver" > "$RUN_DIR/imagenes-version"
+  # Caché: sólo los archivos del manifiesto vigente (lo viejo se borra).
+  local keep; keep="$(manifiesto_campos "$man" | awk '{print $4 "-" $1}')"
+  for f in "$IMG_CACHE"/*; do [ -e "$f" ] || continue; printf '%s\n' "$keep" | grep -qxF "$(basename "$f")" || rm -f "$f"; done
+  ok "Imágenes al día (versión $ver; $n cargada(s))"
 }
 
 case "${1:-}" in
@@ -1604,5 +2009,14 @@ case "${1:-}" in
   registros) shift; cmd_registros "$@" ;;
   ver-sitio) cmd_ver_sitio ;;
   instalar) cmd_instalar ;;
+  caddy-recargar) cmd_caddy_recargar ;;
+  dispositivos) cmd_dispositivos ;;
+  cuentas) shift; cmd_cuentas "$@" ;;
+  router-clientes) cmd_router_clientes ;;
+  router-bloquear) shift; cmd_router_bloqueo "$@" ;;
+  wifi-clave) shift; cmd_wifi_clave "$@" ;;
+  malla) shift; cmd_malla "$@" ;;
+  imagenes-estado) shift; cmd_imagenes_estado "$@" ;;
+  imagenes-actualizar) shift; cmd_imagenes_actualizar "$@" ;;
   *) sed -n '2,42p' "$0"; exit 2 ;;
 esac

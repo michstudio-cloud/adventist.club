@@ -1,0 +1,53 @@
+Total number of apps = 26 
+1 : /private/tmp/PRUEBAS/prueba/Nodo Camporee.app 
+             (Allow incoming connections)
+2 : /private/tmp/PRUEBAS/dnsprueba 
+             (Allow incoming connections)
+3 : /usr/bin/ssh 
+             (Allow incoming connections)
+4 : /Applications/Brave Browser.app/Contents/Frameworks/Brave Browser Framework.framework/Versions/154.1.96.61/Helpers/Brave Browser Helper.app 
+             (Allow incoming connections)
+5 : /Users/USUARIO/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper.app 
+             (Allow incoming connections)
+6 : /opt/homebrew/Cellar/node/26.5.0/bin/node 
+             (Allow incoming connections)
+7 : /Users/USUARIO/Applications/zoom.us.app/Contents/MacOS/zoom.us 
+             (Allow incoming connections)
+8 : /usr/libexec/AirPlayXPCHelper 
+             (Allow incoming connections)
+9 : /Applications/Adobe Illustrator 2026/Adobe Illustrator.app/Contents/MacOS/CEPHtmlEngine/CEPHtmlEngine.app/Contents/Frameworks/CEPHtmlEngine Helper.app 
+             (Allow incoming connections)
+10 : /usr/libexec/audioclocksyncd 
+             (Allow incoming connections)
+11 : /usr/libexec/ContinuityCaptureAgent 
+             (Allow incoming connections)
+12 : /Library/PrivilegedHelperTools/com.nordvpn.macos.helper 
+             (Allow incoming connections)
+13 : /Applications/WhatsApp.app 
+             (Allow incoming connections)
+14 : /Applications/Dropbox.app/Contents/MacOS/Dropbox 
+             (Allow incoming connections)
+15 : /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord 
+             (Allow incoming connections)
+16 : /System/Library/CoreServices/UniversalControl.app/Contents/MacOS/UniversalControl 
+             (Allow incoming connections)
+17 : /System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter 
+             (Allow incoming connections)
+18 : /usr/libexec/rapportd 
+             (Allow incoming connections)
+19 : /Applications/Spotify.app 
+             (Allow incoming connections)
+20 : /usr/libexec/remoted 
+             (Allow incoming connections)
+21 : /usr/bin/python3 
+             (Allow incoming connections)
+22 : /usr/bin/ruby 
+             (Allow incoming connections)
+23 : /usr/sbin/cupsd 
+             (Allow incoming connections)
+24 : /usr/libexec/sharingd 
+             (Allow incoming connections)
+25 : /usr/libexec/sshd-keygen-wrapper 
+             (Allow incoming connections)
+26 : /usr/sbin/smbd 
+             (Allow incoming connections)

@@ -1,0 +1,7 @@
+Total number of apps = 2 
+
+1 : /Users/USUARIO/Applications/Nodo Camporee.app 
+ 			 (Block incoming connections) 
+
+2 : /Applications/Spotify.app 
+ 			 (Allow incoming connections) 

@@ -1,0 +1,13 @@
+DNS configuration
+
+resolver #1
+  search domain[0] : tail1234.ts.net
+  nameserver[0] : 100.100.100.100
+  if_index : 25 (utun6)
+  flags    : Supplemental, Request A records, Request AAAA records
+  reach    : 0x00000003 (Reachable,Transient Connection)
+  order    : 101400
+
+resolver #2
+  nameserver[0] : 192.168.8.1
+  if_index : 14 (en0)

@@ -1,0 +1,1 @@
+/Applications/NordVPN.app/Contents/MacOS/NordVPN

@@ -1,0 +1,5 @@
+{
+    "home-sharing-enabled" = 0;
+    "photo-sharing-enabled" = 0;
+    "public-sharing-enabled" = 0;
+}

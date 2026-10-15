@@ -1,0 +1,12 @@
+
+			List of Share Points
+name:		NOMBRE’s Public Folder
+path:		/Users/USUARIO/Public
+	smb:	{
+    		name:	NOMBRE’s Public Folder
+    		shared:	1
+    		guest access:	1
+    		read-only:	0
+    		sealed:	0
+	}
+

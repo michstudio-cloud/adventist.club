@@ -158,7 +158,10 @@ vacío = todas) y mesa de llegadas. **1. Simular** → **2. Copiar al nodo y blo
 | **Accesible en la red** | Los teléfonos pueden llegar a la Mac | Rojo: ver «Firewall» en §7. |
 | **Certificado** | HTTPS válido | Debe estar verde desde casa. |
 | **Respaldo** | Último respaldo (cada 10 min) y copia en la USB | Ámbar «sin USB»: conecta la `NODO-RESPALDO`. |
-| **Teléfonos** | Cuántos teléfonos usaron el sitio en 10 min | Sólo informativo. |
+| **Dispositivos conectados** | Cuántos teléfonos usaron el sitio en 10 min (con su IP real) | «Ver dispositivos» (§14): quién es quién, alertas, bloquear. |
+| **Interferencias** | VPN, Little Snitch/LuLu, firewall o DNS que pueden estorbar | Ámbar/rojo: «Revisar interferencias» (§11) y seguir la guía. |
+| **Seguridad de la Mac** | FileVault, firewall, compartir, Wi-Fi con contraseña | Ámbar: «Ver seguridad» (§15). |
+| **Nodos vecinos** | Otros nodos del mismo evento en la red y su última sincronización | Sólo informativo (§13). |
 | **Energía** | Cargador o batería | Ámbar/rojo «Con batería»: **conecta el cargador**. |
 | **La Mac no se dormirá** | El nodo impide el reposo | **No cierres la tapa** (la pantalla sí puede apagarse). |
 
@@ -278,7 +281,7 @@ deshace y deja lo normal):
 |---|---|
 | Un teléfono no abre el sitio | ¿Está en el Wi-Fi del GL.iNet? Si Android dice «sin internet», elegir **Mantener conexión** y apagar los **datos móviles**. Apagar VPN y «DNS privado» (Android: Ajustes › Redes › DNS privado › Automático/Desactivado). |
 | El teléfono ya estaba dentro del sitio en internet | Volver a iniciar sesión: el nodo tiene sus propias sesiones (misma contraseña). |
-| «Accesible en la red» en rojo | macOS bloquea la conexión. Ajustes del Sistema › Red › **Firewall** › Opciones… › busca **limactl** (o «ssh») y pon *Permitir conexiones entrantes*. Si al encender aparece «¿Permitir conexiones entrantes?», pulsa **Permitir**. |
+| «Accesible en la red» en rojo | macOS u otra app bloquea la conexión: **Revisar interferencias** (§11). Firewall de macOS: Ajustes del Sistema › Red › **Firewall** › Opciones… › **Nodo Camporee** (y limactl) en *Permitir conexiones entrantes*. Si al encender aparece «¿Permitir conexiones entrantes?», pulsa **Permitir**. |
 | La IP de la Mac cambió (tarjeta roja) | **Red del evento › GL.iNet** › Ver › Aplicar otra vez (pide la contraseña del router). |
 | «Falta construir» | Necesita internet: Ajustes › Construir. Por eso se hace en casa. |
 | El certificado vence o falla | En casa con internet: Certificado › Obtener. Último recurso sin internet: **Plan B (certificado local)**; cada iPhone debe abrir `http://<IP de la Mac>/nodo-ca.crt` (aparece como QR en «QR para teléfonos»), instalar el perfil y activarlo en Ajustes › General › Información › *Ajustes de confianza de certificados*. |
@@ -295,6 +298,8 @@ deshace y deja lo normal):
 | Contraseña de administración del **router** | Al configurar la red (una vez) | La teclea en la app; **no se guarda**. |
 | **Token de Cloudflare** (Zone · DNS · Edit, sólo `adventist.club`) | Sólo si la Mac saca/renueva el certificado (si no viene en «Preparar») | Ajustes › Avanzado. Después puede revocarlo. |
 | *Modo manual:* **conexión de producción** y **EVENT_PASS_SECRET de producción** | Sólo si la API no está disponible | Ajustes › Avanzado (modo manual). Recomendado: rama de respaldo en Neon. |
+
+| **Credenciales de R2** para publicar actualizaciones (§12) | Cada vez que se publique una versión | Sólo en el entorno al correr `publicar-actualizacion.sh`. |
 
 Nunca por chat, correo, WhatsApp ni captura de pantalla.
 
@@ -325,7 +330,17 @@ Sin las dos primeras todo funciona igual, pero cada Mac usa su certificado local
 - **LaunchAgents** (`~/Library/LaunchAgents/club.adventist.nodo-camporee.*`): `despierto`
   (`caffeinate -ims` mientras el nodo está encendido), `respaldo-usb` (copia a la USB cada
   `RESPALDO_CADA_MIN`, corrida por el ejecutable de la app para que macOS le pida el permiso a la
-  app), `autoarranque` (opcional, abre la app con `--encender` al iniciar sesión).
+  app), `autoarranque` (opcional, abre la app con `--encender` al iniciar sesión), y desde v3
+  `puerta` (`Nodo Camporee --puerta`: relevo :80/:443 → 127.0.0.1:8080/8443 con protocolo PROXY y
+  bloqueos por IP) y `malla` (`Nodo Camporee --malla`: Bonjour de los nodos vecinos), ambos sólo con
+  el nodo encendido.
+- **Órdenes v3 del motor:** `dispositivos` (JSON: API + ARP + ruta del registro de Caddy),
+  `cuentas bloqueadas|desbloquear CORREO`, `router-clientes`, `router-bloquear --mac M [--quitar]
+  [--simular]`, `wifi-clave [--ssid S] [--simular]` (la clave nueva en `WIFI_PASSWORD`),
+  `caddy-recargar`, `malla <subcomando de nodo_malla.py>`, `imagenes-estado`,
+  `imagenes-actualizar [--simular] [--base URL]`. Configuración: `PUERTA`, `PUERTO_INTERNO_HTTP/S`,
+  `IMAGENES_URL`. Pruebas: `pruebas/probar-analizadores.sh`, `pruebas/actualizacion-sparkle.sh`,
+  `pruebas/malla-dos-nodos.sh`, `pruebas/malla-bonjour.sh`, `pruebas/v3-motor.sh`.
 - **Carpeta de trabajo del nodo:** `instalar.sh` copia compose, Caddyfile y scripts a
   `~/Library/Application Support/Nodo Camporee/nodo/`; ahí viven también `datos/` (Postgres) y
   `tls/actual/`. Nada en Documentos/Escritorio: una pregunta de permisos de macOS sin contestar
@@ -539,3 +554,122 @@ sin root (en la Mac de pruebas una VPN intercepta el DNS saliente, por eso la pr
 fue en otro puerto; la app detecta esa intercepción). OpenWrt real: guion normal y red pública
 (dnsmasq: permitidos → nodo, cualquier otro → 0.0.0.0), idempotentes, y «quitar». MikroTik: sólo
 simulación (sin RouterOS a la mano). No se probó con un Google Wifi real ni con teléfonos.
+
+---
+
+## 11. Interferencias (VPN, Little Snitch, firewall, DNS)
+
+La luz **Interferencias** se revisa sola cada 5 minutos y al pulsar **Encender** (si encuentra algo,
+avisa y deja encender igual). **Revisar interferencias** muestra cada hallazgo con qué hacer, en
+palabras sencillas. La app **nunca** cambia ajustes de esas apps ni de macOS. Detecta, con
+herramientas de Apple (`scutil --dns`, `scutil --nc list`, `ifconfig`, `netstat -rn`,
+`systemextensionsctl list`, `socketfilterfw`, `networksetup`, `pgrep`):
+
+| Hallazgo | Qué decir al operador |
+|---|---|
+| Túnel VPN activo (utun con ruta por defecto o DNS propio) | Desconecta la VPN durante el evento. |
+| **NordVPN** (app, extensión `com.nordvpn.*`, NordLynx, Meshnet, Threat Protection/DNS propio) | «NordVPN está conectado: desconéctalo durante el evento»; apaga también Meshnet y Threat Protection (cambian el DNS). |
+| Tailscale, WireGuard, Proton VPN, Cloudflare WARP, Mullvad, AnyConnect… | Desconéctalos o ciérralos durante el evento. |
+| **Little Snitch** (extensión `at.obdev.littlesnitch.*` activa) | «Little Snitch puede bloquear a los teléfonos: permite conexiones ENTRANTES a “Nodo Camporee” (puertos 80 y 443, y 53 con “Mi red”) y a limactl», o modo silencioso «Permitir». |
+| LuLu u otro filtro de red | Igual: permitir entrantes a Nodo Camporee o pausar el filtro. |
+| Firewall de macOS que bloquea todo, o sin permiso para Nodo Camporee/limactl | Ajustes › Red › Firewall › Opciones… › Permitir. |
+| DNS de la Mac que no es el router (manual o de una VPN) | Volver a «Automático» en Ajustes › Red › (interfaz) › DNS. |
+| Relay privado de iCloud | No se puede comprobar solo: desactívalo para la red del evento. |
+
+Las pruebas usan salidas reales capturadas en una Mac de pruebas (con NordVPN, Proton y Little Snitch
+instalados) y otras escritas según la documentación pública: `pruebas/probar-analizadores.sh`
+(125 pruebas, `pruebas/muestras/LEEME.txt` dice de dónde sale cada una).
+
+## 12. Actualizaciones (Sparkle)
+
+- **Ajustes › Actualizaciones › Buscar actualizaciones** (y en el menú de la app). Además revisa
+  sola **una vez al día** cuando hay internet (sin internet no pasa nada).
+- **Nunca con el nodo ENCENDIDO**: con el nodo encendido no revisa sola, y si alguien pulsa
+  «Instalar», la instalación **espera a «Apagar»** (aviso «se instala al pulsar Apagar»).
+- **Chicas:** la actualización es sólo la app (pocos MB). Las imágenes de Docker (~540 MB) van
+  aparte, por versión (`imagenes.json` dentro de la app, una entrada por imagen con su Id y sha256):
+  al «Instalar» después de actualizar sólo se cargan las que **cambiaron**, tomándolas de la caché de
+  la Mac (`Application Support/Nodo Camporee/imagenes/`, la llena el DMG), y si no están, de
+  internet (`https://media.adventist.club/nodo/imagenes/<versión>/`, verificadas por sha256 contra el
+  manifiesto firmado dentro de la app). Sin internet y sin caché: sigue con las anteriores y avisa;
+  el **DMG sigue siendo el instalador completo sin internet**.
+- Cada actualización va firmada con el Developer ID (notarizada) **y** con la llave EdDSA de
+  Sparkle (`SUPublicEDKey` en la app; la privada sólo en el Llavero del propietario, cuenta
+  `nodo-camporee` de `generate_keys`). Instalada desde el repo (`instalar.sh`): sin revisión automática.
+
+**Publicar una versión (técnico, con las credenciales del propietario):**
+
+```sh
+FRONTEND_DIR=../frontend ./nodo-evento/mac/empaquetar.sh --salida ~/Documents/DEEL/_dev-eventos/dist
+#  → dist/Nodo Camporee.dmg (completo) y dist/actualizaciones/ (zip ligero, appcast.xml, imagenes/<ver>/)
+./nodo-evento/mac/publicar-actualizacion.sh --simular        # qué subiría
+R2_ACCOUNT_ID=… R2_ACCESS_KEY_ID=… R2_SECRET_ACCESS_KEY=… R2_BUCKET=… \
+  ./nodo-evento/mac/publicar-actualizacion.sh                 # imágenes nuevas → zip → appcast.xml
+```
+
+**Qué debe dar el propietario:** una llave de API de R2 con «Object Read & Write» **sólo** en el
+bucket que sirve `media.adventist.club` (id de cuenta, access key, secret y nombre del bucket), y
+confirmar que `https://media.adventist.club/nodo/…` sirve la carpeta `nodo/` de ese bucket. Las
+credenciales se pasan sólo en el entorno al publicar; nunca se guardan. Alternativa: GitHub Release
+(empaquetar con `NODO_ACTUALIZACIONES_URL=https://github.com/<repo>/releases/download/<tag>` y
+subir los archivos con `gh release upload`; el `SUFeedURL` de la app tendría que apuntar ahí).
+**Respaldo de la llave EdDSA:** `generate_keys --account nodo-camporee -x archivo` y guardarlo en el
+gestor de contraseñas (si se pierde, las apps instaladas no aceptarán actualizaciones nuevas).
+
+## 13. Nodos vecinos (varias Macs del mismo evento en una red)
+
+Cuando los nodos de varios coordinadores del **mismo evento** comparten red (p. ej. un Google/Nest
+Wifi en todo el lugar), cada uno ve el avance de los otros **sin la nube**: la clasificación del
+panel de coordinación queda completa en cada zona.
+
+- La app anuncia el nodo por **Bonjour** (`_nodocamporee._tcp`) y encuentra a los demás del mismo
+  evento. La primera vez macOS pregunta si «Nodo Camporee» puede **encontrar dispositivos en la red
+  local**: **Permitir** (si no, la tarjeta lo dice: Ajustes › Privacidad y seguridad › Red local).
+- Cada 30 s se intercambian los **avances firmados** (mismo formato que la subida a la nube),
+  autenticados con las llaves Ed25519 de cada nodo. Los nodos preparados con la nube se reconocen
+  solos (la nube «avala» a cada nodo, también a los preparados después); un nodo manual se
+  **empareja** con un código QR/texto y una huella de 6 dígitos (Nodos vecinos › Emparejar).
+- Lo recibido queda de **sólo lectura** (actividades que este nodo no captura). Si algo se traslapa
+  (dos nodos con lo mismo) se **reporta** y no se aplica. Un nodo desconocido o sin firma se rechaza.
+- La **subida a la nube no cambia**: cada nodo sube sólo lo suyo y la nube sigue siendo la fuente
+  de verdad después del evento. Detalles técnicos: `../README.md` §11A.
+- **Administración remota por internet (no incluida, sólo documentada):** si el operador necesita
+  llegar a un nodo desde fuera, usar **Tailscale** (o WireGuard) en la Mac del nodo y en la del
+  operador, con una ACL que sólo permita al operador → nodo (SSH o pantalla compartida). Nunca abrir
+  puertos del router hacia internet. Ojo: Tailscale/WireGuard activos aparecen en «Interferencias»
+  (apagarlos mientras los teléfonos usan el nodo si cambian el DNS).
+
+## 14. Dispositivos conectados, IP real y bloqueos
+
+- **IP real de cada teléfono:** la app escucha en los puertos 80/443 de la Mac («puerta», relevo
+  con el protocolo PROXY) y Colima sólo publica en `127.0.0.1:8080/8443`. Así Caddy, los registros y
+  la API ven la IP de cada teléfono (límites por dispositivo). Funciona igual con GL.iNet, Google
+  Wifi y las demás opciones (el DNS sigue contestando la IP de la Mac). Para volver a lo de antes:
+  `config set PUERTA 0`. Caddy sólo cree la línea PROXY si viene de `NODO_PROXY_PERMITIDOS` (con la
+  puerta el motor pone loopback y las redes de Colima/Docker; por defecto, nadie): sin la puerta, un
+  teléfono no puede inventarse otra IP para saltarse el límite por dispositivo.
+- **Dispositivos conectados** (tarjeta › Ver dispositivos): IP, MAC y nombre (con la contraseña del
+  router, de su lista DHCP), fabricante si se sabe, cuenta con sesión o «sin sesión», peticiones por
+  minuto, inicios de sesión fallidos y **alertas** (muchos fallidos, escaneo de rutas, demasiadas
+  peticiones, muchas cuentas probadas). Datos del registro JSON de Caddy (`datos/caddy/acceso.log`)
+  y de la API del nodo; nada sale de la Mac.
+- **Bloquear / Desbloquear** (con motivo): siempre en el nodo (la puerta corta la conexión y Caddy
+  contesta 403) y, en GL.iNet/OpenWrt/MikroTik, también en el router por MAC (lista negra del Wi-Fi;
+  el teléfono se expulsa sin desconectar a los demás). Google Wifi: Google Home › Dispositivos ›
+  Pausar. Cada bloqueo queda en `Application Support/Nodo Camporee/auditoria-bloqueos.jsonl`.
+- **Cuentas frenadas:** en el nodo, un teléfono que se equivoca de contraseña muchas veces sólo se
+  frena **a sí mismo** para esa cuenta (5 intentos / 5 min); la cuenta se bloquea en todos lados sólo
+  tras 60 intentos en 15 min, y un teléfono que prueba muchas cuentas se frena (20 / 5 min). Si un
+  juez no puede entrar: **Desbloquear cuenta** (queda auditado). Ver `docs/RATE_LIMITS.md`.
+
+## 15. Seguridad de la Mac y Wi-Fi del evento
+
+**Ver seguridad** revisa (sólo lectura, sin pedir contraseña): FileVault, firewall + modo encubierto
++ quién puede recibir conexiones, compartir archivos/pantalla/sesión remota (SSH)/gestión remota/
+contenido/impresoras apagados, inicio de sesión automático apagado, bloqueo de pantalla y AirDrop en
+«Solo contactos» o apagado. Cada punto dice dónde se ajusta en Ajustes del Sistema.
+
+**Wi-Fi del evento:** recomendado con contraseña **WPA2** que sólo tengan jueces, coordinación y
+directores (no abierto). **Cambiar contraseña del Wi-Fi** (GL.iNet/OpenWrt/MikroTik, con la
+contraseña del router, que no se guarda): «Ver qué cambiará» y luego cambiar; la nueva queda en el
+Llavero y el QR «Conéctate al Wi-Fi» la usa. Google Wifi: desde Google Home.

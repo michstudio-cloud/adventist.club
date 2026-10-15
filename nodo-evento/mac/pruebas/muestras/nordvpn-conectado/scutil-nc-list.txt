@@ -1,0 +1,2 @@
+Available network connection services in the current set (*=enabled):
+* (Connected)      6B2F0C1A-1111-2222-3333-444455556666 VPN (com.nordvpn.macos) "NordVPN NordLynx"               [VPN/com.nordvpn.macos]

@@ -1,0 +1,5 @@
+_debug_logging=0
+_remote_admin=0
+_remote_any=0
+_share_printers=1
+_user_cancel_any=0

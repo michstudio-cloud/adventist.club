@@ -1,0 +1,5 @@
+{
+    GuestEnabled = 1;
+    autoLoginUser = USUARIO;
+    lastUserName = USUARIO;
+}

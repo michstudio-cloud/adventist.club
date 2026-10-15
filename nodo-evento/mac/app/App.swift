@@ -20,6 +20,12 @@ enum CLI {
         case "--dns":
             // DNS del nodo para «Mi red» (lo arranca el LaunchAgent «dns»; ver DNS.swift).
             return ServidorDNS.correr(Array(args.dropFirst()))
+        case "--puerta":
+            // Relevo :80/:443 → Caddy con la IP real de cada teléfono (LaunchAgent «puerta»; Puerta.swift).
+            return Puerta.correr(Array(args.dropFirst()))
+        case "--malla":
+            // Bonjour de los nodos vecinos (LaunchAgent «malla»; Malla.swift).
+            return MallaBonjour.correr(Array(args.dropFirst()))
         case "--motor":
             // Corre el motor con los secretos que esa orden necesita (desde el Llavero).
             let resto = Array(args.dropFirst())
@@ -75,6 +81,7 @@ final class Delegado: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.activate(ignoringOtherApps: true)
         if CommandLine.arguments.contains("--prueba") { Prueba.activar() }
+        Actualizador.compartido.iniciar()
     }
 }
 
@@ -83,7 +90,7 @@ struct NodoApp: App {
     @StateObject private var motor = Motor()
 
     var body: some Scene {
-        Window("Nodo Camporee", id: "principal") {
+        Window(Bundle.main.bundleIdentifier == "club.adventist.nodo-camporee" ? "Nodo Camporee" : "PRUEBA — no usar · Nodo Camporee", id: "principal") {
             Principal()
                 .environmentObject(motor)
                 .frame(minWidth: 1040, minHeight: 760)
@@ -98,7 +105,12 @@ struct NodoApp: App {
                 }
         }
         .windowResizability(.contentMinSize)
-        .commands { CommandGroup(replacing: .newItem) {} }
+        .commands {
+            CommandGroup(replacing: .newItem) {}
+            CommandGroup(after: .appInfo) {
+                Button("Buscar actualizaciones…") { Actualizador.compartido.buscar() }
+            }
+        }
     }
 }
 

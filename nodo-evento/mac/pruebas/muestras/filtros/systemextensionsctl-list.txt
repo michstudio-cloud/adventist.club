@@ -1,0 +1,7 @@
+4 extension(s)
+--- com.apple.system_extension.network_extension (Go to 'System Settings > General > Login Items & Extensions > Network Extensions' to modify these system extension(s))
+enabled	active	teamID	bundleID (version)	name	[state]
+*	*	MLZF7K7B5R	at.obdev.littlesnitch.networkextension (6.4/7207)	Little Snitch Network Extension	[activated enabled]
+*	*	VBG97UB4TA	com.objective-see.lulu.extension (3.1.5/3.1.5)	LuLu	[activated enabled]
+*	*	ABCDE12345	com.ejemplo.filtro.proxy (1.0/1)	Filtro Ejemplo	[activated enabled]
+	*	8DKG4XB37M	com.nektony.Firewall.NetworkMonitor (1.1/48)	Nektony Network Monitor	[activated waiting for user]

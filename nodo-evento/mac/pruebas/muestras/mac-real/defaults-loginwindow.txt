@@ -1,0 +1,4 @@
+{
+    GuestEnabled = 0;
+    lastUserName = USUARIO;
+}

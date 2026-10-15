@@ -1,0 +1,2 @@
+/Applications/Little Snitch.app/Contents/Components/Little Snitch Agent.app/Contents/MacOS/Little Snitch Agent
+/Applications/LuLu.app/Contents/MacOS/LuLu

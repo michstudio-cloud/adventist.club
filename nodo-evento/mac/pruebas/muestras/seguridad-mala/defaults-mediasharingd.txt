@@ -1,0 +1,4 @@
+{
+    "home-sharing-enabled" = 1;
+    "public-sharing-enabled" = 0;
+}

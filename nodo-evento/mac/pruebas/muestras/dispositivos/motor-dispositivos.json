@@ -1,0 +1,58 @@
+{
+ "api": {
+  "generado": "2026-10-15T18:00:00Z",
+  "minutos": 10,
+  "total": 3,
+  "dispositivos": [
+   {
+    "ip": "192.168.8.120",
+    "primera_vez": "2026-10-15T17:00:00Z",
+    "ultima_vez": "2026-10-15T17:55:00Z",
+    "cuenta": {
+     "email": "director@ejemplo.org",
+     "nombre": "Director Ejemplo",
+     "a_las": "2026-10-15T17:55:00Z"
+    },
+    "fallos_10min": 0,
+    "ultimo_fallo": null,
+    "correos_distintos": 1,
+    "correos": null,
+    "sospechoso": false,
+    "peticiones": 21,
+    "peticiones_por_minuto": 2.1,
+    "bloqueado_hasta": null
+   },
+   {
+    "ip": "192.168.8.142",
+    "primera_vez": "2026-10-15T17:51:40Z",
+    "ultima_vez": "2026-10-15T17:57:40Z",
+    "cuenta": null,
+    "fallos_10min": 10,
+    "ultimo_fallo": "2026-10-15T17:57:40.250Z",
+    "correos_distintos": 6,
+    "correos": [
+     "a@ejemplo.org",
+     "b@ejemplo.org",
+     "c@ejemplo.org",
+     "d@ejemplo.org",
+     "e@ejemplo.org",
+     "f@ejemplo.org"
+    ],
+    "sospechoso": true,
+    "peticiones": 10,
+    "peticiones_por_minuto": 1.0,
+    "bloqueado_hasta": "2026-10-15T18:12:00Z"
+   },
+   {
+    "ip": "192.168.8.180",
+    "fallos_10min": "2",
+    "sospechoso": true
+   }
+  ]
+ },
+ "arp": "? (192.168.8.1) at 94:83:c4:1:2:3 on en0 ifscope [ethernet]\n? (192.168.8.131) at da:a1:19:aa:bb:cc on en0 ifscope [ethernet]\n? (192.168.8.160) at 8c:77:12:a:b:c on en0 ifscope [ethernet]\n? (192.168.8.199) at (incomplete) on en0 ifscope [ethernet]\n? (192.168.8.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]\n",
+ "acceso": "/Users/USUARIO/Library/Application Support/Nodo Camporee/nodo/datos/caddy/acceso.log",
+ "mi_ip": "192.168.8.20",
+ "router": "192.168.8.1",
+ "gateway": "192.168.8.1"
+}

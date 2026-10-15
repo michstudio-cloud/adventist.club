@@ -15,9 +15,12 @@ enum Secreto: String, CaseIterable, Identifiable {
     case jwt = "JWT_SECRET"
     case proxy = "PROXY_SHARED_SECRET"
     case postgres = "POSTGRES_PASSWORD"
+    // v3: la app (operador del nodo) habla con la API del nodo para «Dispositivos conectados» y
+    // «Desbloquear cuenta». Sólo vive en el Llavero y en el contenedor de la API.
+    case operador = "NODO_OPERADOR_TOKEN"
 
     var id: String { rawValue }
-    var generado: Bool { [.eventPass, .jwt, .proxy, .postgres].contains(self) }
+    var generado: Bool { [.eventPass, .jwt, .proxy, .postgres, .operador].contains(self) }
     /// Sólo se muestran en modo manual.
     var deModoManual: Bool { [.prodURL, .prodEventPass].contains(self) }
 
@@ -31,6 +34,7 @@ enum Secreto: String, CaseIterable, Identifiable {
         case .jwt: return "Firma de sesiones del nodo"
         case .proxy: return "Secreto interno web↔API"
         case .postgres: return "Contraseña de la base del nodo"
+        case .operador: return "Llave del operador (app ↔ API del nodo)"
         }
     }
 

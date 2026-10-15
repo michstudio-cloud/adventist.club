@@ -1,0 +1,3 @@
+/Applications/NordVPN.app/Contents/MacOS/NordVPN
+/Library/PrivilegedHelperTools/com.nordvpn.macos.helper
+/Library/SystemExtensions/X/com.nordvpn.macos.Shield.systemextension/Contents/MacOS/com.nordvpn.macos.Shield

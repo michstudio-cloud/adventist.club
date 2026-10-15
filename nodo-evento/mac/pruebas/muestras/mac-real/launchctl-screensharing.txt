@@ -1,0 +1,2 @@
+Bad request.
+Could not find service "com.apple.screensharing" in domain for system

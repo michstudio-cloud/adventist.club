@@ -1,0 +1,10 @@
+5 extension(s)
+--- com.apple.system_extension.network_extension (Go to 'System Settings > General > Login Items & Extensions > Network Extensions' to modify these system extension(s))
+enabled	active	teamID	bundleID (version)	name	[state]
+*	*	J6S6Q257EK	ch.protonvpn.mac.WireGuard-Extension (6.1.1/2729174.2511121739)	Proton VPN WireGuard	[activated enabled]
+*	*	J6S6Q257EK	ch.protonvpn.mac.Transparent-Proxy (6.1.0/2695771.2510281342)	Proton VPN Split Tunneling (experimental)	[activated enabled]
+	*	8DKG4XB37M	com.nektony.Firewall.NetworkMonitor (1.1/48)	Nektony Network Monitor	[activated waiting for user]
+*	*	MLZF7K7B5R	at.obdev.littlesnitch.networkextension (6.4 nightly (7207)/7207)	Little Snitch Network Extension	[activated enabled]
+--- com.apple.system_extension.endpoint_security (Go to 'System Settings > General > Login Items & Extensions > Endpoint Security Extensions' to modify these system extension(s))
+enabled	active	teamID	bundleID (version)	name	[state]
+*	*	W5W395V82Y	com.nordvpn.macos.Shield (10.11.0/376)	NordVPN protection	[activated enabled]

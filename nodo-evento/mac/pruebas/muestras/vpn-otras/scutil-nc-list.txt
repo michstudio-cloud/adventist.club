@@ -1,0 +1,4 @@
+Available network connection services in the current set (*=enabled):
+* (Connected)      A1B2C3D4-0000-1111-2222-333344445555 VPN (com.wireguard.macos) "oficina"                     [VPN/com.wireguard.macos]
+* (Disconnected)   B1B2C3D4-0000-1111-2222-333344445555 VPN (com.cisco.secureclient.vpn.client) "Cisco Secure Client" [VPN/com.cisco.secureclient.vpn.client]
+  (Disconnected)   C1B2C3D4-0000-1111-2222-333344445555 PPP --> L2TP "VPN (L2TP)"                     [PPP/L2TP]

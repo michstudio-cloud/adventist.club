@@ -1,0 +1,51 @@
+{
+ "generado": "2026-10-15T18:00:00Z",
+ "minutos": 10,
+ "total": 3,
+ "dispositivos": [
+  {
+   "ip": "192.168.8.120",
+   "primera_vez": "2026-10-15T17:00:00Z",
+   "ultima_vez": "2026-10-15T17:55:00Z",
+   "cuenta": {
+    "email": "director@ejemplo.org",
+    "nombre": "Director Ejemplo",
+    "a_las": "2026-10-15T17:55:00Z"
+   },
+   "fallos_10min": 0,
+   "ultimo_fallo": null,
+   "correos_distintos": 1,
+   "correos": null,
+   "sospechoso": false,
+   "peticiones": 21,
+   "peticiones_por_minuto": 2.1,
+   "bloqueado_hasta": null
+  },
+  {
+   "ip": "192.168.8.142",
+   "primera_vez": "2026-10-15T17:51:40Z",
+   "ultima_vez": "2026-10-15T17:57:40Z",
+   "cuenta": null,
+   "fallos_10min": 10,
+   "ultimo_fallo": "2026-10-15T17:57:40.250Z",
+   "correos_distintos": 6,
+   "correos": [
+    "a@ejemplo.org",
+    "b@ejemplo.org",
+    "c@ejemplo.org",
+    "d@ejemplo.org",
+    "e@ejemplo.org",
+    "f@ejemplo.org"
+   ],
+   "sospechoso": true,
+   "peticiones": 10,
+   "peticiones_por_minuto": 1.0,
+   "bloqueado_hasta": "2026-10-15T18:12:00Z"
+  },
+  {
+   "ip": "192.168.8.180",
+   "fallos_10min": "2",
+   "sospechoso": true
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+/sbin/launchd
+/usr/libexec/logd
+/Users/USUARIO/Applications/Nodo Camporee.app/Contents/MacOS/Nodo Camporee
+/opt/homebrew/Cellar/lima/2.2.0/bin/limactl

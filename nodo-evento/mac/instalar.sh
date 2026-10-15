@@ -24,9 +24,8 @@ DEVID="Developer ID Application: MATIAS ADAN ISLAS CHIRINOS (K8KM5TV738)"
 IDENT="${NODO_CODESIGN_ID:-}"
 if [ -z "$IDENT" ] && security find-identity -v -p codesigning 2>/dev/null | grep -qF "\"$DEVID\""; then IDENT="$DEVID"; fi
 if [ -n "$IDENT" ]; then
-  # De adentro hacia afuera (la app del repo no lleva otros ejecutables; el motor es un recurso).
-  codesign --force --options runtime --timestamp -s "$IDENT" "$APP"
-  codesign --verify --strict --deep "$APP"
+  # De adentro hacia afuera (Sparkle primero; el motor es un recurso).
+  "$MAC_DIR/firmar-app.sh" "$APP" "$IDENT" >/dev/null
   echo "   firmada con: $IDENT"
   NOTARIO="${NODO_NOTARIO:-nodo-camporee}"
   if xcrun notarytool history --keychain-profile "$NOTARIO" >/dev/null 2>&1; then
@@ -39,7 +38,7 @@ if [ -n "$IDENT" ]; then
     echo "   sin notarizar (no existe el perfil «$NOTARIO»: README §10)"
   fi
 else
-  codesign --force --deep -s - "$APP"; echo "   firma local (ad-hoc): macOS puede rechazarla al abrir; mejor con Developer ID"
+  "$MAC_DIR/firmar-app.sh" "$APP" - >/dev/null; echo "   firma local (ad-hoc): macOS puede rechazarla al abrir; mejor con Developer ID"
 fi
 
 echo "3/3 Instalando en $DEST…"
@@ -62,6 +61,9 @@ chmod 755 "$RUNTIME/nodo.sh"
 install -m 755 "$NODO_DIR/respaldo/respaldo.sh" "$RUNTIME/respaldo/respaldo.sh"
 install -m 755 "$NODO_DIR/tls/ca-local.sh" "$NODO_DIR/tls/certificado-letsencrypt.sh" "$RUNTIME/tls/"
 mkdir -p "$RUNTIME/portal" && install -m 644 "$NODO_DIR/portal/bienvenida.html" "$RUNTIME/portal/"
+# Bloqueos del nodo (Dispositivos conectados): sólo se crea si no existe (la app lo reescribe).
+mkdir -p "$RUNTIME/bloqueos"
+[ -f "$RUNTIME/bloqueos/bloqueados.caddy" ] || install -m 644 "$NODO_DIR/bloqueos/bloqueados.caddy" "$RUNTIME/bloqueos/"
 # Configuración inicial (sin secretos).
 MOTOR="$DEST/$APP_NAME.app/Contents/Resources/nodo-mac.sh"
 "$MOTOR" config set NODO_DIR "$RUNTIME" >/dev/null

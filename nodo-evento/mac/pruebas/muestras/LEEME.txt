@@ -1,0 +1,47 @@
+Muestras para pruebas/probar-analizadores.sh (Interferencias, SeguridadMac, Dispositivos).
+
+CAPTURADAS (salidas reales, 15 oct 2026, macOS 26.6.2, Apple Silicon; sólo órdenes de lectura):
+  mac-real/   ifconfig, netstat -rn -f inet, netstat -anv -p tcp (sólo LISTEN), scutil --dns,
+              scutil --nc list, systemextensionsctl list, ps -axo comm=, socketfilterfw --get*/--listapps,
+              fdesetup status, sharing -l, cupsctl, sysadminctl -screenLock status, defaults (screensaver,
+              sharingd DiscoverableMode, mediasharingd [sólo claves *-sharing-enabled], loginwindow [sólo
+              GuestEnabled]), launchctl print system/com.apple.screensharing, route -n get default, arp -an,
+              networksetup -getdnsservers Wi-Fi.
+              Redactado: usuario → USUARIO, nombre → NOMBRE, nombre del equipo → MAC-NODO, todas las MAC →
+              02:00:5e:00:xx:xx, IPv6 del proveedor → 2001:db8:… (rango de documentación), rutas temporales →
+              /private/tmp/PRUEBAS. Estado real: NordVPN abierto sin conectar (extensión Shield activa),
+              Little Snitch activo, Proton VPN instalado, Colima/limactl, firewall encendido sin limactl.
+
+ESCRITAS A MANO según documentación pública (no se pueden reproducir aquí sin cambiar la Mac):
+  limpia/                  Mac sin interferencias (base: los otros grupos sólo traen lo que cambia).
+                           Formatos tomados de las capturas reales.
+  nordvpn-conectado/       NordLynx (WireGuard): rutas 0/1 + 128.0/1 por utun, DNS 103.86.96.100/103.86.99.100
+                           support.nordvpn.com, artículo «What are your DNS server addresses?»,
+                           https://www.wireguard.com/netns/ (rutas 0/1 y 128/1). IDs de NordVPN leídos de los
+                           Info.plist de la app (com.nordvpn.macos, com.nordvpn.macos.Shield, ….NordLynx).
+  nordvpn-meshnet/         Meshnet: dirección 100.64.0.0/10 sin ruta por defecto
+                           https://nordvpn.com/meshnet/ (Meshnet usa 100.64.0.0/10). Heurístico.
+  tailscale/               100.x + fd7a:115c:a1e0::/48 y MagicDNS 100.100.100.100
+                           https://tailscale.com/kb/1015/100.x-addresses , https://tailscale.com/kb/1081/magicdns ,
+                           extensión io.tailscale.ipn.macsys.network-extension (https://tailscale.com/kb/1065/macos-variants).
+  filtros/                 Little Snitch (at.obdev.littlesnitch.networkextension, leído de su Info.plist), LuLu
+                           (com.objective-see.lulu.extension, https://github.com/objective-see/LuLu), un filtro
+                           inventado y uno «waiting for user» (formato real de Nektony).
+  vpn-otras/               WireGuard conectado (com.wireguard.macos, https://github.com/WireGuard/wireguard-apple),
+                           Cisco desconectado, servicio L2TP, Cloudflare WARP (com.cloudflare.1dot1dot1dot1…),
+                           DNS suplementario de la VPN. Formato de `scutil --nc list` según man scutil.
+  firewall-bloquea-todo/, firewall-app-bloqueada/, firewall-apagado/
+                           Textos de socketfilterfw (man socketfilterfw; formato igual al capturado).
+  dns-manual/              DNS 1.1.1.1/8.8.8.8 puestos a mano (networksetup -getdnsservers).
+  seguridad-mala/          FileVault apagado, SSH/SMB/VNC en escucha (vía launchd), impresoras y multimedia
+                           compartidas, inicio automático, invitado, pantalla sin contraseña, AirDrop «Everyone».
+  seguridad-ard/           Gestión remota (ARDAgent, 3283/5900) y bloqueo a 900 s.
+  dispositivos/            caddy-acceso.log: formato JSON de Caddy 2.10 (https://caddyserver.com/docs/logging):
+                             teléfono normal, escáner (/wp-admin, /.env… + 404), probador de contraseñas (POST
+                             /api/v1/auth/login 401), línea vieja, /nodo-salud desde 127.0.0.1, línea sin client_ip,
+                             ts ISO, una línea de consola y basura (se ignoran).
+                           dhcp.leases: OpenWrt/GL.iNet (https://openwrt.org/docs/guide-user/base-system/dhcp).
+                           mikrotik-leases.txt: `/ip dhcp-server lease print terse` (https://help.mikrotik.com/docs/display/ROS/DHCP).
+                           api-dispositivos.json / motor-dispositivos.json: contrato de la API del nodo y de
+                             `nodo-mac.sh dispositivos` (definidos por el otro módulo, oct 2026).
+Hora de referencia de «dispositivos»: 2026-10-15 18:00:00 UTC (epoch 1792087200).

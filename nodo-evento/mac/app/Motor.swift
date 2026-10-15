@@ -47,6 +47,11 @@ struct Estado: Decodable {
     let instalacion: Instalacion?
     let dns: DNS?
     let nodo: InfoNodo?
+    // v3
+    struct Puerta: Decodable { let activa: Bool; let configurada: Bool? }
+    struct Malla: Decodable { let activa: Bool }
+    let puerta: Puerta?
+    let malla: Malla?
     let config: [String: String]
 
     var nodoArriba: Bool { ["healthy", "running"].contains(servicios.caddy) && ["healthy"].contains(servicios.db) }
@@ -106,12 +111,13 @@ final class Motor: ObservableObject {
 
     // Qué secretos necesita cada orden (sólo esos viajan en el entorno).
     nonisolated static func secretosPara(_ orden: String) -> [Secreto] {
-        let base: [Secreto] = [.postgres, .jwt, .proxy, .eventPass]
+        let base: [Secreto] = [.postgres, .jwt, .proxy, .eventPass, .operador]
         switch orden {
         case "encender", "apagar", "respaldar", "construir", "preparar-auto", "subir-auto", "nodo-info": return base
         case "exportar", "importar", "sync-estado": return base + [.prodURL, .prodEventPass]
         case "cert-letsencrypt": return [.cloudflare]
         case "router-plan", "router-aplicar": return [.wifi]
+        case "dispositivos", "cuentas", "malla", "caddy-recargar", "imagenes-actualizar", "imagenes-estado": return base
         case "red-publica-plan", "red-publica-aplicar", "red-publica-quitar": return base + [.wifi]
         default: return []
         }
@@ -195,6 +201,8 @@ final class Motor: ObservableObject {
                 self.ocupado = false
                 if code == 0 { self.progreso = 1 }
                 self.refrescarEstado()
+                // Una actualización que esperaba a «Apagar» se instala ahora.
+                if args.first == "apagar" && code == 0 { Actualizador.compartido.nodoApagado() }
                 alTerminar?(code)
             }
         }

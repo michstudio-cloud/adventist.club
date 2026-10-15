@@ -1,0 +1,4 @@
+2 extension(s)
+--- com.apple.system_extension.endpoint_security
+enabled	active	teamID	bundleID (version)	name	[state]
+*	*	W5W395V82Y	com.nordvpn.macos.Shield (10.11.0/376)	NordVPN protection	[activated enabled]

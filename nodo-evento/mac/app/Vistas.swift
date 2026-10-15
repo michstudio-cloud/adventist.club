@@ -175,6 +175,7 @@ struct HojaMarco<Contenido: View>: View {
 
 enum Hoja: String, Identifiable {
     case qr, preparar, subir, red, certificado, ajustes, secreto
+    case interferencias, seguridad, dispositivos, vecinos
     var id: String { rawValue }
 }
 
@@ -194,6 +195,11 @@ struct Principal: View {
     @State private var hoja: Hoja?
     @State private var secretoPedido: Secreto = .eventPass
     @State private var confirmarApagar = false
+    @ObservedObject private var rev = Revisiones.compartido
+    @ObservedObject private var act = Actualizador.compartido
+    @State private var avisoEncender: [Hallazgo] = []
+    @State private var mostrarAvisoEncender = false
+    @State private var mallaEstado = EstadoMalla.leer()
 
     var e: Estado? { motor.estado }
 
@@ -225,6 +231,10 @@ struct Principal: View {
                 case .certificado: HojaCertificado(abierta: $hoja, pedirSecreto: pedir)
                 case .ajustes: HojaAjustes(abierta: $hoja, pedirSecreto: pedir)
                 case .secreto: HojaSecreto(secreto: secretoPedido, abierta: $hoja)
+                case .interferencias: HojaInterferencias(abierta: $hoja)
+                case .seguridad: HojaSeguridad(abierta: $hoja)
+                case .dispositivos: HojaDispositivos(abierta: $hoja)
+                case .vecinos: HojaVecinos(abierta: $hoja)
                 }
             }
             .environmentObject(motor)
@@ -241,15 +251,33 @@ struct Principal: View {
             else if a == "cerrar" { hoja = nil }
             else if a == "instalar" { motor.correr(["instalar"], titulo: "Instalando el nodo") }
             else if a == "encender" { motor.correr(["encender"], titulo: "Encendiendo el nodo") }
+            else if a == "revisar" { rev.revisarTodo() }
+            else if a == "actualizar:buscar" { act.buscar() }
+            else if a == "actualizar:fondo" { act.buscarEnSegundoPlano() }
+            else if a == "salir" { NSApp.terminate(nil) }
             else if a == "apagar" { motor.correr(["apagar"], titulo: "Apagando el nodo") }
             else if a.hasPrefix("motor:") { motor.correr(a.dropFirst(6).split(separator: " ").map(String.init), titulo: "Prueba: \(a.dropFirst(6))") }
         }
+        .alert("Hay posibles interferencias", isPresented: $mostrarAvisoEncender) {
+            Button("Encender de todos modos") { encender() }
+            Button("Ver interferencias") { hoja = .interferencias }
+            Button("Cancelar", role: .cancel) {}
+        } message: {
+            Text(avisoEncender.prefix(4).map { "• \($0.titulo)" }.joined(separator: "\n") + "\n\nEl nodo puede encender igual, pero los teléfonos podrían no llegar a él.")
+        }
+        .onAppear { rev.arrancar() }
+        .onReceive(Timer.publish(every: 5, on: .main, in: .common).autoconnect()) { _ in mallaEstado = EstadoMalla.leer() }
         .alert("¿Apagar el nodo?", isPresented: $confirmarApagar) {
             Button("Apagar", role: .destructive) { motor.correr(["apagar"], titulo: "Apagando el nodo") }
             Button("Cancelar", role: .cancel) {}
         } message: {
             Text("Primero se guarda un respaldo. Los teléfonos guardan sus capturas en su cola y las envían cuando el nodo vuelva.")
         }
+    }
+
+    func encender() {
+        // Los secretos del nodo se generan solos (nadie teclea nada en modo automático).
+        motor.correr(["encender"], titulo: "Encendiendo el nodo")
     }
 
     func pedir(_ s: Secreto) {
@@ -302,8 +330,11 @@ struct Principal: View {
                 }
             } else {
                 BotonGrande(titulo: "Encender", icono: "power.circle.fill", color: Luz.verde.color, deshabilitado: motor.ocupado) {
-                    // Los secretos del nodo se generan solos (nadie teclea nada en modo automático).
-                    motor.correr(["encender"], titulo: "Encendiendo el nodo")
+                    // Antes, una revisión rápida de interferencias: avisa (no bloquea).
+                    rev.revisarInterferencias { hs in
+                        let imp = Revisiones.importantes(hs)
+                        if imp.isEmpty { encender() } else { avisoEncender = imp; mostrarAvisoEncender = true }
+                    }
                 }
             }
             BotonGrande(titulo: "QR para teléfonos", icono: "qrcode", color: Color(red: 0.16, green: 0.33, blue: 0.62)) { hoja = .qr }
@@ -337,6 +368,9 @@ struct Principal: View {
             tarjetaRouter
             tarjetaNodo
             tarjetaRed
+            tarjetaInterferencias
+            tarjetaSeguridad
+            tarjetaVecinos
             tarjetaCert
             tarjetaRespaldo
             tarjetaTelefonos
@@ -440,12 +474,50 @@ struct Principal: View {
     }
 
     var tarjetaTelefonos: some View {
-        guard let e else { return Tarjeta(luz: .gris, titulo: "Teléfonos", detalle: "…") }
+        guard let e else { return Tarjeta(luz: .gris, titulo: "Dispositivos conectados", detalle: "…") }
         let n = e.telefonos.ips_10min
         let r = e.telefonos.peticiones_10min
+        let real = e.puerta?.activa == true
         return Tarjeta(luz: !e.nodoArriba ? .gris : (n > 0 || r > 0 ? .verde : .gris),
-                       titulo: e.red.en_red_router ? "\(n) equipo\(n == 1 ? "" : "s") en la red del router" : "Teléfonos",
-                       detalle: "\(r) peticiones al sitio en los últimos 10 minutos")
+                       titulo: real ? "\(n) dispositivo\(n == 1 ? "" : "s") conectado\(n == 1 ? "" : "s")" : (e.red.en_red_router ? "\(n) equipo\(n == 1 ? "" : "s") en la red del router" : "Dispositivos"),
+                       detalle: "\(r) peticiones en 10 min\(real ? " · IP real de cada teléfono" : "")",
+                       accion: e.nodoArriba ? ("Ver dispositivos", { hoja = .dispositivos }) : nil)
+    }
+
+    var tarjetaInterferencias: some View {
+        let hs = rev.interferencias
+        let imp = Revisiones.importantes(hs)
+        let luz = Revisiones.luz(hs)
+        let titulo = hs.isEmpty ? "Interferencias" : (imp.isEmpty ? "Sin interferencias" : "\(imp.count) posible\(imp.count == 1 ? "" : "s") interferencia\(imp.count == 1 ? "" : "s")")
+        let det = hs.isEmpty ? (rev.revisando ? "Revisando VPN, filtros y firewall…" : "Aún no se revisa.")
+            : (imp.isEmpty ? "VPN, filtros de red, firewall y DNS en orden (\(horaCorta(rev.cuandoInterferencias)))." : imp.prefix(2).map(\.titulo).joined(separator: " · "))
+        return Tarjeta(luz: luz, titulo: titulo, detalle: det, accion: ("Revisar interferencias", { hoja = .interferencias }))
+    }
+
+    var tarjetaSeguridad: some View {
+        let hs = rev.seguridad
+        let imp = Revisiones.importantes(hs)
+        let abierta = motor.cfg("RED_MODO") == "publica" && motor.cfg("PUBLICA_ABIERTA") != "0"
+        var luz = Revisiones.luz(hs)
+        if abierta && luz == .verde { luz = .ambar }
+        let det = hs.isEmpty ? "Aún no se revisa." : (imp.isEmpty && !abierta ? "FileVault, firewall, compartir y bloqueo de pantalla en orden."
+            : (imp.prefix(2).map(\.titulo) + (abierta ? ["Wi-Fi del evento abierto"] : [])).joined(separator: " · "))
+        return Tarjeta(luz: luz, titulo: "Seguridad de la Mac", detalle: det, accion: ("Ver seguridad", { hoja = .seguridad }))
+    }
+
+    var tarjetaVecinos: some View {
+        let m = mallaEstado
+        let n = m.vecinos.count
+        let conError = m.vecinos.filter { !EstadoMalla.texto($0["error"]).isEmpty || !(($0["traslapes"] as? [Any]) ?? []).isEmpty }.count
+        let activa = e?.malla?.activa == true
+        let luz: Luz = !activa ? .gris : (n == 0 ? .gris : (conError > 0 || !m.rechazados.isEmpty ? .ambar : .verde))
+        let det: String
+        if !activa { det = "Se activa al encender (comparte avances con otros nodos del evento en la red)." }
+        else if m.sinPermisoRedLocal { return Tarjeta(luz: .rojo, titulo: "Nodos vecinos: falta un permiso", detalle: "Ajustes › Privacidad y seguridad › Red local › «Nodo Camporee».", accion: ("Nodos vecinos", { hoja = .vecinos })) }
+        else if n == 0 { det = m.vistosBonjour.isEmpty ? "Buscando otros nodos del evento en esta red…" : "Encontrados \(m.vistosBonjour.count); conectando…" }
+        else { det = m.vecinos.prefix(3).map { "«\(EstadoMalla.texto($0["label"]))» \(EstadoMalla.cuando($0["ultima_sync"]))" }.joined(separator: " · ") }
+        return Tarjeta(luz: luz, titulo: n == 0 ? "Nodos vecinos" : "\(n) nodo\(n == 1 ? "" : "s") vecino\(n == 1 ? "" : "s")", detalle: det,
+                       accion: ("Nodos vecinos", { hoja = .vecinos }))
     }
 
     var tarjetaEnergia: some View {
@@ -843,12 +915,13 @@ struct HojaAjustes: View {
                     Button("Revisar red") { motor.correr(["red-revisar"], titulo: "Revisando la red") }
                 }.disabled(motor.ocupado).padding(6)
             }
+            GroupBox("Actualizaciones") { SeccionActualizaciones().padding(6).frame(maxWidth: .infinity, alignment: .leading) }
             if let i = motor.estado?.instalacion, i.paquete {
                 Text("Versión portátil \(i.version_paquete) · instalada: \(i.version_instalada.isEmpty ? "—" : i.version_instalada) · Colima y Docker: \(i.herramientas == "app" ? "los de la app" : (i.herramientas == "sistema" ? "los de esta Mac" : "faltan"))")
                     .font(.system(size: 12)).foregroundStyle(.secondary)
             }
             if motor.estado?.firewall == true {
-                Text("Firewall de macOS activo. Si al encender macOS pregunta «¿Permitir conexiones entrantes?» para limactl/ssh, elige «Permitir». Si un teléfono no entra: Ajustes del Sistema › Red › Firewall › Opciones… y deja «limactl» en «Permitir conexiones entrantes».")
+                Text("Firewall de macOS activo. Si al encender macOS pregunta «¿Permitir conexiones entrantes?» para «Nodo Camporee» (la puerta del nodo) o limactl, elige «Permitir». Si un teléfono no entra: «Revisar interferencias».")
                     .font(.system(size: 12)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
             BarraProgreso()
