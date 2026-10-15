@@ -315,8 +315,10 @@ async def test_bundle_contents(client, w, factory):
     assert node.answer["format"] == "nodo-sobre/1" and "ciphertext" in node.answer
     assert "password_hash" not in json.dumps(node.answer)  # sealed
     emails = {u["email"] for u in node.bundle["reference"]["users"]}
-    for who in ("coordinator", "judge", "director", "admin", "master"):
+    for who in ("coordinator", "judge", "director", "admin"):
         assert w[who]["email"] in emails, who
+    assert w["master"]["email"] not in emails  # a MASTER travels only when it takes part
+    assert all(u["mfa_secret"] is None and u["mfa_enabled"] is False for u in node.bundle["reference"]["users"])
     assert w["minor_director"]["email"] not in emails
     assert w["outsider"]["email"] not in emails and w["other_admin"]["email"] not in emails
     assert all(u.get("password_hash") for u in node.bundle["reference"]["users"] if u["email"].startswith(RUN))

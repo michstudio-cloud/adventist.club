@@ -86,7 +86,9 @@ MAX_MERGE_FIELDS = {"rules_version", "updated_at"}
 EVENT_LEVEL_TABLES = {"event_staff", "event_adjustment_types", "event_registrations"}
 
 # Users that take part in the event: staff, everybody referenced by its rows, the directors of
-# its clubs, the admins whose scope contains its organization, and MASTER_GC. Never minors.
+# its clubs, the admins whose scope contains its organization, and whoever prepares the node.
+# Never minors. (029 also copied every MASTER_GC: since 030 a coordinator can prepare a node and
+# read its bundle, so a MASTER account travels only when it takes part in the event.)
 USERS_SQL = f"""
 WITH ev AS (SELECT * FROM events WHERE id = $1),
      owner AS (SELECT o.path FROM organizations o JOIN ev ON ev.organization_id = o.id),
@@ -114,10 +116,8 @@ WITH ev AS (SELECT * FROM events WHERE id = $1),
        UNION SELECT id FROM users WHERE role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs)
        UNION SELECT user_id FROM role_assignments WHERE status = 'ACTIVE' AND (
                (role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs))
-               OR (role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc))
-               OR role = 'MASTER_GC')
+               OR (role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc)))
        UNION SELECT id FROM users WHERE role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc)
-       UNION SELECT id FROM users WHERE role = 'MASTER_GC'
        UNION SELECT id FROM users WHERE lower(email) = lower($2)
      )
 SELECT to_jsonb(u) AS row FROM users u
@@ -390,6 +390,9 @@ async def gather_export(prod, event_id: uuid.UUID, actor_email: str) -> dict:
     user_ids = {u["id"] for u in users}
     for u in users:
         u["birth_date"] = None  # not needed at the event; less personal data on the node
+        # The second factor's seed never leaves the cloud: on the node everybody logs in with
+        # the password only (an offline LAN of the event).
+        u["mfa_secret"], u["mfa_enabled"] = None, False
     roles = [null_missing(r, ["granted_by_id", "ended_by_id"], user_ids) | {"invitation_id": None}
              for r in await rows_of(prod, "SELECT to_jsonb(r) AS row FROM role_assignments r"
                                           " WHERE user_id = ANY($1::uuid[]) ORDER BY granted_at, id",
