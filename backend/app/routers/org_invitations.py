@@ -16,6 +16,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request,
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.db import get_db
 from app.deps import get_current_user, get_optional_user
 from app.models import Organization, RoleAssignment, User
@@ -241,7 +242,7 @@ def _email_hint(email: str) -> str:
 
 
 @invitations_router.post("/preview", response_model=OrgInvitationPreview)
-@limiter.limit("10/minute")
+@limiter.limit(settings.RATE_LIMIT_INVITATION_PREVIEW)
 async def preview_org_invitation(
     request: Request,
     payload: OrgTokenIn,

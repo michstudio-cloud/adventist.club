@@ -15,6 +15,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request,
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.db import get_db
 from app.deps import get_current_user
 from app.models import ClubMembership, Organization, User
@@ -101,7 +102,7 @@ async def leave_club(
 # Invitations: looking at one, and accepting it
 # ----------------------------------------------------------------------------
 @router.post("/invitations/preview", response_model=InvitationPreview)
-@limiter.limit("10/minute")
+@limiter.limit(settings.RATE_LIMIT_INVITATION_PREVIEW)
 async def preview_invitation(
     request: Request, payload: TokenIn, db: AsyncSession = Depends(get_db)
 ):
@@ -232,7 +233,7 @@ def _as_request_out(membership, club) -> JoinRequestOut:
 # Guardian consent
 # ----------------------------------------------------------------------------
 @router.post("/consents/preview", response_model=ConsentPreview)
-@limiter.limit("10/minute")
+@limiter.limit(settings.RATE_LIMIT_INVITATION_PREVIEW)
 async def preview_consent(request: Request, payload: TokenIn, db: AsyncSession = Depends(get_db)):
     """What the guardian reads before deciding: who the minor is, which club,
     and in plain words what the club will see and who inside it. Public, like

@@ -111,14 +111,15 @@ RATE_LIMIT_SCRIPT = textwrap.dedent("""
         transport = httpx.ASGITransport(app=main.app)
         body = {"email": "rate-limit-nobody@example.com", "password": "Wrong-Pass1"}
         async with httpx.AsyncClient(transport=transport, base_url="http://boot") as client:
-            mine = [(await client.post("/api/v1/auth/login", json=body)).status_code for _ in range(7)]
+            mine = [(await client.post("/api/v1/auth/login", json=body)).status_code for _ in range(11)]
             other = await client.post(
-                "/api/v1/auth/login", json=body, headers={"X-Forwarded-For": "203.0.113.9"}
+                "/api/v1/auth/login", json={**body, "email": "rate-limit-other@example.com"}
             )
             last = await client.post("/api/v1/auth/login", json=body)
             public = [(await client.get("/")).status_code for _ in range(10)]
         await engine.dispose()
         print(json.dumps({"mine": mine, "other": other.status_code, "last": last.json(),
+                          "retry_after": last.headers.get("retry-after"),
                           "public": sorted(set(public))}))
 
     asyncio.run(run())
@@ -146,7 +147,9 @@ def test_rate_limit_on_login_when_enabled():
     )
     assert result.returncode == 0, result.stderr[-2000:]
     out = json.loads(result.stdout.strip().splitlines()[-1])
-    assert out["mine"] == [401] * 5 + [429] * 2  # default RATE_LIMIT_LOGIN is 5/minute
-    assert out["other"] == 401  # buckets are per client address
-    assert "detail" in out["last"]
+    # default RATE_LIMIT_LOGIN_ACCOUNT is 10/15 minutes per e-mail (RATE_LIMIT_LOGIN 60/minute per address)
+    assert out["mine"] == [401] * 10 + [429]
+    assert out["other"] == 401  # another account on the same address is not blocked
+    assert out["last"]["detail"].startswith("Demasiados intentos")
+    assert int(out["retry_after"]) > 0
     assert out["public"] == [200]  # undecorated endpoints are never limited

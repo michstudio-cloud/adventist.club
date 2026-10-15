@@ -9,6 +9,18 @@ logger = logging.getLogger(__name__)
 
 _TRUE_VALUES = {"1", "true", "yes", "on", "y", "t"}
 _FALSE_VALUES = {"0", "false", "no", "off", "n", "f"}
+RATE_LIMIT_FIELDS = (
+    "RATE_LIMIT_LOGIN",
+    "RATE_LIMIT_LOGIN_ACCOUNT",
+    "RATE_LIMIT_REGISTER",
+    "RATE_LIMIT_REGISTER_ACCOUNT",
+    "RATE_LIMIT_FORGOT_PASSWORD",
+    "RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT",
+    "RATE_LIMIT_RESET_PASSWORD",
+    "RATE_LIMIT_INVITATION_PREVIEW",
+)
+# Shorter shared secrets are ignored (with a warning): the header they unlock decides rate limits.
+PROXY_SECRET_MIN_LENGTH = 32
 
 
 class Settings(BaseSettings):
@@ -100,11 +112,25 @@ class Settings(BaseSettings):
     SENTRY_DEBUG_MODE: bool = False
     SERVER_NAME: str | None = None
 
-    # --- Rate limiting ---
+    # --- Rate limiting (docs/RATE_LIMITS.md) ---
+    # Limit strings use the `limits` syntax ("60/minute", "10/15 minutes"). A blank or unreadable
+    # value falls back to the default below, so a typo never switches a limit off.
     RATE_LIMIT_ENABLED: bool = True
-    RATE_LIMIT_LOGIN: str = "5/minute"
-    RATE_LIMIT_REGISTER: str = "3/hour"
-    RATE_LIMIT_FORGOT_PASSWORD: str = "3/hour"
+    # Per client address. High enough for a venue NAT (20-40 judges behind one public IP).
+    RATE_LIMIT_LOGIN: str = "60/minute"
+    # Per normalized e-mail address (login), on top of the per-address limit.
+    RATE_LIMIT_LOGIN_ACCOUNT: str = "10/15 minutes"
+    RATE_LIMIT_REGISTER: str = "20/hour"
+    RATE_LIMIT_REGISTER_ACCOUNT: str = "5/hour"
+    RATE_LIMIT_FORGOT_PASSWORD: str = "20/hour"
+    RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT: str = "3/hour"
+    RATE_LIMIT_RESET_PASSWORD: str = "30/minute"
+    # Public previews of membership / consent / organization invitation links.
+    RATE_LIMIT_INVITATION_PREVIEW: str = "30/minute"
+    # Shared with the web app's server (Next.js session bridge and /api/v1 proxy). Only a request
+    # carrying it in `X-Proxy-Auth` may name the real client address in `X-Proxy-Client-IP`;
+    # unset (the default, e.g. on a local event node) means that header is never trusted.
+    PROXY_SHARED_SECRET: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -124,6 +150,7 @@ class Settings(BaseSettings):
         "EVENT_PASS_SECRET",
         "SENTRY_DSN",
         "SERVER_NAME",
+        "PROXY_SHARED_SECRET",
         mode="before",
     )
     @classmethod
@@ -142,9 +169,6 @@ class Settings(BaseSettings):
         "EMAIL_FROM",
         "EMAIL_FROM_NAME",
         "EVENT_PASS_URL_BASE",
-        "RATE_LIMIT_LOGIN",
-        "RATE_LIMIT_REGISTER",
-        "RATE_LIMIT_FORGOT_PASSWORD",
         mode="before",
     )
     @classmethod
@@ -152,6 +176,23 @@ class Settings(BaseSettings):
         if isinstance(value, str) and not value.strip():
             return cls.model_fields[info.field_name].default
         return value
+
+    @field_validator(*RATE_LIMIT_FIELDS, mode="before")
+    @classmethod
+    def _valid_rate_limit(cls, value: Any, info) -> Any:
+        """slowapi silently drops a limit it cannot parse: fall back to the default instead."""
+        from limits import parse_many
+
+        default = cls.model_fields[info.field_name].default
+        text = str(value).strip() if value is not None else ""
+        if not text:
+            return default
+        try:
+            parse_many(text)
+        except ValueError:
+            logger.warning("Invalid rate limit for %s; using default %s", info.field_name, default)
+            return default
+        return text
 
     @field_validator(
         "SENTRY_DEBUG_MODE", "RATE_LIMIT_ENABLED", "MASTER_MFA_ENFORCED", "SHOW_SOURCES", mode="before"
@@ -241,6 +282,14 @@ class Settings(BaseSettings):
         return {h.lower() for h in hosts if h}
 
     @property
+    def proxy_shared_secret(self) -> str | None:
+        """The usable shared secret of the web app's server, or None (header never trusted)."""
+        secret = self.PROXY_SHARED_SECRET
+        if secret and len(secret) < PROXY_SECRET_MIN_LENGTH:
+            return None
+        return secret
+
+    @property
     def auth_configured(self) -> bool:
         return bool(self.JWT_SECRET)
 
@@ -258,3 +307,8 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+if settings.PROXY_SHARED_SECRET and settings.proxy_shared_secret is None:
+    logger.warning(
+        "PROXY_SHARED_SECRET is shorter than %s characters; ignoring it (X-Proxy-Client-IP is not trusted)",
+        PROXY_SECRET_MIN_LENGTH,
+    )
