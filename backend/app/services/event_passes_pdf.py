@@ -18,7 +18,9 @@ Pure rendering: who may print what, and which token each club has, is decided by
 from __future__ import annotations
 
 import logging
+import re
 import threading
+import unicodedata
 
 import qrcode
 from dataclasses import dataclass
@@ -91,6 +93,24 @@ def date_range(start: date, end: date) -> str:
     if start.month != end.month:
         return f"{full(start, year=False)} – {full(end)}"
     return f"{start.day}–{full(end)}"
+
+
+_COMBINING = re.compile("[\u0300-\u036f]")
+
+
+def place_line(venue: str | None, city: str | None) -> str:
+    """Venue and city on one line without repeating what the other already says: «La Morita» +
+    «La Morita, N.L.» -> «La Morita, N.L.». Compares comma-separated segments, ignoring case and
+    accents. Same rule as `placeLine` in the frontend (lib/events-brand.ts)."""
+    def norm(text: str) -> str:
+        return _COMBINING.sub("", unicodedata.normalize("NFD", text)).strip().lower()
+
+    out: list[str] = []
+    for part in ",".join(text or "" for text in (venue, city)).split(","):
+        clean = part.strip()
+        if clean and not any(norm(seen) == norm(clean) for seen in out):
+            out.append(clean)
+    return ", ".join(out)
 
 
 def code_lines(token: str, group: int = 4, per_line: int = 4) -> list[str]:
@@ -260,7 +280,7 @@ def _header(c: canvas.Canvas, box: _Box, brand: EventBrand, logo: ImageReader | 
     name_size = 22.0 if big else 16.0
     lines, name_size = _fit(brand.name, bold, name_size, width, min_size=11 if big else 10, max_lines=2)
     meta = date_range(brand.starts_on, brand.ends_on)
-    place = " · ".join(part for part in (brand.venue, brand.city) if part)
+    place = place_line(brand.venue, brand.city)
     meta_size = 12.0 if big else 9.5
     meta_lines = [meta] + ([place] if place else [])
     meta_lines = [(simpleSplit(line, regular, meta_size, width) or [line])[0] for line in meta_lines]

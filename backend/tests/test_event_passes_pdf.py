@@ -138,7 +138,7 @@ async def test_coordination_prints_every_registered_club_two_per_sheet(client, w
             assert w["names"][key] in words
         assert w["names"]["d"] not in words             # withdrawn: no pass
         assert f"{RUN} Camporee Universo" in words and "20–22 de noviembre de 2026" in words
-        assert "Campamento El Cielo · Santiago" in words and "Monterrey" in words
+        assert "Campamento El Cielo, Santiago" in words and "Monterrey" in words
         assert "Muestra este pase en la mesa de registro y en cada actividad." in words
         assert "Cortar por la línea" in words
         assert "X-Pass-Regenerated" not in response.headers
@@ -259,6 +259,25 @@ def test_date_range_in_spanish():
     assert passes.date_range(date(2026, 11, 20), date(2026, 11, 22)) == "20–22 de noviembre de 2026"
     assert passes.date_range(date(2026, 11, 30), date(2026, 12, 2)) == "30 de noviembre – 2 de diciembre de 2026"
     assert passes.date_range(date(2026, 12, 30), date(2027, 1, 2)) == "30 de diciembre de 2026 – 2 de enero de 2027"
+
+
+def test_place_line_does_not_repeat_the_city():
+    assert passes.place_line("La Morita", "La Morita, N.L.") == "La Morita, N.L."
+    assert passes.place_line("la morita", "La Morita") == "la morita"
+    assert passes.place_line("Río Bravo", "rio bravo, Tamps.") == "Río Bravo, Tamps."
+    assert passes.place_line("Campamento Río Bravo", "Monterrey, N.L.") == "Campamento Río Bravo, Monterrey, N.L."
+    assert passes.place_line(None, "Reynosa") == "Reynosa"
+    assert passes.place_line("", None) == ""
+
+
+def test_the_pass_header_prints_the_place_once():
+    brand = passes.EventBrand(name="Camporee", starts_on=date(2026, 10, 24), ends_on=date(2026, 10, 26),
+                              venue="La Morita", city="La Morita, N.L.")
+    item = passes.ClubPass(club_name="Estrellitas", club_city=None, token="evp_" + "A" * 40,
+                           url="https://events.adventist.club/p/evp_" + "A" * 40)
+    text = "".join(page.extract_text() for page in PdfReader(io.BytesIO(passes.render_passes_pdf(brand, [item]))).pages)
+    assert "La Morita, N.L." in text
+    assert "La Morita · La Morita" not in text and text.count("La Morita") == 1
 
 
 def test_code_lines_group_the_token():
