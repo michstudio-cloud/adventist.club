@@ -28,6 +28,9 @@ para ese evento («en nodo local»: la nube sólo deja consultar, nadie captura 
 Durante el evento el nodo es la fuente de verdad. Al volver internet se **importa** todo a
 producción y el bloqueo se libera.
 
+> **Versión «una Mac + GL.iNet Beryl AX»** (sin mini PC ni MikroTik): app de un clic
+> «Nodo Camporee» en [`mac/README.md`](mac/README.md). Usa este mismo `docker-compose.yml`.
+
 ---
 
 ## 1. Equipo

@@ -44,7 +44,17 @@
 	}
 }
 
-# Quien teclee la IP o http:// llega al sitio del evento.
+# Quien teclee la IP o http:// llega al sitio del evento. Excepción: con el plan B (CA local),
+# http://<ip-del-nodo>/nodo-ca.crt entrega la CA para instalarla en los teléfonos (sin HTTPS,
+# porque el teléfono todavía no confía en ella). Con Let's Encrypt el archivo no existe (404).
 :80 {
-	redir https://events.adventist.club{uri} 302
+	handle /nodo-ca.crt {
+		root * /certs
+		rewrite * /ca-local.pem
+		header Content-Type application/x-x509-ca-cert
+		file_server
+	}
+	handle {
+		redir https://events.adventist.club{uri} 302
+	}
 }
