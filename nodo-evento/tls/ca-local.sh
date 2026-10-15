@@ -9,13 +9,13 @@
 # el certificado público (HSTS) y rechazar la CA local: por eso el plan A es Let's Encrypt.
 #
 #   ./tls/ca-local.sh [nombre-o-IP …]
-# Sin argumentos: events.adventist.club admin.adventist.club api.adventist.club localhost.
+# Sin argumentos: events.adventist.club admin.adventist.club api.adventist.club media.adventist.club localhost.
 # Las IPs (p. ej. 10.20.40.10) se añaden como IP SAN. Reutiliza la CA si ya existe.
 # Resultado: tls/actual/{fullchain.pem,privkey.pem,ca-local.pem}; la CA en tls/ca-local/ (600).
 set -euo pipefail
 cd "$(dirname "$0")"
 names=("$@")
-[ ${#names[@]} -gt 0 ] || names=(events.adventist.club admin.adventist.club api.adventist.club localhost)
+[ ${#names[@]} -gt 0 ] || names=(events.adventist.club admin.adventist.club api.adventist.club media.adventist.club localhost)
 mkdir -p ca-local actual
 umask 077
 if [ ! -s ca-local/ca.key ]; then

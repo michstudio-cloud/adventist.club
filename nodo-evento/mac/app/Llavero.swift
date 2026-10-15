@@ -3,22 +3,28 @@ import Foundation
 import Security
 
 enum Secreto: String, CaseIterable, Identifiable {
-    // Los pide la app una vez (los tiene el propietario).
-    case eventPass = "EVENT_PASS_SECRET"
+    // Opcionales / avanzados: sólo para el modo manual, el certificado o el QR del Wi-Fi.
     case prodURL = "PROD_DATABASE_URL"
+    case prodEventPass = "PROD_EVENT_PASS_SECRET"
     case cloudflare = "CF_DNS_API_TOKEN"
     case wifi = "WIFI_PASSWORD"
-    // Propios del nodo: la app los genera la primera vez.
+    // Propios del nodo: la app los genera la primera vez (nadie tiene que teclearlos).
+    // EVENT_PASS_SECRET: ahora es PROPIO del nodo (los pases se vuelven a cifrar al preparar). En
+    // una instalación vieja ya guardado (= el de producción) se conserva tal cual.
+    case eventPass = "EVENT_PASS_SECRET"
     case jwt = "JWT_SECRET"
     case proxy = "PROXY_SHARED_SECRET"
     case postgres = "POSTGRES_PASSWORD"
 
     var id: String { rawValue }
-    var generado: Bool { [.jwt, .proxy, .postgres].contains(self) }
+    var generado: Bool { [.eventPass, .jwt, .proxy, .postgres].contains(self) }
+    /// Sólo se muestran en modo manual.
+    var deModoManual: Bool { [.prodURL, .prodEventPass].contains(self) }
 
     var titulo: String {
         switch self {
-        case .eventPass: return "Secreto de los pases"
+        case .eventPass: return "Secreto de los pases del nodo"
+        case .prodEventPass: return "Secreto de los pases de producción"
         case .prodURL: return "Conexión de producción"
         case .cloudflare: return "Token de Cloudflare"
         case .wifi: return "Contraseña del Wi-Fi del evento"
@@ -30,10 +36,10 @@ enum Secreto: String, CaseIterable, Identifiable {
 
     var ayuda: String {
         switch self {
-        case .eventPass:
-            return "EVENT_PASS_SECRET: el MISMO valor que tiene producción (Render › adventist-club-api › Environment). Con él se leen los pases impresos. Lo guarda el propietario en su gestor de contraseñas."
+        case .prodEventPass:
+            return "Sólo modo manual. PROD_EVENT_PASS_SECRET: el EVENT_PASS_SECRET de producción (Render › adventist-club-api › Environment). Con él la copia manual vuelve a cifrar los pases con el secreto propio del nodo. Lo guarda el propietario en su gestor de contraseñas."
         case .prodURL:
-            return "Cadena de conexión de la base de producción (postgresql://…). Sólo se usa al «Preparar evento» y al «Subir resultados»."
+            return "Sólo modo manual. Cadena de conexión de la base de producción (postgresql://…) para «Preparar» y «Subir» sin la API. En modo automático no hace falta."
         case .cloudflare:
             return "Token de API de Cloudflare con permiso «Zone · DNS · Edit» sólo para adventist.club. Sólo para sacar o renovar el certificado (con internet)."
         case .wifi:

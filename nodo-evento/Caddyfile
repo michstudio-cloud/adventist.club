@@ -15,6 +15,10 @@
 	tls /certs/fullchain.pem /certs/privkey.pem
 	encode zstd gzip
 
+	# Marca de «esto es un nodo, no la nube»: la app de Mac no inicia sesión ni sube resultados si
+	# api.adventist.club le contesta con esta cabecera (estaría hablando con un nodo, no con internet).
+	header X-Nodo-Local "1"
+
 	# Salud del nodo (para el operador y el monitoreo del router).
 	handle /nodo-salud {
 		respond "ok" 200
@@ -23,6 +27,16 @@
 	# Logos del evento copiados por el export (en producción vienen de media.adventist.club).
 	handle_path /nodo-media/* {
 		root * /srv/media
+		file_server
+	}
+
+	# Imágenes de media.adventist.club (logos del evento y de clubes, avatares) que «preparar»
+	# copió a datos/media/mirror/<misma ruta>. Lo que no se copió: 404 (nunca a internet).
+	@media host media.adventist.club
+	handle @media {
+		root * /srv/media/mirror
+		header Cache-Control "public, max-age=86400"
+		header Access-Control-Allow-Origin "*"
 		file_server
 	}
 
@@ -44,10 +58,52 @@
 	}
 }
 
+# «Red pública del evento» (opcional): el router manda las direcciones con que los teléfonos
+# revisan si hay internet a ESTE nodo, y aquí se contestan (sólo por http, puerto 80). NODO_PORTAL:
+#   ninguno    — no se contestan (sin la red pública, esos nombres ni llegan aquí)
+#   exito      — se contesta «hay internet»: iPhone y Android se quedan en el Wi-Fi sin preguntar
+#                (recomendado; Android puede marcar «conectividad limitada»: su prueba HTTPS falla)
+#   bienvenida — se contesta con una página «Entrar a events.adventist.club»: el teléfono abre su
+#                ventanita de «iniciar sesión en la red» (en iPhone es un mini navegador sin cámara;
+#                el botón abre el sitio y ahí sí funciona todo)
+(portal_ninguno) {
+	respond 404
+}
+(portal_exito) {
+	@apple path /hotspot-detect.html /library/test/success.html
+	respond @apple "<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>" 200
+	@android path /generate_204 /gen_204
+	respond @android 204
+	@ms path /connecttest.txt
+	respond @ms "Microsoft Connect Test" 200
+	@ncsi path /ncsi.txt
+	respond @ncsi "Microsoft NCSI" 200
+	@firefox path /success.txt /canonical.html
+	respond @firefox "success" 200
+	respond 204
+}
+(portal_bienvenida) {
+	root * /srv/portal
+	rewrite * /bienvenida.html
+	header Cache-Control "no-store"
+	file_server
+}
+http://captive.apple.com, http://www.apple.com, http://www.appleiphonecell.com, http://www.itools.info, http://www.ibook.info, http://www.airport.us, http://www.thinkdifferent.us, http://connectivitycheck.gstatic.com, http://connectivitycheck.android.com, http://clients3.google.com, http://clients1.google.com, http://www.google.com, http://www.gstatic.com, http://www.msftconnecttest.com, http://www.msftncsi.com, http://detectportal.firefox.com, http://nmcheck.gnome.org, http://nodo.local {
+	header X-Nodo-Local "1"
+	import portal_{$NODO_PORTAL:ninguno}
+}
+
 # Quien teclee la IP o http:// llega al sitio del evento. Excepción: con el plan B (CA local),
 # http://<ip-del-nodo>/nodo-ca.crt entrega la CA para instalarla en los teléfonos (sin HTTPS,
 # porque el teléfono todavía no confía en ella). Con Let's Encrypt el archivo no existe (404).
 :80 {
+	header X-Nodo-Local "1"
+	@media host media.adventist.club
+	handle @media {
+		root * /srv/media/mirror
+		header Cache-Control "public, max-age=86400"
+		file_server
+	}
 	handle /nodo-ca.crt {
 		root * /certs
 		rewrite * /ca-local.pem

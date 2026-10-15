@@ -17,6 +17,9 @@ enum CLI {
     static func correr(_ args: [String]) -> Int32? {
         guard let primero = args.first else { return nil }
         switch primero {
+        case "--dns":
+            // DNS del nodo para «Mi red» (lo arranca el LaunchAgent «dns»; ver DNS.swift).
+            return ServidorDNS.correr(Array(args.dropFirst()))
         case "--motor":
             // Corre el motor con los secretos que esa orden necesita (desde el Llavero).
             let resto = Array(args.dropFirst())
@@ -24,6 +27,9 @@ enum CLI {
             p.executableURL = URL(fileURLWithPath: "/bin/bash")
             let ruta = ProcessInfo.processInfo.environment["NODO_MOTOR"] ?? ((Bundle.main.resourcePath ?? ".") + "/nodo-mac.sh")
             p.arguments = [ruta] + resto
+            if ["encender", "preparar-auto"].contains(resto.first ?? "") {
+                for s in Secreto.allCases where s.generado { Llavero.generarSiFalta(s) }
+            }
             p.environment = Motor.entorno(para: resto)
             do { try p.run() } catch { fputs("no pude correr el motor\n", stderr); return 1 }
             p.waitUntilExit()
@@ -86,9 +92,7 @@ struct NodoApp: App {
                     if CommandLine.arguments.contains("--encender") {
                         // Auto-arranque al iniciar sesión (LaunchAgent opcional).
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            if motor.secretosPresentes[.eventPass] == true {
-                                motor.correr(["encender"], titulo: "Encendiendo el nodo")
-                            }
+                            motor.correr(["encender"], titulo: "Encendiendo el nodo")
                         }
                     }
                 }
@@ -109,10 +113,16 @@ enum Ubicacion {
 
 /// Modo de prueba (sólo con `--prueba`): un script puede abrir hojas, pulsar Encender/Apagar y
 /// guardar capturas de la ventana sin permisos de grabación de pantalla.
-///   aviso: club.adventist.nodo-camporee.prueba  {"accion": "hoja:qr" | "cerrar" | "instalar" |
-///          "encender" | "apagar" | "captura:/ruta/nombre"}
+///   aviso: club.adventist.nodo-camporee.prueba  {"accion": "hoja:qr" | "hoja:conectar" | "hoja:subir" |
+///          "hoja:red" | "red:glinet|google|mi-red|otro|lugar|varios|elegir" | "modo:auto|manual" |
+///          "auto:entrar:correo|clave" | "auto:codigo:123456" | "auto:evento:N" | "auto:actividad:N" |
+///          "auto:todas" | "auto:preparar" | "auto:final" | "auto:revisar" | "auto:subir" |
+///          "otro:mikrotik|openwrt|manual|simular" | "cerrar" | "instalar" | "encender" | "apagar" |
+///          "motor:<orden>" | "captura:/ruta/nombre"}
 enum Prueba {
     static let interno = Notification.Name("nodo.prueba")
+    /// «red:<opción>» con la hoja de red cerrada: se abre y entra directo a esa opción.
+    static var redPendiente: String?
     static func activar() {
         DistributedNotificationCenter.default().addObserver(forName: Notification.Name("club.adventist.nodo-camporee.prueba"),
                                                             object: nil, queue: .main) { n in

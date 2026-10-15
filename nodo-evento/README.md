@@ -30,6 +30,15 @@ producción y el bloqueo se libera.
 
 > **Versión «una Mac + GL.iNet Beryl AX»** (sin mini PC ni MikroTik): app de un clic
 > «Nodo Camporee» en [`mac/README.md`](mac/README.md). Usa este mismo `docker-compose.yml`.
+>
+> En la app de Mac:
+> - **Modo automático (recomendado):** «Conectar con adventist.club» con la cuenta de coordinación →
+>   Mis eventos → qué actividades captura ese nodo → Preparar. Sin secretos que teclear
+>   ([mac/README.md §3.1](mac/README.md)). Subir **avance** o **final** igual (§6.1).
+> - **Modo manual (respaldo, sin la API):** conexión de producción, como en este README (§3.2/§6.2).
+> - **Varios coordinadores / varios nodos:** cada uno con su Mac, su router y sus actividades (§6A).
+> - **Red del evento:** GL.iNet, **Red pública del evento** (sólo el sitio, sin desvíos), **Google
+>   Wifi / Nest Wifi** y otros routers con DNS personalizado (DNS en la Mac), red del lugar (§6B, §6C).
 
 ---
 

@@ -7,11 +7,27 @@
 #   nodo-mac.sh respaldar               respaldo ahora + copia a la USB
 #   nodo-mac.sh respaldo-espejo         sólo copia los respaldos a la USB (lo llama un LaunchAgent)
 #   nodo-mac.sh construir               construye las imágenes (CON internet, una vez)
-#   nodo-mac.sh exportar [--dry-run]    producción -> nodo (víspera, con internet)
-#   nodo-mac.sh importar [--dry-run] [--prefer node|prod] [--keep-lock]   nodo -> producción
+#   MODO AUTOMÁTICO (recomendado; la app inicia sesión en adventist.club y pasa el token por el
+#   entorno NODO_API_TOKEN, sólo en memoria):
+#   nodo-mac.sh preparar-auto --event ID --label L [--actividades id,id | --todo]
+#               [--llegadas | --sin-llegadas] [--reemplazar-copia] [--reemplazar-nodo ID]
+#   nodo-mac.sh subir-auto --event ID [--dry-run] [--prefer node|prod] [--final | --avance]
+#   nodo-mac.sh nodo-info [--event ID]  alcance de ESTE nodo (local, sin red); se guarda para el panel
+#   MODO MANUAL (respaldo, sin la API; conexión de producción en el Llavero):
+#   nodo-mac.sh exportar [--dry-run] [--node-label L] [--activities id,id] [--check-in|--no-check-in]
+#   nodo-mac.sh importar [--dry-run] [--prefer node|prod] [--keep-lock] [--partial]
 #   nodo-mac.sh sync-estado             qué tiene cada lado
-#   nodo-mac.sh router-plan|router-aplicar [--simular]   configura el GL.iNet por SSH (uci)
+#   RED DEL EVENTO:
+#   nodo-mac.sh red-modo glinet|google|otro|lugar   recuerda la opción elegida (glinet apaga el DNS de la Mac)
+#   nodo-mac.sh router-plan|router-aplicar [--simular] [--tipo glinet|openwrt|mikrotik]
+#                                       configura el router por SSH (uci en GL.iNet/OpenWrt, RouterOS en MikroTik)
 #   nodo-mac.sh router-revisar          ¿el DNS del router dice que events.adventist.club es esta Mac?
+#   nodo-mac.sh red-revisar             «Revisar» común: DNS vía el router, aislamiento, internet (+ @@json)
+#   nodo-mac.sh red-diagnostico         «¿Puedo usar esta red?» con una recomendación (+ @@json)
+#   nodo-mac.sh dns-on [--ip IP] | dns-off | dns-estado   DNS de esta Mac (para «Mi red»; puerto 53)
+#   nodo-mac.sh red-publica-plan|red-publica-aplicar|red-publica-quitar [--simular] [--tipo glinet|openwrt|mikrotik]
+#                                       «Red pública del evento»: sólo los nombres del evento, sin desvíos de DNS,
+#                                       clientes aislados, respuesta de portal (RED_PORTAL) y sólo la Mac a internet
 #   nodo-mac.sh cert-letsencrypt [--staging] | cert-local
 #   nodo-mac.sh autoarranque on|off
 #   nodo-mac.sh config json | config set CLAVE VALOR
@@ -21,8 +37,10 @@
 #
 # Secretos: NUNCA se leen de disco ni se escriben. La app los saca del Llavero de macOS y los pasa
 # por el entorno sólo a las órdenes que los necesitan (POSTGRES_PASSWORD, JWT_SECRET,
-# EVENT_PASS_SECRET, PROXY_SHARED_SECRET, PROD_DATABASE_URL, CF_DNS_API_TOKEN, NODO_ROUTER_PASS,
-# WIFI_PASSWORD). Este script jamás los imprime.
+# EVENT_PASS_SECRET, PROXY_SHARED_SECRET, PROD_DATABASE_URL, PROD_EVENT_PASS_SECRET,
+# CF_DNS_API_TOKEN, NODO_ROUTER_PASS, WIFI_PASSWORD, NODO_API_TOKEN). Este script jamás los imprime.
+# Códigos de salida de las órdenes de sincronización: 0 ok · 1 error · 2 conflictos ·
+# 4 hay que volver a iniciar sesión · 5 sin permiso / falta MFA.
 #
 # Líneas de progreso para la app: «@@paso N/M texto», «@@ok texto», «@@aviso texto», «@@error texto».
 set -uo pipefail
@@ -65,9 +83,23 @@ EVENTO_FIN="2026-11-22"     # último día del evento (aviso si el certificado v
 ROUTER_IP="192.168.8.1"     # GL.iNet Beryl AX (GL-MT3000): LAN por defecto
 IP_FIJA=""                  # la IP que el router reserva para esta Mac (la pone «Configurar router»)
 MAC_FIJA=""                 # la MAC registrada en el router
-DOMINIOS="events.adventist.club api.adventist.club"   # + admin.adventist.club si se quiere
+DOMINIOS="events.adventist.club api.adventist.club media.adventist.club"   # + admin.adventist.club si se quiere
 WIFI_SSID=""
 LE_EMAIL=""
+MODO="auto"                 # auto (inicia sesión en adventist.club) | manual (conexión de producción)
+RED_MODO=""                 # glinet | google | otro | lugar  (la opción de «Red del evento»)
+ROUTER_TIPO="glinet"        # glinet | openwrt | mikrotik (configuración automática por SSH)
+ROUTER_USUARIO=""           # usuario SSH del router (vacío: root en OpenWrt, admin en MikroTik)
+RED_REVISION=""             # ok | falla  (último «Revisar»)
+RED_REVISION_T=""           # cuándo (epoch)
+RED_REVISION_TXT=""         # resumen corto
+DNS_REENVIAR="1.1.1.1 8.8.8.8"   # DNS públicos a los que el DNS de la Mac reenvía lo que no es del evento
+# «Red pública del evento» (GL.iNet/OpenWrt/MikroTik): Wi-Fi abierto o con clave sencilla, sólo los
+# nombres del evento, sin desvíos de DNS, equipos aislados entre sí.
+PUBLICA_SSID=""             # nombre del Wi-Fi (vacío = no cambiar)
+PUBLICA_ABIERTA="1"         # 1 = sin contraseña · 0 = con WIFI_PASSWORD (Llavero)
+RED_PORTAL="exito"          # ninguno | exito | bienvenida  (respuesta a «¿hay internet?» de los teléfonos)
+PUBLICA_SOLO_MAC="1"        # 1 = sólo la Mac del nodo sale a internet (para «Subir avance»)
 # Máquina de Docker PROPIA del nodo (no comparte disco ni contenedores con otros proyectos).
 COLIMA_PROFILE="nodo"
 # Recursos al crearla: la mitad de los núcleos (máx. 4) y 6 GB si la Mac tiene 16 GB o más.
@@ -82,8 +114,21 @@ RESPALDO_LOCAL="$HOME/Nodo Camporee/Respaldos"
 USB_LABEL="NODO-RESPALDO"
 WEB_BUILD_ID="nodo-local"
 HERRAMIENTAS=""             # sistema (Homebrew u otro) | app (las que trae la app); lo fija «instalar»
+ROUTER_IP_OTRO=""          # IP del router en «Otro router» (OpenWrt/MikroTik); vacío = la puerta de enlace
 # shellcheck disable=SC1090
 [ -f "$CONFIG" ] && . "$CONFIG"
+# media.adventist.club (logos e imágenes copiados al preparar) siempre va al nodo, también con
+# una configuración vieja guardada sin él.
+case " $DOMINIOS " in *" media.adventist.club "*) ;; *) DOMINIOS="$DOMINIOS media.adventist.club" ;; esac
+# Router «actual»: el GL.iNet (ROUTER_IP) o, con otra red (Google Wifi, otro router, red del lugar),
+# la puerta de enlace de esta Mac.
+GATEWAY="$(route -n get default 2>/dev/null | awk '/gateway:/{print $2; exit}')"
+case "$RED_MODO" in
+  ""|glinet) ;;
+  otro) ROUTER_IP="${ROUTER_IP_OTRO:-${GATEWAY:-$ROUTER_IP}}" ;;
+  publica) [ "$ROUTER_TIPO" = glinet ] || ROUTER_IP="${ROUTER_IP_OTRO:-${GATEWAY:-$ROUTER_IP}}" ;;
+  *) ROUTER_IP="${GATEWAY:-$ROUTER_IP}" ;;
+esac
 RUN_DIR="$APP_SUPPORT/run"; mkdir -p "$RUN_DIR"
 
 # Herramientas: las del sistema si están completas; si no, las que trae la app (copiadas por
@@ -107,7 +152,8 @@ esac
 
 DOCKER_SOCK="$HOME/.colima/${COLIMA_PROFILE}/docker.sock"
 export DOCKER_HOST="unix://$DOCKER_SOCK"
-PROJECT="nodo-evento"
+# Sólo pruebas: otro proyecto de compose (otros contenedores) y un compose extra encima.
+PROJECT="${NODO_COMPOSE_PROJECT:-nodo-evento}"
 
 say()   { printf '%s\n' "$*"; }
 paso()  { printf '@@paso %s\n' "$*"; }
@@ -126,6 +172,8 @@ config_set() {
   local key="$1" value="$2" tmp
   case "$key" in
     NODO_DIR|FRONTEND_DIR|BACKEND_DIR|EVENTO_ID|ACTOR_EMAIL|NODO_LABEL|EVENTO_FIN|ROUTER_IP|IP_FIJA|MAC_FIJA|DOMINIOS|WIFI_SSID|LE_EMAIL|COLIMA_PROFILE|COLIMA_CPU|COLIMA_MEM|COLIMA_DISK|RESPALDO_CADA_MIN|RESPALDO_LOCAL|USB_LABEL|WEB_BUILD_ID|HERRAMIENTAS) ;;
+    PUBLICA_SSID|PUBLICA_ABIERTA|RED_PORTAL|PUBLICA_SOLO_MAC) ;;
+    MODO|RED_MODO|ROUTER_TIPO|ROUTER_USUARIO|ROUTER_IP_OTRO|RED_REVISION|RED_REVISION_T|RED_REVISION_TXT|DNS_REENVIAR) ;;
     *) fallo "clave de configuración desconocida: $key" ;;
   esac
   tmp="$(mktemp "$APP_SUPPORT/.config.XXXXXX")"
@@ -136,7 +184,7 @@ config_set() {
 config_json() {
   printf '{'
   local first=1 k
-  for k in NODO_DIR FRONTEND_DIR EVENTO_ID ACTOR_EMAIL NODO_LABEL EVENTO_FIN ROUTER_IP IP_FIJA MAC_FIJA DOMINIOS WIFI_SSID LE_EMAIL COLIMA_PROFILE COLIMA_CPU COLIMA_MEM RESPALDO_CADA_MIN RESPALDO_LOCAL USB_LABEL; do
+  for k in NODO_DIR FRONTEND_DIR EVENTO_ID ACTOR_EMAIL NODO_LABEL EVENTO_FIN ROUTER_IP IP_FIJA MAC_FIJA DOMINIOS WIFI_SSID LE_EMAIL COLIMA_PROFILE COLIMA_CPU COLIMA_MEM RESPALDO_CADA_MIN RESPALDO_LOCAL USB_LABEL MODO RED_MODO ROUTER_TIPO ROUTER_USUARIO ROUTER_IP_OTRO GATEWAY PUBLICA_SSID PUBLICA_ABIERTA RED_PORTAL PUBLICA_SOLO_MAC RED_REVISION RED_REVISION_T RED_REVISION_TXT; do
     [ $first = 1 ] || printf ','; first=0
     printf '"%s":%s' "$k" "$(json_str "${!k}")"
   done
@@ -187,8 +235,10 @@ compose_env_file() {
     printf 'RESPALDO_CADA_MIN=%s\n' "$RESPALDO_CADA_MIN"
     printf 'RESPALDO_CONSERVAR=%s\n' 300
     printf 'NODO_IP=\n'
-    printf 'NODO_HOSTS="events.adventist.club, admin.adventist.club, api.adventist.club"\n'
+    printf 'NODO_HOSTS="events.adventist.club, admin.adventist.club, api.adventist.club, media.adventist.club"\n'
     printf 'WEB_BUILD_ID=%s\n' "$WEB_BUILD_ID"
+    # Las respuestas de portal sólo valen con la red pública (si no, esos nombres ni llegan al nodo).
+    printf 'NODO_PORTAL=%s\n' "$( [ "$RED_MODO" = publica ] && printf '%s' "${RED_PORTAL:-exito}" || printf ninguno )"
   } > "$f"
   chmod 600 "$f"
   printf '%s' "$f"
@@ -198,7 +248,8 @@ compose_env_file() {
 # (down, ps) reciben un relleno: compose exige las variables para interpolar, aunque no las use.
 dc() {
   local envf; envf="$(compose_env_file)"
-  docker compose -p "$PROJECT" --project-directory "$NODO_DIR" -f "$NODO_DIR/docker-compose.yml" --env-file "$envf" "$@"
+  local extra=(); [ -n "${NODO_COMPOSE_EXTRA:-}" ] && extra=(-f "$NODO_COMPOSE_EXTRA")
+  docker compose -p "$PROJECT" --project-directory "$NODO_DIR" -f "$NODO_DIR/docker-compose.yml" ${extra[@]+"${extra[@]}"} --env-file "$envf" "$@"
 }
 dc_nosecrets() {
   POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-x}" JWT_SECRET="${JWT_SECRET:-x}" \
@@ -283,7 +334,7 @@ router_is_glinet() {
 https_get() {  # https_get host path ip
   local ca=()
   [ -s "$NODO_DIR/tls/actual/ca-local.pem" ] && ca=(--cacert "$NODO_DIR/tls/actual/ca-local.pem")
-  curl -fsS -o /dev/null --max-time 4 "${ca[@]}" --resolve "$1:443:$3" "https://$1$2" 2>/dev/null
+  curl -fsS -o /dev/null --max-time 4 ${ca[@]+"${ca[@]}"} --resolve "$1:443:$3" "https://$1$2" 2>/dev/null
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -545,13 +596,18 @@ cmd_encender() {
   paso "2/$total Encendiendo Docker"
   start_colima
   paso "3/$total Revisando el sistema instalado"
-  if ! docker image inspect "nodo-evento-api:local" "nodo-evento-web:local" >/dev/null 2>&1; then
+  if ! docker image inspect "nodo-evento-api:${NODO_TAG:-local}" "nodo-evento-web:${NODO_TAG:-local}" >/dev/null 2>&1; then
     # Versión portátil: las imágenes vienen en la app (p. ej. si se borró la máquina de Docker).
     if [ "$PAQUETE" = 1 ]; then cargar_imagenes
     else fallo "Falta construir el sistema (Ajustes › «Construir», con internet, una sola vez)."; fi
   fi
-  [ -s "$NODO_DIR/tls/actual/fullchain.pem" ] && [ -s "$NODO_DIR/tls/actual/privkey.pem" ] \
-    || fallo "Falta el certificado HTTPS (botón «Certificado»)."
+  if ! { [ -s "$NODO_DIR/tls/actual/fullchain.pem" ] && [ -s "$NODO_DIR/tls/actual/privkey.pem" ]; }; then
+    # Modo automático: el certificado viene al «Preparar»; si aún no hay, uno local para poder
+    # empezar (plan B). En modo manual se pide explícitamente (Let's Encrypt o local).
+    [ "$MODO" = manual ] && fallo "Falta el certificado HTTPS (botón «Certificado»)."
+    aviso "Todavía no hay certificado: creo uno local (plan B). «Preparar» trae el bueno si producción lo tiene."
+    cert_local_crear || fallo "No se pudo crear el certificado local"
+  fi
   mkdir -p "$NODO_DIR/datos/media" "$NODO_DIR/datos/exports" "$RESPALDO_LOCAL" || fallo "No puedo crear $RESPALDO_LOCAL"
   ok "Sistema listo"
   paso "4/$total Arrancando base de datos, API, sitio y respaldos (1–2 min)"
@@ -580,6 +636,8 @@ cmd_encender() {
   else
     aviso "Conecta el GL.iNet (cable o Wi-Fi). El nodo ya está encendido; en cuanto aparezca la red, todo sigue solo."
   fi
+  # El alcance de este nodo para el panel (si ya se preparó un evento).
+  [ -n "$EVENTO_ID" ] && { nodo_info_guardar "$EVENTO_ID" >/dev/null 2>&1 || true; }
   ok "Nodo encendido"
 }
 
@@ -637,7 +695,11 @@ cmd_sync() {
   [ "$sub" = export ] && args+=(--node-label "$NODO_LABEL")
   say "$( [ "$sub" = export ] && echo 'Copiando de producción al nodo' || { [ "$sub" = import ] && echo 'Subiendo del nodo a producción' || echo 'Consultando'; } ) · evento $EVENTO_ID"
   # -e PROD_DATABASE_URL sin valor: Docker lo toma del entorno; no queda en la línea de órdenes.
-  dc --profile sync run --rm -T -e PROD_DATABASE_URL sync "$sub" "${args[@]}" "$@" 2>&1 \
+  # PROD_EVENT_PASS_SECRET (opcional): el secreto de pases de PRODUCCIÓN; con él el script vuelve a
+  # cifrar los pases con el secreto propio del nodo (EVENT_PASS_SECRET, generado por la app).
+  local extra=(-e PROD_DATABASE_URL)
+  [ -n "${PROD_EVENT_PASS_SECRET:-}" ] && extra+=(-e PROD_EVENT_PASS_SECRET)
+  dc --profile sync run --rm -T "${extra[@]}" sync "$sub" "${args[@]}" "$@" 2>&1 \
     | grep -vE '^ *(Container|Network) .*(Running|Creating|Created|Starting|Started|Waiting|Healthy)'
   local rc="${PIPESTATUS[0]}"
   case "$rc" in
@@ -650,19 +712,422 @@ cmd_sync() {
 }
 
 # ---------------------------------------------------------------------------------------------
+# Modo automático: la app inició sesión en adventist.club y pasa el token SÓLO por el entorno
+# (NODO_API_TOKEN). El contenedor `sync` habla con la API (DNS público, no el del router).
+api_url_contenedor() {
+  # La base de la API para el contenedor. Pruebas: NODO_API_BASE=http://127.0.0.1:8000/api/v1 →
+  # host.docker.internal (el «localhost» de la Mac visto desde Docker).
+  local u="${NODO_API_BASE:-https://api.adventist.club/api/v1}"
+  u="${u/:\/\/localhost/://host.docker.internal}"
+  u="${u/:\/\/127.0.0.1/://host.docker.internal}"
+  printf '%s' "$u"
+}
+
+# Corre `nodo_sync.py <orden>` en el contenedor sync con el token. Las líneas @@paso del script se
+# muestran como sub-pasos del paso actual del motor ($SYNC_PASO, p. ej. «4/6»).
+sync_auto() {
+  local orden="$1"; shift
+  export NODO_API_URL; NODO_API_URL="$(api_url_contenedor)"
+  local extra=(-e NODO_API_URL)
+  [ -n "${NODO_API_TOKEN:-}" ] && extra+=(-e NODO_API_TOKEN)
+  dc --profile sync run --rm -T "${extra[@]}" sync "$orden" "$@" 2>&1 \
+    | grep --line-buffered -vE '^ *(Container|Network) .*(Running|Creating|Created|Starting|Started|Waiting|Healthy)' \
+    | if [ -n "${SYNC_PASO:-}" ]; then sed -u -E "s#^@@paso [0-9]+/[0-9]+ #@@paso ${SYNC_PASO} #"; else cat; fi
+  return "${PIPESTATUS[0]}"
+}
+
+sync_rc_mensaje() {
+  case "$1" in
+    0) ok "Terminado" ;;
+    2) printf '@@conflictos\n'; aviso "Hay conflictos: elige quién gana o déjalos pendientes" ;;
+    3) printf '@@error La base del nodo y la de producción tienen versiones distintas (actualiza el nodo)\n' ;;
+    4) printf '@@relogin\n'; printf '@@error La sesión de adventist.club venció: vuelve a iniciar sesión\n' ;;
+    5) printf '@@error Sin permiso para este evento, o tu cuenta pide el código de verificación (MFA)\n' ;;
+    *) printf '@@error Falló (código %s). Revisa el detalle de arriba.\n' "$1" ;;
+  esac
+}
+
+base_del_nodo() {  # Docker + base + migraciones (sin levantar el sitio: «Preparar» puede ir antes de «Encender»)
+  start_colima
+  docker image inspect "nodo-evento-api:${NODO_TAG:-local}" >/dev/null 2>&1 || {
+    if [ "$PAQUETE" = 1 ]; then cargar_imagenes; else fallo "Falta construir el sistema (Ajustes › «Construir», con internet, una sola vez)."; fi; }
+  local out
+  if [ "$(service_state db)" != healthy ]; then
+    say "Arrancando la base del nodo…"
+    out="$(dc up -d --wait --wait-timeout 180 db 2>&1)" || { printf '%s\n' "$out" | tail -8; fallo "La base del nodo no arrancó"; }
+  fi
+  # Migraciones siempre (idempotentes): tras actualizar la app, la base del nodo queda al día.
+  out="$(dc run --rm -T migrate 2>&1)" || { printf '%s\n' "$out" | tail -12; fallo "No se pudo preparar la base del nodo (migraciones)"; }
+  ok "Base del nodo lista"
+}
+
+cert_huella() { [ -s "$NODO_DIR/tls/actual/fullchain.pem" ] && shasum -a 256 "$NODO_DIR/tls/actual/fullchain.pem" | cut -c1-64; }
+
+cmd_preparar_auto() {
+  need_node_dir
+  local motivo; motivo="$(instalacion_pendiente)" && fallo "Falta instalar ($motivo): pulsa «Instalar»."
+  local ev="" label="" acts="" todo=0 llegadas="" reemp_copia=0 reemp_nodo=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --event) ev="$2"; shift ;;
+      --label) label="$2"; shift ;;
+      --actividades) acts="$2"; shift ;;
+      --todo) todo=1 ;;
+      --llegadas) llegadas=1 ;;
+      --sin-llegadas) llegadas=0 ;;
+      --reemplazar-copia) reemp_copia=1 ;;
+      --reemplazar-nodo) reemp_nodo="$2"; shift ;;
+      *) fallo "opción desconocida: $1" ;;
+    esac
+    shift
+  done
+  [ -n "$ev" ] || fallo "Falta el evento (--event)."
+  [ -n "$label" ] || fallo "Falta el nombre del nodo (--label)."
+  [ "$todo" = 1 ] || [ -n "$acts" ] || [ "$llegadas" = 1 ] || fallo "Elige qué captura este nodo: actividades, «Todas» o la mesa de llegadas."
+  [ -n "${NODO_API_TOKEN:-}" ] || { printf '@@relogin\n'; fallo "Primero «Conectar con adventist.club»."; }
+  need_secrets
+  local total=6
+  paso "1/$total Revisando la Mac"
+  ok "Evento $ev · nodo «${label}»"
+  paso "2/$total Encendiendo Docker y la base del nodo"
+  base_del_nodo
+  mkdir -p "$NODO_DIR/tls/actual" "$NODO_DIR/datos/exports" "$NODO_DIR/datos/media"
+  local antes; antes="$(cert_huella)"
+  paso "3/$total Preparando desde adventist.club (1–3 min)"
+  local args=(--event "$ev" --node-label "$label" --tls-dir /tls/actual)
+  if [ "$todo" = 1 ]; then args+=(--all); elif [ -n "$acts" ]; then args+=(--activities "$acts"); fi
+  case "$llegadas" in 1) args+=(--check-in) ;; 0) args+=(--no-check-in) ;; esac
+  [ "$reemp_copia" = 1 ] && args+=(--replace-node-copy)
+  [ -n "$reemp_nodo" ] && args+=(--replace-node "$reemp_nodo")
+  SYNC_PASO="3/$total" sync_auto prepare "${args[@]}"
+  local rc=$?
+  if [ "$rc" != 0 ]; then sync_rc_mensaje "$rc"; return "$rc"; fi
+  config_set EVENTO_ID "$ev"; EVENTO_ID="$ev"
+  config_set NODO_LABEL "$label"; NODO_LABEL="$label"
+  paso "4/$total Certificado HTTPS"
+  local despues; despues="$(cert_huella)"
+  if [ -n "$despues" ] && [ "$despues" != "$antes" ]; then
+    # Llegó un certificado con el paquete. Si no es de la CA local, se quita la CA local vieja
+    # (si no, el panel lo seguiría marcando como «plan B» y Caddy repartiría la CA).
+    if ! openssl x509 -noout -issuer -in "$NODO_DIR/tls/actual/fullchain.pem" 2>/dev/null | grep -q 'Nodo evento CA local'; then
+      rm -f "$NODO_DIR/tls/actual/ca-local.pem"
+    fi
+    chmod 600 "$NODO_DIR/tls/actual/privkey.pem" 2>/dev/null
+    cert_info; ok "Certificado instalado (vence $CERT_VENCE)"
+    caddy_reiniciar
+  elif [ -n "$despues" ]; then
+    cert_info; ok "Se conserva el certificado que ya tenía esta Mac (vence $CERT_VENCE)"
+  else
+    aviso "Producción no mandó certificado: creo uno local (plan B; cada teléfono debe instalar el perfil)"
+    cert_local_crear >/dev/null || aviso "No se pudo crear el certificado local"
+    caddy_reiniciar
+  fi
+  paso "5/$total Alcance de este nodo"
+  nodo_info_guardar "$ev" >/dev/null 2>&1 || aviso "No pude leer el alcance del nodo (se verá al encender)"
+  paso "6/$total Listo"
+  ok "Evento preparado en esta Mac. Siguiente: «Encender»."
+  return 0
+}
+
+cmd_subir_auto() {
+  need_node_dir
+  local ev="$EVENTO_ID" args=() seco=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --event) ev="$2"; shift ;;
+      --dry-run) args+=(--dry-run); seco=1 ;;
+      --prefer) args+=(--prefer "$2"); shift ;;
+      --final) args+=(--final) ;;
+      --avance|--partial) args+=(--partial) ;;
+      *) fallo "opción desconocida: $1" ;;
+    esac
+    shift
+  done
+  [ -n "$ev" ] || fallo "Falta el evento (--event)."
+  [ -n "${NODO_API_TOKEN:-}" ] || { printf '@@relogin\n'; fallo "Primero «Conectar con adventist.club»."; }
+  need_secrets
+  [ "$(service_state db)" = healthy ] || fallo "Primero enciende el nodo (los resultados están en su base)."
+  local total=3
+  if [ "$seco" = 1 ]; then
+    paso "1/$total Revisando qué se subiría (no cambia nada)"
+  else
+    paso "1/$total Respaldo antes de subir"
+    cmd_respaldar || fallo "No se pudo respaldar: no subo nada sin respaldo"
+  fi
+  paso "2/$total Hablando con adventist.club"
+  SYNC_PASO="2/$total" sync_auto upload --event "$ev" ${args[@]+"${args[@]}"}
+  local rc=$?
+  paso "3/$total Terminando"
+  [ "$seco" = 1 ] || nodo_info_guardar "$ev" >/dev/null 2>&1 || true
+  sync_rc_mensaje "$rc"
+  return "$rc"
+}
+
+# Alcance de ESTE nodo (fila local de event_offline_nodes), sin red. Se guarda en run/nodo-info.json
+# para que «estado» lo muestre sin correr un contenedor cada 5 s.
+nodo_info_guardar() {
+  local ev="${1:-$EVENTO_ID}" out js
+  [ -n "$ev" ] || return 1
+  out="$(sync_auto node-info --event "$ev")"; local rc=$?
+  printf '%s\n' "$out" | grep -v '^@@json '
+  js="$(printf '%s\n' "$out" | sed -n 's/^@@json //p' | tail -1)"
+  if [ "$rc" = 0 ] && [ -n "$js" ]; then
+    printf '%s\n' "$js" > "$RUN_DIR/nodo-info.json.tmp" && mv "$RUN_DIR/nodo-info.json.tmp" "$RUN_DIR/nodo-info.json"
+    printf '@@json %s\n' "$js"
+  fi
+  return "$rc"
+}
+
+cmd_nodo_info() {
+  need_node_dir
+  local ev="$EVENTO_ID"
+  [ "${1:-}" = --event ] && ev="${2:-}"
+  [ "$(service_state db)" = healthy ] || fallo "El nodo está apagado (la información está en su base)."
+  nodo_info_guardar "$ev"
+}
+
+# ---------------------------------------------------------------------------------------------
 # Router GL.iNet (OpenWrt) por SSH + uci
 sq() { printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"; }
 
-router_ssh() {  # router_ssh < script
+router_usuario() {
+  if [ -n "$ROUTER_USUARIO" ]; then printf '%s' "$ROUTER_USUARIO"
+  elif [ "$ROUTER_TIPO" = mikrotik ]; then printf admin
+  else printf root; fi
+}
+
+router_ssh() {  # router_ssh < script   (GL.iNet/OpenWrt: el guion va por stdin a «sh -s»;
+                #  MikroTik: RouterOS no tiene shell, el guion va como orden remota)
   [ -n "${NODO_ROUTER_PASS:-}" ] || fallo "Falta la contraseña de administración del router."
-  local askpass="$RUN_DIR/askpass.sh"
+  local askpass="$RUN_DIR/askpass.sh" remoto='sh -s' entrada
   # El ayudante sólo lee la contraseña del entorno (nunca la escribe en disco).
   printf '#!/bin/sh\nprintf "%%s\\n" "$NODO_ROUTER_PASS"\n' > "$askpass"; chmod 700 "$askpass"
-  SSH_ASKPASS="$askpass" SSH_ASKPASS_REQUIRE=force DISPLAY="${DISPLAY:-:0}" \
+  entrada="$(cat)"
+  if [ "$ROUTER_TIPO" = mikrotik ]; then remoto="$entrada"; entrada=""; fi
+  printf '%s\n' "$entrada" | SSH_ASKPASS="$askpass" SSH_ASKPASS_REQUIRE=force DISPLAY="${DISPLAY:-:0}" \
   ssh -T -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile="$APP_SUPPORT/known_hosts_router" \
       -o PubkeyAuthentication=no -o PreferredAuthentications=password,keyboard-interactive \
       -o NumberOfPasswordPrompts=1 -o ConnectTimeout=8 -o HostKeyAlgorithms=+ssh-rsa \
-      "root@$ROUTER_IP" 'sh -s' < /dev/stdin
+      "$(router_usuario)@$ROUTER_IP" "$remoto"
+}
+
+# MikroTik (RouterOS 6/7): reserva DHCP + DNS estático, marcados con el comentario «nodo-camporee»
+# para que repetirlo reemplace lo anterior. Una orden por línea, sin variables (RouterOS las olvida
+# entre líneas en una sesión SSH). No toca Wi-Fi, firewall ni el resto de la configuración.
+router_apply_script_mikrotik() {
+  local ip="$1" mac d; mac="$(printf '%s' "$2" | tr '[:lower:]' '[:upper:]')"
+  printf '%s\n' \
+    '/ip dhcp-server lease remove [find comment="nodo-camporee"]' \
+    "/ip dhcp-server lease remove [find mac-address=\"$mac\"]" \
+    "/ip dhcp-server lease remove [find address=\"$ip\"]" \
+    "/ip dhcp-server lease add address=$ip mac-address=$mac comment=\"nodo-camporee\"" \
+    '/ip dns static remove [find comment="nodo-camporee"]'
+  for d in $DOMINIOS; do
+    printf '/ip dns static remove [find name="%s"]\n' "$d"
+    printf '/ip dns static add name="%s" address=%s ttl=1m comment="nodo-camporee"\n' "$d" "$ip"
+  done
+  printf '%s\n' '/ip dns set allow-remote-requests=yes' ':put "router: reserva y DNS aplicados"'
+}
+
+router_read_script_mikrotik() {
+  printf '%s\n' \
+    ':put ("modelo: " . [/system resource get board-name] . " · RouterOS " . [/system resource get version])' \
+    '/ip dhcp-server lease print where comment="nodo-camporee"' \
+    '/ip dns static print where comment="nodo-camporee"' \
+    '/ip dhcp-server network print' \
+    ':put ("DNS para la red: " . [/ip dns get allow-remote-requests])'
+}
+
+router_guion_leer() { if [ "$ROUTER_TIPO" = mikrotik ]; then router_read_script_mikrotik; else router_read_script; fi; }
+router_guion_aplicar() { if [ "$ROUTER_TIPO" = mikrotik ]; then router_apply_script_mikrotik "$@"; else router_apply_script "$@"; fi; }
+
+# ---------------------------------------------------------------------------------------------
+# «Red pública del evento»: además de la reserva y los nombres del evento (lo de siempre):
+#   • DNS con lista permitida: sólo events/api/admin/media.adventist.club y nodo.local → el nodo;
+#     todo lo demás → 0.0.0.0 (sumidero). Opcional: las pruebas de «¿hay internet?» → el nodo.
+#   • Sin desvíos: los equipos (salvo la Mac) no pueden usar otro DNS (53/853) ni DoH conocidos.
+#   • Wi-Fi con aislamiento de clientes (la Mac va por CABLE y sigue al alcance de todos).
+#   • La Mac recibe DNS públicos por DHCP (para «Subir avance» si el WAN tiene internet) y,
+#     opcional, es la ÚNICA que sale a internet.
+# Todo lo que se agrega lleva el nombre/comentario «nodo_*» / «nodo-camporee-publica» y
+# «red-publica-quitar» lo deshace (deja la configuración normal del router).
+PORTAL_HOSTS="captive.apple.com www.apple.com www.appleiphonecell.com www.itools.info www.ibook.info www.airport.us www.thinkdifferent.us connectivitycheck.gstatic.com connectivitycheck.android.com clients3.google.com clients1.google.com www.google.com www.gstatic.com www.msftconnecttest.com www.msftncsi.com detectportal.firefox.com nmcheck.gnome.org"
+DOH_IPS="1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4 9.9.9.9 149.112.112.112 94.140.14.14 94.140.15.15 208.67.222.222 208.67.220.220 45.90.28.0 45.90.30.0 185.228.168.9 76.76.2.0 76.76.10.0"
+
+publica_script_openwrt() {  # publica_script_openwrt IP aplicar|quitar
+  local ip="$1" modo="$2" h
+  cat <<EOF
+set -e
+IP=$(sq "$ip")
+# Lo anterior de la red pública (idempotente)
+for v in \$(uci -q get dhcp.@dnsmasq[0].address || true); do
+  case "\$v" in /\#/*|/nodo.local/*) uci del_list dhcp.@dnsmasq[0].address="\$v" ;; esac
+done
+EOF
+  for h in $PORTAL_HOSTS; do
+    printf 'for v in $(uci -q get dhcp.@dnsmasq[0].address || true); do case "$v" in /%s/*) uci del_list dhcp.@dnsmasq[0].address="$v" ;; esac; done\n' "$h"
+  done
+  cat <<'EOF'
+uci -q delete dhcp.nodo_camporee.tag || true
+uci -q delete dhcp.nodocamporee || true
+for r in nodo_dns nodo_doh nodo_solo_mac; do uci -q delete firewall.$r || true; done
+EOF
+  if [ "$modo" = quitar ]; then
+    cat <<'EOF'
+for s in $(uci -X show wireless | sed -n "s/^wireless\.\([^.=]*\)=wifi-iface$/\1/p"); do
+  [ "$(uci -q get wireless.$s.network)" = lan ] && uci -q delete wireless.$s.isolate || true
+done
+uci commit dhcp; uci commit firewall; uci commit wireless
+/etc/init.d/dnsmasq restart >/dev/null 2>&1 || /etc/init.d/dnsmasq reload
+/etc/init.d/firewall reload >/dev/null 2>&1 || true
+( sleep 3; wifi reload ) >/dev/null 2>&1 &
+echo "router: red pública quitada (queda la configuración normal del nodo)"
+EOF
+    return 0
+  fi
+  cat <<'EOF'
+# DNS: lista permitida (lo más específico gana en dnsmasq) + sumidero para todo lo demás
+uci add_list dhcp.@dnsmasq[0].address="/nodo.local/$IP"
+uci add_list dhcp.@dnsmasq[0].address='/#/0.0.0.0'
+EOF
+  if [ "${RED_PORTAL:-exito}" != ninguno ]; then
+    for h in $PORTAL_HOSTS; do printf 'uci add_list dhcp.@dnsmasq[0].address="/%s/$IP"\n' "$h"; done
+  fi
+  cat <<EOF
+# La Mac del nodo recibe DNS públicos (puede subir resultados si el WAN tiene internet)
+uci set dhcp.nodocamporee=tag
+uci add_list dhcp.nodocamporee.dhcp_option='6,1.1.1.1,8.8.8.8'
+uci set dhcp.nodo_camporee.tag='nodocamporee'
+# Sin desvíos de DNS (salvo la Mac)
+uci set firewall.nodo_dns=rule
+uci set firewall.nodo_dns.name='nodo: sólo el DNS del router'
+uci set firewall.nodo_dns.src='lan'; uci set firewall.nodo_dns.dest='wan'
+uci set firewall.nodo_dns.proto='tcp udp'; uci set firewall.nodo_dns.dest_port='53 853'
+uci set firewall.nodo_dns.src_ip="!\$IP"; uci set firewall.nodo_dns.target='REJECT'
+uci set firewall.nodo_doh=rule
+uci set firewall.nodo_doh.name='nodo: sin DNS cifrado (DoH) conocido'
+uci set firewall.nodo_doh.src='lan'; uci set firewall.nodo_doh.dest='wan'
+uci set firewall.nodo_doh.proto='tcp udp'; uci set firewall.nodo_doh.dest_port='443'
+uci set firewall.nodo_doh.src_ip="!\$IP"; uci set firewall.nodo_doh.target='REJECT'
+EOF
+  for h in $DOH_IPS; do printf "uci add_list firewall.nodo_doh.dest_ip='%s'\n" "$h"; done
+  if [ "${PUBLICA_SOLO_MAC:-1}" = 1 ]; then
+    cat <<'EOF'
+uci set firewall.nodo_solo_mac=rule
+uci set firewall.nodo_solo_mac.name='nodo: sólo la Mac del nodo sale a internet'
+uci set firewall.nodo_solo_mac.src='lan'; uci set firewall.nodo_solo_mac.dest='wan'
+uci set firewall.nodo_solo_mac.proto='all'; uci set firewall.nodo_solo_mac.src_ip="!$IP"
+uci set firewall.nodo_solo_mac.target='REJECT'
+EOF
+  fi
+  cat <<EOF
+# Wi-Fi: aislamiento de clientes$( [ -n "$PUBLICA_SSID" ] && printf ' + nombre «%s»' "$PUBLICA_SSID")
+SSID=$(sq "$PUBLICA_SSID"); ABIERTA=$(sq "${PUBLICA_ABIERTA:-1}"); KEY=$(sq "${WIFI_PASSWORD:-}")
+n=0
+for s in \$(uci -X show wireless | sed -n "s/^wireless\\.\\([^.=]*\\)=wifi-iface\$/\\1/p"); do
+  [ "\$(uci -q get wireless.\$s.mode)" = ap ] || continue
+  [ "\$(uci -q get wireless.\$s.network)" = lan ] || continue
+  uci set wireless.\$s.isolate='1'
+  [ -n "\$SSID" ] && uci set wireless.\$s.ssid="\$SSID"
+  if [ "\$ABIERTA" = 1 ]; then uci set wireless.\$s.encryption='none'; uci -q delete wireless.\$s.key || true
+  elif [ -n "\$KEY" ]; then uci set wireless.\$s.encryption='psk2'; uci set wireless.\$s.key="\$KEY"; fi
+  n=\$((n+1))
+done
+uci commit dhcp; uci commit firewall; uci commit wireless
+/etc/init.d/dnsmasq restart >/dev/null 2>&1 || /etc/init.d/dnsmasq reload
+/etc/init.d/firewall reload >/dev/null 2>&1 || true
+echo "router: red pública aplicada (\$n radios; el Wi-Fi se reinicia en 3 s)"
+( sleep 3; wifi reload ) >/dev/null 2>&1 &
+EOF
+}
+
+publica_script_mikrotik() {  # publica_script_mikrotik IP aplicar|quitar
+  local ip="$1" modo="$2" h
+  printf '%s\n' \
+    '/ip dns static remove [find comment="nodo-camporee-publica"]' \
+    '/ip firewall filter remove [find comment="nodo-camporee-publica"]' \
+    '/ip firewall address-list remove [find list="nodo-doh"]' \
+    '/ip dhcp-server lease set [find comment="nodo-camporee"] dhcp-option=""' \
+    '/ip dhcp-server option remove [find name="nodo-dns"]'
+  if [ "$modo" = quitar ]; then printf '%s\n' ':put "router: red pública quitada"'; return 0; fi
+  printf '/ip dns static add name="nodo.local" address=%s ttl=1m comment="nodo-camporee-publica"\n' "$ip"
+  if [ "${RED_PORTAL:-exito}" != ninguno ]; then
+    for h in $PORTAL_HOSTS; do printf '/ip dns static add name="%s" address=%s ttl=1m comment="nodo-camporee-publica"\n' "$h" "$ip"; done
+  fi
+  # El sumidero va AL FINAL: RouterOS revisa las entradas estáticas en orden.
+  printf '%s\n' '/ip dns static add regexp="." address=0.0.0.0 ttl=1m comment="nodo-camporee-publica"' \
+    "/ip dhcp-server option add name=\"nodo-dns\" code=6 value=\"'1.1.1.1'\"" \
+    '/ip dhcp-server lease set [find comment="nodo-camporee"] dhcp-option="nodo-dns"'
+  for h in $DOH_IPS; do printf '/ip firewall address-list add list="nodo-doh" address=%s\n' "$h"; done
+  printf '/ip firewall filter add chain=forward src-address=!%s protocol=udp dst-port=53,853 action=reject comment="nodo-camporee-publica"\n' "$ip"
+  printf '/ip firewall filter add chain=forward src-address=!%s protocol=tcp dst-port=53,853 action=reject comment="nodo-camporee-publica"\n' "$ip"
+  printf '/ip firewall filter add chain=forward src-address=!%s dst-address-list=nodo-doh protocol=tcp dst-port=443 action=reject comment="nodo-camporee-publica"\n' "$ip"
+  if [ "${PUBLICA_SOLO_MAC:-1}" = 1 ]; then
+    printf '/ip firewall filter add chain=forward src-address=!%s out-interface-list=WAN action=reject comment="nodo-camporee-publica"\n' "$ip"
+  fi
+  printf '%s\n' ':put "router: red pública aplicada (Wi-Fi y aislamiento: a mano en Wireless/WiFi › default-forwarding=no / client-isolation)"'
+}
+
+cmd_red_publica() {  # cmd_red_publica plan|aplicar|quitar [--simular] [--tipo …]
+  local modo="$1"; shift
+  local simular=0
+  WIFI_SSID=""   # el nombre del Wi-Fi de la red pública es PUBLICA_SSID
+  while [ $# -gt 0 ]; do
+    case "$1" in --simular) simular=1 ;; --tipo) ROUTER_TIPO="$2"; shift ;; esac
+    shift
+  done
+  case "$ROUTER_TIPO" in
+    glinet) ;;
+    openwrt|mikrotik) ROUTER_IP="${ROUTER_IP_OTRO:-${GATEWAY:-$ROUTER_IP}}" ;;
+    *) fallo "La red pública se configura sola en GL.iNet, OpenWrt o MikroTik (ver la lista para otros routers)." ;;
+  esac
+  router_target
+  [ "$NET_KIND" = ethernet ] || aviso "La Mac debe ir por CABLE al router: con el aislamiento de clientes, por Wi-Fi los teléfonos no la verían."
+  say "Router: $ROUTER_IP ($ROUTER_TIPO) · esta Mac: $ROUTER_T_IP (MAC $ROUTER_T_MAC)"
+  say ""
+  if [ "$modo" = quitar ]; then
+    say "Se quita la red pública (queda lo normal: reserva y nombres del evento → esta Mac)."
+  else
+    say "Se va a dejar así en el router:"
+    say "  • Reserva DHCP: MAC $ROUTER_T_MAC → IP $ROUTER_T_IP, con DNS públicos sólo para esta Mac"
+    say "  • DNS: $DOMINIOS nodo.local → $ROUTER_T_IP; TODO lo demás → 0.0.0.0"
+    case "${RED_PORTAL:-exito}" in
+      exito) say "  • Pruebas de «¿hay internet?» de los teléfonos → esta Mac contesta «sí» (se quedan en el Wi-Fi)" ;;
+      bienvenida) say "  • Pruebas de «¿hay internet?» → página de bienvenida «Entrar a events.adventist.club»" ;;
+      *) say "  • Pruebas de «¿hay internet?»: sin respuesta (el teléfono dirá «sin internet»)" ;;
+    esac
+    say "  • Nadie (salvo esta Mac) puede usar otro DNS (puertos 53/853) ni DNS cifrado conocido"
+    [ "${PUBLICA_SOLO_MAC:-1}" = 1 ] && say "  • Sólo esta Mac sale a internet (si el WAN tiene)"
+    if [ "$ROUTER_TIPO" = mikrotik ]; then say "  • Wi-Fi y aislamiento: a mano (RouterOS cambia según el paquete de Wi-Fi)"
+    else say "  • Wi-Fi: aislamiento de clientes$( [ -n "$PUBLICA_SSID" ] && printf ', nombre «%s»' "$PUBLICA_SSID")$( [ "${PUBLICA_ABIERTA:-1}" = 1 ] && printf ', SIN contraseña' || printf ', con la contraseña guardada')"; fi
+  fi
+  local guion
+  if [ "$modo" = plan ] || [ "$simular" = 1 ]; then
+    if [ "$modo" = quitar ]; then
+      guion="$(if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" quitar; else publica_script_openwrt "$ROUTER_T_IP" quitar; fi)"
+    else
+      guion="$(router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC"; if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" aplicar; else publica_script_openwrt "$ROUTER_T_IP" aplicar; fi)"
+    fi
+    say ""; say "SIMULACIÓN (no se conectó al router). Órdenes que se ejecutarían por SSH:"
+    say "-----"; printf '%s\n' "$guion" | sed 's/KEY=.*/KEY=<oculta>/'; say "-----"
+    ok "Simulación terminada"
+    return 0
+  fi
+  router_alive || fallo "No veo el router en $ROUTER_IP. ¿Esta Mac está conectada por cable?"
+  if [ "$modo" = quitar ]; then
+    { if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" quitar; else publica_script_openwrt "$ROUTER_T_IP" quitar; fi; } | router_ssh 2>&1 | sed 's/^/  /'
+    [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios."
+    ok "Red pública quitada"
+    return 0
+  fi
+  { router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC"
+    if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" aplicar; else publica_script_openwrt "$ROUTER_T_IP" aplicar; fi
+  } | router_ssh 2>&1 | sed 's/^/  /'
+  [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios (contraseña o firmware)."
+  config_set IP_FIJA "$ROUTER_T_IP"; config_set MAC_FIJA "$ROUTER_T_MAC"
+  # Caddy contesta las pruebas de «¿hay internet?» según RED_PORTAL (se aplica al reiniciarlo).
+  if docker inspect "$(container caddy)" >/dev/null 2>&1; then dc up -d --no-deps caddy >/dev/null 2>&1 && say "Caddy actualizado (portal: ${RED_PORTAL:-exito})"; fi
+  ok "Red pública aplicada: esta Mac = $ROUTER_T_IP. Pulsa «Revisar»."
 }
 
 router_target() {  # decide IP y MAC a reservar: ROUTER_T_IP ROUTER_T_MAC ROUTER_T_IFACE
@@ -740,9 +1205,22 @@ EOF
 
 cmd_router() {
   local mode="$1"; shift
-  local simular=0; [ "${1:-}" = "--simular" ] && simular=1
+  local simular=0
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --simular) simular=1 ;;
+      --tipo) ROUTER_TIPO="$2"; shift ;;
+    esac
+    shift
+  done
+  case "$ROUTER_TIPO" in
+    glinet) ;;
+    openwrt|mikrotik) ROUTER_IP="${ROUTER_IP_OTRO:-${GATEWAY:-$ROUTER_IP}}"; WIFI_SSID="" ;;   # el Wi-Fi de esos routers no se toca
+    dns) fallo "Este router se configura a mano (DNS personalizado = esta Mac); no por SSH." ;;
+    *) fallo "tipo de router desconocido: $ROUTER_TIPO" ;;
+  esac
   router_target
-  say "Router: $ROUTER_IP · esta Mac: $ROUTER_T_IFACE ($( [ "$(iface_kind "$ROUTER_T_IFACE")" = ethernet ] && echo Ethernet || echo Wi-Fi )) MAC $ROUTER_T_MAC"
+  say "Router: $ROUTER_IP ($ROUTER_TIPO, usuario $(router_usuario)) · esta Mac: $ROUTER_T_IFACE ($( [ "$(iface_kind "$ROUTER_T_IFACE")" = ethernet ] && echo Ethernet || echo Wi-Fi )) MAC $ROUTER_T_MAC"
   [ "$(iface_kind "$ROUTER_T_IFACE")" = wifi ] && aviso "Por Wi-Fi: en Ajustes › Wi-Fi › (red del GL.iNet) › Detalles, pon «Dirección privada» en FIJA o desactivada; si no, la MAC puede cambiar. Mejor: adaptador Ethernet USB-C."
   say ""
   say "Se va a dejar así en el router:"
@@ -753,19 +1231,19 @@ cmd_router() {
   if [ "$simular" = 1 ]; then
     say ""; say "SIMULACIÓN (no se conectó al router). Órdenes que se ejecutarían por SSH:"
     say "-----"
-    if [ "$mode" = plan ]; then router_read_script; else router_apply_script "$ROUTER_T_IP" "$ROUTER_T_MAC" | sed 's/KEY=.*/KEY=<oculta>/'; fi
+    if [ "$mode" = plan ]; then router_guion_leer; else router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC" | sed 's/KEY=.*/KEY=<oculta>/'; fi
     say "-----"
     ok "Simulación terminada"
     return 0
   fi
-  router_alive || fallo "No veo el router en $ROUTER_IP. ¿Esta Mac está conectada al GL.iNet?"
+  router_alive || fallo "No veo el router en $ROUTER_IP. ¿Esta Mac está conectada a esa red?"
   if [ "$mode" = plan ]; then
     say ""; say "Valores actuales en el router:"
-    router_read_script | router_ssh 2>&1 | sed 's/^/  /'
-    [ "${PIPESTATUS[1]}" = 0 ] || fallo "No pude entrar por SSH (¿contraseña de administración correcta?)"
+    router_guion_leer | router_ssh 2>&1 | sed 's/^/  /'
+    [ "${PIPESTATUS[1]}" = 0 ] || fallo "No pude entrar por SSH (¿usuario «$(router_usuario)» y contraseña de administración correctos? ¿SSH activado en el router?)"
     ok "Revisa los cambios y pulsa «Aplicar»"
   else
-    router_apply_script "$ROUTER_T_IP" "$ROUTER_T_MAC" | router_ssh 2>&1 | sed 's/^/  /'
+    router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC" | router_ssh 2>&1 | sed 's/^/  /'
     [ "${PIPESTATUS[1]}" = 0 ] || fallo "El router no aceptó los cambios (contraseña o firmware)."
     config_set IP_FIJA "$ROUTER_T_IP"; config_set MAC_FIJA "$ROUTER_T_MAC"
     ok "Router configurado: esta Mac = $ROUTER_T_IP"
@@ -787,6 +1265,19 @@ cmd_router_revisar() {
 }
 
 # ---------------------------------------------------------------------------------------------
+cert_local_crear() {
+  detect_net
+  local names=(events.adventist.club admin.adventist.club api.adventist.club media.adventist.club localhost)
+  [ -n "$IP_FIJA" ] && names+=("$IP_FIJA")
+  [ -n "$NET_IP" ] && [ "$NET_IP" != "$IP_FIJA" ] && names+=("$NET_IP")
+  bash "$NODO_DIR/tls/ca-local.sh" "${names[@]}" 2>&1
+}
+
+caddy_reiniciar() {
+  docker inspect "$(container caddy)" >/dev/null 2>&1 && docker restart "$(container caddy)" >/dev/null && say "Caddy reiniciado con el certificado nuevo"
+  return 0
+}
+
 cmd_cert() {
   need_node_dir
   case "$1" in
@@ -794,21 +1285,181 @@ cmd_cert() {
       [ -n "${CF_DNS_API_TOKEN:-}" ] || fallo "Falta el token de Cloudflare (Ajustes › Secretos)."
       [ -n "$LE_EMAIL" ] || fallo "Falta el correo para avisos de Let's Encrypt (Certificado › correo)."
       start_colima
-      local hosts=(events.adventist.club admin.adventist.club api.adventist.club)
+      local hosts=(events.adventist.club admin.adventist.club api.adventist.club media.adventist.club)
       say "Pidiendo el certificado (necesita internet; 1–3 min)…"
       LE_EMAIL="$LE_EMAIL" bash "$NODO_DIR/tls/certificado-letsencrypt.sh" "${@:2}" "${hosts[@]}" 2>&1 | grep -v '^ *$' | tail -25
       [ "${PIPESTATUS[0]}" = 0 ] || fallo "No se obtuvo el certificado (¿internet? ¿token con permiso DNS Edit?)"
       ;;
     local)
-      detect_net
-      local names=(events.adventist.club admin.adventist.club api.adventist.club localhost)
-      [ -n "$IP_FIJA" ] && names+=("$IP_FIJA")
-      [ -n "$NET_IP" ] && [ "$NET_IP" != "$IP_FIJA" ] && names+=("$NET_IP")
-      bash "$NODO_DIR/tls/ca-local.sh" "${names[@]}" 2>&1 || fallo "No se pudo crear el certificado local"
+      cert_local_crear || fallo "No se pudo crear el certificado local"
       ;;
   esac
-  docker inspect "$(container caddy)" >/dev/null 2>&1 && docker restart "$(container caddy)" >/dev/null && say "Caddy reiniciado con el certificado nuevo"
+  caddy_reiniciar
   ok "Certificado listo"
+}
+
+# ---------------------------------------------------------------------------------------------
+# Red del evento: modo elegido, DNS de esta Mac («Mi red») y las revisiones.
+#
+# DNS de esta Mac: Colima/Lima NO reenvía UDP al anfitrión (su reenviador de puertos va por SSH,
+# sólo TCP; probado con colima 0.10 / lima 2.2, vz), así que el DNS no va en un contenedor: lo
+# sirve el ejecutable de la app (`Nodo Camporee --dns`, DNS.swift) como LaunchAgent del usuario.
+# macOS deja a un proceso normal escuchar en el puerto 53 si escucha en todas las direcciones
+# (0.0.0.0): no hace falta root ni ayudantes privilegiados.
+DNS_PUERTO="${NODO_DNS_PUERTO:-53}"   # las pruebas usan otro puerto
+ROUTER_DNS_PUERTO="${NODO_ROUTER_DNS_PUERTO:-53}"   # sólo pruebas: el «router» es un DNS en otro puerto
+
+# ¿El DNS de esta Mac contesta events.adventist.club con una IP de ESTA Mac? Si contesta otra cosa,
+# otra app intercepta el DNS de la Mac (VPN como NordVPN/Proton, Little Snitch…): DNS_INTERCEPTADO=1.
+DNS_INTERCEPTADO=0
+dns_responde() {
+  local r; DNS_INTERCEPTADO=0
+  r="$(dig +short +time=1 +tries=1 @127.0.0.1 -p "$DNS_PUERTO" events.adventist.club A 2>/dev/null | grep -E '^[0-9.]+$' | head -1)"
+  [ -n "$r" ] || return 1
+  if ifconfig 2>/dev/null | grep -qE "inet $(printf '%s' "$r" | sed 's/\./\\./g') "; then return 0; fi
+  DNS_INTERCEPTADO=1; return 1
+}
+
+cmd_dns() {
+  case "${1:-}" in
+    on)
+      local ip="" nombres="events.adventist.club api.adventist.club admin.adventist.club media.adventist.club nodo.local"
+      [ "${2:-}" = --ip ] && ip="${3:-}"
+      [ -x "$APP_EXE" ] || fallo "No encuentro la app en $APP_BUNDLE (el DNS lo corre la app)."
+      local extra=""; [ -n "$ip" ] && extra="<string>--ip</string><string>$(xml "$ip")</string>"
+      write_plist dns <<EOF
+<key>ProgramArguments</key><array><string>$(xml "$APP_EXE")</string><string>--dns</string><string>--puerto</string><string>$DNS_PUERTO</string><string>--nombres</string><string>$(xml "$nombres")</string><string>--reenviar</string><string>$(xml "$DNS_REENVIAR")</string>$extra</array>
+<key>RunAtLoad</key><true/><key>KeepAlive</key><true/>
+<key>StandardOutPath</key><string>$(xml "$RUN_DIR/dns.log")</string>
+<key>StandardErrorPath</key><string>$(xml "$RUN_DIR/dns.log")</string>
+EOF
+      agent_load dns || fallo "No se pudo arrancar el DNS de esta Mac"
+      local i; for i in 1 2 3 4 5 6; do dns_responde && break; sleep 1; done
+      if dns_responde; then
+        ok "DNS de esta Mac encendido (puerto $DNS_PUERTO): events/api/admin/media.adventist.club → esta Mac; lo demás → ${DNS_REENVIAR}"
+      else
+        tail -3 "$RUN_DIR/dns.log" 2>/dev/null
+        [ "$DNS_INTERCEPTADO" = 1 ] && fallo "Otra app de esta Mac intercepta el DNS (una VPN como NordVPN o Proton, Little Snitch…): ciérrala o desactiva su «protección DNS» durante el evento."
+        fallo "El DNS de esta Mac no responde (¿otro programa usa el puerto $DNS_PUERTO? ¿el Firewall lo bloquea?)"
+      fi ;;
+    off) agent_unload dns; ok "DNS de esta Mac apagado" ;;
+    estado)
+      local act=0 resp=0; agent_loaded dns && act=1; [ $act = 1 ] && dns_responde && resp=1
+      printf '{"activo":%s,"responde":%s,"puerto":%s}\n' "$(jb $act)" "$(jb $resp)" "$DNS_PUERTO" ;;
+    *) fallo "uso: dns-on [--ip IP] | dns-off | dns-estado" ;;
+  esac
+}
+
+cmd_red_modo() {
+  case "${1:-}" in glinet|google|otro|lugar|publica) ;; *) fallo "uso: red-modo glinet|google|otro|lugar|publica" ;; esac
+  config_set RED_MODO "$1"
+  config_set RED_REVISION ""; config_set RED_REVISION_T ""; config_set RED_REVISION_TXT ""
+  # Con el GL.iNet el router ya responde los nombres del evento: el DNS de la Mac sobra.
+  { [ "$1" = glinet ] || [ "$1" = publica ]; } && agent_loaded dns && { agent_unload dns; say "DNS de esta Mac apagado (no hace falta con el GL.iNet)"; }
+  ok "Red del evento: $1"
+}
+
+# Equipos que esta Mac ve en la red (además de ella y del router): pista de «aislamiento de
+# clientes» (redes de invitados). ping a «todos los equipos» (224.0.0.1) + tabla ARP.
+equipos_visibles() {
+  local yo="$1" router="$2" ifc="$3"
+  local bc=""; [ -n "$ifc" ] && bc="$(ifconfig "$ifc" 2>/dev/null | awk '/inet .* broadcast/{print $NF; exit}')"
+  { ping -t 2 224.0.0.1 2>/dev/null | grep -oE 'from [0-9.]+' | awk '{print $2}'
+    [ -n "$bc" ] && ping -t 2 "$bc" 2>/dev/null | grep -oE 'from [0-9.]+' | awk '{print $2}'
+    [ -n "$ifc" ] && arp -an -i "$ifc" 2>/dev/null | grep -v incomplete | grep -oE '\(([0-9.]+)\)' | tr -d '()'
+  } | grep -vxF "$yo" | grep -vxF "$router" | grep -vE '\.255$|^224\.|^169\.254\.' | sort -u | wc -l | tr -d ' '
+}
+
+hay_internet() {
+  [ "$(curl -s -o /dev/null -w '%{http_code}' --max-time 4 http://connectivitycheck.gstatic.com/generate_204 2>/dev/null)" = 204 ]
+}
+
+dns_mac_necesario() { [ "$RED_MODO" = google ] || { [ "$RED_MODO" = otro ] && [ "$ROUTER_TIPO" = dns ]; }; }
+
+# Mide la red. Deja: R_IP R_ROUTER R_DNS_EV R_DNS_API R_DNS_OK R_DNS_MAC R_INTERNET R_EQUIPOS
+red_medir() {
+  detect_net
+  R_ROUTER="$ROUTER_IP"; R_IP="$NET_IP"
+  [ "$RED_MODO" = glinet ] || [ -z "$RED_MODO" ] && [ -n "$IP_FIJA" ] && [ "$NET_EN_ROUTER" = 1 ] && R_IP="$IP_FIJA"
+  R_DNS_EV="$(dig +short +time=2 +tries=1 -p "$ROUTER_DNS_PUERTO" "@$R_ROUTER" events.adventist.club A 2>/dev/null | grep -E '^[0-9.]+$' | tail -1)"
+  R_DNS_API="$(dig +short +time=2 +tries=1 -p "$ROUTER_DNS_PUERTO" "@$R_ROUTER" api.adventist.club A 2>/dev/null | grep -E '^[0-9.]+$' | tail -1)"
+  R_DNS_OK=0; [ -n "$R_IP" ] && [ "$R_DNS_EV" = "$R_IP" ] && [ "$R_DNS_API" = "$R_IP" ] && R_DNS_OK=1
+  R_DNS_MAC=0; agent_loaded dns && dns_responde && R_DNS_MAC=1
+  R_INTERNET=0; hay_internet && R_INTERNET=1
+  R_EQUIPOS="$(equipos_visibles "$NET_IP" "$R_ROUTER" "$NET_IFACE")"
+}
+
+cmd_red_revisar() {
+  local total=4 ok_dns=1
+  paso "1/$total Esta Mac en la red"
+  red_medir
+  if [ -z "$R_IP" ]; then fallo "Esta Mac no está conectada a ninguna red."; fi
+  say "Esta Mac: $R_IP ($NET_IFACE, $( [ "$NET_KIND" = ethernet ] && echo cable || echo Wi-Fi )) · router: $R_ROUTER"
+  paso "2/$total DNS a través del router"
+  if [ "$R_DNS_OK" = 1 ]; then ok "El router responde events.adventist.club y api.adventist.club → $R_IP (esta Mac)"
+  else aviso "El router responde events.adventist.club → ${R_DNS_EV:-nada} y api → ${R_DNS_API:-nada} (debería ser $R_IP)"; ok_dns=0; fi
+  if dns_mac_necesario; then
+    if [ "$R_DNS_MAC" = 1 ]; then ok "El DNS de esta Mac está encendido y responde"
+    elif [ "$DNS_INTERCEPTADO" = 1 ]; then aviso "Otra app intercepta el DNS de esta Mac (VPN como NordVPN/Proton, Little Snitch…): ciérrala durante el evento"; ok_dns=0
+    else aviso "El DNS de esta Mac está apagado: pulsa «Encender el DNS de esta Mac»"; ok_dns=0; fi
+  fi
+  paso "3/$total Otros equipos (aislamiento)"
+  if [ "$R_EQUIPOS" -gt 0 ]; then ok "Veo $R_EQUIPOS equipo(s) más en la red: los teléfonos podrán llegar a esta Mac"
+  else aviso "No veo otros equipos. Si un teléfono conectado no abre el sitio, la red aísla a los equipos (red de invitados): usa la red principal o tu GL.iNet."; fi
+  paso "4/$total Internet"
+  if [ "$R_INTERNET" = 1 ]; then ok "Hay internet en esta red"; else say "Sin internet en esta red (el nodo funciona igual)"; fi
+  local bloqueo="" portal=""
+  if [ "$RED_MODO" = publica ]; then
+    # Red pública: un dominio cualquiera NO debe resolver (sumidero) y la página de portal responde.
+    bloqueo="$(dig +short +time=2 +tries=1 "@$R_ROUTER" example.com A 2>/dev/null | grep -E '^[0-9.]+$' | tail -1)"
+    if [ -z "$bloqueo" ] || [ "$bloqueo" = 0.0.0.0 ]; then ok "Otros sitios bloqueados (example.com → ${bloqueo:-nada})"
+    else aviso "example.com → $bloqueo: el router NO está bloqueando los demás sitios"; ok_dns=0; fi
+    if [ "${RED_PORTAL:-exito}" != ninguno ]; then
+      portal="$(dig +short +time=2 +tries=1 "@$R_ROUTER" captive.apple.com A 2>/dev/null | tail -1)"
+      local cuerpo; cuerpo="$(curl -s --max-time 4 -H 'Host: captive.apple.com' "http://$R_IP/hotspot-detect.html" 2>/dev/null)"
+      if [ "$portal" = "$R_IP" ] && [ -n "$cuerpo" ]; then ok "Prueba «¿hay internet?» de los teléfonos: la contesta esta Mac (${RED_PORTAL:-exito})"
+      else aviso "La prueba de «¿hay internet?» no llega a esta Mac (captive.apple.com → ${portal:-nada}; ¿nodo encendido?)"; fi
+    fi
+    [ "$NET_KIND" = ethernet ] || aviso "La Mac va por Wi-Fi: con el aislamiento de clientes los teléfonos no la verán. Conéctala por cable."
+  fi
+  local txt
+  if [ $ok_dns = 1 ]; then txt="Listo: events.adventist.club → $R_IP"; else txt="Falta: el DNS no apunta a esta Mac ($R_IP)"; fi
+  txt="$txt · internet: $( [ "$R_INTERNET" = 1 ] && echo sí || echo no ) · otros equipos: $R_EQUIPOS"
+  config_set RED_REVISION "$( [ $ok_dns = 1 ] && echo ok || echo falla )"
+  config_set RED_REVISION_T "$(date +%s)"
+  config_set RED_REVISION_TXT "$txt"
+  printf '@@json {"ok":%s,"modo":%s,"ip":%s,"router":%s,"dns_events":%s,"dns_api":%s,"dns_mac":%s,"dns_mac_necesario":%s,"internet":%s,"equipos":%s,"texto":%s}\n' \
+    "$(jb $ok_dns)" "$(json_str "$RED_MODO")" "$(json_str "$R_IP")" "$(json_str "$R_ROUTER")" "$(json_str "$R_DNS_EV")" "$(json_str "$R_DNS_API")" \
+    "$(jb "$R_DNS_MAC")" "$(dns_mac_necesario && echo true || echo false)" "$(jb "$R_INTERNET")" "$R_EQUIPOS" "$(json_str "$txt")"
+  if [ $ok_dns = 1 ]; then ok "$txt"; else printf '@@error %s\n' "$txt"; return 1; fi
+}
+
+cmd_red_diagnostico() {
+  paso "1/3 Mirando esta red"
+  red_medir
+  [ -n "$R_IP" ] || fallo "Esta Mac no está conectada a ninguna red: conéctala al Wi-Fi o al cable del lugar."
+  say "Esta Mac: $R_IP · router: $R_ROUTER"
+  paso "2/3 Internet, DNS y aislamiento"
+  say "Internet: $( [ "$R_INTERNET" = 1 ] && echo sí || echo no )"
+  say "Otros equipos visibles: $R_EQUIPOS"
+  say "El router dice events.adventist.club → ${R_DNS_EV:-(sin respuesta)}"
+  local glinet=0; router_is_glinet && glinet=1
+  paso "3/3 Recomendación"
+  local reco txt
+  if [ "$R_DNS_OK" = 1 ]; then
+    reco=listo; txt="Esta red ya manda events.adventist.club a esta Mac. Pulsa «Revisar» con un teléfono conectado."
+  elif [ "$glinet" = 1 ]; then
+    reco=glinet; txt="Estás en un GL.iNet: usa la opción «GL.iNet portátil»."
+  elif [ "$R_EQUIPOS" = 0 ]; then
+    reco=glinet; txt="Usa tu GL.iNet. No veo otros equipos: o esta red los aísla (como una red de invitados) y los teléfonos no llegarían a esta Mac, o todavía no hay nadie conectado (conecta un teléfono a esta red y vuelve a probar). Conecta el cable de esta red al puerto WAN del GL.iNet (así tiene internet si lo hay) y los teléfonos al Wi-Fi del GL.iNet."
+  elif [ "$R_INTERNET" = 1 ]; then
+    reco=nube; txt="Usa la nube. Esta red tiene internet: si es estable para todos, los teléfonos pueden usar events.adventist.club normal y el nodo queda de respaldo. Para usar el nodo en esta red, configura el DNS en tu router (Google Wifi u otro) o usa tu GL.iNet."
+  else
+    reco=dns_router; txt="Configura el DNS en tu router. Esta red no tiene internet: si administras el router, pon su DNS personalizado en esta Mac (opciones «Google Wifi» u «Otro router»). Si no lo administras, usa tu GL.iNet."
+  fi
+  printf '@@json {"recomendacion":%s,"texto":%s,"internet":%s,"equipos":%s,"dns_events":%s,"ip":%s,"router":%s}\n' \
+    "$(json_str "$reco")" "$(json_str "$txt")" "$(jb "$R_INTERNET")" "$R_EQUIPOS" "$(json_str "$R_DNS_EV")" "$(json_str "$R_IP")" "$(json_str "$R_ROUTER")"
+  ok "$txt"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -853,7 +1504,7 @@ cmd_estado() {
   local autostart=0; [ -f "$(agent_plist autoarranque)" ] && autostart=1
   local free_gb; free_gb="$(df -g "$HOME" | awk 'NR==2{print $4}')"
   local fw; fw="$(/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null | grep -q 'enabled' && echo 1 || echo 0)"
-  local imgs=0; [ $docker_up = 1 ] && docker image inspect nodo-evento-api:local nodo-evento-web:local >/dev/null 2>&1 && imgs=1
+  local imgs=0; [ $docker_up = 1 ] && docker image inspect "nodo-evento-api:${NODO_TAG:-local}" "nodo-evento-web:${NODO_TAG:-local}" >/dev/null 2>&1 && imgs=1
   local encendido=""; [ -f "$RUN_DIR/encendido" ] && encendido="$(cat "$RUN_DIR/encendido")"
   local espejo=""; [ -f "$RUN_DIR/ultimo-espejo" ] && espejo="$(cat "$RUN_DIR/ultimo-espejo")"
   local ip_cambio=0; [ -n "$IP_FIJA" ] && [ "$NET_EN_ROUTER" = 1 ] && [ "$NET_IP" != "$IP_FIJA" ] && ip_cambio=1
@@ -862,8 +1513,18 @@ cmd_estado() {
   printf '"docker":%s,"colima":%s,"imagenes":%s,"encendido_desde":%s,' "$(jb $docker_up)" "$(jb $colima_up)" "$(jb $imgs)" "$(json_str "$encendido")"
   printf '"servicios":{"db":"%s","api":"%s","web":"%s","caddy":"%s","respaldo":"%s"},' "$st_db" "$st_api" "$st_web" "$st_caddy" "$st_resp"
   printf '"https_local":%s,"https_lan":%s,"web_ok":%s,"api_ok":%s,' "$(jb $https_local)" "$(jb $https_lan)" "$(jb $web_ok)" "$(jb $api_ok)"
-  printf '"red":{"interfaz":%s,"tipo":%s,"ip":%s,"mac":%s,"en_red_router":%s,"router_responde":%s,"glinet":%s,"ip_fija":%s,"ip_cambio":%s},' \
-    "$(json_str "$NET_IFACE")" "$(json_str "$NET_KIND")" "$(json_str "$NET_IP")" "$(json_str "$NET_MAC")" "$(jb "$NET_EN_ROUTER")" "$(jb $router_ok)" "$(jb $glinet)" "$(json_str "$IP_FIJA")" "$(jb $ip_cambio)"
+  # Wi-Fi con «dirección privada» rotativa: la MAC actual no es la del hardware (la reserva de IP
+  # del router dejaría de servir). Con «Fija» también difiere, pero es estable: sólo es un aviso.
+  local mac_hw=""; [ -n "$NET_IFACE" ] && mac_hw="$(networksetup -getmacaddress "$NET_IFACE" 2>/dev/null | grep -oE '([0-9a-f]{2}:){5}[0-9a-f]{2}' | head -1)"
+  local mac_priv=0; [ -n "$mac_hw" ] && [ -n "$NET_MAC" ] && [ "$mac_hw" != "$NET_MAC" ] && mac_priv=1
+  printf '"red":{"interfaz":%s,"tipo":%s,"ip":%s,"mac":%s,"en_red_router":%s,"router_responde":%s,"glinet":%s,"ip_fija":%s,"ip_cambio":%s,"router":%s,"gateway":%s,"mac_hw":%s,"mac_privada":%s},' \
+    "$(json_str "$NET_IFACE")" "$(json_str "$NET_KIND")" "$(json_str "$NET_IP")" "$(json_str "$NET_MAC")" "$(jb "$NET_EN_ROUTER")" "$(jb $router_ok)" "$(jb $glinet)" "$(json_str "$IP_FIJA")" "$(jb $ip_cambio)" \
+    "$(json_str "$ROUTER_IP")" "$(json_str "$GATEWAY")" "$(json_str "$mac_hw")" "$(jb $mac_priv)"
+  local dns_act=0 dns_resp=0; agent_loaded dns && dns_act=1; [ $dns_act = 1 ] && dns_responde && dns_resp=1
+  printf '"dns":{"activo":%s,"responde":%s,"interceptado":%s,"puerto":%s},' "$(jb $dns_act)" "$(jb $dns_resp)" "$(jb "$DNS_INTERCEPTADO")" "$DNS_PUERTO"
+  # Alcance de este nodo (lo guarda «nodo-info» al preparar/subir/encender; null si nunca se preparó).
+  local info="null"; [ -s "$RUN_DIR/nodo-info.json" ] && info="$(tr -d '\n' < "$RUN_DIR/nodo-info.json")"
+  printf '"nodo":%s,' "$info"
   printf '"certificado":{"existe":%s,"tipo":%s,"vence":%s,"dias":%s,"cubre_evento":%s,"nombres":%s},' \
     "$(jb $CERT_EXISTE)" "$(json_str "$CERT_TIPO")" "$(json_str "$CERT_VENCE")" "${CERT_DIAS:-null}" "$(jb $CERT_CUBRE_EVENTO)" "$(json_str "$CERT_NOMBRES")"
   printf '"respaldo":{"local_dir":%s,"ultimo":%s,"ultimo_t":%s,"usb":%s,"usb_dir":%s,"usb_ultimo":%s,"usb_ultimo_t":%s,"espejo_activo":%s,"ultimo_espejo":%s,"cada_min":%s},' \
@@ -902,7 +1563,7 @@ cmd_ver_sitio() {
   [ -n "$app" ] || fallo "Para ver el sitio local en esta Mac instala Google Chrome o Brave."
   mkdir -p "$perfil"
   open -na "$app" --args --user-data-dir="$perfil" --no-first-run --no-default-browser-check \
-    --host-resolver-rules="MAP events.adventist.club $ip,MAP admin.adventist.club $ip,MAP api.adventist.club $ip" \
+    --host-resolver-rules="MAP events.adventist.club $ip,MAP admin.adventist.club $ip,MAP api.adventist.club $ip,MAP media.adventist.club $ip" \
     "https://events.adventist.club/"
   ok "Abriendo el sitio local en $app (ventana aparte que apunta a esta Mac)"
 }
@@ -920,7 +1581,22 @@ case "${1:-}" in
   router-plan) shift; cmd_router plan "$@" ;;
   router-aplicar) shift; cmd_router aplicar "$@" ;;
   router-revisar) cmd_router_revisar ;;
-  router-guion) router_target; router_apply_script "$ROUTER_T_IP" "$ROUTER_T_MAC" ;;  # sólo pruebas (pruebas/router-openwrt.sh)
+  red-modo) shift; cmd_red_modo "$@" ;;
+  red-revisar) cmd_red_revisar ;;
+  red-diagnostico) cmd_red_diagnostico ;;
+  dns-on) shift; cmd_dns on "$@" ;;
+  red-publica-plan) shift; cmd_red_publica plan "$@" ;;
+  red-publica-aplicar) shift; cmd_red_publica aplicar "$@" ;;
+  red-publica-quitar) shift; cmd_red_publica quitar "$@" ;;
+  red-publica-guion) shift; [ "${1:-}" = --tipo ] && ROUTER_TIPO="$2"; WIFI_SSID=""; router_target
+    router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC"
+    if [ "$ROUTER_TIPO" = mikrotik ]; then publica_script_mikrotik "$ROUTER_T_IP" aplicar; else publica_script_openwrt "$ROUTER_T_IP" aplicar; fi ;;  # sólo pruebas
+  dns-off) cmd_dns off ;;
+  dns-estado) cmd_dns estado ;;
+  preparar-auto) shift; cmd_preparar_auto "$@" ;;
+  subir-auto) shift; cmd_subir_auto "$@" ;;
+  nodo-info) shift; cmd_nodo_info "$@" ;;
+  router-guion) shift; [ "${1:-}" = --tipo ] && ROUTER_TIPO="$2"; router_target; router_guion_aplicar "$ROUTER_T_IP" "$ROUTER_T_MAC" ;;  # sólo pruebas (pruebas/router-openwrt.sh)
   cert-letsencrypt) shift; cmd_cert letsencrypt "$@" ;;
   cert-local) cmd_cert local ;;
   autoarranque) shift; cmd_autoarranque "$@" ;;
@@ -928,5 +1604,5 @@ case "${1:-}" in
   registros) shift; cmd_registros "$@" ;;
   ver-sitio) cmd_ver_sitio ;;
   instalar) cmd_instalar ;;
-  *) sed -n '2,26p' "$0"; exit 2 ;;
+  *) sed -n '2,42p' "$0"; exit 2 ;;
 esac

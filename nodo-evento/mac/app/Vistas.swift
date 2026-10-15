@@ -174,7 +174,7 @@ struct HojaMarco<Contenido: View>: View {
 }
 
 enum Hoja: String, Identifiable {
-    case qr, preparar, subir, router, certificado, ajustes, secreto
+    case qr, preparar, subir, red, certificado, ajustes, secreto
     var id: String { rawValue }
 }
 
@@ -201,6 +201,7 @@ struct Principal: View {
         VStack(alignment: .leading, spacing: 18) {
             encabezado
             botones
+            esteNodo
             BarraProgreso()
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
@@ -220,7 +221,7 @@ struct Principal: View {
                 case .qr: HojaQR(abierta: $hoja)
                 case .preparar: HojaPreparar(abierta: $hoja, pedirSecreto: pedir)
                 case .subir: HojaSubir(abierta: $hoja, pedirSecreto: pedir)
-                case .router: HojaRouter(abierta: $hoja, pedirSecreto: pedir)
+                case .red: HojaRed(abierta: $hoja, pedirSecreto: pedir)
                 case .certificado: HojaCertificado(abierta: $hoja, pedirSecreto: pedir)
                 case .ajustes: HojaAjustes(abierta: $hoja, pedirSecreto: pedir)
                 case .secreto: HojaSecreto(secreto: secretoPedido, abierta: $hoja)
@@ -230,7 +231,13 @@ struct Principal: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: Prueba.interno)) { n in
             guard let a = n.object as? String else { return }
-            if a.hasPrefix("hoja:"), let h = Hoja(rawValue: String(a.dropFirst(5))) { hoja = h }
+            if a == "hoja:conectar" {
+                if motor.modoManual { motor.guardarConfig("MODO", "auto") }
+                hoja = .preparar
+            } else if a == "hoja:router" { hoja = .red }
+            else if a.hasPrefix("hoja:"), let h = Hoja(rawValue: String(a.dropFirst(5))) { hoja = h }
+            else if a.hasPrefix("modo:") { motor.guardarConfig("MODO", a == "modo:manual" ? "manual" : "auto") }
+            else if a.hasPrefix("red:") && hoja != .red { Prueba.redPendiente = String(a.dropFirst(4)); hoja = .red }
             else if a == "cerrar" { hoja = nil }
             else if a == "instalar" { motor.correr(["instalar"], titulo: "Instalando el nodo") }
             else if a == "encender" { motor.correr(["encender"], titulo: "Encendiendo el nodo") }
@@ -260,6 +267,7 @@ struct Principal: View {
                 Text("Nodo Camporee").font(.system(size: 30, weight: .heavy))
                 Text("Esta Mac sirve events.adventist.club a los teléfonos del evento, sin internet")
                     .font(.system(size: 14)).foregroundStyle(.secondary)
+                EtiquetaPruebas()
             }
             Spacer()
             HStack(spacing: 10) {
@@ -294,13 +302,33 @@ struct Principal: View {
                 }
             } else {
                 BotonGrande(titulo: "Encender", icono: "power.circle.fill", color: Luz.verde.color, deshabilitado: motor.ocupado) {
-                    if motor.secretosPresentes[.eventPass] != true { pedir(.eventPass); return }
+                    // Los secretos del nodo se generan solos (nadie teclea nada en modo automático).
                     motor.correr(["encender"], titulo: "Encendiendo el nodo")
                 }
             }
             BotonGrande(titulo: "QR para teléfonos", icono: "qrcode", color: Color(red: 0.16, green: 0.33, blue: 0.62)) { hoja = .qr }
                 .frame(maxWidth: 360)
         }
+    }
+
+    /// «Este nodo: «label» · captura: A, B · llegadas: sí · estado: preparado».
+    var esteNodo: some View {
+        let n = e?.nodo
+        return HStack(spacing: 12) {
+            Image(systemName: "desktopcomputer").font(.system(size: 22)).foregroundStyle(Color.accentColor)
+            if let n, n.preparado {
+                (Text("Este nodo: ").bold() + Text("«\(n.label ?? "—")»").bold()
+                 + Text(" · captura: \(n.capturaTexto) · llegadas: \(n.check_in ? "sí" : "no") · estado: ")
+                 + Text(n.estadoTexto).bold())
+                    .font(.system(size: 15)).lineLimit(2)
+            } else {
+                Text("Esta Mac todavía no tiene evento. Con internet: «Preparar evento».").font(.system(size: 15))
+            }
+            Spacer()
+            Text(motor.modoManual ? "Modo manual" : "Modo automático").font(.system(size: 12, weight: .semibold)).foregroundStyle(.secondary)
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .background(RoundedRectangle(cornerRadius: 12).fill(Color.accentColor.opacity(0.08)))
     }
 
     var luces: some View {
@@ -319,18 +347,37 @@ struct Principal: View {
     }
 
     var tarjetaRouter: some View {
-        guard let e else { return Tarjeta(luz: .gris, titulo: "Router GL.iNet", detalle: "…") }
+        guard let e else { return Tarjeta(luz: .gris, titulo: "Red del evento", detalle: "…") }
+        let modo = motor.cfg("RED_MODO")
+        if !modo.isEmpty && modo != "glinet" {
+            // Google Wifi, otro router o red del lugar: el estado es el del último «Revisar».
+            let rev = motor.cfg("RED_REVISION")
+            let necesitaDNS = modo == "google" || (modo == "otro" && motor.cfg("ROUTER_TIPO") == "dns")
+            let titulo = "Red: \(OpcionRed.titulo(modo: modo))"
+            if necesitaDNS && !(e.dns?.responde ?? false) {
+                return Tarjeta(luz: .rojo, titulo: titulo, detalle: "El DNS de esta Mac está apagado: los teléfonos no encontrarán el sitio.", accion: ("Red del evento", { hoja = .red }))
+            }
+            if rev == "ok" { return Tarjeta(luz: .verde, titulo: "\(titulo) · Listo", detalle: motor.cfg("RED_REVISION_TXT")) }
+            return Tarjeta(luz: rev.isEmpty ? .ambar : .rojo, titulo: titulo,
+                           detalle: rev.isEmpty ? "Falta «Revisar». Esta Mac: \(e.red.ip.isEmpty ? "sin red" : e.red.ip)" : motor.cfg("RED_REVISION_TXT"),
+                           accion: ("Red del evento", { hoja = .red }))
+        }
         if e.red.ip_cambio {
             return Tarjeta(luz: .rojo, titulo: "Router GL.iNet",
                            detalle: "La IP de esta Mac cambió (\(e.red.ip_fija) → \(e.red.ip)). Los teléfonos no la encontrarán.",
-                           accion: ("Volver a configurar el router", { hoja = .router }))
+                           accion: ("Volver a configurar el router", { hoja = .red }))
         }
         if e.red.en_red_router && e.red.router_responde {
             let tipo = e.red.tipo == "ethernet" ? "por cable" : "por Wi-Fi"
             let fija = e.red.ip_fija.isEmpty ? " · falta «Configurar router»" : ""
             return Tarjeta(luz: e.red.ip_fija.isEmpty ? .ambar : .verde, titulo: e.red.glinet ? "Router GL.iNet conectado" : "Router conectado",
                            detalle: "Esta Mac es \(e.red.ip) \(tipo)\(fija)",
-                           accion: e.red.ip_fija.isEmpty ? ("Configurar router", { hoja = .router }) : nil)
+                           accion: e.red.ip_fija.isEmpty ? ("Red del evento", { hoja = .red }) : nil)
+        }
+        if modo.isEmpty {
+            return Tarjeta(luz: .ambar, titulo: "Elige la red del evento",
+                           detalle: "GL.iNet, Google Wifi, otro router o la red del lugar. (Ahora: \(e.red.ip.isEmpty ? "sin red" : e.red.ip))",
+                           accion: ("Red del evento", { hoja = .red }))
         }
         return Tarjeta(luz: .ambar, titulo: "Conecta el GL.iNet",
                        detalle: "No veo el router en \(motor.cfg("ROUTER_IP")). El nodo funciona igual; en cuanto conectes el cable o el Wi-Fi del GL.iNet, todo sigue solo. (Ahora: \(e.red.ip.isEmpty ? "sin red" : e.red.ip))")
@@ -427,7 +474,7 @@ struct Principal: View {
         HStack(spacing: 14) {
             Mosaico(titulo: "Preparar evento", sub: "víspera, con internet", icono: "arrow.down.circle") { hoja = .preparar }
             Mosaico(titulo: "Subir resultados", sub: "al volver internet", icono: "arrow.up.circle") { hoja = .subir }
-            Mosaico(titulo: "Configurar router", sub: "una sola vez", icono: "wifi.router") { hoja = .router }
+            Mosaico(titulo: "Red del evento", sub: "GL.iNet · Google Wifi · otro", icono: "wifi.router") { hoja = .red }
             Mosaico(titulo: "Ver sitio local", sub: "igual que en los teléfonos", icono: "safari") { motor.correr(["ver-sitio"], titulo: "Abriendo el sitio local") }
             Mosaico(titulo: "Certificado", sub: "antes del viaje", icono: "lock.shield") { hoja = .certificado }
             Mosaico(titulo: "Ajustes", sub: "secretos · registros", icono: "gearshape") { hoja = .ajustes }
@@ -551,7 +598,7 @@ struct FilaSecreto: View {
     var body: some View {
         let hay = motor.secretosPresentes[s] == true
         HStack(spacing: 10) {
-            Foco(luz: hay ? .verde : (s == .wifi ? .gris : .rojo), tam: 14)
+            Foco(luz: hay ? .verde : (s.generado || s == .wifi || s == .prodEventPass ? .gris : .rojo), tam: 14)
             Text(s.titulo).font(.system(size: 14, weight: .semibold))
             Text(hay ? "guardado en el Llavero" : "falta").font(.system(size: 13)).foregroundStyle(.secondary)
             Spacer()
@@ -564,17 +611,43 @@ struct HojaPreparar: View {
     @Binding var abierta: Hoja?
     let pedirSecreto: (Secreto) -> Void
     @EnvironmentObject var motor: Motor
-    @State private var confirmar = false
-    @State private var simulado = false
     var body: some View {
         HojaMarco(titulo: "Preparar evento", icono: "arrow.down.circle", abierta: $abierta) {
-            Text("La víspera, CON internet y con el nodo encendido: copia el evento de producción a esta Mac y deja la nube en «sólo consulta» para ese evento (nadie captura en dos lugares).")
+            HStack { SelectorModo(); Spacer(); EtiquetaPruebas() }
+            if motor.modoManual { PrepararManual(pedirSecreto: pedirSecreto) } else { FlujoAuto(proposito: .preparar) }
+        }
+    }
+}
+
+/// Modo manual (respaldo, sin la API): conexión de producción en el Llavero, como antes.
+struct PrepararManual: View {
+    let pedirSecreto: (Secreto) -> Void
+    @EnvironmentObject var motor: Motor
+    @State private var confirmar = false
+    @State private var simulado = false
+    @State private var actividades = ""
+    @State private var llegadas = true
+    var args: [String] {
+        var a: [String] = []
+        let ids = actividades.replacingOccurrences(of: " ", with: "")
+        if ids.isEmpty { a.append("--all") } else { a += ["--activities", ids] }
+        a.append(llegadas ? "--check-in" : "--no-check-in")
+        return a
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Respaldo para cuando la API no está disponible. La víspera, CON internet y con el nodo encendido: copia el evento directo de la base de producción a esta Mac y deja la nube en «sólo consulta» para ese evento.")
                 .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
             CamposEvento()
+            HStack {
+                Text("Actividades (ids, separados por coma)").font(.system(size: 14, weight: .semibold))
+                TextField("vacío = todas", text: $actividades).textFieldStyle(.roundedBorder).font(.system(size: 13, design: .monospaced))
+                Toggle("Mesa de llegadas", isOn: $llegadas).toggleStyle(.checkbox)
+            }
             FilaSecreto(s: .prodURL, pedir: pedirSecreto)
-            FilaSecreto(s: .eventPass, pedir: pedirSecreto)
+            FilaSecreto(s: .prodEventPass, pedir: pedirSecreto)
             HStack(spacing: 12) {
-                Button { motor.correr(["exportar", "--dry-run"], titulo: "Simulando la copia") { _ in simulado = true } } label: {
+                Button { motor.correr(["exportar", "--dry-run"] + args, titulo: "Simulando la copia") { _ in simulado = true } } label: {
                     Label("1. Simular (no cambia nada)", systemImage: "eye").frame(minWidth: 230, minHeight: 34)
                 }.controlSize(.large)
                 Button { confirmar = true } label: {
@@ -585,13 +658,13 @@ struct HojaPreparar: View {
             }
             .disabled(motor.ocupado)
             BarraProgreso()
-            VistaLog(alto: 250)
+            VistaLog(alto: 190)
         }
         .alert("¿Copiar y bloquear?", isPresented: $confirmar) {
-            Button("Copiar y bloquear") { motor.correr(["exportar"], titulo: "Copiando el evento al nodo") }
+            Button("Copiar y bloquear") { motor.correr(["exportar"] + args, titulo: "Copiando el evento al nodo") }
             Button("Cancelar", role: .cancel) {}
         } message: {
-            Text("Desde ahora la nube responde «en nodo local» a toda escritura de este evento. Se libera al «Subir resultados».")
+            Text("Desde ahora la nube responde «en nodo local» a toda escritura de este evento. Se libera al «Subir resultados» final.")
         }
     }
 }
@@ -600,17 +673,34 @@ struct HojaSubir: View {
     @Binding var abierta: Hoja?
     let pedirSecreto: (Secreto) -> Void
     @EnvironmentObject var motor: Motor
-    @State private var revisado = false
-    @State private var confirmar = false
     var body: some View {
         HojaMarco(titulo: "Subir resultados", icono: "arrow.up.circle", abierta: $abierta) {
-            Text("Al volver internet: sube a producción las llegadas, evaluaciones, revisiones y ajustes capturados en el nodo, y libera el bloqueo. Primero se revisa (simulación); nada se sube sin confirmar. Repetirlo no duplica nada.")
+            HStack { SelectorModo(); Spacer(); EtiquetaPruebas() }
+            if motor.modoManual { SubirManual(pedirSecreto: pedirSecreto) } else { FlujoAuto(proposito: .subir) }
+        }
+    }
+}
+
+struct SubirManual: View {
+    let pedirSecreto: (Secreto) -> Void
+    @EnvironmentObject var motor: Motor
+    @State private var revisado = false
+    @State private var confirmar = false
+    @State private var avance = false
+    var extra: [String] { avance ? ["--partial"] : [] }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Respaldo sin la API: sube directo a la base de producción las llegadas, evaluaciones, revisiones y ajustes capturados en el nodo. Primero se revisa (simulación); nada se sube sin confirmar. Repetirlo no duplica nada.")
                 .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
             CamposEvento(conEtiqueta: false)
+            Picker("", selection: $avance) {
+                Text("Subir final (cierro este nodo)").tag(false)
+                Text("Subir avance (sigo capturando)").tag(true)
+            }.pickerStyle(.radioGroup).labelsHidden().onChange(of: avance) { _ in revisado = false }
             FilaSecreto(s: .prodURL, pedir: pedirSecreto)
             HStack(spacing: 12) {
                 Button {
-                    motor.correr(["importar", "--dry-run"], titulo: "Revisando qué se subiría") { c in revisado = (c == 0 || c == 2) }
+                    motor.correr(["importar", "--dry-run"] + extra, titulo: "Revisando qué se subiría") { c in revisado = (c == 0 || c == 2) }
                 } label: { Label("1. Revisar (simulación)", systemImage: "eye").frame(minWidth: 220, minHeight: 34) }
                     .controlSize(.large)
                 Button { confirmar = true } label: {
@@ -624,84 +714,24 @@ struct HojaSubir: View {
                     Label("Hay conflictos: algo cambió en la nube Y en el nodo. Esas filas no se suben hasta decidir.", systemImage: "exclamationmark.triangle.fill")
                         .foregroundStyle(Luz.ambar.color).font(.system(size: 15, weight: .semibold))
                     HStack(spacing: 12) {
-                        Button("Gana el nodo (lo capturado en el evento)") { motor.correr(["importar", "--prefer", "node"], titulo: "Subiendo (gana el nodo)") }
-                        Button("Gana la nube") { motor.correr(["importar", "--prefer", "prod"], titulo: "Subiendo (gana la nube)") }
+                        Button("Gana el nodo (lo capturado en el evento)") { motor.correr(["importar", "--prefer", "node"] + extra, titulo: "Subiendo (gana el nodo)") }
+                        Button("Gana la nube") { motor.correr(["importar", "--prefer", "prod"] + extra, titulo: "Subiendo (gana la nube)") }
                         Button("Dejar pendiente") { motor.conflictos = false }
                     }.controlSize(.large)
                 }
                 .padding(12).background(RoundedRectangle(cornerRadius: 10).fill(Luz.ambar.color.opacity(0.12)))
             }
             BarraProgreso()
-            VistaLog(alto: 250)
+            VistaLog(alto: 200)
         }
         .alert("¿Subir a producción?", isPresented: $confirmar) {
             Button("Respaldar y subir") {
                 motor.correr(["respaldar"], titulo: "Respaldo antes de subir") { _ in
-                    motor.correr(["importar"], titulo: "Subiendo resultados a producción", limpiar: false)
+                    motor.correr(["importar"] + extra, titulo: "Subiendo resultados a producción", limpiar: false)
                 }
             }
             Button("Cancelar", role: .cancel) {}
         } message: { Text("Se escribe en la base de producción en una sola transacción. Si hay conflictos, esas filas no se aplican y el bloqueo sigue.") }
-    }
-}
-
-// MARK: - Router
-
-struct HojaRouter: View {
-    @Binding var abierta: Hoja?
-    let pedirSecreto: (Secreto) -> Void
-    @EnvironmentObject var motor: Motor
-    @State private var clave = ""
-    @State private var ssid = ""
-    @State private var conAdmin = false
-    @State private var simular = false
-    @State private var planVisto = false
-    var body: some View {
-        HojaMarco(titulo: "Configurar router (una sola vez)", icono: "wifi.router", abierta: $abierta) {
-            Text("Con esta Mac conectada al GL.iNet Beryl AX (mejor por cable): el router siempre le dará la misma IP a esta Mac y responderá que events.adventist.club es esta Mac. Antes de aplicar verás exactamente qué cambia.")
-                .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
-            Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 10) {
-                GridRow {
-                    Text("Contraseña de administración del router").font(.system(size: 14, weight: .semibold))
-                    SecureField("la del panel del GL.iNet (no se guarda)", text: $clave).textFieldStyle(.roundedBorder)
-                }
-                GridRow {
-                    Text("Nombre del Wi-Fi (opcional)").font(.system(size: 14, weight: .semibold))
-                    TextField("vacío = no cambiar", text: $ssid).textFieldStyle(.roundedBorder)
-                }
-            }
-            FilaSecreto(s: .wifi, pedir: pedirSecreto)
-            HStack(spacing: 18) {
-                Toggle("Incluir admin.adventist.club", isOn: $conAdmin)
-                Toggle("Simular (sin router: sólo mostrar las órdenes)", isOn: $simular)
-            }.font(.system(size: 14))
-            HStack(spacing: 12) {
-                Button { guardar(); motor.correr(["router-plan"] + (simular ? ["--simular"] : []), titulo: "Leyendo el router", extra: ["NODO_ROUTER_PASS": clave]) { c in planVisto = (c == 0) } } label: {
-                    Label("1. Ver qué cambiará", systemImage: "eye").frame(minWidth: 190, minHeight: 34)
-                }.controlSize(.large).disabled(clave.isEmpty && !simular)
-                Button { guardar(); motor.correr(["router-aplicar"] + (simular ? ["--simular"] : []), titulo: "Configurando el router", extra: ["NODO_ROUTER_PASS": clave]) } label: {
-                    Label("2. Aplicar", systemImage: "checkmark.seal").frame(minWidth: 140, minHeight: 34)
-                }.controlSize(.large).buttonStyle(.borderedProminent).disabled(!planVisto || (clave.isEmpty && !simular))
-                Button { motor.correr(["router-revisar"], titulo: "Revisando el DNS del router") } label: {
-                    Label("Revisar", systemImage: "stethoscope").frame(minWidth: 110, minHeight: 34)
-                }.controlSize(.large)
-                Spacer()
-            }.disabled(motor.ocupado)
-            BarraProgreso()
-            VistaLog(alto: 230)
-            Text("Si algo falla, se puede hacer a mano en el panel del GL.iNet (ver «README › Configurar el router a mano»).")
-                .font(.system(size: 12)).foregroundStyle(.secondary)
-        }
-        .onAppear {
-            ssid = motor.cfg("WIFI_SSID")
-            conAdmin = motor.cfg("DOMINIOS").contains("admin.adventist.club")
-        }
-        .onDisappear { clave = "" }
-    }
-    func guardar() {
-        if ssid != motor.cfg("WIFI_SSID") { motor.guardarConfig("WIFI_SSID", ssid.trimmingCharacters(in: .whitespaces)) }
-        let dom = "events.adventist.club api.adventist.club" + (conAdmin ? " admin.adventist.club" : "")
-        if dom != motor.cfg("DOMINIOS") { motor.guardarConfig("DOMINIOS", dom) }
     }
 }
 
@@ -766,12 +796,27 @@ struct HojaAjustes: View {
     let pedirSecreto: (Secreto) -> Void
     @EnvironmentObject var motor: Motor
     @State private var auto = false
+    @State private var avanzado = false
     var body: some View {
         HojaMarco(titulo: "Ajustes", icono: "gearshape", abierta: $abierta) {
-            GroupBox("Secretos (en el Llavero de macOS; nunca en archivos)") {
-                VStack(alignment: .leading, spacing: 8) {
-                    ForEach(Secreto.allCases) { s in FilaSecreto(s: s, pedir: pedirSecreto) }
+            GroupBox("Cómo se prepara y se sube el evento") {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack { SelectorModo(); Spacer(); EtiquetaPruebas() }
+                    Text(motor.modoManual
+                         ? "Manual: con la conexión de producción y el secreto de pases de producción (Avanzado). Sólo si la API no está disponible."
+                         : "Automático: «Conectar con adventist.club» con tu cuenta. Nada que teclear: los secretos del nodo los genera la app.")
+                        .font(.system(size: 12)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                 }.padding(6)
+            }
+            DisclosureGroup(isExpanded: $avanzado) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Secretos opcionales (en el Llavero de macOS; nunca en archivos)").font(.system(size: 12)).foregroundStyle(.secondary)
+                    ForEach(Secreto.allCases.filter { !$0.generado && (motor.modoManual || !$0.deModoManual) }) { s in FilaSecreto(s: s, pedir: pedirSecreto) }
+                    Text("Generados por la app: " + Secreto.allCases.filter(\.generado).map { "\($0.titulo) \(motor.secretosPresentes[$0] == true ? "✓" : "(al encender)")" }.joined(separator: " · "))
+                        .font(.system(size: 12)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                }.padding(.top, 6)
+            } label: {
+                Text("Avanzado").font(.system(size: 14, weight: .semibold))
             }
             GroupBox("Arranque") {
                 VStack(alignment: .leading, spacing: 8) {
@@ -795,7 +840,7 @@ struct HojaAjustes: View {
                     }
                     Button("Registros") { motor.correr(["registros"], titulo: "Registros") }
                     Button("Carpeta de respaldos") { NSWorkspace.shared.open(URL(fileURLWithPath: motor.cfg("RESPALDO_LOCAL"))) }
-                    Button("Revisar DNS") { motor.correr(["router-revisar"], titulo: "Revisando el DNS del router") }
+                    Button("Revisar red") { motor.correr(["red-revisar"], titulo: "Revisando la red") }
                 }.disabled(motor.ocupado).padding(6)
             }
             if let i = motor.estado?.instalacion, i.paquete {

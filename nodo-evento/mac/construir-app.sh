@@ -21,7 +21,8 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 swiftc -O -swift-version 5 -parse-as-library -target "$ARCH-apple-macos13.0" \
   -o "$APP/Contents/MacOS/$APP_NAME" \
-  "$MAC_DIR/app/App.swift" "$MAC_DIR/app/Motor.swift" "$MAC_DIR/app/Llavero.swift" "$MAC_DIR/app/Vistas.swift"
+  "$MAC_DIR/app/App.swift" "$MAC_DIR/app/Motor.swift" "$MAC_DIR/app/Llavero.swift" "$MAC_DIR/app/Vistas.swift" \
+  "$MAC_DIR/app/DNS.swift" "$MAC_DIR/app/API.swift" "$MAC_DIR/app/Conectar.swift" "$MAC_DIR/app/Red.swift"
 
 swift "$MAC_DIR/app/icono.swift" "$TMP/icono.png" >/dev/null
 mkdir -p "$TMP/AppIcon.iconset"
@@ -50,7 +51,9 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleDevelopmentRegion</key><string>es</string>
   <key>NSRemovableVolumesUsageDescription</key><string>Copia los respaldos del evento a la memoria USB NODO-RESPALDO.</string>
   <key>NSDocumentsFolderUsageDescription</key><string>Guarda los respaldos del evento en Documentos › Nodo Camporee.</string>
-  <key>NSLocalNetworkUsageDescription</key><string>Revisa el router GL.iNet y que los teléfonos lleguen al nodo.</string>
+  <key>NSLocalNetworkUsageDescription</key><string>Revisa el router y que los teléfonos lleguen al nodo; responde el DNS del evento en «Mi red».</string>
+  <!-- Sólo para pruebas con una API local (http://127.0.0.1): la API real es HTTPS. -->
+  <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
 </dict></plist>
 PLIST
 echo "app compilada: $APP ($ARCH, $SHORT/$VERSION)"

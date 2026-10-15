@@ -9,7 +9,12 @@ struct Estado: Decodable {
         let en_red_router, router_responde, glinet: Bool
         let ip_fija: String
         let ip_cambio: Bool
+        let router: String?
+        let gateway: String?
+        let mac_hw: String?
+        let mac_privada: Bool?
     }
+    struct DNS: Decodable { let activo, responde: Bool; let interceptado: Bool?; let puerto: Int }
     struct Cert: Decodable {
         let existe: Bool; let tipo, vence: String; let dias: Int?; let cubre_evento: Bool; let nombres: String
     }
@@ -40,6 +45,8 @@ struct Estado: Decodable {
     let disco_libre_gb: Int
     let firewall, autoarranque: Bool
     let instalacion: Instalacion?
+    let dns: DNS?
+    let nodo: InfoNodo?
     let config: [String: String]
 
     var nodoArriba: Bool { ["healthy", "running"].contains(servicios.caddy) && ["healthy"].contains(servicios.db) }
@@ -64,6 +71,10 @@ final class Motor: ObservableObject {
     @Published var ultimoCodigo: Int32 = 0
     @Published var conflictos = false
     @Published var secretosPresentes: [Secreto: Bool] = [:]
+    /// Última línea «@@json …» de la orden en curso (resumen de preparar/subir/revisar).
+    @Published var ultimoJSON: [String: Any]? = nil
+    /// La orden pidió volver a iniciar sesión (código 4 / @@relogin).
+    @Published var pideLogin = false
 
     let rutaMotor: String
     private var timer: Timer?
@@ -90,15 +101,18 @@ final class Motor: ObservableObject {
     }
 
     func cfg(_ k: String) -> String { estado?.config[k] ?? "" }
+    /// Modo automático (por defecto) o manual; se recuerda en config.env.
+    var modoManual: Bool { cfg("MODO") == "manual" }
 
     // Qué secretos necesita cada orden (sólo esos viajan en el entorno).
     nonisolated static func secretosPara(_ orden: String) -> [Secreto] {
         let base: [Secreto] = [.postgres, .jwt, .proxy, .eventPass]
         switch orden {
-        case "encender", "apagar", "respaldar", "construir": return base
-        case "exportar", "importar", "sync-estado": return base + [.prodURL]
+        case "encender", "apagar", "respaldar", "construir", "preparar-auto", "subir-auto", "nodo-info": return base
+        case "exportar", "importar", "sync-estado": return base + [.prodURL, .prodEventPass]
         case "cert-letsencrypt": return [.cloudflare]
         case "router-plan", "router-aplicar": return [.wifi]
+        case "red-publica-plan", "red-publica-aplicar", "red-publica-quitar": return base + [.wifi]
         default: return []
         }
     }
@@ -144,8 +158,9 @@ final class Motor: ObservableObject {
     func correr(_ args: [String], titulo: String, extra: [String: String] = [:], limpiar: Bool = true,
                 alTerminar: ((Int32) -> Void)? = nil) {
         guard !ocupado else { return }
-        if args.first == "encender" { prepararSecretosDelNodo() }
+        if ["encender", "preparar-auto"].contains(args.first ?? "") { prepararSecretosDelNodo() }
         ocupado = true; tarea = titulo; paso = ""; progreso = 0; conflictos = false
+        ultimoJSON = nil; pideLogin = false
         if limpiar { log = [] }
         let ruta = rutaMotor
         let p = Process()
@@ -176,6 +191,7 @@ final class Motor: ObservableObject {
                 pipe.fileHandleForReading.readabilityHandler = nil
                 if !resto.isEmpty { self.agregar(resto); resto = "" }
                 self.ultimoCodigo = code
+                if code == 4 { self.pideLogin = true }
                 self.ocupado = false
                 if code == 0 { self.progreso = 1 }
                 self.refrescarEstado()
@@ -205,6 +221,11 @@ final class Motor: ObservableObject {
             log.append(LineaLog(tipo: .error, texto: String(linea.dropFirst(8))))
         } else if linea == "@@conflictos" {
             conflictos = true
+        } else if linea == "@@relogin" {
+            pideLogin = true
+        } else if linea.hasPrefix("@@json ") {
+            if let d = String(linea.dropFirst(7)).data(using: .utf8),
+               let o = try? JSONSerialization.jsonObject(with: d) as? [String: Any] { ultimoJSON = o }
         } else {
             log.append(LineaLog(tipo: .texto, texto: linea))
         }
@@ -214,6 +235,20 @@ final class Motor: ObservableObject {
     func prepararSecretosDelNodo() {
         for s in Secreto.allCases where s.generado { Llavero.generarSiFalta(s) }
         refrescarSecretos()
+    }
+
+    /// Orden corta sin progreso ni registro (p. ej. «red-modo»); refresca el estado al terminar.
+    func silencioso(_ args: [String]) {
+        let ruta = rutaMotor
+        Task.detached {
+            let p = Process()
+            p.executableURL = URL(fileURLWithPath: "/bin/bash")
+            p.arguments = [ruta] + args
+            p.environment = Motor.entorno(para: args)
+            p.standardOutput = FileHandle.nullDevice; p.standardError = FileHandle.nullDevice
+            try? p.run(); p.waitUntilExit()
+            await MainActor.run { self.refrescarEstado() }
+        }
     }
 
     func guardarConfig(_ clave: String, _ valor: String) {

@@ -156,6 +156,7 @@ done
 chmod 755 "$RES/nodo/nodo.sh"
 install -m 755 "$NODO_SRC/respaldo/respaldo.sh" "$RES/nodo/respaldo/respaldo.sh"
 install -m 755 "$NODO_SRC/tls/ca-local.sh" "$NODO_SRC/tls/certificado-letsencrypt.sh" "$RES/nodo/tls/"
+mkdir -p "$RES/nodo/portal" && install -m 644 "$NODO_SRC/portal/bienvenida.html" "$RES/nodo/portal/"
 mv "$IMG" "$RES/imagenes"
 mv "$HERR" "$RES/herramientas"
 {

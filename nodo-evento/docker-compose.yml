@@ -85,6 +85,7 @@ services:
       - "events.adventist.club:172.30.40.10"
       - "admin.adventist.club:172.30.40.10"
       - "api.adventist.club:172.30.40.10"
+      - "media.adventist.club:172.30.40.10"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health',timeout=3)"]
       interval: 10s
@@ -124,9 +125,12 @@ services:
       - "${NODO_IP:-0.0.0.0}:80:80"
       - "${NODO_IP:-0.0.0.0}:443:443"
     environment:
-      NODO_HOSTS: ${NODO_HOSTS:-events.adventist.club, admin.adventist.club, api.adventist.club}
+      NODO_HOSTS: ${NODO_HOSTS:-events.adventist.club, admin.adventist.club, api.adventist.club, media.adventist.club}
+      # Respuesta a las pruebas de «¿hay internet?» de los teléfonos (red pública): ninguno|exito|bienvenida
+      NODO_PORTAL: ${NODO_PORTAL:-ninguno}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./portal:/srv/portal:ro
       - ./tls/actual:/certs:ro
       - ${DATOS_DIR:-./datos}/media:/srv/media:ro
       - ${DATOS_DIR:-./datos}/caddy:/data
@@ -158,6 +162,8 @@ services:
 
   # docker compose --profile sync run --rm -e PROD_DATABASE_URL sync <export|import|status> …
   # (o ./nodo.sh export|import|status). Único servicio con salida a internet.
+  # Modo automático (app de Mac): … run --rm -e NODO_API_URL -e NODO_API_TOKEN sync prepare|upload|node-info …
+  # (el token sólo por el entorno). `prepare` instala el certificado del paquete en /tls/actual.
   sync:
     profiles: ["sync"]
     image: nodo-evento-api:${NODO_TAG:-local}
@@ -170,7 +176,11 @@ services:
     volumes:
       - ${DATOS_DIR:-./datos}/exports:/exports
       - ${DATOS_DIR:-./datos}/media:/media
+      - ./tls/actual:/tls/actual
     networks: [interna, lan]
+    # DNS público: en la red del evento el router (o el DNS de la Mac) dice que api.adventist.club
+    # es ESTE nodo; el sync tiene que hablar con el de verdad.
+    dns: [1.1.1.1, 8.8.8.8]
     extra_hosts:
       # Sólo para la prueba en una Mac (colima): la Postgres del anfitrión.
       - "host.docker.internal:host-gateway"

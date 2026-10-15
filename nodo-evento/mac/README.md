@@ -57,20 +57,20 @@ Aparece **«Nodo Camporee»** en el Escritorio. Desde aquí, todo es con la app.
 ### 2.2 En la app
 
 1. **Ajustes › Construir / actualizar** (10–15 min; descarga y prepara el sistema). Hacerlo de
-   nuevo cada vez que se actualice la plataforma, antes del viaje.
-2. **Ajustes › Secretos** — guardar (se piden una vez y quedan en el Llavero de la Mac):
-   - **Secreto de los pases** (`EVENT_PASS_SECRET`): el MISMO de producción. Lo tiene el propietario
-     en su gestor de contraseñas (también está en Render › adventist-club-api › Environment).
-   - **Conexión de producción** (`postgresql://…`): sólo para «Preparar evento» y «Subir resultados».
-   - **Token de Cloudflare**: sólo para el certificado.
-   - **Contraseña del Wi-Fi del evento** (opcional): para el QR «Conéctate al Wi-Fi».
-   - Los otros tres secretos (sesiones del nodo, web↔API, base) **los genera la app sola**.
-3. **Certificado › Plan A (Let's Encrypt)**: escribe el correo para avisos y pulsa **Obtener**.
-   Hazlo 1–3 semanas antes del evento (dura ~90 días; la tarjeta se pone ámbar si vence antes de
-   que termine el evento o en menos de 30 días, y roja a 7 días).
-4. **Configurar router** (con la Mac conectada al GL.iNet, ver §2.3).
-5. **Ensayo**: Encender, conectar 2–3 teléfonos (iPhone y Android) al Wi-Fi del GL.iNet, abrir
-   el sitio, iniciar sesión, leer un pase, capturar, apagar el Wi-Fi del teléfono, capturar, volver.
+   nuevo cada vez que se actualice la plataforma, antes del viaje. (Con el DMG: «Instalar», §10.)
+2. **Nada de secretos que teclear** en el modo automático (el normal): los secretos propios del
+   nodo (base, sesiones, web↔API y **secreto de los pases del nodo**) los genera la app sola la
+   primera vez y quedan en el Llavero. Lo opcional está en **Ajustes › Avanzado** (contraseña del
+   Wi-Fi para el QR, token de Cloudflare; en modo manual también la conexión de producción).
+3. **Certificado**: lo trae «Preparar evento» si producción lo tiene configurado. Si no, la app
+   crea uno local (plan B) para poder encender. Mejor: **Certificado › Plan A (Let's Encrypt)**
+   1–3 semanas antes (dura ~90 días; la tarjeta se pone ámbar si vence antes de que termine el
+   evento o en menos de 30 días, y roja a 7 días).
+4. **Red del evento** (antes «Configurar router»): elige cómo llegan los teléfonos a la Mac (§2.3 y
+   §2.4). Cada opción termina con **Revisar**; en verde «Listo», la ventana principal lo muestra.
+5. **Ensayo**: Preparar (§3), Encender, conectar 2–3 teléfonos (iPhone y Android) al Wi-Fi,
+   abrir el sitio, iniciar sesión, leer un pase, capturar, apagar el Wi-Fi del teléfono, capturar,
+   volver.
 
 ### 2.3 Configurar el router (una sola vez)
 
@@ -79,7 +79,7 @@ Aparece **«Nodo Camporee»** en el Escritorio. Desde aquí, todo es con la app.
 2. Conecta la Mac al router: **cable** al puerto LAN del GL.iNet (recomendado) o a su Wi-Fi.
    - Si es por Wi-Fi: Ajustes del Sistema › Wi-Fi › (la red del GL.iNet) › **Detalles** ›
      *Dirección privada de Wi-Fi* → **Fija** (o desactivada). Si no, el router no la reconoce.
-3. En la app, **Configurar router**: escribe la contraseña de administración (no se guarda), el
+3. En la app, **Red del evento › GL.iNet portátil**: escribe la contraseña de administración (no se guarda), el
    nombre del Wi-Fi si quieres cambiarlo (p. ej. «Camporee NTAM»), y pulsa **1. Ver qué cambiará**.
    La app muestra exactamente lo que va a dejar:
    - La Mac siempre recibe la **misma IP** (p. ej. 192.168.8.150).
@@ -105,19 +105,39 @@ router se pone **roja** y ofrece volver a configurarlo.
 
 ---
 
-## 3. La víspera (con internet)
+## 3. La víspera (con internet) — «Preparar evento»
 
-1. Coordinación imprime los pases en producción (Clubes › Imprimir pases).
-2. Últimos cambios de reglas, personal e inscripciones **en producción**.
-3. En la app: **Encender** y luego **Preparar evento**:
-   - Evento: ya viene el del Universo (`10267b82-8260-4b27-ba41-de7924e3a9e5`).
-   - Correo de coordinación: la cuenta que firma (p. ej. la del propietario).
-   - **1. Simular** → revisa el reporte (cuántas cuentas, clubes, actividades… «pases legibles»).
-   - **2. Copiar al nodo y bloquear la nube** → desde ese momento la nube sólo deja *consultar* ese
-     evento; las capturas se hacen en el nodo.
-4. Prueba: un juez entra en el nodo con su contraseña de siempre y lee un pase impreso.
+### 3.1 Modo automático (recomendado)
 
----
+Con internet **de verdad** (casa, iglesia o el teléfono como hotspot; no el Wi-Fi del evento):
+
+1. Coordinación imprime los pases en producción (Clubes › Imprimir pases) y deja listas reglas,
+   personal e inscripciones **en producción**.
+2. **Preparar evento › Automático › Conectar con adventist.club**: correo y contraseña de tu
+   cuenta de coordinación (y el código de 6 dígitos si tu cuenta tiene verificación en dos pasos).
+   La sesión vive sólo en la memoria de la app: se borra al cerrar la ventana o a los 15 minutos.
+3. **Mis eventos**: eliges el evento.
+4. **¿Qué captura esta Mac?**: nombre del nodo (p. ej. «Zona Misión Galáctica»), sus
+   **actividades** (un grupo incluye a sus hijas; las de otros nodos abiertos salen en gris con el
+   nombre del nodo; «Todas» sólo si no hay otros nodos) y si tiene **mesa de llegadas**.
+5. **Preparar este evento** (1–3 min): enciende la base del nodo si hace falta, descarga el paquete
+   cifrado, lo carga y pone el certificado si viene. Al final: clubes, cuentas, pases, alcance y
+   certificado. Desde ese momento la nube sólo deja *consultar* ese evento.
+6. **Encender** y probar: un juez entra en el nodo con su contraseña de siempre y lee un pase.
+
+Si la app dice **«Esta Mac está en la red del evento»**: estás conectado al Wi-Fi del nodo (ahí
+`api.adventist.club` es la Mac). Conéctate a otra red con internet y repite.
+
+### 3.2 Modo manual (respaldo, sin la API)
+
+Para cuando la API no está disponible: **Preparar evento › Manual**. Necesita en **Ajustes ›
+Avanzado** la **conexión de producción** (`postgresql://…`) y, recomendado, el **secreto de los
+pases de producción** (`PROD_EVENT_PASS_SECRET`; con él los pases se vuelven a cifrar con el
+secreto propio del nodo). Campos: evento (id), correo que firma, nombre del nodo, actividades (ids,
+vacío = todas) y mesa de llegadas. **1. Simular** → **2. Copiar al nodo y bloquear la nube**.
+
+> Instalaciones viejas: si ya había un `EVENT_PASS_SECRET` guardado (el de producción) se conserva
+> como secreto del nodo y todo sigue funcionando como antes.
 
 ## 4. Cada mañana del evento
 
@@ -148,15 +168,109 @@ router se pone **roja** y ofrece volver a configurarlo.
 - Puedes cerrar la ventana: el nodo sigue encendido. Para apagar: abre la app › **Apagar** (hace un
   último respaldo primero).
 
-## 6. Al terminar (cuando vuelva internet)
+## 6. Subir resultados (avance o final)
 
-1. **Subir resultados** › **1. Revisar (simulación)**: el reporte dice qué se subirá (llegadas,
-   evaluaciones, revisiones, ajustes…).
-2. **2. Subir a producción** → hace un respaldo y sube todo en una sola operación, y libera la nube.
-3. Si dice **conflictos** (algo se cambió en la nube Y en el nodo): elige **Gana el nodo** (lo que
-   se capturó en el evento), **Gana la nube**, o **Dejar pendiente** y consultarlo.
-4. Repetirlo no duplica nada (la segunda vez dice «sin cambios»).
-5. **Apagar**. Guarda la USB de respaldos hasta el cierre oficial.
+### 6.1 Modo automático
+
+1. Con internet de verdad (o, en la «Red pública del evento», con el WAN del GL.iNet conectado:
+   la Mac recibe DNS públicos y es la única que sale), **Subir resultados › Automático › Conectar**.
+   El evento ya viene elegido (el de este nodo).
+2. Elige **Subir avance (sigo capturando)** o **Subir final (cierro este nodo)**.
+3. **1. Revisar (no cambia nada)**: dice qué se subiría (nuevos, cambios) y los **conflictos**
+   (algo cambió en la nube Y en el nodo) en palabras. Con conflictos: **Dejar pendientes**,
+   **Gana el nodo** o **Gana la nube**.
+4. **2. Subir**: primero hace un respaldo y sube todo en una sola operación. Al final dice si la
+   nube quedó **liberada** o cuántos nodos siguen abiertos (se libera cuando todos suben su final).
+5. Repetirlo no duplica nada. Después del final: **Apagar** y guarda la USB de respaldos.
+
+### 6.2 Modo manual
+
+**Subir resultados › Manual**: final o avance, **1. Revisar** → **2. Subir a producción**, con la
+conexión de producción (recomendado: rama de respaldo en Neon antes).
+
+## 6A. Varios coordinadores / varios nodos
+
+Varios coordinadores en distintas zonas, cada uno con **su Mac y su router**, el mismo evento y
+**actividades distintas** (la nube no deja que dos nodos abiertos compartan una actividad; mesas de
+llegadas sí puede haber varias). La ventana principal dice siempre «Este nodo: «nombre» · captura:
+… · llegadas: sí/no · estado: preparado / subió avance / subió final».
+
+**Guía del día:**
+
+| Cuándo | Qué hace cada coordinador |
+|---|---|
+| **La víspera** | Preparar evento › Automático, con **su alcance** (sus actividades, llegadas sí/no). Red del evento en su router (un Wi-Fi con nombre distinto por zona: «Camporee Zona A»). |
+| **Durante** | Sus jueces capturan en el Wi-Fi de su zona. Un juez que cambia de zona vuelve a iniciar sesión allá; si tiene capturas «por enviar», primero regresa a su zona a mandarlas. |
+| **Si hay señal** | Subir resultados › **Subir avance** (el nodo sigue abierto). |
+| **Al terminar** | Subir resultados › **Subir final**. |
+| **El administrador** | Ve los nodos del evento en la nube (estado, último envío, conflictos) y puede **cerrar** un nodo que no volverá (lo no subido de ese nodo se pierde para la nube). |
+
+## 6B. Usar una red existente: Google Wifi / Nest Wifi (y otros routers)
+
+En **Red del evento** hay cinco opciones; todas terminan con el mismo **Revisar** (el DNS del
+router dice que events.adventist.club es esta Mac, si los equipos se ven entre sí y si hay
+internet) y un **«Listo»** verde que se ve en la ventana principal:
+
+- **GL.iNet portátil (recomendado)** — §2.3. El DNS de la Mac no hace falta.
+- **Red pública del evento** — §6C.
+- **Google Wifi / Nest Wifi** — la app enciende un **DNS en esta Mac** y muestra los pasos de
+  Google Home: (1) Mac en la red **principal** (no la de invitados: aísla a los teléfonos), mejor
+  por cable a un punto Wifi; por Wi-Fi, «Dirección privada de Wi-Fi» en **Fija** o desactivada;
+  (2) Google Home › Wi-Fi › Configuración de red › Configuración avanzada de redes › **Reservas de
+  IP** para esta Mac (la app muestra IP y MAC); (3) ahí mismo **DNS › Personalizado** = la IP de
+  esta Mac (sin 8.8.8.8 de secundario); (4) **IPv6 desactivado**; (5) Encender el DNS de esta Mac
+  y **Revisar**.
+  - **Hazlo en casa con internet** días antes; en el evento los puntos Wifi necesitan corriente.
+  - **Prueba sin internet en casa:** desconecta el cable de internet (WAN) del punto Wifi
+    principal, conecta un teléfono y abre https://events.adventist.club.
+  - Mientras el DNS del Google Wifi apunte a la Mac, si la Mac se apaga **nadie en esa red tiene
+    internet**: al terminar, DNS › Automático y «Apagar» el DNS de la Mac.
+- **Otro router con DNS personalizado** — MikroTik u OpenWrt: la app lo configura por SSH (reserva
+  + DNS estático, como el GL.iNet; «Simular» muestra las órdenes). Otros: pasos a mano (reserva de
+  IP, DNS de la red = esta Mac, IPv6 apagado, red principal) + DNS de esta Mac.
+- **Red del lugar** — «¿Puedo usar esta red?»: revisa internet, aislamiento y DNS y recomienda
+  **«Usa la nube»** (hay internet estable), **«Configura el DNS en tu router»** (lo administras) o
+  **«Usa tu GL.iNet»** (la red aísla a los equipos o no la controlas: su cable al **WAN** del
+  GL.iNet y los teléfonos al Wi-Fi del GL.iNet).
+- **Varios nodos** — la guía de §6A.
+
+> Si una **VPN** (NordVPN, Proton VPN…) o Little Snitch interceptan el DNS de la Mac, el DNS del
+> nodo no puede contestar: la app lo detecta («Otra app intercepta el DNS») — ciérralas durante el
+> evento.
+
+## 6C. Red pública del evento (GL.iNet, OpenWrt, MikroTik)
+
+Un Wi-Fi **abierto** (o con clave sencilla) para todos que **sólo abre el sitio del evento**.
+Conexión recomendada: **módem del lugar → WAN del GL.iNet → Wi-Fi del evento**; la Mac **por
+cable** a un puerto LAN. La app lo aplica por SSH (Ver qué cambiará → Aplicar; **Quitar** lo
+deshace y deja lo normal):
+
+- DNS con lista permitida: sólo events/api/admin/media.adventist.club y nodo.local → la Mac;
+  **todo lo demás → 0.0.0.0**.
+- Nadie (salvo la Mac) puede usar otro DNS (puertos 53/853) ni DNS cifrado conocido (DoH por IP).
+- **Aislamiento de clientes** en el Wi-Fi (los teléfonos no se ven entre sí; la Mac por cable sí).
+- La Mac recibe **DNS públicos** por DHCP y, opcional, es **la única que sale a internet** (para
+  «Subir avance» si el WAN tiene internet).
+- **«¿Hay internet?»** de los teléfonos (captive.apple.com, connectivitycheck.gstatic.com,
+  msftconnecttest…): el router los manda a la Mac y Caddy contesta por http según la opción:
+  - **Contestar «sí» (recomendado):** iPhone marca la red como buena y se queda en el Wi-Fi sin
+    preguntar. Android pasa la prueba http pero su prueba https (no se puede imitar) falla: puede
+    decir «conectividad limitada» → «Mantener conexión». Sin este «sí», Android deja los **datos
+    móviles** como red principal y el navegador podría ir a la nube por datos.
+  - **Página de bienvenida:** el teléfono abre su ventanita de «Iniciar sesión en la red» con un
+    botón «Entrar a events.adventist.club». En iPhone esa ventanita es un mini navegador (sin
+    cámara ni caché): el botón abre el sitio de verdad. Si el usuario la cierra, iPhone puede
+    ofrecer «Usar otra red».
+  - **Nada:** el teléfono dirá «sin internet» (apagar datos móviles a mano).
+- MikroTik: DNS, firewall y DNS de la Mac los pone la app; el nombre/clave del Wi-Fi y el
+  aislamiento («default-forwarding=no» / «client isolation») van a mano (dependen del paquete de
+  Wi-Fi de RouterOS). Límite por cliente: no se configura (la API ya limita por cuenta).
+- **Módem de Telmex/Totalplay/Izzi:** casi nunca dejan DNS propio ni bloqueo: su cable al WAN del
+  GL.iNet. **Google Wifi:** DNS personalizado sí, lista permitida y bloqueo de otros DNS no.
+  **UniFi/Omada:** reserva, DNS de la red = Mac, aislamiento de clientes en el SSID y una regla que
+  sólo deje salir a la Mac; lista permitida no (el DNS de la Mac contesta los del evento).
+- **Revisar** además comprueba que un dominio cualquiera (example.com) NO resuelve y que la prueba
+  «¿hay internet?» llega a la Mac.
 
 ## 7. Si algo falla
 
@@ -165,7 +279,7 @@ router se pone **roja** y ofrece volver a configurarlo.
 | Un teléfono no abre el sitio | ¿Está en el Wi-Fi del GL.iNet? Si Android dice «sin internet», elegir **Mantener conexión** y apagar los **datos móviles**. Apagar VPN y «DNS privado» (Android: Ajustes › Redes › DNS privado › Automático/Desactivado). |
 | El teléfono ya estaba dentro del sitio en internet | Volver a iniciar sesión: el nodo tiene sus propias sesiones (misma contraseña). |
 | «Accesible en la red» en rojo | macOS bloquea la conexión. Ajustes del Sistema › Red › **Firewall** › Opciones… › busca **limactl** (o «ssh») y pon *Permitir conexiones entrantes*. Si al encender aparece «¿Permitir conexiones entrantes?», pulsa **Permitir**. |
-| La IP de la Mac cambió (tarjeta roja) | **Configurar router** › Ver › Aplicar otra vez (pide la contraseña del router). |
+| La IP de la Mac cambió (tarjeta roja) | **Red del evento › GL.iNet** › Ver › Aplicar otra vez (pide la contraseña del router). |
 | «Falta construir» | Necesita internet: Ajustes › Construir. Por eso se hace en casa. |
 | El certificado vence o falla | En casa con internet: Certificado › Obtener. Último recurso sin internet: **Plan B (certificado local)**; cada iPhone debe abrir `http://<IP de la Mac>/nodo-ca.crt` (aparece como QR en «QR para teléfonos»), instalar el perfil y activarlo en Ajustes › General › Información › *Ajustes de confianza de certificados*. |
 | La Mac pide permiso para «volumen extraíble», «Documentos» o conexiones entrantes | Pulsa **Permitir** (la app copia respaldos a la USB; al «Construir» lee el código si está en Documentos). |
@@ -177,10 +291,10 @@ router se pone **roja** y ofrece volver a configurarlo.
 
 | Qué | Cuándo | Cómo |
 |---|---|---|
-| Contraseña de administración del **GL.iNet** | Al configurar el router (una vez) | La teclea en la app; **no se guarda**. |
-| **Token de Cloudflare** (Zone · DNS · Edit, sólo `adventist.club`) | Al sacar/renovar el certificado | Ajustes › Secretos. Después puede revocarlo. |
-| **EVENT_PASS_SECRET** de producción | Una vez | Ajustes › Secretos (desde su gestor de contraseñas). |
-| **Conexión de producción** (`postgresql://…`) | Víspera y al volver | Ajustes › Secretos. Recomendado: rama de respaldo en Neon antes de «Subir resultados». |
+| Su **cuenta de adventist.club** (coordinación del evento) | Víspera y al subir | La teclea en «Conectar»; la sesión sólo vive en memoria 15 min. |
+| Contraseña de administración del **router** | Al configurar la red (una vez) | La teclea en la app; **no se guarda**. |
+| **Token de Cloudflare** (Zone · DNS · Edit, sólo `adventist.club`) | Sólo si la Mac saca/renueva el certificado (si no viene en «Preparar») | Ajustes › Avanzado. Después puede revocarlo. |
+| *Modo manual:* **conexión de producción** y **EVENT_PASS_SECRET de producción** | Sólo si la API no está disponible | Ajustes › Avanzado (modo manual). Recomendado: rama de respaldo en Neon. |
 
 Nunca por chat, correo, WhatsApp ni captura de pantalla.
 
@@ -215,6 +329,44 @@ Nunca por chat, correo, WhatsApp ni captura de pantalla.
   `dhcp.nodo_camporee` (reserva) y `dhcp.@dnsmasq[0].address=/dominio/IP` (quita antes cualquier
   entrada previa del mismo dominio: idempotente); Wi-Fi opcional en los `wifi-iface` `ap`/`lan`.
   `--simular` muestra las órdenes sin conectarse.
+- **Modo automático (motor):** `preparar-auto --event ID --label L [--actividades id,id | --todo]
+  [--llegadas | --sin-llegadas] [--reemplazar-copia] [--reemplazar-nodo ID]`, `subir-auto --event ID
+  [--dry-run] [--prefer node|prod] [--final | --avance]`, `nodo-info [--event ID]`. Corren
+  `python scripts/nodo_sync.py prepare|upload|node-info` en el contenedor `sync` con
+  `NODO_API_TOKEN` (sólo por el entorno: la app lo pasa desde la memoria) y `NODO_API_URL`
+  (localhost/127.0.0.1 se traduce a `host.docker.internal`). Las líneas `@@paso` del script se
+  muestran como sub-pasos; la última `@@json` es el resumen. Códigos: 0 ok · 1 error · 2
+  conflictos · 4 volver a iniciar sesión · 5 sin permiso/MFA. `nodo-info` se guarda en
+  `run/nodo-info.json` para la ventana principal. El `sync` usa DNS públicos (1.1.1.1, 8.8.8.8)
+  y monta `tls/actual` (escritura) para que «prepare» instale el certificado; si llegó uno, se
+  reinicia Caddy (y se quita la CA local vieja); si no hay ninguno, se crea el local.
+- **API para pruebas:** `NODO_API_BASE=http://127.0.0.1:8000/api/v1` o
+  `defaults write club.adventist.nodo-camporee apiBasePruebas <url>` (etiqueta roja «PRUEBAS»).
+  Antes de iniciar sesión la app pide `{API}/health`: si trae `X-Nodo-Local: 1` (lo pone el
+  Caddy del nodo) está hablando con un nodo y se niega.
+- **DNS de la Mac («Mi red»):** Colima/Lima **no reenvía UDP** al anfitrión (su reenviador de
+  puertos va por SSH, sólo TCP; probado con Colima 0.10.3 / Lima 2.2.0, `vz`: TCP llegó, UDP no).
+  Por eso el DNS no va en un contenedor: lo sirve el **ejecutable de la app** (`Nodo Camporee
+  --dns`, `app/DNS.swift`) como LaunchAgent `…dns` (KeepAlive). macOS deja a un proceso normal
+  escuchar en el puerto 53 si escucha en **todas** las direcciones (0.0.0.0): sin root, sin
+  ayudante privilegiado, sin binarios extra que firmar. Contesta events/api/admin/media y
+  nodo.local con la IP a la que llegó la pregunta; lo demás lo reenvía a 1.1.1.1/8.8.8.8 (nunca
+  al router: sería un círculo) con 1.2 s de espera, y sin internet contesta SERVFAIL al instante
+  (20 s de «sin internet» tras un fallo, tanteando cada 5 s). TCP 53 si está libre (si otro
+  programa lo ocupa —p. ej. otra VM de Colima— sigue sólo por UDP). Órdenes: `dns-on [--ip IP]`,
+  `dns-off`, `dns-estado`; red: `red-modo`, `red-revisar`, `red-diagnostico`,
+  `red-publica-plan|aplicar|quitar [--simular] [--tipo glinet|openwrt|mikrotik]`,
+  `router-plan|router-aplicar --tipo glinet|openwrt|mikrotik`.
+- **media.adventist.club:** «Preparar» copia las imágenes a `datos/media/mirror/<misma ruta>`;
+  Caddy las sirve (https y http) y el DNS de todas las opciones lo manda a la Mac.
+- **Pruebas:** `pruebas/router-openwrt.sh` y `pruebas/red-publica-openwrt.sh` (OpenWrt real:
+  uci + dnsmasq de verdad, idempotencia y «quitar»). `--prueba` acepta además `hoja:conectar`,
+  `hoja:subir`, `hoja:red`, `red:glinet|publica|google|mi-red|otro|lugar|varios|abajo`,
+  `modo:auto|manual`, `auto:entrar:correo|clave`, `auto:codigo:N`, `auto:evento:N`,
+  `auto:actividad:N`, `auto:preparar`, `auto:final`, `auto:revisar`, `auto:preferir:node`,
+  `auto:subir`, `otro:mikrotik|openwrt|manual|simular`, `publica:ssid:…`, `publica:simular`.
+  Aislamiento: `NODO_COMPOSE_PROJECT`, `NODO_COMPOSE_EXTRA`, `NODO_TAG`, `NODO_DNS_PUERTO`,
+  `NODO_ROUTER_DNS_PUERTO` (además de `NODO_APP_SUPPORT`, `NODO_LLAVERO_SERVICIO`, `NODO_AGENT_PREFIX`).
 - **Límite conocido:** con Colima todas las conexiones llegan a Caddy desde una IP interna, así
   que la API ve a todos los teléfonos con la misma IP (el límite por IP del nodo ya es 200/min y el
   límite por cuenta sigue igual). Por lo mismo, «equipos en la red» sale de la tabla ARP de la Mac.
@@ -307,15 +459,15 @@ Si macOS pregunta por «conexiones entrantes» de **limactl** al encender, **Per
 
 ### 10.5 Secretos que hay que poner en la otra Mac
 
-Cada Mac guarda los suyos en su propio Llavero; no viajan en el DMG.
+Cada Mac guarda los suyos en su propio Llavero; no viajan en el DMG. En **modo automático no hay
+que teclear ninguno**: la otra Mac se prepara con «Conectar con adventist.club» (su propio nodo).
 
 | Secreto | ¿Hace falta? |
 |---|---|
-| **Secreto de los pases** (`EVENT_PASS_SECRET`) | **Sí, siempre.** El mismo de producción (del gestor de contraseñas del propietario). Sin él, los pases impresos no se leen |
-| **Conexión de producción** (`postgresql://…`) | Sólo si ESA Mac hará «Preparar evento» o «Subir resultados». Si es sólo de respaldo, **no** |
+| Base, sesiones, web↔API y **secreto de los pases del nodo** | Nada: la app los genera sola |
+| **Conexión de producción** + **secreto de pases de producción** | Sólo en **modo manual** |
 | **Token de Cloudflare** | Sólo si en esa Mac se va a **sacar o renovar** el certificado. Si se copia de la Mac principal (§10.6), no |
 | Contraseña del Wi-Fi del evento | Opcional (QR «Conéctate al Wi-Fi», configurar router) |
-| Firma de sesiones, web↔API, base del nodo | Nada: la app los genera sola |
 
 Nunca por chat, correo, WhatsApp ni captura de pantalla: se teclean en la app desde el gestor de
 contraseñas.
@@ -362,3 +514,20 @@ local, **Encender** → base, API, sitio y HTTPS sanos (`/nodo-salud`, `/auth/lo
 configuración no tenía ninguna ruta de repos y «Construir» no apareció. `spctl`: firma válida,
 «Unnotarized Developer ID» (falta el perfil de notarización). No se probó en una Mac Intel ni con
 el router real.
+
+### 10.8 Prueba hecha (modo automático y red, 15 oct 2026)
+
+App compilada aparte (otro Llavero, otros LaunchAgents, otra carpeta de datos y otro proyecto de
+compose; la instalación real no se tocó). Con una API de prueba (formas del contrato, con y sin
+código de verificación) y un `sync` sustituto: Conectar → código → Mis eventos → alcance (otro nodo
+en gris) → Preparar (certificado instalado / conservado / local), Subir avance y final con
+conflicto («gana el nodo»), sesión vencida (código 4 → volver a iniciar sesión), y el aviso «Esta
+Mac está en la red del evento» (`X-Nodo-Local`). Con la API local del backend y el `nodo_sync.py`
+real (imagen `nodo-evento-api:login`): `preparar-auto` (6 clubes, 13 cuentas, 6 pases),
+`subir-auto --dry-run --final` y `--final` (nodo cerrado, nube liberada). Caddy: `X-Nodo-Local`,
+`media.adventist.club` (200/404) y las tres respuestas de portal. DNS de la Mac: respuestas propias,
+reenvío, TCP, y sin internet SERVFAIL en 1.2 s la primera vez y ~0.02 s después; puerto 53 se abre
+sin root (en la Mac de pruebas una VPN intercepta el DNS saliente, por eso la prueba punta a punta
+fue en otro puerto; la app detecta esa intercepción). OpenWrt real: guion normal y red pública
+(dnsmasq: permitidos → nodo, cualquier otro → 0.0.0.0), idempotentes, y «quitar». MikroTik: sólo
+simulación (sin RouterOS a la mano). No se probó con un Google Wifi real ni con teléfonos.

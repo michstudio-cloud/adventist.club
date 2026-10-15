@@ -61,6 +61,7 @@ done
 chmod 755 "$RUNTIME/nodo.sh"
 install -m 755 "$NODO_DIR/respaldo/respaldo.sh" "$RUNTIME/respaldo/respaldo.sh"
 install -m 755 "$NODO_DIR/tls/ca-local.sh" "$NODO_DIR/tls/certificado-letsencrypt.sh" "$RUNTIME/tls/"
+mkdir -p "$RUNTIME/portal" && install -m 644 "$NODO_DIR/portal/bienvenida.html" "$RUNTIME/portal/"
 # Configuración inicial (sin secretos).
 MOTOR="$DEST/$APP_NAME.app/Contents/Resources/nodo-mac.sh"
 "$MOTOR" config set NODO_DIR "$RUNTIME" >/dev/null

@@ -10,7 +10,7 @@
 #   export LE_EMAIL=correo@del-propietario
 #   ./tls/certificado-letsencrypt.sh [--staging] [--renovar] [dominio …]
 #
-# Sin dominios: events.adventist.club admin.adventist.club api.adventist.club.
+# Sin dominios: events.adventist.club admin.adventist.club api.adventist.club media.adventist.club.
 # --staging  prueba contra el entorno de pruebas de Let's Encrypt (certificado NO confiable).
 # --renovar  renueva el existente (Let's Encrypt lo emite por ~90 días: obtenerlo 1–3 semanas
 #            antes del evento basta; renovar si faltan menos de 30 días).
@@ -27,7 +27,7 @@ for arg in "$@"; do
     *) domains+=("$arg") ;;
   esac
 done
-[ ${#domains[@]} -gt 0 ] || domains=(events.adventist.club admin.adventist.club api.adventist.club)
+[ ${#domains[@]} -gt 0 ] || domains=(events.adventist.club admin.adventist.club api.adventist.club media.adventist.club)
 : "${CF_DNS_API_TOKEN:?exporta CF_DNS_API_TOKEN (token de Cloudflare, Zone DNS Edit)}"
 : "${LE_EMAIL:?exporta LE_EMAIL (correo para avisos de Let’s Encrypt)}"
 
