@@ -188,6 +188,8 @@ services:
       NODE_DATABASE_URL: postgresql://nodo:${POSTGRES_PASSWORD}@db:5432/nodo?sslmode=disable
       NODO_BUNDLE_DIR: /exports
       NODO_MEDIA_DIR: /media
+      # Nombres de la Mac (sólo del entorno del motor): se quitan de lo que sube (docs/EGRESO.md).
+      NODO_EQUIPO_NOMBRES: ${NODO_EQUIPO_NOMBRES:-}
     entrypoint: ["python", "scripts/nodo_sync.py"]
     volumes:
       - ${DATOS_DIR:-./datos}/exports:/exports
@@ -214,6 +216,7 @@ services:
       NODE_DATABASE_URL: postgresql://nodo:${POSTGRES_PASSWORD}@db:5432/nodo?sslmode=disable
       NODO_RUN_DIR: /run-nodo
       MALLA_CADA_SEG: ${MALLA_CADA_SEG:-30}
+      NODO_EQUIPO_NOMBRES: ${NODO_EQUIPO_NOMBRES:-}
     entrypoint: ["python", "scripts/nodo_malla.py"]
     command: ["servir", "--puerto", "8100"]
     volumes:

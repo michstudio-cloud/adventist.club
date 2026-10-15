@@ -16,11 +16,14 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import os
 import uuid
 from datetime import datetime, timezone
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 import asyncpg
+
+from app.services import nodo_egreso
 
 EXPORT_FORMAT = "nodo-evento/1"
 CHANGES_FORMAT = "nodo-cambios/1"
@@ -777,9 +780,13 @@ def without_mesh(rows: dict[str, list[dict]], overlay: dict) -> dict[str, list[d
 # --------------------------------------------------------------------------------------------
 # The node's changes (node side)
 # --------------------------------------------------------------------------------------------
-async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None) -> dict:
+async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None,
+                              host_names: list[str] | None = None) -> dict:
     """What a node uploads: its event rows, the users they reference, its audit trail since the
-    copy, and (with `pass_decrypt`) the plain pass tokens so the cloud re-encrypts them."""
+    copy, and (with `pass_decrypt`) the plain pass tokens so the cloud re-encrypts them.
+    Rebuilt from the allow-list of nodo_egreso (never host data; the cloud refuses anything else).
+    `host_names` (default: NODO_EQUIPO_NOMBRES, «|»-separated, set by the Mac's motor) are cut
+    from the free text of the audit rows."""
     copy = await node.fetchrow("SELECT created_at, report FROM event_offline_syncs WHERE event_id = $1"
                                " AND kind = 'NODE_COPY' ORDER BY created_at DESC LIMIT 1", event_id)
     if copy is None:
@@ -802,14 +809,14 @@ async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None) -
             token = pass_decrypt(r.get("pass_token_enc"))
             if token and r.get("pass_token_hash") == sha256_hex(token):
                 tokens[r["id"]] = token
-    return {
+    return nodo_egreso.sanitize_changes({
         "format": CHANGES_FORMAT, "event_id": str(event_id),
         "node_id": me["id"] if me else (report.get("node") or {}).get("node_id"),
         "export_id": report.get("prod_export_id"),
         "copied_at": copy["created_at"].isoformat(),
         "created_at": _now().isoformat(),
         "event": rows, "users": users, "audit": audits, "passes": tokens if pass_decrypt is not None else None,
-    }
+    }, names=host_names if host_names is not None else nodo_egreso.host_names_from_env())
 
 
 # --------------------------------------------------------------------------------------------
@@ -1283,7 +1290,12 @@ async def import_changes(prod, event_id: uuid.UUID, changes: dict, actor: dict, 
                          prefer: str | None, dry_run: bool, final: bool = True, pass_encrypt=None,
                          payload_sha: str | None = None, via: str = "api", ip: str | None = None) -> dict:
     """Applies one node's upload (the whole merge happens in ONE transaction). Without `node_id`
-    (a copy prepared by the 029 script): legacy single-node behaviour against the last EXPORT."""
+    (a copy prepared by the 029 script): legacy single-node behaviour against the last EXPORT.
+    The bundle must pass nodo_egreso's allow-list (event data only) or nothing is read."""
+    try:
+        nodo_egreso.validate_changes(changes)
+    except nodo_egreso.EgresoError as exc:
+        raise SyncError(str(exc), 422) from exc
     async with prod.transaction():
         lock = await prod.fetchrow("SELECT offline_locked_at, offline_node_label FROM events WHERE id = $1 FOR UPDATE",
                                    event_id)

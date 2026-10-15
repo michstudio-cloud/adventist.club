@@ -273,7 +273,20 @@ compose_env_file() {
 
 # docker compose con los secretos que la app pasó por el entorno. Las órdenes que no los usan
 # (down, ps) reciben un relleno: compose exige las variables para interpolar, aunque no las use.
+# Nombres de esta Mac (equipo, nombre local, usuario, nombre completo): sólo por el entorno, a los
+# contenedores sync y malla, para que quiten esos nombres de lo que sube a la nube o a los vecinos
+# (backend/app/services/nodo_egreso.py). Nunca se escriben en un archivo.
+equipo_nombres() {
+  local n out=""
+  for n in "$(scutil --get ComputerName 2>/dev/null)" "$(scutil --get LocalHostName 2>/dev/null)" \
+           "$(hostname -s 2>/dev/null)" "$(id -un 2>/dev/null)" "$(id -F 2>/dev/null)"; do
+    [ "${#n}" -ge 3 ] && out="${out:+$out|}$n"
+  done
+  printf '%s' "$out"
+}
+
 dc() {
+  [ -n "${NODO_EQUIPO_NOMBRES+x}" ] || { NODO_EQUIPO_NOMBRES="$(equipo_nombres)"; export NODO_EQUIPO_NOMBRES; }
   local envf; envf="$(compose_env_file)"
   local extra=(); [ -n "${NODO_COMPOSE_EXTRA:-}" ] && extra=(-f "$NODO_COMPOSE_EXTRA")
   docker compose -p "$PROJECT" --project-directory "$NODO_DIR" -f "$NODO_DIR/docker-compose.yml" ${extra[@]+"${extra[@]}"} --env-file "$envf" "$@"

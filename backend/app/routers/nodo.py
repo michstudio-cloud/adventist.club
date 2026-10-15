@@ -34,7 +34,7 @@ from app.db import connect_args_for, database_url, get_db
 from app.deps import get_current_user
 from app.models import User
 from app.security import RECENT_AUTH_SECONDS
-from app.services import event_nodes, event_pass, node_certs, nodo_crypto, nodo_malla
+from app.services import event_nodes, event_pass, node_certs, nodo_crypto, nodo_egreso, nodo_malla
 from app.services import event_scores as scores
 from app.services import events as event_service
 from app.services import nodo_sync_core as core
@@ -326,6 +326,11 @@ async def import_from_node(event_id: uuid.UUID, request: Request,
         if changes.get("event_id") != str(event_id) or changes.get("node_id") != str(node_id) \
                 or changes.get("format") != core.CHANGES_FORMAT:
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El contenido no corresponde a este nodo")
+        # Only event data, from the allow-list (nodo-evento/docs/EGRESO.md); never host data.
+        try:
+            nodo_egreso.validate_changes(changes)
+        except nodo_egreso.EgresoError as exc:
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
         actor = await core.actor_by_id(conn, user_id)
         report = await core.import_changes(
             conn, event_id, changes, actor, node_id=node_id, prefer=prefer, dry_run=dry_run, final=final,

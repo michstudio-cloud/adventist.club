@@ -44,6 +44,7 @@ from datetime import datetime, timezone
 import asyncpg
 
 from app.services import nodo_crypto as nc
+from app.services import nodo_egreso
 from app.services import nodo_sync_core as core
 
 FORMAT = nc.MESH_FORMAT
@@ -422,9 +423,10 @@ async def build_avance(conn, me_: dict) -> dict:
     event = {t: [r for r in rows[t] if owns(sc, t, r, evals)] for t in CAPTURE_TABLES}
     refs = {r[c] for t in CAPTURE_TABLES for r in event[t] for c in core.USER_REFS.get(t, []) if r.get(c)}
     users = [{"id": u["id"], "name": u.get("name")} for u in changes["users"] if u["id"] in refs]
-    return {"format": core.CHANGES_FORMAT, "event_id": me_["event_id"], "node_id": me_["node_id"],
-            "label": me_["label"], "scope": me_["scope"], "created_at": _now().isoformat(),
-            "event": event, "users": users, "audit": [], "passes": None}
+    return nodo_egreso.sanitize_changes({
+        "format": core.CHANGES_FORMAT, "event_id": me_["event_id"], "node_id": me_["node_id"],
+        "label": me_["label"], "scope": me_["scope"], "created_at": _now().isoformat(),
+        "event": event, "users": users, "audit": [], "passes": None}, avance=True)
 
 
 def check_clock(ts) -> int:
@@ -543,6 +545,10 @@ def open_answer(me_: dict, known: dict, answer: dict, eph_private: bytes, epk: s
     if changes.get("format") != core.CHANGES_FORMAT or changes.get("node_id") != known["node_id"] \
             or changes.get("event_id") != me_["event_id"]:
         raise MeshError("el avance no corresponde a ese nodo", 403)
+    try:
+        nodo_egreso.validate_changes(changes, avance=True)
+    except nodo_egreso.EgresoError as exc:
+        raise MeshError(f"avance rechazado: {exc}", 403) from exc
     return changes
 
 
