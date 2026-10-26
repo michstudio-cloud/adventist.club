@@ -95,6 +95,31 @@ struct Mosaico: View {
     }
 }
 
+/// Un mosaico que abre un menú (p. ej. «Ver sitio local» › Ver como juez / director).
+struct MosaicoMenu<Contenido: View>: View {
+    let titulo: String
+    let sub: String
+    let icono: String
+    @ViewBuilder let opciones: () -> Contenido
+    var body: some View {
+        Menu {
+            opciones()
+        } label: {
+            VStack(spacing: 8) {
+                Image(systemName: icono).font(.system(size: 28)).foregroundStyle(Color.accentColor)
+                Text(titulo).font(.system(size: 15, weight: .semibold)).multilineTextAlignment(.center)
+                Text(sub).font(.system(size: 12)).foregroundStyle(.secondary).multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity, minHeight: 112)
+            .padding(.horizontal, 6)
+            .background(RoundedRectangle(cornerRadius: 14).fill(Color(nsColor: .controlBackgroundColor)))
+            .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.gray.opacity(0.25)))
+        }
+        .menuStyle(.borderlessButton)
+        .menuIndicator(.hidden)
+    }
+}
+
 struct VistaLog: View {
     @EnvironmentObject var motor: Motor
     var alto: CGFloat = 220
@@ -547,7 +572,13 @@ struct Principal: View {
             Mosaico(titulo: "Preparar evento", sub: "víspera, con internet", icono: "arrow.down.circle") { hoja = .preparar }
             Mosaico(titulo: "Subir resultados", sub: "al volver internet", icono: "arrow.up.circle") { hoja = .subir }
             Mosaico(titulo: "Red del evento", sub: "GL.iNet · Google Wifi · otro", icono: "wifi.router") { hoja = .red }
-            Mosaico(titulo: "Ver sitio local", sub: "igual que en los teléfonos", icono: "safari") { motor.correr(["ver-sitio"], titulo: "Abriendo el sitio local") }
+            MosaicoMenu(titulo: "Ver sitio local", sub: "igual que en los teléfonos · ver como…", icono: "safari") {
+                Button("Sitio local (inicio)") { motor.correr(["ver-sitio"], titulo: "Abriendo el sitio local") }
+                Button("Panel de coordinación") { motor.correr(["ver-sitio", "coordinacion"], titulo: "Abriendo el panel") }
+                Divider()
+                Button("Ver como juez (sólo lectura)") { motor.correr(["ver-sitio", "juez"], titulo: "Abriendo la vista del juez") }
+                Button("Ver como director… (elige el club)") { motor.correr(["ver-sitio", "director"], titulo: "Abriendo «Ver como…»") }
+            }
             Mosaico(titulo: "Certificado", sub: "antes del viaje", icono: "lock.shield") { hoja = .certificado }
             Mosaico(titulo: "Ajustes", sub: "secretos · registros", icono: "gearshape") { hoja = .ajustes }
         }

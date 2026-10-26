@@ -1636,8 +1636,19 @@ cmd_registros() {
 # «Ver sitio local»: abre en ESTA Mac el mismo events.adventist.club que ven los teléfonos, pero
 # servido por el nodo. Navegador Chromium con perfil aparte y resolución de nombres forzada a esta
 # Mac (no toca /etc/hosts ni el navegador de siempre).
+# Con un argumento abre una vista concreta del evento preparado (EVENTO_ID): `coordinacion` (el panel),
+# `juez` («Ver como… cualquier juez», sólo lectura) o `director` (el panel con «Ver como…» abierto para
+# elegir el club). Sin argumento, el inicio del sitio. Hay que entrar como coordinación.
 cmd_ver_sitio() {
-  local app="" a perfil="$APP_SUPPORT/navegador-local" ip="127.0.0.1"
+  local app="" a perfil="$APP_SUPPORT/navegador-local" ip="127.0.0.1" ruta="/" vista="${1:-}"
+  if [ -n "$vista" ] && [ -n "$EVENTO_ID" ]; then
+    case "$vista" in
+      coordinacion) ruta="/$EVENTO_ID" ;;
+      juez) ruta="/$EVENTO_ID?ver=juez" ;;
+      director) ruta="/$EVENTO_ID?vercomo=1" ;;
+      *) fallo "vista desconocida: $vista (coordinacion, juez o director)" ;;
+    esac
+  fi
   for a in "Google Chrome" "Brave Browser" "Microsoft Edge" "Chromium"; do
     if [ -d "/Applications/$a.app" ]; then app="$a"; break; fi
   done
@@ -1645,8 +1656,8 @@ cmd_ver_sitio() {
   mkdir -p "$perfil"
   open -na "$app" --args --user-data-dir="$perfil" --no-first-run --no-default-browser-check \
     --host-resolver-rules="MAP events.adventist.club $ip,MAP admin.adventist.club $ip,MAP api.adventist.club $ip,MAP media.adventist.club $ip" \
-    "https://events.adventist.club/"
-  ok "Abriendo el sitio local en $app (ventana aparte que apunta a esta Mac)"
+    "https://events.adventist.club$ruta"
+  ok "Abriendo el sitio local en $app (ventana aparte que apunta a esta Mac)${vista:+ · vista: $vista}"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -2031,7 +2042,7 @@ case "${1:-}" in
   autoarranque) shift; cmd_autoarranque "$@" ;;
   config) shift; case "${1:-}" in json) config_json; echo ;; set) config_set "$2" "${3-}"; ok "guardado: $2" ;; *) fallo "uso: config json|set CLAVE VALOR" ;; esac ;;
   registros) shift; cmd_registros "$@" ;;
-  ver-sitio) cmd_ver_sitio ;;
+  ver-sitio) shift; cmd_ver_sitio "${1:-}" ;;
   instalar) cmd_instalar ;;
   caddy-recargar) cmd_caddy_recargar ;;
   dispositivos) cmd_dispositivos ;;
