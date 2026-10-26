@@ -107,7 +107,8 @@ async def get_registration(db: AsyncSession, event: Event, registration_id: uuid
 async def registration_out(db: AsyncSession, row: EventRegistration,
                            pass_token: str | None = None,
                            club: Organization | None = None,
-                           *, coordination: bool = False, staff: bool | None = None) -> RegistrationOut:
+                           *, coordination: bool = False, staff: bool | None = None,
+                           directors: dict | None = None) -> RegistrationOut:
     """`coordination=True` adds `tiebreak_rank`; `staff` (default: = coordination; pass True
     for judges) adds `checked_in_by_name`. The routes answer with exclude_unset, so for
     whoever may not read them the keys are not even present."""
@@ -118,9 +119,16 @@ async def registration_out(db: AsyncSession, row: EventRegistration,
     if staff if staff is not None else coordination:
         who = await db.get(User, row.checked_in_by_id) if row.checked_in_by_id else None
         extra["checked_in_by_name"] = who.name if who is not None else None
+    # 031: the club's director by name (prototype: «ANT-014 · Ana Martínez»); `directors` is the
+    # batch lookup of a whole list (`event_onboarding._directors_by_club`).
+    if directors is None:
+        from app.services.event_onboarding import _directors_by_club
+        directors = await _directors_by_club(db, [club.id])
+    director = directors.get(club.id)
+    extra["director_name"] = director.name if director is not None else None
     return RegistrationOut(**extra,
         id=str(row.id), event_id=str(row.event_id),
-        club=ClubBrief(id=str(club.id), name=club.name, city=club.city),
+        club=ClubBrief(id=str(club.id), name=club.name, city=club.city, code=club.code),
         status=row.status, has_pass=row.pass_token_hash is not None,
         finalist_flags={k: bool(v) for k, v in (row.finalist_flags or {}).items()},
         created_at=row.created_at, pass_token=pass_token,

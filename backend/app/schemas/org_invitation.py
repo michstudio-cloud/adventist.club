@@ -78,6 +78,9 @@ class OrgInvitationPreview(BaseModel):
     matches_session: bool | None = None
     # 028: where to go after accepting (validated when the invitation was created).
     return_to: str | None = None
+    # 031: an invitation made from an event says which one, and (EVENT_STAFF) as what:
+    # {"id", "name", "staff_role": "JUDGE" | "COORDINATOR" | null}.
+    event: dict | None = None
 
 
 class OrgInvitationAccepted(BaseModel):

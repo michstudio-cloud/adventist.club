@@ -415,6 +415,8 @@ class ClubBrief(BaseModel):
     id: str
     name: str
     city: str | None = None
+    # 031: the club's official code, when it has one.
+    code: str | None = None
 
 
 class RegistrationOut(BaseModel):
@@ -436,6 +438,8 @@ class RegistrationOut(BaseModel):
     checked_in_as: Literal["JUDGE", "COORDINATION"] | None = None
     # Event staff only (coordination, judges): who recorded it. Absent for directors.
     checked_in_by_name: str | None = None
+    # 031: the club's ACTIVE director (null = none yet).
+    director_name: str | None = None
 
 
 # ----------------------------------------------------------------------------
@@ -598,3 +602,112 @@ class HistoryPage(BaseModel):
 
 
 EventOut.model_rebuild()
+
+
+# ----------------------------------------------------------------------------
+# 031 — alta desde el evento: directores, jueces y coordinación por correo
+# ----------------------------------------------------------------------------
+class DirectorLink(_Body):
+    """«Vincular director»: nombre + correo. Con cuenta = se nombra; sin cuenta = invitación."""
+    name: str | None = Field(default=None, max_length=120)
+    email: str = Field(min_length=3, max_length=254)
+
+
+class DirectorsImport(_Body):
+    """«Importar lista»: CSV con encabezados club, director, correo. `commit=false` = simulación."""
+    csv: str = Field(min_length=1, max_length=200_000)
+    commit: bool = False
+
+
+class StaffInvite(_Body):
+    """«Invitar juez / coordinación»: correo, nombre y, para un juez, sus actividades
+    (vacío = todas). Con cuenta se añade al momento; sin cuenta se invita."""
+    email: str = Field(min_length=3, max_length=254)
+    name: str | None = Field(default=None, max_length=120)
+    role: StaffRole
+    activity_ids: list[uuid_module.UUID] | None = Field(default=None, max_length=100)
+
+    @model_validator(mode="after")
+    def _coordinator_has_no_activity(self):
+        if self.role == "COORDINATOR" and self.activity_ids:
+            raise ValueError("Sólo un juez se asigna a actividades")
+        return self
+
+
+class EventInvitationOut(BaseModel):
+    id: str
+    kind: Literal["director", "judge", "coordinator"]
+    email: str
+    name: str | None = None
+    state: Literal["PENDING", "ACCEPTED", "EXPIRED", "REVOKED"]
+    expires_at: datetime
+    created_at: datetime | None = None
+    accepted_at: datetime | None = None
+    activity_ids: list[str] | None = None
+    club_id: str | None = None
+    club_name: str | None = None
+    registration_id: str | None = None
+    # Only right after creating / resending: the one-time link and its WhatsApp message.
+    url: str | None = None
+    whatsapp_url: str | None = None
+
+
+class PersonBrief(BaseModel):
+    id: str
+    name: str
+    email: str | None = None
+
+
+class ClubDirectorOut(BaseModel):
+    registration_id: str
+    club_id: str
+    club_name: str
+    state: Literal["NONE", "INVITED", "ACTIVE"]
+    director: PersonBrief | None = None
+    invitation: EventInvitationOut | None = None
+
+
+class DirectorsOut(BaseModel):
+    # Whether this reader may link / import / resend director invitations (association admin).
+    can_manage: bool
+    clubs: list[ClubDirectorOut]
+
+
+class DirectorLinkOut(BaseModel):
+    action: Literal["appoint", "invite", "already_director", "invitation_pending"]
+    club: ClubDirectorOut
+
+
+class DirectorsImportRow(BaseModel):
+    line: int
+    club: str
+    director: str
+    email: str
+    club_id: str | None = None
+    action: str | None = None
+    director_name: str | None = None
+    problems: list[str] = []
+
+
+class DirectorsImportOut(BaseModel):
+    commit: bool
+    rows: list[DirectorsImportRow]
+    summary: dict[str, int]
+    # On commit: the invitations created (one-time links, also e-mailed).
+    invitations: list[EventInvitationOut] = []
+
+
+class StaffInviteOut(BaseModel):
+    action: Literal["added", "invite"]
+    staff: list[StaffOut] = []
+    invitation: EventInvitationOut | None = None
+
+
+class PersonSearchOut(BaseModel):
+    id: str
+    name: str
+    email: str | None
+    role: str
+    organization: str | None = None
+    directs_club: bool = False
+    event_roles: list[str] = []

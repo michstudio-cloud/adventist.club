@@ -7,7 +7,7 @@ Thin: who may act is decided in `app/services/event_access.py` (through
 import asyncio
 import uuid
 
-from fastapi import APIRouter, Body, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, File, HTTPException, Query, Request, Response, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -47,8 +47,17 @@ from app.schemas.event import (
     ScanCreate,
     StaffCreate,
     StaffOut,
+    DirectorLink,
+    DirectorLinkOut,
+    DirectorsImport,
+    DirectorsImportOut,
+    DirectorsOut,
+    EventInvitationOut,
+    PersonSearchOut,
+    StaffInvite,
+    StaffInviteOut,
 )
-from app.services import event_brand, event_nodes, event_pass
+from app.services import event_brand, event_nodes, event_onboarding as onboarding, event_pass
 from app.services import event_checkin as checkin
 from app.services import event_history as history
 from app.services import event_offline as offline
@@ -246,6 +255,10 @@ async def my_view(event_id: uuid.UUID, current_user: User = Depends(get_current_
     director's club. Several at once for a person with several roles."""
     event = await event_service.get_event(db, event_id)
     roles = await event_service.require_access(db, current_user, event)
+    return await _view_payload(db, event, roles)
+
+
+async def _view_payload(db: AsyncSession, event, roles) -> dict:
     activities = await event_service.list_activities(db, event)
     view: dict = {"event": await event_service.event_out(db, event, roles), "roles": roles.names()}
     if roles.coordination:
@@ -278,6 +291,44 @@ async def my_view(event_id: uuid.UUID, current_user: User = Depends(get_current_
             item["has_pass"] = registration.pass_token_hash is not None
             clubs.append(item)
         view["director"] = {"registrations": clubs}
+    return view
+
+
+@router.get("/{event_id}/preview")
+async def preview_view(event_id: uuid.UUID, role: str = Query(pattern="^(judge|director)$"),
+                       user_id: uuid.UUID | None = None, registration_id: uuid.UUID | None = None,
+                       current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """«Ver como…» (coordination only): what a judge (a given one, or «cualquier juez» = every
+    activity) or the director of a given club sees in `/my`. Read-only by construction: the
+    screens send `X-Event-Preview` and the API answers 403 to any write that carries it."""
+    from app.services.event_access import EventRoles
+
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    roles = EventRoles()
+    label = None
+    if role == "judge":
+        if user_id is None:
+            roles.judge_all = True
+        else:
+            for row, person in await event_service.list_staff(db, event):
+                if row.user_id == user_id and row.role == "JUDGE":
+                    label = person.name
+                    if row.activity_id is None:
+                        roles.judge_all = True
+                    else:
+                        roles.judge_activity_ids.add(row.activity_id)
+            if label is None:
+                raise HTTPException(status.HTTP_404_NOT_FOUND, "Esa persona no es juez de este evento")
+    else:
+        if registration_id is None:
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Indica el club (registration_id)")
+        registration, club = await onboarding.registration_with_club(db, event, registration_id)
+        roles.director_club_ids = {club.id}
+        label = club.name
+    view = await _view_payload(db, event, roles)
+    view["preview"] = {"role": role, "label": label, "user_id": str(user_id) if user_id else None,
+                       "registration_id": str(registration_id) if registration_id else None}
     return view
 
 
@@ -451,6 +502,161 @@ async def end_staff(event_id: uuid.UUID, staff_id: uuid.UUID, request: Request,
 
 
 # ----------------------------------------------------------------------------
+# 031 — Alta desde el evento: invitaciones de personal y directores
+# ----------------------------------------------------------------------------
+def _invitation_out(row, *, event, token: str | None = None, **extra) -> EventInvitationOut:
+    item = onboarding.invitation_out(row, **extra)
+    if token:
+        item.update(onboarding.share_links(event, row, token))
+    return EventInvitationOut(**item)
+
+
+async def _queue(background: BackgroundTasks, db: AsyncSession, event, invitation, token: str, actor: User):
+    """Stage the e-mail log (the caller commits right after) and return the sender for later."""
+    from app.models import Organization
+    from app.services import org_invitations as invitations_service
+
+    organization = await db.get(Organization, invitation.organization_id)
+    log = invitations_service.stage_email(db, invitation)
+    return lambda: onboarding.queue_email(background, log, event, invitation, token, organization, actor)
+
+
+@router.get("/{event_id}/people", response_model=list[PersonSearchOut])
+async def search_people(event_id: uuid.UUID, q: str = Query(min_length=2, max_length=80),
+                        current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Search-as-you-type (coordination): adult accounts of the event owner's association."""
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    return await onboarding.search_people(db, event, q)
+
+
+@router.post("/{event_id}/staff/invitations", response_model=StaffInviteOut, status_code=status.HTTP_201_CREATED)
+async def invite_staff(event_id: uuid.UUID, payload: StaffInvite, request: Request, background: BackgroundTasks,
+                       current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """«Invitar juez / coordinación». With an account: added now (`action: added`). Without
+    one: an invitation that adds them when accepted (`action: invite`, link shown ONCE)."""
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    result = await onboarding.invite_staff(db, current_user, event, email=payload.email, name=payload.name,
+                                           staff_role=payload.role, activity_ids=payload.activity_ids,
+                                           request=request)
+    send = None
+    if result.invitation is not None:
+        send = await _queue(background, db, event, result.invitation, result.token, current_user)
+    await db.commit()
+    if send:
+        send()
+    if result.action == "added":
+        rows = [event_service.staff_out(row, user) for row, user in await event_service.list_staff(db, event)
+                if user.id == result.person.id]
+        return StaffInviteOut(action="added", staff=rows)
+    return StaffInviteOut(action="invite",
+                          invitation=_invitation_out(result.invitation, event=event, token=result.token))
+
+
+@router.get("/{event_id}/invitations", response_model=list[EventInvitationOut])
+async def list_event_invitations(event_id: uuid.UUID, include_dead: bool = False,
+                                 current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """The invitations made from this event (staff and directors): pending and expired by default."""
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    return [EventInvitationOut(**item) for item in await onboarding.event_invitations(db, event, include_dead=include_dead)]
+
+
+@router.post("/{event_id}/invitations/{invitation_id}/resend", response_model=EventInvitationOut,
+             status_code=status.HTTP_201_CREATED)
+async def resend_event_invitation(event_id: uuid.UUID, invitation_id: uuid.UUID, request: Request,
+                                  background: BackgroundTasks, current_user: User = Depends(get_current_user),
+                                  db: AsyncSession = Depends(get_db)):
+    """A new link (the old one stops working) and a new e-mail."""
+    from app.services import org_invitations as invitations_service
+
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    invitation = await onboarding.get_event_invitation(db, event, invitation_id)
+    organization = await onboarding.require_invitation_rights(db, current_user, roles, invitation)
+    renewed, token = await invitations_service.resend(db, invitation, organization=organization, actor=current_user,
+                                                      request=request, event_authorized=True)
+    send = await _queue(background, db, event, renewed, token, current_user)
+    await db.commit()
+    send()
+    return _invitation_out(renewed, event=event, token=token)
+
+
+@router.delete("/{event_id}/invitations/{invitation_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def revoke_event_invitation(event_id: uuid.UUID, invitation_id: uuid.UUID, request: Request,
+                                  current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """Idempotent on one already dead; an accepted one is not revoked (409)."""
+    from app.services import org_invitations as invitations_service
+
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    invitation = await onboarding.get_event_invitation(db, event, invitation_id)
+    await onboarding.require_invitation_rights(db, current_user, roles, invitation)
+    await invitations_service.revoke(db, invitation, actor=current_user, request=request)
+    await db.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/{event_id}/directors", response_model=DirectorsOut)
+async def list_directors(event_id: uuid.UUID, current_user: User = Depends(get_current_user),
+                         db: AsyncSession = Depends(get_db)):
+    """Each registered club and its director: NONE («Sin director»), INVITED («Invitado ·
+    pendiente») or ACTIVE («Activo»)."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    return DirectorsOut(can_manage=roles.admin, clubs=await onboarding.directors(db, event))
+
+
+@router.post("/{event_id}/registrations/{registration_id}/director", response_model=DirectorLinkOut)
+async def link_director(event_id: uuid.UUID, registration_id: uuid.UUID, payload: DirectorLink, request: Request,
+                        background: BackgroundTasks, current_user: User = Depends(get_current_user),
+                        db: AsyncSession = Depends(get_db)):
+    """«Vincular director» (association admin): an account is appointed director of the club; an
+    address without one gets a CLUB_DIRECTOR invitation that returns to this event."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    registration, club = await onboarding.registration_with_club(db, event, registration_id)
+    result = await onboarding.link_director(db, current_user, roles, event, registration, club,
+                                            name=payload.name, email=payload.email, request=request)
+    send = None
+    if result.token:
+        send = await _queue(background, db, event, result.invitation, result.token, current_user)
+    await db.commit()
+    if send:
+        send()
+    row = next(item for item in await onboarding.directors(db, event) if item["registration_id"] == str(registration.id))
+    if result.token and row.get("invitation"):
+        row["invitation"].update(onboarding.share_links(event, result.invitation, result.token))
+    return DirectorLinkOut(action=result.action, club=row)
+
+
+@router.post("/{event_id}/directors/import", response_model=DirectorsImportOut)
+async def import_directors(event_id: uuid.UUID, payload: DirectorsImport, request: Request,
+                           background: BackgroundTasks, current_user: User = Depends(get_current_user),
+                           db: AsyncSession = Depends(get_db)):
+    """«Importar lista» (association admin): CSV «club, director, correo» of the event's clubs.
+    `commit: false` simulates (nothing written, nothing sent); `commit: true` applies row by row."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    rows, created = await onboarding.import_directors(db, current_user, roles, event, payload.csv,
+                                                      commit=payload.commit, request=request)
+    senders = []
+    for result in created:
+        senders.append(await _queue(background, db, event, result.invitation, result.token, current_user))
+    if payload.commit:
+        await db.commit()
+        for send in senders:
+            send()
+    summary: dict[str, int] = {}
+    for row in rows:
+        summary[row["action"] or "error"] = summary.get(row["action"] or "error", 0) + 1
+    invitations = [_invitation_out(result.invitation, event=event, token=result.token, club=result.club,
+                                   registration_id=result.registration_id) for result in created]
+    return DirectorsImportOut(commit=payload.commit, rows=rows, summary=summary, invitations=invitations)
+
+
+# ----------------------------------------------------------------------------
 # Inscripciones
 # ----------------------------------------------------------------------------
 @router.get("/{event_id}/registrations", response_model=list[RegistrationOut], response_model_exclude_unset=True)
@@ -462,8 +668,11 @@ async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(g
     roles = await event_service.require_access(db, current_user, event)
     club_ids = None if (roles.coordination or roles.judge) else roles.director_club_ids
     staff = roles.coordination or roles.judge
-    return [await scores.registration_out(db, row, club=club, coordination=roles.coordination, staff=staff)
-            for row, club in await scores.list_registrations(db, event, club_ids=club_ids)]
+    rows = await scores.list_registrations(db, event, club_ids=club_ids)
+    directors = await onboarding._directors_by_club(db, [club.id for _, club in rows])
+    return [await scores.registration_out(db, row, club=club, coordination=roles.coordination, staff=staff,
+                                          directors=directors)
+            for row, club in rows]
 
 
 @router.post("/{event_id}/registrations", response_model=RegistrationOut, response_model_exclude_unset=True,

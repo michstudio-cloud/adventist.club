@@ -54,6 +54,9 @@ from app.services.certificates import REVOKED_STATUS, course_context, get_or_cre
 
 init_sentry()  # no-op unless SENTRY_DSN is set
 app=FastAPI(title=settings.APP_NAME,version="0.3.0")
+from app.services.event_preview import PreviewReadOnlyMiddleware  # noqa: E402
+# 031: inner to CORS (added first): a write sent from «Ver como…» answers 403, with CORS headers.
+app.add_middleware(PreviewReadOnlyMiddleware)
 app.add_middleware(CORSMiddleware,allow_origins=settings.cors_list,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],expose_headers=["X-Total-Count"])
 app.add_middleware(DeviceTrackerMiddleware)  # no-op unless on the event node (docs/RATE_LIMITS.md)
 app.state.limiter=limiter

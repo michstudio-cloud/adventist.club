@@ -46,6 +46,11 @@ INVITABLE_ROLES = {
     INSTRUCTOR: ("association", "zone"),
     CLUB_DIRECTOR: ("club",),
 }
+# 031: an invitation with no platform role — judge or coordination of ONE event. It is
+# always given on the event's owner (association, union or division) and carries
+# `on_accept` (`services/event_onboarding.py`), which is what accepting does.
+EVENT_STAFF = "EVENT_STAFF"
+EVENT_STAFF_OWNER_TYPES = ("association", "union", "division")
 DEFAULT_DAYS = 14
 MAX_DAYS = 30
 
@@ -176,11 +181,26 @@ async def create(
     request: Request | None = None,
     audit_action: str = "ORG_INVITATION_CREATE",
     return_to: str | None = None,
+    on_accept: dict | None = None,
+    event_authorized: bool = False,
 ) -> tuple[OrgInvitation, str]:
-    """Returns the row and the plain token, which the caller shows ONCE."""
-    _check_target(role, organization)
+    """Returns the row and the plain token, which the caller shows ONCE.
+
+    031: `on_accept` is stored as is (the caller built it). An EVENT_STAFF invitation needs
+    `event_authorized=True`: the event router already checked the event's coordination — no
+    platform rank applies to it."""
+    if role == EVENT_STAFF:
+        if not event_authorized or not on_accept or not on_accept.get("event_id"):
+            raise HTTPException(status.HTTP_403_FORBIDDEN, FORBIDDEN_DETAIL)
+        if organization.type not in EVENT_STAFF_OWNER_TYPES:
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Un evento pertenece a una asociación, unión o división.")
+        if organization.status != "active" or not organization.path:
+            raise HTTPException(status.HTTP_409_CONFLICT, "La organización no está activa.")
+    else:
+        _check_target(role, organization)
     return_to = clean_return_to(return_to)
-    await require_can_invite(db, actor, role, organization)
+    if role != EVENT_STAFF:
+        await require_can_invite(db, actor, role, organization)
     email = _normalize(email)
     if "@" not in email:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Correo no válido.")
@@ -199,13 +219,15 @@ async def create(
         OrgInvitation.revoked_at.is_(None),
         OrgInvitation.expires_at > now,
     )
+    if role == EVENT_STAFF:
+        live = live.where(OrgInvitation.on_accept["event_id"].astext == str(on_accept["event_id"]))
     if (await db.execute(live.limit(1))).scalar_one_or_none():
         raise HTTPException(
             status.HTTP_409_CONFLICT,
             "Ya hay una invitación pendiente para ese correo y rol: reenvíala o revócala.",
         )
     invitee = (await db.execute(select(User).where(User.email == email))).scalar_one_or_none()
-    if invitee is not None and await _holds_exactly(db, invitee, role, organization):
+    if role != EVENT_STAFF and invitee is not None and await _holds_exactly(db, invitee, role, organization):
         raise HTTPException(status.HTTP_409_CONFLICT, "Esa persona ya tiene ese rol aquí.")
 
     token = generate_url_token()
@@ -219,6 +241,7 @@ async def create(
         created_by_id=actor.id,
         created_at=now,
         return_to=return_to,
+        on_accept=on_accept,
     )
     db.add(invitation)
     record_audit(
@@ -235,10 +258,18 @@ async def create(
             "expires_in_days": days,
             "invitee_has_account": invitee is not None,
             "return_to": return_to,
+            "on_accept": _audit_on_accept(on_accept),
         },
         request=request,
     )
     return invitation, token
+
+
+def _audit_on_accept(on_accept: dict | None) -> dict | None:
+    """What `on_accept` does, without the invitee's name (no personal data in the audit)."""
+    if not on_accept:
+        return None
+    return {key: value for key, value in on_accept.items() if key != "name"}
 
 
 async def _holds_exactly(db: AsyncSession, person: User, role: str, organization: Organization) -> bool:
@@ -265,9 +296,10 @@ async def get_of_org(
 
 
 async def list_of_org(db: AsyncSession, organization: Organization) -> list[OrgInvitation]:
+    # 031: invitations to an event's staff are listed (and managed) in the event, not here.
     stmt = (
         select(OrgInvitation)
-        .where(OrgInvitation.organization_id == organization.id)
+        .where(OrgInvitation.organization_id == organization.id, OrgInvitation.role != EVENT_STAFF)
         .order_by(OrgInvitation.created_at.desc(), OrgInvitation.id)
     )
     return list((await db.execute(stmt)).scalars().all())
@@ -309,6 +341,7 @@ async def resend(
     organization: Organization,
     actor: User,
     request: Request | None = None,
+    event_authorized: bool = False,
 ) -> tuple[OrgInvitation, str]:
     """A NEW token for the same person, role and node; the old one is revoked whatever
     state it was in (pending or expired). Returns the new row and its token, shown ONCE."""
@@ -325,6 +358,8 @@ async def resend(
         request=request,
         audit_action="ORG_INVITATION_RESEND",
         return_to=invitation.return_to,
+        on_accept=invitation.on_accept,
+        event_authorized=invitation.role == EVENT_STAFF and event_authorized,
     )
     return renewed, token
 
@@ -374,6 +409,13 @@ async def accept(
     if user.status != "ACTIVE":
         raise HTTPException(status.HTTP_403_FORBIDDEN, "La cuenta no está activa.")
 
+    from app.services import event_onboarding
+
+    staff = invitation.role == EVENT_STAFF
+    # 031: everything `on_accept` needs is checked BEFORE spending the token.
+    if staff:
+        await event_onboarding.check_on_accept(db, invitation, user)
+
     appoint = False
     if invitation.role == CLUB_DIRECTOR:
         from app.services import memberships as membership_service
@@ -395,6 +437,20 @@ async def accept(
     await db.refresh(invitation)
 
     inviter = await db.get(User, invitation.created_by_id) if invitation.created_by_id else None
+    if staff:
+        applied = await event_onboarding.apply_on_accept(db, invitation, user, inviter, request)
+        record_audit(
+            db,
+            action="ORG_INVITATION_ACCEPT",
+            entity_type=ORG_INVITATION,
+            entity_id=invitation.id,
+            actor=user,
+            details=f"{user.email} accepted EVENT_STAFF of event {invitation.on_accept.get('event_id')}",
+            metadata={"organization_id": str(organization.id), "role": EVENT_STAFF,
+                      "on_accept": _audit_on_accept(invitation.on_accept), "staff_rows": applied},
+            request=request,
+        )
+        return invitation, organization
     if appoint:
         # The principal as it stands now, before the membership service writes the
         # two legacy columns; `recompute` then puts back whatever outranks the club.

@@ -1192,6 +1192,9 @@ class OrgInvitation(Base):
     # 028: where the invitee goes back to after accepting (an own host or a "/path"); the API
     # validates it. NULL = the app's default landing.
     return_to: Mapped[str | None] = mapped_column(Text)
+    # 031: what accepting does once (e.g. event_staff rows for an invited judge); see
+    # `services/event_onboarding.py`. NULL = only the role of `role`.
+    on_accept: Mapped[dict | None] = mapped_column(JSONB(none_as_null=True))
 
 
 class RoleAssignment(Base):

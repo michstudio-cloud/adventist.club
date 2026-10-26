@@ -734,6 +734,41 @@ def org_invitation_email_html(
     )
 
 
+def event_staff_invitation_email_html(
+    event_name: str, staff_role: str, link: str, inviter_name: str, expires_on: str
+) -> str:
+    """031: the invitation of a judge / coordinator of one event (no platform role)."""
+    what = "juez" if staff_role == "JUDGE" else "parte de la coordinación"
+    inviter = escape(inviter_name)
+    event = escape(event_name)
+    body = (
+        _p(f"{_strong(inviter)} te invita a {_strong(event)} como {_strong(what)} en Adventist.Club Eventos.")
+        + _p(
+            "Crea tu cuenta con este mismo correo (o entra con la que ya tienes) y acepta la invitación: "
+            "al aceptar verás tus actividades en el evento. "
+            f"El enlace vence el {escape(expires_on)} y sólo sirve una vez."
+        )
+        + _button("Aceptar la invitación", _safe_url(link))
+        + '<div style="height:24px;line-height:24px;font-size:0;">&nbsp;</div>'
+        + _notice(
+            "warning",
+            "Este enlace es personal",
+            "Sólo lo puede aceptar la cuenta con este correo. Si no esperabas esta "
+            "invitación, puedes ignorar este mensaje.",
+        )
+    )
+    return _render(
+        title="Invitación a un evento - Adventist.Club",
+        preheader=f"{inviter} te invita a {event} como {what}.",
+        eyebrow="Invitación",
+        heading="Te invitaron a un evento",
+        lead=f"{event} · {what}",
+        tone="blue",
+        body=body,
+        reason=f"Recibes este correo porque {inviter} te invitó en Adventist.Club.",
+    )
+
+
 def consent_request_email_html(child_name: str, club_name: str, link: str) -> str:
     """Goes to an adult about a minor in their care, so it does name the minor.
     Nothing else in block E sends a minor's name to a third party."""
@@ -1309,6 +1344,17 @@ async def send_org_invitation_email(
         to,
         f"Te invitaron al equipo de {organization_name} - Adventist.Club",
         org_invitation_email_html(organization_name, role, link, inviter_name, expires_on),
+    )
+
+
+async def send_event_staff_invitation_email(
+    to: str, event_name: str, staff_role: str, link: str, inviter_name: str, expires_on: str
+) -> bool:
+    """031: a judge or a coordinator of ONE event, invited by e-mail before having an account."""
+    return await send_email(
+        to,
+        f"Te invitaron a «{event_name}» - Adventist.Club Eventos",
+        event_staff_invitation_email_html(event_name, staff_role, link, inviter_name, expires_on),
     )
 
 

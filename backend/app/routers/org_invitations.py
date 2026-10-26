@@ -264,7 +264,25 @@ async def preview_org_invitation(
             viewer.email.lower() == invitation.email.lower() if viewer is not None else None
         ),
         return_to=invitation.return_to,
+        event=await _event_ref(db, invitation),
     )
+
+
+async def _event_ref(db: AsyncSession, invitation) -> dict | None:
+    """031: the event an invitation was made from (name only; never its data)."""
+    from app.models import Event
+
+    raw = (invitation.on_accept or {}).get("event_id")
+    if not raw:
+        return None
+    try:
+        event = await db.get(Event, uuid.UUID(str(raw)))
+    except ValueError:
+        return None
+    if event is None:
+        return None
+    return {"id": str(event.id), "name": event.name,
+            "staff_role": (invitation.on_accept or {}).get("staff_role")}
 
 
 @invitations_router.post("/accept", response_model=OrgInvitationAccepted)
