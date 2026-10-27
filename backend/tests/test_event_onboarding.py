@@ -407,3 +407,11 @@ async def test_writes_carrying_the_preview_header_are_refused(client, w):
 async def test_an_empty_preview_header_is_not_a_preview(client, w, value):
     response = await client.get(f"{API}/{w['event']}/directors", headers={**w["admin"]["headers"], "X-Event-Preview": value})
     assert response.status_code == 200
+
+
+async def test_registrations_name_code_church_and_director(client, w):
+    """031: «ciudad · iglesia» and «código · director» of each club for the lists."""
+    rows = (await client.get(f"{API}/{w['event']}/registrations", headers=w["admin"]["headers"])).json()
+    row_a = next(row for row in rows if row["id"] == w["registrations"]["a"])
+    assert row_a["club"]["church"].endswith("church")
+    assert row_a["director_name"] and "code" in row_a["club"]

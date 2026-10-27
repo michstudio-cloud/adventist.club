@@ -417,6 +417,8 @@ class ClubBrief(BaseModel):
     city: str | None = None
     # 031: the club's official code, when it has one.
     code: str | None = None
+    # 031: the church the club belongs to (its parent node), when placed.
+    church: str | None = None
 
 
 class RegistrationOut(BaseModel):

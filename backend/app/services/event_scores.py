@@ -128,12 +128,21 @@ async def registration_out(db: AsyncSession, row: EventRegistration,
     extra["director_name"] = director.name if director is not None else None
     return RegistrationOut(**extra,
         id=str(row.id), event_id=str(row.event_id),
-        club=ClubBrief(id=str(club.id), name=club.name, city=club.city, code=club.code),
+        club=ClubBrief(id=str(club.id), name=club.name, city=club.city, code=club.code,
+                       church=await _church_name(db, club)),
         status=row.status, has_pass=row.pass_token_hash is not None,
         finalist_flags={k: bool(v) for k, v in (row.finalist_flags or {}).items()},
         created_at=row.created_at, pass_token=pass_token,
         checked_in_at=row.checked_in_at, checked_in_as=row.checked_in_as,
     )
+
+
+async def _church_name(db: AsyncSession, club: Organization) -> str | None:
+    """031: the church the club hangs from (its parent), for «ciudad · iglesia» in the lists."""
+    if not club.parent_id:
+        return None
+    parent = await db.get(Organization, club.parent_id)
+    return parent.name if parent is not None and parent.type == "church" else None
 
 
 async def list_registrations(db: AsyncSession, event: Event, *, club_ids: set[uuid.UUID] | None = None):
