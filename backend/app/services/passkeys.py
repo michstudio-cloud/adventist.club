@@ -18,7 +18,7 @@ import uuid
 from datetime import timedelta
 
 from fastapi import HTTPException, status
-from sqlalchemy import delete, func, select, update
+from sqlalchemy import delete, func, select, text, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from webauthn import (
@@ -60,7 +60,7 @@ CHALLENGE_EXPIRED_DETAIL = "La verificación expiró. Vuelve a intentarlo."
 NOT_RECOGNIZED_DETAIL = "No reconocemos esa passkey."
 ALREADY_REGISTERED_DETAIL = "Esa passkey ya está registrada."
 TOO_MANY_DETAIL = f"Puedes tener hasta {MAX_PASSKEYS} passkeys. Quita una para añadir otra."
-REAUTH_DETAIL = "Por seguridad, vuelve a iniciar sesión para gestionar tus passkeys."
+REAUTH_DETAIL = "Por seguridad, vuelve a iniciar sesión para cambiar cómo entras a tu cuenta."
 LAST_PASSKEY_DETAIL = (
     "Es tu único segundo factor: tu rol no puede quedarse sin él. Añade otra passkey o una "
     "aplicación de autenticación antes de quitar esta."
@@ -226,7 +226,9 @@ def _reason(exc: Exception) -> str:
         ("sign count", "counter"),
         ("user verification", "user_verification"),
         ("signature", "signature"),
-        ("challenge", "challenge"),
+        # Not "challenge" (= expired or already spent, which the client is told): an answer
+        # signed over ANOTHER challenge is a refusal like any other.
+        ("challenge", "challenge_mismatch"),
     ):
         if needle in text:
             return reason
@@ -399,5 +401,9 @@ async def authenticate(db: AsyncSession, challenge_id: uuid.UUID, credential: di
 
 async def delete_all(db: AsyncSession, user_id: uuid.UUID) -> None:
     """Peer reset of the second factor: the passkeys go too (the device may be in other hands)."""
-    if settings.webauthn_enabled:
+    # Also while the feature is switched off: a passkey left behind would be a valid factor
+    # again the day it is switched back on. Only a database without 032 has nothing to delete
+    # (and a DELETE on a missing table would abort the caller's transaction).
+    exists = (await db.execute(text("SELECT to_regclass('webauthn_credentials') IS NOT NULL"))).scalar()
+    if exists:
         await db.execute(delete(WebauthnCredential).where(WebauthnCredential.user_id == user_id))

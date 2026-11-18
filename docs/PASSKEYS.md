@@ -21,6 +21,10 @@ cuyo rol lo exige. Funciona con el Llavero de iCloud (iPhone, iPad, Mac), Google
 web oculta sus controles. Es también el apagado de emergencia: las passkeys registradas dejan de
 contar y una cuenta obligada vuelve a ser enviada al alta (con aplicación de autenticación).
 
+**Nunca pongas las dos variables antes de aplicar la migración 032**: con ellas el inicio de sesión
+consulta `webauthn_credentials` y, si la tabla no existe, responde 500 a las cuentas con dos pasos y
+a los `MASTER_GC`.
+
 Orden de despliegue: **(1)** aplicar `032_webauthn.sql`; **(2)** desplegar la API (`render.yaml`
 tiene `autoDeploy: true`: fusionar a `main` despliega; con las variables vacías el código nuevo
 se comporta como el anterior); **(3)** desplegar la web; **(4)** poner las dos variables.
@@ -76,6 +80,9 @@ sesión (`/api/session/passkey`), como a `/auth/mfa/verify`.
 - **Añadir o quitar** exige un inicio de sesión de hace menos de 15 minutos y, si la cuenta tiene
   segundo factor, una sesión nacida de él (403 con `detail.code = "passkey_reauth_required"` y
   `X-Reauth-Required: 1`). Una sesión robada no puede colgarse una llave propia.
+- **Añadir la aplicación de autenticación** (`/auth/mfa/setup`, `/auth/mfa/verify-setup`) a una
+  cuenta obligada que ya cumple con una passkey sigue esa misma regla. Para una cuenta sin ningún
+  segundo factor el alta de TOTP no cambia.
 - **La última passkey** de una cuenta obligada sin TOTP no se puede quitar (409).
 - **Máximo 10** por cuenta.
 - **Contador de firmas**: si retrocede, se rechaza (posible clon). Las passkeys sincronizadas
@@ -93,7 +100,7 @@ sesión (`/api/session/passkey`), como a `/auth/mfa/verify`.
 `PASSKEY_REGISTER`, `PASSKEY_REGISTER_FAILED`, `PASSKEY_RENAME`, `PASSKEY_DELETE`,
 `PASSKEY_LOGIN_FAILED` y `MFA_ENABLE` con `metadata.method = "passkey"`. Los fallos guardan el
 motivo (`origin`, `rp_id`, `signature`, `counter`, `user_verification`, `challenge`,
-`unknown_credential`, `other_account`, `user_handle`, `malformed`) y, si la credencial era conocida, de quién es;
+`challenge_mismatch`, `unknown_credential`, `other_account`, `user_handle`, `malformed`) y, si la credencial era conocida, de quién es;
 nunca la credencial.
 
 ## Si se pierde el dispositivo
@@ -106,7 +113,12 @@ nunca la credencial.
 | `MASTER_GC` sin passkey, sin TOTP y sin códigos | `POST /users/{id}/mfa-reset` por otro `MASTER_GC` (borra también las passkeys). Si es el único: `migrations/reset_mfa.py` |
 
 Restablecer la contraseña no quita passkeys ni dos pasos. Apagar el TOTP propio
-(`/auth/mfa/disable`) conserva las passkeys.
+(`/auth/mfa/disable`) conserva las passkeys. El reset entre pares borra las passkeys aunque la
+función esté apagada en ese momento.
+
+Una cuenta que recibe el rol `MASTER_GC` teniendo ya una passkey no recibe códigos de recuperación
+en ese momento (nadie se los puede enseñar): debe generarlos ella misma en su perfil
+(«Generar códigos de recuperación nuevos»).
 
 ## Nodo del evento
 
@@ -116,8 +128,11 @@ Se entra con la contraseña, como hasta ahora. Una passkey no sustituye saberse 
 quien vaya a operar en un nodo debe conocerla.
 
 La app de Mac «Nodo Camporee» inicia sesión contra la nube con contraseña + código TOTP o código
-de recuperación. Quien opere nodos con una cuenta `MASTER_GC` conviene que conserve también el
-TOTP.
+de recuperación; no sabe usar passkeys. **Quien opere nodos con una cuenta `MASTER_GC` debe
+conservar la aplicación de autenticación (TOTP) además de la passkey.** Con sólo passkey, cada
+inicio de sesión en la app de Mac gastaría uno de los diez códigos de recuperación: en cuanto esa
+cuenta tiene una passkey, la contraseña sola deja de abrir sesión, también con
+`MASTER_MFA_ENFORCED` apagado.
 
 ## Desarrollo y pruebas
 

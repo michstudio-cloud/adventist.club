@@ -285,6 +285,18 @@ async def test_an_oversized_answer_is_refused_before_it_is_parsed(client):
     assert row["used_at"] is None
 
 
+async def test_an_answer_to_another_challenge_looks_like_any_other_refusal(client, bea, bea_phone):
+    """Not the «expired» answer: that would tell a stranger the credential id exists."""
+    mine, other = await _login_options(client), await _login_options(client)
+    crossed = await client.post(
+        f"{PASSKEYS}/login/verify",
+        json={"challenge_id": mine["challenge_id"], "credential": bea_phone.get(other["options"], origin=ORIGIN)},
+    )
+    assert crossed.status_code == 401
+    assert crossed.json()["detail"] == passkey_service.NOT_RECOGNIZED_DETAIL
+    assert (await _last_failure(bea))["reason"] == "challenge_mismatch"
+
+
 async def test_login_refuses_an_unknown_passkey(client):
     refused = await _login(client, SoftAuthenticator())
     assert refused.status_code == 401
@@ -551,6 +563,37 @@ async def test_the_last_passkey_of_an_obliged_account_stays(client, factory):
     assert [p["id"] for p in (await client.get(PASSKEYS, headers=session)).json()] == [second]
 
 
+async def test_adding_the_app_to_a_passkey_account_needs_the_passkey_session(client, factory):
+    """A password-born session must not plant its own authenticator (and replace the codes)."""
+    owner = await factory.user("plant", role="MASTER_GC")
+    phone = SoftAuthenticator()
+    codes = (await _register(client, owner["headers"], phone)).json()["recovery_codes"]
+
+    for stale in (owner["headers"], _session(owner, mfa=True, age=16 * 60)):
+        refused = await client.post(f"{AUTH}/mfa/setup", headers=stale)
+        assert refused.status_code == 403, refused.text
+        assert refused.json()["detail"]["code"] == "passkey_reauth_required"
+    row = await fetch_one("SELECT mfa_secret FROM users WHERE id = :id", id=uuid.UUID(owner["id"]))
+    assert row["mfa_secret"] is None
+
+    session = _bearer((await _login(client, phone)).json()["access_token"])
+    setup = await client.post(f"{AUTH}/mfa/setup", headers=session)
+    assert setup.status_code == 200, setup.text
+    totp = pyotp.TOTP(setup.json()["secret"])
+    # The confirmation is held to the same rule as the setup.
+    assert (await client.post(
+        f"{AUTH}/mfa/verify-setup", json={"totp_code": totp.now()}, headers=owner["headers"]
+    )).status_code == 403
+    still = await fetch_all(
+        "SELECT 1 FROM mfa_recovery_codes WHERE user_id = :id AND used_at IS NULL", id=uuid.UUID(owner["id"])
+    )
+    assert len(still) == len(codes) == 10
+    done = await client.post(f"{AUTH}/mfa/verify-setup", json={"totp_code": totp.now()}, headers=session)
+    assert done.status_code == 200, done.text
+    login = await _password_login(client, owner)
+    assert login["mfa_methods"] == ["passkey", "totp", "recovery"]
+
+
 async def test_recovery_codes_are_regenerated_with_a_recent_passkey_login(client, factory):
     owner = await factory.user("regen", role="MASTER_GC")
     phone = SoftAuthenticator()
@@ -635,6 +678,18 @@ async def test_peer_reset_removes_the_passkeys_too(client, factory):
     assert await fetch_all("SELECT 1 FROM mfa_recovery_codes WHERE user_id = :id", id=uuid.UUID(target["id"])) == []
     assert (await _login(client, phone)).status_code == 401
     assert (await _password_login(client, target))["mfa_enrollment_required"] is True
+
+
+async def test_peer_reset_removes_the_passkeys_even_while_switched_off(client, factory, monkeypatch):
+    """Otherwise the lost device would be a valid factor again the day passkeys come back on."""
+    admin, target = await factory.user("off-admin", role="MASTER_GC"), await factory.user("off-target", role="MASTER_GC")
+    assert (await _register(client, target["headers"], SoftAuthenticator())).status_code == 200
+    monkeypatch.setattr(settings, "WEBAUTHN_RP_ID", None)
+    reset = await client.post(
+        f"{USERS}/{target['id']}/mfa-reset", json={"reason": "Perdió el teléfono"}, headers=admin["headers"]
+    )
+    assert reset.status_code == 200, reset.text
+    assert await fetch_all("SELECT 1 FROM webauthn_credentials WHERE user_id = :id", id=uuid.UUID(target["id"])) == []
 
 
 # ----------------------------------------------------------------------------

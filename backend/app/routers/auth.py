@@ -382,6 +382,19 @@ async def me(
 # ----------------------------------------------------------------------------
 # MFA
 # ----------------------------------------------------------------------------
+async def _require_factor_session(db: AsyncSession, user: User) -> None:
+    """
+    Enrolling TOTP is open to an account with no second factor at all (that is how it gets
+    one, unchanged). But an account whose role obliges a second factor and already meets it
+    with a passkey (032) is adding ANOTHER factor, and verify-setup replaces its recovery
+    codes: that takes a recent session born of the passkey, exactly like adding or removing
+    one. Otherwise a stolen password-born session could plant its own authenticator.
+    """
+    passkeys = await passkey_service.second_factor_count(db, user)
+    if passkeys:
+        passkey_service.require_fresh_session(user, passkeys)
+
+
 @router.post("/mfa/setup", response_model=MFASetupResponse)
 async def mfa_setup(
     current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
@@ -393,6 +406,7 @@ async def mfa_setup(
         raise HTTPException(
             status.HTTP_409_CONFLICT, "MFA is already enabled. Disable it before a new setup."
         )
+    await _require_factor_session(db, current_user)
     secret = generate_mfa_secret()
     uri = totp_provisioning_uri(secret, current_user.email)
     qr_code_url = await anyio.to_thread.run_sync(qr_code_data_url, uri)
@@ -411,6 +425,7 @@ async def mfa_verify_setup(
 ):
     if not current_user.mfa_secret or current_user.mfa_enabled:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not set up")
+    await _require_factor_session(db, current_user)
     if not verify_totp(current_user.mfa_secret, payload.totp_code):
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
 
