@@ -29,10 +29,41 @@ def mfa_required_for(user: User) -> bool:
     return user.role in MFA_REQUIRED_ROLES
 
 
-def enrollment_pending(user: User) -> bool:
+def has_second_factor(user: User, passkeys: int | None = None) -> bool:
+    """
+    TOTP (`mfa_enabled`, unchanged) or, for an account whose role obliges a second factor,
+    at least one passkey (032). `passkeys` is the account's passkey count when the caller
+    has it; otherwise the transient `user.has_passkey` that `app/deps.py` sets on obliged
+    accounts without TOTP. For any other account a passkey is a shortcut, not a factor.
+    """
+    if user.mfa_enabled:
+        return True
+    if not mfa_required_for(user):
+        return False
+    if passkeys is None:
+        return bool(getattr(user, "has_passkey", False))
+    return passkeys > 0
+
+
+def enrollment_pending(user: User, passkeys: int = 0) -> bool:
     """True for an obliged account that has not enrolled yet. Reported at login
     so the client can walk the owner through it *before* enforcement is on."""
-    return mfa_required_for(user) and not user.mfa_enabled
+    return mfa_required_for(user) and not has_second_factor(user, passkeys)
+
+
+def second_step_methods(user: User, passkeys: int) -> list[str]:
+    """How this account can finish a password login, best first. Empty = the password is
+    enough. `passkeys` is the count that matters to the policy (`passkeys.second_factor_count`
+    for the decision; an account with TOTP may pass its real count to be OFFERED the passkey)."""
+    if not has_second_factor(user, passkeys):
+        return []
+    methods = []
+    if passkeys > 0:
+        methods.append("passkey")
+    if user.mfa_enabled and user.mfa_secret:
+        methods.append("totp")
+    methods.append("recovery")
+    return methods
 
 
 def policy_error(user: User, token_born_of_mfa: bool) -> HTTPException | None:
@@ -45,7 +76,7 @@ def policy_error(user: User, token_born_of_mfa: bool) -> HTTPException | None:
     """
     if not settings.MASTER_MFA_ENFORCED or not mfa_required_for(user):
         return None
-    if not user.mfa_enabled:
+    if not has_second_factor(user):
         # 403, not 401: the credentials are fine, the account is not.
         return HTTPException(status.HTTP_403_FORBIDDEN, ENROLLMENT_REQUIRED_DETAIL)
     if not token_born_of_mfa:
@@ -107,10 +138,18 @@ async def count_unused_codes(db: AsyncSession, user_id: uuid.UUID) -> int:
     return len((await db.execute(stmt)).scalars().all())
 
 
-async def clear_second_factor(db: AsyncSession, user: User) -> None:
+async def clear_second_factor(db: AsyncSession, user: User, *, passkeys: bool = False) -> None:
     """Take the second factor off an account (disable or peer reset). Every
     recovery code dies with it, used ones included: they prove nothing once the
-    secret is gone and the account will get a new set on the next enrolment."""
+    secret is gone and the account will get a new set on the next enrolment.
+
+    `passkeys=True` (the peer reset: the device may be lost or in other hands) removes the
+    account's passkeys too. Turning one's own TOTP off keeps them: there they are a way to
+    sign in, not the factor being switched off."""
     user.mfa_enabled = False
     user.mfa_secret = None
     await db.execute(delete(MfaRecoveryCode).where(MfaRecoveryCode.user_id == user.id))
+    if passkeys:
+        from app.services import passkeys as passkey_service
+
+        await passkey_service.delete_all(db, user.id)

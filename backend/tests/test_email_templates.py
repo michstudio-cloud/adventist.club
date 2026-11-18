@@ -27,6 +27,8 @@ CASES = [
     ("club_rejected_no_reason", lambda: mail.club_decision_email_html("Ana", "Orión", False, None), None, None),
     ("mfa_reset", lambda: mail.mfa_reset_email_html(HOSTILE, HOSTILE), None, None),
     ("recovery_code_used", lambda: mail.recovery_code_used_email_html(HOSTILE), None, None),
+    ("passkey_added", lambda: mail.passkey_changed_email_html(HOSTILE, HOSTILE, True), None, None),
+    ("passkey_removed", lambda: mail.passkey_changed_email_html(HOSTILE, HOSTILE, False), None, None),
     ("club_invitation", lambda: mail.club_invitation_email_html(HOSTILE, "INSTRUCTOR", LINK, HOSTILE), LINK, None),
     ("consent_request", lambda: mail.consent_request_email_html(HOSTILE, HOSTILE, LINK), LINK, None),
     ("pending_one", lambda: mail.pending_requests_email_html(HOSTILE, HOSTILE, 1, LINK), LINK, None),

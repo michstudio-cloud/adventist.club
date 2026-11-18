@@ -1,9 +1,10 @@
 """Auth request/response schemas."""
+import json
 import uuid
-from datetime import date
-from typing import Literal
+from datetime import date, datetime
+from typing import Any, Literal
 
-from pydantic import AliasChoices, BaseModel, EmailStr, Field, model_validator
+from pydantic import AliasChoices, BaseModel, EmailStr, Field, field_validator, model_validator
 
 from app.schemas.org import ClubSignup
 
@@ -82,6 +83,9 @@ class LoginResponse(BaseModel):
     # The role obliges a second factor and this account has not enrolled yet.
     # Advisory while `MASTER_MFA_ENFORCED` is off, a hard block once it is on.
     mfa_enrollment_required: bool = False
+    # With `mfa_required`: the ways this account can complete the second step, in the order
+    # the client should offer them ("passkey", "totp", "recovery"). Empty otherwise.
+    mfa_methods: list[str] = []
 
 
 class RefreshRequest(BaseModel):
@@ -101,6 +105,14 @@ class MFASetupResponse(BaseModel):
 
 class MFACodeRequest(BaseModel):
     totp_code: str = Field(min_length=6, max_length=10)
+
+
+class RecoveryCodesRequest(BaseModel):
+    """`POST /auth/mfa/recovery-codes`. The TOTP code is the proof for an account with an
+    authenticator app; an account whose only second factor is a passkey sends none and is
+    held to a recent passkey login instead."""
+
+    totp_code: str | None = Field(default=None, min_length=6, max_length=10)
 
 
 class MFAVerifyRequest(BaseModel):
@@ -168,3 +180,77 @@ class ResetPasswordRequest(BaseModel):
 
 class MessageResponse(BaseModel):
     message: str
+
+
+# ----------------------------------------------------------------------------
+# Passkeys (WebAuthn, 032)
+# ----------------------------------------------------------------------------
+class PasskeyConfig(BaseModel):
+    enabled: bool
+    # The RP ID the passkeys are bound to, so the web app can tell whether THIS page may use
+    # them (a host of the RP ID, or one authorized by Related Origin Requests). Public anyway:
+    # every ceremony's options carry it.
+    rp_id: str | None = None
+
+
+class PasskeyOut(BaseModel):
+    id: str
+    name: str
+    # Who keeps it ("iCloud", "Google", "Windows Hello"…), when the authenticator says so.
+    provider: str | None = None
+    # Backed up to the provider's cloud: it survives losing the device.
+    synced: bool = False
+    created_at: datetime
+    last_used_at: datetime | None = None
+
+
+class PasskeyOptionsResponse(BaseModel):
+    """What `navigator.credentials.create/get` needs (binary fields in base64url) plus the
+    handle of the single-use challenge, to be sent back with the answer."""
+
+    challenge_id: str
+    options: dict[str, Any]
+
+
+# An authenticator's answer is a couple of kilobytes (more with an RSA key). `login/verify` is a
+# public route that takes it as free-form JSON, so its size is bounded before anything parses it.
+PASSKEY_CREDENTIAL_MAX_BYTES = 32_000
+
+
+def _bounded_credential(credential: dict[str, Any]) -> dict[str, Any]:
+    if len(json.dumps(credential, separators=(",", ":"))) > PASSKEY_CREDENTIAL_MAX_BYTES:
+        raise ValueError("credential is too large")
+    return credential
+
+
+class PasskeyRegisterVerifyRequest(BaseModel):
+    challenge_id: uuid.UUID
+    # `PublicKeyCredential.toJSON()` of the browser, verified as a whole.
+    credential: dict[str, Any]
+    name: str | None = Field(default=None, max_length=60)
+
+    _bounded = field_validator("credential")(_bounded_credential)
+
+
+class PasskeyRegisterResponse(BaseModel):
+    passkey: PasskeyOut
+    # Only when this passkey is the FIRST second factor of an account whose role obliges
+    # one: the ten recovery codes, shown once (like `MFAEnrollResponse`).
+    recovery_codes: list[str] | None = None
+    reauth_required: bool = False
+
+
+class PasskeyRename(BaseModel):
+    name: str = Field(min_length=1, max_length=60)
+
+
+class PasskeyLoginOptionsRequest(BaseModel):
+    # Second step after the password: the temp token of `/auth/login`. Absent = passwordless.
+    temp_token: str | None = Field(default=None, max_length=2000)
+
+
+class PasskeyLoginVerifyRequest(BaseModel):
+    challenge_id: uuid.UUID
+    credential: dict[str, Any]
+
+    _bounded = field_validator("credential")(_bounded_credential)

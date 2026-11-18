@@ -12,10 +12,19 @@ from app.db import get_db
 from app.models import User
 from app.security import TOKEN_ACCESS, auth_time_of, born_of_mfa, decode_claims, require_auth_configured
 from app.services import mfa as mfa_service
+from app.services import passkeys as passkey_service
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
 _LEGACY_MONGO_ID = re.compile(r"^[0-9a-f]{24}$")
+
+
+async def _load_passkey_factor(db: AsyncSession, user: User) -> None:
+    """Transient `user.has_passkey` for the MFA policy (`mfa_service.has_second_factor`). Only
+    an account whose role obliges a second factor and has no TOTP needs the answer, so nobody
+    else pays the query (and none is made while passkeys are switched off)."""
+    if mfa_service.mfa_required_for(user) and not user.mfa_enabled:
+        user.has_passkey = await passkey_service.count_for(db, user.id) > 0
 
 
 def credentials_error() -> HTTPException:
@@ -66,6 +75,7 @@ async def get_authenticated_user(
     user.token_born_of_mfa = born_of_mfa(claims)
     # Transient too: when this session's login happened (recent-authentication checks, 030).
     user.token_auth_time = auth_time_of(claims)
+    await _load_passkey_factor(db, user)
     return user
 
 
@@ -90,6 +100,7 @@ async def get_optional_user(
         return None
     # An account that owes a second factor is treated as anonymous here rather
     # than refused: these endpoints are public and must keep answering.
+    await _load_passkey_factor(db, user)
     if mfa_service.policy_error(user, born_of_mfa(claims)) is not None:
         return None
     return user

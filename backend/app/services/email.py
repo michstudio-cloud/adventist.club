@@ -613,6 +613,35 @@ def recovery_code_used_email_html(name: str) -> str:
     )
 
 
+def passkey_changed_email_html(name: str, passkey_name: str, added: bool) -> str:
+    """Security notice of a passkey added to (or removed from) the account (032)."""
+    what = "Se añadió" if added else "Se quitó"
+    body = (
+        _hello(name)
+        + _p(
+            f"{what} la passkey {_strong(escape(passkey_name))} "
+            + ("a tu cuenta. Desde ahora sirve para iniciar sesión sin contraseña."
+               if added else "de tu cuenta. Ya no sirve para iniciar sesión.")
+        )
+        + _notice(
+            "danger",
+            "Si no fuiste tú",
+            "Cambia tu contraseña ahora mismo y revisa las passkeys de tu perfil: quita las "
+            "que no reconozcas.",
+        )
+        + _button("Revisar mis passkeys", f"{settings.frontend_url}/profile")
+    )
+    return _render(
+        title=("Passkey añadida" if added else "Passkey eliminada") + " - Adventist.Club",
+        preheader=f"{what} una passkey {'a' if added else 'de'} tu cuenta.",
+        eyebrow="Seguridad",
+        heading=f"{what} una passkey {'a' if added else 'de'} tu cuenta",
+        tone="blue" if added else "red",
+        body=body,
+        reason="Es un aviso de seguridad de tu cuenta: no se puede desactivar.",
+    )
+
+
 # ----------------------------------------------------------------------------
 # Clubs and memberships
 # ----------------------------------------------------------------------------
@@ -1324,6 +1353,23 @@ async def send_recovery_code_used_email(to: str, name: str) -> bool:
         to,
         "Se usó un código de recuperación - Adventist.Club",
         recovery_code_used_email_html(name),
+    )
+
+
+async def send_passkey_added_email(to: str, name: str, passkey_name: str) -> bool:
+    """Security notice: it cannot be switched off by the account holder."""
+    return await send_email(
+        to,
+        "Se añadió una passkey a tu cuenta - Adventist.Club",
+        passkey_changed_email_html(name, passkey_name, True),
+    )
+
+
+async def send_passkey_removed_email(to: str, name: str, passkey_name: str) -> bool:
+    return await send_email(
+        to,
+        "Se quitó una passkey de tu cuenta - Adventist.Club",
+        passkey_changed_email_html(name, passkey_name, False),
     )
 
 

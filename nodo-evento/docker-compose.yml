@@ -24,6 +24,10 @@ x-api-env: &api-env
   ADMIN_WEB_URL: https://admin.adventist.club
   CORS_ORIGINS: https://events.adventist.club,https://admin.adventist.club,https://adventist.club,https://conquistadores.app
   # Apagados a propósito: sin correo (RESEND), sin R2, sin mapas, sin Sentry, sin miniaturas.
+  # Sin passkeys (032): el paquete del nodo no trae segundos factores ni llaves; aquí se entra
+  # sólo con contraseña (docs/PASSKEYS.md). Sin estas dos variables las rutas responden 404.
+  WEBAUTHN_RP_ID: ""
+  WEBAUTHN_ORIGINS: ""
   RESEND_API_KEY: ""
   R2_ACCOUNT_ID: ""
   APPLE_MAPKIT_TEAM_ID: ""
