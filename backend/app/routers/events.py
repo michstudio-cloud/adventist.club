@@ -669,9 +669,9 @@ async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(g
     club_ids = None if (roles.coordination or roles.judge) else roles.director_club_ids
     staff = roles.coordination or roles.judge
     rows = await scores.list_registrations(db, event, club_ids=club_ids)
-    directors = await onboarding._directors_by_club(db, [club.id for _, club in rows])
+    names = await onboarding.director_names_by_club(db, [club.id for _, club in rows])
     return [await scores.registration_out(db, row, club=club, coordination=roles.coordination, staff=staff,
-                                          directors=directors)
+                                          director_names=names)
             for row, club in rows]
 
 

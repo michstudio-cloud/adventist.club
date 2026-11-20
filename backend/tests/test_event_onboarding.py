@@ -166,6 +166,9 @@ async def test_link_without_account_invites_and_accepting_shows_only_that_club(c
     assert row["return_to"] == f"https://events.adventist.club/{w['event']}/club"
     assert row["on_accept"]["type"] == "event_director"
     assert await fetch_one("SELECT id FROM notification_log WHERE entity_id = :id", id=invitation["id"])
+    # The director from now on, account or not: the lists show the name written in the form.
+    rows = (await client.get(f"{API}/{w['event']}/registrations", headers=w["admin"]["headers"])).json()
+    assert next(r for r in rows if r["id"] == w["registrations"]["c"])["director_name"] == "Directora C"
     # Idempotent: the same address again does not create a second invitation.
     again = await client.post(url, json={"email": email}, headers=w["admin"]["headers"])
     assert again.json()["action"] == "invitation_pending"

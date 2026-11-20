@@ -108,7 +108,7 @@ async def registration_out(db: AsyncSession, row: EventRegistration,
                            pass_token: str | None = None,
                            club: Organization | None = None,
                            *, coordination: bool = False, staff: bool | None = None,
-                           directors: dict | None = None) -> RegistrationOut:
+                           director_names: dict | None = None) -> RegistrationOut:
     """`coordination=True` adds `tiebreak_rank`; `staff` (default: = coordination; pass True
     for judges) adds `checked_in_by_name`. The routes answer with exclude_unset, so for
     whoever may not read them the keys are not even present."""
@@ -119,13 +119,13 @@ async def registration_out(db: AsyncSession, row: EventRegistration,
     if staff if staff is not None else coordination:
         who = await db.get(User, row.checked_in_by_id) if row.checked_in_by_id else None
         extra["checked_in_by_name"] = who.name if who is not None else None
-    # 031: the club's director by name (prototype: «ANT-014 · Ana Martínez»); `directors` is the
-    # batch lookup of a whole list (`event_onboarding._directors_by_club`).
-    if directors is None:
-        from app.services.event_onboarding import _directors_by_club
-        directors = await _directors_by_club(db, [club.id])
-    director = directors.get(club.id)
-    extra["director_name"] = director.name if director is not None else None
+    # 031: the club's director by name (prototype: «ANT-014 · Ana Martínez»): the active one, or
+    # the name of the pending invitation. `director_names` is the batch lookup of a whole list
+    # (`event_onboarding.director_names_by_club`).
+    if director_names is None:
+        from app.services.event_onboarding import director_names_by_club
+        director_names = await director_names_by_club(db, [club.id])
+    extra["director_name"] = director_names.get(club.id)
     return RegistrationOut(**extra,
         id=str(row.id), event_id=str(row.event_id),
         club=ClubBrief(id=str(club.id), name=club.name, city=club.city, code=club.code,
