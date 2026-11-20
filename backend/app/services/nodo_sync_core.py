@@ -868,6 +868,114 @@ async def plan_users(prod, users: list[dict], node_rows) -> tuple[dict, list[dic
     return remap, new_users, notes
 
 
+# Every row a node uploads must belong to the event it was prepared for. Tables that carry the
+# event directly, and the references each table may hold to the event's other rows (a reference
+# may be NULL; when set it must point at a row of THIS event, from the node or the cloud).
+EVENT_ID_TABLES = ("event_activities", "event_adjustment_types", "event_staff", "event_registrations")
+EVENT_REFS = {
+    "event_activities": [("parent_id", "event_activities")],
+    "event_staff": [("activity_id", "event_activities")],
+    "event_check_ins": [("registration_id", "event_registrations")],
+    # check_in_id is checked against the database (foreign_ids): it may point at a check-in a
+    # neighbour node made (nodo_malla) that reaches the cloud with that node's upload.
+    "evaluations": [("registration_id", "event_registrations"), ("activity_id", "event_activities")],
+    "evaluation_revisions": [("evaluation_id", "evaluations")],
+    "event_adjustments": [("registration_id", "event_registrations"), ("activity_id", "event_activities"),
+                          ("adjustment_type_id", "event_adjustment_types")],
+}
+# Required references (a NULL here cannot belong to the event either).
+EVENT_REFS_REQUIRED = {("event_check_ins", "registration_id"), ("evaluations", "registration_id"),
+                       ("evaluation_revisions", "evaluation_id"), ("event_adjustments", "registration_id")}
+FOREIGN = "Subida rechazada: el nodo trae filas que no son de este evento"
+
+
+def _uuid_text(value) -> str | None:
+    try:
+        return str(uuid.UUID(str(value)))
+    except (ValueError, TypeError, AttributeError):
+        return None
+
+
+def foreign_rows(event_id: uuid.UUID, node_rows: dict, prod_rows: dict) -> list[str]:
+    """Why some of the node's rows do not belong to `event_id` (empty = all of them do).
+    Pure: checks the event column and every reference against the event's own rows (the node's
+    upload plus what the cloud holds for the event). Never echoes a value."""
+    eid = str(event_id)
+    problems: list[str] = []
+
+    def no(msg: str) -> None:
+        if msg not in problems:
+            problems.append(msg)
+
+    ids: dict[str, set[str]] = {}
+    for table in EVENT_TABLE_NAMES:
+        mine = set()
+        for row in node_rows.get(table) or []:
+            rid = _uuid_text(row.get("id"))
+            if rid is None or rid != row.get("id"):
+                no(f"{TABLE_ES.get(table, table)} con un id inválido")
+            else:
+                mine.add(rid)
+        ids[table] = mine | {r["id"] for r in prod_rows.get(table) or []}
+    for row in node_rows.get("events") or []:
+        if row.get("id") != eid:
+            no("otro evento")
+    for table in EVENT_ID_TABLES:
+        for row in node_rows.get(table) or []:
+            if row.get("event_id") != eid:
+                no(f"{TABLE_ES.get(table, table)} de otro evento")
+    for table, refs in EVENT_REFS.items():
+        for row in node_rows.get(table) or []:
+            for col, target in refs:
+                value = row.get(col)
+                if value is None:
+                    if (table, col) in EVENT_REFS_REQUIRED:
+                        no(f"{TABLE_ES.get(table, table)} sin {TABLE_ES.get(target, target)}")
+                elif value not in ids[target]:
+                    no(f"{TABLE_ES.get(table, table)} que apunta a {TABLE_ES.get(target, target)} de otro evento")
+    return problems
+
+
+async def foreign_ids(prod, event_id: uuid.UUID, node_rows: dict, prod_rows: dict) -> list[str]:
+    """Node rows the cloud does not hold for this event but that exist in the cloud anyway: they
+    belong to another event (an upload must never move or overwrite them). Also an evaluation
+    tied to a check-in of another event's club."""
+    problems = []
+    for table in EVENT_TABLE_NAMES:
+        mine = {r["id"] for r in prod_rows.get(table) or []}
+        new = [uuid.UUID(r["id"]) for r in node_rows.get(table) or [] if r.get("id") not in mine
+               and _uuid_text(r.get("id"))]
+        if new and await prod.fetchval(f"SELECT 1 FROM {table} WHERE id = ANY($1::uuid[]) LIMIT 1", new):
+            problems.append(f"{TABLE_ES.get(table, table)} que ya existe en otro evento")
+    check_ins = {r["check_in_id"] for r in node_rows.get("evaluations") or [] if r.get("check_in_id")}
+    if any(_uuid_text(c) is None for c in check_ins):
+        problems.append("evaluación con una llegada inválida")
+    elif check_ins and await prod.fetchval(
+            "SELECT 1 FROM event_check_ins c JOIN event_registrations r ON r.id = c.registration_id"
+            " WHERE c.id = ANY($1::uuid[]) AND r.event_id <> $2 LIMIT 1", [uuid.UUID(c) for c in check_ins], event_id):
+        problems.append("evaluación que apunta a una llegada de otro evento")
+    return problems
+
+
+async def check_event_scope(prod, event_id: uuid.UUID, node_rows: dict, prod_rows: dict) -> None:
+    """Rejects (422) the WHOLE upload if any row is not of this event; nothing is applied."""
+    problems = foreign_rows(event_id, node_rows, prod_rows)
+    if not problems:
+        problems = await foreign_ids(prod, event_id, node_rows, prod_rows)
+    if problems:
+        extra = f" (y {len(problems) - 5} más)" if len(problems) > 5 else ""
+        raise SyncError(f"{FOREIGN}: {'; '.join(problems[:5])}{extra}", 422)
+
+
+def event_audit_only(rows: list[dict], event_id: uuid.UUID, node_rows: dict, prod_rows: dict) -> tuple[list[dict], int]:
+    """The node's audit rows about THIS event (the event or one of its rows); the rest is
+    dropped (a node never writes another event's history). -> (kept, dropped)."""
+    known = {str(event_id)} | {r["id"] for t in EVENT_TABLE_NAMES for r in (node_rows.get(t) or [])
+                               + (prod_rows.get(t) or [])}
+    kept = [a for a in rows if str(a.get("entity_id")) in known]
+    return kept, len(rows) - len(kept)
+
+
 def apply_remap(node_rows: dict, remap: dict) -> None:
     for table, refs in USER_REFS.items():
         for row in node_rows[table]:
@@ -1348,10 +1456,15 @@ async def import_changes(prod, event_id: uuid.UUID, changes: dict, actor: dict, 
             snapshot, export_id, scope, label = _j(export["snapshot"]), export["id"], None, "el nodo"
         node_rows = changes["event"]
         prod_rows = await event_rows(prod, event_id)
+        # Every row must be of THIS event (the node is not trusted): otherwise nothing is applied.
+        await check_event_scope(prod, event_id, node_rows, prod_rows)
         remap, new_users, notes = await plan_users(prod, changes.get("users") or [], node_rows)
         apply_remap(node_rows, remap)
         plan = plan_changes(snapshot, node_rows, prod_rows, prefer=prefer, scope=scope, node_label=label)
-        audits = await plan_audit(prod, changes.get("audit") or [], remap)
+        audit_rows, dropped = event_audit_only(changes.get("audit") or [], event_id, node_rows, prod_rows)
+        if dropped:
+            notes.append(f"{dropped} registro(s) de bitácora que no son de este evento: no se suben")
+        audits = await plan_audit(prod, audit_rows, remap)
         node_info = {"id": str(node["id"]), "label": node["label"]} if node else None
         report = build_report(plan, event_id=event_id, node=node_info, export_id=export_id, prefer=prefer,
                               dry_run=dry_run, final=final, user_notes=notes, new_users=new_users, audits=audits,
