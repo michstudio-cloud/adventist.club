@@ -138,6 +138,12 @@ contiene hashes de contraseñas y el secreto de los pases.
 
 ## 5. Certificado HTTPS
 
+> **Modo automático (032):** «Preparar» trae el certificado real de la nube **sólo** si la
+> administración general (MASTER_GC) lo habilitó para ese evento; si no, el nodo usa su CA local
+> (plan B) y borra cualquier certificado real que le haya quedado. El nodo también borra el certificado
+> real al subir su final y al apagarse después del último día del evento. Diseño a largo plazo (un nombre
+> por evento, llave generada en la Mac): `docs/CERTIFICADO_POR_EVENTO.md`.
+
 **Plan A — certificado real de Let's Encrypt (DNS-01 en Cloudflare), 1–3 semanas antes**, en
 cualquier máquina con Docker e internet (el mini PC mismo):
 

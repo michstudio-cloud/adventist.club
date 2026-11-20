@@ -51,6 +51,21 @@ copiar) pasa antes por el **depurador**.
 Una prueba compara las columnas con la base real: una migración que agregue una columna a esas tablas
 falla hasta que alguien la revise y la agregue aquí.
 
+Además, al recibir una subida la nube (`nodo_sync_core.import_changes`, desde 032):
+
+- **Rechaza la subida entera (422) si alguna fila no es del evento preparado**: `event_id` de otro
+  evento, una captura/llegada/ajuste/revisión que apunta a una inscripción, actividad, tipo de ajuste o
+  evaluación de otro evento, una fila movida de evento, o un id que ya existe en otro evento. No se
+  aplica nada, tampoco en el ensayo (`dry_run`).
+- **Descarta las filas de bitácora** cuyo `entity_id` no es el evento ni una de sus filas.
+- **Crea sin privilegios las cuentas nuevas del nodo**: rol mínimo (`STUDENT`), sin organización,
+  `INACTIVE`, sin verificaciones ni MFA, digan lo que digan las columnas del nodo. Un administrador las
+  activa en la nube. Las filas del evento de esa cuenta (sus capturas) sí se suben.
+
+Y al preparar (032): el paquete lleva a los administradores de la organización dueña del evento (ya no
+a los de la unión/división), y un hash de contraseña usable sólo para quien captura en el evento
+(personal activo + quien prepara); el resto viaja con `!nodo-sin-acceso`, que no abre ninguna sesión.
+
 ## 3. El depurador
 
 Tres implementaciones con el mismo criterio y los mismos casos (`mac/pruebas/depurador/casos.txt`, los
