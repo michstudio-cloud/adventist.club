@@ -55,10 +55,11 @@ EVENT_TABLES: list[tuple[str, str, str]] = [
 EVENT_TABLE_NAMES = [name for name, _, _ in EVENT_TABLES]
 # Columns that legitimately differ between both sides and are never compared nor imported:
 # the lock lives only in production; the logo is mirrored locally on the node; the template
-# the event was duplicated from is not copied.
+# the event was duplicated from is not copied; the node settings (032) are MASTER_GC's alone (a
+# node must never switch them on by uploading).
 IGNORED = {
     "events": {"offline_locked_at", "offline_locked_by_id", "offline_lock_reason", "offline_node_label",
-               "brand_logo_url", "template_of_id"},
+               "brand_logo_url", "template_of_id", "offline_node_enabled", "offline_node_real_cert"},
 }
 # 030: also never COMPARED (but still copied): the pass ciphertext differs by design (each side
 # encrypts with its own secret; the hash is what identifies the pass), and the check-in mirror
