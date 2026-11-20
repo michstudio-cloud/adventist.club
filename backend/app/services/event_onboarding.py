@@ -189,6 +189,20 @@ async def _pending_director_invitations(db: AsyncSession, club_ids: list[uuid.UU
     return found
 
 
+async def director_names_by_club(db: AsyncSession, club_ids: list[uuid.UUID]) -> dict[uuid.UUID, str]:
+    """The name each club's director goes by in the event's lists: the ACTIVE director, else
+    the name written when the pending invitation was made. «Vincular director» with a name
+    and an address without an account is the director from that moment (the lists, the
+    judge's screen and the passes say so); the account arrives when they accept."""
+    names = {club_id: person.name for club_id, person in (await _directors_by_club(db, club_ids)).items()}
+    missing = [club_id for club_id in club_ids if club_id not in names]
+    for club_id, invitation in (await _pending_director_invitations(db, missing)).items():
+        name = (invitation.on_accept or {}).get("name")
+        if name:
+            names[club_id] = name
+    return names
+
+
 def invitation_out(row: OrgInvitation, *, club: Organization | None = None,
                    registration_id: uuid.UUID | None = None) -> dict:
     """An invitation as the event's screens see it. The token is never here."""
