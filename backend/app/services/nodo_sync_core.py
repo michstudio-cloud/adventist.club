@@ -89,13 +89,13 @@ MAX_MERGE_FIELDS = {"rules_version", "updated_at"}
 EVENT_LEVEL_TABLES = {"event_staff", "event_adjustment_types", "event_registrations"}
 
 # Users that take part in the event: staff, everybody referenced by its rows, the directors of
-# its clubs, the admins whose scope contains its organization, and whoever prepares the node.
-# Never minors. (029 also copied every MASTER_GC: since 030 a coordinator can prepare a node and
-# read its bundle, so a MASTER account travels only when it takes part in the event.)
+# its clubs, the admins OF THE ORGANIZATION THAT OWNS IT, and whoever prepares the node. Never
+# minors. (029 also copied every MASTER_GC: since 030 a coordinator can prepare a node and read
+# its bundle, so a MASTER account travels only when it takes part in the event. Since 032 the
+# admins of the union/division above the owner do not travel either: the node is a Mac of the
+# association, possibly another association's, and those accounts can do far more than the event.)
 USERS_SQL = f"""
 WITH ev AS (SELECT * FROM events WHERE id = $1),
-     owner AS (SELECT o.path FROM organizations o JOIN ev ON ev.organization_id = o.id),
-     anc AS (SELECT o.id FROM organizations o, owner WHERE o.path @> owner.path),
      regs AS (SELECT * FROM event_registrations WHERE event_id = $1),
      clubs AS (SELECT club_id FROM regs),
      ids AS (
@@ -119,14 +119,22 @@ WITH ev AS (SELECT * FROM events WHERE id = $1),
        UNION SELECT id FROM users WHERE role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs)
        UNION SELECT user_id FROM role_assignments WHERE status = 'ACTIVE' AND (
                (role = 'CLUB_DIRECTOR' AND organization_id IN (SELECT club_id FROM clubs))
-               OR (role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc)))
-       UNION SELECT id FROM users WHERE role IN {ADMIN_ROLES} AND organization_id IN (SELECT id FROM anc)
+               OR (role IN {ADMIN_ROLES} AND organization_id = (SELECT organization_id FROM ev)))
+       UNION SELECT id FROM users WHERE role IN {ADMIN_ROLES} AND organization_id = (SELECT organization_id FROM ev)
        UNION SELECT id FROM users WHERE lower(email) = lower($2)
      )
 SELECT to_jsonb(u) AS row FROM users u
 WHERE u.id IN (SELECT id FROM ids WHERE id IS NOT NULL) AND NOT u.is_minor
 ORDER BY u.created_at, u.id
 """
+# Who logs in ON the node: the event's active staff (coordination, judges, check-in desk) and
+# whoever prepares it. Everybody else travels as a name for the screens, WITHOUT a usable password
+# (NO_LOGIN is not a bcrypt hash: every login with it fails, on the node and anywhere else).
+CAPTURING_SQL = """
+SELECT user_id::text AS id FROM event_staff WHERE event_id = $1 AND active
+UNION SELECT id::text FROM users WHERE lower(email) = lower($2)
+"""
+NO_LOGIN = "!nodo-sin-acceso"
 # 030: only the organizations the copy needs — the event's owner, its clubs, the organizations
 # of the people copied (accounts, roles, memberships) — and every ancestor of those, parents
 # first. (029 copied the whole tree.)
@@ -391,8 +399,11 @@ async def gather_export(prod, event_id: uuid.UUID, actor_email: str) -> dict:
         raise SyncError("el evento no existe en producción", 404)
     users = await rows_of(prod, USERS_SQL, event_id, actor_email)
     user_ids = {u["id"] for u in users}
+    capturing = {r["id"] for r in await prod.fetch(CAPTURING_SQL, event_id, actor_email)}
     for u in users:
         u["birth_date"] = None  # not needed at the event; less personal data on the node
+        if u["id"] not in capturing:
+            u["password_hash"] = NO_LOGIN  # not capturing at the event: no hash on the Mac
         # The second factor's seed never leaves the cloud: on the node everybody logs in with
         # the password only (an offline LAN of the event).
         u["mfa_secret"], u["mfa_enabled"] = None, False
