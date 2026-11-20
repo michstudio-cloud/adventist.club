@@ -822,9 +822,29 @@ async def gather_node_changes(node, event_id: uuid.UUID, *, pass_decrypt=None,
 # --------------------------------------------------------------------------------------------
 # Planning an upload (cloud side)
 # --------------------------------------------------------------------------------------------
+# An account created on a node arrives in the cloud with NO privileges, whatever the node says:
+# the node is a Mac in someone else's hands, so its users table is not trusted. The account is
+# created inactive, without role, organization or verifications; an administrator activates it
+# (and grants what it needs) in the cloud. Its event rows (e.g. the judge's captures) still land.
+NEW_USER_OVERRIDES = {
+    "role": "STUDENT", "organization_id": None, "status": "INACTIVE", "verification_status": "PENDING",
+    "mfa_secret": None, "mfa_enabled": False, "club_approval": None, "club_approval_reason": None,
+    "club_approval_at": None, "leader_verified_until": None, "child_protection_completed": False,
+    "child_protection_completed_at": None, "legacy_mongo_id": None, "last_login": None,
+    "active_club_id": None, "active_ministry_id": None, "signature_url": None, "handle": None,
+    "handle_changed_at": None, "birth_date": None,
+}
+
+
+def unprivileged(user: dict) -> dict:
+    """A node-created account as the cloud stores it (see NEW_USER_OVERRIDES)."""
+    return {**{k: v for k, v in user.items() if k in nodo_egreso.USER_COLUMNS}, **NEW_USER_OVERRIDES}
+
+
 async def plan_users(prod, users: list[dict], node_rows) -> tuple[dict, list[dict], list[str]]:
     """Users referenced by the node's rows that production does not have: created on the node.
-    Same e-mail in production -> remap to that account; otherwise -> insert it."""
+    Same e-mail in production -> remap to that account; otherwise -> insert it WITHOUT privileges
+    (`unprivileged`: minimal role, no organization, inactive until an admin activates it)."""
     referenced = {row[col] for table, refs in USER_REFS.items() for row in node_rows[table] for col in refs
                   if row.get(col)}
     if not referenced:
@@ -842,8 +862,9 @@ async def plan_users(prod, users: list[dict], node_rows) -> tuple[dict, list[dic
         elif user.get("is_minor"):
             notes.append(f"cuenta de menor creada en el nodo ({user['id']}): no se sube")
         else:
-            new_users.append(user)
-            notes.append(f"cuenta creada en el nodo {user['email']} -> se crea en producción")
+            new_users.append(unprivileged(user))
+            notes.append(f"cuenta creada en el nodo {user['email']} -> se crea en producción inactiva y sin "
+                         "permisos (la activa un administrador)")
     return remap, new_users, notes
 
 
