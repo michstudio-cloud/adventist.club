@@ -276,8 +276,9 @@ async def event_history(event_id: uuid.UUID, registration_id: uuid.UUID | None =
             scope.registration_ids = own
         if registration_id is not None and not roles.judge and registration.id not in own:
             raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
-        # 028: a director (who is not also a judge) reads the role, never the person.
-        scope.hide_names = not roles.judge
+        # The director reads who scored their club (decision of the event's owner, Camporee 2026;
+        # before, 028 showed only the role). Still only their own club, never pending items.
+        scope.hide_names = False
     return await history.page(db, event, scope, registration_id=registration_id, limit=limit, before=before)
 
 

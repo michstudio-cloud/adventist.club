@@ -244,6 +244,9 @@ async def test_directors_see_only_their_club(client, w, scored):
         "ADJUSTMENT_APPLIED"])
     explicit = (await _ok(await _history(client, scored, "director_a", w, registration_id=scored["reg_a"])))["items"]
     assert [i["id"] for i in explicit] == [i["id"] for i in mine]
+    # The director sees who scored their club.
+    created = [i for i in mine if i["type"] == "EVALUATION_CREATED" and i["actor"]["as"] == "JUDGE"]
+    assert created and all(i["actor"]["name"] for i in created)
     other = await _history(client, scored, "director_a", w, registration_id=scored["reg_b"])
     assert other.status_code == 403
     theirs = (await _ok(await _history(client, scored, "director_b", w)))["items"]

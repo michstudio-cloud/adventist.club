@@ -19,8 +19,8 @@ An EVALUATION_CREATED granted automatically (captured_as AUTO_CHECKIN / AUTO_SCA
 Who sees what (the router decides, `Scope` carries it):
   * coordination (COORDINATOR staff, admins in scope): everything, pending included;
   * a judge: the entries of the activities they judge (all of them when assigned to all);
-  * a director: only their own club's registrations, never pending items, and never a
-    person's name: `actor.name` is null, only the role (`Scope.hide_names`, 028).
+  * a director: only their own club's registrations, never pending items; they see who
+    scored (the judge's name), like coordination (before, 028 hid it: `Scope.hide_names`).
 Newest first; `before` is an opaque cursor (the last item's position). Item ids are stable:
 `ev:<evaluation>` (capture), `rv:<revision>`, `aa:<adjustment>` (applied), `av:<adjustment>`,
 `ci:<check-in>`, `cu:<check-in>` (undone).
