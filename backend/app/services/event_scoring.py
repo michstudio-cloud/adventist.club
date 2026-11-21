@@ -312,6 +312,24 @@ def config_max(kind: str, config: Any) -> Decimal | None:
     return sum((Decimal(str(s["points"])) for s in config["stations"]), Decimal(0)).quantize(CENT)
 
 
+def full_inputs(kind: str, config: Any) -> dict | None:
+    """Los datos de captura que dan el máximo de la actividad («puntaje completo»); None para
+    `group` o una config incompleta. `score()` sobre ellos devuelve `config_max`."""
+    if kind == GROUP or not is_complete(kind, config):
+        return None
+    config = validate_config(kind, config)
+    if kind == PARTICIPATION:
+        return {"points": config["max"]}
+    if kind == RUBRIC:
+        return {"criteria": {c["key"]: c["max"] for c in config["criteria"]}}
+    if kind == BANDS:
+        best = max(config["bands"], key=lambda band: Decimal(str(band["points"])))
+        return {"correct": best["min"]}
+    if kind == PER_CORRECT:
+        return {"correct": config["max_items"]}
+    return {"completed": [station["key"] for station in config["stations"]]}
+
+
 # ----------------------------------------------------------------------------
 # Cálculo
 # ----------------------------------------------------------------------------
