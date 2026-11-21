@@ -425,6 +425,9 @@ async def association_admins(db: AsyncSession, club: Organization) -> list[User]
         RoleAssignment.role == ADMIN_ASSOCIATION,
         RoleAssignment.organization_id == association.id,
         RoleAssignment.status == "ACTIVE",
+        # The primary row is only a mirror of users.role/organization_id (covered below) and can be
+        # stale after a demotion until it's re-synced: never a source of authority (as in rbac).
+        RoleAssignment.is_primary.is_(False),
     )
     stmt = (
         select(User)
