@@ -89,7 +89,8 @@ class Settings(BaseSettings):
     # a token without the `origin` claim, which MapKit JS accepts from any page.
     APPLE_MAPKIT_ORIGINS: str = (
         "https://conquistadores.app,https://www.conquistadores.app,"
-        "https://adventist.club,https://www.adventist.club,https://admin.adventist.club"
+        "https://adventist.club,https://www.adventist.club,https://admin.adventist.club,"
+        "https://aventureros.app,https://www.aventureros.app"
     )
     APPLE_MAPKIT_TOKEN_MINUTES: int = 30
 
