@@ -12,6 +12,7 @@ The rules that must never break:
 from __future__ import annotations
 
 import uuid
+from types import SimpleNamespace
 from dataclasses import dataclass, field
 from decimal import Decimal
 
@@ -430,6 +431,55 @@ async def capture(db: AsyncSession, actor: User, event: Event, roles: EventRoles
                                         "captured_as": captured_as,
                                         "rules_version": row.rules_version}, request=request)
     return row, True
+
+
+FULL_ONLY_ADMIN = "Sólo la administración del evento puede dar el puntaje completo a todos"
+FULL_NOT_SCORABLE = "Esta actividad no tiene un máximo que dar (grupo o reglas incompletas)"
+
+
+async def award_full_to_all(db: AsyncSession, actor: User, event: Event, roles: EventRoles,
+                            activity_id: uuid.UUID, *, dry_run: bool, request: Request | None) -> dict:
+    """«Puntaje completo a todos» (administración): el máximo de la actividad para cada club
+    inscrito que todavía NO tiene evaluación vigente en ella. Nunca toca una evaluación existente.
+    Cada una pasa por `capture` (mismas reglas: evento en curso, actividad lista, finalistas) con una
+    clave fija por club y actividad, así repetirlo no cuenta dos veces. `dry_run`: sólo cuenta."""
+    if not roles.admin:
+        raise _http(status.HTTP_403_FORBIDDEN, FULL_ONLY_ADMIN)
+    activity = await event_service.get_activity(db, event, activity_id)
+    inputs = scoring.full_inputs(activity.kind, activity.config)
+    if inputs is None:
+        raise _http(status.HTTP_422_UNPROCESSABLE_ENTITY, FULL_NOT_SCORABLE)
+    points = scoring.config_max(activity.kind, activity.config)
+    registrations = (await db.execute(select(EventRegistration).where(
+        EventRegistration.event_id == event.id, EventRegistration.status == REGISTERED))).scalars().all()
+    scored = set((await db.execute(select(Evaluation.registration_id).where(
+        Evaluation.activity_id == activity.id, Evaluation.status == CONFIRMED))).scalars())
+    pending = [row for row in registrations if row.id not in scored]
+    finalists_only = bool((activity.config or {}).get(scoring.FINALISTS_ONLY))
+    eligible = [row for row in pending
+                if not finalists_only or (row.finalist_flags or {}).get(str(activity.id))]
+    out = {"activity_id": str(activity.id), "points": float(points) if points is not None else None,
+           "already_scored": len(scored), "to_award": len(eligible), "awarded": 0,
+           "not_finalists": len(pending) - len(eligible), "failed": []}
+    if dry_run:
+        return out
+    _require_in_progress(event)
+    for row in eligible:
+        payload = SimpleNamespace(registration_id=row.id, activity_id=activity.id, inputs=inputs,
+                                  idempotency_key=f"full:{activity.id.hex[:16]}:{row.id.hex[:16]}",
+                                  rules_version=None)
+        try:
+            async with db.begin_nested():
+                _evaluation, created = await capture(db, actor, event, roles, payload, request)
+        except HTTPException as error:
+            out["failed"].append({"registration_id": str(row.id), "detail": error.detail})
+            continue
+        if created:
+            out["awarded"] += 1
+    record_audit(db, action="EVALUATION_AWARD_FULL", entity_type="EVENT", entity_id=event.id, actor=actor,
+                 metadata={"activity_id": str(activity.id), "awarded": out["awarded"],
+                           "failed": len(out["failed"]), "points": out["points"]}, request=request)
+    return out
 
 
 def _snapshot(row: Evaluation, *, action: str, reason: str, actor: User,

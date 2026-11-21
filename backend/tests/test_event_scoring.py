@@ -6,6 +6,7 @@ import pytest
 from app.services.event_scoring import (
     ScoringError,
     config_max,
+    full_inputs,
     honor_for,
     is_complete,
     score,
@@ -247,3 +248,14 @@ def test_honor_band_validation():
             [{"key": "a", "label": "A", "min": 1}, {"key": "b", "label": "B", "min": 1}])
     assert honor_for(Decimal(5), []) is None
     assert honor_for(Decimal(5), validate_honor_bands([{"key": "a", "label": "A", "min": 10}])) is None
+
+
+def test_full_inputs_give_the_maximum_of_every_kind():
+    cases = [("participation", {"max": 150}), ("rubric", ESENCIA), ("bands", KIDS), ("bands", PARENTS),
+             ("stations", MISION), ("per_correct", {"points_each": 2, "max_items": 10})]
+    for kind, config in cases:
+        inputs = full_inputs(kind, config)
+        assert inputs is not None, kind
+        assert score(kind, config, inputs).points == config_max(kind, config), kind
+    assert full_inputs("group", {}) is None
+    assert full_inputs("participation", {}) is None  # incomplete

@@ -1004,6 +1004,21 @@ async def pass_director_self_register(payload: PassDirectorSelf, request: Reques
             "status": status_name}
 
 
+@router.post("/{event_id}/activities/{activity_id}/award-full")
+async def award_full_to_all(event_id: uuid.UUID, activity_id: uuid.UUID, request: Request,
+                            dry_run: bool = Query(default=False),
+                            current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """«Puntaje completo a todos» (administración): el máximo de la actividad a cada club que aún no
+    tiene evaluación vigente en ella; los ya evaluados no se tocan. `?dry_run=true` sólo cuenta."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.roles_for(db, current_user, event)
+    result = await scores.award_full_to_all(db, current_user, event, roles, activity_id, dry_run=dry_run,
+                                            request=request)
+    if not dry_run:
+        await db.commit()
+    return result
+
+
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")
 async def registration_breakdown(event_id: uuid.UUID, registration_id: uuid.UUID,
                                  current_user: User = Depends(get_current_user),
