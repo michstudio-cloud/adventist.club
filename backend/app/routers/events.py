@@ -43,6 +43,7 @@ from app.schemas.event import (
     RegistrationCreate,
     RegistrationOut,
     RegistrationUpdate,
+    PassDirectorSelf,
     ResolvePass,
     ScanCreate,
     StaffCreate,
@@ -52,6 +53,10 @@ from app.schemas.event import (
     DirectorsImport,
     DirectorsImportOut,
     DirectorsOut,
+    OpenEventClubOut,
+    JudgeJoinLinkIn,
+    JudgeJoinLinkOut,
+    JudgeJoinToken,
     EventInvitationOut,
     PersonSearchOut,
     StaffInvite,
@@ -89,6 +94,40 @@ async def create_event(payload: EventCreate, request: Request,
     await db.commit()
     await db.refresh(event)
     return await event_service.event_out(db, event, await event_service.roles_for(db, current_user, event))
+
+
+@router.get("/directors/clubs", response_model=list[OpenEventClubOut])
+@limiter.limit("60/minute")
+async def open_event_clubs(request: Request, q: str = Query(default="", max_length=80),
+                           db: AsyncSession = Depends(get_db)):
+    """Sign-up form, «Director(a) de club»: clubs already registered in an open event (no session)."""
+    return [OpenEventClubOut(**row) for row in await onboarding.open_event_clubs(db, q)]
+
+
+@router.post("/staff/join/preview")
+@limiter.limit("60/minute")
+async def judge_join_preview(payload: JudgeJoinToken, request: Request, db: AsyncSession = Depends(get_db)):
+    """No session: which event a judge QR is for, its activities (empty = every one) and until when."""
+    event, link = await onboarding.judge_link_event(db, payload.token)
+    activities = await onboarding.judge_link_activities(db, event, link)
+    return {"event_id": str(event.id), "event_name": event.name, "expires_at": link.expires,
+            "activities": _link_activities(activities)}
+
+
+@router.post("/staff/join")
+@limiter.limit("30/minute", key_func=account_or_ip)
+async def judge_join(payload: JudgeJoinToken, request: Request, current_user: User = Depends(get_current_user),
+                     db: AsyncSession = Depends(get_db)):
+    """The signed-in account joins as a judge of the QR's activities, or of every activity
+    (idempotent: `added` 0 the second time)."""
+    event, rows, activities = await onboarding.join_as_judge(db, current_user, payload.token, request)
+    await db.commit()
+    return {"event_id": str(event.id), "event_name": event.name, "added": rows,
+            "activities": _link_activities(activities)}
+
+
+def _link_activities(activities) -> list[dict]:
+    return [{"id": str(row.id), "name": row.name} for row in activities]
 
 
 @router.get("/{event_id}", response_model=EventOut)
@@ -243,8 +282,10 @@ async def event_history(event_id: uuid.UUID, registration_id: uuid.UUID | None =
             scope.registration_ids = own
         if registration_id is not None and not roles.judge and registration.id not in own:
             raise HTTPException(status.HTTP_403_FORBIDDEN, scores.DIRECTOR_ONLY_OWN)
-        # 028: a director (who is not also a judge) reads the role, never the person.
+        # 028: a director (who is not also a judge) reads the role of coordination, never the person;
+        # the JUDGE who scored is named (decision of the event's owner, Camporee 2026).
         scope.hide_names = not roles.judge
+        scope.show_judge_names = True
     return await history.page(db, event, scope, registration_id=registration_id, limit=limit, before=before)
 
 
@@ -530,6 +571,20 @@ async def search_people(event_id: uuid.UUID, q: str = Query(min_length=2, max_le
     return await onboarding.search_people(db, event, q)
 
 
+@router.post("/{event_id}/staff/join-link", response_model=JudgeJoinLinkOut)
+async def judge_join_link(event_id: uuid.UUID, payload: JudgeJoinLinkIn | None = None,
+                          current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """«QR para jueces»: a link valid 30 minutes; whoever opens it with an adult account joins
+    as a judge of the chosen activities (`activity_ids`; empty or no body = every activity).
+    Coordination of the event."""
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    event_service.require_editable(event)
+    url, expires, activities = await onboarding.make_judge_link(
+        db, current_user, event, payload.activity_ids if payload else None)
+    return JudgeJoinLinkOut(url=url, expires_at=expires, activities=_link_activities(activities))
+
+
 @router.post("/{event_id}/staff/invitations", response_model=StaffInviteOut, status_code=status.HTTP_201_CREATED)
 async def invite_staff(event_id: uuid.UUID, payload: StaffInvite, request: Request, background: BackgroundTasks,
                        current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
@@ -561,6 +616,24 @@ async def list_event_invitations(event_id: uuid.UUID, include_dead: bool = False
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     return [EventInvitationOut(**item) for item in await onboarding.event_invitations(db, event, include_dead=include_dead)]
+
+
+@router.post("/{event_id}/invitations/{invitation_id}/approve", response_model=DirectorLinkOut)
+async def approve_director_request(event_id: uuid.UUID, invitation_id: uuid.UUID, request: Request,
+                                   background: BackgroundTasks, current_user: User = Depends(get_current_user),
+                                   db: AsyncSession = Depends(get_db)):
+    """«Aprobar» a director who asked for the club from the sign-up form."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    invitation = await onboarding.get_event_invitation(db, event, invitation_id)
+    club, renewed, token = await onboarding.approve_director_request(db, current_user, roles, event, invitation,
+                                                                     request)
+    send = await _queue(background, db, event, renewed, token, current_user) if token else None
+    await db.commit()
+    if send:
+        send()
+    row = next(item for item in await onboarding.directors(db, event) if item["club_id"] == str(club.id))
+    return DirectorLinkOut(action="invite" if token else "approved", club=row)
 
 
 @router.post("/{event_id}/invitations/{invitation_id}/resend", response_model=EventInvitationOut,
@@ -669,9 +742,9 @@ async def list_registrations(event_id: uuid.UUID, current_user: User = Depends(g
     club_ids = None if (roles.coordination or roles.judge) else roles.director_club_ids
     staff = roles.coordination or roles.judge
     rows = await scores.list_registrations(db, event, club_ids=club_ids)
-    directors = await onboarding._directors_by_club(db, [club.id for _, club in rows])
+    names = await onboarding.director_names_by_club(db, [club.id for _, club in rows])
     return [await scores.registration_out(db, row, club=club, coordination=roles.coordination, staff=staff,
-                                          directors=directors)
+                                          director_names=names)
             for row, club in rows]
 
 
@@ -899,6 +972,36 @@ async def resolve_any_pass(payload: ResolvePass, request: Request,
                     db, row, coordination=roles.coordination, staff=True)).model_dump(exclude_unset=True),
             }
     raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
+
+
+@router.post("/pass/director")
+@limiter.limit("10/minute")
+async def pass_director_self_register(payload: PassDirectorSelf, request: Request, background: BackgroundTasks,
+                                      db: AsyncSession = Depends(get_db)):
+    """`/p/<token>` without a session: the director scans the club's pass, writes name and e-mail,
+    and ASKS to be the club's director (approved in Clubes). Unknown or withdrawn pass: the same
+    neutral 404 as `/pass/resolve`."""
+    row = await scores.find_by_pass(db, payload.token)
+    if row is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
+    result = await onboarding.self_register_director(db, row, name=payload.name, email=payload.email,
+                                                     request=request)
+    event = await event_service.get_event(db, row.event_id)
+    await db.commit()
+    if result.action == "invite":
+        # A new request: the association's administrators hear it (after the commit, never failing this).
+        from app.services import director_requests
+
+        director_requests.queue_admin_notice(
+            background, director_requests.NOTICE_DIRECTOR_REQUEST, result.club,
+            person_name=" ".join((payload.name or "").split()), person_email=result.invitation.email,
+            link=onboarding.event_url(event, "/clubes"), event_name=event.name,
+        )
+    # Never a link here: the request waits for «Aprobar» (or the administration's e-mail already sent).
+    status_name = "already_linked" if result.action == "invitation_pending" and not (
+        (result.invitation.on_accept or {}).get("request")) else "requested"
+    return {"club_name": result.club.name, "event_name": event.name, "email": result.invitation.email,
+            "status": status_name}
 
 
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")

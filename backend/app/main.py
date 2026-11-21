@@ -46,6 +46,7 @@ from app.routers import club_lookup as club_lookup_router
 from app.routers import org_invitations as org_invitations_router
 # Eventos y puntajes (spec 2026-09-24-eventos §3).
 from app.routers import events as events_router
+from app.routers import director_requests as director_requests_router
 # 030: «Nodo Camporee» automatic mode (before the events router: /events/offline/mine).
 from app.routers import nodo as nodo_router
 # Event node operator (coordination on the node's Mac): unlock accounts, connected devices. 404 without NODO_OPERADOR_TOKEN.
@@ -79,6 +80,8 @@ app.include_router(nodo_router.router)
 app.include_router(nodo_operador_router.router)
 app.include_router(events_router.router)
 app.include_router(passkeys_router.router)
+app.include_router(director_requests_router.router)
+app.include_router(director_requests_router.activity_router)
 # Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client
 # never runs startup handlers, and without R2 the hook is a no-op.
 app.add_event_handler("startup", template_thumbnails_router.schedule_warm_up)

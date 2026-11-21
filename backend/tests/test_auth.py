@@ -209,10 +209,70 @@ async def test_refresh(client, factory):
     assert as_access.status_code == 401
 
 
+async def test_emailed_links_open_on_the_site_that_asked(client, factory, monkeypatch):
+    """Sessions are per host: a reset or verification asked from events.adventist.club links back
+    there. The client names the site (`host: "events"`); a URL or an unknown name is refused."""
+    sent = []
+
+    async def fake_reset(to, name, code, token, host=None):
+        sent.append(("reset", to, host))
+        return True
+
+    async def fake_verify(to, name, code, token, host=None):
+        sent.append(("verify", to, host))
+        return True
+
+    monkeypatch.setattr(email_service, "send_password_reset_email", fake_reset)
+    monkeypatch.setattr(email_service, "send_verification_email", fake_verify)
+    await _register(client, factory, "evhost", host="events")
+    await _register(client, factory, "mainhost")
+    assert ("verify", factory.email("evhost"), "events") in sent
+    assert ("verify", factory.email("mainhost"), None) in sent
+
+    asked = await client.post(f"{AUTH}/forgot-password", json={"email": factory.email("evhost"), "host": "events"})
+    assert asked.status_code == 200, asked.text
+    plain = await client.post(f"{AUTH}/forgot-password", json={"email": factory.email("mainhost")})
+    assert plain.status_code == 200
+    assert ("reset", factory.email("evhost"), "events") in sent
+    assert ("reset", factory.email("mainhost"), None) in sent
+    for bad in ("https://evil.example", "events.adventist.club", "admin"):
+        refused = await client.post(f"{AUTH}/forgot-password", json={"email": factory.email("evhost"), "host": bad})
+        assert refused.status_code == 422, bad
+
+
+async def test_link_origin_is_a_fixed_map(monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "EVENT_PASS_URL_BASE", "https://events.adventist.club/p")
+    monkeypatch.setattr(settings, "FRONTEND_URL", "https://www.conquistadores.app/")
+    assert email_service.link_origin("events") == "https://events.adventist.club"
+    assert email_service.link_origin("main") == "https://www.conquistadores.app"
+    assert email_service.link_origin(None) == "https://www.conquistadores.app"
+    assert email_service.link_origin("https://evil.example") == "https://www.conquistadores.app"
+    # A misconfigured events base falls back to the member app, never to a broken link.
+    monkeypatch.setattr(settings, "EVENT_PASS_URL_BASE", "")
+    assert email_service.link_origin("events") == "https://www.conquistadores.app"
+
+    sent = []
+
+    async def fake_email(to, subject, html):
+        sent.append(html)
+        return True
+
+    monkeypatch.setattr(settings, "EVENT_PASS_URL_BASE", "https://events.adventist.club/p")
+    monkeypatch.setattr(email_service, "send_email", fake_email)
+    await email_service.send_password_reset_email("a@b.c", "Ana", "123456", "tok-abc", "events")
+    await email_service.send_verification_email("a@b.c", "Ana", "123456", "tok-def", "events")
+    await email_service.send_password_reset_email("a@b.c", "Ana", "123456", "tok-ghi")
+    assert "https://events.adventist.club/reset-password?token=tok-abc" in sent[0]
+    assert "https://events.adventist.club/verify-email?token=tok-def" in sent[1]
+    assert "https://www.conquistadores.app/reset-password?token=tok-ghi" in sent[2]
+
+
 async def test_forgot_and_reset_password(client, factory, monkeypatch):
     sent = []
 
-    async def fake_send(to, name, code, token):
+    async def fake_send(to, name, code, token, host=None):
         sent.append((to, code, token))
         return True
 

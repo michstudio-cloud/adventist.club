@@ -382,6 +382,13 @@ class ResolvePass(_Body):
     token: str = Field(min_length=8, max_length=500)
 
 
+class PassDirectorSelf(_Body):
+    """The director, with the club's pass in hand, creates their own account (`/p/<token>`)."""
+    token: str = Field(min_length=8, max_length=500)
+    name: str = Field(min_length=2, max_length=120)
+    email: str = Field(min_length=3, max_length=254)
+
+
 class _PassOrRegistration(_Body):
     """Exactly one: what the camera read (bare token or the QR's URL), or the club picked by
     hand from the list (manual fallback)."""
@@ -649,6 +656,8 @@ class EventInvitationOut(BaseModel):
     club_id: str | None = None
     club_name: str | None = None
     registration_id: str | None = None
+    # A director who asked for the club from the sign-up form: waits for «Aprobar».
+    request: bool = False
     # Only right after creating / resending: the one-time link and its WhatsApp message.
     url: str | None = None
     whatsapp_url: str | None = None
@@ -676,7 +685,7 @@ class DirectorsOut(BaseModel):
 
 
 class DirectorLinkOut(BaseModel):
-    action: Literal["appoint", "invite", "already_director", "invitation_pending"]
+    action: Literal["appoint", "invite", "already_director", "invitation_pending", "approved"]
     club: ClubDirectorOut
 
 
@@ -713,3 +722,32 @@ class PersonSearchOut(BaseModel):
     organization: str | None = None
     directs_club: bool = False
     event_roles: list[str] = []
+
+
+class OpenEventClubOut(BaseModel):
+    """A club registered in an open event, for the sign-up form («Mi club ya está en el evento»)."""
+    registration_id: str
+    club_name: str
+    event_name: str
+    has_director: bool
+
+
+class JudgeJoinLinkIn(_Body):
+    """«QR para jueces»: las actividades que da (vacío o ausente = todas)."""
+    activity_ids: list[uuid_module.UUID] | None = Field(default=None, max_length=100)
+
+
+class JudgeLinkActivity(BaseModel):
+    id: str
+    name: str
+
+
+class JudgeJoinLinkOut(BaseModel):
+    url: str
+    expires_at: datetime
+    # Las actividades que da el QR; vacía = todas.
+    activities: list[JudgeLinkActivity] = []
+
+
+class JudgeJoinToken(_Body):
+    token: str = Field(min_length=8, max_length=400)

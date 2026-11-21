@@ -422,8 +422,11 @@ async def list_events_for(db: AsyncSession, actor: User) -> list[tuple[Event, Ev
         select(EventStaff.event_id).where(EventStaff.user_id == actor.id, EventStaff.active)))
     clubs = await director_club_ids(db, actor)
     if clubs:
+        # Only where the club is still registered: a withdrawn club's director stops seeing that event
+        # in the list (a direct link still opens it, read-only as before).
         conditions.append(Event.id.in_(
-            select(EventRegistration.event_id).where(EventRegistration.club_id.in_(clubs))))
+            select(EventRegistration.event_id).where(EventRegistration.club_id.in_(clubs),
+                                                     EventRegistration.status == "REGISTERED")))
     stmt = select(Event).where(or_(*conditions)).order_by(Event.starts_on.desc(), Event.name)
     found = []
     for event in (await db.execute(stmt)).scalars():

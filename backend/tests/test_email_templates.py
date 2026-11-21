@@ -36,6 +36,9 @@ CASES = [
     ("membership_approved", lambda: mail.membership_decision_email_html(HOSTILE, HOSTILE, True, None), None, None),
     ("membership_rejected", lambda: mail.membership_decision_email_html(HOSTILE, HOSTILE, False, HOSTILE), None, None),
     ("letter_submitted", lambda: mail.letter_submitted_email_html(HOSTILE, HOSTILE, "CLUB_DIRECTOR", LINK), LINK, None),
+    ("admin_director_request", lambda: mail.admin_request_email_html(HOSTILE, mail.ADMIN_REQUEST_DIRECTOR, HOSTILE, HOSTILE, HOSTILE, LINK, HOSTILE, HOSTILE), LINK, None),
+    ("admin_director_request_plain", lambda: mail.admin_request_email_html("Ana", mail.ADMIN_REQUEST_DIRECTOR, "Orión", "Luis", "luis@example.com", LINK), LINK, None),
+    ("admin_club_request", lambda: mail.admin_request_email_html(HOSTILE, mail.ADMIN_REQUEST_CLUB, HOSTILE, HOSTILE, HOSTILE, LINK, HOSTILE), LINK, None),
     ("letter_authorized", lambda: mail.letter_decision_email_html(HOSTILE, "AUTHORIZED", "31/12/2027", None), None, None),
     ("letter_authorized_no_date", lambda: mail.letter_decision_email_html("Ana", "AUTHORIZED", None, None), None, None),
     ("letter_revoked", lambda: mail.letter_decision_email_html(HOSTILE, "REVOKED", None, HOSTILE), None, None),
@@ -82,7 +85,7 @@ def _hrefs(html: str) -> list[str]:
     return re.findall(r'href="([^"]*)"', html)
 
 
-NO_HOSTILE_INPUT = {"progress_hours_rejected_no_note", "club_rejected_no_reason", "letter_authorized_no_date", "certificate_revoked_no_honor"}
+NO_HOSTILE_INPUT = {"progress_hours_rejected_no_note", "club_rejected_no_reason", "letter_authorized_no_date", "certificate_revoked_no_honor", "admin_director_request_plain"}
 
 
 @pytest.mark.parametrize("case_id,factory,cta,code", CASES, ids=[c[0] for c in CASES])

@@ -335,7 +335,16 @@ async def test_capture_gates(client, w):
     assert response.status_code == 201 and response.json()["points"] == 20
     # Stale rules on the judge's screen.
     stale = _capture(w, "participation", {"points": 1}, rules_version=1)
-    assert (await client.post(url, json=stale, headers=w["judge_all"]["headers"])).status_code == 409
+    refused = await client.post(url, json=stale, headers=w["judge_all"]["headers"])
+    # The web's «Por enviar» queue recognizes this exact answer and resends the capture once without
+    # `rules_version` (tests/events-outbox.test.mjs): keep the status and the wording in step.
+    assert refused.status_code == 409 and "reglas del evento cambiaron" in refused.json()["detail"]
+    # Without `rules_version` the capture is scored against the CURRENT rules: inputs that no longer
+    # fit are still refused (422), never stored.
+    resent = dict(stale, inputs={"points": 999})
+    resent.pop("rules_version")
+    invalid = await client.post(url, json=resent, headers=w["judge_all"]["headers"])
+    assert invalid.status_code == 422, invalid.text
 
 
 async def test_idempotency_never_counts_twice(client, w):
