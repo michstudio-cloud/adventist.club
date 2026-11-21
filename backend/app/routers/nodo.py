@@ -6,11 +6,14 @@ later uploads the node's captures the same way. Several nodes (coordinators in d
 locations) may prepare the same event, each with its own scope.
 
 Security model:
-  * WHO: coordination of the event (admin in scope via has_role, event COORDINATOR, MASTER).
-    Force-closing a node: admins only.
+  * WHO: coordination of the event (admin in scope via has_role, event COORDINATOR, MASTER), and
+    only for an event a MASTER_GC enabled for nodes (032, `offline_node_enabled`). Preparing
+    also needs an account WITH a second factor (the bundle carries passes and password hashes).
+    Force-closing a node: admins only. The node settings: MASTER_GC only.
   * WHEN: export and import need a RECENT login (≤ RECENT_AUTH_SECONDS, `auth_time` claim; a
     refresh does not renew it) and, for accounts with a second factor, a session that passed it.
-  * WHAT TRAVELS: the bundle (password hashes, plain pass tokens, the TLS key) is sealed to a
+  * WHAT TRAVELS: the bundle (password hashes of the people capturing at the event only, plain
+    pass tokens, and the real TLS key ONLY when a MASTER_GC enabled it for the event) is sealed to a
     one-time X25519 key the node sends; the upload is sealed to a key derived per export
     (`import_key`) and SIGNED with the Ed25519 key the node bound at export time.
   * Everything is audited (EVENT_OFFLINE_NODE_PREPARE / _UPLOAD / _CLOSE, lock / unlock).
@@ -38,7 +41,8 @@ from app.services import event_nodes, event_pass, node_certs, nodo_crypto, nodo_
 from app.services import event_scores as scores
 from app.services import events as event_service
 from app.services import nodo_sync_core as core
-from app.services.audit import _valid_ip
+from app.rbac import is_master
+from app.services.audit import _valid_ip, record_audit
 
 router = APIRouter(prefix="/api/v1/events", tags=["event-nodes"])
 
@@ -49,6 +53,11 @@ NEEDS_MFA = ("Tu cuenta tiene verificación en dos pasos: inicia sesión con tu 
 ADMIN_ONLY = "Sólo la administración del evento puede cerrar un nodo"
 ON_A_NODE = "Esto se hace contra la nube (adventist.club), no contra un nodo local"
 TOO_LARGE = "El paquete del evento es demasiado grande para enviarlo de una vez"
+NODE_DISABLED = ("Este evento no está habilitado para nodos sin internet: pide a la administración de "
+                 "adventist.club que lo habilite.")
+MFA_REQUIRED = ("Para preparar un nodo tu cuenta necesita verificación en dos pasos: actívala en tu perfil "
+                "de adventist.club y vuelve a iniciar sesión con tu código.")
+MASTER_ONLY = "Sólo la administración general de adventist.club cambia la configuración de nodos de un evento"
 
 
 class ScopeIn(BaseModel):
@@ -73,6 +82,12 @@ class ExportIn(BaseModel):
         if not value:
             raise ValueError("El nombre del nodo es obligatorio")
         return value
+
+
+class NodeSettingsIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    node_enabled: bool | None = None
+    real_certificate: bool | None = None
 
 
 class CloseIn(BaseModel):
@@ -105,6 +120,17 @@ def require_recent_auth(user: User) -> None:
     auth_time = getattr(user, "token_auth_time", 0) or 0
     if time.time() - auth_time > RECENT_AUTH_SECONDS:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, REAUTH, headers={"X-Reauth-Required": "1"})
+
+
+def require_mfa_account(user: User) -> None:
+    """Preparing a node hands over passes and hashes: only an account protected by a second
+    factor may do it (require_recent_auth already demands the session passed it)."""
+    if not user.mfa_enabled:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, MFA_REQUIRED)
+
+
+def node_settings_out(event) -> dict:
+    return {"node_enabled": bool(event.offline_node_enabled), "real_certificate": bool(event.offline_node_real_cert)}
 
 
 async def _not_on_a_node(db: AsyncSession, event_id: uuid.UUID) -> None:
@@ -142,6 +168,7 @@ async def my_offline_events(current_user: User = Depends(get_current_user), db: 
                 "id": str(event.id), "name": event.name, "starts_on": event.starts_on, "ends_on": event.ends_on,
                 "status": event.status, "venue": event.venue, "city": event.city,
                 "my_roles": [r for r in roles.names() if r in ("ADMIN", "COORDINATOR")],
+                **node_settings_out(event),
                 "offline_lock": lock.model_dump() if lock else None,
                 "last_sync": dict(last) if last else None,
                 "activities": activities, "nodes": nodes,
@@ -158,6 +185,7 @@ async def list_nodes(event_id: uuid.UUID, current_user: User = Depends(get_curre
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     lock = await event_service.event_offline.lock_out(db, event)
+    node_settings = node_settings_out(event)
     conn = await _conn()
     try:
         rows = await conn.fetch("SELECT id, label, scope, sign_key, status FROM event_offline_nodes"
@@ -175,7 +203,30 @@ async def list_nodes(event_id: uuid.UUID, current_user: User = Depends(get_curre
                                     "sign_key": r["sign_key"]})}
     finally:
         await conn.close()
-    return _jsonable({"offline_lock": lock.model_dump() if lock else None, "nodes": nodes})
+    return _jsonable({"offline_lock": lock.model_dump() if lock else None, "nodes": nodes, **node_settings})
+
+
+@router.put("/{event_id}/offline/settings")
+async def update_node_settings(event_id: uuid.UUID, payload: NodeSettingsIn, request: Request,
+                               current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """MASTER_GC enables an event for nodes and decides whether its nodes get the real TLS
+    certificate (default: no, the node's local CA). Audited (EVENT_OFFLINE_NODE_SETTINGS)."""
+    if not is_master(current_user):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, MASTER_ONLY)
+    require_recent_auth(current_user)
+    event = await event_service.get_event(db, event_id)
+    before = node_settings_out(event)
+    if payload.node_enabled is not None:
+        event.offline_node_enabled = payload.node_enabled
+    if payload.real_certificate is not None:
+        event.offline_node_real_cert = payload.real_certificate
+    after = node_settings_out(event)
+    if after != before:
+        record_audit(db, action="EVENT_OFFLINE_NODE_SETTINGS", entity_type="EVENT", entity_id=event.id,
+                     actor=current_user, details=", ".join(f"{k}={v}" for k, v in after.items()),
+                     metadata={"before": before, "after": after}, request=request)
+        await db.commit()
+    return after
 
 
 @router.post("/{event_id}/offline/nodes/{node_id}/close")
@@ -210,6 +261,10 @@ async def export_for_node(event_id: uuid.UUID, payload: ExportIn, request: Reque
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     await _not_on_a_node(db, event_id)
+    if not event.offline_node_enabled:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, NODE_DISABLED)
+    require_mfa_account(current_user)
+    real_cert = bool(event.offline_node_real_cert)
     try:
         recipient = nodo_crypto.check_box_public(payload.recipient_key)
         nodo_crypto.check_sign_public(payload.sign_key)
@@ -232,7 +287,9 @@ async def export_for_node(event_id: uuid.UUID, payload: ExportIn, request: Reque
     conn = await _conn()
     try:
         actor = await core.actor_by_id(conn, user_id)
-        certificate = await node_certs.certificate_for_node(conn)
+        # The real certificate's private key leaves the cloud only for an event a MASTER_GC
+        # enabled it for; otherwise the node serves its own local CA (plan B).
+        certificate = await node_certs.certificate_for_node(conn) if real_cert else node_certs.local_only()
         bundle, node, export_id = await core.prepare_node(
             conn, event_id, actor, label=payload.node_label, scope=payload.scope.model_dump(mode="json"),
             sign_key=payload.sign_key, replace_node_id=payload.replace_node_id,

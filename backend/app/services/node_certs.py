@@ -1,8 +1,11 @@
 """TLS certificate for the event node's hostnames (030), obtained by the API, not by the Mac.
 
-When a node is prepared, the bundle carries a real Let's Encrypt certificate (+ key) for
-events/api/admin.adventist.club so the node serves the same origin with a trusted certificate
-and the Mac needs no Cloudflare token. The API obtains it by ACME DNS-01 on Cloudflare
+When a node is prepared FOR AN EVENT A MASTER_GC ENABLED IT FOR (032, `offline_node_real_cert`),
+the bundle carries a real Let's Encrypt certificate (+ key) for events/api/admin.adventist.club so
+the node serves the same origin with a trusted certificate and the Mac needs no Cloudflare token.
+Every other event gets `local_only()` and the node uses its local CA: the key of the platform's
+own hostnames never reaches another association's Mac. (Longer-term design without shipping a
+key: nodo-evento/docs/CERTIFICADO_POR_EVENTO.md.) The API obtains it by ACME DNS-01 on Cloudflare
 (`CLOUDFLARE_DNS_API_TOKEN`, `LE_EMAIL`), caches it in `node_tls_certs` (private key encrypted
 with a key derived from NODO_SYNC_SECRET / JWT_SECRET) and reuses it while it has more than
 `RENEW_BEFORE_DAYS` left. Not configured or failing → the bundle says so and the Mac falls back
@@ -264,6 +267,15 @@ async def cached(conn, names: list[str], staging: bool) -> dict | None:
     if row is None:
         return None
     return dict(row)
+
+
+LOCAL_ONLY = "ca_local"
+
+
+def local_only() -> dict:
+    """What the bundle says when the event did not get the real certificate (032 default)."""
+    return {"status": LOCAL_ONLY, "names": settings.nodo_hostnames,
+            "message": "Este evento usa el certificado local del nodo (la administración no habilitó el real)"}
 
 
 def fresh(not_after: datetime, now: datetime | None = None) -> bool:

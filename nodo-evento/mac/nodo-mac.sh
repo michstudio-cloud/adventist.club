@@ -76,10 +76,10 @@ NODO_DIR=""                 # copia de trabajo de nodo-evento/ (compose, Caddyfi
                             # pone instalar.sh en Application Support (fuera de Documentos)
 BACKEND_DIR=""              # backend/ del repo (sólo para «Construir»)
 FRONTEND_DIR=""             # repo del frontend (para construir la imagen web)
-EVENTO_ID="10267b82-8260-4b27-ba41-de7924e3a9e5"   # Universo de Dios (producción)
+EVENTO_ID=""                # el evento preparado en esta Mac (lo pone «Preparar»; vacío = ninguno)
 ACTOR_EMAIL=""              # cuenta de coordinación que firma export/import
-NODO_LABEL="Mac del nodo — Camporee"
-EVENTO_FIN="2026-11-22"     # último día del evento (aviso si el certificado vence antes)
+NODO_LABEL=""               # nombre de este nodo (lo pone «Preparar»)
+EVENTO_FIN=""               # último día del evento (ends_on; lo pone «Preparar»/«Encender»)
 ROUTER_IP="192.168.8.1"     # GL.iNet Beryl AX (GL-MT3000): LAN por defecto
 IP_FIJA=""                  # la IP que el router reserva para esta Mac (la pone «Configurar router»)
 MAC_FIJA=""                 # la MAC registrada en el router
@@ -705,7 +705,7 @@ cmd_encender() {
     aviso "Conecta el GL.iNet (cable o Wi-Fi). El nodo ya está encendido; en cuanto aparezca la red, todo sigue solo."
   fi
   # El alcance de este nodo para el panel (si ya se preparó un evento).
-  [ -n "$EVENTO_ID" ] && { nodo_info_guardar "$EVENTO_ID" >/dev/null 2>&1 || true; }
+  [ -n "$EVENTO_ID" ] && { nodo_info_guardar "$EVENTO_ID" >/dev/null 2>&1 && evento_fin_actualizar || true; }
   ok "Nodo encendido"
 }
 
@@ -724,6 +724,9 @@ cmd_apagar() {
   agent_unload puerta
   agent_unload malla
   rm -f "$RUN_DIR/encendido" "$RUN_DIR/puerta.json"
+  if evento_terminado; then
+    cert_real_retirar && ok "El evento terminó: se borró de esta Mac el certificado real y su llave"
+  fi
   ok "Nodo apagado"
 }
 
@@ -757,6 +760,7 @@ cmd_sync() {
   [ -n "${PROD_DATABASE_URL:-}" ] || fallo "Falta la conexión de producción (Ajustes › Secretos)."
   [ "$(service_state db)" = healthy ] || fallo "Primero enciende el nodo (la copia se guarda en su base)."
   need_secrets
+  [ -n "$EVENTO_ID" ] || fallo "Falta el evento (Preparar evento › id del evento)."
   local args=(--event "$EVENTO_ID")
   if [ "$sub" != status ]; then
     [ -n "$ACTOR_EMAIL" ] || fallo "Falta el correo de coordinación que firma (Preparar evento › correo)."
@@ -812,7 +816,7 @@ sync_rc_mensaje() {
     2) printf '@@conflictos\n'; aviso "Hay conflictos: elige quién gana o déjalos pendientes" ;;
     3) printf '@@error La base del nodo y la de producción tienen versiones distintas (actualiza el nodo)\n' ;;
     4) printf '@@relogin\n'; printf '@@error La sesión de adventist.club venció: vuelve a iniciar sesión\n' ;;
-    5) printf '@@error Sin permiso para este evento, o tu cuenta pide el código de verificación (MFA)\n' ;;
+    5) printf '@@error Sin permiso: el evento no está habilitado para nodos, no lo coordinas, o tu cuenta necesita verificación en dos pasos (MFA)\n' ;;
     *) printf '@@error Falló (código %s). Revisa el detalle de arriba.\n' "$1" ;;
   esac
 }
@@ -888,12 +892,16 @@ cmd_preparar_auto() {
   elif [ -n "$despues" ]; then
     cert_info; ok "Se conserva el certificado que ya tenía esta Mac (vence $CERT_VENCE)"
   else
-    aviso "Producción no mandó certificado: creo uno local (plan B; cada teléfono debe instalar el perfil)"
+    aviso "Este evento usa el certificado local (plan B; cada teléfono debe instalar el perfil)"
     cert_local_crear >/dev/null || aviso "No se pudo crear el certificado local"
     caddy_reiniciar
   fi
   paso "5/$total Alcance de este nodo"
-  nodo_info_guardar "$ev" >/dev/null 2>&1 || aviso "No pude leer el alcance del nodo (se verá al encender)"
+  if nodo_info_guardar "$ev" >/dev/null 2>&1; then
+    evento_fin_actualizar || aviso "No pude leer la fecha de fin del evento"
+  else
+    aviso "No pude leer el alcance del nodo (se verá al encender)"
+  fi
   paso "6/$total Listo"
   ok "Evento preparado en esta Mac. Siguiente: «Encender»."
   return 0
@@ -929,8 +937,47 @@ cmd_subir_auto() {
   local rc=$?
   paso "3/$total Terminando"
   [ "$seco" = 1 ] || nodo_info_guardar "$ev" >/dev/null 2>&1 || true
+  if [ "$seco" = 0 ] && [ "$rc" = 0 ] && nodo_final; then
+    # Subió su final: el certificado real (si lo había) ya no se necesita en esta Mac.
+    if cert_real_retirar; then
+      cert_local_crear >/dev/null || aviso "No se pudo crear el certificado local"
+      caddy_reiniciar
+      ok "Se borró de esta Mac el certificado real y su llave (el nodo sigue con el local)"
+    fi
+  fi
   sync_rc_mensaje "$rc"
   return "$rc"
+}
+
+# EVENTO_FIN = ends_on del evento preparado (de run/nodo-info.json, que escribe nodo_info_guardar).
+evento_fin_actualizar() {
+  local fin
+  [ -s "$RUN_DIR/nodo-info.json" ] || return 1
+  fin="$(sed -n 's/.*"event_ends_on":"\([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\)".*/\1/p' "$RUN_DIR/nodo-info.json" | head -1)"
+  [ -n "$fin" ] || return 1
+  [ "$fin" = "$EVENTO_FIN" ] || { config_set EVENTO_FIN "$fin"; EVENTO_FIN="$fin"; }
+  return 0
+}
+
+# ¿Este nodo ya subió su final? (estado local de su fila, guardado por nodo_info_guardar)
+nodo_final() { [ -s "$RUN_DIR/nodo-info.json" ] && grep -q '[{,]"status":"FINAL"' "$RUN_DIR/nodo-info.json"; }
+
+# ¿El evento ya terminó (después de su último día) o este nodo ya subió su final?
+evento_terminado() {
+  nodo_final && return 0
+  [ -n "$EVENTO_FIN" ] || return 1
+  [[ "$(date '+%Y-%m-%d')" > "$EVENTO_FIN" ]]
+}
+
+# Borra el certificado REAL (Let's Encrypt de los dominios de la plataforma) y su llave de esta Mac.
+# El de la CA local se conserva. Devuelve 0 sólo si borró algo. Sólo dos archivos con ruta fija.
+cert_real_retirar() {
+  [ -n "${NODO_DIR:-}" ] || return 1
+  [ -s "${NODO_DIR:?}/tls/actual/fullchain.pem" ] || return 1
+  cert_info
+  [ "$CERT_TIPO" = ca-local ] && return 1
+  rm -f "${NODO_DIR:?}/tls/actual/fullchain.pem" "${NODO_DIR:?}/tls/actual/privkey.pem"
+  return 0
 }
 
 # Alcance de ESTE nodo (fila local de event_offline_nodes), sin red. Se guarda en run/nodo-info.json
