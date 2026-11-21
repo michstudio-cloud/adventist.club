@@ -22,6 +22,11 @@ RoleName = Literal[
 ]
 
 
+class EventDirectorRequest(BaseModel):
+    """«Mi club ya está en el evento»: the club's registration in an open event."""
+    registration_id: uuid.UUID
+
+
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(max_length=256)
@@ -40,6 +45,9 @@ class RegisterRequest(BaseModel):
     invitation_token: str | None = Field(default=None, min_length=10, max_length=512)
     # A minor joining with an invitation: where to ask for the authorization.
     guardian_email: EmailStr | None = None
+    # Instead of opening a new club: ask to be the director of a club already in an
+    # open event. The account is created now; the event's administration approves it.
+    event_director_request: EventDirectorRequest | None = None
 
 
 class RegisteredMembership(BaseModel):

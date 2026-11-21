@@ -53,6 +53,7 @@ from app.schemas.event import (
     DirectorsImport,
     DirectorsImportOut,
     DirectorsOut,
+    OpenEventClubOut,
     EventInvitationOut,
     PersonSearchOut,
     StaffInvite,
@@ -90,6 +91,14 @@ async def create_event(payload: EventCreate, request: Request,
     await db.commit()
     await db.refresh(event)
     return await event_service.event_out(db, event, await event_service.roles_for(db, current_user, event))
+
+
+@router.get("/directors/clubs", response_model=list[OpenEventClubOut])
+@limiter.limit("60/minute")
+async def open_event_clubs(request: Request, q: str = Query(default="", max_length=80),
+                           db: AsyncSession = Depends(get_db)):
+    """Sign-up form, «Director(a) de club»: clubs already registered in an open event (no session)."""
+    return [OpenEventClubOut(**row) for row in await onboarding.open_event_clubs(db, q)]
 
 
 @router.get("/{event_id}", response_model=EventOut)
@@ -562,6 +571,19 @@ async def list_event_invitations(event_id: uuid.UUID, include_dead: bool = False
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     return [EventInvitationOut(**item) for item in await onboarding.event_invitations(db, event, include_dead=include_dead)]
+
+
+@router.post("/{event_id}/invitations/{invitation_id}/approve", response_model=DirectorLinkOut)
+async def approve_director_request(event_id: uuid.UUID, invitation_id: uuid.UUID, request: Request,
+                                   current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """«Aprobar» a director who asked for the club from the sign-up form."""
+    event = await event_service.get_event(db, event_id)
+    roles = await event_service.require_coordination(db, current_user, event)
+    invitation = await onboarding.get_event_invitation(db, event, invitation_id)
+    club = await onboarding.approve_director_request(db, current_user, roles, event, invitation, request)
+    await db.commit()
+    row = next(item for item in await onboarding.directors(db, event) if item["club_id"] == str(club.id))
+    return DirectorLinkOut(action="approved", club=row)
 
 
 @router.post("/{event_id}/invitations/{invitation_id}/resend", response_model=EventInvitationOut,
