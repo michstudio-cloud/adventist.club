@@ -48,7 +48,7 @@ vacío o ilegible usa el valor por omisión (con aviso), nunca apaga el límite.
 | Variable | Por omisión | Qué limita |
 | --- | --- | --- |
 | `RATE_LIMIT_ENABLED` | `true` | Interruptor general |
-| `RATE_LIMIT_LOGIN` | `60/minute` | Por IP: `/auth/login` y `/auth/mfa/verify` |
+| `RATE_LIMIT_LOGIN` | `60/minute` | Por IP: `/auth/login`, `/auth/mfa/verify` y `/auth/passkeys/login/*` |
 | `RATE_LIMIT_LOGIN_ACCOUNT` | `10/15 minutes` | Por correo: `/auth/login` (en el nodo, techo `60/15 minutes`) |
 | `LOGIN_LOCKOUT_MODE` | `account` | `account` (producción) o `device` (nodo del evento): ver abajo |
 | `RATE_LIMIT_LOGIN_ACCOUNT_DEVICE` | `5/5 minutes` | Sólo en modo `device`: por correo + dispositivo (IP) |
@@ -58,6 +58,7 @@ vacío o ilegible usa el valor por omisión (con aviso), nunca apaga el límite.
 | `RATE_LIMIT_FORGOT_PASSWORD` | `20/hour` | Por IP: `/auth/forgot-password` |
 | `RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT` | `3/hour` | Por correo: `/auth/forgot-password` |
 | `RATE_LIMIT_RESET_PASSWORD` | `30/minute` | Por IP: `/auth/reset-password` |
+| `RATE_LIMIT_PASSKEY_REGISTER` | `20/hour` | Por cuenta (por IP sin sesión): `/auth/passkeys/register/options` y `/register/verify`, cada una con su cuenta |
 | `RATE_LIMIT_INVITATION_PREVIEW` | `30/minute` | Por IP: vistas previas de invitaciones de membresía, de consentimiento y de organización |
 | `PROXY_SHARED_SECRET` | sin valor | Secreto compartido con el servidor de Next (≥ 32 caracteres). Sin valor, `X-Proxy-Client-IP` nunca se cree |
 | `NODO_OPERADOR_TOKEN` | sin valor | Sólo en el nodo: token de coordinación (≥ 32 caracteres) para `/api/v1/nodo/operador/*`. Sin valor (o más corto), esas rutas responden 404 |

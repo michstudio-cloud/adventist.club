@@ -20,6 +20,7 @@ RATE_LIMIT_FIELDS = (
     "RATE_LIMIT_FORGOT_PASSWORD_ACCOUNT",
     "RATE_LIMIT_RESET_PASSWORD",
     "RATE_LIMIT_INVITATION_PREVIEW",
+    "RATE_LIMIT_PASSKEY_REGISTER",
 )
 # Shorter shared secrets are ignored (with a warning): the header they unlock decides rate limits.
 PROXY_SECRET_MIN_LENGTH = 32
@@ -47,6 +48,16 @@ class Settings(BaseSettings):
     # Off by default: the code ships first and enforcement is turned on once
     # every seeded MASTER_GC has enrolled, so nobody is ever locked out.
     MASTER_MFA_ENFORCED: bool = False
+    # --- Passkeys / WebAuthn (032; docs/PASSKEYS.md). Optional: without WEBAUTHN_RP_ID *and*
+    # WEBAUTHN_ORIGINS the passkey endpoints answer 404, nothing reads the 032 tables and the
+    # web app hides every passkey control. That is also the emergency switch-off.
+    # The RP ID is a registrable suffix of every host the web is served from ("adventist.club"
+    # covers events. and admin.); conquistadores.app is authorized by the web app's
+    # /.well-known/webauthn (Related Origin Requests). The event node leaves it unset.
+    WEBAUTHN_RP_ID: str | None = None
+    WEBAUTHN_RP_NAME: str = "Adventist.Club"
+    # Exact origins (scheme + host [+ port], comma-separated) a ceremony may come from.
+    WEBAUTHN_ORIGINS: str = ""
     # `organizations.code` of the entity that issues certificates (Unión/Asociación).
     # PROTOTYPE keeps the self-created placeholder until the real one exists.
     ISSUER_ORGANIZATION_CODE: str = "PROTOTYPE"
@@ -158,6 +169,8 @@ class Settings(BaseSettings):
     RATE_LIMIT_RESET_PASSWORD: str = "30/minute"
     # Public previews of membership / consent / organization invitation links.
     RATE_LIMIT_INVITATION_PREVIEW: str = "30/minute"
+    # Per account (per address without a session): registering a passkey (options + verify).
+    RATE_LIMIT_PASSKEY_REGISTER: str = "20/hour"
     # Shared with the web app's server (Next.js session bridge and /api/v1 proxy). Only a request
     # carrying it in `X-Proxy-Auth` may name the real client address in `X-Proxy-Client-IP`;
     # unset (the default, e.g. on a local event node) means that header is never trusted.
@@ -189,6 +202,7 @@ class Settings(BaseSettings):
         "LE_EMAIL",
         "NODO_SYNC_SECRET",
         "NODO_OPERADOR_TOKEN",
+        "WEBAUTHN_RP_ID",
         mode="before",
     )
     @classmethod
@@ -208,6 +222,7 @@ class Settings(BaseSettings):
         "EMAIL_FROM_NAME",
         "EVENT_PASS_URL_BASE",
         "NODO_HOSTNAMES",
+        "WEBAUTHN_RP_NAME",
         mode="before",
     )
     @classmethod
@@ -293,6 +308,19 @@ class Settings(BaseSettings):
     @property
     def cors_list(self) -> list[str]:
         return [x.strip() for x in self.CORS_ORIGINS.split(",") if x.strip()]
+
+    @property
+    def webauthn_origins(self) -> list[str]:
+        return [x.strip().rstrip("/") for x in self.WEBAUTHN_ORIGINS.split(",") if x.strip()]
+
+    @property
+    def webauthn_rp_id(self) -> str:
+        return (self.WEBAUTHN_RP_ID or "").strip().lower()
+
+    @property
+    def webauthn_enabled(self) -> bool:
+        """Passkeys are on only with an RP ID *and* at least one allowed origin."""
+        return bool(self.webauthn_rp_id and self.webauthn_origins)
 
     @property
     def apple_maps_configured(self) -> bool:

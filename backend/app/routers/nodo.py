@@ -37,6 +37,7 @@ from app.security import RECENT_AUTH_SECONDS
 from app.services import event_nodes, event_pass, node_certs, nodo_crypto, nodo_egreso, nodo_malla
 from app.services import event_scores as scores
 from app.services import events as event_service
+from app.services import mfa as mfa_service
 from app.services import nodo_sync_core as core
 from app.services.audit import _valid_ip
 
@@ -100,7 +101,7 @@ def _http(exc: core.SyncError) -> HTTPException:
 
 def require_recent_auth(user: User) -> None:
     """Recent login (+ second factor when the account has one). 401 with X-Reauth-Required."""
-    if user.mfa_enabled and not getattr(user, "token_born_of_mfa", False):
+    if mfa_service.has_second_factor(user) and not getattr(user, "token_born_of_mfa", False):
         raise HTTPException(status.HTTP_403_FORBIDDEN, NEEDS_MFA, headers={"X-Reauth-Required": "1"})
     auth_time = getattr(user, "token_auth_time", 0) or 0
     if time.time() - auth_time > RECENT_AUTH_SECONDS:

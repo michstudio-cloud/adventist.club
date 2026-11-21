@@ -19,6 +19,8 @@ PyJWT==2.10.1
 cryptography==50.0.1
 bcrypt==4.3.0
 pyotp==2.9.0
+# Passkeys (WebAuthn, migration 032): ceremony options and verification
+webauthn==3.0.1
 qrcode==8.2
 pillow==12.3.0
 slowapi==0.1.9
