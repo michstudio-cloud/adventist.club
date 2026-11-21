@@ -71,6 +71,7 @@ from app.security import (
 )
 from app.services import email as email_service
 from app.services import clubs as club_service
+from app.services import director_requests as director_request_service
 from app.services import invitations as invitation_service
 from app.services import ministries as ministry_service
 from app.services import ministry_context
@@ -162,6 +163,19 @@ async def register(
             status.HTTP_400_BAD_REQUEST,
             "Pide ser director de un club del evento o registra un club nuevo, no las dos cosas.",
         )
+    if payload.club_director_request is not None and (
+        payload.club is not None
+        or payload.event_director_request is not None
+        or payload.invitation_token
+        or payload.role not in (CLUB_DIRECTOR, INSTRUCTOR)
+    ):
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Pide ser director de un club existente o registra un club nuevo, no las dos cosas.",
+        )
+    asks_for_a_club = (
+        payload.event_director_request is not None or payload.club_director_request is not None
+    )
     if payload.invitation_token and payload.club is not None:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST,
@@ -185,7 +199,7 @@ async def register(
         name=payload.name.strip(),
         # Asking for a club already in an event: an adult account; the club role arrives
         # with the administration's approval (never a director without a club).
-        role=INSTRUCTOR if payload.event_director_request is not None else payload.role,
+        role=INSTRUCTOR if asks_for_a_club else payload.role,
         organization_id=payload.organization_id,
         is_minor=is_minor,
         birth_date=payload.birth_date,
@@ -209,14 +223,38 @@ async def register(
     # The director's club too: a refused club (unknown association, duplicate
     # name) rolls the whole registration back. Same for the invitation: a bad
     # token must not leave an account behind.
+    new_club = None
     if payload.club is not None:
-        await club_service.stage_pending_club(db, user, payload.club, request)
+        new_club = await club_service.stage_pending_club(db, user, payload.club, request)
     director_request = None
+    # What the association's administrators are told after the commit (never failing this request).
+    admin_notice = None
     if payload.event_director_request is not None:
         from app.services import event_onboarding
 
         director_request = await event_onboarding.request_director(
             db, user, payload.event_director_request.registration_id, request
+        )
+        admin_notice = await director_request_service.event_notice(
+            db, payload.event_director_request.registration_id
+        )
+    if payload.club_director_request is not None:
+        requested_club = await director_request_service.request_existing_club(
+            db, user, payload.club_director_request.club_id, request
+        )
+        director_request = "requested_club"
+        admin_notice = (
+            director_request_service.NOTICE_DIRECTOR_REQUEST,
+            requested_club,
+            director_request_service.admin_requests_url(),
+            None,
+        )
+    if new_club is not None:
+        admin_notice = (
+            director_request_service.NOTICE_CLUB_REQUEST,
+            new_club,
+            director_request_service.admin_pending_clubs_url(),
+            None,
         )
     membership = club = consent_token = None
     if payload.invitation_token:
@@ -260,6 +298,12 @@ async def register(
         token_row.token,
         payload.host,
     )
+    if admin_notice is not None:
+        kind, notice_club, link, event_name = admin_notice
+        director_request_service.queue_admin_notice(
+            background, kind, notice_club, person_name=user.name, person_email=user.email,
+            link=link, event_name=event_name,
+        )
 
     message = "User created successfully. "
     if user.is_minor:
@@ -268,6 +312,8 @@ async def register(
         message += "Child protection certification required. "
     if director_request == "requested":
         message += "Your request to direct the club is waiting for the event's approval. "
+    if director_request == "requested_club":
+        message += "Your request to direct the club is waiting for your association's approval. "
     if user.role == CLUB_DIRECTOR:
         message += (
             "Your club is pending approval by your association. "

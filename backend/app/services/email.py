@@ -965,6 +965,60 @@ def letter_submitted_email_html(
     )
 
 
+ADMIN_REQUEST_DIRECTOR = "ADMIN_DIRECTOR_REQUEST"
+ADMIN_REQUEST_CLUB = "ADMIN_CLUB_REQUEST"
+
+
+def admin_request_email_html(
+    admin_name: str,
+    kind: str,
+    club_name: str,
+    person_name: str,
+    person_email: str,
+    link: str,
+    association_name: str | None = None,
+    event_name: str | None = None,
+) -> str:
+    """To the association's administrators: somebody asked to direct a club, or asked for a new
+    club. It names the ADULT who asked (name and e-mail, so the administration can call them)."""
+    club = escape(club_name)
+    person = escape(person_name or person_email)
+    address = escape(person_email)
+    if kind == ADMIN_REQUEST_CLUB:
+        heading = "Un club nuevo espera aprobación"
+        what = f"{_strong(person)} ({address}) registró el club {_strong(club)} y pide su aprobación."
+        action = "Revisar el club"
+        preheader = f"{person} registró el club {club}."
+    else:
+        heading = "Alguien pide dirigir un club"
+        where = f" en el evento «{escape(event_name)}»" if event_name else ""
+        what = f"{_strong(person)} ({address}) pide ser director(a) de {_strong(club)}{where}."
+        action = "Aprobar o rechazar"
+        preheader = f"{person} pide ser director(a) de {club}."
+    scope = f" de {escape(association_name)}" if association_name else ""
+    body = (
+        _hello(admin_name)
+        + _p(what)
+        + _notice(
+            "info",
+            "Antes de aprobar",
+            "Confirma que esa persona dirige el club. Si su cuenta aún no verificó el correo, "
+            "al aprobar le enviaremos la invitación a esa dirección y sólo desde ese buzón podrá completarla.",
+        )
+        + _button(action, _safe_url(link, f"{_admin_url()}/admin"))
+    )
+    return _render(
+        title=f"{heading} - Adventist.Club",
+        preheader=preheader,
+        eyebrow="Administración",
+        heading=heading,
+        tone="blue",
+        body=body,
+        reason=f"Recibes este correo porque administras la asociación{scope} en {STAFF_PRODUCT}.",
+        audience="staff",
+    )
+
+
 def letter_decision_email_html(
     name: str, status: str, valid_until: str | None, note: str | None
 ) -> str:
@@ -1473,6 +1527,32 @@ async def send_letter_submitted_email(
         "Carta de iglesia por validar - Adventist.Club",
         letter_submitted_email_html(reviewer_name, applicant_name, role, link),
     )
+
+
+async def send_admin_request_email(
+    to: str,
+    admin_name: str,
+    kind: str,
+    club_name: str,
+    person_name: str,
+    person_email: str,
+    link: str,
+    association_name: str | None = None,
+    event_name: str | None = None,
+) -> bool:
+    subject = (
+        "Club nuevo por aprobar - Adventist.Club"
+        if kind == ADMIN_REQUEST_CLUB
+        else "Solicitud de director de club - Adventist.Club"
+    )
+    try:
+        html = admin_request_email_html(
+            admin_name, kind, club_name, person_name, person_email, link, association_name, event_name
+        )
+    except Exception:  # never let a template problem surface to the caller
+        logger.exception("Failed to render the admin request email")
+        return False
+    return await send_email(to, subject, html)
 
 
 async def send_letter_decision_email(

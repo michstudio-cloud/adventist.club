@@ -33,6 +33,11 @@ class EventDirectorRequest(BaseModel):
     registration_id: uuid.UUID
 
 
+class ClubDirectorRequest(BaseModel):
+    """«Pedir ser director de este club»: an existing active club of the chosen association."""
+    club_id: uuid.UUID
+
+
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(max_length=256)
@@ -54,6 +59,7 @@ class RegisterRequest(BaseModel):
     # Instead of opening a new club: ask to be the director of a club already in an
     # open event. The account is created now; the event's administration approves it.
     event_director_request: EventDirectorRequest | None = None
+    club_director_request: ClubDirectorRequest | None = None
     # The site the verification link opens on (default: the member app).
     host: LinkHost | None = None
 

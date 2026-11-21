@@ -445,7 +445,7 @@ async def test_judge_progress(client, w, ev):
 # ----------------------------------------------------------------------------
 # Historial
 # ----------------------------------------------------------------------------
-async def test_history_shows_check_ins_and_hides_names_from_directors(client, w, ev):
+async def test_history_shows_check_ins_and_names_only_judges_to_directors(client, w, ev):
     url = f"{ev['url']}/history"
     items = (await _ok(await client.get(url, params={"registration_id": ev["regs"]["a"], "limit": 200},
                                         headers=w["coordinator"]["headers"])))["items"]
@@ -464,10 +464,13 @@ async def test_history_shows_check_ins_and_hides_names_from_directors(client, w,
     assert scan["actor"]["as"] == "JUDGE" and scan["points"] == 150
     voided = next(i for i in items if i["type"] == "EVALUATION_VOIDED")
     assert voided["reason"] == "Se escaneó el club equivocado" and voided["activity"]["name"] == "Llegada"
-    # A director: the same entries of their club, the role and never the name.
+    # A director: the same entries of their club; the judge is named, coordination only by its role
+    # (decision of the event's owner, Camporee 2026; before, 028 hid every name).
     mine = (await _ok(await client.get(url, params={"limit": 200}, headers=w["director_a"]["headers"])))["items"]
     assert [i["id"] for i in mine] == [i["id"] for i in items]
-    assert all(i["actor"]["name"] is None and i["actor"]["as"] in ("JUDGE", "COORDINATION") for i in mine)
+    assert all(i["actor"]["as"] in ("JUDGE", "COORDINATION") for i in mine)
+    assert all(i["actor"]["name"] is None for i in mine if i["actor"]["as"] == "COORDINATION")
+    assert all(i["actor"]["name"] for i in mine if i["actor"]["as"] == "JUDGE")
     # Judges and coordination keep the names.
     judged = (await _ok(await client.get(url, headers=w["judge"]["headers"])))["items"]
     assert judged and all(i["actor"]["name"] for i in judged)

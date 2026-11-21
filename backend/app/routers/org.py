@@ -297,13 +297,21 @@ async def _pending_rows(db: AsyncSession, clubs: list[Organization]) -> list[Pen
 async def request_club(
     payload: ClubSignup,
     request: Request,
+    background: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """A CLUB_DIRECTOR without a club opens one. It stays `pending` until a
     coordinator of the association approves it."""
+    from app.services import director_requests
+
     club = await club_service.stage_pending_club(db, current_user, payload, request)
     await db.commit()
+    # The association's administrators hear it (after the commit, never failing this request).
+    director_requests.queue_admin_notice(
+        background, director_requests.NOTICE_CLUB_REQUEST, club, person_name=current_user.name,
+        person_email=current_user.email, link=director_requests.admin_pending_clubs_url(),
+    )
     return await _out(db, club)
 
 
