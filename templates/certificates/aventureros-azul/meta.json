@@ -1,0 +1,21 @@
+{
+  "title": "Aventureros · Bloques azules",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "adventurers"
+  ],
+  "engine": "elements",
+  "source": "scratchpad/aventureros-azul",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
+  ]
+}
