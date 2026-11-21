@@ -382,6 +382,13 @@ class ResolvePass(_Body):
     token: str = Field(min_length=8, max_length=500)
 
 
+class PassDirectorSelf(_Body):
+    """The director, with the club's pass in hand, creates their own account (`/p/<token>`)."""
+    token: str = Field(min_length=8, max_length=500)
+    name: str = Field(min_length=2, max_length=120)
+    email: str = Field(min_length=3, max_length=254)
+
+
 class _PassOrRegistration(_Body):
     """Exactly one: what the camera read (bare token or the QR's URL), or the club picked by
     hand from the list (manual fallback)."""

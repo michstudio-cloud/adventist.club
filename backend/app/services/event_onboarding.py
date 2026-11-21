@@ -334,6 +334,80 @@ async def link_director(
 
 
 # ----------------------------------------------------------------------------
+# El director se registra solo con el pase del club (`/p/<token>`, sin sesión)
+# ----------------------------------------------------------------------------
+SELF_CLOSED = "El registro de directores no está abierto en este evento. Pide ayuda a la coordinación."
+SELF_NOT_ARRIVED = "Primero registren la llegada del club en la mesa de registro; luego escanea otra vez tu pase."
+SELF_HAS_DIRECTOR = "Este club ya tiene director. Si eres tú, inicia sesión con tu correo."
+SELF_OTHER_PENDING = "Alguien más ya se está registrando como director de este club con otro correo. Pide ayuda a la coordinación."
+SELF_NOT_ELIGIBLE = "Ese correo no puede quedar como director de este club. Pide ayuda a la coordinación."
+
+
+async def self_register_director(
+    db: AsyncSession, registration: EventRegistration, *, name: str, email: str, request: Request | None,
+) -> LinkResult:
+    """Whoever holds the club's pass, once the club's arrival is registered, becomes its director:
+    a CLUB_DIRECTOR invitation (the same one «Vincular director» makes, issued in the name of
+    whoever registered the club) whose link is returned at once so they create the account right
+    there; the e-mail goes too. Only while the club has no director and no other pending address
+    — the first one wins and coordination sees it in Clubes (and can revoke it)."""
+    from app.services import clubs as club_service
+    from app.security import ADMIN_ROLES
+
+    event = await db.get(Event, registration.event_id)
+    if event is None or event.status not in ("OPEN", "IN_PROGRESS") or event.offline_locked_at is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, SELF_CLOSED)
+    if registration.checked_in_at is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, SELF_NOT_ARRIVED)
+    club = await db.get(Organization, registration.club_id)
+    email = _normalize(email)
+    if not _valid_email(email):
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Correo no válido.")
+    name = " ".join((name or "").split())[:120]
+    if len(name) < 2:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Escribe tu nombre.")
+
+    current = (await _directors_by_club(db, [club.id])).get(club.id)
+    if current is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, SELF_HAS_DIRECTOR)
+    pending = (await _pending_director_invitations(db, [club.id])).get(club.id)
+    if pending is not None:
+        if _normalize(pending.email) != email:
+            raise HTTPException(status.HTTP_409_CONFLICT, SELF_OTHER_PENDING)
+        # The same address again (lost the screen, or was linked by coordination): a fresh link.
+        pending.revoked_at = utcnow()
+        await db.flush()
+
+    person = (await db.execute(select(User).where(User.email == email))).scalar_one_or_none()
+    if person is not None:
+        if person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE":
+            raise HTTPException(status.HTTP_409_CONFLICT, SELF_NOT_ELIGIBLE)
+        if await club_service.leads_a_club(db, person):
+            raise HTTPException(status.HTTP_409_CONFLICT, SELF_NOT_ELIGIBLE)
+
+    inviter = None
+    for candidate in (registration.registered_by_id, registration.checked_in_by_id):
+        if candidate is None:
+            continue
+        user = await db.get(User, candidate)
+        if user is not None and await org_invitations.can_invite(db, user, CLUB_DIRECTOR, club):
+            inviter = user
+            break
+    if inviter is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, SELF_CLOSED)
+
+    invitation, token = await org_invitations.create(
+        db, organization=club, actor=inviter, role=CLUB_DIRECTOR, email=email, request=request,
+        return_to=event_url(event, "/club"),
+        on_accept={"type": DIRECTOR_TYPE, "event_id": str(event.id), "name": name},
+    )
+    record_audit(db, action="EVENT_DIRECTOR_SELF_REGISTER", entity_type="EVENT", entity_id=event.id, actor=inviter,
+                 metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "via": "pass"},
+                 request=request)
+    return LinkResult("invite", registration.id, club, invitation=invitation, token=token)
+
+
+# ----------------------------------------------------------------------------
 # «Importar lista»: club, director, correo
 # ----------------------------------------------------------------------------
 IMPORT_COLUMNS = ("club", "director", "correo_director")
