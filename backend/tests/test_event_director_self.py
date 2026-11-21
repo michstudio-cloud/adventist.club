@@ -83,26 +83,38 @@ async def test_director_registers_with_the_pass_after_arrival(client, factory, w
     first = await client.post(SELF, json=body)
     assert first.status_code == 200, first.text
     out = first.json()
-    assert out["club_name"]
-    assert out["url"].startswith("https://events.adventist.club/invitacion?t=")
-    row = await fetch_one("SELECT role, return_to, on_accept FROM org_invitations WHERE email = :e AND revoked_at IS NULL",
+    # A request, never a link in the response (a pass is printed and photographed).
+    assert out["club_name"] and out["status"] == "requested" and "url" not in out
+    row = await fetch_one("SELECT id, role, return_to, on_accept FROM org_invitations WHERE email = :e AND revoked_at IS NULL",
                           e=email)
-    assert row["role"] == "CLUB_DIRECTOR" and row["on_accept"]["name"] == "Directora A"
+    assert row["role"] == "CLUB_DIRECTOR" and row["on_accept"]["name"] == "Directora A" and row["on_accept"]["request"]
     assert row["return_to"] == f"https://events.adventist.club/{w['event']}/club"
+    assert await fetch_one("SELECT id FROM notification_log WHERE entity_id = :id", id=str(row["id"])) is None
 
-    # Same address again: a fresh link, the old one dies.
+    # Same address again: nothing new.
     again = await client.post(SELF, json=body)
-    assert again.status_code == 200 and again.json()["url"] != out["url"]
+    assert again.status_code == 200 and again.json()["status"] == "requested"
     live = await fetch_one("SELECT count(*) AS n FROM org_invitations WHERE email = :e AND revoked_at IS NULL", e=email)
     assert live["n"] == 1
     # Another address while that one is pending: refused.
     other = await client.post(SELF, json={**body, "email": factory.email("other-a")})
     assert other.status_code == 409
 
+    # «Aprobar» with no account for that address: the link goes by e-mail, and only that mailbox can use it.
+    approved = await client.post(f"{API}/{w['event']}/invitations/{row['id']}/approve", headers=w["admin"]["headers"])
+    assert approved.status_code == 200, approved.text
+    assert approved.json()["action"] == "invite" and approved.json()["club"]["state"] == "INVITED"
+    renewed = await fetch_one("SELECT id, on_accept FROM org_invitations WHERE email = :e AND revoked_at IS NULL"
+                              " AND accepted_at IS NULL", e=email)
+    assert renewed["on_accept"]["request"] is False
+    assert await fetch_one("SELECT id FROM notification_log WHERE entity_id = :id", id=str(renewed["id"]))
+    # The administration can still choose an existing account directly (the e-mailed invitation goes away).
     person = await factory.user("dir-a", "STUDENT")
-    assert (await client.post(ACCEPT, json={"token": _token(out["url"])}, headers=person["headers"])).status_code != 200
-    ok = await client.post(ACCEPT, json={"token": _token(again.json()["url"])}, headers=person["headers"])
-    assert ok.status_code == 200, ok.text
+    assert (await client.delete(f"{API}/{w['event']}/invitations/{renewed['id']}",
+                                headers=w["admin"]["headers"])).status_code == 204
+    link = await client.post(f"{API}/{w['event']}/registrations/{w['registrations']['a']}/director",
+                             json={"name": "Directora A", "email": email}, headers=w["admin"]["headers"])
+    assert link.status_code == 200 and link.json()["action"] == "appoint"
     mine = await client.get(f"{API}/{w['event']}/my", headers=person["headers"])
     assert [item["club"]["id"] for item in mine.json()["director"]["registrations"]] == [w["clubs"]["a"]["id"]]
 

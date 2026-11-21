@@ -612,15 +612,20 @@ async def list_event_invitations(event_id: uuid.UUID, include_dead: bool = False
 
 @router.post("/{event_id}/invitations/{invitation_id}/approve", response_model=DirectorLinkOut)
 async def approve_director_request(event_id: uuid.UUID, invitation_id: uuid.UUID, request: Request,
-                                   current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+                                   background: BackgroundTasks, current_user: User = Depends(get_current_user),
+                                   db: AsyncSession = Depends(get_db)):
     """«Aprobar» a director who asked for the club from the sign-up form."""
     event = await event_service.get_event(db, event_id)
     roles = await event_service.require_coordination(db, current_user, event)
     invitation = await onboarding.get_event_invitation(db, event, invitation_id)
-    club = await onboarding.approve_director_request(db, current_user, roles, event, invitation, request)
+    club, renewed, token = await onboarding.approve_director_request(db, current_user, roles, event, invitation,
+                                                                     request)
+    send = await _queue(background, db, event, renewed, token, current_user) if token else None
     await db.commit()
+    if send:
+        send()
     row = next(item for item in await onboarding.directors(db, event) if item["club_id"] == str(club.id))
-    return DirectorLinkOut(action="approved", club=row)
+    return DirectorLinkOut(action="invite" if token else "approved", club=row)
 
 
 @router.post("/{event_id}/invitations/{invitation_id}/resend", response_model=EventInvitationOut,
@@ -966,21 +971,20 @@ async def resolve_any_pass(payload: ResolvePass, request: Request,
 async def pass_director_self_register(payload: PassDirectorSelf, request: Request, background: BackgroundTasks,
                                       db: AsyncSession = Depends(get_db)):
     """`/p/<token>` without a session: the director scans the club's pass, writes name and e-mail,
-    and gets the invitation link to create the account already tied to the club (also e-mailed).
-    Unknown or withdrawn pass: the same neutral 404 as `/pass/resolve`."""
+    and ASKS to be the club's director (approved in Clubes). Unknown or withdrawn pass: the same
+    neutral 404 as `/pass/resolve`."""
     row = await scores.find_by_pass(db, payload.token)
     if row is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
     result = await onboarding.self_register_director(db, row, name=payload.name, email=payload.email,
                                                      request=request)
     event = await event_service.get_event(db, row.event_id)
-    inviter = await db.get(User, result.invitation.created_by_id)
-    send = await _queue(background, db, event, result.invitation, result.token, inviter)
     await db.commit()
-    send()
-    links = onboarding.share_links(event, result.invitation, result.token)
+    # Never a link here: the request waits for «Aprobar» (or the administration's e-mail already sent).
+    status_name = "already_linked" if result.action == "invitation_pending" and not (
+        (result.invitation.on_accept or {}).get("request")) else "requested"
     return {"club_name": result.club.name, "event_name": event.name, "email": result.invitation.email,
-            "url": links["url"]}
+            "status": status_name}
 
 
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")
