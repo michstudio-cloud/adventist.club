@@ -19,8 +19,8 @@ An EVALUATION_CREATED granted automatically (captured_as AUTO_CHECKIN / AUTO_SCA
 Who sees what (the router decides, `Scope` carries it):
   * coordination (COORDINATOR staff, admins in scope): everything, pending included;
   * a judge: the entries of the activities they judge (all of them when assigned to all);
-  * a director: only their own club's registrations, never pending items; they see who
-    scored (the judge's name), like coordination (before, 028 hid it: `Scope.hide_names`).
+  * a director: only their own club's registrations, never pending items; the judge who
+    scored is named (`Scope.show_judge_names`), coordination only by its role (`hide_names`, 028).
 Newest first; `before` is an opaque cursor (the last item's position). Item ids are stable:
 `ev:<evaluation>` (capture), `rv:<revision>`, `aa:<adjustment>` (applied), `av:<adjustment>`,
 `ci:<check-in>`, `cu:<check-in>` (undone).
@@ -60,6 +60,8 @@ class Scope:
     include_pending: bool = False
     # Directors: the role only, never who (028, «sin nombre del juez»).
     hide_names: bool = False
+    # With `hide_names`: still name the people who acted AS judges (the director sees who scored).
+    show_judge_names: bool = False
 
 
 def encode_cursor(at: datetime, item_id: str) -> str:
@@ -197,7 +199,10 @@ async def page(db: AsyncSession, event: Event, scope: Scope, *, registration_id:
             points=None if row["points"] is None else float(row["points"]),
             previous_points=None if row["previous_points"] is None else float(row["previous_points"]),
             kind=row["kind"], auto=row["auto"],
-            actor=HistoryActor(name=None if scope.hide_names else row["actor_name"], as_=row["actor_as"]),
+            actor=HistoryActor(
+                name=row["actor_name"] if (not scope.hide_names or (scope.show_judge_names and row["actor_as"] == "JUDGE"))
+                else None,
+                as_=row["actor_as"]),
             reason=row["reason"], pending=bool(row["pending"]),
         )
         for row in rows
