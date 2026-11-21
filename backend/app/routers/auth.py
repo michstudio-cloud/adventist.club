@@ -258,6 +258,7 @@ async def register(
         user.name,
         token_row.code,
         token_row.token,
+        payload.host,
     )
 
     message = "User created successfully. "
@@ -671,7 +672,7 @@ async def verify_email_link_post(
 # ----------------------------------------------------------------------------
 # Password reset
 # ----------------------------------------------------------------------------
-async def _process_forgot_password(email: str) -> None:
+async def _process_forgot_password(email: str, host: str | None = None) -> None:
     """
     Runs after the response has been sent, so the response time is identical
     whether or not the account exists. Own session, one transaction.
@@ -686,7 +687,7 @@ async def _process_forgot_password(email: str) -> None:
             await db.commit()
         code_attempts.reset(f"reset:{user.id}")
         await email_service.send_password_reset_email(
-            user.email, user.name, token_row.code, token_row.token
+            user.email, user.name, token_row.code, token_row.token, host
         )
     except Exception:
         logger.exception("forgot-password processing failed")
@@ -698,7 +699,7 @@ async def forgot_password(
     request: Request, payload: ForgotPasswordRequest, background: BackgroundTasks
 ):
     FORGOT_PASSWORD_ACCOUNT_LIMIT.hit(payload.email)
-    background.add_task(_process_forgot_password, payload.email.strip().lower())
+    background.add_task(_process_forgot_password, payload.email.strip().lower(), payload.host)
     return MessageResponse(message=FORGOT_PASSWORD_MESSAGE)
 
 
