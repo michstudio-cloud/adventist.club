@@ -980,6 +980,15 @@ async def pass_director_self_register(payload: PassDirectorSelf, request: Reques
                                                      request=request)
     event = await event_service.get_event(db, row.event_id)
     await db.commit()
+    if result.action == "invite":
+        # A new request: the association's administrators hear it (after the commit, never failing this).
+        from app.services import director_requests
+
+        director_requests.queue_admin_notice(
+            background, director_requests.NOTICE_DIRECTOR_REQUEST, result.club,
+            person_name=" ".join((payload.name or "").split()), person_email=result.invitation.email,
+            link=onboarding.event_url(event, "/clubes"), event_name=event.name,
+        )
     # Never a link here: the request waits for «Aprobar» (or the administration's e-mail already sent).
     status_name = "already_linked" if result.action == "invitation_pending" and not (
         (result.invitation.on_accept or {}).get("request")) else "requested"
