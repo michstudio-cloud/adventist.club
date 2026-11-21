@@ -567,7 +567,13 @@ async def judge_link_event(db: AsyncSession, token: str) -> tuple[Event, uuid.UU
 
 async def join_as_judge(db: AsyncSession, user: User, token: str, request: Request | None) -> tuple[Event, int]:
     """The signed-in account becomes a judge of every activity (idempotent)."""
+    from app.services import event_nodes
+
     event, issuer_id = await judge_link_event(db, token)
+    # A local node never adds staff (its copy of the event is not locked there, and it shares the
+    # cloud's signing secret): the QR only works against the cloud.
+    if await event_nodes.local_node(db, event.id) is not None:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "En el nodo local no se agregan jueces con QR.")
     if user.status != "ACTIVE":
         raise HTTPException(status.HTTP_409_CONFLICT, "Tu cuenta no está activa.")
     if is_minor_user(user):
