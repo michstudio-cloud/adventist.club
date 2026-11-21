@@ -200,3 +200,33 @@ async def test_warm_up_is_a_no_op_without_r2(renders):
 def test_startup_hook_needs_r2_and_the_flag(monkeypatch):
     monkeypatch.setattr(settings, "THUMBNAIL_WARMUP", True)
     assert thumbs.schedule_warm_up() is None        # no R2 in tests: nothing scheduled, nothing crashes
+
+
+def test_ministry_gets_its_own_thumbnail_and_pathfinders_keeps_its_key():
+    slug = "especialidad-reticula-verde"
+    plain = thumbs.thumb_etag(slug, "es", 288)
+    assert thumbs.thumb_etag(slug, "es", 288, "pathfinders") == plain          # cached copies stay valid
+    adventurers = thumbs.thumb_etag(slug, "es", 288, "adventurers")
+    assert adventurers != plain
+    assert thumbs.thumb_key(slug, "es", 288, plain) == thumbs.thumb_key(slug, "es", 288, plain, "pathfinders")
+    assert re.fullmatch(rf"thumbs/{slug}/adventurers-es-288-[0-9a-f]{{12}}\.png", thumbs.thumb_key(slug, "es", 288, adventurers, "adventurers"))
+
+
+@pytest.mark.asyncio
+async def test_thumbnail_in_a_ministry_carries_its_emblem(client, monkeypatch):
+    seen: list[str] = []
+    real = thumbs.render_certificate
+
+    def capturing(slug, data, images, **kwargs):
+        seen.append(kwargs.get("ministry", "pathfinders"))
+        return real(slug, data, images, **kwargs)
+
+    monkeypatch.setattr(thumbs, "render_certificate", capturing)
+    ok = await client.get(URL.format(slug="especialidad-reticula-verde"), params={"w": 288, "ministry": "adventurers"})
+    assert ok.status_code == 200 and ok.content.startswith(b"\x89PNG")
+    plain = await client.get(URL.format(slug="especialidad-reticula-verde"), params={"w": 288})
+    assert plain.status_code == 200 and plain.headers["etag"] != ok.headers["etag"]
+    assert seen == ["adventurers", "pathfinders"]
+    # «Marco multicolor» only serves Conquistadores: no Aventureros thumbnail of it exists
+    assert (await client.get(URL.format(slug="especialidad-color"), params={"ministry": "adventurers"})).status_code == 404
+    assert (await client.get(URL.format(slug="especialidad-color"), params={"ministry": "../x"})).status_code == 422
