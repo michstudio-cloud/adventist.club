@@ -224,6 +224,7 @@ def invitation_out(row: OrgInvitation, *, club: Organization | None = None,
         "club_id": str(club.id) if club else (str(row.organization_id) if kind == "director" else None),
         "club_name": club.name if club else None,
         "registration_id": str(registration_id) if registration_id else None,
+        "request": bool(on_accept.get("request")),
     }
 
 
@@ -309,6 +310,11 @@ async def link_director(
             return LinkResult("already_director", registration.id, club, director=current)
         raise HTTPException(status.HTTP_409_CONFLICT, HAS_OTHER_DIRECTOR)
     pending = (await _pending_director_invitations(db, [club.id])).get(club.id)
+    if pending is not None and _normalize(pending.email) != email and (pending.on_accept or {}).get("request"):
+        # Someone asked for the club from the sign-up form: the administration's own choice wins.
+        await org_invitations.revoke(db, pending, actor=actor, request=request)
+        await db.flush()
+        pending = None
     if pending is not None:
         if _normalize(pending.email) == email:
             return LinkResult("invitation_pending", registration.id, club, invitation=pending)
@@ -405,6 +411,141 @@ async def self_register_director(
                  metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "via": "pass"},
                  request=request)
     return LinkResult("invite", registration.id, club, invitation=invitation, token=token)
+
+
+# ----------------------------------------------------------------------------
+# «Mi club ya está en el evento»: solicitud de director desde el registro, que la
+# administración aprueba en Clubes
+# ----------------------------------------------------------------------------
+REQUEST_CLOSED = "Ese club ya no recibe solicitudes de director en línea. Pide ayuda en la mesa de registro."
+REQUEST_HAS_DIRECTOR = "Ese club ya tiene director. Si eres tú, inicia sesión con tu correo."
+REQUEST_OTHER_PENDING = ("Ese club ya tiene a otra persona registrada como director. "
+                         "Pide ayuda en la mesa de registro.")
+REQUEST_NOT_FOUND = "La solicitud ya no está pendiente."
+
+
+def _fold(text: str) -> str:
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFKD", text or "") if not unicodedata.combining(c)).lower()
+
+
+async def open_event_clubs(db: AsyncSession, q: str) -> list[dict]:
+    """Clubs registered in events that are OPEN or IN_PROGRESS (not on a local node), whose
+    name contains `q` (accents and case ignored). Public: only names, as on the printed passes."""
+    term = " ".join(_fold(q).split())
+    if len(term) < 2:
+        return []
+    rows = (
+        await db.execute(
+            select(EventRegistration, Organization, Event)
+            .join(Organization, Organization.id == EventRegistration.club_id)
+            .join(Event, Event.id == EventRegistration.event_id)
+            .where(EventRegistration.status == "REGISTERED", Event.status.in_(("OPEN", "IN_PROGRESS")),
+                   Event.offline_locked_at.is_(None))
+            .order_by(Organization.name)
+            .limit(2000)
+        )
+    ).all()
+    hits = [(r, c, e) for r, c, e in rows if term in " ".join(_fold(c.name).split())]
+    hits.sort(key=lambda row: (not _fold(row[1].name).startswith(term), _fold(row[1].name)))
+    hits = hits[:8]
+    directors = await _directors_by_club(db, [c.id for _, c, _ in hits])
+    return [{"registration_id": str(r.id), "club_name": c.name, "event_name": e.name,
+             "has_director": c.id in directors} for r, c, e in hits]
+
+
+async def _inviter_for(db: AsyncSession, registration: EventRegistration, club: Organization) -> User | None:
+    for candidate in (registration.registered_by_id, registration.checked_in_by_id):
+        if candidate is None:
+            continue
+        user = await db.get(User, candidate)
+        if user is not None and await org_invitations.can_invite(db, user, CLUB_DIRECTOR, club):
+            return user
+    return None
+
+
+async def _mark_accepted(invitation: OrgInvitation, person: User) -> None:
+    invitation.accepted_at = utcnow()
+    invitation.accepted_by_id = person.id
+
+
+async def request_director(db: AsyncSession, person: User, registration_id: uuid.UUID,
+                           request: Request | None) -> str:
+    """Called by the sign-up, inside its transaction (a refusal leaves no account behind).
+    A pending CLUB_DIRECTOR invitation marked `request` — no e-mail, its token is never
+    shown — that the administration approves in Clubes. When that address was already
+    linked by the administration, that invitation is the one marked (still «Aprobar»)."""
+    from app.services import clubs as club_service
+
+    row = (
+        await db.execute(
+            select(EventRegistration, Organization, Event)
+            .join(Organization, Organization.id == EventRegistration.club_id)
+            .join(Event, Event.id == EventRegistration.event_id)
+            .where(EventRegistration.id == registration_id)
+        )
+    ).first()
+    if row is None or row[0].status != "REGISTERED" or row[2].status not in ("OPEN", "IN_PROGRESS") \
+            or row[2].offline_locked_at is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_CLOSED)
+    registration, club, event = row
+    if person.is_minor:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Los menores de edad no pueden dirigir un club.")
+    if (await _directors_by_club(db, [club.id])).get(club.id) is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_HAS_DIRECTOR)
+    email = _normalize(person.email)
+    pending = (await _pending_director_invitations(db, [club.id])).get(club.id)
+    if pending is not None:
+        if _normalize(pending.email) != email:
+            raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_OTHER_PENDING)
+        # The address the administration linked. An unverified sign-up proves nothing about
+        # owning it: the same invitation now also waits for «Aprobar» (the e-mailed link still
+        # works for whoever really owns the address).
+        pending.on_accept = {**(pending.on_accept or {}), "request": True}
+        record_audit(db, action="EVENT_DIRECTOR_REQUEST", entity_type="EVENT", entity_id=event.id, actor=person,
+                     metadata={"club_id": str(club.id), "invitation_id": str(pending.id), "via": "already_linked"},
+                     request=request)
+        return "requested"
+
+    inviter = await _inviter_for(db, registration, club)
+    if inviter is None:
+        raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_CLOSED)
+    invitation, _token = await org_invitations.create(
+        db, organization=club, actor=inviter, role=CLUB_DIRECTOR, email=email, request=request,
+        return_to=event_url(event, "/club"),
+        on_accept={"type": DIRECTOR_TYPE, "event_id": str(event.id), "name": person.name, "request": True},
+    )
+    record_audit(db, action="EVENT_DIRECTOR_REQUEST", entity_type="EVENT", entity_id=event.id, actor=person,
+                 metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "via": "request"},
+                 request=request)
+    return "requested"
+
+
+async def approve_director_request(db: AsyncSession, actor: User, roles, event: Event,
+                                   invitation: OrgInvitation, request: Request | None) -> Organization:
+    """«Aprobar» in Clubes: the account that asked becomes the club's director."""
+    from app.services import clubs as club_service
+    from app.security import ADMIN_ROLES
+
+    on_accept = invitation.on_accept or {}
+    if invitation.role != CLUB_DIRECTOR or not on_accept.get("request") \
+            or org_invitations.state_of(invitation) != org_invitations.PENDING:
+        raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_NOT_FOUND)
+    club = await db.get(Organization, invitation.organization_id)
+    await _require_director_rights(db, actor, roles, club)
+    if (await _directors_by_club(db, [club.id])).get(club.id) is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, HAS_OTHER_DIRECTOR)
+    person = (await db.execute(select(User).where(User.email == _normalize(invitation.email)))).scalar_one_or_none()
+    if person is None or person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE":
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esa cuenta no puede quedar como director.")
+    if await club_service.leads_a_club(db, person):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Esa persona ya dirige otro club.")
+    await club_service._appoint_director(db, actor, club, person, request)
+    await _mark_accepted(invitation, person)
+    record_audit(db, action="EVENT_DIRECTOR_APPROVE", entity_type="EVENT", entity_id=event.id, actor=actor,
+                 metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "director_id": str(person.id)},
+                 request=request)
+    return club
 
 
 # ----------------------------------------------------------------------------

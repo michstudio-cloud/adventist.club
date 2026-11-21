@@ -155,6 +155,13 @@ async def register(
             raise HTTPException(
                 status.HTTP_422_UNPROCESSABLE_ENTITY, ministry_service.MINISTRY_REQUIRED
             )
+    if payload.event_director_request is not None and (
+        payload.club is not None or payload.invitation_token or payload.role not in (CLUB_DIRECTOR, INSTRUCTOR)
+    ):
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Pide ser director de un club del evento o registra un club nuevo, no las dos cosas.",
+        )
     if payload.invitation_token and payload.club is not None:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST,
@@ -176,7 +183,9 @@ async def register(
         email=email,
         password_hash=await hash_password(payload.password),
         name=payload.name.strip(),
-        role=payload.role,
+        # Asking for a club already in an event: an adult account; the club role arrives
+        # with the administration's approval (never a director without a club).
+        role=INSTRUCTOR if payload.event_director_request is not None else payload.role,
         organization_id=payload.organization_id,
         is_minor=is_minor,
         birth_date=payload.birth_date,
@@ -202,6 +211,13 @@ async def register(
     # token must not leave an account behind.
     if payload.club is not None:
         await club_service.stage_pending_club(db, user, payload.club, request)
+    director_request = None
+    if payload.event_director_request is not None:
+        from app.services import event_onboarding
+
+        director_request = await event_onboarding.request_director(
+            db, user, payload.event_director_request.registration_id, request
+        )
     membership = club = consent_token = None
     if payload.invitation_token:
         # A bad link is a 400 here, not the 404 of `/join`: the client is
@@ -249,6 +265,8 @@ async def register(
         message += "Guardianship consent required. "
     if user.role == INSTRUCTOR:
         message += "Child protection certification required. "
+    if director_request == "requested":
+        message += "Your request to direct the club is waiting for the event's approval. "
     if user.role == CLUB_DIRECTOR:
         message += (
             "Your club is pending approval by your association. "
