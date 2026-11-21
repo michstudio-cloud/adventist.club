@@ -732,10 +732,22 @@ class OpenEventClubOut(BaseModel):
     has_director: bool
 
 
+class JudgeJoinLinkIn(_Body):
+    """«QR para jueces»: las actividades que da (vacío o ausente = todas)."""
+    activity_ids: list[uuid_module.UUID] | None = Field(default=None, max_length=100)
+
+
+class JudgeLinkActivity(BaseModel):
+    id: str
+    name: str
+
+
 class JudgeJoinLinkOut(BaseModel):
     url: str
     expires_at: datetime
+    # Las actividades que da el QR; vacía = todas.
+    activities: list[JudgeLinkActivity] = []
 
 
 class JudgeJoinToken(_Body):
-    token: str = Field(min_length=8, max_length=200)
+    token: str = Field(min_length=8, max_length=400)
