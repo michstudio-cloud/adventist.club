@@ -1,0 +1,21 @@
+{
+  "title": "Aventureros · Formas alegres",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "adventurers"
+  ],
+  "engine": "elements",
+  "source": "tools/build_adventurer_templates.py:geometrico",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
+  ]
+}

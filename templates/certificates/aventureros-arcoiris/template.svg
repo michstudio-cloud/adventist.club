@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 792 612" width="11in" height="8.5in" data-template="aventureros-arcoiris" data-version="1.0">
+<!-- Aventureros · Arcoíris de la promesa: reconocimiento del Club de Aventureros. Unidades del diseño 1100 x 850 dentro del grupo escalado (Carta horizontal). Contrato de ajuste: docs/CERTIFICADOS_V4.md. -->
+<g transform="scale(0.72)">
+<rect width="1100" height="850" fill="#FFFDF7"/>
+<rect x="22" y="22" width="1056" height="806" rx="30" fill="none" stroke="#D8EEF4" stroke-width="4"/>
+<path d="M300 0A300 300 0 0 1 0 300" fill="none" stroke="#DE4B3A" stroke-width="22.5"/>
+<path d="M278 0A278 278 0 0 1 0 278" fill="none" stroke="#EE9638" stroke-width="22.5"/>
+<path d="M256 0A256 256 0 0 1 0 256" fill="none" stroke="#F5C640" stroke-width="22.5"/>
+<path d="M234 0A234 234 0 0 1 0 234" fill="none" stroke="#40AA48" stroke-width="22.5"/>
+<path d="M212 0A212 212 0 0 1 0 212" fill="none" stroke="#66CBE0" stroke-width="22.5"/>
+<path d="M190 0A190 190 0 0 1 0 190" fill="none" stroke="#2363AF" stroke-width="22.5"/>
+<g fill="#FFFFFF" stroke="#CFE8F1" stroke-width="10" stroke-linejoin="round"><circle cx="196.3" cy="47.7" r="24.3"/><circle cx="223.2" cy="28.5" r="32.0"/><circle cx="256.5" cy="36.8" r="26.9"/><circle cx="280.8" cy="51.5" r="19.2"/><rect x="175.2" y="43.2" width="121.6" height="28.8" rx="14.1"/></g><g fill="#FFFFFF"><circle cx="196.3" cy="47.7" r="24.3"/><circle cx="223.2" cy="28.5" r="32.0"/><circle cx="256.5" cy="36.8" r="26.9"/><circle cx="280.8" cy="51.5" r="19.2"/><rect x="175.2" y="43.2" width="121.6" height="28.8" rx="14.1"/></g>
+<g fill="#FFFFFF" stroke="#CFE8F1" stroke-width="10" stroke-linejoin="round"><circle cx="-12.4" cy="243.4" r="23.6"/><circle cx="13.6" cy="224.8" r="31.0"/><circle cx="45.8" cy="232.9" r="26.0"/><circle cx="69.4" cy="247.2" r="18.6"/><rect x="-32.9" y="239.1" width="117.8" height="27.9" rx="13.6"/></g><g fill="#FFFFFF"><circle cx="-12.4" cy="243.4" r="23.6"/><circle cx="13.6" cy="224.8" r="31.0"/><circle cx="45.8" cy="232.9" r="26.0"/><circle cx="69.4" cy="247.2" r="18.6"/><rect x="-32.9" y="239.1" width="117.8" height="27.9" rx="13.6"/></g>
+<path d="M950 850A150 150 0 0 1 1100 700" fill="none" stroke="#DE4B3A" stroke-width="13.5"/>
+<path d="M963 850A137 137 0 0 1 1100 713" fill="none" stroke="#EE9638" stroke-width="13.5"/>
+<path d="M976 850A124 124 0 0 1 1100 726" fill="none" stroke="#F5C640" stroke-width="13.5"/>
+<path d="M989 850A111 111 0 0 1 1100 739" fill="none" stroke="#40AA48" stroke-width="13.5"/>
+<path d="M1002 850A98 98 0 0 1 1100 752" fill="none" stroke="#66CBE0" stroke-width="13.5"/>
+<path d="M1015 850A85 85 0 0 1 1100 765" fill="none" stroke="#2363AF" stroke-width="13.5"/>
+<path d="M905 76Q907.88 89.12 921 92Q907.88 94.88 905 108Q902.12 94.88 889 92Q902.12 89.12 905 76Z" fill="#F5C640"/>
+<path d="M968 140Q969.8 148.2 978 150Q969.8 151.8 968 160Q966.2 151.8 958 150Q966.2 148.2 968 140Z" fill="#66CBE0"/>
+<path d="M1016 74Q1018.16 83.84 1028 86Q1018.16 88.16 1016 98Q1013.84 88.16 1004 86Q1013.84 83.84 1016 74Z" fill="#EE9638"/>
+<path d="M850 152Q851.44 158.56 858 160Q851.44 161.44 850 168Q848.56 161.44 842 160Q848.56 158.56 850 152Z" fill="#40AA48"/>
+<path d="M118 509Q119.98 518.02 129 520Q119.98 521.98 118 531Q116.02 521.98 107 520Q116.02 518.02 118 509Z" fill="#F5C640"/>
+<path d="M80 593Q81.26 598.74 87 600Q81.26 601.26 80 607Q78.74 601.26 73 600Q78.74 598.74 80 593Z" fill="#66CBE0"/>
+<path d="M1012 371Q1013.62 378.38 1021 380Q1013.62 381.62 1012 389Q1010.38 381.62 1003 380Q1010.38 378.38 1012 371Z" fill="#F5C640"/>
+<image id="emblem" x="466" y="40" width="168" height="156" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="church_name" x="550" y="224" font-family="Lato" font-weight="400" font-size="15" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="520" data-min-size="11" data-max-lines="1" data-line-height="1.2" data-fallback-string="church_name">Iglesia Adventista del Séptimo Día</text>
+<text id="t_title" x="550" y="272" font-family="Poppins" font-weight="900" font-size="40" fill="#2363AF" text-anchor="middle" data-fit="shrink-wrap" data-max-width="720" data-min-size="24" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase" data-string="title">RECONOCIMIENTO DE AVENTUREROS</text>
+<text id="association_name" x="550" y="304" font-family="Lato" font-weight="400" font-size="15" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="640" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase"></text>
+<text id="t_awarded" x="550" y="358" font-family="Lato" font-weight="400" font-size="21" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="640" data-min-size="14" data-max-lines="1" data-line-height="1.2" data-string="awarded">Se otorga a</text>
+<text id="recipient_name" x="550" y="426" font-family="Poppins" font-weight="700" font-size="58" fill="#173F73" text-anchor="middle" data-fit="shrink-wrap" data-max-width="820" data-min-size="26" data-max-lines="1" data-line-height="1.2" data-required="true"></text>
+<rect x="430" y="450" width="40" height="7" fill="#DE4B3A"/><rect x="470" y="450" width="40" height="7" fill="#EE9638"/><rect x="510" y="450" width="40" height="7" fill="#F5C640"/><rect x="550" y="450" width="40" height="7" fill="#40AA48"/><rect x="590" y="450" width="40" height="7" fill="#66CBE0"/><rect x="630" y="450" width="40" height="7" fill="#2363AF"/>
+<text id="t_completion" x="550" y="497" font-family="Lato" font-weight="400" font-size="19" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="660" data-min-size="13" data-max-lines="2" data-line-height="1.25" data-string="completion">por completar los requisitos de</text>
+<image id="honor_patch" x="878" y="445" width="150" height="150" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="honor_name" x="550" y="550" font-family="Poppins" font-weight="700" font-size="34" fill="#2363AF" text-anchor="middle" data-fit="shrink-wrap" data-max-width="600" data-min-size="20" data-max-lines="2" data-line-height="1.15" data-wrap="balanced" data-required="true"></text>
+<text id="issued_date" x="550" y="640" font-family="Lato" font-weight="400" font-size="17" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="420" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-format="date-long" data-required="true"></text>
+<path d="M165 728h250" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_director" x="165" y="674" width="250" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="director_name" x="290" y="754" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_director_label" x="290" y="776" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="director">Director(a) del club</text>
+<path d="M685 728h250" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_instructor" x="685" y="674" width="250" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="instructor_name" x="810" y="754" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_instructor_label" x="810" y="776" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="instructor">Instructor(a)</text>
+<image id="qr" x="512" y="674" width="76" height="76" preserveAspectRatio="xMidYMid meet" data-placeholder-href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MCA3MCI+PHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZTZlOGU1Ii8+PC9zdmc+" href=""/>
+<text id="t_qr_placeholder_label" x="550" y="716" font-family="Lato" font-weight="400" font-size="12" fill="#65706b" text-anchor="middle" data-fit="shrink-wrap" data-max-width="40" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="qr" data-hide-if-image="qr">QR</text>
+<text id="certificate_no" x="550" y="768" font-family="Lato" font-weight="400" font-size="10" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="150" data-min-size="8" data-max-lines="1" data-line-height="1.2"></text>
+</g>
+</svg>

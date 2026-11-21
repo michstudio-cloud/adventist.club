@@ -1,0 +1,21 @@
+{
+  "title": "Aventureros · Cielo de estrellas",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "adventurers"
+  ],
+  "engine": "elements",
+  "source": "tools/build_adventurer_templates.py:estrellas",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
+  ]
+}

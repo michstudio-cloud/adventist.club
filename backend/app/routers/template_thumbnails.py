@@ -7,6 +7,8 @@ out and the thumbnails stayed grey. The sample never changes, so it is rendered 
 
 - fixed sample data on the server (`SAMPLE`): «María López», the honor «Campamento I» in the
   template's language (its patch ships in `templates/assets/samples/honor-patch.webp`),
+  or, for a template made only for Aventureros, the Adventurer award «Promesa del arco iris»
+  (`adventurer-award.webp`) drawn with the Aventureros emblem (`sample_ministry`),
   «Club Orión», 2026-09-21; no QR, no signatures;
 - `w` is 288, 576 or 1152 px (anything else is a 422), `locale` one of the template's
   languages (else 404, like an unknown slug);
@@ -61,6 +63,14 @@ SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "honor-patch
 SAMPLE_DATE = "2026-09-21"
 # The patch above is «Campamento I» (design package replica-especialidad/recursos): the name matches it.
 SAMPLE_HONOR = {"es": "Campamento I", "en": "Camping Skills I", "pt": "Acampamento I", "fr": "Camping I"}
+# A template made only for Aventureros (meta.json `ministries` without pathfinders) is drawn for
+# Aventureros: its emblem, and an Adventurer award instead of a Pathfinder honor — «Promesa del arco
+# iris» (patch from backend/data/adventurer_awards/webp/rainbow-promise.webp). Only those templates
+# hash these, so the thumbnails of every other template keep their etag and their R2 key.
+PATHFINDERS = "pathfinders"
+ADVENTURER_SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "adventurer-award.webp"
+ADVENTURER_SAMPLE_HONOR = {"es": "Promesa del arco iris", "en": "Rainbow Promise", "pt": "Promessa do arco-íris",
+                           "fr": "Promesse de l'arc-en-ciel"}
 SAMPLE = {
     "recipient_name": "María López",
     "club_name": "Club Orión",
@@ -72,12 +82,20 @@ RENDER_SLOTS = 2
 MEMORY_BUDGET = 24 * 1024 * 1024   # bytes of PNG kept in process (local without R2, and the upload window)
 
 
-def sample_data(fields: list[str], locale: str) -> dict[str, str]:
+def sample_ministry(template: engine.Template) -> str:
+    """The ministry a template's sample is drawn for: Conquistadores, unless the template does not serve
+    it (an Aventureros-only design shows the Aventureros emblem, not the Pathfinder one)."""
+    allowed = template.ministries
+    return PATHFINDERS if not allowed or PATHFINDERS in allowed else allowed[0]
+
+
+def sample_data(fields: list[str], locale: str, ministry: str = PATHFINDERS) -> dict[str, str]:
     """What the assistant would send for the sample (lib/certificate-templates.ts `buildRenderData`)."""
     language = locale.split("-")[0]
+    honors = ADVENTURER_SAMPLE_HONOR if ministry == "adventurers" else SAMPLE_HONOR
     data = {
         "recipient_name": SAMPLE["recipient_name"],
-        "honor_name": SAMPLE_HONOR.get(language, SAMPLE_HONOR["es"]),
+        "honor_name": honors.get(language, honors["es"]),
         "club_name": SAMPLE["club_name"],
         "director_name": SAMPLE["director_name"],
     }
@@ -92,11 +110,12 @@ def sample_data(fields: list[str], locale: str) -> dict[str, str]:
     return data
 
 
-@lru_cache(maxsize=1)
-def _sample_images() -> dict[str, str]:
-    if not SAMPLE_PATCH.is_file():
+@lru_cache(maxsize=4)
+def _sample_images(ministry: str = PATHFINDERS) -> dict[str, str]:
+    patch = ADVENTURER_SAMPLE_PATCH if ministry == "adventurers" else SAMPLE_PATCH
+    if not patch.is_file():
         return {}
-    return {"honor_patch": "data:image/webp;base64," + base64.b64encode(SAMPLE_PATCH.read_bytes()).decode()}
+    return {"honor_patch": "data:image/webp;base64," + base64.b64encode(patch.read_bytes()).decode()}
 
 
 @lru_cache(maxsize=64)
@@ -112,6 +131,14 @@ def _template_hash(slug: str) -> str:
         if extra.is_file():
             digest.update(extra.read_bytes())
     digest.update(json.dumps([SAMPLE, SAMPLE_HONOR, SAMPLE_DATE], sort_keys=True).encode())
+    ministry = sample_ministry(template)
+    if ministry != PATHFINDERS:                      # only those templates: nothing else is invalidated
+        digest.update(ministry.encode() + json.dumps(ADVENTURER_SAMPLE_HONOR, sort_keys=True).encode())
+        if ministry == "adventurers" and ADVENTURER_SAMPLE_PATCH.is_file():
+            digest.update(ADVENTURER_SAMPLE_PATCH.read_bytes())
+        emblem = engine.EMBLEMS_DIR / f"{ministry}.svg"
+        if emblem.is_file():
+            digest.update(emblem.read_bytes())
     return digest.hexdigest()
 
 
@@ -132,8 +159,9 @@ def thumb_key(slug: str, locale: str, width: int, etag: str) -> str:
 def render_thumbnail(slug: str, locale: str, width: int) -> bytes:
     template = load_template(slug)
     dpi = width / (template.width_pt / engine.POINTS_PER_INCH)     # exactly `width` px wide
-    body, _ = render_certificate(slug, sample_data(template.fields, locale), dict(_sample_images()),
-                                 locale=locale, fmt="png", dpi=dpi)
+    ministry = sample_ministry(template)
+    body, _ = render_certificate(slug, sample_data(template.fields, locale, ministry), dict(_sample_images(ministry)),
+                                 locale=locale, fmt="png", dpi=dpi, ministry=ministry)
     return body
 
 

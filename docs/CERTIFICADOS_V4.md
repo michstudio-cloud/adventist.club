@@ -495,3 +495,57 @@ elementos listados bajan `(líneas − 1) × tamaño × line_height` del dispara
 - Sin `flow_rules` ni los atributos nuevos no cambia nada: academico, color, dorada y reticula-verde recompilan byte a byte
   igual; modular-azul cambia sólo por `data-text-transform` (su diseño lo pide).
 
+
+## Reconocimientos de Aventureros (`aventureros-*`, 21 nov 2026)
+
+Cinco plantillas **sólo** para el Club de Aventureros (niños de 4 a 9 años): `meta.json`
+`"ministries": ["adventurers"]`, `"kinds": ["honor"]`, `engine: elements`, es/en/pt/fr, frases editables
+`awarded` y `completion`. `GET /templates?ministry=adventurers&kind=honor` las lista; con
+`ministry=pathfinders` no salen. Carta horizontal (792 × 612 pt; unidades del diseño 1100 × 850 dentro de
+`scale(0.72)`, como las v4), todo vectorial, sin fondo raster.
+
+| Slug | Título (`meta.title`) | Idea |
+|---|---|---|
+| `aventureros-arcoiris` | Aventureros · Arcoíris de la promesa | arcoíris en dos esquinas, nubes y destellos; composición centrada |
+| `aventureros-paisaje` | Aventureros · Colinas y camino | sol, colinas, árboles y un camino (eco del paisaje del emblema); texto a la izquierda |
+| `aventureros-estrellas` | Aventureros · Cielo de estrellas | franja de cielo nocturno con luna y estrellas; emblema en un medallón blanco |
+| `aventureros-jardin` | Aventureros · Jardín | columna de jardín con flores, emblema en tarjeta blanca, sol en la esquina |
+| `aventureros-geometrico` | Aventureros · Formas alegres | mosaico de formas planas (círculos, triángulos, arcos) en dos esquinas |
+
+**Generadas, no compiladas.** No hay paquete de diseñador: cada diseño es una función de
+`tools/build_adventurer_templates.py` (formas, ranuras y contrato de ajuste). `template.svg`,
+`strings.*.json`, `meta.json` y `README.md` son su salida; cambiar el diseño allí y ejecutar
+`python tools/build_adventurer_templates.py`. `tests/test_certificate_aventureros.py` reconstruye las cinco
+y exige archivos idénticos.
+
+**Ranuras** (las mismas que ya rellenan el asistente y la emisión, nada nuevo en la web): `emblem`,
+`recipient_name`, `honor_name`, `honor_patch`, `issued_date` (`date-long`), `director_name`,
+`instructor_name`, `association_name` (mayúsculas; desaparece si no hay), `church_name`
+(`data-fallback-string`), `certificate_no`, `qr` (+ caja gris con «QR» en vistas previas),
+`signature_director`, `signature_instructor`. Ajuste: el nombre va en una línea y encoge (58 → 26; «María
+Fernanda de los Ángeles Rodríguez» cabe en todas), el reconocimiento hasta dos líneas equilibradas
+(`data-wrap="balanced"`; «Pioneros adventistas de la iglesia primitiva» → dos líneas a 34), y lo que no cabe
+es un 422 como siempre.
+
+**Emblema.** Es la ranura `emblem` (el motor pone `templates/assets/emblems/adventurers.svg`), grande y sobre
+blanco o neutro, con aire alrededor (Brand Book: zona de exclusión, nada de efectos, versión a color sobre fondo
+claro; en «Cielo de estrellas» va en un medallón blanco, no sobre el azul): 1,4–1,8 in de ancho frente a los
+0,44 in de Retícula verde. Colores: los «dibujados» del Brand Book (`docs/AVENTUREROS_MARCA.md`) más amarillo
+y naranja para el arcoíris y el sol; texto en azul marino `#173F73`, tinta `#1F2A37` y gris `#56606E`.
+
+**`adventurers.svg` estaba incompleto.** El archivo del repo sólo tenía el paisaje (colinas, árboles, camino):
+sin la banda azul con «AVENTUREROS / CLUB», sin la cruz y sin la familia, y eso es lo que imprimían las
+plantillas compartidas para Aventureros (el Brand Book prohíbe usar sólo una parte del logo). Se sustituyó por
+el mismo dibujo completo que usa la web (`conquistadores-app/public/brand/aventureros.svg`, mismo `viewBox`
+581,35 × 540,84, así que ninguna ranura cambia) con una sola corrección, la que propone `AVENTUREROS_MARCA.md`:
+el cielo `#03EEFC` (errata del libro, cian neón fuera de gama CMYK) → `#66CBE0`. Las otras erratas mínimas
+(`maroon`, `#40AB35`, `#BFDE00`…) se dejan como en la web.
+
+**Miniaturas.** `GET /templates/{slug}/thumbnail.png` dibuja una plantilla que no sirve a Conquistadores para
+su ministerio (`sample_ministry`): emblema de Aventureros y el reconocimiento «Promesa del arco iris» (es/en/pt/fr)
+con su parche (`templates/assets/samples/adventurer-award.webp`, copia de
+`backend/data/adventurer_awards/webp/rainbow-promise.webp`). Sólo esas plantillas añaden esos archivos a su
+hash: la etag y la clave de R2 de todas las demás no cambian.
+
+**Pendiente de validar** (propietario): pt «Reconhecimento de Aventureiros» y fr «Distinction des Aventuriers»
+/ «Décernée à» / «Direction du club» son propuestas; en es/en se usa la terminología del encargo.
