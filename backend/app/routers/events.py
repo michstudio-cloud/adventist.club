@@ -54,6 +54,8 @@ from app.schemas.event import (
     DirectorsImportOut,
     DirectorsOut,
     OpenEventClubOut,
+    JudgeJoinLinkOut,
+    JudgeJoinToken,
     EventInvitationOut,
     PersonSearchOut,
     StaffInvite,
@@ -99,6 +101,27 @@ async def open_event_clubs(request: Request, q: str = Query(default="", max_leng
                            db: AsyncSession = Depends(get_db)):
     """Sign-up form, «Director(a) de club»: clubs already registered in an open event (no session)."""
     return [OpenEventClubOut(**row) for row in await onboarding.open_event_clubs(db, q)]
+
+
+@router.post("/staff/join/preview")
+@limiter.limit("60/minute")
+async def judge_join_preview(payload: JudgeJoinToken, request: Request, db: AsyncSession = Depends(get_db)):
+    """No session: which event a judge QR is for, and until when."""
+    from app.services import event_judge_link
+
+    event, _issuer = await onboarding.judge_link_event(db, payload.token)
+    _e, _i, expires = event_judge_link.read(payload.token)
+    return {"event_id": str(event.id), "event_name": event.name, "expires_at": expires}
+
+
+@router.post("/staff/join")
+@limiter.limit("30/minute", key_func=account_or_ip)
+async def judge_join(payload: JudgeJoinToken, request: Request, current_user: User = Depends(get_current_user),
+                     db: AsyncSession = Depends(get_db)):
+    """The signed-in account joins as a judge of every activity (idempotent: `added` 0 the second time)."""
+    event, rows = await onboarding.join_as_judge(db, current_user, payload.token, request)
+    await db.commit()
+    return {"event_id": str(event.id), "event_name": event.name, "added": rows}
 
 
 @router.get("/{event_id}", response_model=EventOut)
@@ -538,6 +561,20 @@ async def search_people(event_id: uuid.UUID, q: str = Query(min_length=2, max_le
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     return await onboarding.search_people(db, event, q)
+
+
+@router.post("/{event_id}/staff/join-link", response_model=JudgeJoinLinkOut)
+async def judge_join_link(event_id: uuid.UUID, current_user: User = Depends(get_current_user),
+                          db: AsyncSession = Depends(get_db)):
+    """«QR para jueces»: a link valid 30 minutes; whoever opens it with an adult account joins
+    as a judge of every activity. Coordination of the event."""
+    from app.services import event_judge_link
+
+    event = await event_service.get_event(db, event_id)
+    await event_service.require_coordination(db, current_user, event)
+    event_service.require_editable(event)
+    token, expires = event_judge_link.make(event.id, current_user.id)
+    return JudgeJoinLinkOut(url=f"{onboarding.events_origin()}/unirse?t={token}", expires_at=expires)
 
 
 @router.post("/{event_id}/staff/invitations", response_model=StaffInviteOut, status_code=status.HTTP_201_CREATED)

@@ -549,6 +549,36 @@ async def approve_director_request(db: AsyncSession, actor: User, roles, event: 
 
 
 # ----------------------------------------------------------------------------
+# «QR para jueces» (30 minutos): entrar como juez de todas las actividades
+# ----------------------------------------------------------------------------
+async def judge_link_event(db: AsyncSession, token: str) -> tuple[Event, uuid.UUID]:
+    """The event of a live judge link (404 otherwise), still editable and in the cloud."""
+    from app.services import event_judge_link
+    from app.services import events as event_service
+
+    event_id, issuer_id, _expires = event_judge_link.read(token)
+    event = await db.get(Event, event_id)
+    if event is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, event_judge_link.INVALID)
+    if event.status not in event_service.EDITABLE or event.offline_locked_at is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, EVENT_FROZEN)
+    return event, issuer_id
+
+
+async def join_as_judge(db: AsyncSession, user: User, token: str, request: Request | None) -> tuple[Event, int]:
+    """The signed-in account becomes a judge of every activity (idempotent)."""
+    event, issuer_id = await judge_link_event(db, token)
+    if user.status != "ACTIVE":
+        raise HTTPException(status.HTTP_409_CONFLICT, "Tu cuenta no está activa.")
+    if is_minor_user(user):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Un menor de edad no puede ser personal del evento")
+    issuer = await db.get(User, issuer_id)
+    rows = await _add_rows(db, event, user, JUDGE, None, issuer.id if issuer else None, request,
+                           via="judge_link", audit_actor=user)
+    return event, rows
+
+
+# ----------------------------------------------------------------------------
 # «Importar lista»: club, director, correo
 # ----------------------------------------------------------------------------
 IMPORT_COLUMNS = ("club", "director", "correo_director")
