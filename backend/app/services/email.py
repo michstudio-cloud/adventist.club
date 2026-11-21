@@ -162,6 +162,17 @@ def _admin_url() -> str:
     return settings.admin_url
 
 
+def link_origin(host: str | None = None) -> str:
+    """Origin of an emailed account link (reset, verification): events.adventist.club for `events`
+    (the origin of EVENT_PASS_URL_BASE), the member app (FRONTEND_URL) for anything else. A fixed
+    map: the client names a site, it never sends a URL."""
+    if host == "events":
+        parts = urlsplit(settings.event_pass_url_base)
+        if parts.scheme in ("http", "https") and parts.netloc:
+            return f"{parts.scheme}://{parts.netloc}"
+    return settings.frontend_url
+
+
 def _safe_url(url: str | None, fallback: str | None = None) -> str:
     """Only http(s) links reach an e-mail; anything else falls back to the app."""
     candidate = (url or "").strip()
@@ -1347,15 +1358,15 @@ async def send_email(to: str, subject: str, html: str) -> bool:
         return False
 
 
-async def send_verification_email(to: str, name: str, code: str, token: str) -> bool:
-    link = f"{settings.frontend_url}/verify-email?token={token}"
+async def send_verification_email(to: str, name: str, code: str, token: str, host: str | None = None) -> bool:
+    link = f"{link_origin(host)}/verify-email?token={token}"
     html = verification_email_html(name, code, link)
     return await send_email(to, "Verifica tu cuenta - Adventist.Club", html)
 
 
-async def send_password_reset_email(to: str, name: str, code: str, token: str) -> bool:
+async def send_password_reset_email(to: str, name: str, code: str, token: str, host: str | None = None) -> bool:
     # The link carries only the token; the 6-digit code is never derivable from it.
-    link = f"{settings.frontend_url}/reset-password?token={token}"
+    link = f"{link_origin(host)}/reset-password?token={token}"
     html = password_reset_email_html(name, code, link)
     return await send_email(to, "Restablecer Contraseña - Adventist.Club", html)
 

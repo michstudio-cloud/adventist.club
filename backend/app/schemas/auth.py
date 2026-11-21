@@ -22,6 +22,12 @@ RoleName = Literal[
 ]
 
 
+# Which of the platform's sites an emailed link (reset, verification) opens on. A name, never a URL:
+# the API maps it to an origin it already knows (`email_service.link_origin`). Sessions are per
+# host, so someone using events.adventist.club must come back there, not to conquistadores.app.
+LinkHost = Literal["main", "events"]
+
+
 class EventDirectorRequest(BaseModel):
     """«Mi club ya está en el evento»: the club's registration in an open event."""
     registration_id: uuid.UUID
@@ -54,6 +60,8 @@ class RegisterRequest(BaseModel):
     # open event. The account is created now; the event's administration approves it.
     event_director_request: EventDirectorRequest | None = None
     club_director_request: ClubDirectorRequest | None = None
+    # The site the verification link opens on (default: the member app).
+    host: LinkHost | None = None
 
 
 class RegisteredMembership(BaseModel):
@@ -161,6 +169,8 @@ class VerifyEmailTokenRequest(BaseModel):
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
+    # The site the reset link opens on (default: the member app).
+    host: LinkHost | None = None
 
 
 class ResetPasswordRequest(BaseModel):

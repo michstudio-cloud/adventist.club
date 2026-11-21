@@ -27,6 +27,7 @@ import sys
 import urllib.parse
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime
 from functools import lru_cache
 from urllib.parse import urlsplit
 
@@ -558,27 +559,71 @@ async def approve_director_request(db: AsyncSession, actor: User, roles, event: 
 
 
 # ----------------------------------------------------------------------------
-# «QR para jueces» (30 minutos): entrar como juez de todas las actividades
+# «QR para jueces» (30 minutos): entrar como juez de todas las actividades, o de las elegidas
 # ----------------------------------------------------------------------------
-async def judge_link_event(db: AsyncSession, token: str) -> tuple[Event, uuid.UUID]:
-    """The event of a live judge link (404 otherwise), still editable and in the cloud."""
+LINK_ACTIVITIES_GONE = "Las actividades de este QR ya no existen. Pide a la coordinación uno nuevo."
+LINK_TOO_MANY = "Elige hasta {max} actividades, o «Todas»."
+
+
+async def make_judge_link(db: AsyncSession, actor: User, event: Event,
+                          activity_ids: list[uuid.UUID] | None) -> tuple[str, datetime, list[EventActivity]]:
+    """Coordination already checked by the router. -> (url, expiry, chosen activities; empty = all).
+    The activities must be the event's (404 otherwise, like «Invitar juez»)."""
+    from app.services import event_judge_link
+
+    if len(set(activity_ids or [])) > event_judge_link.MAX_ACTIVITIES:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            LINK_TOO_MANY.format(max=event_judge_link.MAX_ACTIVITIES))
+    ids = await _activity_ids(db, event, activity_ids) or []
+    activities = await _activities_in_order(db, event, ids) if ids else []
+    token, expires = event_judge_link.make(event.id, actor.id, activity_ids=ids)
+    return f"{events_origin()}/unirse?t={token}", expires, activities
+
+
+async def _activities_in_order(db: AsyncSession, event: Event, ids: list[uuid.UUID]) -> list[EventActivity]:
+    rows = (await db.execute(select(EventActivity).where(
+        EventActivity.event_id == event.id, EventActivity.id.in_(ids)))).scalars().all()
+    by_id = {row.id: row for row in rows}
+    return [by_id[i] for i in ids if i in by_id]
+
+
+async def judge_link_event(db: AsyncSession, token: str):
+    """The event of a live judge link (404 otherwise), still editable and in the cloud, with the link."""
     from app.services import event_judge_link
     from app.services import events as event_service
 
-    event_id, issuer_id, _expires = event_judge_link.read(token)
-    event = await db.get(Event, event_id)
+    link = event_judge_link.read(token)
+    event = await db.get(Event, link.event_id)
     if event is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, event_judge_link.INVALID)
     if event.status not in event_service.EDITABLE or event.offline_locked_at is not None:
         raise HTTPException(status.HTTP_409_CONFLICT, EVENT_FROZEN)
-    return event, issuer_id
+    return event, link
 
 
-async def join_as_judge(db: AsyncSession, user: User, token: str, request: Request | None) -> tuple[Event, int]:
-    """The signed-in account becomes a judge of every activity (idempotent)."""
+async def judge_link_activities(db: AsyncSession, event: Event, link) -> list[EventActivity]:
+    """The link's activities that still exist, in the event's order; empty = every activity. A
+    link whose activities were all deleted since is refused (409)."""
+    from app.services import event_judge_link
+
+    if not link.activity_refs:
+        return []
+    refs = set(link.activity_refs)
+    rows = (await db.execute(select(EventActivity).where(EventActivity.event_id == event.id).order_by(
+        EventActivity.parent_id.is_not(None), EventActivity.position, EventActivity.name))).scalars().all()
+    chosen = [row for row in rows if event_judge_link.activity_ref(row.id) in refs]
+    if not chosen:
+        raise HTTPException(status.HTTP_409_CONFLICT, LINK_ACTIVITIES_GONE)
+    return chosen
+
+
+async def join_as_judge(db: AsyncSession, user: User, token: str,
+                        request: Request | None) -> tuple[Event, int, list[EventActivity]]:
+    """The signed-in account becomes a judge of the link's activities, or of every activity
+    (idempotent). -> (event, rows added, activities; empty = all)."""
     from app.services import event_nodes
 
-    event, issuer_id = await judge_link_event(db, token)
+    event, link = await judge_link_event(db, token)
     # A local node never adds staff (its copy of the event is not locked there, and it shares the
     # cloud's signing secret): the QR only works against the cloud.
     if await event_nodes.local_node(db, event.id) is not None:
@@ -593,14 +638,21 @@ async def join_as_judge(db: AsyncSession, user: User, token: str, request: Reque
     if clubs and await db.scalar(select(exists().where(
             EventRegistration.event_id == event.id, EventRegistration.club_id.in_(clubs),
             EventRegistration.status == "REGISTERED"))):
-        # A judge of every activity sees and corrects every club's scores: never the director of a club
-        # that competes here. The coordination can still add someone by hand if it decides so.
+        # A judge sees and corrects every club's scores in their activities: never the director of a
+        # club that competes here (with a QR for some activities too). The coordination can still add
+        # someone by hand if it decides so.
         raise HTTPException(status.HTTP_403_FORBIDDEN,
                             "Diriges un club de este evento: no puedes entrar como juez con el QR. Habla con la coordinación.")
-    issuer = await db.get(User, issuer_id)
-    rows = await _add_rows(db, event, user, JUDGE, None, issuer.id if issuer else None, request,
-                           via="judge_link", audit_actor=user)
-    return event, rows
+    activities = await judge_link_activities(db, event, link)
+    if activities and await db.scalar(select(exists().where(
+            EventStaff.event_id == event.id, EventStaff.user_id == user.id, EventStaff.role == JUDGE,
+            EventStaff.active, EventStaff.activity_id.is_(None)))):
+        # Already a judge of every activity: a QR for some of them adds nothing.
+        return event, 0, activities
+    issuer = await db.get(User, link.issuer_id)
+    rows = await _add_rows(db, event, user, JUDGE, [row.id for row in activities] or None,
+                           issuer.id if issuer else None, request, via="judge_link", audit_actor=user)
+    return event, rows, activities
 
 
 # ----------------------------------------------------------------------------
