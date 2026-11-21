@@ -43,6 +43,7 @@ from app.schemas.event import (
     RegistrationCreate,
     RegistrationOut,
     RegistrationUpdate,
+    PassDirectorSelf,
     ResolvePass,
     ScanCreate,
     StaffCreate,
@@ -899,6 +900,28 @@ async def resolve_any_pass(payload: ResolvePass, request: Request,
                     db, row, coordination=roles.coordination, staff=True)).model_dump(exclude_unset=True),
             }
     raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
+
+
+@router.post("/pass/director")
+@limiter.limit("10/minute")
+async def pass_director_self_register(payload: PassDirectorSelf, request: Request, background: BackgroundTasks,
+                                      db: AsyncSession = Depends(get_db)):
+    """`/p/<token>` without a session: the director scans the club's pass, writes name and e-mail,
+    and gets the invitation link to create the account already tied to the club (also e-mailed).
+    Unknown or withdrawn pass: the same neutral 404 as `/pass/resolve`."""
+    row = await scores.find_by_pass(db, payload.token)
+    if row is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, scores.PASS_NOT_FOUND)
+    result = await onboarding.self_register_director(db, row, name=payload.name, email=payload.email,
+                                                     request=request)
+    event = await event_service.get_event(db, row.event_id)
+    inviter = await db.get(User, result.invitation.created_by_id)
+    send = await _queue(background, db, event, result.invitation, result.token, inviter)
+    await db.commit()
+    send()
+    links = onboarding.share_links(event, result.invitation, result.token)
+    return {"club_name": result.club.name, "event_name": event.name, "email": result.invitation.email,
+            "url": links["url"]}
 
 
 @router.get("/{event_id}/registrations/{registration_id}/breakdown")
