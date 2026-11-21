@@ -352,11 +352,9 @@ SELF_NOT_ELIGIBLE = "Ese correo no puede quedar como director de este club. Pide
 async def self_register_director(
     db: AsyncSession, registration: EventRegistration, *, name: str, email: str, request: Request | None,
 ) -> LinkResult:
-    """Whoever holds the club's pass, once the club's arrival is registered, becomes its director:
-    a CLUB_DIRECTOR invitation (the same one «Vincular director» makes, issued in the name of
-    whoever registered the club) whose link is returned at once so they create the account right
-    there; the e-mail goes too. Only while the club has no director and no other pending address
-    — the first one wins and coordination sees it in Clubes (and can revoke it)."""
+    """Whoever holds the club's pass, once the club's arrival is registered, ASKS to be its director:
+    a pending CLUB_DIRECTOR request that the administration approves in Clubes. Only while the club
+    has no director and no other pending address."""
     from app.services import clubs as club_service
     from app.security import ADMIN_ROLES
 
@@ -380,9 +378,10 @@ async def self_register_director(
     if pending is not None:
         if _normalize(pending.email) != email:
             raise HTTPException(status.HTTP_409_CONFLICT, SELF_OTHER_PENDING)
-        # The same address again (lost the screen, or was linked by coordination): a fresh link.
-        pending.revoked_at = utcnow()
-        await db.flush()
+        # The same address: nothing new. A link made by the administration already went to that
+        # mailbox; a request keeps waiting for «Aprobar». Never a fresh link in this response
+        # (a pass is printed and photographed: holding it proves nothing about the address).
+        return LinkResult("invitation_pending", registration.id, club, invitation=pending)
 
     person = (await db.execute(select(User).where(User.email == email))).scalar_one_or_none()
     if person is not None:
@@ -391,26 +390,22 @@ async def self_register_director(
         if await club_service.leads_a_club(db, person):
             raise HTTPException(status.HTTP_409_CONFLICT, SELF_NOT_ELIGIBLE)
 
-    inviter = None
-    for candidate in (registration.registered_by_id, registration.checked_in_by_id):
-        if candidate is None:
-            continue
-        user = await db.get(User, candidate)
-        if user is not None and await org_invitations.can_invite(db, user, CLUB_DIRECTOR, club):
-            inviter = user
-            break
+    inviter = await _inviter_for(db, registration, club)
     if inviter is None:
         raise HTTPException(status.HTTP_409_CONFLICT, SELF_CLOSED)
 
-    invitation, token = await org_invitations.create(
+    # A request, like the sign-up's «Mi club ya está en el evento»: no e-mail, its token is never
+    # shown; the administration approves it in Clubes (and «Aprobar» e-mails the link when the
+    # address has no verified account, so the mailbox proves who it is).
+    invitation, _token = await org_invitations.create(
         db, organization=club, actor=inviter, role=CLUB_DIRECTOR, email=email, request=request,
         return_to=event_url(event, "/club"),
-        on_accept={"type": DIRECTOR_TYPE, "event_id": str(event.id), "name": name},
+        on_accept={"type": DIRECTOR_TYPE, "event_id": str(event.id), "name": name, "request": True},
     )
     record_audit(db, action="EVENT_DIRECTOR_SELF_REGISTER", entity_type="EVENT", entity_id=event.id, actor=inviter,
-                 metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "via": "pass"},
+                 metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "via": "pass_request"},
                  request=request)
-    return LinkResult("invite", registration.id, club, invitation=invitation, token=token)
+    return LinkResult("invite", registration.id, club, invitation=invitation)
 
 
 # ----------------------------------------------------------------------------
@@ -522,8 +517,10 @@ async def request_director(db: AsyncSession, person: User, registration_id: uuid
 
 
 async def approve_director_request(db: AsyncSession, actor: User, roles, event: Event,
-                                   invitation: OrgInvitation, request: Request | None) -> Organization:
-    """«Aprobar» in Clubes: the account that asked becomes the club's director."""
+                                   invitation: OrgInvitation, request: Request | None
+                                   ) -> tuple[Organization, OrgInvitation | None, str | None]:
+    """«Aprobar» in Clubes: a VERIFIED account that asked becomes the club's director now
+    (returns no invitation); otherwise the invitation is e-mailed (returns it and its token)."""
     from app.services import clubs as club_service
     from app.security import ADMIN_ROLES
 
@@ -536,7 +533,19 @@ async def approve_director_request(db: AsyncSession, actor: User, roles, event: 
     if (await _directors_by_club(db, [club.id])).get(club.id) is not None:
         raise HTTPException(status.HTTP_409_CONFLICT, HAS_OTHER_DIRECTOR)
     person = (await db.execute(select(User).where(User.email == _normalize(invitation.email)))).scalar_one_or_none()
-    if person is None or person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE":
+    if person is None or person.verification_status != "VERIFIED":
+        # Nobody has proven they own that address (no account yet, or an unverified sign-up): the
+        # approval becomes a normal invitation e-mailed to it; whoever opens it from that mailbox
+        # creates the account or signs in, and only then is the director.
+        if person is not None and (person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE"):
+            raise HTTPException(status.HTTP_409_CONFLICT, "Esa cuenta no puede quedar como director.")
+        renewed, token = await org_invitations.resend(db, invitation, organization=club, actor=actor, request=request)
+        renewed.on_accept = {**(renewed.on_accept or {}), "request": False}
+        record_audit(db, action="EVENT_DIRECTOR_APPROVE", entity_type="EVENT", entity_id=event.id, actor=actor,
+                     metadata={"club_id": str(club.id), "invitation_id": str(renewed.id), "via": "email"},
+                     request=request)
+        return club, renewed, token
+    if person.role in ADMIN_ROLES or person.is_minor or person.status != "ACTIVE":
         raise HTTPException(status.HTTP_409_CONFLICT, "Esa cuenta no puede quedar como director.")
     if await club_service.leads_a_club(db, person):
         raise HTTPException(status.HTTP_409_CONFLICT, "Esa persona ya dirige otro club.")
@@ -545,7 +554,7 @@ async def approve_director_request(db: AsyncSession, actor: User, roles, event: 
     record_audit(db, action="EVENT_DIRECTOR_APPROVE", entity_type="EVENT", entity_id=event.id, actor=actor,
                  metadata={"club_id": str(club.id), "invitation_id": str(invitation.id), "director_id": str(person.id)},
                  request=request)
-    return club
+    return club, None, None
 
 
 # ----------------------------------------------------------------------------
@@ -578,6 +587,16 @@ async def join_as_judge(db: AsyncSession, user: User, token: str, request: Reque
         raise HTTPException(status.HTTP_409_CONFLICT, "Tu cuenta no está activa.")
     if is_minor_user(user):
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Un menor de edad no puede ser personal del evento")
+    from app.services.event_access import director_club_ids
+
+    clubs = await director_club_ids(db, user)
+    if clubs and await db.scalar(select(exists().where(
+            EventRegistration.event_id == event.id, EventRegistration.club_id.in_(clubs),
+            EventRegistration.status == "REGISTERED"))):
+        # A judge of every activity sees and corrects every club's scores: never the director of a club
+        # that competes here. The coordination can still add someone by hand if it decides so.
+        raise HTTPException(status.HTTP_403_FORBIDDEN,
+                            "Diriges un club de este evento: no puedes entrar como juez con el QR. Habla con la coordinación.")
     issuer = await db.get(User, issuer_id)
     rows = await _add_rows(db, event, user, JUDGE, None, issuer.id if issuer else None, request,
                            via="judge_link", audit_actor=user)

@@ -103,6 +103,7 @@ async def test_request_then_approval(client, factory, w):
 
     url = f"{API}/{w['event']}/invitations/{invitation_id}/approve"
     assert (await client.post(url, headers=w["coordinator"]["headers"])).status_code == 403
+    await _exec("UPDATE users SET verification_status = 'VERIFIED' WHERE email = :e", e=email)
     ok = await client.post(url, headers=w["admin"]["headers"])
     assert ok.status_code == 200, ok.text
     assert ok.json()["action"] == "approved" and ok.json()["club"]["state"] == "ACTIVE"
@@ -128,13 +129,15 @@ async def test_the_address_already_linked_still_needs_approval(client, factory, 
     assert link.status_code == 200 and link.json()["action"] == "invite"
     signed = await client.post(REGISTER, json=_signup(email, w["registrations"]["b"], "Directora B"))
     assert signed.status_code == 201, signed.text
-    # An unverified sign-up proves nothing about owning the address: still «Aprobar».
+    # An unverified sign-up proves nothing about owning the address: «Aprobar» e-mails the link instead
+    # of appointing (only that mailbox can finish it).
     row = (await _directors(client, w))[w["registrations"]["b"]]
     assert row["state"] == "INVITED" and row["invitation"]["request"] is True
     ok = await client.post(f"{API}/{w['event']}/invitations/{row['invitation']['id']}/approve",
                            headers=w["admin"]["headers"])
     assert ok.status_code == 200, ok.text
-    assert ok.json()["club"]["state"] == "ACTIVE" and ok.json()["club"]["director"]["email"] == email
+    assert ok.json()["action"] == "invite" and ok.json()["club"]["state"] == "INVITED"
+    assert ok.json()["club"]["invitation"]["request"] is False
 
 
 async def test_another_pending_address_is_refused(client, factory, w):

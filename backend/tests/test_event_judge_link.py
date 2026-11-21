@@ -91,3 +91,20 @@ async def test_expired_link_is_refused(client, w):
     assert (await client.post(f"{API}/staff/join/preview", json={"token": token})).status_code == 404
     assert (await client.post(f"{API}/staff/join", json={"token": token},
                               headers=w["stranger"]["headers"])).status_code == 404
+
+
+async def test_a_director_of_a_competing_club_cannot_join_as_judge(client, factory, w):
+    church = await factory.org("church-d", "church", await factory.org("zone-d", "zone", await factory.org("assoc-d", "association")))
+    club = await factory.org("club-d", "club", church)
+    await _exec("UPDATE organizations SET ministry_id = (SELECT id FROM ministries WHERE slug = 'adventurers')"
+                " WHERE id = :id", id=uuid.UUID(club["id"]))
+    await _exec("INSERT INTO organization_ministries (organization_id, ministry_id)"
+                " SELECT :id, id FROM ministries WHERE slug = 'adventurers' ON CONFLICT DO NOTHING",
+                id=uuid.UUID(club["id"]))
+    await _exec("INSERT INTO event_registrations (id, event_id, club_id, status) VALUES (:id, :e, :c, 'REGISTERED')",
+                id=uuid.uuid4(), e=uuid.UUID(w["event"]), c=uuid.UUID(club["id"]))
+    director = await factory.user("director-d", "CLUB_DIRECTOR", club["id"])
+    token = _token((await client.post(f"{API}/{w['event']}/staff/join-link", headers=w["coordinator"]["headers"])).json()["url"])
+    refused = await client.post(f"{API}/staff/join", json={"token": token}, headers=director["headers"])
+    assert refused.status_code == 403, refused.text
+    assert "Diriges un club" in refused.json()["detail"]
