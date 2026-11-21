@@ -54,6 +54,7 @@ from app.schemas.event import (
     DirectorsImportOut,
     DirectorsOut,
     OpenEventClubOut,
+    JudgeJoinLinkIn,
     JudgeJoinLinkOut,
     JudgeJoinToken,
     EventInvitationOut,
@@ -106,22 +107,27 @@ async def open_event_clubs(request: Request, q: str = Query(default="", max_leng
 @router.post("/staff/join/preview")
 @limiter.limit("60/minute")
 async def judge_join_preview(payload: JudgeJoinToken, request: Request, db: AsyncSession = Depends(get_db)):
-    """No session: which event a judge QR is for, and until when."""
-    from app.services import event_judge_link
-
-    event, _issuer = await onboarding.judge_link_event(db, payload.token)
-    _e, _i, expires = event_judge_link.read(payload.token)
-    return {"event_id": str(event.id), "event_name": event.name, "expires_at": expires}
+    """No session: which event a judge QR is for, its activities (empty = every one) and until when."""
+    event, link = await onboarding.judge_link_event(db, payload.token)
+    activities = await onboarding.judge_link_activities(db, event, link)
+    return {"event_id": str(event.id), "event_name": event.name, "expires_at": link.expires,
+            "activities": _link_activities(activities)}
 
 
 @router.post("/staff/join")
 @limiter.limit("30/minute", key_func=account_or_ip)
 async def judge_join(payload: JudgeJoinToken, request: Request, current_user: User = Depends(get_current_user),
                      db: AsyncSession = Depends(get_db)):
-    """The signed-in account joins as a judge of every activity (idempotent: `added` 0 the second time)."""
-    event, rows = await onboarding.join_as_judge(db, current_user, payload.token, request)
+    """The signed-in account joins as a judge of the QR's activities, or of every activity
+    (idempotent: `added` 0 the second time)."""
+    event, rows, activities = await onboarding.join_as_judge(db, current_user, payload.token, request)
     await db.commit()
-    return {"event_id": str(event.id), "event_name": event.name, "added": rows}
+    return {"event_id": str(event.id), "event_name": event.name, "added": rows,
+            "activities": _link_activities(activities)}
+
+
+def _link_activities(activities) -> list[dict]:
+    return [{"id": str(row.id), "name": row.name} for row in activities]
 
 
 @router.get("/{event_id}", response_model=EventOut)
@@ -566,17 +572,17 @@ async def search_people(event_id: uuid.UUID, q: str = Query(min_length=2, max_le
 
 
 @router.post("/{event_id}/staff/join-link", response_model=JudgeJoinLinkOut)
-async def judge_join_link(event_id: uuid.UUID, current_user: User = Depends(get_current_user),
-                          db: AsyncSession = Depends(get_db)):
+async def judge_join_link(event_id: uuid.UUID, payload: JudgeJoinLinkIn | None = None,
+                          current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     """«QR para jueces»: a link valid 30 minutes; whoever opens it with an adult account joins
-    as a judge of every activity. Coordination of the event."""
-    from app.services import event_judge_link
-
+    as a judge of the chosen activities (`activity_ids`; empty or no body = every activity).
+    Coordination of the event."""
     event = await event_service.get_event(db, event_id)
     await event_service.require_coordination(db, current_user, event)
     event_service.require_editable(event)
-    token, expires = event_judge_link.make(event.id, current_user.id)
-    return JudgeJoinLinkOut(url=f"{onboarding.events_origin()}/unirse?t={token}", expires_at=expires)
+    url, expires, activities = await onboarding.make_judge_link(
+        db, current_user, event, payload.activity_ids if payload else None)
+    return JudgeJoinLinkOut(url=url, expires_at=expires, activities=_link_activities(activities))
 
 
 @router.post("/{event_id}/staff/invitations", response_model=StaffInviteOut, status_code=status.HTTP_201_CREATED)
