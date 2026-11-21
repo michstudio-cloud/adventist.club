@@ -310,6 +310,11 @@ async def link_director(
             return LinkResult("already_director", registration.id, club, director=current)
         raise HTTPException(status.HTTP_409_CONFLICT, HAS_OTHER_DIRECTOR)
     pending = (await _pending_director_invitations(db, [club.id])).get(club.id)
+    if pending is not None and _normalize(pending.email) != email and (pending.on_accept or {}).get("request"):
+        # Someone asked for the club from the sign-up form: the administration's own choice wins.
+        await org_invitations.revoke(db, pending, actor=actor, request=request)
+        await db.flush()
+        pending = None
     if pending is not None:
         if _normalize(pending.email) == email:
             return LinkResult("invitation_pending", registration.id, club, invitation=pending)
@@ -437,6 +442,8 @@ async def open_event_clubs(db: AsyncSession, q: str) -> list[dict]:
             .join(Event, Event.id == EventRegistration.event_id)
             .where(EventRegistration.status == "REGISTERED", Event.status.in_(("OPEN", "IN_PROGRESS")),
                    Event.offline_locked_at.is_(None))
+            .order_by(Organization.name)
+            .limit(2000)
         )
     ).all()
     hits = [(r, c, e) for r, c, e in rows if term in " ".join(_fold(c.name).split())]
@@ -465,9 +472,9 @@ async def _mark_accepted(invitation: OrgInvitation, person: User) -> None:
 async def request_director(db: AsyncSession, person: User, registration_id: uuid.UUID,
                            request: Request | None) -> str:
     """Called by the sign-up, inside its transaction (a refusal leaves no account behind).
-    The address the administration already linked to that club: director at once
-    («linked»). Otherwise a pending CLUB_DIRECTOR invitation marked `request` — no e-mail,
-    nobody can accept it with a link — that the administration approves («requested»)."""
+    A pending CLUB_DIRECTOR invitation marked `request` — no e-mail, its token is never
+    shown — that the administration approves in Clubes. When that address was already
+    linked by the administration, that invitation is the one marked (still «Aprobar»)."""
     from app.services import clubs as club_service
 
     row = (
@@ -491,17 +498,14 @@ async def request_director(db: AsyncSession, person: User, registration_id: uuid
     if pending is not None:
         if _normalize(pending.email) != email:
             raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_OTHER_PENDING)
-        # Already validated: the administration linked this very address.
-        actor = await db.get(User, pending.created_by_id) if pending.created_by_id else None
-        actor = actor or await _inviter_for(db, registration, club)
-        if actor is None:
-            raise HTTPException(status.HTTP_409_CONFLICT, REQUEST_CLOSED)
-        await club_service._appoint_director(db, actor, club, person, request)
-        await _mark_accepted(pending, person)
+        # The address the administration linked. An unverified sign-up proves nothing about
+        # owning it: the same invitation now also waits for «Aprobar» (the e-mailed link still
+        # works for whoever really owns the address).
+        pending.on_accept = {**(pending.on_accept or {}), "request": True}
         record_audit(db, action="EVENT_DIRECTOR_REQUEST", entity_type="EVENT", entity_id=event.id, actor=person,
                      metadata={"club_id": str(club.id), "invitation_id": str(pending.id), "via": "already_linked"},
                      request=request)
-        return "linked"
+        return "requested"
 
     inviter = await _inviter_for(db, registration, club)
     if inviter is None:

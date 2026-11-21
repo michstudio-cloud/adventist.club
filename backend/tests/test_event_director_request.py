@@ -6,7 +6,8 @@ Proved here:
   * signing up with `event_director_request` creates an adult account (never a director without a
     club) and a pending `request` invitation, with no e-mail; Clubes shows it; a COORDINATOR of the
     event may not approve, the association's administration does: the account is the director;
-  * the address the administration already linked: director at once, no approval;
+  * the address the administration already linked: that invitation also waits for «Aprobar»;
+  * the administration's own «Vincular director» replaces a self-service request;
   * another address already pending, or a club with a director: refused, and no account is left.
 """
 import uuid
@@ -120,15 +121,20 @@ async def test_request_then_approval(client, factory, w):
     assert found[0]["has_director"] is True
 
 
-async def test_the_address_already_linked_is_director_at_once(client, factory, w):
+async def test_the_address_already_linked_still_needs_approval(client, factory, w):
     email = factory.email("linked-b")
     link = await client.post(f"{API}/{w['event']}/registrations/{w['registrations']['b']}/director",
                              json={"name": "Directora B", "email": email}, headers=w["admin"]["headers"])
     assert link.status_code == 200 and link.json()["action"] == "invite"
     signed = await client.post(REGISTER, json=_signup(email, w["registrations"]["b"], "Directora B"))
     assert signed.status_code == 201, signed.text
+    # An unverified sign-up proves nothing about owning the address: still «Aprobar».
     row = (await _directors(client, w))[w["registrations"]["b"]]
-    assert row["state"] == "ACTIVE" and row["director"]["email"] == email
+    assert row["state"] == "INVITED" and row["invitation"]["request"] is True
+    ok = await client.post(f"{API}/{w['event']}/invitations/{row['invitation']['id']}/approve",
+                           headers=w["admin"]["headers"])
+    assert ok.status_code == 200, ok.text
+    assert ok.json()["club"]["state"] == "ACTIVE" and ok.json()["club"]["director"]["email"] == email
 
 
 async def test_another_pending_address_is_refused(client, factory, w):
@@ -138,6 +144,13 @@ async def test_another_pending_address_is_refused(client, factory, w):
     refused = await client.post(REGISTER, json=_signup(second, w["registrations"]["c"]))
     assert refused.status_code == 409
     assert await fetch_one("SELECT id FROM users WHERE email = :e", e=second) is None
+    # The administration's own link replaces a self-service request.
+    chosen = factory.email("chosen-c")
+    link = await client.post(f"{API}/{w['event']}/registrations/{w['registrations']['c']}/director",
+                             json={"name": "Elegida C", "email": chosen}, headers=w["admin"]["headers"])
+    assert link.status_code == 200, link.text
+    row = (await _directors(client, w))[w["registrations"]["c"]]
+    assert row["invitation"]["email"] == chosen and row["invitation"]["request"] is False
 
 
 async def test_request_and_new_club_are_exclusive(client, factory, w):

@@ -267,8 +267,6 @@ async def register(
         message += "Child protection certification required. "
     if director_request == "requested":
         message += "Your request to direct the club is waiting for the event's approval. "
-    elif director_request == "linked":
-        message += "You are the club's director. "
     if user.role == CLUB_DIRECTOR:
         message += (
             "Your club is pending approval by your association. "
