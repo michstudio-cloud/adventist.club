@@ -162,3 +162,20 @@ def test_installed_files_are_what_the_builder_writes(tmp_path):
         assert {p.name for p in built.iterdir()} == {p.name for p in installed.iterdir()}
         for path in built.iterdir():
             assert path.read_bytes() == (installed / path.name).read_bytes(), (slug, path.name)
+
+
+def test_multicolor_name_grows_upwards_at_the_multiline_size():
+    """«Aventureros · multicolor» (MICH's package): a name that needs two lines is laid out from 52 and
+    grows upwards — the last line keeps the design's baseline, so it never reaches the phrase below."""
+    template = load_template("aventureros-multicolor")
+    assert template.ministries == ["adventurers"]
+    long_name = "María Fernanda de los Ángeles Rodríguez Villarreal"
+    svg = fill_svg(template, {"recipient_name": long_name, "honor_name": "Abejas melíferas", "issued_date": "21/11/2026"},
+                   {}, "es", "adventurers")
+    name = re.search(r'<text[^>]*id="recipient_name"[^>]*font-size="([\d.]+)"[^>]*>(.*?)</text>', svg, re.S)
+    assert name and float(name.group(1)) <= 52
+    dys = [float(v) for v in re.findall(r'<tspan[^>]*dy="(-?[\d.]+)"', name.group(2))]
+    assert len(dys) == 2 and dys[0] < 0 and dys[1] > 0 and abs(dys[0] + dys[1]) < 0.01
+    short = fill_svg(template, {"recipient_name": "Sofía Ruiz", "honor_name": "Abejas", "issued_date": "21/11/2026"},
+                     {}, "es", "adventurers")
+    assert re.search(r'id="recipient_name"[^>]*><tspan[^>]*dy="0"', short)

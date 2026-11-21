@@ -397,6 +397,12 @@ def compile_package(folder: Path, slug: str, ministry: str = "pathfinders") -> d
                 if int(e.get("max_lines", 1)) != 2:
                     raise CompileError(f"wrap_strategy balanced sólo con max_lines 2 ({e['id']}).")
                 attrs["data-wrap"] = "balanced"
+            if e.get("vertical_anchor") not in (None, "baseline", "bottom"):
+                raise CompileError(f"vertical_anchor no soportado en {e['id']}: {e.get('vertical_anchor')}")
+            if e.get("vertical_anchor") == "bottom" and int(e.get("max_lines", 1)) > 1:
+                attrs["data-anchor"] = "bottom"                     # grows upwards: the last line keeps baseline_y
+            if e.get("multiline_max_font_size"):
+                attrs["data-multiline-max-size"] = _num(e["multiline_max_font_size"])
             if e.get("text_transform") not in TEXT_TRANSFORMS:
                 raise CompileError(f"text_transform no soportado en {e['id']}: {e.get('text_transform')}")
             if e.get("text_transform") == "uppercase":
