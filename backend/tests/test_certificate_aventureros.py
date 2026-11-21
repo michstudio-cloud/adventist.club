@@ -70,12 +70,13 @@ def test_the_emblem_is_a_prominent_slot(slug):
     assert abs(float(emblem.group(1)) / float(emblem.group(2)) - 581.35 / 540.84) < 0.03
 
 
-def test_the_bundled_adventurer_emblem_is_the_whole_logo():
-    """It used to be the landscape alone (no band, no cross, no family): the Brand Book forbids using
-    only part of the logo."""
+def test_the_bundled_adventurer_emblem_has_no_text():
+    """The owner's shield (2026-11-21): the whole emblem without the «AVENTUREROS / CLUB» band, so a
+    certificate in English, Portuguese or French carries no Spanish text. Sky errata corrected."""
     svg = (EMBLEMS_DIR / "adventurers.svg").read_text(encoding="utf-8")
-    assert 'viewBox="0 0 581.35 540.84"' in svg                          # same box as before: slots unchanged
-    for colour in ("#2062af", "#66cbe0", "#fff", "maroon"):               # band, sky, cross/family/text, outline
+    assert 'viewBox="0 0 464.66 433.22"' in svg
+    assert not re.search(r"<text|<tspan", svg, re.I)                     # language-neutral
+    for colour in ("#66cbe0", "#fff", "#a10055"):                         # sky, cross, outline/family
         assert colour in svg.lower(), colour
     assert "#03eefc" not in svg.lower()                                   # Brand Book errata (neon sky) corrected
     assert not re.search(r"<script|<image|href=|on[a-z]+\s*=", svg, re.I)
