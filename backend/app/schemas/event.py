@@ -730,3 +730,12 @@ class OpenEventClubOut(BaseModel):
     club_name: str
     event_name: str
     has_director: bool
+
+
+class JudgeJoinLinkOut(BaseModel):
+    url: str
+    expires_at: datetime
+
+
+class JudgeJoinToken(_Body):
+    token: str = Field(min_length=8, max_length=200)
