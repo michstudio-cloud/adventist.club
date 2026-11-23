@@ -40,7 +40,9 @@ factory = module_factory("nodoapi")
 API = "/api/v1/events"
 
 
-def hdr(user, *, mfa=False, age=0):
+def hdr(user, *, mfa=True, age=0):
+    """A fresh access token. `mfa=True` (default): the session passed the second factor (since 032
+    preparing a node needs an account with MFA; the helpers' coordinators have it)."""
     token = create_access_token(uuid.UUID(user["id"]), mfa=mfa, auth_time=int(time.time()) - age)
     return {"Authorization": f"Bearer {token}"}
 
@@ -65,9 +67,13 @@ def _fast(monkeypatch):
 async def w(factory):
     assoc = await factory.org("assoc", "association")
     other_assoc = await factory.org("assoc-other", "association")
+    # 032: an association under a union, to prove the union's admins never travel to a node.
+    union = await factory.org("union", "union")
+    union_assoc = await factory.org("assoc-u", "association", union)
+    union_club = await factory.org("club-u", "club", await factory.org("church-u", "church", union_assoc))
     church = await factory.org("church", "church", assoc)
     clubs = {key: await factory.org(f"club-{key}", "club", church) for key in ("a", "b", "c")}
-    for club in clubs.values():
+    for club in [*clubs.values(), union_club]:
         await _exec("UPDATE organizations SET ministry_id = (SELECT id FROM ministries WHERE slug = 'adventurers')"
                     " WHERE id = :id", id=uuid.UUID(club["id"]))
     world = {
@@ -82,11 +88,17 @@ async def w(factory):
         "director": await factory.user("director", "CLUB_DIRECTOR", clubs["a"]["id"]),
         "minor_director": await factory.user("minor-director", "CLUB_DIRECTOR", clubs["b"]["id"], is_minor=True),
         "outsider": await factory.user("outsider", "STUDENT"),
+        "no_mfa_coord": await factory.user("no-mfa-coord", "INSTRUCTOR"),
+        "union": union, "union_assoc": union_assoc, "union_club": union_club,
+        "union_admin": await factory.user("union-admin", "ADMIN_UNION", union["id"]),
+        "union_assoc_admin": await factory.user("assoc-u-admin", "ADMIN_ASSOCIATION", union_assoc["id"]),
     }
-    await _exec("UPDATE users SET mfa_enabled = true, mfa_secret = 'JBSWY3DPEHPK3PXP' WHERE id = :id",
-                id=uuid.UUID(world["mfa_coord"]["id"]))
+    # Whoever prepares a node needs an account with a second factor (032).
+    for who in ("mfa_coord", "coordinator", "coordinator2", "admin", "master", "union_assoc_admin"):
+        await _exec("UPDATE users SET mfa_enabled = true, mfa_secret = 'JBSWY3DPEHPK3PXP' WHERE id = :id",
+                    id=uuid.UUID(world[who]["id"]))
     yield world
-    ids = [uuid.UUID(assoc["id"])]
+    ids = [uuid.UUID(assoc["id"]), uuid.UUID(union_assoc["id"])]
     await _exec("DELETE FROM audit_log WHERE entity_type LIKE 'EVENT%' AND entity_id IN"
                 " (SELECT id::text FROM events WHERE organization_id = ANY(:ids))", ids=ids)
     await _exec("DELETE FROM audit_log WHERE entity_type IN ('EVALUATION') AND metadata_json->>'event_id' IN"
@@ -94,8 +106,9 @@ async def w(factory):
     await _exec("DELETE FROM events WHERE organization_id = ANY(:ids)", ids=ids)
 
 
-async def make_event(client, w, name: str) -> dict:
-    """IN_PROGRESS event with 3 activities (A on_checkin), 3 clubs, two coordinators + MFA one, a judge."""
+async def make_event(client, w, name: str, *, node_enabled: bool = True) -> dict:
+    """IN_PROGRESS event with 3 activities (A on_checkin), 3 clubs, two coordinators + MFA one, a judge.
+    `node_enabled`: what a MASTER_GC decided for it (032; without it no node can be prepared)."""
     h = w["admin"]["headers"]
     event = await _ok(await client.post(API, json={
         "organization_id": w["assoc"]["id"], "ministry": "adventurers", "name": f"{RUN} {name}",
@@ -116,6 +129,8 @@ async def make_event(client, w, name: str) -> dict:
                                201))["id"]
     for step in ("OPEN", "IN_PROGRESS"):
         await _ok(await client.post(f"{url}/status", json={"status": step}, headers=h))
+    if node_enabled:
+        await _exec("UPDATE events SET offline_node_enabled = true WHERE id = :id", id=uuid.UUID(event["id"]))
     return {"id": event["id"], "url": url, "acts": acts, "regs": regs}
 
 
@@ -259,7 +274,7 @@ def test_refresh_keeps_the_original_login_time():
 
 async def test_refresh_endpoint_does_not_renew_recent_auth(client, w, ev):
     old = int(time.time()) - 3600
-    refresh = create_refresh_token(uuid.UUID(w["coordinator"]["id"]), auth_time=old)
+    refresh = create_refresh_token(uuid.UUID(w["coordinator"]["id"]), mfa=True, auth_time=old)
     access = (await _ok(await client.post("/api/v1/auth/refresh", json={"refresh_token": refresh})))["access_token"]
     assert decode_claims(access, "access")["auth_time"] == old
     node = Node("refresh")
@@ -290,7 +305,7 @@ async def test_export_permissions_recent_auth_and_mfa(client, w):
         await Node(who).prepare(client, event, hdr(w[who]), {"all": True}, code=403)
     old = await Node("old").prepare(client, event, hdr(w["coordinator"], age=16 * 60), {"all": True}, code=401)
     assert old.headers.get("x-reauth-required") == "1"
-    r = await Node("mfa").prepare(client, event, hdr(w["mfa_coord"]), {"all": True}, code=403)
+    r = await Node("mfa").prepare(client, event, hdr(w["mfa_coord"], mfa=False), {"all": True}, code=403)
     assert "dos pasos" in r.json()["detail"]
     assert not await _locked(event["id"])  # nothing happened
     node = Node("Con MFA")
@@ -321,7 +336,13 @@ async def test_bundle_contents(client, w, factory):
     assert all(u["mfa_secret"] is None and u["mfa_enabled"] is False for u in node.bundle["reference"]["users"])
     assert w["minor_director"]["email"] not in emails
     assert w["outsider"]["email"] not in emails and w["other_admin"]["email"] not in emails
-    assert all(u.get("password_hash") for u in node.bundle["reference"]["users"] if u["email"].startswith(RUN))
+    # 032: only the people capturing at the event (active staff + whoever prepares) get a usable
+    # password hash on the Mac; everybody else travels as a name, with a hash nobody can log in with.
+    hashes = {u["email"]: u["password_hash"] for u in node.bundle["reference"]["users"]}
+    for who in ("coordinator", "coordinator2", "mfa_coord", "judge"):
+        assert hashes[w[who]["email"]].startswith("$2"), who
+    for who in ("director", "admin"):
+        assert hashes[w[who]["email"]] == core.NO_LOGIN, who
     orgs = {o["id"] for o in node.bundle["reference"]["organizations"]}
     assert {w["assoc"]["id"], *(c["id"] for c in w["clubs"].values())} <= orgs
     assert w["other_assoc"]["id"] not in orgs  # only the organizations the copy needs
@@ -333,7 +354,8 @@ async def test_bundle_contents(client, w, factory):
                             id=uuid.UUID(event["regs"]["c"]))
     assert after["pass_token_enc"] and after["pass_token_hash"] != before["pass_token_hash"]
     assert node.bundle["legacy_passes_regenerated"] == 1
-    assert node.bundle["certificate"]["status"] == "no_configurado"
+    # 032: the real certificate (and its key) only for an event a MASTER_GC enabled it for
+    assert node.bundle["certificate"]["status"] == "ca_local" and "privkey_pem" not in node.bundle["certificate"]
     assert node.answer["summary"]["clubs"] == 3 and node.answer["summary"]["passes"] == 3
     row = await _node_row(node.id)
     assert row["status"] == "PREPARED" and row["sign_key"] == nodo_crypto.b64(node.sign_public)

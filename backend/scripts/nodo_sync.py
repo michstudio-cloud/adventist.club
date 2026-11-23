@@ -429,9 +429,35 @@ def api_call(method: str, path: str, *, body: bytes | None = None, headers: dict
         raise ApiError(0, f"No hay conexión con {urlsplit(api_base()).hostname} ({type(exc).__name__})") from exc
 
 
+LOCAL_CA_ISSUER = "Nodo evento CA local"  # nodo-evento/tls/ca-local.sh
+
+
+def is_local_ca(chain: Path) -> bool:
+    """True when `chain` was issued by this node's own local CA (never the platform's key)."""
+    from cryptography import x509  # noqa: PLC0415 (only the node side needs it here)
+
+    try:
+        cert = x509.load_pem_x509_certificate(chain.read_bytes())
+    except (OSError, ValueError):
+        return False
+    return LOCAL_CA_ISSUER in cert.issuer.rfc4514_string()
+
+
 def write_certificate(cert: dict, tls_dir: str | None) -> dict:
     out = {"status": cert.get("status"), "not_after": cert.get("not_after"), "names": cert.get("names"),
-           "staging": cert.get("staging"), "message": cert.get("message"), "installed": False}
+           "staging": cert.get("staging"), "message": cert.get("message"), "installed": False,
+           "removed_real": False}
+    if cert.get("status") == "ca_local" and tls_dir:
+        # 032: this event does not get the platform's real certificate. A real one left on this
+        # Mac by an earlier event is removed (its key must not keep serving another event); the
+        # motor then creates the local CA's certificate.
+        target = Path(tls_dir)
+        chain = target / "fullchain.pem"
+        if chain.exists() and not (target / "ca-local.pem").exists() and not is_local_ca(chain):
+            for name in ("fullchain.pem", "privkey.pem"):
+                (target / name).unlink(missing_ok=True)
+            out["removed_real"] = True
+        return out
     if cert.get("status") != "ok" or not tls_dir:
         return out
     target = Path(tls_dir)
@@ -503,6 +529,9 @@ async def cmd_prepare(args) -> int:
         cert = write_certificate(bundle.get("certificate") or {}, args.tls_dir)
         if cert["installed"]:
             say(f"@@ok Certificado instalado (vence {str(cert['not_after'])[:10]})")
+        elif cert["status"] == "ca_local":
+            say("@@ok Este evento usa el certificado local del nodo"
+                + (" (se quitó el certificado real de un evento anterior)" if cert["removed_real"] else ""))
         elif cert["status"] == "ok":
             say("@@aviso El paquete trae certificado pero no hay carpeta TLS: no se instaló")
         else:
@@ -512,6 +541,7 @@ async def cmd_prepare(args) -> int:
         summary = {
             "node_id": info["id"], "label": info["label"], "scope": info["scope"], "event_id": str(event_id),
             "event_name": bundle["event"]["events"][0]["name"],
+            "event_ends_on": bundle["event"]["events"][0].get("ends_on"),
             "activity_names": (["Todas las actividades"] if info["scope"].get("all")
                                else [activities[i] for i in info["scope"]["activity_ids"] if i in activities]),
             "clubs": len(regs), "accounts": len(bundle["reference"]["users"]),
@@ -577,11 +607,13 @@ async def cmd_node_info(args) -> int:
             return 0
         names = {r["id"]: r["name"] for r in await node.fetch(
             "SELECT id::text AS id, name FROM event_activities WHERE event_id = $1", uuid.UUID(me["event_id"]))}
-        event = await node.fetchrow("SELECT name, status FROM events WHERE id = $1", uuid.UUID(me["event_id"]))
+        event = await node.fetchrow("SELECT name, status, ends_on FROM events WHERE id = $1", uuid.UUID(me["event_id"]))
         scope = me.get("scope") or {}
         emit_json({"node": {
             "id": me["id"], "event_id": me["event_id"], "event_name": event["name"] if event else None,
-            "event_status": event["status"] if event else None, "label": me["label"], "status": me["status"],
+            "event_status": event["status"] if event else None,
+            "event_ends_on": event["ends_on"].isoformat() if event and event["ends_on"] else None,
+            "label": me["label"], "status": me["status"],
             "status_text": core.NODE_STATUS_ES.get(me["status"], me["status"]), "scope": scope,
             "activity_names": (["Todas las actividades"] if scope.get("all")
                                else [names[i] for i in scope.get("activity_ids", []) if i in names]),

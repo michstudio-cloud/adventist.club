@@ -1266,6 +1266,10 @@ class Event(Base):
     )
     offline_lock_reason: Mapped[str | None] = mapped_column(Text)
     offline_node_label: Mapped[str | None] = mapped_column(String(120))
+    # 032: set by MASTER_GC only. Preparing a node needs offline_node_enabled; the node gets the
+    # real TLS certificate (and its key) only with offline_node_real_cert (else its local CA).
+    offline_node_enabled: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    offline_node_real_cert: Mapped[bool] = mapped_column(Boolean, server_default="false")
     template_of_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("events.id", ondelete="SET NULL")
     )

@@ -33,7 +33,7 @@ EVENT_COLUMNS: dict[str, frozenset[str]] = {
         "id organization_id ministry_id name slug venue city starts_on ends_on status registration_closes_on "
         "rules_version honor_bands total_floor source_note template_of_id created_by_id created_at updated_at "
         "brand_logo_url brand_color brand_accent offline_locked_at offline_locked_by_id offline_lock_reason "
-        "offline_node_label").split()),
+        "offline_node_label offline_node_enabled offline_node_real_cert").split()),
     "event_activities": frozenset((
         "id event_id parent_id position name description kind max_points config status counts_to_total "
         "schedule_at created_at updated_at").split()),
