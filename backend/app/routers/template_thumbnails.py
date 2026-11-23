@@ -148,20 +148,29 @@ def thumbnail_version(slug: str) -> str:
     return _template_hash(slug)[:12]
 
 
-def thumb_etag(slug: str, locale: str, width: int) -> str:
-    return '"' + hashlib.sha256(f"{_template_hash(slug)}|{locale}|{width}".encode()).hexdigest()[:32] + '"'
+# Another ministry (aventureros.app) gets its own thumbnail with its emblem; Conquistadores keeps
+# the etag and key it always had, so the copies already in R2 stay valid.
+DEFAULT_MINISTRY = "pathfinders"
 
 
-def thumb_key(slug: str, locale: str, width: int, etag: str) -> str:
-    return f"{THUMBS_FOLDER}/{slug}/{locale}-{width}-{etag.strip(chr(34))[:sheet_cache.ETAG_CHARS]}.png"
+def thumb_etag(slug: str, locale: str, width: int, ministry: str = DEFAULT_MINISTRY) -> str:
+    variant = f"{_template_hash(slug)}|{locale}|{width}" + ("" if ministry == DEFAULT_MINISTRY else f"|{ministry}")
+    return '"' + hashlib.sha256(variant.encode()).hexdigest()[:32] + '"'
 
 
-def render_thumbnail(slug: str, locale: str, width: int) -> bytes:
+def thumb_key(slug: str, locale: str, width: int, etag: str, ministry: str = DEFAULT_MINISTRY) -> str:
+    prefix = "" if ministry == DEFAULT_MINISTRY else f"{ministry}-"
+    return f"{THUMBS_FOLDER}/{slug}/{prefix}{locale}-{width}-{etag.strip(chr(34))[:sheet_cache.ETAG_CHARS]}.png"
+
+
+def render_thumbnail(slug: str, locale: str, width: int, ministry: str = DEFAULT_MINISTRY) -> bytes:
     template = load_template(slug)
     dpi = width / (template.width_pt / engine.POINTS_PER_INCH)     # exactly `width` px wide
-    ministry = sample_ministry(template)
-    body, _ = render_certificate(slug, sample_data(template.fields, locale, ministry), dict(_sample_images(ministry)),
-                                 locale=locale, fmt="png", dpi=dpi, ministry=ministry)
+    # The ministry asked for (?ministry=, aventureros.app) or, by default, the template's own:
+    # an Aventureros-only design is drawn with the Aventureros emblem and award.
+    sample = ministry if ministry != DEFAULT_MINISTRY else sample_ministry(template)
+    body, _ = render_certificate(slug, sample_data(template.fields, locale, sample), dict(_sample_images(sample)),
+                                 locale=locale, fmt="png", dpi=dpi, ministry=sample)
     return body
 
 
@@ -236,13 +245,14 @@ async def warm_all(slugs: list[str] | None = None, widths: tuple[int, ...] = THU
     if delay:
         await asyncio.sleep(delay)
     for slug, locale, width in warm_variants(slugs, widths):
-        key = thumb_key(slug, locale, width, thumb_etag(slug, locale, width))
+        ministry = sample_ministry(load_template(slug))            # the key the endpoint asks for by default
+        key = thumb_key(slug, locale, width, thumb_etag(slug, locale, width, ministry), ministry)
         try:
             if await sheet_cache.exists(key):
                 counts["cached"] += 1
                 continue
             async with _render_slots():
-                body = await asyncio.to_thread(render_thumbnail, slug, locale, width)
+                body = await asyncio.to_thread(render_thumbnail, slug, locale, width, ministry)
             _memory.put(key, body)
             ok = await sheet_cache.store(key, body, f"{slug}-{locale}-{width}.png", PNG_TYPE)
             counts["uploaded" if ok else "failed"] += 1
@@ -278,6 +288,7 @@ async def template_thumbnail(
     # Literal[288, 576, 1152] would reject the query string "288" (a str): checked by hand below.
     w: int = Query(576, description="Ancho en px: 288, 576 o 1152"),
     v: str | None = Query(None, max_length=64, description="Versión de la miniatura (GET /templates): con la actual, caché de un año"),
+    ministry: str | None = Query(None, pattern=r"^[a-z][a-z-]{1,40}$", description="Ministerio: su emblema en la muestra (por defecto, el de la plantilla)"),
 ) -> Response:
     if w not in THUMB_WIDTHS:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El ancho (w) debe ser 288, 576 o 1152.")
@@ -287,17 +298,20 @@ async def template_thumbnail(
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Plantilla no encontrada.") from exc
     if locale not in template.locales:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "La plantilla no existe en ese idioma.")
+    ministry = ministry or sample_ministry(template)
+    if template.ministries is not None and ministry not in template.ministries:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "La plantilla no sirve a ese ministerio.")
     if not fonts_installed():
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Fuentes tipográficas no instaladas en el servidor.")
 
-    etag = thumb_etag(slug, locale, w)
+    etag = thumb_etag(slug, locale, w, ministry)
     versioned = v is not None and v == thumbnail_version(slug)
     headers = {"ETag": etag, "Cache-Control": CACHE_CONTROL_VERSIONED if versioned else CACHE_CONTROL}
     candidates = {tag.strip().removeprefix("W/") for tag in request.headers.get("if-none-match", "").split(",")}
     if etag in candidates or "*" in candidates:
         return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers=headers)
 
-    key = thumb_key(slug, locale, w, etag)
+    key = thumb_key(slug, locale, w, etag, ministry)
     stored = sheet_cache.enabled()
     if stored and await sheet_cache.exists(key):
         return RedirectResponse(sheet_cache.public_url(key), status_code=status.HTTP_302_FOUND, headers=headers)
@@ -312,13 +326,13 @@ async def template_thumbnail(
                     async with _render_slots():
                         try:
                             # CPU-bound: off the event loop, so the API keeps answering meanwhile.
-                            body = await asyncio.to_thread(render_thumbnail, slug, locale, w)
+                            body = await asyncio.to_thread(render_thumbnail, slug, locale, w, ministry)
                         except TemplateError as exc:
                             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
                     _memory.put(key, body)
                     if stored:
                         # After the response: the first visitor is not slowed down by the upload.
-                        background.add_task(sheet_cache.store, key, body, f"{slug}-{locale}-{w}.png", PNG_TYPE)
+                        background.add_task(sheet_cache.store, key, body, f"{slug}-{ministry}-{locale}-{w}.png", PNG_TYPE)
         finally:
             if not lock.locked():
                 _locks.pop(key, None)
