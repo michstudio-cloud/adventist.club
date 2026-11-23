@@ -71,6 +71,11 @@ en vez del celeste `#66CBE0` del libro; el lima (`#BFDE00` frente a `#BDD630`) y
 `~/Documents/DEEL/aventureros/marca/svg/aventureros-color.svg` (sale del PDF oficial) o, como
 mínimo, cambiar `#03EEFC` → `#66CBE0` en ese archivo.
 
+**API (21 nov 2026)**: `templates/assets/emblems/adventurers.svg` (el emblema que el motor pone en la ranura
+`emblem` de los certificados) sólo traía el paisaje, sin banda, cruz ni familia. Ahora es el dibujo completo de
+la web con esa corrección mínima (`#03EEFC` → `#66CBE0`); ver `docs/CERTIFICADOS_V4.md` «Reconocimientos de
+Aventureros».
+
 ## Tipografía (pág. 10)
 - Logotipo: **Arial Bold** (familia oficial del logo; «optimizada para impresión, excelente
   legibilidad»). El libro no define tipografías de texto corrido.

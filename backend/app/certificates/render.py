@@ -517,11 +517,17 @@ def _transform_text(el: ET.Element, text: str) -> str:
 def _apply_fit_wrap(el: ET.Element, text: str, field: str) -> None:
     family = (el.get("font-family") or "sans-serif").split(",")[0].strip().strip("'\"")
     text = _transform_text(el, text)
-    size, lines = fit_lines(
-        text, family=family, weight=el.get("font-weight") or "400",
-        size=float(el.get("font-size") or 12), min_size=float(el.get("data-min-size") or el.get("font-size") or 12),
+    fit = dict(
+        family=family, weight=el.get("font-weight") or "400",
+        min_size=float(el.get("data-min-size") or el.get("font-size") or 12),
         max_width=float(el.get("data-max-width") or 0) or float("inf"),
         max_lines=int(el.get("data-max-lines") or 1), field=field, balanced=el.get("data-wrap") == "balanced")
+    size, lines = fit_lines(text, size=float(el.get("font-size") or 12), **fit)
+    # `multiline_max_font_size` of the package (data-multiline-max-size): a text that needs more than
+    # one line is laid out again from that smaller size, so two lines never print at the one-line size.
+    cap = float(el.get("data-multiline-max-size") or 0)
+    if cap and len(lines) > 1 and size > cap:
+        size, lines = fit_lines(text, size=max(cap, fit["min_size"]), **fit)
     el.set("font-size", f"{size:g}")
     for child in list(el):
         el.remove(child)
@@ -534,10 +540,13 @@ def _apply_fit_wrap(el: ET.Element, text: str, field: str) -> None:
         el.set("stroke-width", f"{size * ratio:.4g}")
         el.set("stroke-linejoin", "miter")
     line_height = float(el.get("data-line-height") or 1.25)
+    # `vertical_anchor: bottom` (data-anchor="bottom"): the block grows upwards and the LAST line keeps
+    # the design's baseline, so a two-line name never reaches the phrase below it.
+    first = -(len(lines) - 1) * size * line_height if el.get("data-anchor") == "bottom" else 0
     for i, line in enumerate(lines):
         tspan = ET.SubElement(el, f"{{{SVG_NS}}}tspan")
         tspan.set("x", el.get("x") or "0")
-        tspan.set("dy", "0" if i == 0 else f"{size * line_height:g}")
+        tspan.set("dy", f"{first:g}" if i == 0 else f"{size * line_height:g}")
         tspan.text = line
 
 

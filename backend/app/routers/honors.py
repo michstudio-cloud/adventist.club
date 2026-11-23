@@ -212,6 +212,7 @@ def _list_fields(
     translated: str | None = None,
     locale: str | None = None,
     translated_category: str | None = None,
+    translated_description: str | None = None,
 ) -> dict:
     return {
         "id": str(honor.id),
@@ -227,7 +228,9 @@ def _list_fields(
         "source_url": honor.source_url,
         "active": honor.active,
         "code": honor.code,
-        "description": honor.description,
+        # The public views show the description in the reader's language when the catalogue has it
+        # (Adventurer awards: «Suggested class: …»); staff screens keep the source text they edit.
+        "description": translated_description or honor.description,
         "category": _category_out(category, translated_category),
         "difficulty_level": honor.difficulty_level,
         "honor_type": honor.honor_type,
@@ -357,7 +360,13 @@ async def _build_detail(
         }
 
     fields = {
-        **_list_fields(honor, category, translation.name if translation else None, name_locale),
+        **_list_fields(
+            honor,
+            category,
+            translation.name if translation else None,
+            name_locale,
+            translated_description=translation.description if translation and not staff else None,
+        ),
         "ministry": ministry.slug if ministry else None,
         "requirements_locale": requirements_locale if requirements else None,
         "org_scope_id": str(honor.org_scope_id) if honor.org_scope_id else None,
@@ -697,7 +706,7 @@ async def list_honors(
         )
 
     total = (await db.execute(localized(select(func.count(Honor.id))).where(*conditions))).scalar_one()
-    columns = [Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name]
+    columns = [Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name, HonorTranslation.description]
     if summary is not None:
         columns += [summary.c.count, summary.c.locale]
     rows = (
@@ -709,8 +718,10 @@ async def list_honors(
     response.headers["Content-Language"] = name_locale or SOURCE_LOCALE
     if summary is None:
         return [
-            HonorListItem(**_list_fields(honor, category_row, translated, name_locale, translated_category))
-            for honor, category_row, translated, translated_category in rows
+            HonorListItem(
+                **_list_fields(honor, category_row, translated, name_locale, translated_category, translated_description)
+            )
+            for honor, category_row, translated, translated_category, translated_description in rows
         ]
     return [
         HonorStaffListItem(
@@ -718,7 +729,7 @@ async def list_honors(
             requirements_count=count or 0,
             requirements_locale=requirements_locale,
         )
-        for honor, category_row, translated, translated_category, count, requirements_locale in rows
+        for honor, category_row, translated, translated_category, _description, count, requirements_locale in rows
     ]
 
 

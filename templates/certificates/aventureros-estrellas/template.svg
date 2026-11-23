@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 792 612" width="11in" height="8.5in" data-template="aventureros-estrellas" data-version="1.0">
+<!-- Aventureros · Cielo de estrellas: reconocimiento del Club de Aventureros. Unidades del diseño 1100 x 850 dentro del grupo escalado (Carta horizontal). Contrato de ajuste: docs/CERTIFICADOS_V4.md. -->
+<g transform="scale(0.72)">
+<rect width="1100" height="850" fill="#FFFDF7"/>
+<rect width="1100" height="250" fill="#1B3A6B"/>
+<rect y="834" width="1100" height="16" fill="#1B3A6B"/>
+<circle cx="118" cy="118" r="46" fill="#F5C640"/><circle cx="140" cy="102" r="40" fill="#1B3A6B"/>
+<path d="M236.0 51.0L238.4 56.7L244.6 57.2L239.9 61.3L241.3 67.3L236.0 64.0L230.7 67.3L232.1 61.3L227.4 57.2L233.6 56.7Z" fill="#F5C640"/>
+<path d="M300.0 162.0L301.6 165.8L305.7 166.1L302.6 168.8L303.5 172.9L300.0 170.7L296.5 172.9L297.4 168.8L294.3 166.1L298.4 165.8Z" fill="#FFFFFF"/>
+<path d="M196.0 193.0L197.9 197.5L202.7 197.8L199.0 201.0L200.1 205.7L196.0 203.2L191.9 205.7L193.0 201.0L189.3 197.8L194.1 197.5Z" fill="#F5C640"/>
+<path d="M870.0 46.0L872.1 51.1L877.6 51.5L873.4 55.1L874.7 60.5L870.0 57.6L865.3 60.5L866.6 55.1L862.4 51.5L867.9 51.1Z" fill="#FFFFFF"/>
+<path d="M944.0 107.0L947.4 115.3L956.4 116.0L949.6 121.8L951.6 130.5L944.0 125.8L936.4 130.5L938.4 121.8L931.6 116.0L940.6 115.3Z" fill="#F5C640"/>
+<path d="M1030.0 59.0L1031.9 63.5L1036.7 63.8L1033.0 67.0L1034.1 71.7L1030.0 69.2L1025.9 71.7L1027.0 67.0L1023.3 63.8L1028.1 63.5Z" fill="#F5C640"/>
+<path d="M1012.0 187.0L1014.4 192.7L1020.6 193.2L1015.9 197.3L1017.3 203.3L1012.0 200.1L1006.7 203.3L1008.1 197.3L1003.4 193.2L1009.6 192.7Z" fill="#FFFFFF"/>
+<path d="M842.0 190.0L843.6 193.8L847.7 194.1L844.6 196.8L845.5 200.9L842.0 198.7L838.5 200.9L839.4 196.8L836.3 194.1L840.4 193.8Z" fill="#F5C640"/>
+<path d="M60.0 208.0L61.6 211.8L65.7 212.1L62.6 214.8L63.5 218.9L60.0 216.7L56.5 218.9L57.4 214.8L54.3 212.1L58.4 211.8Z" fill="#FFFFFF"/>
+<path d="M1062.0 135.0L1063.3 138.2L1066.8 138.5L1064.1 140.7L1064.9 144.0L1062.0 142.2L1059.1 144.0L1059.9 140.7L1057.2 138.5L1060.7 138.2Z" fill="#FFFFFF"/>
+<circle cx="360" cy="40" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="400" cy="214" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="690" cy="30" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="760" cy="222" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="330" cy="110" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="1078" cy="30" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="40" cy="60" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="900" cy="230" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<circle cx="770" cy="120" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+<path d="M70.0 410.0L72.6 416.4L79.5 416.9L74.3 421.4L75.9 428.1L70.0 424.5L64.1 428.1L65.7 421.4L60.5 416.9L67.4 416.4Z" fill="#F5C640"/>
+<path d="M110.0 752.0L112.1 757.1L117.6 757.5L113.4 761.1L114.7 766.5L110.0 763.6L105.3 766.5L106.6 761.1L102.4 757.5L107.9 757.1Z" fill="#66CBE0"/>
+<path d="M1030.0 421.0L1032.4 426.7L1038.6 427.2L1033.9 431.3L1035.3 437.3L1030.0 434.1L1024.7 437.3L1026.1 431.3L1021.4 427.2L1027.6 426.7Z" fill="#66CBE0"/>
+<path d="M1050.0 709.0L1052.9 716.0L1060.5 716.6L1054.7 721.5L1056.5 728.9L1050.0 725.0L1043.5 728.9L1045.3 721.5L1039.5 716.6L1047.1 716.0Z" fill="#F5C640"/>
+<path d="M60.0 594.0L61.6 597.8L65.7 598.1L62.6 600.8L63.5 604.9L60.0 602.7L56.5 604.9L57.4 600.8L54.3 598.1L58.4 597.8Z" fill="#66CBE0"/>
+<path d="M1000.0 554.0L1001.6 557.8L1005.7 558.1L1002.6 560.8L1003.5 564.9L1000.0 562.7L996.5 564.9L997.4 560.8L994.3 558.1L998.4 557.8Z" fill="#F5C640"/>
+<circle cx="550" cy="256" r="108" fill="#F5C640"/><circle cx="550" cy="256" r="101" fill="#FFFFFF"/>
+<image id="emblem" x="478" y="189" width="144" height="134" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="church_name" x="550" y="50" font-family="Lato" font-weight="400" font-size="14" fill="#CFDDF2" text-anchor="middle" data-fit="shrink-wrap" data-max-width="560" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-fallback-string="church_name">Iglesia Adventista del Séptimo Día</text>
+<text id="t_title" x="550" y="100" font-family="Poppins" font-weight="900" font-size="40" fill="#FFFFFF" text-anchor="middle" data-fit="shrink-wrap" data-max-width="700" data-min-size="24" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase" data-string="title">RECONOCIMIENTO DE AVENTUREROS</text>
+<text id="association_name" x="550" y="134" font-family="Lato" font-weight="400" font-size="15" fill="#CFDDF2" text-anchor="middle" data-fit="shrink-wrap" data-max-width="560" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase"></text>
+<text id="t_awarded" x="550" y="400" font-family="Lato" font-weight="400" font-size="21" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="640" data-min-size="14" data-max-lines="1" data-line-height="1.2" data-string="awarded">Se otorga a</text>
+<text id="recipient_name" x="550" y="466" font-family="Poppins" font-weight="700" font-size="56" fill="#173F73" text-anchor="middle" data-fit="shrink-wrap" data-max-width="860" data-min-size="26" data-max-lines="1" data-line-height="1.2" data-required="true"></text>
+<path d="M516.0 487.0L517.9 491.5L522.7 491.8L519.0 495.0L520.1 499.7L516.0 497.1L511.9 499.7L513.0 495.0L509.3 491.8L514.1 491.5Z" fill="#E8B92F"/>
+<path d="M550.0 484.0L552.6 490.4L559.5 490.9L554.3 495.4L555.9 502.1L550.0 498.5L544.1 502.1L545.7 495.4L540.5 490.9L547.4 490.4Z" fill="#E8B92F"/>
+<path d="M584.0 487.0L585.9 491.5L590.7 491.8L587.0 495.0L588.1 499.7L584.0 497.1L579.9 499.7L581.0 495.0L577.3 491.8L582.1 491.5Z" fill="#E8B92F"/>
+<text id="t_completion" x="550" y="536" font-family="Lato" font-weight="400" font-size="19" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="640" data-min-size="13" data-max-lines="2" data-line-height="1.25" data-string="completion">por completar los requisitos de</text>
+<image id="honor_patch" x="104" y="500" width="150" height="150" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="honor_name" x="550" y="586" font-family="Poppins" font-weight="700" font-size="34" fill="#2363AF" text-anchor="middle" data-fit="shrink-wrap" data-max-width="560" data-min-size="20" data-max-lines="2" data-line-height="1.15" data-wrap="balanced" data-required="true"></text>
+<text id="issued_date" x="550" y="672" font-family="Lato" font-weight="400" font-size="17" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="420" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-format="date-long" data-required="true"></text>
+<path d="M180 748h240" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_director" x="180" y="694" width="240" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="director_name" x="300" y="774" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="240" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_director_label" x="300" y="796" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="240" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="director">Director(a) del club</text>
+<path d="M680 748h240" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_instructor" x="680" y="694" width="240" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="instructor_name" x="800" y="774" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="240" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_instructor_label" x="800" y="796" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="240" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="instructor">Instructor(a)</text>
+<image id="qr" x="934" y="540" width="76" height="76" preserveAspectRatio="xMidYMid meet" data-placeholder-href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MCA3MCI+PHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZTZlOGU1Ii8+PC9zdmc+" href=""/>
+<text id="t_qr_placeholder_label" x="972" y="582" font-family="Lato" font-weight="400" font-size="12" fill="#65706b" text-anchor="middle" data-fit="shrink-wrap" data-max-width="40" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="qr" data-hide-if-image="qr">QR</text>
+<text id="certificate_no" x="972" y="634" font-family="Lato" font-weight="400" font-size="10" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="150" data-min-size="8" data-max-lines="1" data-line-height="1.2"></text>
+</g>
+</svg>

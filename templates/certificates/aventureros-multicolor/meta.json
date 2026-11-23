@@ -1,0 +1,21 @@
+{
+  "title": "Aventureros · Especialidades multicolor",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "adventurers"
+  ],
+  "engine": "elements",
+  "source": "scratchpad/aventureros-multicolor",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
+  ]
+}

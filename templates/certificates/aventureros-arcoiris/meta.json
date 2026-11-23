@@ -1,0 +1,21 @@
+{
+  "title": "Aventureros · Arcoíris de la promesa",
+  "kinds": [
+    "honor"
+  ],
+  "ministries": [
+    "adventurers"
+  ],
+  "engine": "elements",
+  "source": "tools/build_adventurer_templates.py:arcoiris",
+  "locales": [
+    "es",
+    "en",
+    "pt",
+    "fr"
+  ],
+  "editable_strings": [
+    "awarded",
+    "completion"
+  ]
+}

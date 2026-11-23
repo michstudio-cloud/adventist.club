@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 792 612" width="11in" height="8.5in" data-template="aventureros-paisaje" data-version="1.0">
+<!-- Aventureros · Colinas y camino: reconocimiento del Club de Aventureros. Unidades del diseño 1100 x 850 dentro del grupo escalado (Carta horizontal). Contrato de ajuste: docs/CERTIFICADOS_V4.md. -->
+<g transform="scale(0.72)">
+<defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.45" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DDF0F7"/></linearGradient></defs>
+<rect width="1100" height="850" fill="url(#cielo)"/>
+<circle cx="968" cy="118" r="54" fill="#F5C640"/>
+<path d="M1035.6 136.1L1056.9 141.8" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M1017.5 167.5L1033.1 183.1" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M986.1 185.6L991.8 206.9" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M949.9 185.6L944.2 206.9" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M918.5 167.5L902.9 183.1" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M900.4 136.1L879.1 141.8" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M900.4 99.9L879.1 94.2" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M918.5 68.5L902.9 52.9" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M949.9 50.4L944.2 29.1" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M986.1 50.4L991.8 29.1" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M1017.5 68.5L1033.1 52.9" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<path d="M1035.6 99.9L1056.9 94.2" stroke="#F5C640" stroke-width="9" stroke-linecap="round"/>
+<g fill="#FFFFFF" stroke="#E2F1F6" stroke-width="10" stroke-linejoin="round"><circle cx="783.5" cy="97.5" r="17.5"/><circle cx="802.8" cy="83.7" r="23.0"/><circle cx="826.7" cy="89.7" r="19.3"/><circle cx="844.2" cy="100.3" r="13.8"/><rect x="768.3" y="94.3" width="87.4" height="20.7" rx="10.1"/></g><g fill="#FFFFFF"><circle cx="783.5" cy="97.5" r="17.5"/><circle cx="802.8" cy="83.7" r="23.0"/><circle cx="826.7" cy="89.7" r="19.3"/><circle cx="844.2" cy="100.3" r="13.8"/><rect x="768.3" y="94.3" width="87.4" height="20.7" rx="10.1"/></g>
+<path d="M0 772C170 742 330 748 500 766S860 734 1100 726V850H0Z" fill="#BDD630"/>
+<path d="M0 806C200 778 380 784 560 808S900 786 1100 776V850H0Z" fill="#40AA48"/>
+<path d="M0 828C140 812 300 818 430 850H0Z" fill="#0C6735"/>
+<path d="M760 850C860 816 980 806 1100 812V850Z" fill="#558A3E"/>
+<path d="M520 850C580 828 662 818 640 800C622 786 652 776 700 768L712 771C676 780 660 788 676 802C700 824 660 838 676 850Z" fill="#D09833"/>
+<path d="M40 766L60.2 822H19.8Z" fill="#0C6735"/>
+<path d="M776 736L799.0 800H753.0Z" fill="#0C6735"/>
+<path d="M818 760L834.6 806H801.4Z" fill="#558A3E"/>
+<path d="M884 772v32" stroke="#7F1416" stroke-width="6" stroke-linecap="round"/><ellipse cx="884" cy="752" rx="22" ry="28" fill="#40AA48"/>
+<image id="emblem" x="68" y="50" width="172" height="160" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="t_brand" x="268" y="116" font-family="Poppins" font-weight="700" font-size="28" fill="#0C6735" data-fit="shrink-wrap" data-max-width="500" data-min-size="18" data-max-lines="1" data-line-height="1.2" data-string="brand">Club de Aventureros</text>
+<text id="church_name" x="268" y="148" font-family="Lato" font-weight="400" font-size="16" fill="#56606E" data-fit="shrink-wrap" data-max-width="500" data-min-size="11" data-max-lines="1" data-line-height="1.2" data-fallback-string="church_name">Iglesia Adventista del Séptimo Día</text>
+<text id="association_name" x="268" y="175" font-family="Lato" font-weight="400" font-size="14" fill="#56606E" data-fit="shrink-wrap" data-max-width="500" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase"></text>
+<text id="t_title" x="80" y="290" font-family="Poppins" font-weight="900" font-size="40" fill="#2363AF" data-fit="shrink-wrap" data-max-width="760" data-min-size="24" data-max-lines="1" data-line-height="1.2" data-text-transform="uppercase" data-string="title">RECONOCIMIENTO DE AVENTUREROS</text>
+<text id="t_awarded" x="80" y="344" font-family="Lato" font-weight="400" font-size="21" fill="#1F2A37" data-fit="shrink-wrap" data-max-width="740" data-min-size="14" data-max-lines="1" data-line-height="1.2" data-string="awarded">Se otorga a</text>
+<text id="recipient_name" x="80" y="410" font-family="Poppins" font-weight="700" font-size="56" fill="#173F73" data-fit="shrink-wrap" data-max-width="770" data-min-size="26" data-max-lines="1" data-line-height="1.2" data-required="true"></text>
+<path d="M82 434H500" stroke="#D09833" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 14"/>
+<text id="t_completion" x="80" y="478" font-family="Lato" font-weight="400" font-size="19" fill="#1F2A37" data-fit="shrink-wrap" data-max-width="760" data-min-size="13" data-max-lines="2" data-line-height="1.25" data-string="completion">por completar los requisitos de</text>
+<image id="honor_patch" x="872" y="262" width="160" height="160" preserveAspectRatio="xMidYMid meet" href=""/>
+<text id="honor_name" x="80" y="530" font-family="Poppins" font-weight="700" font-size="34" fill="#0C6735" data-fit="shrink-wrap" data-max-width="740" data-min-size="20" data-max-lines="2" data-line-height="1.15" data-wrap="balanced" data-required="true"></text>
+<text id="issued_date" x="80" y="612" font-family="Lato" font-weight="400" font-size="17" fill="#56606E" data-fit="shrink-wrap" data-max-width="500" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-format="date-long" data-required="true"></text>
+<path d="M80 668h250" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_director" x="80" y="614" width="250" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="director_name" x="205" y="694" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_director_label" x="205" y="716" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="director">Director(a) del club</text>
+<path d="M405 668h250" stroke="#1F2A37" stroke-width="1.4"/>
+<image id="signature_instructor" x="405" y="614" width="250" height="50" preserveAspectRatio="xMidYMax meet" href=""/>
+<text id="instructor_name" x="530" y="694" font-family="Lato" font-weight="400" font-size="17" fill="#1F2A37" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="11" data-max-lines="1" data-line-height="1.2"></text>
+<text id="t_instructor_label" x="530" y="716" font-family="Lato" font-weight="400" font-size="13" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="250" data-min-size="10" data-max-lines="1" data-line-height="1.2" data-string="instructor">Instructor(a)</text>
+<rect x="928" y="604" width="112" height="136" rx="14" fill="#FFFFFF" stroke="#CFE3EA" stroke-width="2"/>
+<image id="qr" x="946" y="618" width="76" height="76" preserveAspectRatio="xMidYMid meet" data-placeholder-href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MCA3MCI+PHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjZTZlOGU1Ii8+PC9zdmc+" href=""/>
+<text id="t_qr_placeholder_label" x="984" y="660" font-family="Lato" font-weight="400" font-size="12" fill="#65706b" text-anchor="middle" data-fit="shrink-wrap" data-max-width="40" data-min-size="12" data-max-lines="1" data-line-height="1.2" data-string="qr" data-hide-if-image="qr">QR</text>
+<text id="certificate_no" x="984" y="712" font-family="Lato" font-weight="400" font-size="10" fill="#56606E" text-anchor="middle" data-fit="shrink-wrap" data-max-width="150" data-min-size="8" data-max-lines="1" data-line-height="1.2"></text>
+</g>
+</svg>

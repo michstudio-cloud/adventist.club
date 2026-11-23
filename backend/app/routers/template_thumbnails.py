@@ -7,6 +7,8 @@ out and the thumbnails stayed grey. The sample never changes, so it is rendered 
 
 - fixed sample data on the server (`SAMPLE`): «María López», the honor «Campamento I» in the
   template's language (its patch ships in `templates/assets/samples/honor-patch.webp`),
+  or, for a template made only for Aventureros, the Adventurer award «Promesa del arco iris»
+  (`adventurer-award.webp`) drawn with the Aventureros emblem (`sample_ministry`),
   «Club Orión», 2026-09-21; no QR, no signatures;
 - `w` is 288, 576 or 1152 px (anything else is a 422), `locale` one of the template's
   languages (else 404, like an unknown slug);
@@ -61,6 +63,14 @@ SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "honor-patch
 SAMPLE_DATE = "2026-09-21"
 # The patch above is «Campamento I» (design package replica-especialidad/recursos): the name matches it.
 SAMPLE_HONOR = {"es": "Campamento I", "en": "Camping Skills I", "pt": "Acampamento I", "fr": "Camping I"}
+# A template made only for Aventureros (meta.json `ministries` without pathfinders) is drawn for
+# Aventureros: its emblem, and an Adventurer award instead of a Pathfinder honor — «Promesa del arco
+# iris» (patch from backend/data/adventurer_awards/webp/rainbow-promise.webp). Only those templates
+# hash these, so the thumbnails of every other template keep their etag and their R2 key.
+PATHFINDERS = "pathfinders"
+ADVENTURER_SAMPLE_PATCH = engine.TEMPLATES_DIR.parent / "assets" / "samples" / "adventurer-award.webp"
+ADVENTURER_SAMPLE_HONOR = {"es": "Promesa del arco iris", "en": "Rainbow Promise", "pt": "Promessa do arco-íris",
+                           "fr": "Promesse de l'arc-en-ciel"}
 SAMPLE = {
     "recipient_name": "María López",
     "club_name": "Club Orión",
@@ -72,12 +82,20 @@ RENDER_SLOTS = 2
 MEMORY_BUDGET = 24 * 1024 * 1024   # bytes of PNG kept in process (local without R2, and the upload window)
 
 
-def sample_data(fields: list[str], locale: str) -> dict[str, str]:
+def sample_ministry(template: engine.Template) -> str:
+    """The ministry a template's sample is drawn for: Conquistadores, unless the template does not serve
+    it (an Aventureros-only design shows the Aventureros emblem, not the Pathfinder one)."""
+    allowed = template.ministries
+    return PATHFINDERS if not allowed or PATHFINDERS in allowed else allowed[0]
+
+
+def sample_data(fields: list[str], locale: str, ministry: str = PATHFINDERS) -> dict[str, str]:
     """What the assistant would send for the sample (lib/certificate-templates.ts `buildRenderData`)."""
     language = locale.split("-")[0]
+    honors = ADVENTURER_SAMPLE_HONOR if ministry == "adventurers" else SAMPLE_HONOR
     data = {
         "recipient_name": SAMPLE["recipient_name"],
-        "honor_name": SAMPLE_HONOR.get(language, SAMPLE_HONOR["es"]),
+        "honor_name": honors.get(language, honors["es"]),
         "club_name": SAMPLE["club_name"],
         "director_name": SAMPLE["director_name"],
     }
@@ -92,11 +110,12 @@ def sample_data(fields: list[str], locale: str) -> dict[str, str]:
     return data
 
 
-@lru_cache(maxsize=1)
-def _sample_images() -> dict[str, str]:
-    if not SAMPLE_PATCH.is_file():
+@lru_cache(maxsize=4)
+def _sample_images(ministry: str = PATHFINDERS) -> dict[str, str]:
+    patch = ADVENTURER_SAMPLE_PATCH if ministry == "adventurers" else SAMPLE_PATCH
+    if not patch.is_file():
         return {}
-    return {"honor_patch": "data:image/webp;base64," + base64.b64encode(SAMPLE_PATCH.read_bytes()).decode()}
+    return {"honor_patch": "data:image/webp;base64," + base64.b64encode(patch.read_bytes()).decode()}
 
 
 @lru_cache(maxsize=64)
@@ -112,6 +131,14 @@ def _template_hash(slug: str) -> str:
         if extra.is_file():
             digest.update(extra.read_bytes())
     digest.update(json.dumps([SAMPLE, SAMPLE_HONOR, SAMPLE_DATE], sort_keys=True).encode())
+    ministry = sample_ministry(template)
+    if ministry != PATHFINDERS:                      # only those templates: nothing else is invalidated
+        digest.update(ministry.encode() + json.dumps(ADVENTURER_SAMPLE_HONOR, sort_keys=True).encode())
+        if ministry == "adventurers" and ADVENTURER_SAMPLE_PATCH.is_file():
+            digest.update(ADVENTURER_SAMPLE_PATCH.read_bytes())
+        emblem = engine.EMBLEMS_DIR / f"{ministry}.svg"
+        if emblem.is_file():
+            digest.update(emblem.read_bytes())
     return digest.hexdigest()
 
 
@@ -121,19 +148,29 @@ def thumbnail_version(slug: str) -> str:
     return _template_hash(slug)[:12]
 
 
-def thumb_etag(slug: str, locale: str, width: int) -> str:
-    return '"' + hashlib.sha256(f"{_template_hash(slug)}|{locale}|{width}".encode()).hexdigest()[:32] + '"'
+# Another ministry (aventureros.app) gets its own thumbnail with its emblem; Conquistadores keeps
+# the etag and key it always had, so the copies already in R2 stay valid.
+DEFAULT_MINISTRY = "pathfinders"
 
 
-def thumb_key(slug: str, locale: str, width: int, etag: str) -> str:
-    return f"{THUMBS_FOLDER}/{slug}/{locale}-{width}-{etag.strip(chr(34))[:sheet_cache.ETAG_CHARS]}.png"
+def thumb_etag(slug: str, locale: str, width: int, ministry: str = DEFAULT_MINISTRY) -> str:
+    variant = f"{_template_hash(slug)}|{locale}|{width}" + ("" if ministry == DEFAULT_MINISTRY else f"|{ministry}")
+    return '"' + hashlib.sha256(variant.encode()).hexdigest()[:32] + '"'
 
 
-def render_thumbnail(slug: str, locale: str, width: int) -> bytes:
+def thumb_key(slug: str, locale: str, width: int, etag: str, ministry: str = DEFAULT_MINISTRY) -> str:
+    prefix = "" if ministry == DEFAULT_MINISTRY else f"{ministry}-"
+    return f"{THUMBS_FOLDER}/{slug}/{prefix}{locale}-{width}-{etag.strip(chr(34))[:sheet_cache.ETAG_CHARS]}.png"
+
+
+def render_thumbnail(slug: str, locale: str, width: int, ministry: str = DEFAULT_MINISTRY) -> bytes:
     template = load_template(slug)
     dpi = width / (template.width_pt / engine.POINTS_PER_INCH)     # exactly `width` px wide
-    body, _ = render_certificate(slug, sample_data(template.fields, locale), dict(_sample_images()),
-                                 locale=locale, fmt="png", dpi=dpi)
+    # The ministry asked for (?ministry=, aventureros.app) or, by default, the template's own:
+    # an Aventureros-only design is drawn with the Aventureros emblem and award.
+    sample = ministry if ministry != DEFAULT_MINISTRY else sample_ministry(template)
+    body, _ = render_certificate(slug, sample_data(template.fields, locale, sample), dict(_sample_images(sample)),
+                                 locale=locale, fmt="png", dpi=dpi, ministry=sample)
     return body
 
 
@@ -208,13 +245,14 @@ async def warm_all(slugs: list[str] | None = None, widths: tuple[int, ...] = THU
     if delay:
         await asyncio.sleep(delay)
     for slug, locale, width in warm_variants(slugs, widths):
-        key = thumb_key(slug, locale, width, thumb_etag(slug, locale, width))
+        ministry = sample_ministry(load_template(slug))            # the key the endpoint asks for by default
+        key = thumb_key(slug, locale, width, thumb_etag(slug, locale, width, ministry), ministry)
         try:
             if await sheet_cache.exists(key):
                 counts["cached"] += 1
                 continue
             async with _render_slots():
-                body = await asyncio.to_thread(render_thumbnail, slug, locale, width)
+                body = await asyncio.to_thread(render_thumbnail, slug, locale, width, ministry)
             _memory.put(key, body)
             ok = await sheet_cache.store(key, body, f"{slug}-{locale}-{width}.png", PNG_TYPE)
             counts["uploaded" if ok else "failed"] += 1
@@ -250,6 +288,7 @@ async def template_thumbnail(
     # Literal[288, 576, 1152] would reject the query string "288" (a str): checked by hand below.
     w: int = Query(576, description="Ancho en px: 288, 576 o 1152"),
     v: str | None = Query(None, max_length=64, description="Versión de la miniatura (GET /templates): con la actual, caché de un año"),
+    ministry: str | None = Query(None, pattern=r"^[a-z][a-z-]{1,40}$", description="Ministerio: su emblema en la muestra (por defecto, el de la plantilla)"),
 ) -> Response:
     if w not in THUMB_WIDTHS:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "El ancho (w) debe ser 288, 576 o 1152.")
@@ -259,17 +298,20 @@ async def template_thumbnail(
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Plantilla no encontrada.") from exc
     if locale not in template.locales:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "La plantilla no existe en ese idioma.")
+    ministry = ministry or sample_ministry(template)
+    if template.ministries is not None and ministry not in template.ministries:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "La plantilla no sirve a ese ministerio.")
     if not fonts_installed():
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Fuentes tipográficas no instaladas en el servidor.")
 
-    etag = thumb_etag(slug, locale, w)
+    etag = thumb_etag(slug, locale, w, ministry)
     versioned = v is not None and v == thumbnail_version(slug)
     headers = {"ETag": etag, "Cache-Control": CACHE_CONTROL_VERSIONED if versioned else CACHE_CONTROL}
     candidates = {tag.strip().removeprefix("W/") for tag in request.headers.get("if-none-match", "").split(",")}
     if etag in candidates or "*" in candidates:
         return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers=headers)
 
-    key = thumb_key(slug, locale, w, etag)
+    key = thumb_key(slug, locale, w, etag, ministry)
     stored = sheet_cache.enabled()
     if stored and await sheet_cache.exists(key):
         return RedirectResponse(sheet_cache.public_url(key), status_code=status.HTTP_302_FOUND, headers=headers)
@@ -284,13 +326,13 @@ async def template_thumbnail(
                     async with _render_slots():
                         try:
                             # CPU-bound: off the event loop, so the API keeps answering meanwhile.
-                            body = await asyncio.to_thread(render_thumbnail, slug, locale, w)
+                            body = await asyncio.to_thread(render_thumbnail, slug, locale, w, ministry)
                         except TemplateError as exc:
                             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
                     _memory.put(key, body)
                     if stored:
                         # After the response: the first visitor is not slowed down by the upload.
-                        background.add_task(sheet_cache.store, key, body, f"{slug}-{locale}-{w}.png", PNG_TYPE)
+                        background.add_task(sheet_cache.store, key, body, f"{slug}-{ministry}-{locale}-{w}.png", PNG_TYPE)
         finally:
             if not lock.locked():
                 _locks.pop(key, None)
