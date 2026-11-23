@@ -48,6 +48,7 @@ from app.services import email as email_service
 from app.services import memberships as membership_service
 from app.services import ministry_context
 from app.services import mfa as mfa_service
+from app.services import passkeys as passkey_service
 from app.services import profiles as profile_service
 from app.services import storage
 from app.services.audit import record_audit
@@ -232,7 +233,7 @@ async def reset_mfa(
         )
     target = await _get_user_or_404(db, user_id)
 
-    await mfa_service.clear_second_factor(db, target)
+    await mfa_service.clear_second_factor(db, target, passkeys=True)
     record_audit(
         db,
         action="MFA_RESET",
@@ -609,7 +610,9 @@ async def _validate_admin_changes(
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN, "You cannot grant a role equal to or above your own"
             )
-        if new_role == MASTER_GC and not target.mfa_enabled:
+        if new_role == MASTER_GC and not (
+            target.mfa_enabled or await passkey_service.count_for(db, target.id) > 0
+        ):
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, "MFA must be enabled before assigning MASTER_GC role"
             )

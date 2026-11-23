@@ -8,8 +8,8 @@ While there is only one, losing the authenticator and the recovery codes would
 lock the platform's owner out for good. This script is the way back in, and it
 deliberately costs direct access to the production database.
 
-It clears `mfa_enabled` / `mfa_secret`, deletes every recovery code of that
-account and writes an `MFA_RESET` row in `audit_log` with no actor (nobody
+It clears `mfa_enabled` / `mfa_secret`, deletes every recovery code and every
+passkey (032, when that table exists) of that account and writes an `MFA_RESET` row in `audit_log` with no actor (nobody
 signed in) so the reset is never invisible. Dry run unless --commit; running it
 twice changes nothing after the first time.
 
@@ -24,6 +24,12 @@ import sys
 import psycopg
 
 PENDING_MASTERS = "SELECT email FROM users WHERE role = 'MASTER_GC' AND NOT mfa_enabled ORDER BY email"
+# 032: a passkey is also a second factor of a MASTER_GC. The table only exists after 032.
+HAS_PASSKEY_TABLE = "SELECT to_regclass('public.webauthn_credentials') IS NOT NULL"
+PENDING_MASTERS_032 = (
+    "SELECT email FROM users u WHERE role = 'MASTER_GC' AND NOT mfa_enabled AND NOT EXISTS"
+    " (SELECT 1 FROM webauthn_credentials c WHERE c.user_id = u.id) ORDER BY email"
+)
 
 
 def reset(conn, email: str, reason: str, *, commit: bool = False) -> dict:
@@ -47,6 +53,12 @@ def reset(conn, email: str, reason: str, *, commit: bool = False) -> dict:
             "SELECT count(*) FROM mfa_recovery_codes WHERE user_id = %s", (user_id,)
         )
         report["recovery_codes"] = cur.fetchone()[0]
+        cur.execute(HAS_PASSKEY_TABLE)
+        has_passkeys = cur.fetchone()[0]
+        report["passkeys"] = 0
+        if has_passkeys:
+            cur.execute("SELECT count(*) FROM webauthn_credentials WHERE user_id = %s", (user_id,))
+            report["passkeys"] = cur.fetchone()[0]
         if not commit:
             return report
 
@@ -56,6 +68,8 @@ def reset(conn, email: str, reason: str, *, commit: bool = False) -> dict:
             (user_id,),
         )
         cur.execute("DELETE FROM mfa_recovery_codes WHERE user_id = %s", (user_id,))
+        if has_passkeys:
+            cur.execute("DELETE FROM webauthn_credentials WHERE user_id = %s", (user_id,))
         cur.execute(
             "INSERT INTO audit_log (id, action, entity_type, entity_id, user_email, user_role,"
             " details, metadata_json) VALUES (gen_random_uuid(), 'MFA_RESET', 'USER', %s, %s, %s,"
@@ -88,7 +102,8 @@ def main() -> None:
     with psycopg.connect(database_url) as conn:
         if args.list:
             with conn.cursor() as cur:
-                cur.execute(PENDING_MASTERS)
+                cur.execute(HAS_PASSKEY_TABLE)
+                cur.execute(PENDING_MASTERS_032 if cur.fetchone()[0] else PENDING_MASTERS)
                 pending = [email for (email,) in cur.fetchall()]
             print(json.dumps({"masters_without_mfa": pending}, indent=2, ensure_ascii=False))
             if not args.email:

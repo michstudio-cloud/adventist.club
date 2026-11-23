@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, FetchedValue, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, FetchedValue, Float, ForeignKey, ForeignKeyConstraint, Integer, LargeBinary, Numeric, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -789,6 +789,48 @@ class MfaRecoveryCode(Base):
     code_hash: Mapped[str] = mapped_column(String(64), unique=True)
     used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+# ---------------------------------------------------------------------------
+# 032_webauthn.sql: passkeys. Only PUBLIC keys live here; the private half never
+# leaves the person's device or keychain.
+# ---------------------------------------------------------------------------
+
+
+class WebauthnCredential(Base):
+    __tablename__ = "webauthn_credentials"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    credential_id: Mapped[bytes] = mapped_column(LargeBinary, unique=True)
+    public_key: Mapped[bytes] = mapped_column(LargeBinary)
+    # Synced passkeys (iCloud, Google) always report 0.
+    sign_count: Mapped[int] = mapped_column(BigInteger, server_default="0")
+    aaguid: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    transports: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default="{}")
+    backup_eligible: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    backed_up: Mapped[bool] = mapped_column(Boolean, server_default="false")
+    name: Mapped[str] = mapped_column(String(60))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    last_used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class WebauthnChallenge(Base):
+    """One ceremony's challenge: single use, short lived (services/passkeys.py)."""
+
+    __tablename__ = "webauthn_challenges"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    challenge: Mapped[bytes] = mapped_column(LargeBinary)
+    purpose: Mapped[str] = mapped_column(String(12))
+    # NULL for a passwordless login: nobody is identified yet.
+    user_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE")
+    )
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
 # ---------------------------------------------------------------------------

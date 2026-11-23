@@ -36,6 +36,8 @@ from app.routers import club_classes as club_classes_router
 # La ficha de especialidad en PDF, generada desde los datos propios (reemplaza los PDF de terceros).
 from app.routers import honor_sheets as honor_sheets_router
 from app.routers import notifications as notifications_router
+# 032: passkeys (WebAuthn) — entrar sin contraseña y segundo factor.
+from app.routers import passkeys as passkeys_router
 # Miniaturas de plantilla del asistente (GET cacheable en R2; antes, un POST /render por miniatura).
 from app.routers import template_thumbnails as template_thumbnails_router
 # El campo «Club» del asistente: clubes registrados (lookup público) y el club propio.
@@ -77,6 +79,7 @@ app.include_router(org_invitations_router.invitations_router)
 app.include_router(nodo_router.router)
 app.include_router(nodo_operador_router.router)
 app.include_router(events_router.router)
+app.include_router(passkeys_router.router)
 app.include_router(director_requests_router.router)
 app.include_router(director_requests_router.activity_router)
 # Thumbnails of the certificate designs into R2 right after a deploy (see the router): the test client

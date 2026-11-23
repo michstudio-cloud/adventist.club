@@ -75,6 +75,18 @@ PREVIEWS = [
         mail.recovery_code_used_email_html("Daniel Ruiz"),
     ),
     (
+        "passkey_added",
+        "Passkey añadida",
+        "Se añadió una passkey a tu cuenta - Adventist.Club",
+        mail.passkey_changed_email_html("Daniel Ruiz", "iPhone de Daniel", True),
+    ),
+    (
+        "passkey_removed",
+        "Passkey eliminada",
+        "Se quitó una passkey de tu cuenta - Adventist.Club",
+        mail.passkey_changed_email_html("Daniel Ruiz", "iPhone de Daniel", False),
+    ),
+    (
         "club_invitation",
         "Invitación a un club",
         "Te invitaron a Club Orión - Adventist.Club",

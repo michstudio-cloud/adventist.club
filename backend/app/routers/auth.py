@@ -1,5 +1,6 @@
 """Authentication: register, login, MFA, email verification, password reset."""
 import logging
+import time
 import uuid
 
 import anyio
@@ -33,6 +34,7 @@ from app.schemas.auth import (
     MFAEnrollResponse,
     MFASetupResponse,
     MFAVerifyRequest,
+    RecoveryCodesRequest,
     RefreshRequest,
     RefreshResponse,
     RegisteredMembership,
@@ -47,6 +49,7 @@ from app.schemas.user import MeResponse, UserResponse
 from app.security import (
     CLUB_DIRECTOR,
     INSTRUCTOR,
+    RECENT_AUTH_SECONDS,
     SELF_REGISTRATION_ROLES,
     STUDENT,
     TOKEN_REFRESH,
@@ -77,6 +80,7 @@ from app.services import ministries as ministry_service
 from app.services import ministry_context
 from app.services import notifications
 from app.services import mfa as mfa_service
+from app.services import passkeys as passkey_service
 from app.services import device_tracker, verification
 from app.services.audit import record_audit
 
@@ -386,12 +390,23 @@ async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depe
         raise HTTPException(status.HTTP_403_FORBIDDEN, f"Account is {user.status}")
     device_tracker.record_login_success(ip, email, user.name)
 
-    if user.mfa_enabled:
+    # Passkeys (032) matter here only where a second step can exist: an account with TOTP is
+    # offered its passkey instead of the code, and an account whose role obliges a second
+    # factor satisfies it with one. For everybody else a passkey is a shortcut and the
+    # password alone still opens the session (no query either).
+    passkeys = (
+        await passkey_service.count_for(db, user.id)
+        if user.mfa_enabled or mfa_service.mfa_required_for(user)
+        else 0
+    )
+    methods = mfa_service.second_step_methods(user, passkeys)
+    if methods:
         return LoginResponse(
             access_token="",
             refresh_token="",
             mfa_required=True,
             temp_token=create_temp_mfa_token(user.id),
+            mfa_methods=methods,
         )
 
     user.last_login = utcnow()
@@ -400,7 +415,7 @@ async def login(request: Request, payload: LoginRequest, db: AsyncSession = Depe
         access_token=create_access_token(user.id),
         refresh_token=create_refresh_token(user.id),
         mfa_required=False,
-        mfa_enrollment_required=mfa_service.enrollment_pending(user),
+        mfa_enrollment_required=mfa_service.enrollment_pending(user, passkeys),
     )
 
 
@@ -432,6 +447,19 @@ async def me(
 # ----------------------------------------------------------------------------
 # MFA
 # ----------------------------------------------------------------------------
+async def _require_factor_session(db: AsyncSession, user: User) -> None:
+    """
+    Enrolling TOTP is open to an account with no second factor at all (that is how it gets
+    one, unchanged). But an account whose role obliges a second factor and already meets it
+    with a passkey (032) is adding ANOTHER factor, and verify-setup replaces its recovery
+    codes: that takes a recent session born of the passkey, exactly like adding or removing
+    one. Otherwise a stolen password-born session could plant its own authenticator.
+    """
+    passkeys = await passkey_service.second_factor_count(db, user)
+    if passkeys:
+        passkey_service.require_fresh_session(user, passkeys)
+
+
 @router.post("/mfa/setup", response_model=MFASetupResponse)
 async def mfa_setup(
     current_user: User = Depends(get_authenticated_user), db: AsyncSession = Depends(get_db)
@@ -443,6 +471,7 @@ async def mfa_setup(
         raise HTTPException(
             status.HTTP_409_CONFLICT, "MFA is already enabled. Disable it before a new setup."
         )
+    await _require_factor_session(db, current_user)
     secret = generate_mfa_secret()
     uri = totp_provisioning_uri(secret, current_user.email)
     qr_code_url = await anyio.to_thread.run_sync(qr_code_data_url, uri)
@@ -461,6 +490,7 @@ async def mfa_verify_setup(
 ):
     if not current_user.mfa_secret or current_user.mfa_enabled:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not set up")
+    await _require_factor_session(db, current_user)
     if not verify_totp(current_user.mfa_secret, payload.totp_code):
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
 
@@ -485,17 +515,30 @@ async def mfa_verify_setup(
 
 @router.post("/mfa/recovery-codes", response_model=MFAEnrollResponse)
 async def mfa_regenerate_recovery_codes(
-    payload: MFACodeRequest,
     request: Request,
+    payload: RecoveryCodesRequest | None = None,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """A fresh set replaces the outstanding ones. The live TOTP code is proof
-    that the authenticator is the one enrolled, not a stolen session."""
-    if not current_user.mfa_enabled or not current_user.mfa_secret:
+    that the authenticator is the one enrolled, not a stolen session.
+
+    An account whose only second factor is a passkey (032) has no code to send: its proof is
+    a session opened with the passkey within the last 15 minutes."""
+    totp_code = payload.totp_code if payload else None
+    if current_user.mfa_enabled and current_user.mfa_secret:
+        if not totp_code or not verify_totp(current_user.mfa_secret, totp_code):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
+    elif mfa_service.has_second_factor(current_user):
+        fresh = time.time() - (getattr(current_user, "token_auth_time", 0) or 0) <= RECENT_AUTH_SECONDS
+        if not (fresh and getattr(current_user, "token_born_of_mfa", False)):
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN,
+                {"code": "passkey_reauth_required", "message": passkey_service.REAUTH_DETAIL},
+                headers={"X-Reauth-Required": "1"},
+            )
+    else:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not enabled")
-    if not verify_totp(current_user.mfa_secret, payload.totp_code):
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid TOTP code")
 
     codes = await mfa_service.issue_recovery_codes(db, current_user)
     record_audit(
@@ -526,7 +569,12 @@ async def mfa_verify(
     user = await load_user_by_subject(db, subject)
     if user is None or user.status != "ACTIVE":
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid or expired token")
-    if not user.mfa_enabled or not user.mfa_secret:
+    totp_active = bool(user.mfa_enabled and user.mfa_secret)
+    # A recovery code is also the way in for an account whose only second factor is a
+    # passkey (032): the passkey itself is verified by `/auth/passkeys/login/verify`.
+    if not totp_active and not mfa_service.has_second_factor(
+        user, await passkey_service.second_factor_count(db, user)
+    ):
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "MFA not enabled")
 
     attempts_key = f"mfa:{user.id}"
@@ -545,7 +593,7 @@ async def mfa_verify(
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid TOTP code")
     else:
         used_recovery = False
-        if not verify_totp(user.mfa_secret, payload.totp_code):
+        if not totp_active or not verify_totp(user.mfa_secret, payload.totp_code):
             code_attempts.record_failure(attempts_key)
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid TOTP code")
 
