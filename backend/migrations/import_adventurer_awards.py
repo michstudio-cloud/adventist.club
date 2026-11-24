@@ -93,6 +93,17 @@ CLASSES = {
     "Helping Hands": ("Manos Ayudadoras", "Helping Hands"),
     "Multi-level": ("Multinivel", "Multi-level"),
 }
+# class_en -> honors.level_slug (migration 034): the slug of the class program in data/adventurer_classes.json
+LEVELS = {
+    "Little Lamb": "corderitos",
+    "Early Bird": "aves-madrugadoras",
+    "Busy Bee": "abejas-industriosas",
+    "Sunbeam": "rayos-de-sol",
+    "Builder": "constructor",
+    "Helping Hand": "manos-ayudadoras",
+    "Helping Hands": "manos-ayudadoras",
+    "Multi-level": "multinivel",
+}
 
 
 class ImportError_(Exception):
@@ -191,6 +202,7 @@ def build(data: dict, *, mundoja_always: bool = False, instructor_notes: bool = 
             "image_url": (lib.get("webp_url") or "").strip() or None,
             "source_url": page_url,
             "class_en": award["class_en"],
+            "level_slug": LEVELS[award["class_en"]],
             "es_source": es_source,
             "requirements": {"es": es_rows, "en": en_rows},
         })
@@ -291,6 +303,9 @@ def run(conn, plans: list[dict], *, publish: bool = False, operator: str | None 
                 changed = cur.rowcount
                 report["honors_updated" if changed else "honors_unchanged"] += 1
                 action = "updated" if changed else None
+            # Level (class) of the award: needs migration 034.
+            cur.execute("UPDATE honors SET level_slug = %s WHERE id = %s AND level_slug IS DISTINCT FROM %s",
+                        (plan["level_slug"], honor_id, plan["level_slug"]))
             if publish:
                 cur.execute("UPDATE honors SET status = 'PUBLISHED', published_at = COALESCE(published_at, now()),"
                             " updated_at = now() WHERE id = %s AND status <> 'PUBLISHED'", (honor_id,))
