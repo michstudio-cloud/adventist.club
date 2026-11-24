@@ -245,6 +245,8 @@ class HonorListItem(BaseModel):
     authority: str | None = None
     skill_level: int | None = None
     year_introduced: int | None = None
+    # Class the honor belongs to (Adventurer awards: the class program slug or `multinivel`), migration 034.
+    level_slug: str | None = None
 
 
 class HonorStaffListItem(HonorListItem):

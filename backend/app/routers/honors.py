@@ -7,10 +7,11 @@ Every mutation writes its audit_log row in the same transaction.
 Literal routes are declared before the `/{honor_id}` routes.
 """
 import re
+import time
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Query, Request, Response, status
-from sqlalchemy import case, delete, func, or_, select
+from sqlalchemy import String, case, delete, func, literal, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -213,9 +214,11 @@ def _list_fields(
     locale: str | None = None,
     translated_category: str | None = None,
     translated_description: str | None = None,
+    level_slug: str | None = None,
 ) -> dict:
     return {
         "id": str(honor.id),
+        "level_slug": level_slug,
         "name": translated or honor.name,
         "name_locale": locale if translated else SOURCE_LOCALE,
         "original_name": honor.name if translated else None,
@@ -246,6 +249,47 @@ def _list_fields(
 
 def _list_item(honor: Honor, category: HonorCategory | None) -> HonorListItem:
     return HonorListItem(**_list_fields(honor, category))
+
+
+# ---------- Level (class) of an honor: `honors.level_slug`, migration 034 ----------
+# The slug of the class program an Adventurer award is suggested for (corderitos … manos-ayudadoras) or
+# `multinivel`. Production migrations are applied by hand, so the column may not exist yet when this code
+# is deployed: until it does, `level_slug` comes back null and `?level=` is ignored. For the same reason it
+# is on the table but not on the mapper (models.Honor), so only these explicit queries name it.
+HONOR_LEVEL = Honor.__table__.c.level_slug
+LEVEL_SLUG_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]{0,39}$")
+_LEVEL_RECHECK_SECONDS = 60.0
+_level_column = {"ready": False, "checked_at": float("-inf")}
+
+
+async def level_column_ready(db: AsyncSession) -> bool:
+    """Does `honors.level_slug` exist? Once found it is cached for good; while missing, rechecked every minute."""
+    if _level_column["ready"]:
+        return True
+    now = time.monotonic()
+    if now - _level_column["checked_at"] < _LEVEL_RECHECK_SECONDS:
+        return False
+    _level_column["checked_at"] = now
+    found = (
+        await db.execute(
+            text(
+                "SELECT 1 FROM information_schema.columns"
+                " WHERE table_schema = current_schema() AND table_name = 'honors' AND column_name = 'level_slug'"
+            )
+        )
+    ).first()
+    _level_column["ready"] = found is not None
+    return _level_column["ready"]
+
+
+def parse_levels(raw: str | None) -> list[str]:
+    """`?level=corderitos,multinivel` -> the distinct valid slugs, in order (anything malformed is dropped)."""
+    out: list[str] = []
+    for part in (raw or "").split(","):
+        slug = part.strip().lower()
+        if LEVEL_SLUG_PATTERN.match(slug) and slug not in out:
+            out.append(slug)
+    return out
 
 
 def _requirements_summary():
@@ -359,6 +403,11 @@ async def _build_detail(
             "license": req.license,
         }
 
+    level_slug = (
+        (await db.execute(select(HONOR_LEVEL).where(Honor.id == honor.id))).scalar_one_or_none()
+        if await level_column_ready(db)
+        else None
+    )
     fields = {
         **_list_fields(
             honor,
@@ -366,6 +415,7 @@ async def _build_detail(
             translation.name if translation else None,
             name_locale,
             translated_description=translation.description if translation and not staff else None,
+            level_slug=level_slug,
         ),
         "ministry": ministry.slug if ministry else None,
         "requirements_locale": requirements_locale if requirements else None,
@@ -617,6 +667,11 @@ async def list_honors(
     q: str | None = Query(None, max_length=100),
     ministry: str = "pathfinders",
     category: str | None = Query(None, description="Category slug"),
+    level: str | None = Query(
+        None,
+        max_length=200,
+        description="Comma-separated class slugs (honors.level_slug), e.g. `corderitos,multinivel`",
+    ),
     status_filter: HonorStatusFilter | None = Query(None, alias="status"),
     content: HonorContentFilter | None = Query(
         None, description="Staff only: missing_requirements | foreign_only | complete"
@@ -662,6 +717,12 @@ async def list_honors(
     if category:
         conditions.append(HonorCategory.slug == category)
 
+    has_level = await level_column_ready(db)
+    levels = parse_levels(level)
+    if levels and has_level:
+        conditions.append(HONOR_LEVEL.in_(levels))
+    level_column = HONOR_LEVEL if has_level else literal(None, String)
+
     name_locale = await _resolve_locale(db, HonorTranslation, locale)
     category_locale = await _resolve_locale(db, HonorCategoryTranslation, locale)
     shown_name = func.coalesce(HonorTranslation.name, Honor.name)
@@ -706,7 +767,14 @@ async def list_honors(
         )
 
     total = (await db.execute(localized(select(func.count(Honor.id))).where(*conditions))).scalar_one()
-    columns = [Honor, HonorCategory, HonorTranslation.name, HonorCategoryTranslation.name, HonorTranslation.description]
+    columns = [
+        Honor,
+        HonorCategory,
+        HonorTranslation.name,
+        HonorCategoryTranslation.name,
+        HonorTranslation.description,
+        level_column,
+    ]
     if summary is not None:
         columns += [summary.c.count, summary.c.locale]
     rows = (
@@ -719,17 +787,19 @@ async def list_honors(
     if summary is None:
         return [
             HonorListItem(
-                **_list_fields(honor, category_row, translated, name_locale, translated_category, translated_description)
+                **_list_fields(
+                    honor, category_row, translated, name_locale, translated_category, translated_description, level_slug
+                )
             )
-            for honor, category_row, translated, translated_category, translated_description in rows
+            for honor, category_row, translated, translated_category, translated_description, level_slug in rows
         ]
     return [
         HonorStaffListItem(
-            **_list_fields(honor, category_row, translated, name_locale, translated_category),
+            **_list_fields(honor, category_row, translated, name_locale, translated_category, level_slug=level_slug),
             requirements_count=count or 0,
             requirements_locale=requirements_locale,
         )
-        for honor, category_row, translated, translated_category, _description, count, requirements_locale in rows
+        for honor, category_row, translated, translated_category, _description, level_slug, count, requirements_locale in rows
     ]
 
 

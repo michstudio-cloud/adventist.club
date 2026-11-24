@@ -1,6 +1,6 @@
 import uuid
 from datetime import date, datetime
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, FetchedValue, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, Column, Date, DateTime, FetchedValue, Float, ForeignKey, ForeignKeyConstraint, Integer, Numeric, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import ARRAY, CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import UserDefinedType
@@ -105,6 +105,7 @@ class HonorCategory(Base):
 
 class Honor(Base):
     __tablename__="honors"
+    __mapper_args__ = {"exclude_properties": ["level_slug"]}
     id: Mapped[uuid.UUID]=mapped_column(UUID(as_uuid=True),primary_key=True)
     ministry_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("ministries.id"))
     category_id: Mapped[uuid.UUID|None]=mapped_column(UUID(as_uuid=True),ForeignKey("honor_categories.id"))
@@ -139,6 +140,10 @@ class Honor(Base):
     wiki_title: Mapped[str|None]=mapped_column(String(200))
     authority: Mapped[str|None]=mapped_column(String(10))
     skill_level: Mapped[int|None]=mapped_column(SmallInteger)
+    # 034: class of an Adventurer award (program slug or `multinivel`). On the table but NOT on the mapper
+    # (`exclude_properties`): production migrations are applied by hand, so no ORM SELECT/INSERT/RETURNING may
+    # name it. The importer writes it; routers/honors.py reads `Honor.__table__.c.level_slug` once it exists.
+    level_slug = Column(String(40))
     year_introduced: Mapped[int|None]=mapped_column(SmallInteger)
 
 class HonorTranslation(Base):
